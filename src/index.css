@@ -337,7 +337,7 @@ footer p {
    ============================== */
 
 /* Odstęp pod fixed headerem, żeby hero nie wchodziło pod nawigację */
-.app main { padding-top: 96px; }
+.app main { padding-top: 0; }
 
 /* Hero sekcji dostępności */
 .available-page { padding: 2rem 0 3rem; }
@@ -427,3 +427,7 @@ footer p {
 
 /* Subtle divider above each section */
 .available-section { border-top: 1px solid rgba(255,255,255,.06); padding-top: 1rem; }
+
+/* Offset only for pages that start without a hero */
+.available-page { margin-top: 96px; }
+.coffees-page { margin-top: 96px; }

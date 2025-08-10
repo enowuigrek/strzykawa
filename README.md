@@ -1,113 +1,89 @@
-# Strzykawa – landing page
 
-Ten repozytorium zawiera prostą stronę typu _landing page_ dla kawiarni i
-palarnia **Strzykawa**. Projekt został przygotowany w oparciu o
-**React** i **Vite** z myślą o łatwej rozbudowie o kolejne sekcje, np.
-blog czy sklep, oraz integracji z headless CMS.
 
-## Co znajdziesz w projekcie?
+# ☕ Coffee Shop Presentation
 
-* **Hero** z dużym zdjęciem (dostarczonym przez klienta) i
-  przyciskiem kierującym do listy kaw.
-* **Pojawiający się nagłówek** – na początku strona jest pełnoekranowa,
-  a górna nawigacja pojawia się dopiero po przewinięciu, aby nie
-  zasłaniać hero.
-* **Zakładka „Nasze kawy”** z responsywną siatką kart. Każda karta
-  zawiera nazwę kawy, kraj pochodzenia, sposób obróbki, region oraz
-  opis profilu smakowego. Aktualnie dane są statyczne i znajdują się w
-  pliku `src/data/coffees.js`, ale przygotowana struktura ułatwia
-  zastąpienie ich treścią z CMS.
-* **Sekcja „Kontakt & Lokalizacja”** z adresem, numerem telefonu,
-  adresem e‑mail, godzinami otwarcia oraz mapą Google (iframe). W razie
-  potrzeby można podmienić współrzędne w atrybucie `src` mapy.
-* **Stopka** z ikonami mediów społecznościowych opartymi o
-  bibliotekę `react-icons`.
+A React + Vite based presentation website for showcasing a coffee shop menu, designed for both in-cafe display and online visitors.  
+The project focuses on a clean, responsive UI with the ability to highlight available coffee options directly from the header.
 
-## Uruchomienie lokalne
+---
 
-1. Zainstaluj zależności:
+## 📋 Features
 
+- **Hero Section** with background image and overlay text.
+- **Header Menu** with quick navigation and coffee category options.
+- **Available in Café Section** displaying coffee options in a 4-column layout.
+- **Responsive Design** optimized for desktop and mobile screens.
+- **Centralized Styling** in `index.css` (to be refactored into modular CSS files).
+- **Custom Leader/Header Positioning** for improved layout flow.
+
+---
+
+## 🛠 Tech Stack
+
+- **Framework:** [React](https://react.dev/)
+- **Build Tool:** [Vite](https://vitejs.dev/)
+- **Language:** JavaScript (ES6+)
+- **Styling:** CSS (currently centralized in `index.css`)
+
+---
+
+## 📂 Project Structure
+
+```
+src/
+├── assets/          # Images and static files
+├── components/      # Reusable React components
+├── App.jsx          # Main application component
+├── index.css        # Global styles (to be split into modules)
+└── main.jsx         # App entry point
+```
+
+---
+
+## 🚀 Getting Started
+
+1. **Clone the repository:**
+   ```bash
+   git clone &lt;repo-url&gt;
+   cd coffee-shop
+   ```
+
+2. **Install dependencies:**
    ```bash
    npm install
    ```
 
-2. Uruchom środowisko developerskie Vite:
-
+3. **Run the development server:**
    ```bash
    npm run dev
    ```
 
-   Aplikacja będzie dostępna pod adresem wyświetlonym w konsoli,
-   zazwyczaj `http://localhost:5173`.
-
-3. Zbuduj pliki produkcyjne:
-
+4. **Build for production:**
    ```bash
    npm run build
    ```
 
-   Wygenerowany katalog `dist` możesz opublikować na Netlify lub
-   dowolnym innym serwerze statycznym.
+---
 
-## Deployment na Netlify
+## 🔧 Development Notes
 
-Netlify potrafi automatycznie budować projekty Vite z GitHub. Po
-dodaniu repozytorium do konta Netlify wybierz polecenie `npm run
-build` w sekcji „Build command” oraz `dist` w sekcji „Publish
-directory”. Dzięki temu przy każdym _pushu_ na wybrane branch Netlify
-samodzielnie przebuduje i opublikuje stronę.
+- All styles are currently in `index.css`; future improvement will include splitting into separate CSS files for better maintainability.
+- The header now contains coffee category options for quick selection.
+- The "Available in Café" section layout has been updated to fit **4 items per row**.
+- Leader/Header positioning adjusted to overlay correctly on hero image.
 
-## Integracja z CMS
+---
 
-Projekt jest przygotowany do integracji z headless CMS, np.
-[Strapi](https://strapi.io/), [Sanity](https://www.sanity.io/) czy
-[Contentful](https://www.contentful.com/). Przykładowy scenariusz dla
-**Strapi**:
+## 📅 Roadmap
 
-1. Zainstaluj Strapi lokalnie (`npx create-strapi-app@latest` lub
-   `npm create strapi-app@latest`) i uruchom panel administracyjny.
-2. Utwórz kolekcję `coffees` z polami:
-   * `name` (tekst),
-   * `country` (tekst),
-   * `process` (tekst),
-   * `region` (tekst, opcjonalny),
-   * `profile` (tekst),
-   * `image` (pole typu _media_ do przesyłania zdjęć kawy).
-3. Wypełnij kolekcję kilkoma wpisami.
-4. W aplikacji React podmień import danych z pliku
-   `src/data/coffees.js` na zapytanie HTTP do API Strapi. Możesz
-   skorzystać z `fetch` albo biblioteki `axios`:
+- [ ] Refactor CSS into modular files.
+- [ ] Implement dynamic data loading for menu items.
+- [ ] Add animations and transitions.
+- [ ] Improve accessibility (ARIA labels, keyboard navigation).
+- [ ] Optimize for performance (lazy loading images).
 
-   ```jsx
-   import { useEffect, useState } from 'react';
+---
 
-   function Coffees() {
-     const [coffees, setCoffees] = useState([]);
-     useEffect(() => {
-       fetch('https://twoj-domena-strapi.pl/api/coffees?populate=*')
-         .then((res) => res.json())
-         .then((data) => setCoffees(data.data));
-     }, []);
-     // …
-   }
-   ```
+## 📄 License
 
-5. Zamiast pola `image` jako ciąg znaków użyj adresu
-   `coffee.attributes.image.data.attributes.url` zwracany przez Strapi.
-
-Podobnie możesz dodać kolejne kolekcje (np. wpisy na blogu) i
-odpowiednie sekcje w kodzie React.
-
-## Wskazówki dotyczące stylu i dostępności
-
-* Kolory i fonty użyte w projekcie nawiązują do oryginalnego logo
-  Strzykawa, tworząc spójny wizerunek marki. W pliku `src/index.css`
-  zdefiniowane są zmienne CSS, które ułatwiają dalszą personalizację.
-* Struktura komponentów jest modułowa – można dodać nowe sekcje
-  poprzez utworzenie kolejnych komponentów w folderze `src/components`
-  i umieszczenie ich na odpowiedniej stronie.
-* Nagłówek pojawia się po przewinięciu, aby hero był czysty i
-  minimalistyczny. Jeśli wolisz statyczny nagłówek, usuń logikę z
-  komponentu `Header`.
-
-Miłego kodowania!
+This project is licensed under the MIT License.
