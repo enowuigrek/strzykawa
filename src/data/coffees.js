@@ -1,0 +1,169 @@
+/*
+ * Coffee catalogue – extended schema ready for CMS integration.
+ * Each coffee supports blends (multiple origins) and availability flags
+ * for the café’s current menu (espresso grinders, quick filter, brew bar, shelf).
+ */
+
+export default [
+  /* =====================
+     NA MŁYNKACH (ESPRESSO) – 2 szt.  (też na półce)
+     ===================== */
+  {
+    id: "espresso-house-blend",
+    name: "Espresso House Blend",
+    image: new URL('../assets/coffee-placeholder.jpg', import.meta.url).href,
+    origin: [
+      { country: "Brazylia", region: "Cerrado", farm: "Fazenda Primavera", variety: ["Yellow Bourbon", "Mundo Novo"], altitudeMasl: 1100, processing: "Pulped natural", fermentation: "" },
+      { country: "Gwatemala", region: "Huehuetenango", farm: "Finca El Injerto", variety: ["Caturra"], altitudeMasl: 1600, processing: "Washed", fermentation: "" }
+    ],
+    species: ["Arabica"],
+    roastLevel: "Średni",
+    roastType: "Espresso",
+    roastDate: null,
+    tastingNotes: ["czekolada", "orzech", "śliwka"],
+    description: "Autorski blend pod espresso – słodycz czekolady, orzechowe body i śliwkowy finisz.",
+    availability: { espressoGrinders: true, quickFilter: false, brewBar: false, retailShelf: true }
+  },
+  {
+    id: "espresso-colombia-el-paraiso",
+    name: "Kolumbia El Paraíso",
+    image: new URL('../assets/coffee-placeholder.jpg', import.meta.url).href,
+    origin: [ { country: "Kolumbia", region: "Huila", farm: "El Paraíso", variety: ["Caturra"], altitudeMasl: 1800, processing: "Natural", fermentation: "Anaerobowa" } ],
+    species: ["Arabica"],
+    roastLevel: "Średnio-ciemny",
+    roastType: "Espresso",
+    roastDate: null,
+    tastingNotes: ["truskawka", "mleczna czekolada", "karmel"],
+    description: "Soczyste espresso z nutami truskawki i karmelu, świetne do mleka.",
+    availability: { espressoGrinders: true, quickFilter: false, brewBar: false, retailShelf: true }
+  },
+
+  /* =====================
+     SZYBKI PRZELEW (BATCH BREW) – 1 szt.  (też na półce)
+     ===================== */
+  {
+    id: "batch-ethiopia-yirgacheffe",
+    name: "Etiopia Yirgacheffe Adado",
+    image: new URL('../assets/coffee-placeholder.jpg', import.meta.url).href,
+    origin: [ { country: "Etiopia", region: "Yirgacheffe", farm: "Adado Cooperative", variety: ["Heirloom"], altitudeMasl: 2000, processing: "Washed", fermentation: "" } ],
+    species: ["Arabica"],
+    roastLevel: "Jasny",
+    roastType: "Filter",
+    roastDate: null,
+    tastingNotes: ["jaśmin", "morela", "zielona herbata"],
+    description: "Klasyczna, czysta filiżanka – kwiatowa i herbaciana, idealna na szybki przelew.",
+    availability: { espressoGrinders: false, quickFilter: true, brewBar: false, retailShelf: true }
+  },
+
+  /* =====================
+     BREW BAR (DRIP/AEROPRESS) – 3 szt.
+     ===================== */
+  {
+    id: "brew-kenya-kiambu",
+    name: "Kenia Kiambu",
+    image: new URL('../assets/coffee-placeholder.jpg', import.meta.url).href,
+    origin: [ { country: "Kenia", region: "Kiambu", farm: "", variety: ["SL28", "SL34"], altitudeMasl: 1750, processing: "Washed", fermentation: "" } ],
+    species: ["Arabica"],
+    roastLevel: "Jasny",
+    roastType: "Filter",
+    roastDate: null,
+    tastingNotes: ["czarna porzeczka", "grejpfrut", "kwiaty"],
+    description: "Żywa kwasowość z czarną porzeczką i grejpfrutem, świetna pod V60.",
+    availability: { espressoGrinders: false, quickFilter: false, brewBar: true, retailShelf: true }
+  },
+  {
+    id: "brew-colombia-el-mirador",
+    name: "Kolumbia El Mirador",
+    image: new URL('../assets/coffee-placeholder.jpg', import.meta.url).href,
+    origin: [ { country: "Kolumbia", region: "Huila, Palestina", farm: "El Mirador", variety: ["Caturra"], altitudeMasl: 1700, processing: "Washed", fermentation: "Maceracja węglowa" } ],
+    species: ["Arabica"],
+    roastLevel: "Jasny-średni",
+    roastType: "Filter",
+    roastDate: null,
+    tastingNotes: ["cytrusy", "kumkwat", "liczi"],
+    description: "Energetyczny, cytrusowy profil z nutą egzotycznych owoców.",
+    availability: { espressoGrinders: false, quickFilter: false, brewBar: true, retailShelf: true }
+  },
+  {
+    id: "brew-ethiopia-guji-natural",
+    name: "Etiopia Guji Natural",
+    image: new URL('../assets/coffee-placeholder.jpg', import.meta.url).href,
+    origin: [ { country: "Etiopia", region: "Guji", farm: "", variety: ["Heirloom"], altitudeMasl: 1900, processing: "Natural", fermentation: "" } ],
+    species: ["Arabica"],
+    roastLevel: "Jasny",
+    roastType: "Filter",
+    roastDate: null,
+    tastingNotes: ["jagoda", "miód", "kwiaty"],
+    description: "Słodka i soczysta – jagody, miód i kwiatowa aromatyka.",
+    availability: { espressoGrinders: false, quickFilter: false, brewBar: true, retailShelf: true }
+  },
+
+  /* =====================
+     PÓŁKA – 5 szt. (tylko retailShelf)
+     ===================== */
+  {
+    id: "shelf-brazil-santose",
+    name: "Brazylia Santos",
+    image: new URL('../assets/coffee-placeholder.jpg', import.meta.url).href,
+    origin: [ { country: "Brazylia", region: "Santos", farm: "", variety: ["Bourbon"], altitudeMasl: 900, processing: "Natural", fermentation: "" } ],
+    species: ["Arabica"],
+    roastLevel: "Średni",
+    roastType: "Espresso",
+    roastDate: null,
+    tastingNotes: ["orzech laskowy", "kakao", "cukier trzcinowy"],
+    description: "Niski poziom kwasowości, gładkie body – uniwersalna baza do ekspresu domowego.",
+    availability: { espressoGrinders: false, quickFilter: false, brewBar: false, retailShelf: true }
+  },
+  {
+    id: "shelf-peru-cajamarca",
+    name: "Peru Cajamarca",
+    image: new URL('../assets/coffee-placeholder.jpg', import.meta.url).href,
+    origin: [ { country: "Peru", region: "Cajamarca", farm: "Kooperatywa CENFROCAFE", variety: ["Caturra", "Typica"], altitudeMasl: 1700, processing: "Washed", fermentation: "" } ],
+    species: ["Arabica"],
+    roastLevel: "Jasny-średni",
+    roastType: "Filter",
+    roastDate: null,
+    tastingNotes: ["jabłko", "migdał", "karmel"],
+    description: "Zbalansowana filiżanka – słodycz karmelu i delikatne nuty migdała.",
+    availability: { espressoGrinders: false, quickFilter: false, brewBar: false, retailShelf: true }
+  },
+  {
+    id: "shelf-ethiopia-sidamo",
+    name: "Etiopia Sidamo",
+    image: new URL('../assets/coffee-placeholder.jpg', import.meta.url).href,
+    origin: [ { country: "Etiopia", region: "Sidamo", farm: "", variety: ["Heirloom"], altitudeMasl: 1900, processing: "Washed", fermentation: "" } ],
+    species: ["Arabica"],
+    roastLevel: "Jasny",
+    roastType: "Filter",
+    roastDate: null,
+    tastingNotes: ["brzoskwinia", "jaśmin", "miód"],
+    description: "Delikatna i aromatyczna – klasyczny, kwiatowo-owocowy Sidamo.",
+    availability: { espressoGrinders: false, quickFilter: false, brewBar: false, retailShelf: true }
+  },
+  {
+    id: "shelf-rwanda-nyamasheke",
+    name: "Rwanda Nyamasheke",
+    image: new URL('../assets/coffee-placeholder.jpg', import.meta.url).href,
+    origin: [ { country: "Rwanda", region: "Nyamasheke", farm: "Kooperatywa", variety: ["Red Bourbon"], altitudeMasl: 1800, processing: "Washed", fermentation: "" } ],
+    species: ["Arabica"],
+    roastLevel: "Jasny-średni",
+    roastType: "Filter",
+    roastDate: null,
+    tastingNotes: ["porzeczka", "herbata", "brązowy cukier"],
+    description: "Czysty, herbaciany profil z porzeczkową słodyczą.",
+    availability: { espressoGrinders: false, quickFilter: false, brewBar: false, retailShelf: true }
+  },
+  {
+    id: "shelf-decaf-colombia",
+    name: "Kolumbia Bezkofeinowa (EA)",
+    image: new URL('../assets/coffee-placeholder.jpg', import.meta.url).href,
+    origin: [ { country: "Kolumbia", region: "Caldas", farm: "", variety: ["Castillo"], altitudeMasl: 1500, processing: "Washed", fermentation: "", } ],
+    species: ["Arabica"],
+    roastLevel: "Średni",
+    roastType: "Espresso",
+    roastDate: null,
+    tastingNotes: ["karmel", "czekolada", "orzech"],
+    description: "Dekofeina metodą octanu etylu (EA) – słodki, czekoladowy profil do codziennego espresso.",
+    availability: { espressoGrinders: false, quickFilter: false, brewBar: false, retailShelf: true }
+  }
+];
