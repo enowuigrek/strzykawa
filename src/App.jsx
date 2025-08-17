@@ -6,14 +6,12 @@ import Home from './pages/Home.jsx';
 import Coffees from './pages/Coffees.jsx';
 import AvailableInCafe from './pages/AvailableInCafe.jsx';
 
-// The main application component.  It defines top-level layout and
-// routing.  A header is conditionally rendered based on scroll
-// position within the Header component itself.
+// The main application component. It defines top-level layout and routing.
 function App() {
   return (
     <div className="app">
       <Header />
-      <main>
+      <main id="main">
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/kawy" element={<Coffees />} />

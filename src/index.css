@@ -1,59 +1,28 @@
-/*
-  Global stylesheet for the Strzykawa landing page.  This file
-  establishes CSS variables for colours and fonts, resets default
-  browser styles and defines utility classes used throughout the
-  application.  Feel free to tweak the variables to fine-tune the
-  colour palette to match your brand.  If you later import fonts
-  from Google Fonts, add the @import rule at the top of this file.
-*/
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
 
-/* Colour palette derived from the supplied logo (dark green
-   background with white lettering).  We expose several shades so
-   components can remain cohesive even as the site grows. */
-:root {
-    --color-primary: #1f2a25; /* darkest green for backgrounds */
-    --color-secondary: #2e4039; /* slightly lighter green for cards */
-    --color-accent: #51685f; /* muted accent for borders and subtle details */
-    --color-text: #ffffff; /* primary text colour */
-    --color-muted: #b3c3bb; /* muted text colour */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-    --font-heading: 'Poppins', Arial, sans-serif;
-    --font-body: 'Poppins', Arial, sans-serif;
+/* Base styles - bezpośrednio bez @layer */
+html, body {
+    background-color: #1f2a25;
+    color: white;
+    font-family: 'Poppins', Arial, sans-serif;
+    height: 100%;
+    margin: 0;
+    padding: 0;
 }
 
-/* Reset some default browser styles */
-*, *::before, *::after {
+#root {
+    min-height: 100vh;
+}
+
+* {
     box-sizing: border-box;
 }
 
-html, body {
-    margin: 0;
-    padding: 0;
-    height: 100%;
-    font-family: var(--font-body);
-    color: var(--color-text);
-    background: var(--color-primary);
-    line-height: 1.5;
-    -webkit-font-smoothing: antialiased;
-}
-
-img {
-    max-width: 100%;
-    display: block;
-}
-
-a {
-    color: inherit;
-    text-decoration: none;
-}
-
-ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-}
-
-/* Utility container class to center content and constrain widths */
+/* Container utility */
 .container {
     width: 90%;
     max-width: 1100px;
@@ -61,373 +30,18 @@ ul {
     margin-right: auto;
 }
 
-/* Header styles – sticky z transparentem nad hero */
-header {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    padding: 0.8rem 0;
-    background: transparent;
-    color: var(--color-text);
-    transition: background-color 0.3s ease, box-shadow 0.3s ease, color 0.3s ease;
-    z-index: 100;
+/* Custom animations for enhanced UX */
+@keyframes fade-in {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
-header.transparent {
-    background: transparent;
-    color: var(--color-text); /* białe linki/logo nad hero */
+.animate-fade-in {
+    animation: fade-in 1s ease-out forwards;
 }
-
-header.scrolled {
-    background: rgba(31, 42, 37, 0.95); /* var(--color-primary) z lekką przezroczystością */
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-    color: var(--color-text);
-}
-
-header nav {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 2rem;
-}
-
-header nav .logo {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    font-weight: 600;
-    font-size: 1.2rem;
-}
-
-header nav ul {
-    display: flex;
-    gap: 1.5rem;
-}
-
-header nav a {
-    padding: 0.2rem 0.1rem;
-    border-bottom: 2px solid transparent;
-    transition: border-color 0.2s;
-}
-
-header nav a.active,
-header nav a:hover {
-    border-color: var(--color-muted);
-}
-
-/* Hero section.  Full viewport height with dark overlay for
-   contrast.  Contains a centrally aligned caption and optional CTA. */
-.hero {
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    min-height: 100vh;
-    text-align: center;
-    overflow: hidden;
-}
-
-.hero-content {
-    position: relative;
-    z-index: 2;
-    max-width: 800px;
-    padding: 1rem;
-}
-
-.hero h1 {
-    font-size: 3rem;
-    margin-bottom: 1rem;
-    font-weight: 600;
-}
-
-.hero p {
-    font-size: 1.25rem;
-    margin-bottom: 2rem;
-    color: var(--color-muted);
-}
-
-.hero .cta {
-    display: inline-block;
-    padding: 0.75rem 1.5rem;
-    border-radius: 4px;
-    background: var(--color-secondary);
-    color: var(--color-text);
-    font-weight: 600;
-    transition: background 0.2s;
-}
-
-.hero .cta:hover {
-    background: var(--color-accent);
-}
-
-/* Coffee cards grid */
-.coffee-grid {
-    display: grid;
-    gap: 2rem;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-}
-
-/* Card styling for each coffee */
-.coffee-card {
-    background: var(--color-secondary);
-    border-radius: 8px;
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
-    transition: transform 0.2s, box-shadow 0.2s;
-}
-
-.coffee-card:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-}
-
-.coffee-card img {
-    width: 100%;
-    height: 180px;
-    object-fit: cover;
-}
-
-.coffee-card-content {
-    padding: 1rem;
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    position: relative;
-    z-index: 0;
-}
-
-.coffee-card h3 {
-    margin-top: 0;
-    margin-bottom: 0.5rem;
-    font-size: 1.25rem;
-}
-
-.coffee-details {
-    font-size: 0.85rem;
-    color: var(--color-muted);
-    margin-bottom: 0.5rem;
-}
-
-.coffee-profile {
-    font-size: 0.9rem;
-    color: var(--color-text);
-    margin-top: auto;
-}
-
-/* Contact section */
-.contact-section {
-    padding: 4rem 0;
-}
-
-.contact-section h2 {
-    margin-bottom: 1.5rem;
-    font-size: 2rem;
-    text-align: center;
-}
-
-.contact-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 2rem;
-}
-
-.contact-info {
-    display: flex;
-    flex-direction: column;
-    gap: 0.75rem;
-    font-size: 1rem;
-}
-
-.contact-info strong {
-    font-weight: 600;
-}
-
-.map-wrapper {
-    height: 300px;
-    border-radius: 8px;
-    overflow: hidden;
-    background: var(--color-secondary);
-}
-
-/* Footer styles */
-footer {
-    background: var(--color-secondary);
-    padding: 1rem;
-}
-
-footer .social-icons {
-    display: flex;
-    gap: 1.5rem;
-    font-size: 1.5rem;
-}
-
-footer p {
-    font-size: 0.85rem;
-    margin: 0;
-    color: var(--color-muted);
-}
-/* --- Coffee card media & hover overlay (new) --- */
-.coffee-card { position: relative; overflow: hidden; }
-
-.coffee-card-media { position: relative; height: 220px; overflow: hidden; }
-.coffee-card-media img { width: 100%; height: 100%; object-fit: cover; display: block; position: relative; z-index: 0; }
-
-/* Overlay slides up on hover; on mobile it opens via the `.open` class */
-.coffee-card-overlay {
-  position: absolute;
-  left: 0; right: 0; top: 0; bottom: 0; /* fill media area */
-  transform: translateY(100%);
-  background: linear-gradient(to top, rgba(31, 42, 37, 0.95), rgba(31, 42, 37, 0.75));
-  color: var(--color-text);
-  backdrop-filter: blur(4px);
-  transition: transform .28s cubic-bezier(.22,.61,.36,1);
-  z-index: 1;
-  pointer-events: none; /* ignore clicks when hidden */
-  border-top: 1px solid rgba(255,255,255,.08);
-}
-.coffee-card:hover .coffee-card-overlay,
-.coffee-card:focus-within .coffee-card-overlay {
-  transform: translateY(0);
-  pointer-events: auto;
-}
-.coffee-card-overlay.open { transform: translateY(0); pointer-events: auto; }
-
-.overlay-content {
-  padding: 1rem;
-  max-height: 100%;
-  overflow: auto;            /* enable scroll if content is taller than media */
-  scrollbar-gutter: stable;  /* avoid layout shift when scrollbar appears */
-}
-.meta { display: grid; grid-template-columns: auto 1fr; gap: .25rem .75rem; font-size: .9rem; }
-.meta dt { opacity: .85; }
-.meta dd { margin: 0; }
-.meta dt, .meta dd {
-  word-break: break-word;
-  overflow-wrap: anywhere;
-}
-
-/* Small info button to toggle overlay on mobile */
-.info-btn{
-  position: absolute; top: .5rem; right: .5rem;
-  width: 28px; height: 28px; border-radius: 999px;
-  border: 1px solid rgba(255,255,255,.75);
-  background: rgba(0,0,0,.35); color: #fff;
-  display: grid; place-items: center; font-weight: 700; line-height: 1;
-  cursor: pointer; z-index: 2;
-}
-.info-btn:hover{ background: rgba(0,0,0,.5); }
-
-/* Title & meta under the image (used by CoffeeCard.jsx) */
-.coffee-title { margin: .5rem 0 .25rem; font-size: 1.25rem; }
-.coffee-sub { font-size: .9rem; color: var(--color-muted); margin-bottom: .25rem; }
-.coffee-profile { font-size: .95rem; margin: 0; }
-
-@media (min-width: 768px) {
-  .coffee-card-media { height: 260px; }
-}
-@media (min-width: 1200px) {
-  .coffee-card-media { height: 300px; }
-}
-
-/* ==============================
-   Dostępne w kawiarni – layout
-   ============================== */
-
-/* Odstęp pod fixed headerem, żeby hero nie wchodziło pod nawigację */
-.app main { padding-top: 0; }
-
-/* Hero sekcji dostępności */
-.available-page { padding: 2rem 0 3rem; }
-.available-hero {
-  background: linear-gradient(180deg, rgba(255,255,255,0.06) 0%, rgba(255,255,255,0.03) 100%);
-  border: 1px solid rgba(255,255,255,0.08);
-  border-radius: 12px;
-  padding: 1.25rem 1.25rem 1rem;
-  margin-bottom: 1.5rem;
-}
-.available-hero h1 { margin: 0 0 .35rem; font-size: 1.9rem; letter-spacing: .02em; }
-.available-hero p { margin: 0; color: var(--color-muted); }
-
-/* Sekcje kategorii */
-.available-section { margin: 2rem 0 2.5rem; }
-.section-head {
-  display: grid;
-  grid-template-columns: auto 1fr auto;
-  gap: 1rem;
-  align-items: center;
-  margin-bottom: 1rem;
-}
-.icon-wrap {
-  width: 48px; height: 48px; border-radius: 14px;
-  display: grid; place-items: center;
-  box-shadow: 0 8px 20px rgba(0,0,0,.18) inset;
-}
-.icon-wrap svg { width: 22px; height: 22px; }
-.titles h2 { margin: 0; font-size: 1.25rem; }
-.titles .muted { margin: .25rem 0 0; color: var(--color-muted); font-size: .95rem; }
-.count-badge {
-  background: rgba(255,255,255,.10);
-  border: 1px solid rgba(255,255,255,.16);
-  padding: .25rem .6rem;
-  border-radius: 999px;
-  font-size: .85rem;
-}
-
-/* Akcenty kolorystyczne – spójne z paletą */
-.accent-espresso .icon-wrap { background: #3b2a28; }
-.accent-batch   .icon-wrap { background: #1f2a25; }
-.accent-brewbar .icon-wrap { background: #23332d; }
-.accent-shelf   .icon-wrap { background: #2e4039; }
-
-/* Grid kaw w tej podstronie – nieco gęstszy */
-.available-section .coffee-grid { gap: 1.25rem; }
-
-/* Pusty stan */
-.available-section .empty {
-  padding: 1rem;
-  background: rgba(255,255,255,.06);
-  border: 1px dashed rgba(255,255,255,.18);
-  border-radius: 10px;
-  color: var(--color-muted);
-}
-
-/* Drobne dopieszczenia kart w kontekście tej strony */
-.available-section .coffee-card { box-shadow: 0 1px 0 rgba(255,255,255,.06) inset; }
-.available-section .coffee-card:hover { box-shadow: 0 10px 22px rgba(0,0,0,.22); }
-
-@media (min-width: 768px){
-  .available-hero h1 { font-size: 2.15rem; }
-}
-
-/* === Available page – refinements (override) === */
-/* Make cards tile-like instead of stretching full-width when there are few items */
-.available-section .coffee-grid {
-  gap: 1.25rem;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-}
-
-/* Keep each card within a sensible max width */
-.available-section .coffee-card { width: 100%; max-width: none; }
-
-/* Slightly lower media height in this context so overlay doesn’t hide content */
-.available-section .coffee-card-media { height: 220px; }
-@media (min-width: 1024px){
-  .available-section .coffee-card-media { height: 240px; }
-}
-
-@media (min-width: 1200px){
-  .available-section .coffee-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
-}
-
-/* Soften hero to avoid visual clash with grid */
-.available-hero { margin-bottom: 1rem; box-shadow: none; }
-
-/* Subtle divider above each section */
-.available-section { border-top: 1px solid rgba(255,255,255,.06); padding-top: 1rem; }
-
-/* Offset only for pages that start without a hero */
-.available-page { margin-top: 96px; }
-.coffees-page { margin-top: 96px; }
