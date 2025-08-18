@@ -4,7 +4,7 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Base styles - bezpośrednio bez @layer */
+/* Base styles */
 html, body {
     background-color: #1f2a25;
     color: white;
@@ -22,15 +22,33 @@ html, body {
     box-sizing: border-box;
 }
 
-/* Container utility */
-.container {
-    width: 90%;
-    max-width: 1100px;
-    margin-left: auto;
-    margin-right: auto;
+/* Custom scrollbar for overlay content */
+.scrollbar-thin {
+    scrollbar-width: thin;
 }
 
-/* Custom animations for enhanced UX */
+.scrollbar-thin::-webkit-scrollbar {
+    width: 4px;
+}
+
+.scrollbar-thin::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.scrollbar-thin::-webkit-scrollbar-thumb {
+    background-color: rgba(255, 255, 255, 0.3);
+    border-radius: 2px;
+}
+
+.scrollbar-thumb-white\/30 {
+    scrollbar-color: rgba(255, 255, 255, 0.3) transparent;
+}
+
+.scrollbar-track-transparent {
+    /* Already handled in scrollbar-thin */
+}
+
+/* Custom animations */
 @keyframes fade-in {
     from {
         opacity: 0;
@@ -44,4 +62,73 @@ html, body {
 
 .animate-fade-in {
     animation: fade-in 1s ease-out forwards;
+}
+
+/* Utilities for better text rendering */
+.text-shadow-sm {
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+.text-shadow {
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.text-shadow-lg {
+    text-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+}
+
+/* Better backdrop blur support for older browsers */
+@supports not (backdrop-filter: blur(12px)) {
+    .backdrop-blur-sm {
+        background-color: rgba(31, 42, 37, 0.8);
+    }
+
+    .backdrop-blur-md {
+        background-color: rgba(31, 42, 37, 0.9);
+    }
+}
+
+/* Container utility enhancement */
+.container {
+    width: 90%;
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+@media (max-width: 640px) {
+    .container {
+        width: 95%;
+    }
+}
+
+/* Focus styles for accessibility */
+select:focus,
+button:focus {
+    outline: 2px solid #51685f;
+    outline-offset: 2px;
+}
+
+/* Smooth transitions for all interactive elements */
+button,
+select,
+.group {
+    transition: all 0.3s ease;
+}
+
+/* Enhanced gradient utilities */
+.bg-gradient-glow {
+    background: radial-gradient(circle at 50% 50%, rgba(81, 104, 95, 0.3), transparent 70%);
+}
+
+/* Print styles */
+@media print {
+    .no-print {
+        display: none !important;
+    }
+
+    .coffee-card {
+        break-inside: avoid;
+        page-break-inside: avoid;
+    }
 }

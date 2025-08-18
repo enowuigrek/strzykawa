@@ -38,7 +38,7 @@ function HeroSection() {
           {/* Main Heading z gradient text */}
           <h1 className="text-4xl sm:text-6xl lg:text-7xl font-bold mb-6 leading-tight">
           <span className="block bg-gradient-to-r from-white via-muted to-white bg-clip-text text-transparent animate-fade-in">
-            Strzykawa
+            STRZYKAWA
           </span>
             <span className="block text-2xl sm:text-3xl lg:text-4xl font-medium mt-2 text-muted/90">
             coffee shop
@@ -83,13 +83,13 @@ function HeroSection() {
             </Link>
           </div>
 
-          {/* Scroll Indicator */}
-          <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 flex flex-col items-center text-white/60">
-            <span className="text-sm font-light mb-2 tracking-wide">Scroll down</span>
-            <div className="w-6 h-10 border-2 border-white/30 rounded-full flex justify-center">
-              <div className="w-1 h-3 bg-white/50 rounded-full mt-2 animate-bounce" />
-            </div>
-          </div>
+          {/*/!* Scroll Indicator *!/*/}
+          {/*<div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 flex flex-col items-center text-white/60">*/}
+          {/*  <span className="text-sm font-light mb-2 tracking-wide">Scroll down</span>*/}
+          {/*  <div className="w-6 h-10 border-2 border-white/30 rounded-full flex justify-center">*/}
+          {/*    <div className="w-1 h-3 bg-white/50 rounded-full mt-2 animate-bounce" />*/}
+          {/*  </div>*/}
+          {/*</div>*/}
         </div>
 
         {/* Corner Decorations */}

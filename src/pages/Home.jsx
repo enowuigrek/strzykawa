@@ -3,17 +3,16 @@ import HeroSection from '../components/HeroSection.jsx';
 import ContactSection from '../components/ContactSection.jsx';
 
 /**
- * Home page composes the hero and contact sections.  Additional
- * sections, such as testimonials or a blog preview, can be added
- * here later by simply inserting more components.
+ * Home page component that combines the hero section with contact information
+ * This creates a complete landing page experience
  */
 function Home() {
-  return (
-    <>
-      <HeroSection />
-      <ContactSection />
-    </>
-  );
+    return (
+        <div className="home-page">
+            <HeroSection />
+            <ContactSection />
+        </div>
+    );
 }
 
 export default Home;
