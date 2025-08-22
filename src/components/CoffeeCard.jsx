@@ -48,23 +48,23 @@ function CoffeeCard({ coffee }) {
   const toggleOverlay = () => setOverlayOpen(!overlayOpen);
 
   return (
-      <article className="group relative bg-gradient-to-br from-primary to-primary-light rounded-xl overflow-hidden border border-white/5 shadow-lg transition-all duration-300 hover:shadow-2xl hover:shadow-accent/20 hover:-translate-y-2 hover:scale-[1.02] hover:border-white/10">
+      <article className="relative bg-gradient-to-br from-primary to-primary-light overflow-hidden border border-white/5 shadow-lg transition-all duration-300 hover:shadow-2xl hover:shadow-accent/20 hover:-translate-y-2 hover:scale-[1.02] hover:border-white/10">
 
         {/* Subtle top border glow effect */}
-        <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+        <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-300"></div>
 
         {/* Media Section with Overlay */}
         <div className="relative h-64 overflow-hidden">
           <img
               src={coffee.image || coffeePlaceholder}
               alt={`Opakowanie kawy ${coffee.name}`}
-              className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+              className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
               loading="lazy"
           />
 
           {/* Mobile Info Button */}
           <button
-              className="md:hidden absolute top-3 right-3 w-8 h-8 rounded-full border border-white/60 bg-black/40 backdrop-blur-sm text-white font-bold text-sm flex items-center justify-center z-30 transition-all duration-200 hover:bg-black/60 hover:scale-110 hover:border-white/80"
+              className="md:hidden absolute top-3 right-3 w-8 h-8 border border-white/60 bg-black/40 backdrop-blur-sm text-white font-bold text-sm flex items-center justify-center z-30 transition-all duration-200 hover:bg-black/60 hover:scale-110 hover:border-white/80 rounded-full"
               onClick={toggleOverlay}
               aria-label={`${overlayOpen ? 'Ukryj' : 'Pokaż'} szczegóły kawy ${coffee.name}`}
           >
@@ -72,7 +72,7 @@ function CoffeeCard({ coffee }) {
           </button>
 
           {/* Hover/Focus Overlay */}
-          <div className={`absolute inset-0 bg-gradient-to-t from-primary-dark/95 via-primary/80 to-primary/60 backdrop-blur-md border-t border-white/10 transition-transform duration-300 ease-out ${overlayOpen ? 'translate-y-0' : 'translate-y-full'} group-hover:translate-y-0 group-focus-within:translate-y-0`}>
+          <div className={`absolute inset-0 bg-gradient-to-t from-primary-dark/95 via-primary/80 to-primary/60 backdrop-blur-md border-t border-white/10 transition-transform duration-300 ease-out ${overlayOpen ? 'translate-y-0' : 'translate-y-full'} hover:translate-y-0`}>
             <div className="p-4 h-full overflow-y-auto scrollbar-thin scrollbar-thumb-white/30 scrollbar-track-transparent">
               <dl className="grid grid-cols-[auto_1fr] gap-x-3 gap-y-1 text-sm">
                 {getRegionDisplay(coffee.origin) && (
@@ -135,7 +135,7 @@ function CoffeeCard({ coffee }) {
           <div className="flex items-center gap-2 text-sm">
             <span className="text-muted">{getOriginDisplay(coffee.origin)}</span>
             {getRoastTypeDisplay(coffee.roastType) && (
-                <span className="inline-flex items-center px-2 py-1 rounded-md bg-accent/20 border border-accent/30 text-accent text-xs font-medium">
+                <span className="inline-flex items-center px-2 py-1 bg-accent/20 border border-accent/30 text-accent text-xs font-medium rounded-full">
               {getRoastTypeDisplay(coffee.roastType)}
             </span>
             )}

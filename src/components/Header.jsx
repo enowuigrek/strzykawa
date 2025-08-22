@@ -28,9 +28,9 @@ export default function Header() {
 
                     {/* Logo/Brand */}
                     <div className="relative group">
-                        <div className="text-2xl sm:text-3xl font-bold text-white tracking-wide">
-                            STRZYKAWA
-                        </div>
+                        {scrolled && <div className="text-2xl sm:text-3xl text-white tracking-wide">
+                            S T R Z Y K A W A
+                        </div>}
                         <div className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-muted to-accent transition-all duration-300 group-hover:w-full"></div>
                     </div>
 
@@ -50,6 +50,21 @@ export default function Header() {
                             `}
                         >
                             Start
+                        </NavLink>
+                        <NavLink
+                            to="/o-nas"
+                            className={({ isActive }) => `
+                                relative px-4 py-2 text-white font-medium transition-all duration-300
+                                hover:text-muted hover:scale-105
+                                ${isActive ? 'text-muted' : ''}
+                                after:content-[''] after:absolute after:bottom-0 after:left-1/2 after:-translate-x-1/2 
+                                after:w-0 after:h-0.5 after:bg-gradient-to-r after:from-muted after:to-accent 
+                                after:transition-all after:duration-300
+                                hover:after:w-full
+                                ${isActive ? 'after:w-full' : ''}
+                            `}
+                        >
+                            O Strzykawie
                         </NavLink>
 
                         <NavLink
@@ -85,7 +100,7 @@ export default function Header() {
                         </NavLink>
 
                         <a
-                            href="#kontakt"
+                            href="/kontakt"
                             className="
                                 relative px-4 py-2 text-white font-medium transition-all duration-300
                                 hover:text-muted hover:scale-105

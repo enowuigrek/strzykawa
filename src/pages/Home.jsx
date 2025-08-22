@@ -1,6 +1,6 @@
 import React from 'react';
 import HeroSection from '../components/HeroSection.jsx';
-import ContactSection from '../components/ContactSection.jsx';
+import ContactSection from './ContactSection.jsx';
 
 /**
  * Home page component that combines the hero section with contact information
@@ -10,7 +10,6 @@ function Home() {
     return (
         <div className="home-page">
             <HeroSection />
-            <ContactSection />
         </div>
     );
 }
