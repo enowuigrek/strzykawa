@@ -1,270 +1,307 @@
-
-
 # DEVELOPMENT
 
-> **Project:** Strzykawa — coffee shop & roastery (landing + coffee catalogue)
-> **Goal:** A fast, simple website to present the café, showcase coffees, and surface what’s *available right now* in the shop. Designed to be CMS‑ready and easy to extend (e.g., blog).
+> **Projekt:** Strzykawa — kawiarnia i palarnia (landing + katalog kaw + e-commerce)
+> **Cel:** Nowoczesna, kompleksowa strona prezentująca kawiarnię, katalog kaw z funkcjonalnością sklepu, blog i przewodniki parzenia. Zaprojektowana z myślą o skalowalności i łatwym zarządzaniu treścią.
 
 ---
 
-## 1) Tech stack
+## 1) Stos technologiczny
 - **Build:** Vite + React
 - **Routing:** `react-router-dom`
-- **Icons:** `react-icons`
-- **Styling:** single global stylesheet `src/index.css` (to be split — see §5)
-- **Assets:** imported via Vite (e.g. `new URL('...', import.meta.url).href`)
+- **Ikony:** `react-icons`
+- **Stylowanie:** Tailwind CSS (zaimplementowane)
+- **Assety:** importowane przez Vite (np. `new URL('...', import.meta.url).href`)
+- **E-commerce:** integracja z Shopify (planowana)
 
-### Scripts
+### Skrypty
 ```bash
 npm install
-npm run dev      # Vite dev server
-npm run build    # production build to dist/
-npm run preview  # preview the production build
+npm run dev      # serwer deweloperski Vite
+npm run build    # build produkcyjny do dist/
+npm run preview  # podgląd buildu produkcyjnego
 ```
 
 ---
 
-## 2) Project structure (current)
+## 2) Struktura projektu (obecna)
 ```
 src/
-  assets/                # images (hero, logo, placeholders)
+  assets/                # obrazy (hero, logo, placeholdery) - do aktualizacji oficjalnym brandingiem
   components/
-    CoffeeCard.jsx       # card with overlay + mobile info toggle
-    ContactSection.jsx
-    Footer.jsx
-    Header.jsx           # fixed; transparent over hero; solid on scroll
-    HeroSection.jsx
+    CoffeeCard.jsx       # karta z overlay + toggle na mobile ✓
+    ContactSection.jsx   # ✓
+    Footer.jsx           # wzbogacony o linki społecznościowe ✓
+    Header.jsx           # fixed, przezroczysty nad hero, solidny po scrollu ✓
+    HeroSection.jsx      # ✓
   data/
-    coffees.js           # sample data in CMS‑ready schema
+    coffees.js           # rozszerzone dane kaw z flagami dostępności ✓
   pages/
-    AvailableInCafe.jsx  # "Dostępne w kawiarni" — 4 availability sections
-    Coffees.jsx          # "Nasze kawy" — all coffees grid
-    Home.jsx             # landing: hero + contact
-  App.jsx                # layout + routes
-  index.css              # global styles (to be split)
-  main.jsx               # React bootstrap
+    About.jsx            # strona o firmie ✓ (wymaga przeprojektowania)
+    AvailableInCafe.jsx  # "Dostępne w kawiarni" - 4 sekcje z licznikami ✓
+    Coffees.jsx          # "Nasze kawy" - wszystkie kawy z filtrami ✓
+    ContactSection.jsx   # samodzielna strona kontakt ✓
+    Home.jsx             # landing: hero + contact ✓
+  App.jsx                # layout + routing ✓
+  index.css              # importy Tailwind + niestandardowe style ✓
+  main.jsx               # bootstrap React ✓
 ```
 
 ---
 
-## 3) Coffee data model (summary)
-**Keys are English (CMS‑friendly); UI strings are Polish.**
+## 3) Model danych kawy (zaimplementowany ✓)
+**Klucze anglojęzyczne (przyjazne CMS); stringi UI po polsku.**
 ```ts
 export type Coffee = {
   id: string;
-  name: string;              // display name (PL)
-  image: string;             // pack / artwork
+  name: string;              // nazwa wyświetlana (PL)
+  image: string;             // opakowanie / grafika
   origin: Array<{
-    country: string;         // PL values (e.g., "Etiopia")
+    country: string;         // wartości PL (np. "Etiopia")
     region?: string;
     farm?: string;
-    variety?: string[];      // e.g., ["Yellow Bourbon", "SL28"]
+    variety?: string[];      // np. ["Yellow Bourbon", "SL28"]
     altitudeMasl?: number | string;
-    processing?: string;     // PL labels (Washed → "Washed" or "Mokra" if desired)
+    processing?: string;     // etykiety PL
     fermentation?: string;
   }>;
-  species: string[];         // e.g., ["Arabica"]
+  species: string[];         // np. ["Arabica"]
   roastLevel?: string;       // PL: "Jasny", "Średni", "Ciemny"
-  roastType?: string;        // mapped to PL in UI: Filter → "Przelew", Espresso → "Espresso"
-  roastDate?: string | null; // ISO or null
-  tastingNotes?: string[];   // PL notes
-  description?: string;      // short PL description
+  roastType?: string;        // mapowane na PL w UI: Filter → "Przelew", Espresso → "Espresso"
+  roastDate?: string | null; // ISO lub null
+  tastingNotes?: string[];   // nuty PL
+  description?: string;      // krótki opis PL
   availability: {
-    espressoGrinders: boolean; // on the espresso grinders
+    espressoGrinders: boolean; // na młynkach do espresso
     quickFilter: boolean;      // batch brew / szybki przelew
-    brewBar: boolean;          // drip / Aeropress at the bar
-    retailShelf: boolean;      // on the shelf for retail
+    brewBar: boolean;          // drip / Aeropress przy barze
+    retailShelf: boolean;      // na półce do sprzedaży detalicznej
   };
 }
 ```
 
-### Blends
-`origin` is an array so a coffee can carry multiple countries/regions/varieties. Helpers in components deduplicate and join values for display.
+---
+
+## 4) Strony i komponenty (obecny status)
+
+### ✅ UKOŃCZONE
+- **Header** — fixed z efektami scroll, menu mobile, właściwa nawigacja ✓
+- **HeroSection** — pełnoekranowy z przyciskiem CTA ✓
+- **CoffeeCard** — hover overlays, toggle na mobile, szczegółowe dane kaw ✓
+- **Coffees** — responsywna siatka z zaawansowanymi filtrami (kraj, obróbka, typ/stopień wypału) ✓
+- **AvailableInCafe** — cztery sekcje z licznikami dostępności w czasie rzeczywistym ✓
+- **ContactSection** — wzbogacony design z udogodnieniami, mapą, godzinami otwarcia ✓
+- **Footer** — nowoczesny design z linkami społecznościowymi i szybkim dostępem do kontaktu ✓
+- **About** — podstawowa strona historii firmy ✓
+
+### 📋 DO ZROBIENIA / PLANOWANE ULEPSZENIA
+- Aktualizacja strony O nas - mniej korporacyjnie, bardziej autentycznie
+- Wymiana placeholderów na oficjalny branding Strzykawy
+- Poprawa hover na kartach kaw w sekcji "Nasze kawy"
+- Przekształcenie "Nasze kawy" w sklep e-commerce
 
 ---
 
-## 4) Pages & components
-- **Header** — fixed; transparent over hero; gains semi‑transparent background + blur after scroll. Nav links: Start / Nasze kawy / Dostępne w kawiarni / Kontakt (#anchor).
-- **HeroSection** — full‑viewport background image (placeholder now; video possible later), centered headline + CTA.
-- **CoffeeCard** — shows image, name, countries, roast type and tasting notes. On hover: a slide‑up overlay with details (Region, Obróbka, Odmiana, Farma, Gatunek, Wysokość, Wypał). On mobile: small “i” button toggles the overlay.
-- **Coffees** — responsive grid of all coffees.
-- **AvailableInCafe** — four sections with icons and counters: *Na młynkach*, *Szybki przelew*, *Do parzenia na miejscu*, *Na półce*.
-- **ContactSection** — address, hours, phone, email, map.
-- **Footer** — socials + copyright.
+## 5) Stylowanie (zaimplementowane ✓)
+- **Tailwind CSS** w pełni zintegrowany z niestandardową paletą kolorów
+- **Schemat kolorów:** Ciemny motyw z kolorami akcentowymi (odcienie zieleni/amber)
+- **Typografia:** Rodzina czcionek Poppins
+- **Niestandardowe narzędzia:** cienie tekstu, stylowanie scrollbar, fallbacki backdrop blur
+- **Responsywny design:** Podejście mobile-first z odpowiednimi breakpointami
+- **Animacje:** Subtelne efekty hover, przejścia i mikro-interakcje
 
 ---
 
-## 5) Styling guidelines & planned split
-Right now everything lives in `src/index.css`. Planned split:
-```
-src/styles/
-  base.css        # variables (colors, fonts), resets, typography
-  layout.css      # containers, grids, spacing utilities
-  components.css  # buttons, chips, cards, header, footer
-  pages.css       # hero, coffees page, available page, contact
-```
-**Rules:**
-- Use CSS variables for all colors and spacing (already present under `:root`).
-- Prefer component‑scoped selectors over broad globals.
-- Keep transitions subtle (180–300ms, cubic‑bezier ease).
-- Maintain contrast for readability on dark backgrounds.
-
-> Optionally consider CSS Modules or Tailwind if the project grows.
-
----
-
-## 6) Routing
-- `/` — Home (hero + contact)
-- `/kawy` — Nasze kawy
+## 6) Routing (obecny ✓)
+- `/` — Home (sekcja hero)
+- `/o-nas` — Strona About
+- `/kawy` — Katalog kaw z filtrami
 - `/dostepne-w-kawiarni` — Dostępne w kawiarni
+- `/kontakt` — Strona kontakt
 
-Active link styling is handled via `NavLink` in the `Header`.
-
----
-
-## 7) Accessibility (a11y)
-- Hover overlay also opens via `:focus-within`.
-- Mobile overlay toggled by a clearly labelled button.
-- Link and button focus states are visible.
-- Images have meaningful `alt` text (to be refined with real assets).
+### 📋 PLANOWANE TRASY
+- `/sklep` lub `/kawy` — Sklep e-commerce
+- `/blog` — Sekcja blog
+- `/kawy/:id` — Indywidualne strony produktów kaw
+- `/przewodniki-parzenia` — Sekcja przewodników parzenia
 
 ---
 
-## 8) CMS direction (proposal)
-**Target:** Strapi (or Directus) when we switch from static data.
-- Collection: `coffee` matching the schema above.
-- Controlled vocabularies: `processing`, `species`, `roastLevel`, `roastType`.
-- Simple toggle UI for `availability` so baristas can update the current menu quickly.
-- Public read token; frontend fetch with graceful fallback to `coffees.js` if API is down.
+## 7) Plan nowych funkcji
 
-Migration plan:
-1. Keep `coffees.js` as seed data.
-2. Add `VITE_USE_CMS` flag; when true, fetch from CMS; otherwise use local data.
-3. Normalise values so filters remain consistent.
+### 🛒 INTEGRACJA E-COMMERCE
+**Priorytet: WYSOKI**
+- [ ] Konfiguracja integracji Shopify
+- [ ] Synchronizacja katalogu produktów
+- [ ] Funkcjonalność koszyka
+- [ ] Proces płatności
+- [ ] Zarządzanie zamówieniami
+- [ ] Śledzenie inwentarza
+
+### 📄 STRONY PRODUKTÓW
+**Priorytet: WYSOKI**
+- [ ] Indywidualne strony produktów kaw (`/kawy/:id`)
+- [ ] Szczegółowe opisy produktów
+- [ ] Selektor opcji mielenia
+- [ ] Opcje zakupu (250g, 500g, 1kg)
+- [ ] Integracja "Kup teraz" z Shopify
+- [ ] Sugestie powiązanych produktów
+- [ ] Sekcja opinii klientów
+
+### 📝 SYSTEM BLOG
+**Priorytet: ŚREDNI**
+- [ ] Strona listy postów blog
+- [ ] Indywidualne strony postów blog
+- [ ] Kategorie i tagi
+- [ ] Integracja CMS dla treści blog
+- [ ] Optymalizacja SEO dla postów blog
+
+### ☕ PRZEWODNIKI PARZENIA
+**Priorytet: ŚREDNI**
+- [ ] Sekcja przewodnika metod parzenia
+- [ ] Tutoriale parzenia krok po kroku
+- [ ] Rekomendacje sprzętu
+- [ ] Dopasowanie kawa-metoda
+- [ ] Obsługa integracji wideo
+
+### 🎨 ULEPSZENIA DESIGNU
+**Priorytet: WYSOKI**
+- [ ] Wymiana wszystkich placeholderów na oficjalny branding
+- [ ] Integracja nowego logo w całej stronie
+- [ ] Ulepszone efekty hover kart kaw
+- [ ] Lepsza mobilna obsługa przeglądania produktów
+- [ ] Wytyczne fotograficzne dla zdjęć produktów
+
+### 📖 ULEPSZENIA TREŚCI
+**Priorytet: ŚREDNI**
+- [ ] Przeprojektowanie strony O nas - bardziej autentycznie, mniej korporacyjnie
+- [ ] Dodanie profili członków zespołu
+- [ ] Historie pochodzenia kaw
+- [ ] Informacje o zrównoważonym rozwoju i sourcing
 
 ---
 
-## 9) Deployment
-**Netlify** (free tier) recommended for now.
-- Connect GitHub repo → build command `npm ci && npm run build`, publish directory `dist/`.
-- Optional: headers for long‑term image caching; `noindex` for preview branches.
+## 8) Ulepszenia techniczne
+
+### 🔄 ZARZĄDZANIE STANEM
+- [ ] Rozważenie Zustand lub Context dla stanu koszyka
+- [ ] Funkcjonalność listy życzeń produktów
+- [ ] Przechowywanie preferencji użytkownika
+
+### 🚀 WYDAJNOŚĆ
+- [ ] Optymalizacja obrazów i lazy loading
+- [ ] Optymalizacja rozmiaru bundla
+- [ ] Rozważenie możliwości PWA
+- [ ] Optymalizacja wyniku Lighthouse
+
+### 🔒 SEO & ANALYTICS
+- [ ] Optymalizacja meta tagów
+- [ ] Dane strukturalne dla produktów
+- [ ] Generowanie sitemap
+- [ ] Integracja analytics
+- [ ] Funkcjonalność wyszukiwania
 
 ---
 
-## 10) Conventional commits (suggested)
-- `feat:` new feature
-- `fix:` bug fix
-- `style:` CSS/visual only
-- `refactor:` code change without features/bug fixes
-- `docs:` documentation
-- `chore:` tooling/config
+## 9) CMS i zarządzanie danymi
 
-Examples:
-```
-feat(available): add four availability sections with icons and counters
-style(header): add blur + solid background after scroll
-fix(card): prevent overlay from covering title; enable focus‑within
-```
+### 📊 OBECNA STRUKTURA DANYCH
+- Statyczne dane kaw w `coffees.js` ✓
+- Ustrukturyzowany schemat gotowy na CMS ✓
+
+### 🎯 PLANOWANA INTEGRACJA
+- **Shopify** dla e-commerce i inwentarza
+- **Strapi/Contentful** dla blog i zarządzania treścią
+- Endpointy API dla dostępności w czasie rzeczywistym
+- Panel admin dla personelu kawiarni do aktualizacji dostępności
 
 ---
 
-## 11) Roadmap
-- [ ] Split `index.css` into `base/layout/components/pages`
-- [ ] Add filters on "Nasze kawy" (country, processing, roast)
-- [ ] Detail page: `/kawy/:id` with full story and images
-- [ ] "Chips" badges on cards (e.g., “też na półce”) for the Available page
-- [ ] SEO: meta, OpenGraph, alt texts, sitemap
-- [ ] CMS integration and data fetching
-- [ ] Lighthouse > 90 across categories
+## 10) Wdrażanie i DevOps
+**Obecne:** Gotowe na wdrożenie Netlify
+**Planowane ulepszenia:**
+- [ ] Konfiguracja zmiennych środowiskowych dla Shopify
+- [ ] Optymalizacja pipeline CI/CD
+- [ ] Konfiguracja środowiska staging
+- [ ] Monitorowanie wydajności
 
 ---
 
-## 12) Dev notes
-- Header becomes solid after ~40px scroll; background uses semi‑transparent brand color + `backdrop-filter: blur(8px)`.
-- CoffeeCard overlay only covers the media area; on mobile the `i` button toggles an `.open` class.
-- Available page grids: `repeat(auto-fit, minmax(250px, 1fr))`, forced to 4 columns on ≥1200px.
+## 11) Dostępność i UX
+**Obecny status:** Podstawowa a11y zaimplementowana ✓
+**Potrzebne ulepszenia:**
+- [ ] Lepsza nawigacja klawiatury w filtrach
+- [ ] Optymalizacja czytnika ekranu dla kart produktów
+- [ ] Audyt kontrastu kolorów
+- [ ] Ulepszenia UX mobile dla zakupów
+
+---
+
+## 12) Strategia treści
+
+### 📸 POTRZEBY FOTOGRAFICZNE
+- [ ] Profesjonalna fotografia produktów kaw
+- [ ] Zdjęcia wnętrz kawiarni
+- [ ] Dokumentacja procesu parzenia
+- [ ] Portrety zespołu dla sekcji O nas
+
+### ✍️ POTRZEBY COPYWRITINGU
+- [ ] Opisy produktów dla każdej kawy
+- [ ] Planowanie treści blog
+- [ ] Meta opisy zoptymalizowane pod SEO
+- [ ] Treść przewodników parzenia
+
+---
+
+## 13) Fazy rozwoju według priorytetów
+
+### 🚀 FAZA 1 (Natychmiastowa - 2-3 tygodnie)
+1. Wymiana placeholderów brandingu na oficjalne assety
+2. Implementacja podstaw integracji Shopify
+3. Tworzenie indywidualnych stron produktów
+4. Przeprojektowanie strony O nas z autentycznym storytelling
+
+### 🛍️ FAZA 2 (Krótkoterminowa - 1 miesiąc)
+1. Ukończenie funkcjonalności e-commerce
+2. Koszyk i proces płatności
+3. Ulepszone interakcje kart kaw
+4. Optymalizacja UX mobile
+
+### 📝 FAZA 3 (Średnioterminowa - 2 miesiące)
+1. Implementacja systemu blog
+2. Sekcja przewodników parzenia
+3. Optymalizacja SEO
+4. Analytics i monitorowanie wydajności
+
+### 🎨 FAZA 4 (Długoterminowa - 3+ miesiące)
+1. Zaawansowane funkcje (lista życzeń, opinie)
+2. Możliwości PWA
+3. Zaawansowane analytics i personalizacja
+4. Ciągła optymalizacja na podstawie opinii użytkowników
+
+---
+
+## 14) Notatki deweloperskie
+
+### 🎨 SYSTEM DESIGNU
+- Konsekwentne używanie narzędzi Tailwind
+- Ciemny motyw z ciepłymi kolorami akcentowymi
+- Subtelne animacje i mikro-interakcje
+- Efekty glass-morphism dla nowoczesnego wyglądu
+
+### 📱 PODEJŚCIE RESPONSYWNE
+- Rozwój mobile-first
+- Interakcje przyjazne dotykowi
+- Optymalizacja dla różnych rozmiarów ekranów
+- Strategia progressive enhancement
+
+### ⚡ KWESTIE WYDAJNOŚCI
+- Minimalny rozmiar bundla
+- Optymalizowane obrazy
+- Implementacja lazy loading
+- Efektywne re-renders
 
 ---
 
 **Maintainer:** @enowuigrek — repo `strzykawa-site`
-# Dokumentacja developerska – Strzykawa Coffee Site
-
-## 📌 Stos technologiczny
-- **React 18 + Vite** – szybkie budowanie i HMR
-- **JavaScript (ES6+)**
-- **CSS (na start)** – później możliwe przejście na moduły CSS lub styled-components
-- **Node.js + npm** – zarządzanie paczkami
-- **Git + GitHub** – kontrola wersji
-
-## 📂 Struktura katalogów
-```
-src/
-  assets/        → obrazy, logotypy
-  components/    → komponenty wielokrotnego użytku (Header, Footer, HeroSection itd.)
-  data/          → statyczne dane (np. coffees.js)
-  pages/         → widoki stron (Home, Coffees, AvailableInCafe)
-  App.jsx        → główny komponent aplikacji
-  main.jsx       → punkt wejścia
-  index.css      → globalne style (do rozbicia)
-```
-
-## ☕ Model danych kawy
-Każdy obiekt w `coffees.js`:
-```js
-{
-  id: 1,
-  name: "Espresso",
-  description: "Krótka, intensywna kawa",
-  image: "coffee-placeholder.jpg",
-  availableInCafe: true
-}
-```
-
-## 🎨 Plan stylowania
-- Obecnie wszystkie style w `index.css`.
-- Plan: rozbicie na **moduły CSS**:
-  - `Header.module.css`
-  - `Footer.module.css`
-  - `HeroSection.module.css`
-  - `CoffeeCard.module.css`
-- Ustalić paletę kolorów (brandowe + neutralne tło).
-- Responsywność: min. 3 progi (`<640px`, `641–1024px`, `>1024px`).
-
-## 🧩 Główne komponenty
-- **Header** – nawigacja, logo
-- **HeroSection** – zdjęcie główne + CTA
-- **CoffeeCard** – karta produktu
-- **ContactSection** – dane kontaktowe + mapa
-- **Footer** – prawa autorskie, linki
-
-## 🛣 Routing
-- `/` → Home.jsx
-- `/coffees` → Coffees.jsx
-- `/available` → AvailableInCafe.jsx
-
-## 🗂 Plan CMS
-Docelowo dane (np. kawy) będą ładowane z CMS lub API (np. Strapi, Contentful). Na start dane statyczne w `coffees.js`.
-
-## 🚀 Deploy
-- Build: `npm run build`
-- Hosting: Netlify / Vercel
-- Automatyczny deploy z `main` po pushu
-
-## 💡 Konwencje commitów
-- `feat:` – nowa funkcja
-- `fix:` – poprawka błędu
-- `style:` – zmiany w CSS
-- `refactor:` – zmiany w kodzie bez zmiany działania
-- `docs:` – zmiany w dokumentacji
-
-## 📅 Roadmapa
-1. Rozbicie styli z `index.css` na moduły
-2. Dodanie responsywności
-3. Dodanie strony kaw dostępnych w kawiarni
-4. Integracja z API/CMS
-5. Finalny deploy
-
-## 📝 Notatki developerskie
-- Dbać o semantyczny HTML
-- Opisy alternatywne dla obrazów
-- Testować w Chrome, Firefox i Safari
+**Ostatnia aktualizacja:** Sierpień 2025
+**Następny przegląd:** Po ukończeniu Fazy 1

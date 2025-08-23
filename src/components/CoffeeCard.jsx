@@ -1,8 +1,15 @@
 import React, { useState } from 'react';
+import { FaPlus, FaShoppingCart, FaCheck } from 'react-icons/fa';
+import { useCartStore } from '../store/cartStore.js';
 import coffeePlaceholder from '../assets/coffee-placeholder.jpg';
 
 function CoffeeCard({ coffee }) {
   const [overlayOpen, setOverlayOpen] = useState(false);
+  const [isAdding, setIsAdding] = useState(false);
+  const [justAdded, setJustAdded] = useState(false);
+
+  // Cart store
+  const { addCoffeeToCart, isInCart, getItemQuantity } = useCartStore();
 
   // Helper functions for data processing
   const getOriginDisplay = (origin) => {
@@ -47,6 +54,28 @@ function CoffeeCard({ coffee }) {
 
   const toggleOverlay = () => setOverlayOpen(!overlayOpen);
 
+  // Add to cart handler
+  const handleAddToCart = async (e) => {
+    e.stopPropagation(); // Prevent overlay toggle
+
+    setIsAdding(true);
+
+    // Add to cart
+    addCoffeeToCart(coffee.id, 1);
+
+    // Show feedback
+    setTimeout(() => {
+      setIsAdding(false);
+      setJustAdded(true);
+
+      // Reset feedback after 2 seconds
+      setTimeout(() => setJustAdded(false), 2000);
+    }, 800);
+  };
+
+  const currentQuantity = getItemQuantity(coffee.id);
+  const inCart = isInCart(coffee.id);
+
   return (
       <article className="relative bg-gradient-to-br from-primary to-primary-light overflow-hidden border border-white/5 shadow-lg transition-all duration-300 hover:shadow-2xl hover:shadow-accent/20 hover:-translate-y-2 hover:scale-[1.02] hover:border-white/10">
 
@@ -69,6 +98,35 @@ function CoffeeCard({ coffee }) {
               aria-label={`${overlayOpen ? 'Ukryj' : 'Pokaż'} szczegóły kawy ${coffee.name}`}
           >
             i
+          </button>
+
+          {/* Add to Cart Button */}
+          <button
+              onClick={handleAddToCart}
+              disabled={isAdding}
+              className={`
+                absolute top-3 left-3 w-10 h-10 border backdrop-blur-sm text-white font-bold text-sm 
+                flex items-center justify-center z-30 transition-all duration-300 rounded-full
+                ${justAdded
+                  ? 'bg-green-500 border-green-400 scale-110'
+                  : isAdding
+                      ? 'bg-accent/80 border-accent animate-pulse'
+                      : inCart
+                          ? 'bg-accent border-accent/80 hover:scale-110'
+                          : 'bg-black/40 border-white/60 hover:bg-accent hover:border-accent hover:scale-110'
+              }
+              `}
+              aria-label={`Dodaj ${coffee.name} do koszyka`}
+          >
+            {isAdding ? (
+                <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+            ) : justAdded ? (
+                <FaCheck className="w-4 h-4" />
+            ) : inCart ? (
+                <span className="text-xs font-bold">{currentQuantity}</span>
+            ) : (
+                <FaPlus className="w-4 h-4" />
+            )}
           </button>
 
           {/* Hover/Focus Overlay */}
@@ -130,7 +188,15 @@ function CoffeeCard({ coffee }) {
 
         {/* Content Section */}
         <div className="p-4 space-y-3">
-          <h3 className="text-xl font-semibold text-white leading-tight">{coffee.name}</h3>
+          <div className="flex items-start justify-between gap-2">
+            <h3 className="text-xl font-semibold text-white leading-tight flex-grow">{coffee.name}</h3>
+
+            {/* Price */}
+            <div className="text-right flex-shrink-0">
+              <span className="text-xl font-bold text-white">24.99 zł</span>
+              <span className="block text-xs text-muted">250g</span>
+            </div>
+          </div>
 
           <div className="flex items-center gap-2 text-sm">
             <span className="text-muted">{getOriginDisplay(coffee.origin)}</span>
@@ -151,6 +217,47 @@ function CoffeeCard({ coffee }) {
           {coffee.description && (
               <p className="text-sm text-muted/90 leading-relaxed">{coffee.description}</p>
           )}
+
+          {/* Add to Cart Button for Bottom */}
+          <div className="pt-2">
+            <button
+                onClick={handleAddToCart}
+                disabled={isAdding}
+                className={`
+                  w-full py-3 px-4 font-semibold text-white transition-all duration-300 flex items-center justify-center gap-2
+                  ${justAdded
+                    ? 'bg-green-500 hover:bg-green-600'
+                    : isAdding
+                        ? 'bg-accent/80 cursor-not-allowed'
+                        : 'bg-gradient-to-r from-accent to-muted hover:from-muted hover:to-accent hover:shadow-lg hover:shadow-accent/25'
+                }
+                  ${!isAdding && !justAdded ? 'hover:scale-105' : ''}
+                  disabled:opacity-70 rounded-lg
+                `}
+            >
+              {isAdding ? (
+                  <>
+                    <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                    <span>Dodawanie...</span>
+                  </>
+              ) : justAdded ? (
+                  <>
+                    <FaCheck className="w-4 h-4" />
+                    <span>Dodano do koszyka</span>
+                  </>
+              ) : inCart ? (
+                  <>
+                    <FaShoppingCart className="w-4 h-4" />
+                    <span>Dodaj kolejną ({currentQuantity} w koszyku)</span>
+                  </>
+              ) : (
+                  <>
+                    <FaShoppingCart className="w-4 h-4" />
+                    <span>Dodaj do koszyka</span>
+                  </>
+              )}
+            </button>
+          </div>
         </div>
       </article>
   );

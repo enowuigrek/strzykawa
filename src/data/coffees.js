@@ -1,9 +1,3 @@
-/*
- * Coffee catalogue – extended schema ready for CMS integration.
- * Each coffee supports blends (multiple origins) and availability flags
- * for the café’s current menu (espresso grinders, quick filter, brew bar, shelf).
- */
-
 export default [
   /* =====================
      NA MŁYNKACH (ESPRESSO) – 2 szt.  (też na półce)
