@@ -1,181 +1,172 @@
 import React from 'react';
-import { FaCoffee, FaUsers, FaHeart, FaFire, FaStore, FaMusic, FaSeedling } from 'react-icons/fa';
-import heroImage from '../assets/hero.jpg';
+import { FaCoffee, FaMusic, FaUsers, FaHeart } from 'react-icons/fa';
 
-/**
- * About page - historia i filozofia Strzykawy
- */
 function About() {
-    const milestones = [
-        {
-            icon: FaStore,
-            title: "Skromne początki",
-            description: "Mały sklepik z kawą i dwa stoliki – miejsce na szybką rozmowę przy filiżance.",
-            iconColor: "text-white/70"
-        },
-        {
-            icon: FaMusic,
-            title: "Muzyka z winyli",
-            description: "Przestrzeń ewoluowała – więcej stolików, znajome twarze i rozmowy przy dźwiękach winyli.",
-            iconColor: "text-white/70"
-        },
-        {
-            icon: FaUsers,
-            title: "Społeczność",
-            description: "Rodzą się znajomości, powstają więzi – Strzykawa staje się miejscem spotkań i wymiany myśli.",
-            iconColor: "text-green-400"
-        },
-        {
-            icon: FaFire,
-            title: "Pierwsza palarnia",
-            description: "Mały piecyk do palenia – nasze pierwsze kawy trafiają z własnych wypałów do filiżanek gości.",
-            iconColor: "text-white/70"
-        }
-    ];
-
-    const philosophy = [
-        { icon: FaCoffee, text: "Dobra kawa", color: "text-accent" },
-        { icon: FaMusic, text: "Dobra muzyka", color: "text-white/70" },
-        { icon: FaUsers, text: "Dobre rozmowy", color: "text-green-400" },
-        { icon: FaHeart, text: "Dobra społeczność", color: "text-white/70" },
-    ];
-
     return (
-        <div className="min-h-screen bg-primary pt-20">
+        <div className="min-h-screen bg-gradient-to-b from-primary-dark to-primary pt-24 pb-16">
+            <div className="container mx-auto px-4">
 
-            {/* Hero Section */}
-            <div className="relative h-96 overflow-hidden">
-                <div
-                    className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-40"
-                    style={{ backgroundImage: `url(${heroImage})` }}
-                />
-                <div className="absolute inset-0 bg-gradient-to-r from-primary-dark/90 to-primary/70"></div>
-
-                <div className="relative z-10 container mx-auto px-4 h-full flex items-center">
-                    <div className="max-w-3xl">
-                        <div className="flex items-center gap-3 mb-6">
-                            <h1 className="text-4xl md:text-6xl font-bold bg-gradient-to-r from-white via-muted to-white bg-clip-text text-transparent">
-                                O Strzykawie
-                            </h1>
-                        </div>
-                        <p className="text-xl text-white/90 leading-relaxed">
-                            Historia małego sklepiku, który stał się sercem społeczności kawowej w Częstochowie
-                        </p>
-                    </div>
-                </div>
-            </div>
-
-            <div className="container mx-auto px-4 py-16">
-
-                {/* Main Story */}
-                <div className="max-w-4xl mx-auto mb-20">
-                    <div className="bg-gradient-to-br from-primary-light/60 to-primary/80 backdrop-blur-sm border border-white/10 p-8 mb-12">
-                        <div className="prose prose-lg text-white/90 leading-relaxed space-y-6">
-                            <p className="text-xl">
-                                Strzykawa zaczęła się skromnie – od małego sklepiku z kawą i dwóch stolików. Można było kupić paczkę ziaren, usiąść na chwilę i porozmawiać przy filiżance. Z czasem przestrzeń coraz bardziej przypominała kawiarnię: więcej stolików, muzyka z winyli, znajome twarze i rozmowy, które zatrzymywały na dłużej niż jedno espresso.
-                            </p>
-
-                            <p className="text-lg border-l-4 border-green-400 pl-6 bg-green-500/10 py-4">
-                                Tu nie chodziło tylko o kawę – <strong className="text-white">to miejsce, w którym ludzie się poznawali, rodziły się znajomości i powstawała społeczność</strong>. Strzykawa stała się czymś więcej niż kawiarnią – miejscem spotkań i wymiany myśli.
-                            </p>
-
-                            <p className="text-lg">
-                                Kiedy pojawił się pierwszy mały piecyk do palenia, kawa z własnych wypałów trafiała najpierw tylko do filiżanek gości. Później na półki, a w końcu – do pełnoprawnej palarni. Dziś, z dużym piecem i pasją do kawy specialty, Strzykawa to miejsce, w którym spotykają się tradycja, świeżość i atmosfera Częstochowy.
-                            </p>
-                        </div>
-                    </div>
+                {/* Header Section */}
+                <div className="text-center mb-16">
+                    <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6">
+                        O <span className="bg-gradient-to-r from-accent to-muted bg-clip-text text-transparent">Strzykawie</span>
+                    </h1>
+                    <div className="w-24 h-1 bg-gradient-to-r from-accent to-muted mx-auto rounded-full"></div>
                 </div>
 
-                {/* Timeline */}
-                <div className="mb-20">
-                    <h2 className="text-3xl font-bold text-white text-center mb-12">Nasza droga</h2>
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-                        {milestones.map((milestone, index) => {
-                            const Icon = milestone.icon;
-                            return (
-                                <div key={index} className="text-center hover:scale-105 transition-transform duration-300">
-                                    <div className="relative mb-6">
-                                        <div className="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-br from-primary-light/50 to-primary/50 border border-white/10 hover:border-white/20 transition-colors duration-300">
-                                            <Icon className={`w-10 h-10 ${milestone.iconColor}`} />
-                                        </div>
-                                        {index < milestones.length - 1 && (
-                                            <div className="hidden lg:block absolute top-10 left-full w-full h-px bg-gradient-to-r from-white/20 to-transparent"></div>
-                                        )}
-                                    </div>
-                                    <h3 className="text-xl font-semibold text-white mb-3">{milestone.title}</h3>
-                                    <p className="text-muted/90 leading-relaxed">{milestone.description}</p>
-                                </div>
-                            );
-                        })}
-                    </div>
-                </div>
-
-                {/* Philosophy */}
-                <div className="mb-20">
-                    <div className="max-w-3xl mx-auto text-center">
-                        <h2 className="text-3xl font-bold text-white mb-8">Nasza filozofia</h2>
-                        <p className="text-xl text-muted/90 mb-12 leading-relaxed">
-                            W Strzykawie wierzymy w prostotę. Nasze podejście można ująć w cztery słowa:
-                        </p>
-
-                        <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-12">
-                            {philosophy.map((item, index) => {
-                                const Icon = item.icon;
-                                return (
-                                    <div key={index} className="text-center hover:scale-110 transition-transform duration-300">
-                                        <div className="inline-flex items-center justify-center w-16 h-16 bg-white/10 border border-white/10 mb-4 hover:bg-white/20 transition-colors duration-300">
-                                            <Icon className={`w-8 h-8 ${item.color}`} />
-                                        </div>
-                                        <p className="font-semibold text-white">{item.text}</p>
-                                    </div>
-                                );
-                            })}
-                        </div>
-
-                        <div className="bg-gradient-to-r from-primary-light/30 to-primary/30 border border-white/10 p-8">
-                            <p className="text-2xl font-bold text-center bg-gradient-to-r from-white via-muted to-white bg-clip-text text-transparent">
-                                "Dobra kawa, dobra muzyka, dobre rozmowy i dobra społeczność"
-                            </p>
-                        </div>
-                    </div>
-                </div>
-
-                {/* Current State */}
+                {/* Story Section */}
                 <div className="max-w-4xl mx-auto">
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
 
-                        {/* Dziś */}
-                        <div className="bg-gradient-to-br from-primary-light/50 to-primary/50 border border-white/10 p-8 hover:shadow-lg hover:shadow-white/5 transition-all duration-300">
-                            <div className="flex items-center gap-3 mb-6">
-                                <div className="p-3 bg-accent/20 border border-accent/30">
-                                    <FaSeedling className="w-6 h-6 text-accent" />
-                                </div>
-                                <h3 className="text-2xl font-bold text-white">Dziś</h3>
-                            </div>
-                            <p className="text-muted/90 leading-relaxed">
-                                Strzykawa to pełnoprawna palarnia kawy specialty z wielkim piecem,
-                                miejscem spotkań dla kawowej społeczności Częstochowy i pasją do
-                                dzielenia się najlepszymi ziarnami z całego świata.
+                    {/* Opening Story */}
+                    <div className="grid md:grid-cols-2 gap-12 mb-16 items-center">
+                        <div className="space-y-6">
+                            <p className="text-lg text-white/90 leading-relaxed">
+                                Strzykawa zaczęła się skromnie – od małego sklepiku z kawą i dwóch stolików.
+                                Można było kupić paczkę ziaren, usiąść na chwilę i porozmawiać przy filiżance.
+                            </p>
+                            <p className="text-lg text-white/90 leading-relaxed">
+                                Z czasem przestrzeń coraz bardziej przypominała kawiarnię: więcej stolików,
+                                muzyka z winyli, znajome twarze i rozmowy, które zatrzymywały na dłużej niż jedno espresso.
                             </p>
                         </div>
-
-                        {/* Przyszłość */}
-                        <div className="bg-gradient-to-br from-primary-light/50 to-primary/50 border border-white/10 p-8 hover:shadow-lg hover:shadow-white/5 transition-all duration-300">
-                            <div className="flex items-center gap-3 mb-6">
-                                <div className="p-3 bg-green-500/20 border border-green-500/30">
-                                    <FaHeart className="w-6 h-6 text-green-400" />
+                        <div className="relative">
+                            <div className="aspect-[4/3] bg-gradient-to-br from-primary-light to-primary border-2 border-white/10 rounded-xl overflow-hidden shadow-2xl">
+                                <div className="w-full h-full bg-white/5 flex items-center justify-center">
+                                    <div className="text-center text-muted">
+                                        <FaCoffee className="w-16 h-16 mx-auto mb-4 opacity-50" />
+                                        <p className="text-sm">Zdjęcie: Początki Strzykawy<br />Mały sklep z kawą</p>
+                                    </div>
                                 </div>
-                                <h3 className="text-2xl font-bold text-white">Przyszłość</h3>
                             </div>
-                            <p className="text-muted/90 leading-relaxed">
-                                Chcemy pozostać tym, czym zawsze byliśmy – miejscem, gdzie ludzie
-                                spotykają się przy dobrej kawie, prowadzą inspirujące rozmowy
-                                i tworzą wspólnotę wokół pasji do kawy specialty.
+                            {/* Decorative elements */}
+                            <div className="absolute -top-6 -left-6 w-12 h-12 bg-accent/20 border border-accent/30 rounded-full"></div>
+                            <div className="absolute -bottom-4 -right-4 w-8 h-8 bg-muted/20 border border-muted/30 rounded-full"></div>
+                        </div>
+                    </div>
+
+                    {/* Community Focus */}
+                    <div className="text-center mb-16">
+                        <div className="bg-gradient-to-r from-primary-light/30 to-primary/30 border border-white/10 rounded-2xl p-8 md:p-12">
+                            <p className="text-xl md:text-2xl text-white font-medium leading-relaxed mb-6">
+                                Tu nie chodziło tylko o kawę – <span className="text-accent font-bold">to miejsce, w którym ludzie się poznawali,
+                rodziły się znajomości i powstawała społeczność</span>. Strzykawa stała się czymś więcej niż kawiarnią –
+                                miejscem spotkań i wymiany myśli.
                             </p>
+                            <div className="flex justify-center items-center space-x-4">
+                                <FaHeart className="w-6 h-6 text-red-400 animate-pulse" />
+                                <span className="text-muted font-medium">Serce społeczności</span>
+                                <FaHeart className="w-6 h-6 text-red-400 animate-pulse" />
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* Evolution Story */}
+                    <div className="grid md:grid-cols-2 gap-12 mb-16 items-center">
+                        <div className="md:order-2 space-y-6">
+                            <p className="text-lg text-white/90 leading-relaxed">
+                                Kiedy pojawił się pierwszy mały piecyk do palenia, kawa z własnych wypałów trafiała
+                                najpierw tylko do filiżanek gości. Później na półki, a w końcu – do pełnoprawnej palarni.
+                            </p>
+                            <p className="text-lg text-white/90 leading-relaxed">
+                                Dziś, z dużym piecem i pasją do kawy specialty, Strzykawa to miejsce, w którym spotykają się
+                                tradycja, świeżość i atmosfera Częstochowy.
+                            </p>
+                        </div>
+                        <div className="md:order-1 relative">
+                            <div className="aspect-[4/3] bg-gradient-to-br from-primary-light to-primary border-2 border-white/10 rounded-xl overflow-hidden shadow-2xl">
+                                <div className="w-full h-full bg-white/5 flex items-center justify-center">
+                                    <div className="text-center text-muted">
+                                        <FaCoffee className="w-16 h-16 mx-auto mb-4 opacity-50" />
+                                        <p className="text-sm">Zdjęcie: Palarnia w akcji<br />Duży piec i świeże ziarna</p>
+                                    </div>
+                                </div>
+                            </div>
+                            {/* Decorative elements */}
+                            <div className="absolute -top-4 -right-6 w-10 h-10 bg-muted/20 border border-muted/30 rounded-full"></div>
+                            <div className="absolute -bottom-6 -left-4 w-6 h-6 bg-accent/20 border border-accent/30 rounded-full"></div>
+                        </div>
+                    </div>
+
+                    {/* Philosophy Section */}
+                    <div className="text-center mb-16">
+                        <h2 className="text-3xl md:text-4xl font-bold text-white mb-8">
+                            Nasza filozofia jest prosta
+                        </h2>
+
+                        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+                            {[
+                                { icon: FaCoffee, title: "Dobra kawa", color: "text-accent" },
+                                { icon: FaMusic, title: "Dobra muzyka", color: "text-muted" },
+                                { icon: FaUsers, title: "Dobre rozmowy", color: "text-green-400" },
+                                { icon: FaHeart, title: "Dobra społeczność", color: "text-red-400" }
+                            ].map((item, index) => (
+                                <div
+                                    key={index}
+                                    className="bg-gradient-to-br from-primary-light/40 to-primary/40 border border-white/10 rounded-xl p-6 hover:scale-105 transition-all duration-300 hover:shadow-xl hover:shadow-accent/10"
+                                >
+                                    <div className={`inline-flex items-center justify-center w-16 h-16 bg-white/10 border border-white/20 rounded-full mb-4 ${item.color}`}>
+                                        <item.icon className="w-8 h-8" />
+                                    </div>
+                                    <h3 className="text-xl font-semibold text-white">{item.title}</h3>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+
+                    {/* Photo Gallery Placeholders */}
+                    <div className="mb-16">
+                        <h2 className="text-3xl md:text-4xl font-bold text-white text-center mb-12">
+                            Strzykawa dziś
+                        </h2>
+
+                        <div className="grid md:grid-cols-3 gap-6">
+                            {[
+                                "Wnętrze kawiarni - stoliki i atmosfera",
+                                "Barista przy pracy - parzenie kawy",
+                                "Goście w kawiarni - społeczność"
+                            ].map((placeholder, index) => (
+                                <div key={index} className="relative group">
+                                    <div className="aspect-square bg-gradient-to-br from-primary-light to-primary border-2 border-white/10 rounded-xl overflow-hidden shadow-xl group-hover:scale-105 transition-all duration-300">
+                                        <div className="w-full h-full bg-white/5 flex items-center justify-center">
+                                            <div className="text-center text-muted">
+                                                <FaCoffee className="w-12 h-12 mx-auto mb-3 opacity-50" />
+                                                <p className="text-xs px-4">{placeholder}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+
+                    {/* Call to Action */}
+                    <div className="text-center">
+                        <div className="bg-gradient-to-r from-primary-light/30 to-primary/30 border border-white/10 rounded-2xl p-8 md:p-12">
+                            <h2 className="text-2xl md:text-3xl font-bold text-white mb-6">
+                                Zapraszamy do Strzykawy!
+                            </h2>
+                            <p className="text-lg text-white/90 mb-8 max-w-2xl mx-auto">
+                                Przyjdź na kawę, zostań na rozmowę. Odkryj, dlaczego nasza społeczność
+                                rośnie każdego dnia i dlaczego Strzykawa to więcej niż kawiarnia.
+                            </p>
+                            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                                <a
+                                    href="/dostepne-w-kawiarni"
+                                    className="inline-flex items-center px-8 py-4 bg-gradient-to-r from-accent to-muted hover:from-muted hover:to-accent text-white font-semibold rounded-xl transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-accent/25"
+                                >
+                                    <FaCoffee className="w-5 h-5 mr-3" />
+                                    Co dziś serwujemy
+                                </a>
+                                <a
+                                    href="/kontakt"
+                                    className="inline-flex items-center px-8 py-4 bg-white/10 border border-white/20 hover:bg-white/20 text-white font-semibold rounded-xl transition-all duration-300 hover:scale-105"
+                                >
+                                    Znajdź nas
+                                </a>
+                            </div>
                         </div>
                     </div>
                 </div>
-
             </div>
         </div>
     );
