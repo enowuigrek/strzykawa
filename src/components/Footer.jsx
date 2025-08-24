@@ -12,20 +12,14 @@ function Footer() {
   const socialLinks = [
     {
       icon: FaFacebookF,
-      href: 'https://www.facebook.com/strzykawa',
+      href: 'https://www.facebook.com/StrzykawaCoffeeShop/',
       label: 'Facebook',
       color: 'hover:bg-white/20 hover:text-white'
     },
     {
       icon: FaInstagram,
-      href: 'https://www.instagram.com/strzykawa',
+      href: 'https://www.instagram.com/strzykawa_coffee_shop/',
       label: 'Instagram',
-      color: 'hover:bg-white/20 hover:text-white'
-    },
-    {
-      icon: FaTwitter,
-      href: 'https://twitter.com/strzykawa',
-      label: 'Twitter',
       color: 'hover:bg-white/20 hover:text-white'
     },
   ];

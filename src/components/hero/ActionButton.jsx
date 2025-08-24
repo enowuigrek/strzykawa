@@ -14,7 +14,6 @@ export function ActionButton({ href, icon: Icon, text, colorClass }) {
                 <span className="text-white font-semibold text-lg">
                     {text}
                 </span>
-                <FaArrowRight className="w-4 h-4 text-white transition-transform duration-300 group-hover:translate-x-1" />
             </div>
 
             {/* Shine effect */}

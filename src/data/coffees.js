@@ -1,7 +1,5 @@
 export default [
-  /* =====================
-     NA MŁYNKACH (ESPRESSO) – 2 szt.  (też na półce)
-     ===================== */
+
   {
     id: "espresso-house-blend",
     name: "Espresso House Blend",
@@ -31,10 +29,6 @@ export default [
     description: "Soczyste espresso z nutami truskawki i karmelu, świetne do mleka.",
     availability: { espressoGrinders: true, quickFilter: false, brewBar: false, retailShelf: true }
   },
-
-  /* =====================
-     SZYBKI PRZELEW (BATCH BREW) – 1 szt.  (też na półce)
-     ===================== */
   {
     id: "batch-ethiopia-yirgacheffe",
     name: "Etiopia Yirgacheffe Adado",
@@ -48,10 +42,6 @@ export default [
     description: "Klasyczna, czysta filiżanka – kwiatowa i herbaciana, idealna na szybki przelew.",
     availability: { espressoGrinders: false, quickFilter: true, brewBar: false, retailShelf: true }
   },
-
-  /* =====================
-     BREW BAR (DRIP/AEROPRESS) – 3 szt.
-     ===================== */
   {
     id: "brew-kenya-kiambu",
     name: "Kenia Kiambu",
@@ -91,10 +81,6 @@ export default [
     description: "Słodka i soczysta – jagody, miód i kwiatowa aromatyka.",
     availability: { espressoGrinders: false, quickFilter: false, brewBar: true, retailShelf: true }
   },
-
-  /* =====================
-     PÓŁKA – 5 szt. (tylko retailShelf)
-     ===================== */
   {
     id: "shelf-brazil-santose",
     name: "Brazylia Santos",

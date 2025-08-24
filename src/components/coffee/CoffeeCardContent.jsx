@@ -20,7 +20,7 @@ export function CoffeeCardContent({ coffee }) {
 
                 {/* Price */}
                 <div className="text-right flex-shrink-0">
-                    <span className="text-xl font-bold text-white">24.99 zł</span>
+                    <span className="text-xl font-bold text-white">49 zł</span>
                     <span className="block text-xs text-muted">250g</span>
                 </div>
             </div>

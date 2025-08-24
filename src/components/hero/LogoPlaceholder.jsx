@@ -8,7 +8,7 @@ export function LogoPlaceholder() {
                 <div className="text-center">
                     <FaCoffee className="w-16 h-16 sm:w-20 sm:h-20 lg:w-24 lg:h-24 text-white mb-2 mx-auto" />
                     <div className="text-white text-xs sm:text-sm font-medium opacity-70">
-                        LOGO
+                        LOGO Strzykawa
                     </div>
                 </div>
             </div>

@@ -45,7 +45,6 @@ export function CoffeeCardActions({
                 <span className="text-white font-semibold">
                     {getButtonText()}
                 </span>
-                <FaArrowRight className="w-4 h-4 text-white transition-transform duration-300 group-hover:translate-x-1" />
             </div>
 
             {/* Shine effect */}
