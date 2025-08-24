@@ -1,6 +1,6 @@
 import React, { useState, useMemo } from 'react';
 import { FaFilter, FaTimes, FaCoffee, FaGlobe, FaCog, FaFire, FaSeedling } from 'react-icons/fa';
-import CoffeeCard from '../components/CoffeeCard.jsx';
+import { CoffeeCard } from '../components/coffee/CoffeeCard.jsx';
 import coffees from '../data/coffees.js';
 
 export default function Coffees() {

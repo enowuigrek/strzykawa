@@ -1,7 +1,7 @@
 import React from 'react';
 import { FaMugHot, FaTint, FaFlask, FaBoxOpen, FaClock, FaMapMarkerAlt, FaWifi, FaThermometerHalf } from 'react-icons/fa';
 import coffees from '../data/coffees.js';
-import CoffeeCard from '../components/CoffeeCard.jsx';
+import { CoffeeCard } from '../components/coffee/CoffeeCard.jsx';
 
 const sections = [
   {
