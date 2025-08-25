@@ -1,137 +1,252 @@
 import { create } from 'zustand';
-import coffees from '../data/coffees.js';
+import { persist } from 'zustand/middleware';
+import { shopify } from '../services/shopify.js';
 
-// Generate mock line item IDs
-const generateLineItemId = () => `line-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
+export const useCartStore = create(
+    persist(
+        (set, get) => ({
+            // State
+            cart: null,
+            items: [],
+            isLoading: false,
+            error: null,
 
-export const useCartStore = create((set, get) => ({
-    // State
-    items: [],
-    isLoading: false,
-    checkoutUrl: null,
+            // Initialize cart
+            initializeCart: async () => {
+                const { cart } = get();
 
-    // Actions
-    addItem: (productId, variantId = 'default', quantity = 1) => {
-        const product = coffees.find(c => c.id === productId);
-        if (!product) return;
+                // If we have a cart ID, try to fetch it
+                if (cart?.id) {
+                    try {
+                        const updatedCart = await shopify.getCart(cart.id);
+                        if (updatedCart) {
+                            set({
+                                cart: updatedCart,
+                                items: get().mapCartToItems(updatedCart)
+                            });
+                            return;
+                        }
+                    } catch (error) {
+                        console.warn('Could not fetch existing cart, creating new one');
+                    }
+                }
 
-        const { items } = get();
-        const existingItemIndex = items.findIndex(
-            item => item.product.id === productId && item.variantId === variantId
-        );
+                // Create new cart
+                try {
+                    const newCart = await shopify.createCart();
+                    set({
+                        cart: newCart,
+                        items: []
+                    });
+                } catch (error) {
+                    console.error('Failed to create cart:', error);
+                    set({ error: 'Nie udało się utworzyć koszyka' });
+                }
+            },
 
-        if (existingItemIndex >= 0) {
-            // Update existing item quantity
-            const updatedItems = [...items];
-            updatedItems[existingItemIndex].quantity += quantity;
-            set({ items: updatedItems });
-        } else {
-            // Add new item
-            const newItem = {
-                lineItemId: generateLineItemId(),
-                product: {
-                    id: product.id,
-                    name: product.name,
-                    image: product.image,
-                    price: '24.99', // Mock price in PLN
-                    roastLevel: product.roastLevel,
-                    tastingNotes: product.tastingNotes
-                },
-                variantId,
-                quantity
-            };
+            // Add item to cart
+            addItem: async (product, variantId, quantity = 1) => {
+                set({ isLoading: true, error: null });
 
-            set({ items: [...items, newItem] });
-        }
-    },
+                try {
+                    await get().initializeCart();
+                    const { cart } = get();
 
-    removeItem: (lineItemId) => {
-        const { items } = get();
-        const updatedItems = items.filter(item => item.lineItemId !== lineItemId);
-        set({ items: updatedItems });
-    },
+                    if (!cart) {
+                        throw new Error('Brak koszyka');
+                    }
 
-    updateQuantity: (lineItemId, newQuantity) => {
-        if (newQuantity <= 0) {
-            get().removeItem(lineItemId);
-            return;
-        }
+                    const lines = [{
+                        merchandiseId: variantId,
+                        quantity: quantity,
+                        attributes: [
+                            { key: 'product_name', value: product.name },
+                            { key: 'roast_level', value: product.roastLevel || '' }
+                        ]
+                    }];
 
-        const { items } = get();
-        const updatedItems = items.map(item =>
-            item.lineItemId === lineItemId
-                ? { ...item, quantity: newQuantity }
-                : item
-        );
-        set({ items: updatedItems });
-    },
+                    const updatedCart = await shopify.addToCart(cart.id, lines);
 
-    clearCart: () => {
-        set({ items: [] });
-    },
+                    set({
+                        cart: updatedCart,
+                        items: get().mapCartToItems(updatedCart),
+                        isLoading: false
+                    });
 
-    // Getters
-    getTotalItems: () => {
-        const { items } = get();
-        return items.reduce((total, item) => total + item.quantity, 0);
-    },
+                } catch (error) {
+                    console.error('Error adding to cart:', error);
+                    set({
+                        error: 'Nie udało się dodać produktu do koszyka',
+                        isLoading: false
+                    });
+                }
+            },
 
-    getTotalPrice: () => {
-        const { items } = get();
-        const total = items.reduce((sum, item) => {
-            return sum + (parseFloat(item.product.price) * item.quantity);
-        }, 0);
-        return total.toFixed(2);
-    },
+            // Remove item from cart
+            removeItem: async (lineId) => {
+                set({ isLoading: true, error: null });
 
-    // Mock Shopify checkout
-    goToCheckout: async () => {
-        set({ isLoading: true });
+                try {
+                    const { cart } = get();
+                    if (!cart) throw new Error('Brak koszyka');
 
-        try {
-            // Mock API delay
-            await new Promise(resolve => setTimeout(resolve, 1500));
+                    const updatedCart = await shopify.removeFromCart(cart.id, [lineId]);
 
-            const { items } = get();
-            if (items.length === 0) {
-                throw new Error('Koszyk jest pusty');
+                    set({
+                        cart: updatedCart,
+                        items: get().mapCartToItems(updatedCart),
+                        isLoading: false
+                    });
+
+                } catch (error) {
+                    console.error('Error removing from cart:', error);
+                    set({
+                        error: 'Nie udało się usunąć produktu z koszyka',
+                        isLoading: false
+                    });
+                }
+            },
+
+            // Update quantity
+            updateQuantity: async (lineId, quantity) => {
+                if (quantity <= 0) {
+                    return get().removeItem(lineId);
+                }
+
+                set({ isLoading: true, error: null });
+
+                try {
+                    const { cart } = get();
+                    if (!cart) throw new Error('Brak koszyka');
+
+                    const lines = [{ id: lineId, quantity }];
+                    const updatedCart = await shopify.updateCartLines(cart.id, lines);
+
+                    set({
+                        cart: updatedCart,
+                        items: get().mapCartToItems(updatedCart),
+                        isLoading: false
+                    });
+
+                } catch (error) {
+                    console.error('Error updating quantity:', error);
+                    set({
+                        error: 'Nie udało się zaktualizować ilości',
+                        isLoading: false
+                    });
+                }
+            },
+
+            // Clear cart
+            clearCart: () => {
+                set({
+                    cart: null,
+                    items: [],
+                    error: null
+                });
+            },
+
+            // Go to checkout
+            goToCheckout: () => {
+                const { cart } = get();
+                if (cart?.checkoutUrl) {
+                    window.location.href = cart.checkoutUrl;
+                } else {
+                    set({ error: 'Nie można przejść do płatności' });
+                }
+            },
+
+            // Clear error
+            clearError: () => {
+                set({ error: null });
+            },
+
+            // Helper function to map Shopify cart to our items format
+            mapCartToItems: (cart) => {
+                if (!cart?.lines?.edges) return [];
+
+                return cart.lines.edges.map(edge => {
+                    const line = edge.node;
+                    const product = line.merchandise.product;
+                    const variant = line.merchandise;
+
+                    return {
+                        lineItemId: line.id,
+                        product: {
+                            id: product.id,
+                            shopifyHandle: product.handle,
+                            name: product.title,
+                            image: product.images?.edges?.[0]?.node?.url || '',
+                            price: parseFloat(variant.price.amount),
+                            currencyCode: variant.price.currencyCode
+                        },
+                        variantId: variant.id,
+                        variantTitle: variant.title,
+                        quantity: line.quantity
+                    };
+                });
+            },
+
+            // Getters
+            getTotalItems: () => {
+                const { items } = get();
+                return items.reduce((total, item) => total + item.quantity, 0);
+            },
+
+            getTotalPrice: () => {
+                const { cart } = get();
+                if (cart?.cost?.totalAmount) {
+                    return parseFloat(cart.cost.totalAmount.amount);
+                }
+
+                // Fallback calculation
+                const { items } = get();
+                return items.reduce((total, item) => {
+                    return total + (item.product.price * item.quantity);
+                }, 0);
+            },
+
+            getCurrencyCode: () => {
+                const { cart } = get();
+                return cart?.cost?.totalAmount?.currencyCode || 'PLN';
+            },
+
+            // Quick add methods for coffee products
+            addCoffeeToCart: async (coffeeId, quantity = 1) => {
+                try {
+                    // First try to get product from Shopify
+                    const product = await shopify.fetchProduct(coffeeId);
+                    if (product && product.variants.length > 0) {
+                        await get().addItem(product, product.variants[0].id, quantity);
+                    } else {
+                        throw new Error('Produkt nie został znaleziony');
+                    }
+                } catch (error) {
+                    console.error('Error adding coffee to cart:', error);
+                    set({ error: 'Nie udało się dodać kawy do koszyka' });
+                }
+            },
+
+            // Check if specific product is in cart
+            isInCart: (productId) => {
+                const { items } = get();
+                return items.some(item => item.product.id === productId);
+            },
+
+            // Get quantity of specific product in cart
+            getItemQuantity: (productId) => {
+                const { items } = get();
+                const item = items.find(item => item.product.id === productId);
+                return item ? item.quantity : 0;
             }
-
-            // In real Shopify integration, this would create checkout session
-            const mockCheckoutUrl = `https://strzykawa.myshopify.com/checkout?items=${encodeURIComponent(JSON.stringify(items))}`;
-
-            set({
-                checkoutUrl: mockCheckoutUrl,
-                isLoading: false
-            });
-
-            // Simulate redirect to checkout
-            alert(`Przekierowanie do płatności...\nSuma: ${get().getTotalPrice()} zł\nProdukty: ${get().getTotalItems()}`);
-
-            // In real app, you would redirect:
-            // window.location.href = mockCheckoutUrl;
-
-        } catch (error) {
-            set({ isLoading: false });
-            console.error('Błąd podczas przechodzenia do płatności:', error);
+        }),
+        {
+            name: 'strzykawa-cart',
+            partialize: (state) => ({
+                cart: state.cart,
+                items: state.items
+            }),
+            version: 1
         }
-    },
-
-    // Quick add methods for coffee products
-    addCoffeeToCart: (coffeeId, quantity = 1) => {
-        get().addItem(coffeeId, 'default', quantity);
-    },
-
-    // Check if specific coffee is in cart
-    isInCart: (coffeeId) => {
-        const { items } = get();
-        return items.some(item => item.product.id === coffeeId);
-    },
-
-    // Get quantity of specific coffee in cart
-    getItemQuantity: (coffeeId) => {
-        const { items } = get();
-        const item = items.find(item => item.product.id === coffeeId);
-        return item ? item.quantity : 0;
-    }
-}));
+    )
+);

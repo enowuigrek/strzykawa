@@ -30,7 +30,7 @@ const sections = [
     key: 'brewBar',
     title: 'Brew bar',
     subtitle: 'Parzenie na miejscu',
-    descr: 'V60, Chemex, Aeropress — wybierz metodę i obserwuj proces.',
+    descr: 'V60, Aeropress — wybierz metodę',
     icon: FaFlask,
     accent: 'brewbar',
     bgColor: 'from-white/10 to-white/5',

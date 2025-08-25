@@ -1,5 +1,4 @@
 import React from 'react';
-import { FaArrowRight } from 'react-icons/fa';
 
 export function ActionButton({ href, icon: Icon, text, colorClass }) {
     return (
@@ -17,7 +16,7 @@ export function ActionButton({ href, icon: Icon, text, colorClass }) {
             </div>
 
             {/* Shine effect */}
-            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent skew-x-12 translate-x-[-200%] group-hover:translate-x-[200%] transition-transform duration-1000 ease-out rounded-full" />
+            {/*<div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent skew-x-12 translate-x-[-200%] group-hover:translate-x-[200%] transition-transform duration-1000 ease-out rounded-full" />*/}
         </a>
     );
 }

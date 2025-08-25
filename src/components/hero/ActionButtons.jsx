@@ -16,7 +16,7 @@ export function ActionButtons() {
             <div className="hidden sm:block w-px h-12 bg-white/30"></div>
 
             <ActionButton
-                href="/sklep"
+                href="/kawy"
                 icon={FaShoppingBag}
                 text="Sklep"
                 colorClass="bg-muted/20 border border-muted/30 text-muted"

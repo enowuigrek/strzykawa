@@ -142,25 +142,25 @@ function ContactSection() {
             </div>
           </div>
 
-          {/* Amenities */}
-          <div className="bg-gradient-to-r from-primary-light/30 to-primary/30 backdrop-blur-sm border border-white/10 p-8">
-            <h3 className="text-2xl font-bold text-white text-center mb-8">Co oferujemy</h3>
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-              {amenities.map((amenity, index) => {
-                const Icon = amenity.icon;
-                return (
-                    <div key={index} className="text-center hover:scale-110 transition-transform duration-300">
-                      <div className="inline-flex items-center justify-center w-16 h-16 bg-white/10 border border-white/20 mb-3 hover:bg-white/20 transition-all duration-300">
-                        <Icon className={`w-7 h-7 ${amenity.color}`} />
-                      </div>
-                      <p className="text-sm font-medium text-muted hover:text-white transition-colors duration-300">
-                        {amenity.label}
-                      </p>
-                    </div>
-                );
-              })}
-            </div>
-          </div>
+          {/*/!* Amenities *!/*/}
+          {/*<div className="bg-gradient-to-r from-primary-light/30 to-primary/30 backdrop-blur-sm border border-white/10 p-8">*/}
+          {/*  <h3 className="text-2xl font-bold text-white text-center mb-8">Co oferujemy</h3>*/}
+          {/*  <div className="grid grid-cols-2 md:grid-cols-4 gap-6">*/}
+          {/*    {amenities.map((amenity, index) => {*/}
+          {/*      const Icon = amenity.icon;*/}
+          {/*      return (*/}
+          {/*          <div key={index} className="text-center hover:scale-110 transition-transform duration-300">*/}
+          {/*            <div className="inline-flex items-center justify-center w-16 h-16 bg-white/10 border border-white/20 mb-3 hover:bg-white/20 transition-all duration-300">*/}
+          {/*              <Icon className={`w-7 h-7 ${amenity.color}`} />*/}
+          {/*            </div>*/}
+          {/*            <p className="text-sm font-medium text-muted hover:text-white transition-colors duration-300">*/}
+          {/*              {amenity.label}*/}
+          {/*            </p>*/}
+          {/*          </div>*/}
+          {/*      );*/}
+          {/*    })}*/}
+          {/*  </div>*/}
+          {/*</div>*/}
 
           {/* CTA Section */}
           <div className="text-center mt-12">

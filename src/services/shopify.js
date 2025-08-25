@@ -1,493 +1,642 @@
-// ================================
-// 1. SHOPIFY CLIENT SETUP
-// ================================
+// Shopify Storefront API v2023-10 integration
+class ShopifyService {
+    constructor() {
+        this.domain = import.meta.env.VITE_SHOPIFY_DOMAIN;
+        this.storefrontToken = import.meta.env.VITE_SHOPIFY_STOREFRONT_TOKEN;
+        this.apiUrl = `https://${this.domain}/api/2023-10/graphql.json`;
 
-// src/services/shopify.js
-import Client from 'shopify-buy';
-
-// Konfiguracja klienta Shopify
-const client = Client.buildClient({
-    domain: process.env.VITE_SHOPIFY_DOMAIN || 'strzykawa.myshopify.com',
-    storefrontAccessToken: process.env.VITE_SHOPIFY_STOREFRONT_TOKEN
-});
-
-// ================================
-// SHOPIFY API FUNCTIONS
-// ================================
-
-export const shopify = {
-    // Pobieranie wszystkich produktów
-    async fetchProducts() {
-        try {
-            const products = await client.product.fetchAll();
-            return products.map(this.mapShopifyProduct);
-        } catch (error) {
-            console.error('Error fetching products:', error);
-            return [];
+        if (!this.domain || !this.storefrontToken) {
+            console.warn('Shopify credentials not found. Using mock data.');
+            this.useMockData = true;
         }
-    },
+    }
+
+    async graphqlFetch(query, variables = {}) {
+        if (this.useMockData) {
+            return this.getMockResponse(query, variables);
+        }
+
+        try {
+            const response = await fetch(this.apiUrl, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-Shopify-Storefront-Access-Token': this.storefrontToken,
+                },
+                body: JSON.stringify({ query, variables }),
+            });
+
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+
+            const data = await response.json();
+
+            if (data.errors) {
+                console.error('GraphQL errors:', data.errors);
+                throw new Error(data.errors[0]?.message || 'GraphQL error');
+            }
+
+            return data;
+        } catch (error) {
+            console.error('Shopify API error:', error);
+            throw error;
+        }
+    }
+
+    // Pobieranie produktów
+    async fetchProducts(limit = 20) {
+        const query = `
+            query GetProducts($first: Int!) {
+                products(first: $first) {
+                    edges {
+                        node {
+                            id
+                            handle
+                            title
+                            description
+                            availableForSale
+                            tags
+                            images(first: 5) {
+                                edges {
+                                    node {
+                                        url
+                                        altText
+                                    }
+                                }
+                            }
+                            variants(first: 10) {
+                                edges {
+                                    node {
+                                        id
+                                        title
+                                        price {
+                                            amount
+                                            currencyCode
+                                        }
+                                        compareAtPrice {
+                                            amount
+                                            currencyCode
+                                        }
+                                        availableForSale
+                                        selectedOptions {
+                                            name
+                                            value
+                                        }
+                                    }
+                                }
+                            }
+                            metafields(identifiers: [
+                                {namespace: "custom", key: "origin"}
+                                {namespace: "custom", key: "roast_level"}
+                                {namespace: "custom", key: "tasting_notes"}
+                                {namespace: "custom", key: "processing"}
+                                {namespace: "custom", key: "altitude"}
+                            ]) {
+                                key
+                                value
+                                type
+                            }
+                        }
+                    }
+                }
+            }
+        `;
+
+        try {
+            console.log('🔍 Fetching products from Shopify...');
+            const response = await this.graphqlFetch(query, { first: limit });
+            console.log('📦 Raw Shopify response:', response);
+
+            const products = response.data.products.edges.map(edge => {
+                console.log('🔄 Processing product:', edge.node.title);
+                console.log('📋 Metafields:', edge.node.metafields);
+                return this.mapProduct(edge.node);
+            });
+
+            console.log('✅ Mapped products:', products);
+            return products;
+        } catch (error) {
+            console.error('❌ Error fetching products:', error);
+            throw error;
+        }
+    }
 
     // Pobieranie pojedynczego produktu
     async fetchProduct(handle) {
-        try {
-            const product = await client.product.fetchByHandle(handle);
-            return this.mapShopifyProduct(product);
-        } catch (error) {
-            console.error('Error fetching product:', error);
-            return null;
-        }
-    },
+        const query = `
+            query GetProduct($handle: String!) {
+                productByHandle(handle: $handle) {
+                    id
+                    handle
+                    title
+                    description
+                    availableForSale
+                    tags
+                    images(first: 10) {
+                        edges {
+                            node {
+                                url
+                                altText
+                            }
+                        }
+                    }
+                    variants(first: 10) {
+                        edges {
+                            node {
+                                id
+                                title
+                                price {
+                                    amount
+                                    currencyCode
+                                }
+                                compareAtPrice {
+                                    amount
+                                    currencyCode
+                                }
+                                availableForSale
+                                selectedOptions {
+                                    name
+                                    value
+                                }
+                            }
+                        }
+                    }
+                    metafields(identifiers: [
+                        {namespace: "custom", key: "origin"}
+                        {namespace: "custom", key: "roast_level"}
+                        {namespace: "custom", key: "tasting_notes"}
+                        {namespace: "custom", key: "processing"}
+                        {namespace: "custom", key: "altitude"}
+                    ]) {
+                        key
+                        value
+                        type
+                    }
+                }
+            }
+        `;
 
-    // Tworzenie checkout
-    async createCheckout() {
-        try {
-            const checkout = await client.checkout.create();
-            return checkout;
-        } catch (error) {
-            console.error('Error creating checkout:', error);
-            return null;
-        }
-    },
+        const response = await this.graphqlFetch(query, { handle });
+        return response.data.productByHandle ? this.mapProduct(response.data.productByHandle) : null;
+    }
 
-    // Dodawanie produktów do checkout
-    async addToCheckout(checkoutId, lineItemsToAdd) {
-        try {
-            const checkout = await client.checkout.addLineItems(checkoutId, lineItemsToAdd);
-            return checkout;
-        } catch (error) {
-            console.error('Error adding to checkout:', error);
-            return null;
-        }
-    },
+    // Tworzenie koszyka
+    async createCart() {
+        const query = `
+            mutation cartCreate($input: CartInput!) {
+                cartCreate(input: $input) {
+                    cart {
+                        id
+                        checkoutUrl
+                        totalQuantity
+                        cost {
+                            totalAmount {
+                                amount
+                                currencyCode
+                            }
+                        }
+                        lines(first: 100) {
+                            edges {
+                                node {
+                                    id
+                                    quantity
+                                    merchandise {
+                                        ... on ProductVariant {
+                                            id
+                                            title
+                                            price {
+                                                amount
+                                                currencyCode
+                                            }
+                                            product {
+                                                id
+                                                handle
+                                                title
+                                                images(first: 1) {
+                                                    edges {
+                                                        node {
+                                                            url
+                                                            altText
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    userErrors {
+                        field
+                        message
+                    }
+                }
+            }
+        `;
 
-    // Usuwanie z checkout
-    async removeFromCheckout(checkoutId, lineItemIdsToRemove) {
-        try {
-            const checkout = await client.checkout.removeLineItems(checkoutId, lineItemIdsToRemove);
-            return checkout;
-        } catch (error) {
-            console.error('Error removing from checkout:', error);
-            return null;
-        }
-    },
+        const response = await this.graphqlFetch(query, {
+            input: {
+                lines: [],
+                attributes: [
+                    { key: "source", value: "strzykawa-website" }
+                ]
+            }
+        });
 
-    // Aktualizacja ilości
-    async updateCheckout(checkoutId, lineItemsToUpdate) {
-        try {
-            const checkout = await client.checkout.updateLineItems(checkoutId, lineItemsToUpdate);
-            return checkout;
-        } catch (error) {
-            console.error('Error updating checkout:', error);
-            return null;
+        if (response.data.cartCreate.userErrors.length > 0) {
+            throw new Error(response.data.cartCreate.userErrors[0].message);
         }
-    },
 
-    // Customer authentication
-    async createCustomerAccessToken(email, password) {
-        try {
-            const customerAccessToken = await client.customerAccessToken.create({
-                email,
-                password
-            });
-            return customerAccessToken;
-        } catch (error) {
-            console.error('Error logging in:', error);
-            return null;
+        return response.data.cartCreate.cart;
+    }
+
+    // Dodawanie produktów do koszyka
+    async addToCart(cartId, lines) {
+        const query = `
+            mutation cartLinesAdd($cartId: ID!, $lines: [CartLineInput!]!) {
+                cartLinesAdd(cartId: $cartId, lines: $lines) {
+                    cart {
+                        id
+                        checkoutUrl
+                        totalQuantity
+                        cost {
+                            totalAmount {
+                                amount
+                                currencyCode
+                            }
+                        }
+                        lines(first: 100) {
+                            edges {
+                                node {
+                                    id
+                                    quantity
+                                    merchandise {
+                                        ... on ProductVariant {
+                                            id
+                                            title
+                                            price {
+                                                amount
+                                                currencyCode
+                                            }
+                                            product {
+                                                id
+                                                handle
+                                                title
+                                                images(first: 1) {
+                                                    edges {
+                                                        node {
+                                                            url
+                                                            altText
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    userErrors {
+                        field
+                        message
+                    }
+                }
+            }
+        `;
+
+        const response = await this.graphqlFetch(query, { cartId, lines });
+
+        if (response.data.cartLinesAdd.userErrors.length > 0) {
+            throw new Error(response.data.cartLinesAdd.userErrors[0].message);
         }
-    },
 
-    // Tworzenie konta klienta
-    async createCustomer(email, password, firstName, lastName) {
-        try {
-            const customer = await client.customer.create({
-                email,
-                password,
-                firstName,
-                lastName
-            });
-            return customer;
-        } catch (error) {
-            console.error('Error creating customer:', error);
-            return null;
+        return response.data.cartLinesAdd.cart;
+    }
+
+    // Aktualizacja koszyka
+    async updateCartLines(cartId, lines) {
+        const query = `
+            mutation cartLinesUpdate($cartId: ID!, $lines: [CartLineUpdateInput!]!) {
+                cartLinesUpdate(cartId: $cartId, lines: $lines) {
+                    cart {
+                        id
+                        checkoutUrl
+                        totalQuantity
+                        cost {
+                            totalAmount {
+                                amount
+                                currencyCode
+                            }
+                        }
+                        lines(first: 100) {
+                            edges {
+                                node {
+                                    id
+                                    quantity
+                                    merchandise {
+                                        ... on ProductVariant {
+                                            id
+                                            title
+                                            price {
+                                                amount
+                                                currencyCode
+                                            }
+                                            product {
+                                                id
+                                                handle
+                                                title
+                                                images(first: 1) {
+                                                    edges {
+                                                        node {
+                                                            url
+                                                            altText
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    userErrors {
+                        field
+                        message
+                    }
+                }
+            }
+        `;
+
+        const response = await this.graphqlFetch(query, { cartId, lines });
+
+        if (response.data.cartLinesUpdate.userErrors.length > 0) {
+            throw new Error(response.data.cartLinesUpdate.userErrors[0].message);
         }
-    },
 
-    // Mapowanie produktu Shopify na nasz format
-    mapShopifyProduct(shopifyProduct) {
-        if (!shopifyProduct) return null;
+        return response.data.cartLinesUpdate.cart;
+    }
+
+    // Usuwanie z koszyka
+    async removeFromCart(cartId, lineIds) {
+        const query = `
+            mutation cartLinesRemove($cartId: ID!, $lineIds: [ID!]!) {
+                cartLinesRemove(cartId: $cartId, lineIds: $lineIds) {
+                    cart {
+                        id
+                        checkoutUrl
+                        totalQuantity
+                        cost {
+                            totalAmount {
+                                amount
+                                currencyCode
+                            }
+                        }
+                        lines(first: 100) {
+                            edges {
+                                node {
+                                    id
+                                    quantity
+                                    merchandise {
+                                        ... on ProductVariant {
+                                            id
+                                            title
+                                            price {
+                                                amount
+                                                currencyCode
+                                            }
+                                            product {
+                                                id
+                                                handle
+                                                title
+                                                images(first: 1) {
+                                                    edges {
+                                                        node {
+                                                            url
+                                                            altText
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    userErrors {
+                        field
+                        message
+                    }
+                }
+            }
+        `;
+
+        const response = await this.graphqlFetch(query, { cartId, lineIds });
+
+        if (response.data.cartLinesRemove.userErrors.length > 0) {
+            throw new Error(response.data.cartLinesRemove.userErrors[0].message);
+        }
+
+        return response.data.cartLinesRemove.cart;
+    }
+
+    // Pobieranie koszyka
+    async getCart(cartId) {
+        const query = `
+            query getCart($cartId: ID!) {
+                cart(id: $cartId) {
+                    id
+                    checkoutUrl
+                    totalQuantity
+                    cost {
+                        totalAmount {
+                            amount
+                            currencyCode
+                        }
+                    }
+                    lines(first: 100) {
+                        edges {
+                            node {
+                                id
+                                quantity
+                                merchandise {
+                                    ... on ProductVariant {
+                                        id
+                                        title
+                                        price {
+                                            amount
+                                            currencyCode
+                                        }
+                                        product {
+                                            id
+                                            handle
+                                            title
+                                            images(first: 1) {
+                                                edges {
+                                                    node {
+                                                        url
+                                                        altText
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        `;
+
+        const response = await this.graphqlFetch(query, { cartId });
+        return response.data.cart;
+    }
+
+    // POPRAWIONA funkcja mapowania produktu - obsługuje null metafields
+    mapProduct(shopifyProduct) {
+        // BEZPIECZNA funkcja do odczytywania metafields
+        const getMetafield = (key) => {
+            // Sprawdź czy metafields istnieją i nie są null/undefined
+            if (!shopifyProduct.metafields || !Array.isArray(shopifyProduct.metafields)) {
+                console.log(`⚠️ No metafields for product ${shopifyProduct.title}`);
+                return null;
+            }
+
+            const metafield = shopifyProduct.metafields.find(field => field?.key === key);
+            return metafield?.value || null;
+        };
+
+        const parseOrigin = (originString) => {
+            if (!originString) return [];
+            try {
+                return JSON.parse(originString);
+            } catch {
+                return [{ country: originString }];
+            }
+        };
+
+        const parseTastingNotes = (notesString) => {
+            if (!notesString) return [];
+            return notesString.split(',').map(note => note.trim());
+        };
+
+        // Bezpieczne pobieranie zagnieżdżonych wartości
+        const safeGet = (obj, path, defaultValue = null) => {
+            try {
+                return path.split('.').reduce((current, key) => current?.[key], obj) || defaultValue;
+            } catch {
+                return defaultValue;
+            }
+        };
+
+        console.log(`🔄 Mapping product: ${shopifyProduct.title}`);
 
         return {
             id: shopifyProduct.id,
-            shopifyHandle: shopifyProduct.handle,
-            name: shopifyProduct.title,
-            description: shopifyProduct.description,
-            image: shopifyProduct.images?.[0]?.src || '',
-            images: shopifyProduct.images?.map(img => img.src) || [],
-            price: shopifyProduct.variants?.[0]?.price || 0,
-            compareAtPrice: shopifyProduct.variants?.[0]?.compareAtPrice || null,
-            available: shopifyProduct.availableForSale,
-            variants: shopifyProduct.variants?.map(variant => ({
-                id: variant.id,
-                title: variant.title,
-                price: variant.price,
-                available: variant.available,
-                sku: variant.sku,
-                weight: variant.weight,
-                selectedOptions: variant.selectedOptions
+            shopifyHandle: shopifyProduct.handle || '',
+            name: shopifyProduct.title || 'Unnamed Product',
+            description: shopifyProduct.description || '',
+            image: safeGet(shopifyProduct, 'images.edges.0.node.url', ''),
+            images: shopifyProduct.images?.edges?.map(edge => edge.node.url) || [],
+            availableForSale: shopifyProduct.availableForSale || false,
+            tags: shopifyProduct.tags || [],
+            variants: shopifyProduct.variants?.edges?.map(edge => ({
+                id: edge.node.id,
+                title: edge.node.title || 'Default',
+                price: parseFloat(edge.node.price.amount) || 0,
+                compareAtPrice: edge.node.compareAtPrice ? parseFloat(edge.node.compareAtPrice.amount) : null,
+                currencyCode: edge.node.price.currencyCode || 'PLN',
+                availableForSale: edge.node.availableForSale || false,
+                selectedOptions: edge.node.selectedOptions || []
             })) || [],
-            // Mapowanie metafields (dodatkowe dane o kawie)
-            origin: this.getMetafield(shopifyProduct, 'origin'),
-            roastLevel: this.getMetafield(shopifyProduct, 'roast_level'),
-            tastingNotes: this.getMetafield(shopifyProduct, 'tasting_notes')?.split(',') || [],
-            processing: this.getMetafield(shopifyProduct, 'processing'),
-            // Dodajemy availability flags na podstawie tagów
+            // Coffee-specific fields - wszystkie z fallbackami
+            origin: parseOrigin(getMetafield('origin')),
+            roastLevel: getMetafield('roast_level') || 'Nieznany',
+            tastingNotes: parseTastingNotes(getMetafield('tasting_notes')),
+            processing: getMetafield('processing') || '',
+            altitude: getMetafield('altitude') || '',
+            // Availability flags based on tags
             availability: {
                 espressoGrinders: shopifyProduct.tags?.includes('espresso-grinders') || false,
                 quickFilter: shopifyProduct.tags?.includes('quick-filter') || false,
                 brewBar: shopifyProduct.tags?.includes('brew-bar') || false,
                 retailShelf: shopifyProduct.tags?.includes('retail-shelf') || false,
-            }
+            },
+            // For backward compatibility with existing coffee data structure
+            roastType: shopifyProduct.tags?.find(tag => ['Espresso', 'Filter'].includes(tag)) || 'Filter',
+            species: ['Arabica'] // Default, could be metafield
         };
-    },
-
-    // Helper do pobierania metafields
-    getMetafield(product, key) {
-        return product.metafields?.find(field => field.key === key)?.value;
     }
-};
 
-// ================================
-// 2. CART STORE (ZUSTAND)
-// ================================
-
-// src/store/cartStore.js
-import { create } from 'zustand';
-import { persist } from 'zustand/middleware';
-import { shopify } from '../services/shopify';
-
-export const useCartStore = create(
-    persist(
-        (set, get) => ({
-            // Stan
-            items: [],
-            checkout: null,
-            isLoading: false,
-
-            // Inicjalizacja checkout
-            initializeCheckout: async () => {
-                const { checkout } = get();
-                if (!checkout) {
-                    const newCheckout = await shopify.createCheckout();
-                    set({ checkout: newCheckout });
-                }
-            },
-
-            // Dodawanie do koszyka
-            addItem: async (product, variantId, quantity = 1) => {
-                set({ isLoading: true });
-
-                try {
-                    await get().initializeCheckout();
-                    const { checkout } = get();
-
-                    const lineItemsToAdd = [{
-                        variantId: variantId,
-                        quantity: quantity,
-                        customAttributes: [
-                            { key: 'product_name', value: product.name },
-                            { key: 'roast_level', value: product.roastLevel || '' }
-                        ]
-                    }];
-
-                    const updatedCheckout = await shopify.addToCheckout(checkout.id, lineItemsToAdd);
-
-                    // Aktualizujemy lokalny stan
-                    const existingItem = get().items.find(item =>
-                        item.product.id === product.id && item.variantId === variantId
-                    );
-
-                    if (existingItem) {
-                        set({
-                            items: get().items.map(item =>
-                                item.product.id === product.id && item.variantId === variantId
-                                    ? { ...item, quantity: item.quantity + quantity }
-                                    : item
-                            ),
-                            checkout: updatedCheckout
-                        });
-                    } else {
-                        set({
-                            items: [...get().items, { product, variantId, quantity }],
-                            checkout: updatedCheckout
-                        });
-                    }
-                } catch (error) {
-                    console.error('Error adding to cart:', error);
-                } finally {
-                    set({ isLoading: false });
-                }
-            },
-
-            // Usuwanie z koszyka
-            removeItem: async (lineItemId) => {
-                set({ isLoading: true });
-
-                try {
-                    const { checkout } = get();
-                    const updatedCheckout = await shopify.removeFromCheckout(checkout.id, [lineItemId]);
-
-                    set({
-                        items: get().items.filter(item => item.lineItemId !== lineItemId),
-                        checkout: updatedCheckout
-                    });
-                } catch (error) {
-                    console.error('Error removing from cart:', error);
-                } finally {
-                    set({ isLoading: false });
-                }
-            },
-
-            // Aktualizacja ilości
-            updateQuantity: async (lineItemId, quantity) => {
-                set({ isLoading: true });
-
-                try {
-                    const { checkout } = get();
-                    const lineItemsToUpdate = [{ id: lineItemId, quantity }];
-
-                    const updatedCheckout = await shopify.updateCheckout(checkout.id, lineItemsToUpdate);
-
-                    set({
-                        items: get().items.map(item =>
-                            item.lineItemId === lineItemId
-                                ? { ...item, quantity }
-                                : item
-                        ),
-                        checkout: updatedCheckout
-                    });
-                } catch (error) {
-                    console.error('Error updating quantity:', error);
-                } finally {
-                    set({ isLoading: false });
-                }
-            },
-
-            // Przejście do checkout
-            goToCheckout: () => {
-                const { checkout } = get();
-                if (checkout?.webUrl) {
-                    window.location.href = checkout.webUrl;
-                }
-            },
-
-            // Wyczyszczenie koszyka
-            clearCart: () => {
-                set({ items: [], checkout: null });
-            },
-
-            // Gettery
-            getTotalItems: () => {
-                return get().items.reduce((total, item) => total + item.quantity, 0);
-            },
-
-            getTotalPrice: () => {
-                return get().checkout?.totalPrice || 0;
+    // Mock data responses for development
+    getMockResponse(query, variables) {
+        // Import local coffee data as fallback
+        const coffees = [
+            {
+                id: "gid://shopify/Product/1",
+                handle: "espresso-house-blend",
+                title: "Espresso House Blend",
+                description: "Autorski blend pod espresso – słodycz czekolady, orzechowe body i śliwkowy finisz.",
+                availableForSale: true,
+                tags: ["espresso-grinders", "retail-shelf", "Espresso"],
+                images: { edges: [{ node: { url: "/src/assets/coffee-placeholder.jpg", altText: "Espresso House Blend" } }] },
+                variants: {
+                    edges: [{
+                        node: {
+                            id: "gid://shopify/ProductVariant/1",
+                            title: "Default",
+                            price: { amount: "24.99", currencyCode: "PLN" },
+                            compareAtPrice: null,
+                            availableForSale: true,
+                            selectedOptions: [{ name: "Title", value: "Default" }]
+                        }
+                    }]
+                },
+                metafields: [
+                    { key: "roast_level", value: "Średni", type: "single_line_text_field" },
+                    { key: "tasting_notes", value: "czekolada, orzech, śliwka", type: "single_line_text_field" },
+                    { key: "origin", value: JSON.stringify([{ country: "Brazylia", region: "Cerrado" }]), type: "json" }
+                ]
             }
-        }),
-        {
-            name: 'strzykawa-cart',
-            partialize: (state) => ({
-                items: state.items,
-                checkout: state.checkout
-            })
-        }
-    )
-);
+        ];
 
-// ================================
-// 3. USER AUTHENTICATION STORE
-// ================================
-
-// src/store/authStore.js
-import { create } from 'zustand';
-import { persist } from 'zustand/middleware';
-import { shopify } from '../services/shopify';
-
-export const useAuthStore = create(
-    persist(
-        (set, get) => ({
-            // Stan
-            user: null,
-            customerAccessToken: null,
-            isLoading: false,
-            isLoggedIn: false,
-
-            // Logowanie
-            login: async (email, password) => {
-                set({ isLoading: true });
-
-                try {
-                    const tokenResult = await shopify.createCustomerAccessToken(email, password);
-
-                    if (tokenResult?.customerAccessToken?.accessToken) {
-                        const token = tokenResult.customerAccessToken.accessToken;
-
-                        // Pobierz dane użytkownika (opcjonalnie)
-                        // const customer = await shopify.getCustomer(token);
-
-                        set({
-                            customerAccessToken: token,
-                            isLoggedIn: true,
-                            user: { email } // Można rozszerzyć o więcej danych
-                        });
-
-                        return { success: true };
-                    } else {
-                        return {
-                            success: false,
-                            error: tokenResult?.customerUserErrors?.[0]?.message || 'Błąd logowania'
-                        };
+        // Return mock product data
+        if (query.includes('products')) {
+            return Promise.resolve({
+                data: {
+                    products: {
+                        edges: coffees.map(coffee => ({ node: coffee }))
                     }
-                } catch (error) {
-                    console.error('Login error:', error);
-                    return { success: false, error: 'Wystąpił błąd podczas logowania' };
-                } finally {
-                    set({ isLoading: false });
                 }
-            },
-
-            // Rejestracja
-            register: async (email, password, firstName, lastName) => {
-                set({ isLoading: true });
-
-                try {
-                    const result = await shopify.createCustomer(email, password, firstName, lastName);
-
-                    if (result?.customer) {
-                        // Po rejestracji automatycznie zaloguj
-                        const loginResult = await get().login(email, password);
-                        return loginResult;
-                    } else {
-                        return {
-                            success: false,
-                            error: result?.customerUserErrors?.[0]?.message || 'Błąd rejestracji'
-                        };
-                    }
-                } catch (error) {
-                    console.error('Registration error:', error);
-                    return { success: false, error: 'Wystąpił błąd podczas rejestracji' };
-                } finally {
-                    set({ isLoading: false });
-                }
-            },
-
-            // Wylogowanie
-            logout: () => {
-                set({
-                    user: null,
-                    customerAccessToken: null,
-                    isLoggedIn: false
-                });
-            }
-        }),
-        {
-            name: 'strzykawa-auth',
-            partialize: (state) => ({
-                user: state.user,
-                customerAccessToken: state.customerAccessToken,
-                isLoggedIn: state.isLoggedIn
-            })
+            });
         }
-    )
-);
 
-// ================================
-// 4. UPDATED HEADER COMPONENT
-// ================================
+        // Mock cart creation
+        if (query.includes('cartCreate')) {
+            return Promise.resolve({
+                data: {
+                    cartCreate: {
+                        cart: {
+                            id: 'gid://shopify/Cart/mock-cart-id',
+                            checkoutUrl: 'https://checkout.shopify.com/mock',
+                            totalQuantity: 0,
+                            cost: { totalAmount: { amount: "0.00", currencyCode: "PLN" } },
+                            lines: { edges: [] }
+                        },
+                        userErrors: []
+                    }
+                }
+            });
+        }
 
-// src/components/Header.jsx - Fragment z dodatkami
-import { FaShoppingCart, FaUser, FaSignOutAlt } from 'react-icons/fa';
-import { useCartStore } from '../store/cartStore';
-import { useAuthStore } from '../store/authStore';
+        return Promise.resolve({ data: {} });
+    }
+}
 
-// Dodaj do istniejącego Header.jsx w sekcji Desktop Navigation:
-
-const HeaderCartAndAuth = () => {
-    const totalItems = useCartStore(state => state.getTotalItems());
-    const { isLoggedIn, user, logout } = useAuthStore();
-    const [showUserMenu, setShowUserMenu] = useState(false);
-
-    return (
-        <div className="flex items-center space-x-4 ml-6">
-            {/* Cart Icon */}
-            <button
-                onClick={() => setShowCartModal(true)}
-                className="relative p-2 text-white hover:text-muted transition-colors duration-300 hover:scale-110"
-                aria-label={`Koszyk - ${totalItems} produktów`}
-            >
-                <FaShoppingCart className="w-6 h-6" />
-                {totalItems > 0 && (
-                    <span className="absolute -top-2 -right-2 bg-accent text-white text-xs font-bold w-5 h-5 rounded-full flex items-center justify-center animate-pulse">
-            {totalItems}
-          </span>
-                )}
-            </button>
-
-            {/* User Menu */}
-            <div className="relative">
-                <button
-                    onClick={() => setShowUserMenu(!showUserMenu)}
-                    className="flex items-center gap-2 p-2 text-white hover:text-muted transition-colors duration-300 hover:scale-110"
-                >
-                    <FaUser className="w-5 h-5" />
-                    {isLoggedIn && <span className="text-sm">{user?.email?.split('@')[0]}</span>}
-                </button>
-
-                {/* User Dropdown */}
-                {showUserMenu && (
-                    <div className="absolute right-0 top-12 w-48 bg-primary-dark/95 backdrop-blur-md border border-white/20 shadow-2xl z-50">
-                        {isLoggedIn ? (
-                            <>
-                                <div className="px-4 py-3 border-b border-white/10">
-                                    <p className="text-sm text-muted">Zalogowany jako:</p>
-                                    <p className="text-white font-medium">{user?.email}</p>
-                                </div>
-                                <button
-                                    onClick={() => {
-                                        logout();
-                                        setShowUserMenu(false);
-                                    }}
-                                    className="w-full px-4 py-3 text-left text-white hover:bg-white/10 transition-colors flex items-center gap-2"
-                                >
-                                    <FaSignOutAlt className="w-4 h-4" />
-                                    Wyloguj się
-                                </button>
-                            </>
-                        ) : (
-                            <div className="p-2">
-                                <button
-                                    onClick={() => {
-                                        setShowLoginModal(true);
-                                        setShowUserMenu(false);
-                                    }}
-                                    className="w-full px-3 py-2 text-white hover:bg-white/10 transition-colors rounded mb-1"
-                                >
-                                    Zaloguj się
-                                </button>
-                                <button
-                                    onClick={() => {
-                                        setShowRegisterModal(true);
-                                        setShowUserMenu(false);
-                                    }}
-                                    className="w-full px-3 py-2 text-white hover:bg-white/10 transition-colors rounded"
-                                >
-                                    Utwórz konto
-                                </button>
-                            </div>
-                        )}
-                    </div>
-                )}
-            </div>
-        </div>
-    );
-};
+// Export singleton instance
+export const shopify = new ShopifyService();

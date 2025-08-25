@@ -16,7 +16,7 @@ export function CoffeeCardActions({
 
     const getButtonText = () => {
         if (isAdding) return 'Dodawanie...';
-        if (justAdded) return 'Dodano do koszyka';
+        if (justAdded) return 'Dodano';
         if (inCart) return `Dodaj kolejną (${currentQuantity} w koszyku)`;
         return 'Dodaj do koszyka';
     };
@@ -32,14 +32,15 @@ export function CoffeeCardActions({
         <button
             onClick={onAddToCart}
             disabled={isAdding}
-            className="group relative inline-flex items-center w-full justify-center bg-white/10 backdrop-blur-sm border border-white/30 rounded-full px-6 py-3 transition-all duration-300 hover:scale-105 hover:bg-white/20 hover:border-white/50 disabled:opacity-70 disabled:hover:scale-100"
+            // className="group relative inline-flex items-center w-full justify-center bg-white/10 backdrop-blur-sm border border-white/30 rounded-full px-6 py-3 transition-all duration-300 hover:scale-105 hover:bg-white/20 hover:border-white/50 disabled:opacity-70 disabled:hover:scale-100"
+            className="w-full py-2 px-4 bg-accent hover:bg-accent/80 disabled:bg-gray-500 disabled:cursor-not-allowed text-white rounded-full transition-colors duration-200"
         >
             <div className="flex items-center space-x-3">
                 <div className={`p-2 ${getColorClass()} rounded-full`}>
                     {isAdding ? (
                         <div className="w-4 h-4 border-2 border-accent border-t-transparent rounded-full animate-spin"></div>
                     ) : Icon ? (
-                        <Icon className="w-4 h-4 text-accent" />
+                        <Icon className="w-4 h-4 text-white" />
                     ) : null}
                 </div>
                 <span className="text-white font-semibold">
