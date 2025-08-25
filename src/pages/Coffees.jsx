@@ -1,9 +1,13 @@
 import React, { useState, useMemo } from 'react';
 import { FaFilter, FaTimes, FaCoffee, FaGlobe, FaCog, FaFire, FaSeedling } from 'react-icons/fa';
 import { CoffeeCard } from '../components/coffee/CoffeeCard.jsx';
+import { PageHeader } from '../components/PageHeader';
+import { useScrollToTop } from '../hooks/useScrollToTop';
 import coffees from '../data/coffees.js';
 
 export default function Coffees() {
+    useScrollToTop();
+
     const [filters, setFilters] = useState({
         country: '',
         processing: '',
@@ -72,60 +76,43 @@ export default function Coffees() {
         <div className="min-h-screen bg-primary pt-20">
             <div className="container mx-auto px-4 py-8">
                 {/* Hero Section */}
-                <div className="relative bg-gradient-to-br from-primary-light/60 to-primary/80 backdrop-blur-sm border border-white/10 p-8 mb-8 overflow-hidden">
-                    {/* Background Pattern */}
-                    <div className="absolute inset-0 opacity-5">
-                        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(255,255,255,0.1),transparent_50%)]"></div>
-                    </div>
-
-                    <div className="relative z-10 text-center max-w-4xl mx-auto">
-                        <div className="flex items-center justify-center gap-3 mb-4">
-                            <div className="p-3 bg-accent/20 border border-accent/30">
-                                <FaCoffee className="w-8 h-8 text-accent" />
+                <PageHeader
+                    icon={FaCoffee}
+                    title="Nasze kawy"
+                    description="Odkryj nasze starannie wyselekcjonowane kawy specialty z najlepszych plantacji świata. Każda kawa to unikalna podróż smakowa."
+                >
+                    {/* Filter Controls */}
+                    <div className="flex items-center justify-center gap-4 flex-wrap mt-8">
+                        <button
+                            className={`inline-flex items-center gap-3 px-6 py-3 rounded-full font-semibold transition-all duration-300 overflow-hidden ${
+                                showFilters
+                                    ? 'bg-accent text-white shadow-lg shadow-accent/25'
+                                    : 'bg-white/10 text-white hover:bg-white/20 border border-white/20 hover:border-white/30'
+                            }`}
+                            onClick={() => setShowFilters(!showFilters)}
+                        >
+                            <div >
+                                <FaFilter className="w-4 h-4" />
                             </div>
-                            <h1 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-white via-muted to-white bg-clip-text text-transparent">
-                                Nasze kawy
-                            </h1>
-                        </div>
-
-                        <p className="text-xl text-muted/90 mb-8 leading-relaxed max-w-2xl mx-auto">
-                            Odkryj nasze starannie wyselekcjonowane kawy specialty z najlepszych plantacji świata.
-                            Każda kawa to unikalna podróż smakowa.
-                        </p>
-
-                        {/* Filter Controls */}
-                        <div className="flex items-center justify-center gap-4 flex-wrap">
-                            <button
-                                className={`inline-flex items-center gap-3 px-6 py-3 rounded-full font-semibold transition-all duration-300 overflow-hidden ${
-                                    showFilters
-                                        ? 'bg-accent text-white shadow-lg shadow-accent/25'
-                                        : 'bg-white/10 text-white hover:bg-white/20 border border-white/20 hover:border-white/30'
-                                }`}
-                                onClick={() => setShowFilters(!showFilters)}
-                            >
-                                <div >
-                                    <FaFilter className="w-4 h-4" />
-                                </div>
-                                Filtry
-                                {activeFiltersCount > 0 && (
-                                    <span className="-top-2 -right-2 bg-muted text-white text-xs w-6 h-6 rounded-full flex items-center justify-center font-bold animate-pulse">
-                                        {activeFiltersCount}
-                                    </span>
-                                )}
-                            </button>
-
-                            {hasActiveFilters && (
-                                <button
-                                    className="inline-flex items-center gap-2 px-4 py-3 bg-red-500/20 text-red-300 border border-red-500/30 hover:bg-red-500/30 transition-all duration-300 font-semibold rounded-full"
-                                    onClick={clearFilters}
-                                >
-                                    <FaTimes className="w-4 h-4" />
-                                    Wyczyść filtry
-                                </button>
+                            Filtry
+                            {activeFiltersCount > 0 && (
+                                <span className="-top-2 -right-2 bg-muted text-white text-xs w-6 h-6 rounded-full flex items-center justify-center font-bold animate-pulse">
+                                    {activeFiltersCount}
+                                </span>
                             )}
-                        </div>
+                        </button>
+
+                        {hasActiveFilters && (
+                            <button
+                                className="inline-flex items-center gap-2 px-4 py-3 bg-red-500/20 text-red-300 border border-red-500/30 hover:bg-red-500/30 transition-all duration-300 font-semibold rounded-full"
+                                onClick={clearFilters}
+                            >
+                                <FaTimes className="w-4 h-4" />
+                                Wyczyść filtry
+                            </button>
+                        )}
                     </div>
-                </div>
+                </PageHeader>
 
                 {/* Filter Panel */}
                 <div className={`overflow-hidden transition-all duration-500 ease-out ${

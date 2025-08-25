@@ -1,14 +1,13 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { WeightSelector } from './WeightSelector';
 
 export function CoffeeCardContent({ coffee }) {
+    const [currentPrice, setCurrentPrice] = useState(49);
+    const [currentWeight, setCurrentWeight] = useState('250g');
+
     const getOriginDisplay = (origin) => {
         if (!origin || !origin.length) return '';
         return origin.map(o => o.country).filter(Boolean).join(', ');
-    };
-
-    const getRoastTypeDisplay = (roastType) => {
-        const mapping = { 'Filter': 'Przelew', 'Espresso': 'Espresso' };
-        return mapping[roastType] || roastType || '';
     };
 
     return (
@@ -20,18 +19,18 @@ export function CoffeeCardContent({ coffee }) {
 
                 {/* Price */}
                 <div className="text-right flex-shrink-0">
-                    <span className="text-xl font-bold text-white">49 zł</span>
-                    <span className="block text-xs text-muted">250g</span>
+                    <span className="text-xl font-bold text-white">{currentPrice} zł</span>
+                    <span className="block text-xs text-muted">{currentWeight}</span>
                 </div>
             </div>
 
             <div className="flex items-center justify-between text-sm">
                 <span className="text-muted">{getOriginDisplay(coffee.origin)}</span>
-                {getRoastTypeDisplay(coffee.roastType) && (
-                    <span className="inline-flex items-center px-2 py-1 bg-accent/20 border border-muted/30 text-muted text-xs font-medium rounded-full">
-                        {getRoastTypeDisplay(coffee.roastType)}
-                    </span>
-                )}
+                {/* Weight Selector - w miejscu gdzie był roast type */}
+                <WeightSelector
+                    onWeightChange={setCurrentWeight}
+                    onPriceChange={setCurrentPrice}
+                />
             </div>
 
             {coffee.tastingNotes && coffee.tastingNotes.length > 0 && (

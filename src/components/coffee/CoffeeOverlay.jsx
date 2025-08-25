@@ -38,8 +38,8 @@ export function CoffeeOverlay({ coffee, isOpen }) {
     };
 
     return (
-        <div className={`absolute inset-0 bg-gradient-to-t from-primary-dark/95 via-primary/80 to-primary/60 backdrop-blur-md border-t border-white/10 transition-transform duration-300 ease-out ${isOpen ? 'translate-y-0' : 'translate-y-full'} hover:translate-y-0`}>
-            <div className="p-4 h-full overflow-y-auto scrollbar-thin scrollbar-thumb-white/30 scrollbar-track-transparent">
+        <div className={`absolute inset-0 bg-gradient-to-t from-primary-dark/95 via-primary/80 to-primary/60 backdrop-blur-md border-t border-white/10 transition-transform duration-300 ease-out z-10 ${isOpen ? 'translate-y-0' : 'translate-y-full'} hover:translate-y-0`}>
+            <div className="p-4 h-full overflow-y-auto scrollbar-thin scrollbar-thumb-white/30 scrollbar-track-transparent pt-16">
                 <dl className="grid grid-cols-[auto_1fr] gap-x-3 gap-y-1 text-sm">
                     {getRegionDisplay(coffee.origin) && (
                         <>

@@ -1,12 +1,5 @@
 import React from 'react';
 
-/**
- * ContactSection displays the café's address, telephone, email and
- * opening hours alongside an embedded Google Map.  The iframe URL
- * below contains a placeholder location; update it to the correct
- * coordinates for Strzykawa's location.  The container uses a grid
- * layout that adapts to mobile screens gracefully.
- */
 function ContactSection() {
   return (
     <section className="contact-section" id="kontakt">

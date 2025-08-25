@@ -1,11 +1,15 @@
 import React from 'react';
 import { FaMapMarkerAlt, FaPhone, FaEnvelope, FaClock, FaRoute, FaParking, FaWifi, FaCoffee } from 'react-icons/fa';
+import { PageHeader } from '../components/PageHeader';
+import { useScrollToTop } from '../hooks/useScrollToTop';
 
 /**
  * Enhanced ContactSection with modern Tailwind design
  * Beautiful contact information with icons and interactive map
  */
 function ContactSection() {
+  useScrollToTop();
+
   const openingHours = [
     { days: 'Poniedziałek - Piątek', hours: '9:00 - 17:00' },
     { days: 'Sobota - Niedziela', hours: '10:00 - 15:00' },
@@ -23,19 +27,11 @@ function ContactSection() {
         <div className="container mx-auto px-4">
 
           {/* Section Header */}
-          <div className="text-center mb-16">
-            <div className="inline-flex items-center gap-3 mb-6">
-              <div className="p-3 bg-accent/20 border border-accent/30">
-                <FaMapMarkerAlt className="w-8 h-8 text-accent" />
-              </div>
-              <h2 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-white via-muted to-white bg-clip-text text-transparent">
-                Kontakt & Lokalizacja
-              </h2>
-            </div>
-            <p className="text-xl text-muted/90 max-w-2xl mx-auto leading-relaxed">
-              Znajdź nas w sercu miasta. Zapraszamy na kawę i rozmowę o najlepszych ziarnach z całego świata.
-            </p>
-          </div>
+          <PageHeader
+              icon={FaMapMarkerAlt}
+              title="Kontakt & Lokalizacja"
+              description="Znajdź nas w sercu miasta. Zapraszamy na kawę i rozmowę o najlepszych ziarnach z całego świata."
+          />
 
           {/* Main Content Grid */}
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-12">
@@ -141,26 +137,6 @@ function ContactSection() {
               </div>
             </div>
           </div>
-
-          {/*/!* Amenities *!/*/}
-          {/*<div className="bg-gradient-to-r from-primary-light/30 to-primary/30 backdrop-blur-sm border border-white/10 p-8">*/}
-          {/*  <h3 className="text-2xl font-bold text-white text-center mb-8">Co oferujemy</h3>*/}
-          {/*  <div className="grid grid-cols-2 md:grid-cols-4 gap-6">*/}
-          {/*    {amenities.map((amenity, index) => {*/}
-          {/*      const Icon = amenity.icon;*/}
-          {/*      return (*/}
-          {/*          <div key={index} className="text-center hover:scale-110 transition-transform duration-300">*/}
-          {/*            <div className="inline-flex items-center justify-center w-16 h-16 bg-white/10 border border-white/20 mb-3 hover:bg-white/20 transition-all duration-300">*/}
-          {/*              <Icon className={`w-7 h-7 ${amenity.color}`} />*/}
-          {/*            </div>*/}
-          {/*            <p className="text-sm font-medium text-muted hover:text-white transition-colors duration-300">*/}
-          {/*              {amenity.label}*/}
-          {/*            </p>*/}
-          {/*          </div>*/}
-          {/*      );*/}
-          {/*    })}*/}
-          {/*  </div>*/}
-          {/*</div>*/}
 
           {/* CTA Section */}
           <div className="text-center mt-12">

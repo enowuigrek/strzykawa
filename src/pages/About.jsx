@@ -1,18 +1,21 @@
 import React from 'react';
 import { FaCoffee, FaMusic, FaUsers, FaHeart } from 'react-icons/fa';
+import { PageHeader } from '../components/PageHeader';
+import { useScrollToTop } from '../hooks/useScrollToTop';
 
 function About() {
+    useScrollToTop();
+
     return (
         <div className="min-h-screen bg-gradient-to-b from-primary-dark to-primary pt-24 pb-16">
             <div className="container mx-auto px-4">
 
                 {/* Header Section */}
-                <div className="text-center mb-16">
-                    <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6">
-                        O <span className="bg-gradient-to-r from-accent to-muted bg-clip-text text-transparent">Strzykawie</span>
-                    </h1>
-                    <div className="w-24 h-1 bg-gradient-to-r from-accent to-muted mx-auto rounded-full"></div>
-                </div>
+                <PageHeader
+                    icon={FaCoffee}
+                    title="O Strzykawie"
+                    description="Nasza historia, pasja i filozofia. Poznaj ludzi i wartości, które stoją za każdą filiżanką kawy w Strzykawie."
+                />
 
                 {/* Story Section */}
                 <div className="max-w-4xl mx-auto">
@@ -86,32 +89,6 @@ function About() {
                             <div className="absolute -bottom-6 -left-4 w-6 h-6 bg-accent/20 border border-accent/30 rounded-full"></div>
                         </div>
                     </div>
-
-                    {/*/!* Philosophy Section *!/*/}
-                    {/*<div className="text-center mb-16">*/}
-                    {/*    <h2 className="text-3xl md:text-4xl font-bold text-white mb-8">*/}
-                    {/*        Nasza filozofia jest prosta*/}
-                    {/*    </h2>*/}
-
-                    {/*    <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">*/}
-                    {/*        {[*/}
-                    {/*            { icon: FaCoffee, title: "Dobra kawa", color: "text-accent" },*/}
-                    {/*            { icon: FaMusic, title: "Dobra muzyka", color: "text-muted" },*/}
-                    {/*            { icon: FaUsers, title: "Dobre rozmowy", color: "text-green-400" },*/}
-                    {/*            { icon: FaHeart, title: "Dobra społeczność", color: "text-red-400" }*/}
-                    {/*        ].map((item, index) => (*/}
-                    {/*            <div*/}
-                    {/*                key={index}*/}
-                    {/*                className="bg-gradient-to-br from-primary-light/40 to-primary/40 border border-white/10 rounded-xl p-6 hover:scale-105 transition-all duration-300 hover:shadow-xl hover:shadow-accent/10"*/}
-                    {/*            >*/}
-                    {/*                <div className={`inline-flex items-center justify-center w-16 h-16 bg-white/10 border border-white/20 rounded-full mb-4 ${item.color}`}>*/}
-                    {/*                    <item.icon className="w-8 h-8" />*/}
-                    {/*                </div>*/}
-                    {/*                <h3 className="text-xl font-semibold text-white">{item.title}</h3>*/}
-                    {/*            </div>*/}
-                    {/*        ))}*/}
-                    {/*    </div>*/}
-                    {/*</div>*/}
 
                     {/* Photo Gallery Placeholders */}
                     <div className="mb-16">
