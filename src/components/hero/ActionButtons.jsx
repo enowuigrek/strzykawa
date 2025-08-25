@@ -18,7 +18,7 @@ export function ActionButtons() {
             <ActionButton
                 href="/kawy"
                 icon={FaShoppingBag}
-                text="Sklep"
+                text="Sklep on-line"
                 colorClass="bg-muted/20 border border-muted/30 text-muted"
             />
         </div>

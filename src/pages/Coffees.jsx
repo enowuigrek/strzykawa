@@ -96,21 +96,21 @@ export default function Coffees() {
                         {/* Filter Controls */}
                         <div className="flex items-center justify-center gap-4 flex-wrap">
                             <button
-                                className={`inline-flex items-center gap-3 px-6 py-3 font-semibold transition-all duration-300 overflow-hidden ${
+                                className={`inline-flex items-center gap-3 px-6 py-3 rounded-full font-semibold transition-all duration-300 overflow-hidden ${
                                     showFilters
                                         ? 'bg-accent text-white shadow-lg shadow-accent/25'
                                         : 'bg-white/10 text-white hover:bg-white/20 border border-white/20 hover:border-white/30'
                                 }`}
                                 onClick={() => setShowFilters(!showFilters)}
                             >
-                                <div className={`p-2 ${showFilters ? 'bg-white/20' : 'bg-accent/20'} transition-colors duration-300`}>
+                                <div >
                                     <FaFilter className="w-4 h-4" />
                                 </div>
                                 Filtry
                                 {activeFiltersCount > 0 && (
-                                    <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs w-6 h-6 rounded-full flex items-center justify-center font-bold animate-pulse">
-                    {activeFiltersCount}
-                  </span>
+                                    <span className="-top-2 -right-2 bg-muted text-white text-xs w-6 h-6 rounded-full flex items-center justify-center font-bold animate-pulse">
+                                        {activeFiltersCount}
+                                    </span>
                                 )}
                             </button>
 

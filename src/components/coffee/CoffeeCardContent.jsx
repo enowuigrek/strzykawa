@@ -25,10 +25,10 @@ export function CoffeeCardContent({ coffee }) {
                 </div>
             </div>
 
-            <div className="flex items-center gap-2 text-sm">
+            <div className="flex items-center justify-between text-sm">
                 <span className="text-muted">{getOriginDisplay(coffee.origin)}</span>
                 {getRoastTypeDisplay(coffee.roastType) && (
-                    <span className="inline-flex items-center px-2 py-1 bg-accent/20 border border-accent/30 text-accent text-xs font-medium rounded-full">
+                    <span className="inline-flex items-center px-2 py-1 bg-accent/20 border border-muted/30 text-muted text-xs font-medium rounded-full">
                         {getRoastTypeDisplay(coffee.roastType)}
                     </span>
                 )}
