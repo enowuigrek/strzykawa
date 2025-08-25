@@ -9,7 +9,7 @@ export function ActionButtons() {
                 href="/dostepne-w-kawiarni"
                 icon={FaCoffee}
                 text="Co dziś w kawiarni"
-                colorClass="bg-accent/20 border border-accent/30 text-accent"
+                colorClass="bg-accent/20 border border-accent/30 text-white"
             />
 
             {/* Vertical Divider - tylko na desktop */}
@@ -19,7 +19,7 @@ export function ActionButtons() {
                 href="/kawy"
                 icon={FaShoppingBag}
                 text="Sklep on-line"
-                colorClass="bg-muted/20 border border-muted/30 text-muted"
+                colorClass="bg-muted/20 border border-muted/30 text-white"
             />
         </div>
     );

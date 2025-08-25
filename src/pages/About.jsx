@@ -1,24 +1,23 @@
 import React from 'react';
-import { FaCoffee, FaMusic, FaUsers, FaHeart } from 'react-icons/fa';
+import { FaCoffee, FaShoppingBag, FaHeart } from 'react-icons/fa';
 import { PageHeader } from '../components/PageHeader';
+import { UniversalButton } from '../components/UniversalButton';
 import { useScrollToTop } from '../hooks/useScrollToTop';
 
 function About() {
     useScrollToTop();
 
     return (
-        <div className="min-h-screen bg-gradient-to-b from-primary-dark to-primary pt-24 pb-16">
-            <div className="container mx-auto px-4">
-
+        <div div className="min-h-screen bg-primary pt-20">
+            <div className="container mx-auto px-4 py-8">
                 {/* Header Section */}
                 <PageHeader
-                    icon={FaCoffee}
                     title="O Strzykawie"
                     description="Nasza historia, pasja i filozofia. Poznaj ludzi i wartości, które stoją za każdą filiżanką kawy w Strzykawie."
                 />
 
                 {/* Story Section */}
-                <div className="max-w-4xl mx-auto">
+                {/*<div className="max-w-4xl mx-auto">*/}
 
                     {/* Opening Story */}
                     <div className="grid md:grid-cols-2 gap-12 mb-16 items-center">
@@ -52,7 +51,7 @@ function About() {
                         <div className="bg-gradient-to-r from-primary-light/30 to-primary/30 border border-white/10 rounded-2xl p-8 md:p-12">
                             <p className="text-xl md:text-2xl text-white font-medium leading-relaxed mb-6">
                                 Tu nie chodziło tylko o kawę – <span className="text-accent font-bold">to miejsce, w którym ludzie się poznawali,
-                rodziły się znajomości i powstawała społeczność</span>. Strzykawa stała się czymś więcej niż kawiarnią –
+                                rodziły się znajomości i powstawała społeczność</span>. Strzykawa stała się czymś więcej niż kawiarnią –
                                 miejscem spotkań i wymiany myśli.
                             </p>
                             <div className="flex justify-center items-center space-x-4">
@@ -127,23 +126,27 @@ function About() {
                                 rośnie każdego dnia i dlaczego Strzykawa to więcej niż kawiarnia.
                             </p>
                             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                                <a
+                                <UniversalButton
                                     href="/dostepne-w-kawiarni"
-                                    className="inline-flex items-center px-8 py-4 bg-gradient-to-r from-accent to-muted hover:from-muted hover:to-accent text-white font-semibold rounded-xl transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-accent/25"
+                                    icon={FaCoffee}
+                                    variant="primary"
+                                    size="lg"
                                 >
-                                    <FaCoffee className="w-5 h-5 mr-3" />
                                     Co dziś serwujemy
-                                </a>
-                                <a
-                                    href="/kontakt"
-                                    className="inline-flex items-center px-8 py-4 bg-white/10 border border-white/20 hover:bg-white/20 text-white font-semibold rounded-xl transition-all duration-300 hover:scale-105"
+                                </UniversalButton>
+
+                                <UniversalButton
+                                    href="/kawy"
+                                    icon={FaShoppingBag}
+                                    variant="secondary"
+                                    size="lg"
                                 >
-                                    Znajdź nas
-                                </a>
+                                    Zamów kawę
+                                </UniversalButton>
                             </div>
                         </div>
                     </div>
-                </div>
+                {/*</div>*/}
             </div>
         </div>
     );

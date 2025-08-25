@@ -77,7 +77,6 @@ export default function Coffees() {
             <div className="container mx-auto px-4 py-8">
                 {/* Hero Section */}
                 <PageHeader
-                    icon={FaCoffee}
                     title="Nasze kawy"
                     description="Odkryj nasze starannie wyselekcjonowane kawy specialty z najlepszych plantacji świata. Każda kawa to unikalna podróż smakowa."
                 >

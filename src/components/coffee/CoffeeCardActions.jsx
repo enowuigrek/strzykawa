@@ -1,5 +1,6 @@
 import React from 'react';
-import { FaArrowRight, FaShoppingCart, FaCheck } from 'react-icons/fa';
+import { FaShoppingCart, FaCheck } from 'react-icons/fa';
+import { UniversalButton } from '../UniversalButton';
 
 export function CoffeeCardActions({
                                       onAddToCart,
@@ -9,7 +10,6 @@ export function CoffeeCardActions({
                                       currentQuantity
                                   }) {
     const getButtonIcon = () => {
-        if (isAdding) return null; // Loading spinner handled separately
         if (justAdded) return FaCheck;
         return FaShoppingCart;
     };
@@ -21,35 +21,22 @@ export function CoffeeCardActions({
         return 'Dodaj do koszyka';
     };
 
-    const getColorClass = () => {
-        if (justAdded) return 'bg-green-500/20';
-        return 'bg-accent/20';
+    const getVariant = () => {
+        if (justAdded) return 'success';
+        return 'primary';
     };
 
-    const Icon = getButtonIcon();
-
     return (
-        <button
+        <UniversalButton
             onClick={onAddToCart}
             disabled={isAdding}
-            // className="group relative inline-flex items-center w-full justify-center bg-white/10 backdrop-blur-sm border border-white/30 rounded-full px-6 py-3 transition-all duration-300 hover:scale-105 hover:bg-white/20 hover:border-white/50 disabled:opacity-70 disabled:hover:scale-100"
-            className="w-full py-2 px-4 bg-accent hover:bg-accent/80 disabled:bg-gray-500 disabled:cursor-not-allowed text-white rounded-full transition-colors duration-200"
+            loading={isAdding}
+            icon={getButtonIcon()}
+            variant={getVariant()}
+            size="md"
+            className="w-full"
         >
-            <div className="flex items-center space-x-3">
-                <div className={`p-2 ${getColorClass()} rounded-full`}>
-                    {isAdding ? (
-                        <div className="w-4 h-4 border-2 border-accent border-t-transparent rounded-full animate-spin"></div>
-                    ) : Icon ? (
-                        <Icon className="w-4 h-4 text-white" />
-                    ) : null}
-                </div>
-                <span className="text-white font-semibold">
-                    {getButtonText()}
-                </span>
-            </div>
-
-            {/* Shine effect */}
-            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent skew-x-12 translate-x-[-200%] group-hover:translate-x-[200%] transition-transform duration-1000 ease-out rounded-full" />
-        </button>
+            {getButtonText()}
+        </UniversalButton>
     );
 }

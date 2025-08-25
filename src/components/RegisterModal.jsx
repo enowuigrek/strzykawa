@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { FaTimes, FaUser, FaLock, FaEye, FaEyeSlash, FaEnvelope } from 'react-icons/fa';
+import { FaTimes, FaUser, FaLock, FaEye, FaEyeSlash, FaEnvelope, FaUserPlus } from 'react-icons/fa';
 import { useAuthStore } from '../store/authStore';
+import { UniversalButton } from './UniversalButton';
 
 const RegisterModal = ({ isOpen, onClose, onSwitchToLogin }) => {
     const [formData, setFormData] = useState({
@@ -81,8 +82,8 @@ const RegisterModal = ({ isOpen, onClose, onSwitchToLogin }) => {
                     {/* Header */}
                     <div className="flex items-center justify-between p-6 border-b border-white/10">
                         <div className="flex items-center gap-3">
-                            <div className="p-2 bg-green-500/20 border border-green-500/30 rounded">
-                                <FaUser className="w-5 h-5 text-green-400" />
+                            <div className="p-2 bg-accent/20 border border-accent/30 rounded">
+                                <FaUser className="w-5 h-5 text-accent" />
                             </div>
                             <h2 className="text-xl font-bold text-white">Utwórz konto</h2>
                         </div>
@@ -219,13 +220,17 @@ const RegisterModal = ({ isOpen, onClose, onSwitchToLogin }) => {
                         </div>
 
                         {/* Submit Button */}
-                        <button
+                        <UniversalButton
                             type="submit"
                             disabled={isLoading}
-                            className="w-full py-3 bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-500 text-white font-semibold transition-all duration-500 disabled:opacity-50 disabled:cursor-not-allowed hover:shadow-lg hover:shadow-green-500/25 rounded-lg mb-4"
+                            loading={isLoading}
+                            icon={FaUserPlus}
+                            variant="primary"
+                            size="md"
+                            className="w-full mb-4"
                         >
                             {isLoading ? 'Tworzenie konta...' : 'Utwórz konto'}
-                        </button>
+                        </UniversalButton>
 
                         {/* Switch to Login */}
                         <div className="text-center">

@@ -52,13 +52,20 @@ export default function AvailableInCafe() {
       c.availability && Object.values(c.availability).some(Boolean)
   ).length;
 
+  function pluralizeKawa(count) {
+    if (count === 1) return "kawa";
+    if (count % 10 >= 2 && count % 10 <= 4 && (count % 100 < 12 || count % 100 > 14)) {
+      return "kawy";
+    }
+    return "kaw";
+  }
+
   return (
       <div className="min-h-screen bg-primary pt-20">
         <div className="container mx-auto px-4 py-8">
 
           {/* Page Header */}
           <PageHeader
-              icon={FaClock}
               title="Dostępne w kawiarni"
               description="Co dziś wypijesz w Strzykawie? Sprawdź naszą aktualną ofertę — od espresso na młynkach, przez batch brew, aż po kawy do parzenia na miejscu."
           />
@@ -85,12 +92,14 @@ export default function AvailableInCafe() {
                         <div className="flex-grow">
                           <div className="flex items-center gap-3 mb-2">
                             <h2 className="text-3xl font-bold text-white">{title}</h2>
-                            <span className="px-3 py-1 bg-white/10 text-muted text-sm border border-white/20">
+                            <span className="px-3 py-1 bg-white/10 text-muted text-sm border border-white/20 rounded-full">
                               {subtitle}
                             </span>
                             {!isEmpty && (
-                                <div className="px-3 py-1 bg-green-500/20 border border-green-500/30">
-                                  <span className="text-green-400 text-sm font-bold">{items.length} kaw</span>
+                                <div className="px-3 py-1 bg-green-500/20 border border-green-500/30 rounded-full">
+                                  <span className="text-green-400 text-sm">
+                                     {items.length} {pluralizeKawa(items.length)}
+                                  </span>
                                 </div>
                             )}
                           </div>
@@ -124,16 +133,6 @@ export default function AvailableInCafe() {
                   </section>
               );
             })}
-          </div>
-
-          {/* Footer Info */}
-          <div className="mt-16 p-6 bg-gradient-to-r from-primary-light/30 to-primary/30 backdrop-blur-sm border border-white/10">
-            <div className="text-center">
-              <p className="text-muted/80 text-sm leading-relaxed max-w-2xl mx-auto">
-                💡 <strong>Pamiętaj:</strong> Nasza oferta zmienia się dynamicznie w ciągu dnia w zależności od dostępności ziaren i zapotrzebowania.
-                W razie wątpliwości zapytaj naszych barista o aktualną ofertę — chętnie pomożemy Ci wybrać idealną kawę!
-              </p>
-            </div>
           </div>
         </div>
       </div>

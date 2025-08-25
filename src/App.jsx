@@ -5,8 +5,10 @@ import Footer from './components/Footer.jsx';
 import Home from './pages/Home.jsx';
 import Coffees from './pages/Coffees.jsx';
 import AvailableInCafe from './pages/AvailableInCafe.jsx';
-import ContactSection from "./pages/ContactSection.jsx";
+// import ContactSection from "./pages/ContactSection.jsx";
 import About from "./pages/About.jsx";
+import {ContactInfo} from "./components/contact/ContactInfo.jsx";
+import ContactSection from "./pages/ContactSection.jsx";
 
 // Hook do automatycznego scrollowania na górę przy zmianie trasy
 function ScrollToTop() {

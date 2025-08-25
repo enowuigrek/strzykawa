@@ -1,11 +1,7 @@
 import React from 'react';
-import { FaFacebookF, FaInstagram, FaTwitter, FaHeart, FaCoffee, FaLeaf, FaMapMarkerAlt, FaPhone, FaEnvelope } from 'react-icons/fa';
+import { FaFacebookF, FaInstagram, FaHeart, FaCoffee, FaLeaf, FaPhone, FaEnvelope } from 'react-icons/fa';
 import heroImage from '../assets/hero.jpg';
 
-/**
- * Enhanced Footer with modern Tailwind design
- * Beautiful social media links, contact info and branding
- */
 function Footer() {
   const currentYear = new Date().getFullYear();
 
@@ -25,9 +21,8 @@ function Footer() {
   ];
 
   const quickContacts = [
-    { icon: FaMapMarkerAlt, text: 'ul. Dąbrowskiego 4, Częstochowa', color: 'text-accent' },
     { icon: FaPhone, text: '+48 668 011 806', href: 'tel:+48668011806', color: 'text-white/70' },
-    { icon: FaEnvelope, text: 'fitanddrink@gmail.com', href: 'mailto:fitanddrink@gmail.com', color: 'text-green-400' },
+    { icon: FaEnvelope, text: 'fitanddrink@gmail.com', href: 'mailto:fitanddrink@gmail.com', color: 'text-white/70' },
   ];
 
   return (
@@ -47,7 +42,7 @@ function Footer() {
 
         <div className="relative z-10">
           {/* Main Footer Content */}
-          <div className="container mx-auto px-4 py-16">
+          <div className="container mx-auto px-4 py-12">
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
 
               {/* Brand Section */}
@@ -65,15 +60,11 @@ function Footer() {
                 </div>
 
                 <p className="text-muted/90 leading-relaxed max-w-md">
-                  Pasjonaci kawy specialty z Częstochowy. Palimy, parzym i dzielimy się miłością
+                  Pasjonaci kawy specialty z Częstochowy. Palimy, parzymy i dzielimy się miłością
                   do najlepszych ziaren z całego świata. Każda filiżanka to podróż smakowa.
                 </p>
 
                 <div className="flex items-center gap-2 text-sm">
-                  <span className="text-muted">Robione z</span>
-                  <FaHeart className="w-4 h-4 text-red-400 animate-pulse" />
-                  <span className="text-muted">i najlepszą kawą</span>
-                  <FaLeaf className="w-4 h-4 text-green-400" />
                 </div>
               </div>
 
@@ -84,8 +75,8 @@ function Footer() {
                   {quickContacts.map((contact, index) => {
                     const Icon = contact.icon;
                     const content = (
-                        <div className="flex items-center gap-3 text-sm hover:scale-105 transition-transform duration-300">
-                          <div className="flex-shrink-0 p-2 bg-white/5 border border-white/10 hover:bg-white/10 transition-colors duration-300">
+                        <div className="flex items-center gap-3 text-sm transition-transform duration-300">
+                          <div className="flex-shrink-0 p-2 transition-colors duration-300">
                             <Icon className={`w-4 h-4 ${contact.color}`} />
                           </div>
                           <span className="text-muted hover:text-white transition-colors duration-300">
@@ -109,8 +100,8 @@ function Footer() {
 
               {/* Social Links */}
               <div className="space-y-6">
-                <h4 className="text-xl font-semibold text-white">Śledź nas</h4>
-                <div className="flex flex-col gap-3">
+                <h4 className="text-xl font-semibold text-white">Social Media</h4>
+                <div className="flex flex-auto gap-6">
                   {socialLinks.map((social, index) => {
                     const Icon = social.icon;
                     return (
@@ -119,13 +110,11 @@ function Footer() {
                             href={social.href}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className={`inline-flex items-center gap-3 px-4 py-3 bg-white/5 border border-white/10 transition-all duration-300 ${social.color} hover:scale-105 hover:shadow-lg hover:border-white/20`}
+                            // className={`inline-flex items-center gap-3 px-4 py-3 bg-white/5 border border-white/10 transition-all duration-300 ${social.color} hover:scale-105 hover:shadow-lg hover:border-white/20`}
                             aria-label={social.label}
                         >
-                          <div className="p-2 bg-white/10 hover:bg-white/20 transition-colors duration-300">
-                            <Icon className="w-5 h-5" />
-                          </div>
-                          <span className="font-medium">{social.label}</span>
+                            <Icon className="w-8 h-8 hover:text-muted" />
+                          {/*<span className="font-medium">{social.label}</span>*/}
                         </a>
                     );
                   })}
@@ -135,7 +124,7 @@ function Footer() {
           </div>
 
           {/* Bottom Bar */}
-          <div className="border-t border-white/10 bg-primary-dark/50 backdrop-blur-sm">
+          <div className="border-t border-white/10 bg-primary-dark/80 backdrop-blur-sm">
             <div className="container mx-auto px-4 py-6">
               <div className="flex flex-col md:flex-row items-center justify-between gap-4">
 
@@ -146,15 +135,23 @@ function Footer() {
                 </div>
 
                 {/* Additional Info */}
-                <div className="flex items-center gap-6 text-sm text-muted">
-                <span className="flex items-center gap-2">
+                <div className="flex items-center gap-2 text-sm text-muted">
+                  <span>
+                    <a
+                        href="https://lukasznowak.dev"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="hover:underline"
+                    >
+                      Projekt: enowuigrek
+                    </a>
+                  </span>
+                  <span>•</span>
+                  <span>Zbudowane z</span>
+                  <FaHeart className="w-4 h-4 text-red-400 animate-pulse" />
+                  <span>i</span>
                   <FaCoffee className="w-4 h-4 text-accent" />
-                  <span>Specialty Coffee</span>
-                </span>
-                  <span className="flex items-center gap-2">
-                  {/*<FaLeaf className="w-4 h-4 text-green-400" />*/}
-                    {/*<span>Sustainable & Fair Trade</span>*/}
-                </span>
+                  <span>przy użyciu React / Tailwind CSS / Shopify</span>
                 </div>
               </div>
             </div>

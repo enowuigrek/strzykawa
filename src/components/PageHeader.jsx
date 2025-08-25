@@ -1,8 +1,5 @@
 import React from 'react';
 
-/**
- * Wspólny komponent nagłówka strony dla spójnego designu
- */
 export function PageHeader({
                                icon: Icon,
                                title,
@@ -12,7 +9,7 @@ export function PageHeader({
                                className = ""
                            }) {
     return (
-        <div className={`relative bg-gradient-to-br from-primary-light/60 via-primary/80 to-primary-dark/60 backdrop-blur-sm border border-white/10 p-8 mb-10 overflow-hidden ${className}`}>
+        <div className={`mb-10 overflow-hidden p-6 ${className}`}>
 
             {/* Animated Background Elements */}
             <div className="absolute inset-0 opacity-10">
@@ -29,7 +26,7 @@ export function PageHeader({
                                 <Icon className="w-8 h-8 text-accent" />
                             </div>
                         )}
-                        <h1 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-white via-muted to-white bg-clip-text text-transparent">
+                        <h1 className="text-4xl md:text-5xl text-white bg-clip-text text-transparent">
                             {title}
                         </h1>
                     </div>
