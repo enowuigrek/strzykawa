@@ -92,6 +92,8 @@ class ShopifyService {
                                 {namespace: "custom", key: "tasting_notes"}
                                 {namespace: "custom", key: "processing"}
                                 {namespace: "custom", key: "altitude"}
+                                {namespace: "custom", key: "roast_type"}
+                                {namespace: "custom", key: "species"}
                             ]) {
                                 key
                                 value
@@ -110,11 +112,19 @@ class ShopifyService {
 
             const products = response.data.products.edges.map(edge => {
                 console.log('🔄 Processing product:', edge.node.title);
-                console.log('📋 Metafields:', edge.node.metafields);
-                return this.mapProduct(edge.node);
-            });
+                console.log('📋 Raw metafields:', edge.node.metafields);
+                console.log('🏷️ Tags:', edge.node.tags);
+                console.log('🎛️ Variants:', edge.node.variants);
 
-            console.log('✅ Mapped products:', products);
+                try {
+                    return this.mapProduct(edge.node);
+                } catch (error) {
+                    console.error('❌ Error mapping product:', edge.node.title, error);
+                    return null;
+                }
+            }).filter(Boolean);
+
+            console.log('✅ All mapped products:', products);
             return products;
         } catch (error) {
             console.error('❌ Error fetching products:', error);
@@ -168,6 +178,8 @@ class ShopifyService {
                         {namespace: "custom", key: "tasting_notes"}
                         {namespace: "custom", key: "processing"}
                         {namespace: "custom", key: "altitude"}
+                        {namespace: "custom", key: "roast_type"}
+                        {namespace: "custom", key: "species"}
                     ]) {
                         key
                         value
@@ -497,32 +509,123 @@ class ShopifyService {
         return response.data.cart;
     }
 
-    // POPRAWIONA funkcja mapowania produktu - obsługuje null metafields
+    // GŁÓWNA funkcja mapowania produktu z ulepszonymi fallbackami
     mapProduct(shopifyProduct) {
         // BEZPIECZNA funkcja do odczytywania metafields
         const getMetafield = (key) => {
-            // Sprawdź czy metafields istnieją i nie są null/undefined
             if (!shopifyProduct.metafields || !Array.isArray(shopifyProduct.metafields)) {
                 console.log(`⚠️ No metafields for product ${shopifyProduct.title}`);
                 return null;
             }
 
-            const metafield = shopifyProduct.metafields.find(field => field?.key === key);
+            const metafield = shopifyProduct.metafields.find(field => field && field.key === key);
             return metafield?.value || null;
         };
 
-        const parseOrigin = (originString) => {
-            if (!originString) return [];
-            try {
-                return JSON.parse(originString);
-            } catch {
-                return [{ country: originString }];
-            }
+        // FALLBACK: Wyciągnij dane z variant options
+        const extractFromVariants = () => {
+            if (!shopifyProduct.variants?.edges?.length) return {};
+
+            const variant = shopifyProduct.variants.edges[0].node;
+            const options = variant.selectedOptions || [];
+
+            let country = null;
+            let roastLevel = null;
+            let tastingNote = null;
+
+            options.forEach(option => {
+                switch(option.name) {
+                    case 'Kraj':
+                    case 'Country':
+                        country = option.value;
+                        break;
+                    case 'Palenie kawy':
+                    case 'Roast Level':
+                    case 'Stopień wypału':
+                        roastLevel = option.value;
+                        break;
+                    case 'Aromat':
+                    case 'Aroma':
+                    case 'Flavor':
+                        tastingNote = option.value;
+                        break;
+                }
+            });
+
+            return { country, roastLevel, tastingNote };
         };
 
+        // Wyciągnij dane z wariantów jako fallback
+        const variantData = extractFromVariants();
+        console.log(`🔄 Variant data extracted:`, variantData);
+
+        // Parsowanie origin z metafields lub fallback z wariantów
+        const parseOrigin = (originString) => {
+            if (originString) {
+                try {
+                    return JSON.parse(originString);
+                } catch {
+                    return [{ country: originString }];
+                }
+            }
+
+            // Fallback z wariantów
+            if (variantData.country) {
+                return [{ country: variantData.country }];
+            }
+
+            return [];
+        };
+
+        // Parsowanie tasting notes z metafields lub fallback z wariantów
         const parseTastingNotes = (notesString) => {
-            if (!notesString) return [];
-            return notesString.split(',').map(note => note.trim());
+            if (notesString) {
+                return notesString.split(',').map(note => note.trim()).filter(Boolean);
+            }
+
+            // Fallback z wariantów
+            if (variantData.tastingNote) {
+                return [variantData.tastingNote];
+            }
+
+            return [];
+        };
+
+        // Parsowanie gatunków
+        const parseSpecies = (speciesString) => {
+            if (!speciesString) return ['Arabica']; // Default
+            return speciesString.split(',').map(species => species.trim()).filter(Boolean);
+        };
+
+        // Wyciągnij roast level z metafields lub variants
+        const getRoastLevel = () => {
+            const metafieldRoast = getMetafield('roast_level');
+            if (metafieldRoast) return metafieldRoast;
+
+            // Fallback z variant options
+            if (variantData.roastLevel) return variantData.roastLevel;
+
+            return 'Nieznany';
+        };
+
+        // Wyciągnij roast type z metafields lub tags
+        const getRoastType = () => {
+            const metafieldType = getMetafield('roast_type');
+            if (metafieldType) return metafieldType;
+
+            // Fallback z tags
+            const typeFromTags = shopifyProduct.tags?.find(tag => ['Espresso', 'Filter'].includes(tag));
+            if (typeFromTags) return typeFromTags;
+
+            // Fallback - jeśli w nazwie/opisie jest "espresso"
+            const lowerTitle = shopifyProduct.title?.toLowerCase() || '';
+            const lowerDesc = shopifyProduct.description?.toLowerCase() || '';
+
+            if (lowerTitle.includes('espresso') || lowerDesc.includes('espresso')) {
+                return 'Espresso';
+            }
+
+            return 'Filter'; // Default
         };
 
         // Bezpieczne pobieranie zagnieżdżonych wartości
@@ -535,8 +638,9 @@ class ShopifyService {
         };
 
         console.log(`🔄 Mapping product: ${shopifyProduct.title}`);
+        console.log(`📋 Available metafields:`, shopifyProduct.metafields?.map(m => m?.key).filter(Boolean));
 
-        return {
+        const mappedProduct = {
             id: shopifyProduct.id,
             shopifyHandle: shopifyProduct.handle || '',
             name: shopifyProduct.title || 'Unnamed Product',
@@ -554,26 +658,30 @@ class ShopifyService {
                 availableForSale: edge.node.availableForSale || false,
                 selectedOptions: edge.node.selectedOptions || []
             })) || [],
-            // Coffee-specific fields - wszystkie z fallbackami
+
+            // Coffee-specific fields - z lepszymi fallbackami
             origin: parseOrigin(getMetafield('origin')),
-            roastLevel: getMetafield('roast_level') || 'Nieznany',
+            roastLevel: getRoastLevel(),
             tastingNotes: parseTastingNotes(getMetafield('tasting_notes')),
             processing: getMetafield('processing') || '',
             altitude: getMetafield('altitude') || '',
+            roastType: getRoastType(),
+            species: parseSpecies(getMetafield('species')),
+
             // Availability flags based on tags
             availability: {
                 espressoGrinders: shopifyProduct.tags?.includes('espresso-grinders') || false,
                 quickFilter: shopifyProduct.tags?.includes('quick-filter') || false,
                 brewBar: shopifyProduct.tags?.includes('brew-bar') || false,
                 retailShelf: shopifyProduct.tags?.includes('retail-shelf') || false,
-            },
-            // For backward compatibility with existing coffee data structure
-            roastType: shopifyProduct.tags?.find(tag => ['Espresso', 'Filter'].includes(tag)) || 'Filter',
-            species: ['Arabica'] // Default, could be metafield
+            }
         };
+
+        console.log('📦 Final mapped product:', mappedProduct);
+        return mappedProduct;
     }
 
-    // Mock data responses for development
+    // Mock data responses dla development
     getMockResponse(query, variables) {
         // Import local coffee data as fallback
         const coffees = [
