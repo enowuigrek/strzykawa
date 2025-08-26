@@ -147,11 +147,8 @@ function Footer() {
                     </a>
                   </span>
                   <span>•</span>
-                  <span>Zbudowane z</span>
-                  <FaHeart className="w-4 h-4 text-red-400 animate-pulse" />
-                  <span>i</span>
                   <FaCoffee className="w-4 h-4 text-accent" />
-                  <span>przy użyciu React / Tailwind CSS / Shopify</span>
+                  <span>• React • Tailwind CSS • Shopify</span>
                 </div>
               </div>
             </div>

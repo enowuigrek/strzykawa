@@ -31,7 +31,7 @@ export default [
   },
   {
     id: "batch-ethiopia-yirgacheffe",
-    name: "Etiopia Yirgacheffe Adado",
+    name: "Etiopia Yirgacheffe",
     image: new URL('../assets/coffee-placeholder.jpg', import.meta.url).href,
     origin: [ { country: "Etiopia", region: "Yirgacheffe", farm: "Adado Cooperative", variety: ["Heirloom"], altitudeMasl: 2000, processing: "Washed", fermentation: "" } ],
     species: ["Arabica"],
