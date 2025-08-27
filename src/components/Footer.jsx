@@ -141,7 +141,7 @@ function Footer() {
                 </div>
 
                 {/* Right */}
-                <div className="flex items-center flex-wrap justify-center sm:justify-end gap-x-2 gap-y-1 text-sm text-muted">
+                <div className="flex items-center flex-wrap justify-center sm:justify-end gap-x-2 gap-y-1 text-xs sm:text-sm text-muted">
                 <span>
                   <a
                       href="https://lukasznowak.dev"
@@ -153,7 +153,7 @@ function Footer() {
                   </a>
                 </span>
                   <span>•</span>
-                  <FaCoffee className="w-4 h-4 text-accent" />
+                  <FaCoffee className="w-3 h-3 sm:w-4 sm:h-4 text-accent" />
                   <span>• React • Tailwind CSS • Shopify</span>
                 </div>
               </div>
