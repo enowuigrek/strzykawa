@@ -8,11 +8,19 @@
 html, body {
     background-color: #1f2a25;
     color: white;
+    font-family: 'Poppins', Arial, sans-serif;html, body {
+    background-color: #1f2a25;
+    color: white;
     font-family: 'Poppins', Arial, sans-serif;
     height: 100%;
     margin: 0;
-    padding: env(safe-area-inset-top) 0 0 0;
-}
+
+    /* Safe area paddings for iOS */
+    padding-top: env(safe-area-inset-top);
+    padding-bottom: env(safe-area-inset-bottom);
+    padding-left: env(safe-area-inset-left);
+    padding-right: env(safe-area-inset-right);
+}}
 
 #root {
     min-height: 100vh;
