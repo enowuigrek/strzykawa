@@ -8,6 +8,7 @@ import { MobileNavigation } from './MobileNavigation.jsx';
 import { HeaderActions } from './HeaderActions.jsx';
 import { MobileMenuToggle } from './MobileMenuToggle.jsx';
 import { HeaderModals } from './HeaderModals.jsx';
+import { MobileBottomNavigation } from './MobileBottomNavigation.jsx';
 
 export default function Header() {
     const [scrolled, setScrolled] = useState(false);
@@ -55,15 +56,16 @@ export default function Header() {
 
     return (
         <>
+            {/* Górny header */}
             <header
                 style={{ paddingTop: 'env(safe-area-inset-top)' }}
                 className={`
                     fixed top-0 left-0 w-full z-50 transition-all duration-1000 ease-out
                     ${headerBg}
                     ${showHeader
-                        ? 'translate-y-0 opacity-100'
-                        : '-translate-y-full opacity-0'
-                    }
+                    ? 'translate-y-0 opacity-100'
+                    : '-translate-y-full opacity-0'
+                }
                 `}
             >
                 <div className="container mx-auto px-4 sm:px-6 lg:px-8">
@@ -93,6 +95,14 @@ export default function Header() {
                 </div>
             </header>
 
+            {/* Dolny pasek nawigacyjny dla mobile */}
+            <MobileBottomNavigation
+                onOpenCart={modalActions.openCart}
+                onOpenLogin={modalActions.openLogin}
+                onLogout={handleLogout}
+            />
+
+            {/* Modele */}
             <HeaderModals
                 loginModal={{ isOpen: showLoginModal, onSwitchToRegister: modalActions.openRegister }}
                 registerModal={{ isOpen: showRegisterModal, onSwitchToLogin: modalActions.openLogin }}
