@@ -7,7 +7,7 @@ function Home() {
     return (
         <div className="home-page">
             <HeroSection />
-            <ShopifyTest />
+            {/*<ShopifyTest />*/}
         </div>
     );
 }
