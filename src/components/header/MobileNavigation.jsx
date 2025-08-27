@@ -7,7 +7,8 @@ const mobileNavItems = [
     { to: "/", label: "Start" },
     { to: "/o-nas", label: "O Strzykawie" },
     { to: "/dostepne-w-kawiarni", label: "Dostępne w kawiarni" },
-    { to: "/kawy", label: "Sklep on-line" }
+    { to: "/kawy", label: "Sklep on-line" },
+    { to: "/kontakt", label: "Kontakt" },
 ];
 
 const mobileNavLinkClasses = ({ isActive }) => `
