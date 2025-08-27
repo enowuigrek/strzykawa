@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { ImageModal } from '../ImageModal';
+import { MobileCarousel } from '../MobileCarousel';
 import strzykawaImg04 from '../../assets/strzykawa-04.jpg';
 import strzykawaImg05 from '../../assets/strzykawa-05.jpg';
 
@@ -41,10 +42,19 @@ export function StorySection() {
 
     return (
         <>
-            {/* Opening Story - większe zdjęcie */}
+            {/* Opening Story */}
             <div className="mb-20">
+                {/* Mobile version - Carousel */}
+                <div className="md:hidden">
+                    <MobileCarousel
+                        images={[images[0]]}
+                        className="aspect-[21/16] mb-8"
+                    />
+                </div>
+
+                {/* Desktop version - Clickable image */}
                 <div
-                    className="aspect-[21/16] bg-gradient-to-br from-primary-light/30 to-primary/50 border border-white/10 overflow-hidden shadow-lg mb-8 cursor-pointer hover:scale-105 transition-all duration-300"
+                    className="hidden md:block aspect-[21/16] bg-gradient-to-br from-primary-light/30 to-primary/50 border border-white/10 overflow-hidden shadow-lg mb-8 cursor-pointer hover:scale-105 transition-all duration-300 relative"
                     onClick={() => openModal(0)}
                 >
                     <img
@@ -81,10 +91,19 @@ export function StorySection() {
                 </div>
             </div>
 
-            {/* Evolution Story - większe zdjęcie */}
+            {/* Evolution Story */}
             <div className="mb-20">
+                {/* Mobile version - Carousel */}
+                <div className="md:hidden">
+                    <MobileCarousel
+                        images={[images[1]]}
+                        className="aspect-[9/9] mb-8"
+                    />
+                </div>
+
+                {/* Desktop version - Clickable image */}
                 <div
-                    className="aspect-[9/9] bg-gradient-to-br from-primary-light/30 to-primary/50 border border-white/10 overflow-hidden shadow-lg mb-8 cursor-pointer hover:scale-105 transition-all duration-300"
+                    className="hidden md:block aspect-[9/9] bg-gradient-to-br from-primary-light/30 to-primary/50 border border-white/10 overflow-hidden shadow-lg mb-8 cursor-pointer hover:scale-105 transition-all duration-300 relative"
                     onClick={() => openModal(1)}
                 >
                     <img
@@ -121,7 +140,7 @@ export function StorySection() {
                 </div>
             </div>
 
-            {/* Modal */}
+            {/* Modal - tylko dla desktop */}
             <ImageModal
                 isOpen={modalOpen}
                 onClose={closeModal}
