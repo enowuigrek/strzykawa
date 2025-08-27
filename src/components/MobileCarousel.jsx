@@ -29,10 +29,12 @@ export function MobileCarousel({ images, className = "" }) {
         const threshold = 50;
 
         if (Math.abs(diffX) > threshold) {
-            if (diffX > 0 && currentIndex < images.length - 1) {
-                setCurrentIndex(currentIndex + 1);
-            } else if (diffX < 0 && currentIndex > 0) {
-                setCurrentIndex(currentIndex - 1);
+            if (diffX > 0) {
+                // Swipe left - next image
+                setCurrentIndex(currentIndex === images.length - 1 ? 0 : currentIndex + 1);
+            } else {
+                // Swipe right - previous image
+                setCurrentIndex(currentIndex === 0 ? images.length - 1 : currentIndex - 1);
             }
         }
 
@@ -62,7 +64,7 @@ export function MobileCarousel({ images, className = "" }) {
                     }}
                 >
                     {images.map((image, index) => (
-                        <div key={index} className="w-full flex-shrink-0">
+                        <div key={index} className="w-full flex-shrink-0 h-full">
                             <img
                                 src={image.src}
                                 alt={image.alt}

@@ -52,21 +52,13 @@ export function StorySection() {
                     />
                 </div>
 
-                {/* Desktop version - Clickable image */}
-                <div
-                    className="hidden md:block aspect-[21/16] bg-gradient-to-br from-primary-light/30 to-primary/50 border border-white/10 overflow-hidden shadow-lg mb-8 cursor-pointer hover:scale-105 transition-all duration-300 relative"
-                    onClick={() => openModal(0)}
-                >
+                {/* Desktop version - Static image */}
+                <div className="hidden md:block aspect-[21/16] bg-gradient-to-br from-primary-light/30 to-primary/50 border border-white/10 overflow-hidden shadow-lg mb-8">
                     <img
                         src={images[0].src}
                         alt={images[0].alt}
                         className="w-full h-full object-cover"
                     />
-                    <div className="absolute inset-0 bg-black/0 hover:bg-black/20 flex items-center justify-center opacity-0 hover:opacity-100 transition-all duration-300">
-                        <div className="w-16 h-16 bg-white/20 backdrop-blur-sm border border-white/30 flex items-center justify-center">
-                            <span className="text-white text-2xl">🔍</span>
-                        </div>
-                    </div>
                 </div>
 
                 <div className="grid md:grid-cols-2 gap-12 items-start">
@@ -101,21 +93,13 @@ export function StorySection() {
                     />
                 </div>
 
-                {/* Desktop version - Clickable image */}
-                <div
-                    className="hidden md:block aspect-[9/9] bg-gradient-to-br from-primary-light/30 to-primary/50 border border-white/10 overflow-hidden shadow-lg mb-8 cursor-pointer hover:scale-105 transition-all duration-300 relative"
-                    onClick={() => openModal(1)}
-                >
+                {/* Desktop version - Static image */}
+                <div className="hidden md:block aspect-[9/9] bg-gradient-to-br from-primary-light/30 to-primary/50 border border-white/10 overflow-hidden shadow-lg mb-8">
                     <img
                         src={images[1].src}
                         alt={images[1].alt}
                         className="w-full h-full object-cover"
                     />
-                    <div className="absolute inset-0 bg-black/0 hover:bg-black/20 flex items-center justify-center opacity-0 hover:opacity-100 transition-all duration-300">
-                        <div className="w-16 h-16 bg-white/20 backdrop-blur-sm border border-white/30 flex items-center justify-center">
-                            <span className="text-white text-2xl">🔍</span>
-                        </div>
-                    </div>
                 </div>
 
                 <div className="grid md:grid-cols-2 gap-12 items-start">
@@ -139,16 +123,6 @@ export function StorySection() {
                     </div>
                 </div>
             </div>
-
-            {/* Modal - tylko dla desktop */}
-            <ImageModal
-                isOpen={modalOpen}
-                onClose={closeModal}
-                images={images}
-                currentIndex={currentImageIndex}
-                onPrevious={goToPrevious}
-                onNext={goToNext}
-            />
         </>
     );
 }
