@@ -7,7 +7,6 @@ export function HeaderActions({ cartItemsCount, onOpenCart, onOpenLogin, onLogou
 
     return (
         <div className="hidden md:flex items-center">
-            {/* Pill Container - pastylka z białym borderem */}
             <div className="flex items-center bg-white/10 backdrop-blur-sm border border-white/30 rounded-full px-1 py-1">
                 {/* Cart Button */}
                 <button

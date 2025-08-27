@@ -52,7 +52,7 @@ function Footer() {
                     <FaCoffee className="w-8 h-8 text-accent" />
                   </div>
                   <div>
-                    <h3 className="text-3xl font-bold bg-gradient-to-r from-white via-muted to-white bg-clip-text text-transparent">
+                    <h3 className="text-3xl">
                       S T R Z Y K A W A
                     </h3>
                     <p className="text-sm text-muted uppercase tracking-wider">Coffee Shop & Roastery</p>

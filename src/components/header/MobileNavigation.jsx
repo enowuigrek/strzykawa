@@ -43,15 +43,6 @@ export function MobileNavigation({
                         {item.label}
                     </NavLink>
                 ))}
-
-                <a
-                    href="#kontakt"
-                    onClick={onClose}
-                    className="block px-4 py-3 text-white font-medium transition-all duration-300 hover:text-muted hover:bg-white/5 rounded-lg hover:translate-x-2"
-                >
-                    Kontakt
-                </a>
-
                 {/* Mobile Auth & Cart Section */}
                 <MobileActionsSection
                     cartItemsCount={cartItemsCount}

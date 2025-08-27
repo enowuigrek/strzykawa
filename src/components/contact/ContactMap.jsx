@@ -1,29 +1,58 @@
 import React from 'react';
+import { FaMapMarkerAlt, FaRoute } from 'react-icons/fa';
+import { UniversalButton } from '../UniversalButton';
 
 export function ContactMap() {
-    return (
-        <div className="relative h-96 lg:h-full min-h-[400px] bg-gradient-to-br from-primary-light/50 to-primary/50 overflow-hidden border border-white/10 shadow-lg">
+    const openGoogleMaps = () => {
+        window.open(`https://maps.app.goo.gl/TkVzjmw5Z8tXtYiq8`, '_blank');
+    };
 
-            {/* Map Header */}
-            <div className="absolute top-4 left-4 right-4 z-10">
-                <div className="bg-primary-dark/90 backdrop-blur-md border border-white/20 p-3">
-                    <h4 className="text-white font-semibold text-center">Lokalizacja kawiarni</h4>
-                    <p className="text-muted text-xs text-center mt-1">ul. Dąbrowskiego 4, Częstochowa</p>
+    const openDirections = () => {
+        const address = encodeURIComponent('ul. Dąbrowskiego 4, 42-200 Częstochowa');
+        window.open(`https://www.google.com/maps/dir/?api=1&destination=Strzykawa`, '_blank');
+    };
+
+    return (
+        <div className="relative h-96 lg:h-full min-h-[400px] bg-gradient-to-br from-primary-light/50 to-primary/50 border border-white/10 flex flex-col items-center justify-center p-8 text-center">
+
+            {/* Content */}
+            <div className="space-y-6">
+
+                {/* Icon */}
+                <div className="inline-flex items-center justify-center w-16 h-16 bg-accent/20 border border-accent/30">
+                    <FaMapMarkerAlt className="w-8 h-8 text-accent" />
+                </div>
+
+                {/* Header */}
+                <div>
+                    <h4 className="text-2xl font-bold text-white mb-2">Znajdź nas</h4>
+                    <p className="text-muted text-lg">ul. Dąbrowskiego 4</p>
+                    <p className="text-muted">42-200 Częstochowa</p>
+                </div>
+
+                {/* Buttons */}
+                <div className="space-y-3">
+                    <UniversalButton
+                        onClick={openGoogleMaps}
+                        icon={FaMapMarkerAlt}
+                        variant="primary"
+                        size="md"
+                        className="w-full"
+                    >
+                        Zobacz na mapie
+                    </UniversalButton>
+
+                    <UniversalButton
+                        onClick={openDirections}
+                        icon={FaRoute}
+                        variant="secondary"
+                        size="md"
+                        className="w-full"
+                    >
+                        Wyznacz trasę
+                    </UniversalButton>
                 </div>
             </div>
-
-            <iframe
-                title="Mapa Strzykawa - ul. Dąbrowskiego 4, Częstochowa"
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2443.714594299478!2d19.12885711568111!3d50.8123459775864!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4710a9b40cfbdb0f%3A0x123456789abcdef!2sCz%C4%99stochowa!5e0!3m2!1spl!2spl!4v1593186123456!5m2!1spl!2spl"
-                width="100%"
-                height="100%"
-                style={{ border: 0 }}
-                allowFullScreen=""
-                loading="lazy"
-            />
-
-            {/* Map Overlay */}
-            <div className="absolute inset-0 pointer-events-none bg-gradient-to-t from-primary-dark/20 via-transparent to-transparent"></div>
         </div>
     );
 }

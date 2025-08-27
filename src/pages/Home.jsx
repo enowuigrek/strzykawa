@@ -8,7 +8,6 @@ function Home() {
         <div className="home-page">
             <HeroSection />
             <ShopifyTest />
-            <About />
         </div>
     );
 }

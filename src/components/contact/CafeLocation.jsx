@@ -1,11 +1,15 @@
 import React from 'react';
-import { FaMapMarkerAlt, FaClock, FaCoffee } from 'react-icons/fa';
+import { FaMapMarkerAlt, FaClock, FaCoffee, FaExternalLinkAlt } from 'react-icons/fa';
 
 export function CafeLocation() {
     const cafeHours = [
-        { days: 'Poniedziałek - Piątek', hours: '9:00 - 17:00' },
-        { days: 'Sobota - Niedziela', hours: '10:00 - 15:00' },
+        { days: 'Poniedziałek - Piątek', hours: '8:00 - 17:00' },
+        { days: 'Sobota - Niedziela', hours: '9:00 - 16:00' },
     ];
+
+    const openGoogleMaps = () => {
+        window.open(`https://maps.app.goo.gl/TkVzjmw5Z8tXtYiq8`, '_blank');
+    };
 
     return (
         <div className="space-y-6">
@@ -17,10 +21,10 @@ export function CafeLocation() {
             </div>
 
             <div className="space-y-4">
-                {/* Adres kawiarni */}
+                {/* Adres z przyciskiem do map */}
                 <div className="flex items-start gap-3">
                     <FaMapMarkerAlt className="w-4 h-4 text-accent mt-1 flex-shrink-0" />
-                    <div>
+                    <div className="flex-1">
                         <div className="font-semibold text-white">ul. Dąbrowskiego 4</div>
                         <div className="text-muted">42-200 Częstochowa</div>
                     </div>

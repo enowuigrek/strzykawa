@@ -20,7 +20,7 @@ export default function Header() {
     const { getTotalItems } = useCartStore();
 
     // Używamy hook'a do animacji synchronizowanej z hero
-    const { showContent: showHeader } = useHeroAnimation(2000);
+    const { showContent: showHeader } = useHeroAnimation(100);
 
     useEffect(() => {
         const onScroll = () => setScrolled(window.scrollY > 10);
