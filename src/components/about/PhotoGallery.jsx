@@ -12,7 +12,7 @@ export function PhotoGallery() {
     const images = [
         {
             src: strzykawaImg01,
-            alt: "Jakiś opis"
+            alt: "Janek musiał się pojawić"
         },
         {
             src: strzykawaImg02,
