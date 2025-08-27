@@ -55,14 +55,17 @@ export default function Header() {
 
     return (
         <>
-            <header className={`
-                fixed top-0 left-0 w-full z-50 transition-all duration-1000 ease-out
-                ${headerBg}
-                ${showHeader
-                ? 'translate-y-0 opacity-100'
-                : '-translate-y-full opacity-0'
-            }
-            `}>
+            <header
+                style={{ paddingTop: 'env(safe-area-inset-top)' }}
+                className={`
+                    fixed top-0 left-0 w-full z-50 transition-all duration-1000 ease-out
+                    ${headerBg}
+                    ${showHeader
+                        ? 'translate-y-0 opacity-100'
+                        : '-translate-y-full opacity-0'
+                    }
+                `}
+            >
                 <div className="container mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="flex justify-between items-center py-4 lg:py-5">
                         <Logo scrolled={scrolled} />
