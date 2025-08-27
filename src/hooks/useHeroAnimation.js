@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 
-export function useHeroAnimation(trigger = false, delay = 2000) {
+export function useHeroAnimation(trigger = false, delay = 2500) {
     const [showContent, setShowContent] = useState(false);
     const [dimVideo, setDimVideo] = useState(false);
 
