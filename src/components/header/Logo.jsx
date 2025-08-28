@@ -21,7 +21,7 @@ export function Logo({ }) {
         >
             {/* Logo poziome bez efektów hover */}
             <img
-                src="/public/logo/horizontal-logo.png"
+                src="/logo/horizontal-logo.png"
                 alt="Strzykawa Coffee Shop & Roastery"
                 className="w-auto"
             />

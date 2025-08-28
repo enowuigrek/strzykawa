@@ -6,7 +6,7 @@ export function MainHeading() {
             {/* Logo poziome w hero - większe */}
             <div className="hero-logo">
                 <img
-                    src="public/logo/horizontal-logo.png"
+                    src="/logo/horizontal-logo.png"
                     alt="Strzykawa Coffee Shop & Roastery"
                     className="w-auto mx-auto"
                 />

@@ -68,7 +68,7 @@ function Footer() {
                   {/* Pionowe logo - większe */}
                   <div className="flex-shrink-0 footer-logo">
                     <img
-                        src="/public/logo/vertical-logo.png"
+                        src="/logo/vertical-logo.png"
                         alt="Strzykawa Coffee Shop & Roastery"
                         className="w-auto"
                     />
