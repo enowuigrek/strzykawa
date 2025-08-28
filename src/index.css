@@ -200,7 +200,7 @@ select,
 /* Responsywne wysokości logo w hero */
 @media (max-width: 640px) {
     .hero-logo img {
-        height: 192px; /* 3x większe - było 64px */
+        height: 115px; /* 40% mniej z 192px */
     }
 }
 
