@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { HeroBackground } from './HeroBackground.jsx';
-import { LogoPlaceholder } from './LogoPlaceholder.jsx';
 import { MainHeading } from './MainHeading.jsx';
 import { ActionButtons } from './ActionButtons.jsx';
 import { Tagline } from './Tagline.jsx';
@@ -11,7 +10,7 @@ function HeroSection() {
     const [showContent, setShowContent] = useState(false);
 
     return (
-        <section className="relative h-screen flex items-center justify-center overflow-hidden">
+        <section className="hero-section relative h-screen flex items-center justify-center overflow-hidden">
             <HeroBackground
                 videoDesktop={heroVideoDesktop}
                 videoMobile={heroVideoMobile}
@@ -24,8 +23,10 @@ function HeroSection() {
                     showContent ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
                 }`}
             >
-                {/*<LogoPlaceholder />*/}
-                <MainHeading />
+                {/* Logo tylko na desktop (ukryte na mobile przez CSS) */}
+                {/*<MainHeading />*/}
+
+                {/* ActionButtons i Tagline na wszystkich ekranach */}
                 <ActionButtons />
                 <Tagline />
             </div>

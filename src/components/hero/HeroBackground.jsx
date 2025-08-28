@@ -27,8 +27,8 @@ export function HeroBackground({ videoDesktop, videoMobile, onReadyToShow }) {
             <video
                 ref={videoRef}
                 className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ease-out 
-          ${dimVideo ? 'opacity-60' : 'opacity-100'}
-        `}
+                 ${dimVideo ? 'opacity-60' : 'opacity-100'}
+                `}
                 autoPlay
                 muted
                 loop={false}

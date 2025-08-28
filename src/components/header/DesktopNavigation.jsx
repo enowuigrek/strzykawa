@@ -2,7 +2,7 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 
 const navItems = [
-    { to: "/", label: "Start" },
+    // { to: "/", label: "Start" },
     { to: "/o-nas", label: "O Strzykawie" },
     { to: "/dostepne-w-kawiarni", label: "Dostępne w kawiarni" },
     { to: "/kawy", label: "Sklep on-line" },

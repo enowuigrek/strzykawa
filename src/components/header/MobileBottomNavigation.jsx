@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { FaHome, FaShoppingCart, FaMapMarkerAlt, FaUser } from 'react-icons/fa';
 import { HiShoppingBag } from 'react-icons/hi';
@@ -10,9 +10,27 @@ export function MobileBottomNavigation({
                                            onOpenLogin,
                                            onLogout
                                        }) {
+    const [isVisible, setIsVisible] = useState(false);
     const { user, isAuthenticated } = useAuthStore();
     const { getTotalItems } = useCartStore();
     const cartItemsCount = getTotalItems();
+
+    // Show navigation when user starts scrolling
+    useEffect(() => {
+        const handleScroll = () => {
+            const scrolled = window.scrollY > 100; // Show after 100px scroll
+            setIsVisible(scrolled);
+        };
+
+        window.addEventListener('scroll', handleScroll, { passive: true });
+
+        // Check initial state
+        handleScroll();
+
+        return () => {
+            window.removeEventListener('scroll', handleScroll);
+        };
+    }, []);
 
     const openDirections = () => {
         const address = encodeURIComponent('ul. Dąbrowskiego 4, 42-200 Częstochowa');
@@ -28,7 +46,7 @@ export function MobileBottomNavigation({
     };
 
     return (
-        <div className="md:hidden fixed bottom-0 left-0 right-0 z-40 bg-primary-dark/95 backdrop-blur-md border-t border-white/10">
+        <div className={`md:hidden fixed bottom-0 left-0 right-0 z-40 bg-primary-dark/95 backdrop-blur-md border-t border-white/10 mobile-bottom-nav ${isVisible ? 'visible' : ''}`}>
             {/* Safe area padding for devices with bottom indicators */}
             <div style={{ paddingBottom: 'env(safe-area-inset-bottom)' }}>
                 <div className="flex items-center justify-around px-2 py-2">
@@ -37,9 +55,8 @@ export function MobileBottomNavigation({
                     <NavLink
                         to="/"
                         className={({ isActive }) => `
-                            flex items-center justify-center p-3 transition-all duration-300
-                            ${isActive ? 'text-green-400' : 'text-white/70'}
-                            hover:text-accent hover:bg-white/5
+                            flex items-center justify-center p-3 transition-all duration-300 rounded-lg
+                            ${isActive ? 'mobile-nav-active' : 'text-white/70'}
                         `}
                     >
                         <FaHome className="w-5 h-5" />
@@ -49,9 +66,8 @@ export function MobileBottomNavigation({
                     <NavLink
                         to="/kawy"
                         className={({ isActive }) => `
-                            flex items-center justify-center p-3 transition-all duration-300
-                            ${isActive ? 'text-green-400' : 'text-white/70'}
-                            hover:text-accent hover:bg-white/5
+                            flex items-center justify-center p-3 transition-all duration-300 rounded-lg
+                            ${isActive ? 'mobile-nav-active' : 'text-white/70'}
                         `}
                     >
                         <HiShoppingBag className="w-5 h-5" />
@@ -60,9 +76,9 @@ export function MobileBottomNavigation({
                     {/* Koszyk - środek, większy, bez ramki */}
                     <button
                         onClick={onOpenCart}
-                        className="relative flex items-center justify-center p-4 transition-all duration-300 hover:bg-white/5 hover:scale-105"
+                        className="relative flex items-center justify-center p-4 transition-all duration-200 active:scale-95 rounded-lg"
                     >
-                        <FaShoppingCart className="w-6 h-6 text-white/70 hover:text-accent transition-colors duration-300" />
+                        <FaShoppingCart className="w-6 h-6 text-white/70" />
                         {cartItemsCount > 0 && (
                             <span className="absolute -top-1 -right-1 bg-green-500 text-white text-xs w-5 h-5 rounded-full flex items-center justify-center font-bold">
                                 {cartItemsCount}
@@ -73,7 +89,7 @@ export function MobileBottomNavigation({
                     {/* Lokalizacja */}
                     <button
                         onClick={openDirections}
-                        className="flex items-center justify-center p-3 text-white/70 transition-all duration-300 hover:text-accent hover:bg-white/5"
+                        className="flex items-center justify-center p-3 text-white/70 transition-all duration-200 active:scale-95 rounded-lg"
                     >
                         <FaMapMarkerAlt className="w-5 h-5" />
                     </button>
@@ -82,9 +98,8 @@ export function MobileBottomNavigation({
                     <button
                         onClick={handleAuthClick}
                         className={`
-                            relative flex items-center justify-center p-3 transition-all duration-300
+                            relative flex items-center justify-center p-3 transition-all duration-200 active:scale-95 rounded-lg
                             ${isAuthenticated ? 'text-green-400' : 'text-white/70'}
-                            hover:text-accent hover:bg-white/5
                         `}
                     >
                         <FaUser className="w-5 h-5" />
