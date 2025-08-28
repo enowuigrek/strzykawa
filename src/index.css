@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Dosis:wght@300;400;500;600;700&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -8,7 +8,7 @@
 html, body {
     background-color: #1f2a25;
     color: white;
-    font-family: 'Poppins', Arial, sans-serif;
+    font-family: 'Dosis', Arial, sans-serif;
     height: 100%;
     margin: 0;
 
@@ -168,4 +168,83 @@ select,
         break-inside: avoid;
         page-break-inside: avoid;
     }
+}
+
+/* ===== LOGO STYLES ===== */
+
+/* Logo poziome w headerze - zmiana koloru na biały */
+.header-logo img {
+    /* Zmiana koloru PNG na biały */
+    filter: brightness(0) saturate(100%) invert(100%) sepia(0%) saturate(7500%) hue-rotate(0deg) brightness(100%) contrast(100%);
+    height: 80px;
+    width: auto;
+    transition: none; /* Usunięte animacje */
+}
+
+/* Usunięte hover effects dla headera */
+
+/* Logo pionowe w footerze - zmiana koloru na biały */
+.footer-logo img {
+    filter: brightness(0) saturate(100%) invert(100%) sepia(0%) saturate(7500%) hue-rotate(0deg) brightness(100%) contrast(100%);
+    height: 260px; /* Wysokość dostosowana do footera - 2x większa */
+    width: auto;
+    transition: filter 0.3s ease;
+}
+
+/* Logo w hero - zmiana koloru na biały */
+.hero-logo img {
+    filter: brightness(0) saturate(100%) invert(100%) sepia(0%) saturate(7500%) hue-rotate(0deg) brightness(100%) contrast(100%);
+    transition: all 0.3s ease;
+}
+
+/* Responsywne wysokości logo w hero */
+@media (max-width: 640px) {
+    .hero-logo img {
+        height: 192px; /* 3x większe - było 64px */
+    }
+}
+
+@media (min-width: 641px) and (max-width: 1024px) {
+    .hero-logo img {
+        height: 240px; /* 3x większe - było 80px */
+    }
+}
+
+@media (min-width: 1025px) {
+    .hero-logo img {
+        height: 288px; /* 3x większe - było 96px */
+    }
+}
+
+/* Zwiększenie wysokości i paddingu headera dla więcej miejsca */
+@media (min-width: 1024px) {
+    .header-container {
+        padding-top: 2rem;
+        padding-bottom: 2rem;
+    }
+}
+
+/* Zwiększony padding dla całego headera */
+.header-wrapper {
+    padding-top: 1.5rem;
+    padding-bottom: 1.5rem;
+}
+
+/* Dodatkowe style dla lepszego wyświetlania */
+.header-logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.footer-logo {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+}
+
+.hero-logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }

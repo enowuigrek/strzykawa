@@ -16,13 +16,15 @@ export function Logo({ }) {
 
     return (
         <div
-            className="relative group cursor-pointer"
+            className="cursor-pointer header-logo"
             onClick={handleLogoClick}
         >
-            <div className="text-2xl sm:text-3xl text-white tracking-wide transition-all duration-300 hover:text-accent">
-                STRZYKAWA
-            </div>
-            <div className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-muted to-accent transition-all duration-300 group-hover:w-full"></div>
+            {/* Logo poziome bez efektów hover */}
+            <img
+                src="/public/logo/horizontal-logo.png"
+                alt="Strzykawa Coffee Shop & Roastery"
+                className="w-auto"
+            />
         </div>
     );
 }

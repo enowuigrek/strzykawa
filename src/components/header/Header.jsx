@@ -56,7 +56,7 @@ export default function Header() {
 
     return (
         <>
-            {/* Górny header */}
+            {/* Górny header z większą przestrzenią */}
             <header
                 style={{ paddingTop: 'env(safe-area-inset-top)' }}
                 className={`
@@ -69,7 +69,7 @@ export default function Header() {
                 `}
             >
                 <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-                    <div className="flex justify-between items-center py-4 lg:py-5">
+                    <div className="header-wrapper flex justify-between items-center py-4 lg:py-6 header-container">
                         <Logo scrolled={scrolled} />
                         <DesktopNavigation />
                         <HeaderActions

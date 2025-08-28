@@ -2,13 +2,15 @@ import React from 'react';
 
 export function MainHeading() {
     return (
-        <h1 className="text-4xl sm:text-6xl lg:text-7xl mb-6 leading-tight">
-            <span className="text-white">
-                S T R Z Y K A W A
-            </span>
-            <span className="block text-2xl sm:text-3xl lg:text-4xl font-medium mt-2 text-white/90">
-                COFFEE SHOP & ROASTERY
-            </span>
-        </h1>
+        <div className="text-center">
+            {/* Logo poziome w hero - większe */}
+            <div className="hero-logo">
+                <img
+                    src="public/logo/horizontal-logo.png"
+                    alt="Strzykawa Coffee Shop & Roastery"
+                    className="w-auto mx-auto"
+                />
+            </div>
+        </div>
     );
 }

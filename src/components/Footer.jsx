@@ -61,22 +61,26 @@ function Footer() {
           {/* Main content */}
           <div className="container mx-auto px-4 py-12">
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
-              {/* Brand */}
+
+              {/* Brand - teraz z pionowym logo po lewej */}
               <div className="lg:col-span-2 space-y-6">
-                <div className="flex items-center gap-3">
-                  <div className="p-3 bg-accent/20 border border-accent/30">
-                    <FaCoffee className="w-8 h-8 text-accent" />
+                <div className="flex items-start gap-6">
+                  {/* Pionowe logo - większe */}
+                  <div className="flex-shrink-0 footer-logo">
+                    <img
+                        src="/public/logo/vertical-logo.png"
+                        alt="Strzykawa Coffee Shop & Roastery"
+                        className="w-auto"
+                    />
                   </div>
-                  <div>
-                    <h3 className="text-3xl">S T R Z Y K A W A</h3>
-                    <p className="text-sm text-muted uppercase tracking-wider">
-                      Coffee Shop & Roastery
+
+                  {/* Tekst obok logo - usunięte "Coffee Shop & Roastery" */}
+                  <div className="flex-grow space-y-4">
+                    <p className="text-muted/90 leading-relaxed">
+                      Pasjonaci kawy specialty z Częstochowy. Palimy, parzymy i dzielimy się miłością do najlepszych ziaren z całego świata. Każda filiżanka to podróż smakowa.
                     </p>
                   </div>
                 </div>
-                <p className="text-muted/90 leading-relaxed max-w-md">
-                  Pasjonaci kawy specialty z Częstochowy. Palimy, parzymy i dzielimy się miłością do najlepszych ziaren z całego świata. Każda filiżanka to podróż smakowa.
-                </p>
               </div>
 
               {/* Kontakt */}

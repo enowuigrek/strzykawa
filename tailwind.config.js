@@ -16,7 +16,7 @@ export default {
                 muted: '#8a9d94'
             },
             fontFamily: {
-                sans: ['Poppins', 'Arial', 'sans-serif']
+                sans: ['Dosis', 'Arial', 'sans-serif']
             },
             backdropBlur: {
                 xs: '2px'
