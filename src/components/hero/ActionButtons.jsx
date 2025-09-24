@@ -5,15 +5,15 @@ import { ActionButton } from './ActionButton.jsx';
 export function ActionButtons() {
     return (
         <div className="mt-12 flex flex-col sm:flex-row gap-4 sm:gap-6 items-center justify-center">
-            <ActionButton
-                href="/kontakt"
-                icon={FaCoffee}
-                text="Przyjdz do kawiarni"
-                colorClass="bg-accent/20 border border-accent/30 text-white"
-            />
+            {/*<ActionButton*/}
+            {/*    href="/kontakt"*/}
+            {/*    icon={FaCoffee}*/}
+            {/*    text="Przyjdz do kawiarni"*/}
+            {/*    colorClass="bg-accent/20 border border-accent/30 text-white"*/}
+            {/*/>*/}
 
-             {/*Vertical Divider - tylko na desktop*/}
-            <div className="hidden sm:block w-px h-12 bg-white/30"></div>
+            {/* /!*Vertical Divider - tylko na desktop*!/*/}
+            {/*<div className="hidden sm:block w-px h-12 bg-white/30"></div>*/}
 
             <ActionButton
                 href="/kawy"

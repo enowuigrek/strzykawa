@@ -3,8 +3,9 @@ import { HeroBackground } from './HeroBackground.jsx';
 import { MainHeading } from './MainHeading.jsx';
 import { ActionButtons } from './ActionButtons.jsx';
 import { Tagline } from './Tagline.jsx';
-import heroVideoDesktop from '../../assets/hero-desktop.mp4';
-import heroVideoMobile from '../../assets/hero-mobile.mp4';
+import { HeroDescription } from './HeroDescription.jsx';
+import  heroVideoDesktop from '../../assets/hero-desktop.mp4';
+import  heroVideoMobile from '../../assets/hero-mobile.mp4';
 
 function HeroSection() {
     const [showContent, setShowContent] = useState(false);
@@ -27,8 +28,9 @@ function HeroSection() {
                 {/*<MainHeading />*/}
 
                 {/* ActionButtons i Tagline na wszystkich ekranach */}
-                <ActionButtons />
                 <Tagline />
+                <ActionButtons />
+                <HeroDescription />
             </div>
         </section>
     );
