@@ -1,5 +1,7 @@
 import React from 'react';
 import { PageHeader } from '../components/PageHeader';
+import {FaMapMarkerAlt} from "react-icons/fa";
+import {UniversalButton} from "../components/UniversalButton.jsx";
 
 function B2B() {
     return (
@@ -15,12 +17,13 @@ function B2B() {
                         <p className="text-white/70 mb-4">
                             Masz pytania dotyczące współpracy?
                         </p>
-                        <a
+                        <UniversalButton
                             href="/kontakt"
-                            className="inline-block bg-accent hover:bg-accent/80 text-white px-8 py-3 rounded-full transition-colors"
+                            variant="primary"
+                            size="lg"
                         >
                             Skontaktuj się z nami
-                        </a>
+                        </UniversalButton>
                     </div>
                 </div>
             </div>

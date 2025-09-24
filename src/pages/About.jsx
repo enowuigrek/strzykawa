@@ -63,7 +63,7 @@ function About() {
                 <div className="max-w-6xl mx-auto">
                     {/* Timeline Section */}
                     <div className="mb-20">
-                        <h2 className="text-3xl md:text-4xl font-bold text-white text-center mb-16">
+                        <h2 className="text-3xl md:text-4xl text-white text-center mb-16">
                             Nasza historia
                         </h2>
 
@@ -198,10 +198,10 @@ function About() {
                             <h2 className="text-2xl md:text-3xl font-bold text-white mb-6">
                                 Zapraszamy do Strzykawy!
                             </h2>
-                            <p className="text-lg text-white/90 mb-8 max-w-2xl mx-auto">
-                                Przyjdź na kawę, zostań na rozmowę. Odkryj, dlaczego nasza społeczność
-                                rośnie każdego dnia i dlaczego Strzykawa to więcej niż kawiarnia.
-                            </p>
+                            {/*<p className="text-lg text-white/90 mb-8 max-w-2xl mx-auto">*/}
+                            {/*    Przyjdź na kawę, zostań na rozmowę. Odkryj, dlaczego nasza społeczność*/}
+                            {/*    rośnie każdego dnia i dlaczego Strzykawa to więcej niż kawiarnia.*/}
+                            {/*</p>*/}
                             <div className="flex flex-col sm:flex-row gap-4 justify-center">
                                 <UniversalButton
                                     href="/kontakt"
