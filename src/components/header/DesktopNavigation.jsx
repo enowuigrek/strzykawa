@@ -4,10 +4,9 @@ import { NavLink } from 'react-router-dom';
 const navItems = [
     // { to: "/", label: "Start" },
     { to: "/o-nas", label: "O Strzykawie" },
-    { to: "/dostepne-w-kawiarni", label: "Dostępne w kawiarni" },
     { to: "/kawy", label: "Sklep on-line" },
+    { to: "/b2b", label: "B2B" }, // <-- ZMIANA TUTAJ
     { to: "/kontakt", label: "Kontakt" },
-
 ];
 
 const navLinkClasses = ({ isActive }) => `

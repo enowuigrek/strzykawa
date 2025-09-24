@@ -7,6 +7,7 @@ import Coffees from './pages/Coffees.jsx';
 import AvailableInCafe from './pages/AvailableInCafe.jsx';
 import About from "./pages/About.jsx";
 import ContactSection from "./pages/ContactSection.jsx";
+import B2B from './pages/B2B.jsx';
 import ShopifyDebugger from './components/ShopifyDebugger.jsx';
 
 // Hook do automatycznego scrollowania na górę przy zmianie trasy
@@ -34,8 +35,9 @@ function App() {
                 <Routes>
                     <Route path="/" element={<Home />} />
                     <Route path="/kawy" element={<Coffees />} />
-                    <Route path="/dostepne-w-kawiarni" element={<AvailableInCafe />} />
+                    {/*<Route path="/dostepne-w-kawiarni" element={<AvailableInCafe />} />*/}
                     <Route path="/o-nas" element={<About />} />
+                    <Route path="/b2b" element={<B2B />} />
                     <Route path="/kontakt" element={<ContactSection />} />
                     <Route path="/debug-shopify" element={<ShopifyDebugger />} />
                 </Routes>
