@@ -1,6 +1,5 @@
 import React from 'react';
 import { PageHeader } from '../components/PageHeader';
-import {FaMapMarkerAlt} from "react-icons/fa";
 import {UniversalButton} from "../components/UniversalButton.jsx";
 
 function B2B() {

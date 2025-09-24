@@ -1,439 +1,282 @@
-# Strzykawa - Roadmapa Rozwoju 🚀☕
+# Strzykawa - Zaktualizowana Roadmapa 🚀☕
 
-## 📅 AKTUALNY STAN (22 września 2025)
+## 📅 AKTUALNY STAN (Październik 2025)
 
-**STATUS:** Landing MVP Ukończony - Przygotowanie do E-commerce ✅  
-**FOCUS:** Konfiguracja Shopify i Integracja E-commerce 🛒
-
----
-
-## ✅ WYKONANE ZADANIA
-
-### 🏗️ Infrastruktura i Build ✅ UKOŃCZONE
-- [x] Vite + React setup - Nowoczesny stack technologiczny ✅
-- [x] Tailwind CSS - Pełna implementacja z custom paletą kolorów ✅
-- [x] React Router - Routing `/`, `/o-nas`, `/kawy`, `/dostepne-w-kawiarni`, `/kontakt` ✅
-- [x] Wdrożenie Netlify - Auto-deploy z GitHub ✅
-- [x] PWA ready - Manifest, ikony, service worker gotowy ✅
-
-### 🎨 Design System i UI ✅ UKOŃCZONE
-- [x] Ciemny motyw - Spójne kolory primary/accent/muted ✅
-- [x] Responsywny design - Mobile-first approach ✅
-- [x] Typografia - Dosis font family ✅
-- [x] Animacje - Fade-in, pulse-slow, custom keyframes ✅
-- [x] Glass-morphism effects - Backdrop blur, przezroczystości ✅
-
-### 📱 Komponenty Core ✅ UKOŃCZONE
-- [x] **Header** - Fixed z scroll effects, menu mobile ✅
-- [x] **HeroSection** - Pełnoekranowy z CTA ✅
-- [x] **Footer** - Wzbogacony o social media linki ✅
-- [x] **CoffeeCard** - Hover overlays, toggle na mobile ✅
-- [x] **ContactSection** - Mapa, godziny, dane kontaktowe ✅
-
-### 🏪 Strony Landing ✅ UKOŃCZONE
-- [x] **Home** - Hero + contact section ✅
-- [x] **About** - Podstawowa strona o firmie ✅
-- [x] **Coffees** - Katalog z filtrami (kraj, obróbka, typ wypału) ✅
-- [x] **AvailableInCafe** - 4 sekcje z licznikami dostępności ✅
-- [x] **Contact** - Dedykowana strona kontakt ✅
-
-### 📊 Model Danych Kawy ✅ UKOŃCZONE
-- [x] Struktura Coffee - Kompletny model z origin, species, roast, tasting notes ✅
-- [x] Flagi dostępności - espressoGrinders, quickFilter, brewBar, retailShelf ✅
-- [x] Dane testowe - Rozszerzone dane kaw w `coffees.js` ✅
-- [x] Filtrowanie - Zaawansowane filtry po kraju, obróbce, typie ✅
+**STATUS:** Content Updates Ukończone - Focus na UX Fixes + E-commerce 🛒  
+**CURRENT FOCUS:** Mobile UX Issues + Shopify Integration
 
 ---
 
-## 🔥 ZADANIA W TRAKCIE
+## ✅ OSTATNIO UKOŃCZONE
 
-### Faza 4: Konfiguracja Shopify i Integracja E-commerce 🔄 PRIORYTET
-- [ ] **Konfiguracja sklepu Shopify** 🔥 ROZPOCZĄĆ TERAZ
-  - Założenie konta Shopify
-  - Konfiguracja podstawowych ustawień sklepu
-  - Dodanie pierwszych produktów (kawy)
-  - Sprawdzenie jakie JSON/API zwraca Shopify
-- [ ] **Analiza Shopify API** 🔥 KLUCZOWE
-  - Testowanie Storefront API
-  - Sprawdzenie struktury danych produktów
-  - Mapowanie Shopify → model Coffee
-  - Planowanie integracji koszyka
-- [ ] **Przygotowanie integracji**
-  - Konfiguracja Shopify SDK w projekcie
-  - Utworzenie service layer dla Shopify API
-  - Przygotowanie environment variables
+### 🎨 Content Updates (Feedback Damiana) ✅ UKOŃCZONE
+- [x] Zmiana "Only Specialty Coffee" → "Częstochowska palarnia kawy" ✅
+- [x] Timeline 2020-2025 w sekcji "O Strzykawie" ✅ (wymaga poprawek)
+- [x] Uproszczenie nawigacji (usunięcie zbędnych zakładek) ✅
+- [x] Podstawowa struktura landing page ✅
 
 ---
 
-## 🚨 PILNE ZADANIA (FEEDBACK DAMIANA - 22.09.2025)
+## 🚨 PILNE PROBLEMY DO NAPRAWY
 
-### 1. Aktualizacja strony "O Strzykawie" 🔥 JUTRO
-**Materiały od Damiana:**
-- Nowe zdjęcia kawiarni i palarni (do uploadowania)
-- Jedno zdjęcie z ulicy do przycięcia (szyld sąsiadów u góry)
-- Timeline 2020-2025 do implementacji
-- Nowy opis pod filmem hero
+### 1. Timeline Component - Animation Issues 🔥 NATYCHMIASTOWE
+**Problem:**
+- Animacja przeskakuje niezależnie od user interaction
+- Ręczna zmiana daty powinna zatrzymać auto-odliczanie
+- Wersja mobilna wygląda źle
 
-**Do zrobienia:**
-- Przycięcie zdjęcia z ulicy (usunięcie szyldu sąsiadów)
-- Dodanie timeline z historią Strzykawy (2020-2025)
-- Wymiana opisu pod filmem hero
-- Upload nowych zdjęć do galerii
+**Do naprawienia:**
+- [ ] **Manual override** - user interaction zatrzymuje auto-play
+- [ ] **Mobile responsive design** - kompaktowy layout na telefonie
+- [ ] **Animation control** - smooth transitions, no jumping
+- [ ] **UX improvement** - lepsze kontrolki nawigacji
 
-### 2. Uproszczenie nawigacji i struktury 🔥 JUTRO
-**Zmiany requested by Damian:**
-- Usunięcie zakładek "Przyjdź do kawiarni" i "Dostępne w kawiarni"
-- Zmiana "Dostępne w kawiarni" → "B2B"
-- Uproszczenie filtrów sklepu do 3: Espresso, Przelew, Akcesoria
-- Zmiana "Only Specialty Coffee" → "Częstochowska palarnia kawy"
+### 2. Shop Filters - Mobile UX Problem 🔥 NATYCHMIASTOWE
+**Problem:**
+- Filtry są wielkie i niepraktyczne na telefonie
+- Zajmują za dużo miejsca na małych ekranach
+- Trudne w obsłudze na mobile
 
-### 3. Content updates 🔥 JUTRO
-**Nowe teksty:**
-- Hero: "Częstochowska palarnia kawy" zamiast "Only Specialty Coffee"
-- Opis pod hero: Nowy tekst o sourcing i współpracy z farmami
-- Timeline "O Strzykawie": Historia 2020-2025
-- Sekcja B2B: Do opracowania z Damianem
+**Do naprawienia:**
+- [ ] **Compact mobile filters** - dropdown/accordion design
+- [ ] **Filter drawer** - slide-out panel na mobile
+- [ ] **Quick filter chips** - małe tagowanie zamiast dużych przycisków
+- [ ] **Mobile-first redesign** - optymalizacja pod telefony
 
-### 4. Poprzednie pilne poprawki 🟡
-**Galeria zdjęć - problemy wyświetlania**
-- Złe wyświetlanie na mobile i desktop
-- Sprawdzenie responsive images i aspect ratio
-
-**Footer - poprawki wizualne**
-- Dopracowanie layoutu i stylowania
-
-**Karty kaw - ulepszenia UX**
-- Przesunięcie overlay bardziej na dół
-- Dodanie opcji "mielona/ziarna"
+### 3. Galeria zdjęć - Display Issues 🟡 WAŻNE
+- [ ] Problemy wyświetlania na mobile i desktop
+- [ ] Responsive images i aspect ratio
+- [ ] Loading states i optimization
 
 ---
 
-## 📋 NASTĘPNE FAZY
+## 🔥 PRIORYTETOWE ZADANIA (NAJBLIŻSZE 2 TYGODNIE)
 
-### Faza 5: E-commerce Core (NASTĘPNE 2-3 TYGODNIE)
-- [ ] **Integracja Shopify Storefront API**
-  - Połączenie z Shopify
-  - Pobieranie listy produktów
-  - Synchronizacja danych kaw
-  - Obsługa inventory/dostępności
-- [ ] **Funkcjonalność Koszyka**
-  - Dodawanie produktów do koszyka
-  - Stan koszyka (Zustand)
-  - Przegląd koszyka
-  - Modyfikacja ilości
-- [ ] **Strony Produktów**
-  - `/kawy/:id` - indywidualne strony kaw
-  - Szczegółowy opis produktu
-  - Selektor opcji (mielona/ziarna)
-  - Opcje wielkości (250g, 500g, 1kg)
-  - Galeria zdjęć produktu
+### TYDZIEŃ 1: Mobile UX Fixes
+**DNI 1-2: Timeline Fixes**
+- Naprawienie animation control (manual override)
+- Redesign mobile version (kompaktowy layout)
+- Testing na różnych screen sizes
 
-### Faza 6: Checkout i Płatności (3-4 TYGODNIE)
-- [ ] **Proces Checkout**
-  - Formularz danych klienta
-  - Wybór sposobu dostawy
-  - Podsumowanie zamówienia
-  - Integracja z Shopify Checkout
-- [ ] **System Płatności**
-  - Bramka płatności (przez Shopify)
-  - Obsługa różnych metod płatności
-  - Potwierdzenia płatności
+**DNI 3-4: Shop Filters Mobile**
+- Implementacja filter drawer/accordion na mobile
+- Quick filter chips design
+- Touch-friendly controls
+
+**DNI 5-7: Polish & Testing**
+- Cross-device testing
+- Performance optimization
+- Bug fixes
+
+### TYDZIEŃ 2: E-commerce Prep
+**DNI 1-3: Shopify Planning**
+- Shopify account setup (jeśli jeszcze nie)
+- API analysis i integration planning
+- Service layer architecture
+
+**DNI 4-7: Basic Integration**
+- Pierwszy fetch produktów z Shopify
+- Data mapping Coffee model
+- Testing synchronizacji
+
+---
+
+## 📱 MOBILE UX IMPROVEMENTS (ROZSZERZONE)
+
+### Timeline Component Fixes
+```
+Problems:
+- Auto-animation conflicts z manual control
+- Mobile layout zbyt szeroki/wysokie
+- Animation jumping
+
+Solutions:
+- useState dla manual control override  
+- Compact vertical timeline na mobile
+- Smooth CSS transitions
+- Touch gestures support
+```
+
+### Shop Filters Redesign
+```
+Current: Duże przyciski w rzędzie
+Mobile Problem: Za dużo miejsca, trudne do tapnięcia
+
+New Design:
+- Filter drawer (slide z boku)
+- Compact chips z count badges
+- Search w filtrach
+- Apply/Clear buttons
+```
+
+### Responsive Strategy
+```
+Mobile-first approach:
+- Filters: Drawer/accordion
+- Timeline: Vertical, compact
+- Cards: Stacked, nie grid
+- Navigation: Hamburger menu
+```
+
+---
+
+## 🛒 E-COMMERCE ROADMAP (ZAKTUALIZOWANA)
+
+### Faza 1: Shopify Foundation (2-3 TYGODNIE)
+- [ ] **Shopify Store Setup**
+  - Konfiguracja podstawowych ustawień
+  - Dodanie pierwszych produktów (test data)
+  - API keys i permissions setup
+- [ ] **Storefront API Integration**
+  - SDK installation i configuration
+  - Pierwszy fetch produktów
+  - Error handling i loading states
+- [ ] **Data Mapping**
+  - Shopify product → Coffee model mapping
+  - Image handling i CDN
+  - Inventory sync planning
+
+### Faza 2: Product Pages & Cart (3-4 TYGODNIE)
+- [ ] **Individual Product Pages** `/kawy/:id`
+  - Detailed product view
+  - Image gallery
+  - Options selector (mielona/ziarna, rozmiary)
+  - Add to cart functionality
+- [ ] **Shopping Cart**
+  - Cart state management (Zustand)
+  - Add/remove/modify items
+  - Cart drawer/page
+  - Persistent cart (localStorage alternative)
+- [ ] **Cart Integration**
+  - Shopify cart API integration
+  - Price calculations
+  - Shipping options preview
+
+### Faza 3: Checkout & Payments (2-3 TYGODNIE)
+- [ ] **Checkout Flow**
+  - Customer information form
+  - Shipping options
+  - Order summary
+  - Shopify Checkout integration
+- [ ] **Payment Processing**
+  - Shopify Payments integration
+  - Multiple payment methods
+  - Order confirmation
   - Email notifications
-- [ ] **Zarządzanie Zamówieniami**
-  - Status zamówienia
-  - Tracking przesyłki
-  - Historia zakupów
-  - Panel klienta (opcjonalnie)
-
-### Faza 7: Content Management i Blog (1-2 MIESIĄCE)
-- [ ] **Content Updates (Feedback Damiana)**
-  - Timeline "O Strzykawie" z historią 2020-2025 ✅
-  - Nowy opis pod hero o sourcing i współpracy z farmami ✅
-  - Sekcja B2B zamiast "Dostępne w kawiarni" ✅
-  - Uproszczenie nawigacji (usunięcie zbędnych zakładek) ✅
-- [ ] **System Blog (Przyszłość - Strapi)**
-  - Strona `/blog` z listą postów
-  - Indywidualne strony postów
-  - Kategorie i tagi
-  - CMS do zarządzania treścią (Strapi)
-- [ ] **Przewodniki Parzenia**
-  - Sekcja `/przewodniki-parzenia`
-  - Step-by-step tutoriale
-  - Rekomendacje sprzętu
-  - Dopasowanie kawa-metoda
-- [ ] **Zarządzanie Treścią**
-  - Profile zespołu (Damian + team)
-  - Historie pochodzenia kaw
-  - Content o zrównoważonym rozwoju
-  - Regularne updates bloga
+- [ ] **Post-Purchase**
+  - Order tracking
+  - Customer account (optional)
+  - Return/exchange info
 
 ---
 
-## 🎨 ULEPSZENIA DESIGNU I UX
+## 🎨 DESIGN IMPROVEMENTS
 
-### Design Priorities (Krótkoterminowe)
-- [ ] **Galeria produktów** 🔥
-  - Naprawienie problemów wyświetlania
-  - Lepsze hover effects na kartach kaw
-  - Optymalizacja obrazów
-- [ ] **Karty kaw - UX improvements**
-  - Przesunięcie overlay na dół
-  - Dodanie opcji mielona/ziarna
-  - Lepsze mobile experience
-- [ ] **Footer redesign**
-  - Poprawa wizualna
-  - Lepszy layout
-  - Spójność z resztą strony
+### Short-term (Mówimy o najbliższych tygodniach)
+- [ ] **Timeline mobile redesign** 🔥
+- [ ] **Filter system mobile** 🔥
+- [ ] **Coffee cards hover improvements**
+- [ ] **Footer visual polish**
 
-### Branding (Średnioterminowe)
-- [ ] **Wymiana placeholderów**
-  - Oficjalny branding Strzykawy
-  - Nowe logo w całej aplikacji
-  - Profesjonalne zdjęcia produktów
-  - Zdjęcia wnętrz kawiarni
-- [ ] **Custom ikony**
-  - Zaprojektowanie własnych ikon
-  - Spójny zestaw ikon
-  - Zamiana react-icons na własne
-- [ ] **Fotografia produktowa**
-  - Profesjonalne zdjęcia kaw
-  - Consistent styling
-  - Różne kąty/prezentacje
-  - Zdjęcia procesu parzenia
+### Medium-term (Miesiąc-dwa)
+- [ ] **Professional product photography**
+- [ ] **Brand assets replacement** (placeholders → oficial)
+- [ ] **Custom icons** (replace react-icons)
+- [ ] **Micro-animations polish**
+
+### Long-term (Przyszłość)
+- [ ] **Complete visual refresh**
+- [ ] **Photography session** (products + cafe)
+- [ ] **Video content integration**
+- [ ] **3D product previews** (jeśli budget pozwoli)
 
 ---
 
-## 🚀 FUNKCJE ZAAWANSOWANE (PRZYSZŁOŚĆ)
+## 📊 TECHNICAL PRIORITIES
 
-### Faza 8: Rozszerzenie Asortymentu (2-3 MIESIĄCE)
-- [ ] **Kategoria Akcesoria**
-  - Rozszerzenie katalogu o akcesoria do kawy
-  - Młynki, dzbanki, filtry itp.
-  - Integracja z tym samym systemem Shopify
-  - Cross-selling z kawami
-- [ ] **Zestawy i Bundle**
-  - Pakiety kawa + akcesoria
-  - Zestawy degustacyjne
-  - Prezentowe packaging
-  - Dynamic pricing dla zestawów
-
-### Faza 9: Loyalty i Marketing (3-6 MIESIĘCY)
-- [ ] **Program Lojalnościowy**
-  - Punkty za zakupy
-  - Exclusive access do nowych kaw
-  - Seasonal discounts
-  - Newsletter integration
-- [ ] **Recenzje i Rating**
-  - System opinii o kawach
-  - Star ratings
-  - Photo reviews
-  - Moderacja treści
-- [ ] **Social Commerce**
-  - Instagram shopping integration
-  - Social media feeds
-  - User-generated content
-  - Influencer partnerships
-
-### Faza 10: Analytics i Optymalizacja (6+ MIESIĘCY)
-- [ ] **E-commerce Analytics**
-  - Conversion tracking
-  - Sales analytics
-  - Popular products analysis
-  - Customer behavior insights
-- [ ] **SEO i Marketing**
-  - Product schema markup
-  - Blog SEO optimization
-  - Social media automation
-  - Email marketing campaigns
-- [ ] **Performance Optimization**
-  - Core Web Vitals optimization
-  - Image optimization
-  - Caching strategies
-  - CDN implementation
-
----
-
-## 📊 STATUS OBECNEGO WDROŻENIA
-
-| Komponent | Status | Platforma | URL | Notatki |
-|-----------|---------|-----------|-----|---------|
-| **Frontend** | ✅ LIVE | Netlify | https://golden-blini-2ab47b.netlify.app | Landing complete |
-| **Shopify Store** | 🔄 TODO | Shopify | - | Do skonfigurowania |
-| **Domain** | 📋 PLANOWANE | - | - | Custom domain |
-| **Analytics** | 📋 PLANOWANE | Google Analytics | - | Tracking setup |
-
----
-
-## 🏆 KAMIENIE MILOWE
-
-### ✅ KAMIEŃ MILOWY 1: Landing MVP (UKOŃCZONY)
-- Kompletna strona landing
-- Responsywny design
-- Katalog kaw z filtrami
-- Wdrożenie Netlify
-- Profesjonalny wygląd
-
-### 🔄 KAMIEŃ MILOWY 2: E-commerce Foundation (W TRAKCIE)
-- Konfiguracja Shopify
-- Integracja API
-- Podstawowa funkcjonalność sklepu
-- Strony produktów
-- System koszyka
-
-### 🎯 KAMIEŃ MILOWY 3: Full E-commerce (NASTĘPNY)
-- Kompletny proces zakupowy
-- System płatności
-- Zarządzanie zamówieniami
-- Customer experience
-- Mobile commerce
-
-### 🚀 KAMIEŃ MILOWY 4: Content & Marketing (PRZYSZŁOŚĆ)
-- System blog/CMS
-- SEO optimization
-- Loyalty program
-- Analytics dashboard
-- Marketing automation
-
----
-
-## 💡 KLUCZOWE DECYZJE TECHNICZNE
-
-### Stack Technologiczny ✅
+### Performance & UX
 ```
-Frontend: React + Vite + Tailwind CSS
-E-commerce: Shopify (Storefront API)
-Hosting: Netlify
-State Management: Zustand
-Routing: React Router
+Critical Issues:
+1. Mobile filters UX ← ASAP
+2. Timeline animation control ← ASAP  
+3. Gallery display issues ← Soon
+4. Loading states improvement ← Soon
+
+Performance:
+- Image optimization
+- Bundle size analysis
+- Core Web Vitals audit
+- Mobile performance focus
 ```
 
-### Architektura Danych 📋
+### Code Quality
 ```
-Products: Shopify → Coffee model mapping
-Images: Shopify CDN
-Inventory: Real-time sync z Shopify
-Payments: Shopify Checkout
+Refactoring needs:
+- Timeline component cleanup
+- Filter system architecture
+- Mobile-responsive utilities
+- Animation system cleanup
 ```
 
 ---
 
-## 📈 TRACKER POSTĘPU
+## 🎯 SUCCESS METRICS
 
-**Ogólny postęp:** 75% (Landing ukończony, e-commerce w planach)
+### Mobile UX Goals
+- [ ] **Timeline**: Smooth manual control, no animation conflicts
+- [ ] **Filters**: <50% screen height na mobile, touch-friendly
+- [ ] **Overall**: Lighthouse Mobile Score >90
 
-### ✅ Faza 1: Fundament i Setup - UKOŃCZONE (100%)
-- [x] Vite + React + Tailwind setup ✅
-- [x] Routing i podstawowa struktura ✅
-- [x] Design system i responsywność ✅
-
-### ✅ Faza 2: Komponenty Core - UKOŃCZONE (100%)
-- [x] Header, Footer, Hero ✅
-- [x] CoffeeCard z funkcjami ✅
-- [x] Contact section ✅
-
-### ✅ Faza 3: Strony Landing - UKOŃCZONE (100%)
-- [x] Wszystkie główne strony ✅
-- [x] Katalog z filtrami ✅
-- [x] Model danych kaw ✅
-
-### 🔄 Faza 4: Shopify Setup - W TRAKCIE (10%)
-- [ ] Konfiguracja sklepu Shopify 🔄
-- [ ] Analiza API i integracja 📋
-- [ ] Przygotowanie SDK 📋
-
-### 📋 Pozostałe fazy - PLANOWANE
-- [ ] Faza 5: E-commerce Core
-- [ ] Faza 6: Checkout i Płatności
-- [ ] Faza 7: Content Management
+### E-commerce Goals
+- [ ] **Integration**: Successful Shopify connection
+- [ ] **Performance**: Product fetch <2s
+- [ ] **UX**: Complete purchase flow working
 
 ---
 
-## 🎯 PLAN DZIAŁANIA (NAJBLIŻSZE 2 TYGODNIE)
+## 📞 IMMEDIATE ACTION PLAN
 
-### TYDZIEŃ 1: Content Updates od Damiana (PRIORITY)
-**DZIEŃ 1 (JUTRO):**
-- Przycięcie zdjęcia z ulicy (usunięcie szyldu sąsiadów)
-- Upload nowych zdjęć do projektu
-- Implementacja timeline 2020-2025 w "O Strzykawie"
-- Zmiana hero text: "Częstochowska palarnia kawy"
+### JUTRO:
+1. **Fix Timeline Animation** - manual control override
+2. **Start Filter Mobile Redesign** - architecture planning
 
-**DZIEŃ 2:**
-- Nowy opis pod hero (tekst o sourcing i farmach)
-- Usunięcie zakładek "Przyjdź do kawiarni" i "Dostępne w kawiarni"
-- Dodanie sekcji "B2B" w nawigacji
-- Uproszczenie filtrów sklepu (Espresso, Przelew, Akcesoria)
+### TEN TYDZIEŃ:
+1. **Complete Timeline mobile version**
+2. **Implement mobile filter drawer**
+3. **Test cross-device compatibility**
 
-**DNI 3-4:**
-- Shopify setup (jeśli content ready)
-- Naprawa galerii zdjęć (mobile/desktop issues)
-
-**DNI 5-7:**
-- Poprawki footer design
-- Ulepszenie kart kaw (overlay position)
-- Testing i polish nowych zmian
-
-### TYDZIEŃ 2: Integration Prep
-**DNI 1-3:**
-- Setup Shopify SDK w projekcie
-- Utworzenie service layer dla API
-- Konfiguracja environment variables
-
-**DNI 4-5:**
-- Pierwsza integracja - pobieranie produktów
-- Mapowanie Shopify data → Coffee model
-- Testowanie synchronizacji
-
-**DNI 6-7:**
-- Planowanie architektury koszyka
-- Przygotowanie stron produktów
-- Code review i refaktoring
+### NASTĘPNY TYDZIEŃ:
+1. **Shopify account setup** (jeśli nie zrobione)
+2. **Basic API integration test**
+3. **Plan product pages architecture**
 
 ---
 
-## ⚠️ RYZYKO I MITYGACJA
+## 💭 NOTES & CONSIDERATIONS
 
-### Techniczne
-**Shopify API Limits**
-- Ryzyko: Rate limiting, quota
-- Mitygacja: Caching, intelligent fetching
+### Mobile-First Strategy
+```
+Observation: Większość problemów to mobile UX
+Strategy: Wszystkie nowe komponenty mobile-first
+Testing: Każda zmiana testowana na małych ekranach
+```
 
-**Data Synchronization**
-- Ryzyko: Rozbieżność inventory
-- Mitygacja: Real-time webhooks
+### Timeline Technical Notes
+```
+Current Issue: setInterval conflicts z manual setState
+Solution: useRef dla interval control + cleanup
+Mobile Design: Vertical scroll, compact cards
+```
 
-### Business
-**Product Photography**
-- Ryzyko: Brak profesjonalnych zdjęć
-- Mitygacja: Plan sesji fotograficznej
-
-**Content Creation**
-- Ryzyko: Czas na tworzenie opisów
-- Mitygacja: Template system, batch processing
-
----
-
-## 📞 NASTĘPNE KROKI AKCJI
-
-### NATYCHMIAST (Ten tydzień):
-1. **Założyć konto Shopify** ✅ PRIORYTET
-2. **Dodać pierwsze produkty** - przetestować system
-3. **Naprawić galerię** - problemy mobile/desktop
-4. **Poprawić footer** - wizualnie
-
-### KRÓTKOTERMINOWO (2 tygodnie):
-1. **Przeanalizować Shopify API** - structure, limits, best practices
-2. **Zintegrować podstawowo** - fetch products, display
-3. **Ulepszyć karty kaw** - overlay na dół, opcje mielona/ziarna
-4. **Strony produktów** - `/kawy/:id` routing i basic layout
-
-### ŚREDNIOTERMINOWO (Miesiąc):
-1. **Kompletny e-commerce** - koszyk, checkout, płatności
-2. **Custom branding** - logo, ikony, fotografia
-3. **Kategoria akcesoria** - rozszerzenie asortymentu
-4. **SEO i analytics** - marketing foundation
+### Filter Architecture
+```
+Current: Grid layout filters
+Mobile Problem: Zajmuje za dużo vertical space
+Solution: Accordion/Drawer + chip tags
+```
 
 ---
 
-**Ostatnia aktualizacja:** 22 września 2025  
-**STATUS:** 🟢 Landing Ready - E-commerce in Progress!  
-**FOCUS:** 🛒 Shopify Configuration & API Integration
+**Ostatnia aktualizacja:** Październik 2025  
+**STATUS:** 🟡 Mobile UX Fixes in Progress  
+**NEXT:** 🔥 Timeline Animation + Mobile Filters
