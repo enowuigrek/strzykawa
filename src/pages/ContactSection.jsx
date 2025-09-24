@@ -9,7 +9,7 @@ function ContactSection() {
 
     return (
         <div className="min-h-screen bg-primary pt-20">
-            <div className="container mx-auto px-4 py-8">
+            <div className="container mx-auto px-6 py-16">
 
                 {/* Section Header */}
                 <PageHeader

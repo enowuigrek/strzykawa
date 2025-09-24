@@ -3,7 +3,7 @@ import { PageHeader } from '../components/PageHeader';
 
 function B2B() {
     return (
-        <div className="min-h-screen bg-primary text-white pt-20">
+        <div className="min-h-screen bg-primary pt-20">
             <div className="container mx-auto px-6 py-16">
                 <PageHeader
                     title="Współpraca B2B"
