@@ -1,5 +1,5 @@
-import React, { useState, useMemo } from 'react';
-import { FaFilter, FaTimes, FaCoffee, FaGlobe, FaCog, FaFire, FaSeedling } from 'react-icons/fa';
+import React, { useState, useMemo, useCallback } from 'react';
+import { FaFilter, FaTimes, FaCoffee, FaGlobe, FaCog, FaSeedling } from 'react-icons/fa';
 import { CoffeeCard } from '../components/coffee/CoffeeCard.jsx';
 import { PageHeader } from '../components/PageHeader';
 import { useScrollToTop } from '../hooks/useScrollToTop';
@@ -14,7 +14,6 @@ export default function Coffees() {
 
     const [showFilters, setShowFilters] = useState(false);
 
-    // Extract unique values for filters
     const filterOptions = useMemo(() => {
         const countries = new Set();
         const processings = new Set();
@@ -40,19 +39,26 @@ export default function Coffees() {
         };
     }, []);
 
-    // Filter coffees based on selected filters
     const filteredCoffees = useMemo(() => {
-        if (!filters.roastType) return coffees;
-        return coffees.filter(coffee => coffee.roastType === filters.roastType);
-    }, [filters]);
+        console.log('🔄 filteredCoffees recalculating, current filter:', filters.roastType);
+        if (!filters.roastType) {
+            console.log('✅ Returning all coffees:', coffees.length);
+            return coffees;
+        }
+        const filtered = coffees.filter(coffee => coffee.roastType === filters.roastType);
+        console.log('✅ Filtered coffees:', filtered.length, 'for type:', filters.roastType);
+        return filtered;
+    }, [filters.roastType]);
 
-    const updateFilter = (key, value) => {
+    const updateFilter = useCallback((key, value) => {
+        console.log('🔥 updateFilter:', key, value);
         setFilters(prev => ({ ...prev, [key]: value }));
-    };
+    }, []);
 
-    const clearFilters = () => {
+    const clearFilters = useCallback(() => {
+        console.log('🧹 clearFilters');
         setFilters({ roastType: '' });
-    };
+    }, []);
 
     const hasActiveFilters = filters.roastType !== '';
     const activeFiltersCount = filters.roastType !== '' ? 1 : 0;
@@ -60,77 +66,82 @@ export default function Coffees() {
     return (
         <div className="min-h-screen bg-primary text-white pt-20">
             <div className="container mx-auto px-6 py-16">
-                {/* Hero Section */}
                 <PageHeader
                     title="Nasze kawy"
                     description="Odkryj nasze starannie wyselekcjonowane kawy specialty z najlepszych plantacji świata. Każda kawa to unikalna podróż smakowa."
-                >
+                />
 
-                </PageHeader>
-
-                {/* Filter Panel - zawsze widoczny */}
+                {/* Filters - jedna wersja, responsive */}
                 <div className="mb-8">
-                    <div className="bg-gradient-to-r from-primary-light/50 to-primary/50 backdrop-blur-sm border border-white/10 p-6">
-                        <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+                    <div className="p-0 md:bg-gradient-to-r md:from-primary-light/50 md:to-primary/50 md:backdrop-blur-sm md:border md:border-white/10 md:p-6">
+
+                        {/* Label tylko mobile */}
+                        <div className="flex items-center gap-2 mb-3 md:hidden">
+                            <FaFilter className="w-4 h-4 text-accent" />
+                            <span className="text-xs font-medium text-muted uppercase tracking-wide">Filtruj</span>
+                        </div>
+
+                        {/* Grid - responsive */}
+                        <div className="grid grid-cols-2 gap-2 md:grid-cols-4 md:gap-6">
 
                             {/* Wszystkie */}
                             <button
                                 onClick={() => updateFilter('roastType', '')}
-                                className={`p-6 border-2 transition-all duration-300 text-left ${
+                                className={`p-3 md:p-6 border-2 transition-all duration-300 text-left ${
                                     !filters.roastType
                                         ? 'border-accent bg-accent/20 text-white'
                                         : 'border-white/20 hover:border-accent/50 text-white hover:bg-white/5'
                                 }`}
                             >
-                                <div className="flex items-center gap-3 mb-2">
-                                    <FaGlobe className="w-5 h-5 text-accent" />
-                                    <h3 className="text-lg font-semibold">Wszystkie</h3>
+                                <div className="flex items-center gap-2 md:gap-3 md:mb-2">
+                                    <FaGlobe className="w-4 h-4 md:w-5 md:h-5 text-accent" />
+                                    <h3 className="text-sm md:text-lg font-semibold">Wszystkie</h3>
                                 </div>
-                                <p className="text-sm text-white/80">Cała nasza oferta</p>
+                                <p className="hidden md:block text-sm text-white/80">Cała nasza oferta</p>
                             </button>
 
                             {/* Espresso */}
                             <button
                                 onClick={() => updateFilter('roastType', filters.roastType === 'Espresso' ? '' : 'Espresso')}
-                                className={`p-6 border-2 transition-all duration-300 text-left ${
+                                className={`p-3 md:p-6 border-2 transition-all duration-300 text-left ${
                                     filters.roastType === 'Espresso'
                                         ? 'border-accent bg-accent/20 text-white'
                                         : 'border-white/20 hover:border-accent/50 text-white hover:bg-white/5'
                                 }`}
                             >
-                                <div className="flex items-center gap-3 mb-2">
-                                    <FaCoffee className="w-5 h-5 text-accent" />
-                                    <h3 className="text-lg font-semibold">Espresso</h3>
+                                <div className="flex items-center gap-2 md:gap-3 md:mb-2">
+                                    <FaCoffee className="w-4 h-4 md:w-5 md:h-5 text-accent" />
+                                    <h3 className="text-sm md:text-lg font-semibold">Espresso</h3>
                                 </div>
-                                <p className="text-sm text-white/80">Kawy dedykowane do espresso</p>
+                                <p className="hidden md:block text-sm text-white/80">Kawy dedykowane do espresso</p>
                             </button>
 
                             {/* Przelew */}
                             <button
                                 onClick={() => updateFilter('roastType', filters.roastType === 'Filter' ? '' : 'Filter')}
-                                className={`p-6 border-2 transition-all duration-300 text-left ${
+                                className={`p-3 md:p-6 border-2 transition-all duration-300 text-left ${
                                     filters.roastType === 'Filter'
                                         ? 'border-accent bg-accent/20 text-white'
                                         : 'border-white/20 hover:border-accent/50 text-white hover:bg-white/5'
                                 }`}
                             >
-                                <div className="flex items-center gap-3 mb-2">
-                                    <FaSeedling className="w-5 h-5 text-accent" />
-                                    <h3 className="text-lg font-semibold">Przelew</h3>
+                                <div className="flex items-center gap-2 md:gap-3 md:mb-2">
+                                    <FaSeedling className="w-4 h-4 md:w-5 md:h-5 text-accent" />
+                                    <h3 className="text-sm md:text-lg font-semibold">Przelew</h3>
                                 </div>
-                                <p className="text-sm text-white/80">Metody przelewowe</p>
+                                <p className="hidden md:block text-sm text-white/80">Metody przelewowe</p>
                             </button>
 
                             {/* Akcesoria */}
                             <button
                                 onClick={() => alert('Sekcja akcesoria w przygotowaniu!')}
-                                className="p-6 border-2 border-white/10 transition-all duration-300 text-left opacity-60 cursor-not-allowed"
+                                className="p-3 md:p-6 border-2 border-white/10 transition-all duration-300 text-left opacity-60 cursor-not-allowed"
                             >
-                                <div className="flex items-center gap-3 mb-2">
-                                    <FaCog className="w-5 h-5 text-white/60" />
-                                    <h3 className="text-lg font-semibold text-white/60">Akcesoria</h3>
+                                <div className="flex items-center gap-2 md:gap-3 md:mb-2">
+                                    <FaCog className="w-4 h-4 md:w-5 md:h-5 text-white/60" />
+                                    <h3 className="text-sm md:text-lg font-semibold text-white/60">Akcesoria</h3>
                                 </div>
-                                <p className="text-sm text-white/60">W przygotowaniu...</p>
+                                <p className="hidden md:block text-sm text-white/60">W przygotowaniu...</p>
                             </button>
 
                         </div>
@@ -162,7 +173,6 @@ export default function Coffees() {
                         ))}
                     </div>
                 ) : (
-                    /* Empty State */
                     <div className="text-center py-16">
                         <div className="max-w-md mx-auto">
                             <div className="mb-6">
