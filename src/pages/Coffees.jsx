@@ -71,80 +71,77 @@ export default function Coffees() {
                     description="Odkryj nasze starannie wyselekcjonowane kawy specialty z najlepszych plantacji świata. Każda kawa to unikalna podróż smakowa."
                 />
 
-                {/* Filters - jedna wersja, responsive */}
+                {/* Filters - minimalistyczny design */}
                 <div className="mb-8">
-                    <div className="p-0 md:bg-gradient-to-r md:from-primary-light/50 md:to-primary/50 md:backdrop-blur-sm md:border md:border-white/10 md:p-6">
+                    {/* Label dla wszystkich */}
+                    <div className="flex items-center gap-2 mb-3">
+                        <FaFilter className="w-4 h-4 text-accent" />
+                        <span className="text-xs md:text-sm font-medium text-muted uppercase tracking-wide">Filtruj</span>
+                    </div>
 
-                        {/* Label tylko mobile */}
-                        <div className="flex items-center gap-2 mb-3 md:hidden">
-                            <FaFilter className="w-4 h-4 text-accent" />
-                            <span className="text-xs font-medium text-muted uppercase tracking-wide">Filtruj</span>
-                        </div>
+                    {/* Grid - responsive */}
+                    <div className="grid grid-cols-2 gap-2 md:grid-cols-4 md:gap-6">
 
-                        {/* Grid - responsive */}
-                        <div className="grid grid-cols-2 gap-2 md:grid-cols-4 md:gap-6">
+                        {/* Wszystkie */}
+                        <button
+                            onClick={() => updateFilter('roastType', '')}
+                            className={`p-3 md:p-6 border-2 transition-all duration-300 text-left ${
+                                !filters.roastType
+                                    ? 'border-accent bg-accent/20 text-white'
+                                    : 'border-white/20 hover:border-accent/50 text-white hover:bg-white/5'
+                            }`}
+                        >
+                            <div className="flex items-center gap-2 md:gap-3 md:mb-2">
+                                <FaGlobe className="w-4 h-4 md:w-5 md:h-5 text-accent" />
+                                <h3 className="text-sm md:text-lg font-semibold">Wszystkie</h3>
+                            </div>
+                            <p className="hidden md:block text-sm text-white/80">Cała nasza oferta</p>
+                        </button>
 
-                            {/* Wszystkie */}
-                            <button
-                                onClick={() => updateFilter('roastType', '')}
-                                className={`p-3 md:p-6 border-2 transition-all duration-300 text-left ${
-                                    !filters.roastType
-                                        ? 'border-accent bg-accent/20 text-white'
-                                        : 'border-white/20 hover:border-accent/50 text-white hover:bg-white/5'
-                                }`}
-                            >
-                                <div className="flex items-center gap-2 md:gap-3 md:mb-2">
-                                    <FaGlobe className="w-4 h-4 md:w-5 md:h-5 text-accent" />
-                                    <h3 className="text-sm md:text-lg font-semibold">Wszystkie</h3>
-                                </div>
-                                <p className="hidden md:block text-sm text-white/80">Cała nasza oferta</p>
-                            </button>
+                        {/* Espresso */}
+                        <button
+                            onClick={() => updateFilter('roastType', filters.roastType === 'Espresso' ? '' : 'Espresso')}
+                            className={`p-3 md:p-6 border-2 transition-all duration-300 text-left ${
+                                filters.roastType === 'Espresso'
+                                    ? 'border-accent bg-accent/20 text-white'
+                                    : 'border-white/20 hover:border-accent/50 text-white hover:bg-white/5'
+                            }`}
+                        >
+                            <div className="flex items-center gap-2 md:gap-3 md:mb-2">
+                                <FaCoffee className="w-4 h-4 md:w-5 md:h-5 text-accent" />
+                                <h3 className="text-sm md:text-lg font-semibold">Espresso</h3>
+                            </div>
+                            <p className="hidden md:block text-sm text-white/80">Kawy dedykowane do espresso</p>
+                        </button>
 
-                            {/* Espresso */}
-                            <button
-                                onClick={() => updateFilter('roastType', filters.roastType === 'Espresso' ? '' : 'Espresso')}
-                                className={`p-3 md:p-6 border-2 transition-all duration-300 text-left ${
-                                    filters.roastType === 'Espresso'
-                                        ? 'border-accent bg-accent/20 text-white'
-                                        : 'border-white/20 hover:border-accent/50 text-white hover:bg-white/5'
-                                }`}
-                            >
-                                <div className="flex items-center gap-2 md:gap-3 md:mb-2">
-                                    <FaCoffee className="w-4 h-4 md:w-5 md:h-5 text-accent" />
-                                    <h3 className="text-sm md:text-lg font-semibold">Espresso</h3>
-                                </div>
-                                <p className="hidden md:block text-sm text-white/80">Kawy dedykowane do espresso</p>
-                            </button>
+                        {/* Przelew */}
+                        <button
+                            onClick={() => updateFilter('roastType', filters.roastType === 'Filter' ? '' : 'Filter')}
+                            className={`p-3 md:p-6 border-2 transition-all duration-300 text-left ${
+                                filters.roastType === 'Filter'
+                                    ? 'border-accent bg-accent/20 text-white'
+                                    : 'border-white/20 hover:border-accent/50 text-white hover:bg-white/5'
+                            }`}
+                        >
+                            <div className="flex items-center gap-2 md:gap-3 md:mb-2">
+                                <FaSeedling className="w-4 h-4 md:w-5 md:h-5 text-accent" />
+                                <h3 className="text-sm md:text-lg font-semibold">Przelew</h3>
+                            </div>
+                            <p className="hidden md:block text-sm text-white/80">Metody przelewowe</p>
+                        </button>
 
-                            {/* Przelew */}
-                            <button
-                                onClick={() => updateFilter('roastType', filters.roastType === 'Filter' ? '' : 'Filter')}
-                                className={`p-3 md:p-6 border-2 transition-all duration-300 text-left ${
-                                    filters.roastType === 'Filter'
-                                        ? 'border-accent bg-accent/20 text-white'
-                                        : 'border-white/20 hover:border-accent/50 text-white hover:bg-white/5'
-                                }`}
-                            >
-                                <div className="flex items-center gap-2 md:gap-3 md:mb-2">
-                                    <FaSeedling className="w-4 h-4 md:w-5 md:h-5 text-accent" />
-                                    <h3 className="text-sm md:text-lg font-semibold">Przelew</h3>
-                                </div>
-                                <p className="hidden md:block text-sm text-white/80">Metody przelewowe</p>
-                            </button>
+                        {/* Akcesoria */}
+                        <button
+                            onClick={() => alert('Sekcja akcesoria w przygotowaniu!')}
+                            className="p-3 md:p-6 border-2 border-white/10 transition-all duration-300 text-left opacity-60 cursor-not-allowed"
+                        >
+                            <div className="flex items-center gap-2 md:gap-3 md:mb-2">
+                                <FaCog className="w-4 h-4 md:w-5 md:h-5 text-white/60" />
+                                <h3 className="text-sm md:text-lg font-semibold text-white/60">Akcesoria</h3>
+                            </div>
+                            <p className="hidden md:block text-sm text-white/60">W przygotowaniu...</p>
+                        </button>
 
-                            {/* Akcesoria */}
-                            <button
-                                onClick={() => alert('Sekcja akcesoria w przygotowaniu!')}
-                                className="p-3 md:p-6 border-2 border-white/10 transition-all duration-300 text-left opacity-60 cursor-not-allowed"
-                            >
-                                <div className="flex items-center gap-2 md:gap-3 md:mb-2">
-                                    <FaCog className="w-4 h-4 md:w-5 md:h-5 text-white/60" />
-                                    <h3 className="text-sm md:text-lg font-semibold text-white/60">Akcesoria</h3>
-                                </div>
-                                <p className="hidden md:block text-sm text-white/60">W przygotowaniu...</p>
-                            </button>
-
-                        </div>
                     </div>
                 </div>
 
