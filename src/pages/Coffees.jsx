@@ -1,198 +1,250 @@
-import React, { useState, useMemo, useCallback } from 'react';
-import { FaFilter, FaTimes, FaCoffee, FaGlobe, FaCog, FaSeedling } from 'react-icons/fa';
+import React, { useState, useMemo } from 'react';
+import  coffees  from '../data/coffees.js';
 import { CoffeeCard } from '../components/coffee/CoffeeCard.jsx';
-import { PageHeader } from '../components/PageHeader';
-import { useScrollToTop } from '../hooks/useScrollToTop';
-import coffees from '../data/coffees.js';
+import { FiFilter } from 'react-icons/fi';
+import Button from '../components/atoms/Button';
+import Chip from '../components/atoms/Chip';
+import FilterDrawer from '../components/organisms/FilterDrawer';
 
-export default function Coffees() {
-    useScrollToTop();
+const Coffees = () => {
+    // ========== STATE ==========
+    const [selectedRoastType, setSelectedRoastType] = useState('');
+    const [selectedCountry, setSelectedCountry] = useState('');
+    const [selectedProcessing, setSelectedProcessing] = useState('');
+    const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+    const [isSticky, setIsSticky] = useState(false);
 
-    const [filters, setFilters] = useState({
-        roastType: ''
-    });
+    // ========== STICKY DETECTION ==========
+    React.useEffect(() => {
+        const handleScroll = () => {
+            setIsSticky(window.scrollY > 200);
+        };
+        window.addEventListener('scroll', handleScroll);
+        return () => window.removeEventListener('scroll', handleScroll);
+    }, []);
 
-    const [showFilters, setShowFilters] = useState(false);
+    // ========== FILTERING ==========
+    const filteredCoffees = useMemo(() => {
+        return coffees.filter((coffee) => {
+            const matchesRoastType = !selectedRoastType || coffee.roastType === selectedRoastType;
+            const matchesCountry = !selectedCountry ||
+                coffee.origin.some(o => o.country === selectedCountry);
+            const matchesProcessing = !selectedProcessing ||
+                coffee.origin.some(o => o.processing === selectedProcessing);
 
-    const filterOptions = useMemo(() => {
-        const countries = new Set();
-        const processings = new Set();
-        const roastTypes = new Set();
-        const roastLevels = new Set();
+            return matchesRoastType && matchesCountry && matchesProcessing;
+        });
+    }, [selectedRoastType, selectedCountry, selectedProcessing]);
 
+    // ========== DYNAMIC FILTERS DATA ==========
+    const filterData = useMemo(() => {
+        // Count countries
+        const countryMap = new Map();
         coffees.forEach(coffee => {
-            if (coffee.origin) {
-                coffee.origin.forEach(o => {
-                    if (o.country) countries.add(o.country);
-                    if (o.processing) processings.add(o.processing);
-                });
-            }
-            if (coffee.roastType) roastTypes.add(coffee.roastType);
-            if (coffee.roastLevel) roastLevels.add(coffee.roastLevel);
+            coffee.origin.forEach(o => {
+                countryMap.set(o.country, (countryMap.get(o.country) || 0) + 1);
+            });
+        });
+
+        // Count processing methods
+        const procMap = new Map();
+        coffees.forEach(coffee => {
+            coffee.origin.forEach(o => {
+                if (o.processing) {
+                    procMap.set(o.processing, (procMap.get(o.processing) || 0) + 1);
+                }
+            });
         });
 
         return {
-            countries: Array.from(countries).sort(),
-            processings: Array.from(processings).sort(),
-            roastTypes: Array.from(roastTypes).sort(),
-            roastLevels: Array.from(roastLevels).sort()
+            countries: Array.from(countryMap.entries())
+                .map(([country, count]) => ({ id: country.toLowerCase(), label: country, count }))
+                .sort((a, b) => b.count - a.count),
+            processing: Array.from(procMap.entries())
+                .map(([processing, count]) => ({ id: processing.toLowerCase(), label: processing, count })),
         };
     }, []);
 
-    const filteredCoffees = useMemo(() => {
-        console.log('🔄 filteredCoffees recalculating, current filter:', filters.roastType);
-        if (!filters.roastType) {
-            console.log('✅ Returning all coffees:', coffees.length);
-            return coffees;
+    // Main filter counts
+    const allCount = coffees.length;
+    const espressoCount = coffees.filter(c => c.roastType === 'Espresso').length;
+    const filterCount = coffees.filter(c => c.roastType === 'Filter').length;
+
+    // ========== HANDLERS ==========
+    const handleFilterToggle = (sectionId, filterId) => {
+        if (sectionId === 'countries') {
+            const country = filterData.countries.find(c => c.id === filterId)?.label;
+            setSelectedCountry(selectedCountry === country ? '' : country);
+        } else if (sectionId === 'processing') {
+            const processing = filterData.processing.find(p => p.id === filterId)?.label;
+            setSelectedProcessing(selectedProcessing === processing ? '' : processing);
         }
-        const filtered = coffees.filter(coffee => coffee.roastType === filters.roastType);
-        console.log('✅ Filtered coffees:', filtered.length, 'for type:', filters.roastType);
-        return filtered;
-    }, [filters.roastType]);
+    };
 
-    const updateFilter = useCallback((key, value) => {
-        console.log('🔥 updateFilter:', key, value);
-        setFilters(prev => ({ ...prev, [key]: value }));
-    }, []);
+    const clearAdvancedFilters = () => {
+        setSelectedCountry('');
+        setSelectedProcessing('');
+    };
 
-    const clearFilters = useCallback(() => {
-        console.log('🧹 clearFilters');
-        setFilters({ roastType: '' });
-    }, []);
-
-    const hasActiveFilters = filters.roastType !== '';
-    const activeFiltersCount = filters.roastType !== '' ? 1 : 0;
+    const activeAdvancedFilters = [selectedCountry, selectedProcessing].filter(Boolean).length;
 
     return (
-        <div className="min-h-screen bg-primary text-white pt-20">
-            <div className="container mx-auto px-6 py-16">
-                <PageHeader
-                    title="Nasze kawy"
-                    description="Odkryj nasze starannie wyselekcjonowane kawy specialty z najlepszych plantacji świata. Każda kawa to unikalna podróż smakowa."
-                />
+        <div className="min-h-screen bg-primary pt-24 pb-12">
 
-                {/* Filters - minimalistyczny design + STICKY */}
-                <div className="mb-8 sticky top-28 z-40 bg-primary pb-4">
-                    {/* Label dla wszystkich */}
-                    <div className="flex items-center gap-2 mb-3">
-                        <FaFilter className="w-4 h-4 text-accent" />
-                        <span className="text-xs md:text-sm font-medium text-muted uppercase tracking-wide">Filtruj</span>
-                    </div>
-
-                    {/* Grid - responsive */}
-                    <div className="grid grid-cols-2 gap-2 md:grid-cols-4 md:gap-6">
-
-                        {/* Wszystkie */}
-                        <button
-                            onClick={() => updateFilter('roastType', '')}
-                            className={`p-3 md:p-6 border-2 transition-all duration-300 text-left ${
-                                !filters.roastType
-                                    ? 'border-accent bg-accent/20 text-white'
-                                    : 'border-white/20 hover:border-accent/50 text-white hover:bg-white/5'
-                            }`}
-                        >
-                            <div className="flex items-center gap-2 md:gap-3 md:mb-2">
-                                <FaGlobe className="w-4 h-4 md:w-5 md:h-5 text-accent" />
-                                <h3 className="text-sm md:text-lg font-semibold">Wszystkie</h3>
-                            </div>
-                            <p className="hidden md:block text-sm text-white/80">Cała nasza oferta</p>
-                        </button>
-
-                        {/* Espresso */}
-                        <button
-                            onClick={() => updateFilter('roastType', filters.roastType === 'Espresso' ? '' : 'Espresso')}
-                            className={`p-3 md:p-6 border-2 transition-all duration-300 text-left ${
-                                filters.roastType === 'Espresso'
-                                    ? 'border-accent bg-accent/20 text-white'
-                                    : 'border-white/20 hover:border-accent/50 text-white hover:bg-white/5'
-                            }`}
-                        >
-                            <div className="flex items-center gap-2 md:gap-3 md:mb-2">
-                                <FaCoffee className="w-4 h-4 md:w-5 md:h-5 text-accent" />
-                                <h3 className="text-sm md:text-lg font-semibold">Espresso</h3>
-                            </div>
-                            <p className="hidden md:block text-sm text-white/80">Kawy dedykowane do espresso</p>
-                        </button>
-
-                        {/* Przelew */}
-                        <button
-                            onClick={() => updateFilter('roastType', filters.roastType === 'Filter' ? '' : 'Filter')}
-                            className={`p-3 md:p-6 border-2 transition-all duration-300 text-left ${
-                                filters.roastType === 'Filter'
-                                    ? 'border-accent bg-accent/20 text-white'
-                                    : 'border-white/20 hover:border-accent/50 text-white hover:bg-white/5'
-                            }`}
-                        >
-                            <div className="flex items-center gap-2 md:gap-3 md:mb-2">
-                                <FaSeedling className="w-4 h-4 md:w-5 md:h-5 text-accent" />
-                                <h3 className="text-sm md:text-lg font-semibold">Przelew</h3>
-                            </div>
-                            <p className="hidden md:block text-sm text-white/80">Metody przelewowe</p>
-                        </button>
-
-                        {/* Akcesoria */}
-                        <button
-                            onClick={() => alert('Sekcja akcesoria w przygotowaniu!')}
-                            className="p-3 md:p-6 border-2 border-white/10 transition-all duration-300 text-left opacity-60 cursor-not-allowed"
-                        >
-                            <div className="flex items-center gap-2 md:gap-3 md:mb-2">
-                                <FaCog className="w-4 h-4 md:w-5 md:h-5 text-white/60" />
-                                <h3 className="text-sm md:text-lg font-semibold text-white/60">Akcesoria</h3>
-                            </div>
-                            <p className="hidden md:block text-sm text-white/60">W przygotowaniu...</p>
-                        </button>
-
-                    </div>
-                </div>
-
-                {/* Results Summary */}
-                <div className="flex items-center justify-between mb-8 p-4 bg-primary-light/30 border border-white/10">
-                    <p className="text-muted flex items-center gap-2">
-                        <FaSeedling className="w-4 h-4 text-accent" />
-                        Pokazano <span className="font-bold text-white">{filteredCoffees.length}</span> z <span className="font-bold text-white">{coffees.length}</span> kaw
+            {/* ========== HEADER ========== */}
+            <div className="container mx-auto max-w-7xl px-4 mb-8">
+                <div className="text-center">
+                    <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">
+                        Nasze Kawy
+                    </h1>
+                    <p className="text-muted text-lg max-w-2xl mx-auto">
+                        Świeżo palone kawy specialty z całego świata.
+                        Każda partia palona jest ręcznie z pasją i dbałością o detale.
                     </p>
+                </div>
+            </div>
 
-                    {hasActiveFilters && (
-                        <div className="flex items-center gap-2 text-sm">
-                            <span className="text-muted">Aktywne filtry:</span>
-                            <span className="px-3 py-1 bg-accent/20 text-accent font-medium rounded-full">
-                                {activeFiltersCount}
-                            </span>
+            {/* ========== STICKY FILTER BAR ========== */}
+            <div
+                className={`
+          sticky top-20 z-30 bg-primary border-b border-accent/20 py-4 transition-all
+          ${isSticky ? 'shadow-xl backdrop-blur-sm bg-primary/95' : ''}
+        `}
+            >
+                <div className="container mx-auto max-w-7xl px-4">
+                    <div className="flex items-center gap-3 flex-wrap">
+
+                        {/* Main filters - always visible */}
+                        <Chip
+                            label="Wszystkie"
+                            count={allCount}
+                            active={!selectedRoastType}
+                            onClick={() => setSelectedRoastType('')}
+                            size="md"
+                        />
+                        <Chip
+                            label="Espresso"
+                            count={espressoCount}
+                            active={selectedRoastType === 'Espresso'}
+                            onClick={() => setSelectedRoastType('Espresso')}
+                            size="md"
+                        />
+                        <Chip
+                            label="Przelew"
+                            count={filterCount}
+                            active={selectedRoastType === 'Filter'}
+                            onClick={() => setSelectedRoastType('Filter')}
+                            size="md"
+                        />
+
+                        {/* Divider */}
+                        <div className="h-6 w-px bg-accent/30 mx-2"></div>
+
+                        {/* Advanced filters trigger */}
+                        <Button
+                            variant="ghost"
+                            size="sm"
+                            leftIcon={<FiFilter />}
+                            onClick={() => setIsDrawerOpen(true)}
+                        >
+                            Więcej filtrów
+                            {activeAdvancedFilters > 0 && ` (${activeAdvancedFilters})`}
+                        </Button>
+
+                        {/* Results counter */}
+                        <span className="text-muted text-sm ml-auto">
+              {filteredCoffees.length} {filteredCoffees.length === 1 ? 'kawa' : 'kaw'}
+            </span>
+                    </div>
+
+                    {/* Active advanced filters summary */}
+                    {activeAdvancedFilters > 0 && (
+                        <div className="flex items-center gap-2 mt-3 pt-3 border-t border-accent/10">
+                            <span className="text-muted text-sm">Aktywne:</span>
+                            {selectedCountry && (
+                                <Chip
+                                    label={selectedCountry}
+                                    active={true}
+                                    removable={true}
+                                    onRemove={() => setSelectedCountry('')}
+                                    size="sm"
+                                />
+                            )}
+                            {selectedProcessing && (
+                                <Chip
+                                    label={selectedProcessing}
+                                    active={true}
+                                    removable={true}
+                                    onRemove={() => setSelectedProcessing('')}
+                                    size="sm"
+                                />
+                            )}
+                            <button
+                                onClick={clearAdvancedFilters}
+                                className="text-accent text-sm hover:underline ml-auto"
+                            >
+                                Wyczyść
+                            </button>
                         </div>
                     )}
                 </div>
+            </div>
 
-                {/* Coffee Grid */}
+            {/* ========== COFFEE GRID ========== */}
+            <div className="container mx-auto max-w-7xl px-4 mt-8">
                 {filteredCoffees.length > 0 ? (
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 mb-8">
-                        {filteredCoffees.map(coffee => (
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                        {filteredCoffees.map((coffee) => (
                             <CoffeeCard key={coffee.id} coffee={coffee} />
                         ))}
                     </div>
                 ) : (
-                    <div className="text-center py-16">
-                        <div className="max-w-md mx-auto">
-                            <div className="mb-6">
-                                <div className="inline-flex items-center justify-center w-24 h-24 bg-primary-light/50 border border-white/10">
-                                    <FaCoffee className="w-12 h-12 text-muted" />
-                                </div>
-                            </div>
-                            <h3 className="text-2xl font-bold text-white mb-4">Nie znaleźliśmy kaw</h3>
-                            <p className="text-muted mb-8 leading-relaxed">
-                                Spróbuj zmienić kryteria wyszukiwania lub wyczyść wszystkie filtry,
-                                aby zobaczyć pełną ofertę.
-                            </p>
-                            <button
-                                className="inline-flex items-center gap-3 px-6 py-3 bg-accent hover:bg-accent/80 text-white font-semibold transition-all duration-300 hover:shadow-lg hover:shadow-accent/25"
-                                onClick={clearFilters}
-                            >
-                                <FaTimes className="w-4 h-4" />
-                                Wyczyść filtry
-                            </button>
-                        </div>
+                    <div className="text-center py-12">
+                        <p className="text-muted text-lg mb-4">
+                            Nie znaleziono kaw spełniających wybrane kryteria
+                        </p>
+                        <Button
+                            variant="ghost"
+                            onClick={() => {
+                                setSelectedRoastType('');
+                                clearAdvancedFilters();
+                            }}
+                        >
+                            Wyczyść wszystkie filtry
+                        </Button>
                     </div>
                 )}
             </div>
+
+            {/* ========== ADVANCED FILTERS DRAWER ========== */}
+            <FilterDrawer
+                isOpen={isDrawerOpen}
+                onClose={() => setIsDrawerOpen(false)}
+                filterSections={[
+                    {
+                        id: 'countries',
+                        title: 'Kraj pochodzenia',
+                        options: filterData.countries,
+                        defaultOpen: true,
+                    },
+                    {
+                        id: 'processing',
+                        title: 'Obróbka',
+                        options: filterData.processing,
+                        defaultOpen: false,
+                    },
+                ]}
+                activeFilters={{
+                    countries: selectedCountry ? [selectedCountry.toLowerCase()] : [],
+                    processing: selectedProcessing ? [selectedProcessing.toLowerCase()] : [],
+                }}
+                onFilterToggle={handleFilterToggle}
+                onApply={() => setIsDrawerOpen(false)}
+                onClear={clearAdvancedFilters}
+                totalResults={filteredCoffees.length}
+            />
         </div>
     );
-}
+};
+
+export default Coffees;

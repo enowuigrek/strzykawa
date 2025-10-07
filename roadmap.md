@@ -238,7 +238,7 @@ Refactoring needs:
 
 ### JUTRO:
 1. **Fix Timeline Animation** - manual control override
-2. **Start Filter Mobile Redesign** - architecture planning
+2. **Filtry przy skrollowaniu, zostaja u gory przypiete, aby byly pod reka**
 
 ### TEN TYDZIEŃ:
 1. **Complete Timeline mobile version**
