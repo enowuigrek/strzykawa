@@ -71,8 +71,8 @@ export default function Coffees() {
                     description="Odkryj nasze starannie wyselekcjonowane kawy specialty z najlepszych plantacji świata. Każda kawa to unikalna podróż smakowa."
                 />
 
-                {/* Filters - minimalistyczny design */}
-                <div className="mb-8">
+                {/* Filters - minimalistyczny design + STICKY */}
+                <div className="mb-8 sticky top-28 z-40 bg-primary pb-4">
                     {/* Label dla wszystkich */}
                     <div className="flex items-center gap-2 mb-3">
                         <FaFilter className="w-4 h-4 text-accent" />
