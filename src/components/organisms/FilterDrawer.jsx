@@ -1,41 +1,23 @@
 import React, { useEffect } from 'react';
 import { IoClose } from 'react-icons/io5';
 import { FiFilter } from 'react-icons/fi';
-import Button from '../atoms/Button';
-import Chip from '../atoms/Chip';
-import FilterSection from '../molecules/FilterSection';
+import { Button } from '../atoms/Button';
+import { Chip } from '../atoms/Chip';
+import { FilterSection } from '../molecules/FilterSection';
 
 /**
  * FilterDrawer Component - Mobile drawer z filtrami
- *
- * Slide-in drawer od dołu ekranu na mobile
- * Zawiera wszystkie sekcje filtrów + action buttons
- *
- * @param {boolean} isOpen - Czy drawer jest otwarty
- * @param {function} onClose - Callback przy zamknięciu
- * @param {Array} filterSections - Tablica sekcji filtrów
- *   [{
- *     id: 'countries',
- *     title: 'Kraj pochodzenia',
- *     options: [{id: 'etiopia', label: 'Etiopia', count: 5}]
- *   }]
- * @param {Object} activeFilters - Obiekt z aktywnymi filtrami
- *   { countries: ['etiopia'], processing: ['natural'] }
- * @param {function} onFilterToggle - Callback przy toggle (sectionId, filterId)
- * @param {function} onApply - Callback przy "Zastosuj"
- * @param {function} onClear - Callback przy "Wyczyść wszystko"
- * @param {number} totalResults - Liczba wyników po filtrach
  */
-const FilterDrawer = ({
-                          isOpen = false,
-                          onClose,
-                          filterSections = [],
-                          activeFilters = {},
-                          onFilterToggle,
-                          onApply,
-                          onClear,
-                          totalResults = 0,
-                      }) => {
+export function FilterDrawer({
+                                 isOpen = false,
+                                 onClose,
+                                 filterSections = [],
+                                 activeFilters = {},
+                                 onFilterToggle,
+                                 onApply,
+                                 onClear,
+                                 totalResults = 0,
+                             }) {
     // Lock body scroll when drawer is open
     useEffect(() => {
         if (isOpen) {

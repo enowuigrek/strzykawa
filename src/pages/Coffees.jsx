@@ -1,12 +1,11 @@
 import React, { useState, useMemo } from 'react';
-import  coffees  from '../data/coffees.js';
-import { CoffeeCard } from '../components/coffee/CoffeeCard.jsx';
-import { FiFilter } from 'react-icons/fi';
-import Button from '../components/atoms/Button';
-import Chip from '../components/atoms/Chip';
-import FilterDrawer from '../components/organisms/FilterDrawer';
+import coffees from '../data/coffees.js';
+import { PageLayout } from '../components/PageLayout';
+import { CoffeeFilterBar } from '../components/organisms/CoffeeFilterBar';
+import { CoffeeGrid } from '../components/organisms/CoffeeGrid';
+import { FilterDrawer } from '../components/organisms/FilterDrawer';
 
-const Coffees = () => {
+export function Coffees() {
     // ========== STATE ==========
     const [selectedRoastType, setSelectedRoastType] = useState('');
     const [selectedCountry, setSelectedCountry] = useState('');
@@ -14,11 +13,9 @@ const Coffees = () => {
     const [isDrawerOpen, setIsDrawerOpen] = useState(false);
     const [isSticky, setIsSticky] = useState(false);
 
-    // ========== STICKY DETECTION ==========
+    // ========== SCROLL DETECTION ==========
     React.useEffect(() => {
-        const handleScroll = () => {
-            setIsSticky(window.scrollY > 200);
-        };
+        const handleScroll = () => setIsSticky(window.scrollY > 200);
         window.addEventListener('scroll', handleScroll);
         return () => window.removeEventListener('scroll', handleScroll);
     }, []);
@@ -36,20 +33,14 @@ const Coffees = () => {
         });
     }, [selectedRoastType, selectedCountry, selectedProcessing]);
 
-    // ========== DYNAMIC FILTERS DATA ==========
+    // ========== FILTER DATA (DYNAMIC) ==========
     const filterData = useMemo(() => {
-        // Count countries
         const countryMap = new Map();
+        const procMap = new Map();
+
         coffees.forEach(coffee => {
             coffee.origin.forEach(o => {
                 countryMap.set(o.country, (countryMap.get(o.country) || 0) + 1);
-            });
-        });
-
-        // Count processing methods
-        const procMap = new Map();
-        coffees.forEach(coffee => {
-            coffee.origin.forEach(o => {
                 if (o.processing) {
                     procMap.set(o.processing, (procMap.get(o.processing) || 0) + 1);
                 }
@@ -58,17 +49,20 @@ const Coffees = () => {
 
         return {
             countries: Array.from(countryMap.entries())
-                .map(([country, count]) => ({ id: country.toLowerCase(), label: country, count }))
+                .map(([country, count]) => ({
+                    id: country.toLowerCase(),
+                    label: country,
+                    count
+                }))
                 .sort((a, b) => b.count - a.count),
             processing: Array.from(procMap.entries())
-                .map(([processing, count]) => ({ id: processing.toLowerCase(), label: processing, count })),
+                .map(([processing, count]) => ({
+                    id: processing.toLowerCase(),
+                    label: processing,
+                    count
+                })),
         };
     }, []);
-
-    // Main filter counts
-    const allCount = coffees.length;
-    const espressoCount = coffees.filter(c => c.roastType === 'Espresso').length;
-    const filterCount = coffees.filter(c => c.roastType === 'Filter').length;
 
     // ========== HANDLERS ==========
     const handleFilterToggle = (sectionId, filterId) => {
@@ -81,142 +75,55 @@ const Coffees = () => {
         }
     };
 
+    const clearAllFilters = () => {
+        setSelectedRoastType('');
+        setSelectedCountry('');
+        setSelectedProcessing('');
+    };
+
     const clearAdvancedFilters = () => {
         setSelectedCountry('');
         setSelectedProcessing('');
     };
 
-    const activeAdvancedFilters = [selectedCountry, selectedProcessing].filter(Boolean).length;
+    // ========== COUNTS ==========
+    const allCount = coffees.length;
+    const espressoCount = coffees.filter(c => c.roastType === 'Espresso').length;
+    const filterCount = coffees.filter(c => c.roastType === 'Filter').length;
 
+    // ========== RENDER ==========
     return (
-        <div className="min-h-screen bg-primary pt-24 pb-12">
+        <PageLayout
+            title="Nasze Kawy"
+            description="Świeżo palone kawy specialty z całego świata. Każda partia palona jest ręcznie z pasją i dbałością o detale."
+        >
 
-            {/* ========== HEADER ========== */}
-            <div className="container mx-auto max-w-7xl px-4 mb-8">
-                <div className="text-center">
-                    <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">
-                        Nasze Kawy
-                    </h1>
-                    <p className="text-muted text-lg max-w-2xl mx-auto">
-                        Świeżo palone kawy specialty z całego świata.
-                        Każda partia palona jest ręcznie z pasją i dbałością o detale.
-                    </p>
-                </div>
-            </div>
+            {/* Filter Bar (Sticky) */}
+            <CoffeeFilterBar
+                selectedRoastType={selectedRoastType}
+                onRoastTypeChange={setSelectedRoastType}
+                selectedCountry={selectedCountry}
+                onCountryRemove={() => setSelectedCountry('')}
+                selectedProcessing={selectedProcessing}
+                onProcessingRemove={() => setSelectedProcessing('')}
+                onMoreFiltersClick={() => setIsDrawerOpen(true)}
+                onClearAdvanced={clearAdvancedFilters}
+                allCount={allCount}
+                espressoCount={espressoCount}
+                filterCount={filterCount}
+                resultCount={filteredCoffees.length}
+                isSticky={isSticky}
+            />
 
-            {/* ========== STICKY FILTER BAR ========== */}
-            <div
-                className={`
-          sticky top-20 z-30 bg-primary border-b border-accent/20 py-4 transition-all
-          ${isSticky ? 'shadow-xl backdrop-blur-sm bg-primary/95' : ''}
-        `}
-            >
-                <div className="container mx-auto max-w-7xl px-4">
-                    <div className="flex items-center gap-3 flex-wrap">
-
-                        {/* Main filters - always visible */}
-                        <Chip
-                            label="Wszystkie"
-                            count={allCount}
-                            active={!selectedRoastType}
-                            onClick={() => setSelectedRoastType('')}
-                            size="md"
-                        />
-                        <Chip
-                            label="Espresso"
-                            count={espressoCount}
-                            active={selectedRoastType === 'Espresso'}
-                            onClick={() => setSelectedRoastType('Espresso')}
-                            size="md"
-                        />
-                        <Chip
-                            label="Przelew"
-                            count={filterCount}
-                            active={selectedRoastType === 'Filter'}
-                            onClick={() => setSelectedRoastType('Filter')}
-                            size="md"
-                        />
-
-                        {/* Divider */}
-                        <div className="h-6 w-px bg-accent/30 mx-2"></div>
-
-                        {/* Advanced filters trigger */}
-                        <Button
-                            variant="ghost"
-                            size="sm"
-                            leftIcon={<FiFilter />}
-                            onClick={() => setIsDrawerOpen(true)}
-                        >
-                            Więcej filtrów
-                            {activeAdvancedFilters > 0 && ` (${activeAdvancedFilters})`}
-                        </Button>
-
-                        {/* Results counter */}
-                        <span className="text-muted text-sm ml-auto">
-              {filteredCoffees.length} {filteredCoffees.length === 1 ? 'kawa' : 'kaw'}
-            </span>
-                    </div>
-
-                    {/* Active advanced filters summary */}
-                    {activeAdvancedFilters > 0 && (
-                        <div className="flex items-center gap-2 mt-3 pt-3 border-t border-accent/10">
-                            <span className="text-muted text-sm">Aktywne:</span>
-                            {selectedCountry && (
-                                <Chip
-                                    label={selectedCountry}
-                                    active={true}
-                                    removable={true}
-                                    onRemove={() => setSelectedCountry('')}
-                                    size="sm"
-                                />
-                            )}
-                            {selectedProcessing && (
-                                <Chip
-                                    label={selectedProcessing}
-                                    active={true}
-                                    removable={true}
-                                    onRemove={() => setSelectedProcessing('')}
-                                    size="sm"
-                                />
-                            )}
-                            <button
-                                onClick={clearAdvancedFilters}
-                                className="text-accent text-sm hover:underline ml-auto"
-                            >
-                                Wyczyść
-                            </button>
-                        </div>
-                    )}
-                </div>
-            </div>
-
-            {/* ========== COFFEE GRID ========== */}
+            {/* Coffee Grid */}
             <div className="container mx-auto max-w-7xl px-4 mt-8">
-                {filteredCoffees.length > 0 ? (
-                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-                        {filteredCoffees.map((coffee) => (
-                            <CoffeeCard key={coffee.id} coffee={coffee} />
-                        ))}
-                    </div>
-                ) : (
-                    <div className="text-center py-12">
-                        <p className="text-muted text-lg mb-4">
-                            Nie znaleziono kaw spełniających wybrane kryteria
-                        </p>
-                        <Button
-                            variant="ghost"
-                            onClick={() => {
-                                setSelectedRoastType('');
-                                clearAdvancedFilters();
-                            }}
-                        >
-                            Wyczyść wszystkie filtry
-                        </Button>
-                    </div>
-                )}
+                <CoffeeGrid
+                    coffees={filteredCoffees}
+                    onClearFilters={clearAllFilters}
+                />
             </div>
 
-            {/* ========== ADVANCED FILTERS DRAWER ========== */}
+            {/* Advanced Filters Drawer */}
             <FilterDrawer
                 isOpen={isDrawerOpen}
                 onClose={() => setIsDrawerOpen(false)}
@@ -243,7 +150,7 @@ const Coffees = () => {
                 onClear={clearAdvancedFilters}
                 totalResults={filteredCoffees.length}
             />
-        </div>
+        </PageLayout>
     );
 };
 

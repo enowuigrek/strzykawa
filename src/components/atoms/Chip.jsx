@@ -3,29 +3,19 @@ import { IoClose } from 'react-icons/io5';
 
 /**
  * Chip Component - Używany do filtrów, tagów, badges
- *
- * @param {string} label - Tekst wyświetlany w chip
- * @param {boolean} active - Czy chip jest aktywny (selected)
- * @param {function} onClick - Callback przy kliknięciu
- * @param {boolean} removable - Czy pokazać przycisk X do usunięcia
- * @param {function} onRemove - Callback przy usunięciu (jeśli removable)
- * @param {string} variant - 'default' | 'filter' | 'tag'
- * @param {string} size - 'sm' | 'md' | 'lg'
- * @param {boolean} disabled - Czy chip jest disabled
- * @param {number} count - Opcjonalna liczba (np. ilość produktów z tym filtrem)
  */
-const Chip = ({
-                  label,
-                  active = false,
-                  onClick,
-                  removable = false,
-                  onRemove,
-                  variant = 'filter',
-                  size = 'md',
-                  disabled = false,
-                  count = null,
-                  className = '',
-              }) => {
+export function Chip({
+                         label,
+                         active = false,
+                         onClick,
+                         removable = false,
+                         onRemove,
+                         variant = 'filter',
+                         size = 'md',
+                         disabled = false,
+                         count = null,
+                         className = '',
+                     }) {
     // Base classes
     const baseClasses = 'inline-flex items-center gap-2 rounded-full font-medium transition-all duration-200';
 

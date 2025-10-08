@@ -2,12 +2,22 @@
 
 ## 📅 AKTUALNY STAN (Październik 2025)
 
-**STATUS:** Content Updates Ukończone - Focus na UX Fixes + E-commerce 🛒  
-**CURRENT FOCUS:** Mobile UX Issues + Shopify Integration
+**STATUS:** Phase 1 Component Refactoring Complete ✅  
+**CURRENT FOCUS:** Sticky Bar Z-index Fix + Header Positioning
 
 ---
 
 ## ✅ OSTATNIO UKOŃCZONE
+
+### 🧩 Component Refactoring - Phase 1 ✅ COMPLETE
+- [x] Atomic Design pattern implemented ✅
+- [x] Button, Chip atoms created ✅
+- [x] FilterSection molecule created ✅
+- [x] FilterDrawer, CoffeeFilterBar, CoffeeGrid organisms created ✅
+- [x] PageLayout wrapper component ✅
+- [x] Coffees.jsx refactored (~60% code reduction) ✅
+- [x] Mobile filter drawer with sticky bar ✅
+- [x] All filters dynamic and data-driven ✅
 
 ### 🎨 Content Updates (Feedback Damiana) ✅ UKOŃCZONE
 - [x] Zmiana "Only Specialty Coffee" → "Częstochowska palarnia kawy" ✅
@@ -17,9 +27,86 @@
 
 ---
 
+## 📝 CODING CONVENTIONS (WAŻNE!)
+
+### ⚠️ ZASADY EKSPORTOWANIA KOMPONENTÓW
+
+**ZAWSZE stosuj tę konwencję:**
+
+```javascript
+// ✅ POPRAWNIE - Komponenty
+export function ComponentName() {
+  // Arrow functions wewnątrz dla event handlers
+  const handleClick = () => { ... };
+  const handleChange = () => { ... };
+  
+  return (
+    // JSX
+  );
+}
+
+// ✅ Import
+import { ComponentName } from './path';
+```
+
+```javascript
+// ❌ BŁĘDNIE - NIE UŻYWAJ
+const ComponentName = () => { ... };
+export default ComponentName;
+
+// ❌ Import
+import ComponentName from './path';
+```
+
+### 📋 Szczegółowe Zasady:
+
+1. **Komponenty React:**
+  - `export function ComponentName()` - zawsze named export
+  - Import z nawiasami klamrowymi: `import { ComponentName }`
+
+2. **Funkcje pomocnicze WEWNĄTRZ komponentów:**
+  - Arrow functions: `const handleClick = () => { ... }`
+  - Callbacks: `const processData = () => { ... }`
+
+3. **Demo/Example komponenty:**
+  - Też `export function`: `export function ComponentExamples()`
+
+4. **NIGDY nie mieszaj:**
+  - ❌ `export default` + arrow function
+  - ❌ Podwójny export (`export function` + `export default`)
+
+### 🎯 Dlaczego ta konwencja?
+
+- ✅ Spójność w całym projekcie
+- ✅ Łatwiejsze refaktoryzacje (auto-import działa lepiej)
+- ✅ Wyraźne rozróżnienie: komponenty vs funkcje pomocnicze
+- ✅ Mniej błędów przy importach
+
+---
+
 ## 🚨 PILNE PROBLEMY DO NAPRAWY
 
-### 1. Timeline Component - Animation Issues 🔥 NATYCHMIASTOWE
+### 1. Sticky Filter Bar - Z-index Issue 🔥 NATYCHMIASTOWE
+**Problem:**
+- Sticky bar chowa się pod header przy scrollu
+- Header ma wyższy z-index
+
+**Do naprawienia:**
+- [ ] **Opcja A:** Zwiększ z-index sticky bar (z-40)
+- [ ] **Opcja B:** Schowaj header przy scrollu
+- [ ] **Decyzja:** TBD
+
+### 2. Header Positioning - Inconsistency 🔥 NATYCHMIASTOWE
+**Problem:**
+- Nagłówek na różnych wysokościach na różnych stronach
+- Brak konsystencji padding/margin
+
+**Do naprawienia:**
+- [ ] Sprawdź PageLayout usage na wszystkich stronach
+- [ ] Ujednolić `pt-20` i `py-16` spacing
+- [ ] Test na wszystkich page'ach
+
+### 3. Timeline Component - Animation Issues 🟡 NASTĘPNE
 **Problem:**
 - Animacja przeskakuje niezależnie od user interaction
 - Ręczna zmiana daty powinna zatrzymać auto-odliczanie
@@ -31,92 +118,74 @@
 - [ ] **Animation control** - smooth transitions, no jumping
 - [ ] **UX improvement** - lepsze kontrolki nawigacji
 
-### 2. Shop Filters - Mobile UX Problem 🔥 NATYCHMIASTOWE
-**Problem:**
-- Filtry są wielkie i niepraktyczne na telefonie
-- Zajmują za dużo miejsca na małych ekranach
-- Trudne w obsłudze na mobile
+---
 
-**Do naprawienia:**
-- [ ] **Compact mobile filters** - dropdown/accordion design
-- [ ] **Filter drawer** - slide-out panel na mobile
-- [ ] **Quick filter chips** - małe tagowanie zamiast dużych przycisków
-- [ ] **Mobile-first redesign** - optymalizacja pod telefony
+## 🏗️ COMPONENT ARCHITECTURE
 
-### 3. Galeria zdjęć - Display Issues 🟡 WAŻNE
-- [ ] Problemy wyświetlania na mobile i desktop
-- [ ] Responsive images i aspect ratio
-- [ ] Loading states i optimization
+### ✅ Utworzone Komponenty (Phase 1)
+
+```
+src/components/
+├── atoms/
+│   ├── Button.jsx          ✅ (export function Button)
+│   └── Chip.jsx            ✅ (export function Chip)
+│
+├── molecules/
+│   └── FilterSection.jsx   ✅ (export function FilterSection)
+│
+├── organisms/
+│   ├── FilterDrawer.jsx       ✅ (export function FilterDrawer)
+│   ├── CoffeeFilterBar.jsx    ✅ (export function CoffeeFilterBar)
+│   └── CoffeeGrid.jsx         ✅ (export function CoffeeGrid)
+│
+├── PageLayout.jsx          ✅ (export function PageLayout)
+└── PageHeader.jsx          ✅ (export function PageHeader - existing)
+```
+
+### 📋 Do Refaktoryzacji (Phase 2-4)
+
+**Phase 2: Timeline (HIGH PRIORITY)**
+```
+About.jsx
+├── Timeline (organism)
+│   ├── TimelineCard (molecule)
+│   ├── TimelineControls (molecule)
+│   └── useTimelineAnimation (hook)
+```
+
+**Phase 3: CoffeeCard**
+```
+CoffeeCard.jsx (organism)
+├── CoffeeCardImage (atom)
+├── CoffeeCardOverlay (molecule)
+│   ├── CoffeeOriginInfo (molecule)
+│   ├── CoffeeTastingNotes (molecule)
+│   └── CoffeeAvailabilityBadges (molecule)
+```
+
+**Phase 4: Header/Footer**
+```
+Header.jsx → Navigation components
+Footer.jsx → Footer sections
+```
 
 ---
 
-## 🔥 PRIORYTETOWE ZADANIA (NAJBLIŻSZE 2 TYGODNIE)
+## 🔥 PRIORYTETOWE ZADANIA
 
-### TYDZIEŃ 1: Mobile UX Fixes
-**DNI 1-2: Timeline Fixes**
-- Naprawienie animation control (manual override)
-- Redesign mobile version (kompaktowy layout)
-- Testing na różnych screen sizes
+### DZISIAJ (Po kawie ☕):
+1. **Fix sticky bar z-index** - zdecydować: zwiększyć z-index czy schować header
+2. **Fix header positioning** - sprawdzić wszystkie strony, ujednolicić spacing
 
-**DNI 3-4: Shop Filters Mobile**
-- Implementacja filter drawer/accordion na mobile
-- Quick filter chips design
-- Touch-friendly controls
+### TEN TYDZIEŃ:
+1. **Timeline refactor** - wydzielić komponenty
+2. **Timeline animation fix** - manual control + smooth transitions
+3. **Timeline mobile** - responsive design
 
-**DNI 5-7: Polish & Testing**
-- Cross-device testing
-- Performance optimization
-- Bug fixes
-
-### TYDZIEŃ 2: E-commerce Prep
-**DNI 1-3: Shopify Planning**
-- Shopify account setup (jeśli jeszcze nie)
-- API analysis i integration planning
-- Service layer architecture
-
-**DNI 4-7: Basic Integration**
-- Pierwszy fetch produktów z Shopify
-- Data mapping Coffee model
-- Testing synchronizacji
-
----
-
-## 📱 MOBILE UX IMPROVEMENTS (ROZSZERZONE)
-
-### Timeline Component Fixes
-```
-Problems:
-- Auto-animation conflicts z manual control
-- Mobile layout zbyt szeroki/wysokie
-- Animation jumping
-
-Solutions:
-- useState dla manual control override  
-- Compact vertical timeline na mobile
-- Smooth CSS transitions
-- Touch gestures support
-```
-
-### Shop Filters Redesign
-```
-Current: Duże przyciski w rzędzie
-Mobile Problem: Za dużo miejsca, trudne do tapnięcia
-
-New Design:
-- Filter drawer (slide z boku)
-- Compact chips z count badges
-- Search w filtrach
-- Apply/Clear buttons
-```
-
-### Responsive Strategy
-```
-Mobile-first approach:
-- Filters: Drawer/accordion
-- Timeline: Vertical, compact
-- Cards: Stacked, nie grid
-- Navigation: Hamburger menu
-```
+### NASTĘPNY TYDZIEŃ:
+1. **CoffeeCard refactor** - podzielić na mniejsze komponenty
+2. **Hover improvements** - lepsze UX na kartach
+3. **Testing** - cross-device compatibility
 
 ---
 
@@ -146,7 +215,7 @@ Mobile-first approach:
   - Cart state management (Zustand)
   - Add/remove/modify items
   - Cart drawer/page
-  - Persistent cart (localStorage alternative)
+  - Persistent cart (memory-based)
 - [ ] **Cart Integration**
   - Shopify cart API integration
   - Price calculations
@@ -154,129 +223,125 @@ Mobile-first approach:
 
 ### Faza 3: Checkout & Payments (2-3 TYGODNIE)
 - [ ] **Checkout Flow**
-  - Customer information form
-  - Shipping options
-  - Order summary
-  - Shopify Checkout integration
 - [ ] **Payment Processing**
-  - Shopify Payments integration
-  - Multiple payment methods
-  - Order confirmation
-  - Email notifications
 - [ ] **Post-Purchase**
-  - Order tracking
-  - Customer account (optional)
-  - Return/exchange info
-
----
-
-## 🎨 DESIGN IMPROVEMENTS
-
-### Short-term (Mówimy o najbliższych tygodniach)
-- [ ] **Timeline mobile redesign** 🔥
-- [ ] **Filter system mobile** 🔥
-- [ ] **Coffee cards hover improvements**
-- [ ] **Footer visual polish**
-
-### Medium-term (Miesiąc-dwa)
-- [ ] **Professional product photography**
-- [ ] **Brand assets replacement** (placeholders → oficial)
-- [ ] **Custom icons** (replace react-icons)
-- [ ] **Micro-animations polish**
-
-### Long-term (Przyszłość)
-- [ ] **Complete visual refresh**
-- [ ] **Photography session** (products + cafe)
-- [ ] **Video content integration**
-- [ ] **3D product previews** (jeśli budget pozwoli)
 
 ---
 
 ## 📊 TECHNICAL PRIORITIES
 
+### Code Quality & Architecture
+```
+✅ Completed:
+- Atomic Design pattern
+- Component library foundation
+- PageLayout wrapper
+- Consistent export conventions
+
+🔄 In Progress:
+- Sticky bar z-index fix
+- Header positioning consistency
+
+📋 Next:
+- Timeline component refactor
+- CoffeeCard refactor
+- Custom hooks extraction
+```
+
 ### Performance & UX
 ```
 Critical Issues:
-1. Mobile filters UX ← ASAP
-2. Timeline animation control ← ASAP  
-3. Gallery display issues ← Soon
-4. Loading states improvement ← Soon
+1. Sticky bar z-index ← TODAY
+2. Header positioning ← TODAY
+3. Timeline animation ← THIS WEEK
+4. Mobile timeline layout ← THIS WEEK
 
 Performance:
 - Image optimization
 - Bundle size analysis
 - Core Web Vitals audit
-- Mobile performance focus
-```
-
-### Code Quality
-```
-Refactoring needs:
-- Timeline component cleanup
-- Filter system architecture
-- Mobile-responsive utilities
-- Animation system cleanup
 ```
 
 ---
 
 ## 🎯 SUCCESS METRICS
 
-### Mobile UX Goals
-- [ ] **Timeline**: Smooth manual control, no animation conflicts
-- [ ] **Filters**: <50% screen height na mobile, touch-friendly
-- [ ] **Overall**: Lighthouse Mobile Score >90
+### Component Refactoring Goals
+- [x] **Coffees.jsx**: Reduced from 400+ to ~100 lines ✅
+- [x] **Reusable atoms**: Button, Chip ✅
+- [x] **Mobile UX**: Filter drawer implemented ✅
+- [ ] **Sticky bar**: Z-index fixed
+- [ ] **All pages**: Using PageLayout consistently
 
-### E-commerce Goals
-- [ ] **Integration**: Successful Shopify connection
-- [ ] **Performance**: Product fetch <2s
-- [ ] **UX**: Complete purchase flow working
+### Mobile UX Goals
+- [x] **Filters**: Mobile drawer with sticky bar ✅
+- [ ] **Timeline**: Smooth manual control
+- [ ] **Overall**: Lighthouse Mobile Score >90
 
 ---
 
 ## 📞 IMMEDIATE ACTION PLAN
 
+### PO KAWIE ☕:
+1. **Sticky bar z-index** - fix conflict z header
+2. **Header positioning** - sprawdzić wszystkie strony
+
 ### JUTRO:
-1. **Fix Timeline Animation** - manual control override
-2. **Filtry przy skrollowaniu, zostaja u gory przypiete, aby byly pod reka**
+1. **Timeline animation** - manual control override
+2. **Timeline mobile** - compact layout
 
 ### TEN TYDZIEŃ:
-1. **Complete Timeline mobile version**
-2. **Implement mobile filter drawer**
-3. **Test cross-device compatibility**
-
-### NASTĘPNY TYDZIEŃ:
-1. **Shopify account setup** (jeśli nie zrobione)
-2. **Basic API integration test**
-3. **Plan product pages architecture**
+1. Complete Timeline component refactor
+2. Test Timeline na różnych devices
+3. Start CoffeeCard refactor planning
 
 ---
 
-## 💭 NOTES & CONSIDERATIONS
+## 💭 DEVELOPMENT NOTES
 
-### Mobile-First Strategy
-```
-Observation: Większość problemów to mobile UX
-Strategy: Wszystkie nowe komponenty mobile-first
-Testing: Każda zmiana testowana na małych ekranach
+### Component Creation Checklist
+Przy tworzeniu KAŻDEGO nowego komponentu:
+- [ ] `export function ComponentName()` - nie arrow function!
+- [ ] Import z `{ }` - `import { ComponentName }`
+- [ ] Event handlers jako arrow functions wewnątrz
+- [ ] Props documentation w komentarzu
+- [ ] Mobile-first approach
+- [ ] Test na małych ekranach
+
+### Git Commit Convention
+```bash
+# Format:
+<type>(<scope>): <subject>
+
+# Types:
+feat: nowa funkcjonalność
+fix: naprawa buga
+refactor: refaktoryzacja kodu
+docs: dokumentacja
+style: formatowanie
+test: testy
+chore: maintenance
 ```
 
-### Timeline Technical Notes
-```
-Current Issue: setInterval conflicts z manual setState
-Solution: useRef dla interval control + cleanup
-Mobile Design: Vertical scroll, compact cards
-```
+### File Naming
+- Components: `PascalCase.jsx`
+- Hooks: `useSomething.js`
+- Utils: `camelCase.js`
+- Constants: `UPPER_SNAKE_CASE.js`
 
-### Filter Architecture
-```
-Current: Grid layout filters
-Mobile Problem: Zajmuje za dużo vertical space
-Solution: Accordion/Drawer + chip tags
-```
+---
+
+## 🔗 RELATED DOCS
+
+- `COMPONENT-REFACTORING.md` - Pełny plan refaktoryzacji komponentów
+- `DEVELOPMENT.md` - Technical documentation
+- `.gitignore` - Git ignore rules
 
 ---
 
 **Ostatnia aktualizacja:** Październik 2025  
-**STATUS:** 🟡 Mobile UX Fixes in Progress  
-**NEXT:** 🔥 Timeline Animation + Mobile Filters
+**STATUS:** 🟢 Phase 1 Complete - Moving to fixes  
+**NEXT:** 🔥 Sticky Bar Z-index + Header Positioning
+
+**Maintainer:** @enowuigrek  
+**Coffee Count Today:** ☕ (w trakcie)

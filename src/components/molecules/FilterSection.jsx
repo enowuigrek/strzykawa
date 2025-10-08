@@ -1,37 +1,20 @@
 import React from 'react';
-import Chip from '../atoms/Chip.jsx';
+import { Chip } from '../atoms/Chip.jsx';
 
 /**
  * FilterSection Component - Sekcja filtrów z tytułem i listą opcji
- *
- * Używana w FilterBar (desktop) i FilterDrawer (mobile)
- * Grupuje powiązane filtry (np. wszystkie kraje, wszystkie obróbki)
- *
- * @param {string} title - Tytuł sekcji (np. "Kraj pochodzenia")
- * @param {Array} options - Tablica opcji do filtrowania
- *   [{
- *     id: 'etiopia',
- *     label: 'Etiopia',
- *     count: 5  // opcjonalne - liczba produktów
- *   }]
- * @param {Array} activeFilters - Tablica ID aktywnych filtrów
- * @param {function} onFilterToggle - Callback przy toggle filtra (id)
- * @param {boolean} showCounts - Czy pokazywać liczniki
- * @param {string} layout - 'row' | 'grid' - układ chipów
- * @param {boolean} collapsible - Czy sekcja może być zwijana (mobile)
- * @param {boolean} defaultOpen - Czy domyślnie otwarta (jeśli collapsible)
  */
-const FilterSection = ({
-                           title,
-                           options = [],
-                           activeFilters = [],
-                           onFilterToggle,
-                           showCounts = true,
-                           layout = 'row',
-                           collapsible = false,
-                           defaultOpen = true,
-                           className = '',
-                       }) => {
+export function FilterSection({
+                                  title,
+                                  options = [],
+                                  activeFilters = [],
+                                  onFilterToggle,
+                                  showCounts = true,
+                                  layout = 'row',
+                                  collapsible = false,
+                                  defaultOpen = true,
+                                  className = '',
+                              }) {
     const [isOpen, setIsOpen] = React.useState(defaultOpen);
 
     // Check if filter is active
@@ -66,8 +49,8 @@ const FilterSection = ({
                     {/* Active count badge */}
                     {activeCount > 0 && (
                         <span className="bg-accent/20 text-accent px-2 py-0.5 rounded-full text-xs font-bold">
-              {activeCount}
-            </span>
+                            {activeCount}
+                        </span>
                     )}
                 </div>
 
@@ -113,12 +96,10 @@ const FilterSection = ({
 
         </div>
     );
-};
-
-export default FilterSection;
+}
 
 // Demo examples (for testing)
-export const FilterSectionExamples = () => {
+export function FilterSectionExamples() {
     const [activeCountries, setActiveCountries] = React.useState(['etiopia']);
     const [activeProcessing, setActiveProcessing] = React.useState([]);
     const [activeRoast, setActiveRoast] = React.useState(['espresso']);
@@ -322,4 +303,4 @@ export const FilterSectionExamples = () => {
             </div>
         </div>
     );
-};
+}

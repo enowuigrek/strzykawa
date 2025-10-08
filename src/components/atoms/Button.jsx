@@ -3,33 +3,21 @@ import { CgSpinner } from 'react-icons/cg';
 
 /**
  * Button Component - Uniwersalny przycisk używany w całej aplikacji
- *
- * @param {ReactNode} children - Zawartość przycisku (tekst, ikony, etc)
- * @param {string} variant - 'primary' | 'secondary' | 'ghost' | 'danger' | 'success'
- * @param {string} size - 'sm' | 'md' | 'lg' | 'xl'
- * @param {boolean} fullWidth - Czy przycisk ma zajmować 100% szerokości
- * @param {boolean} disabled - Czy przycisk jest wyłączony
- * @param {boolean} loading - Czy pokazać loading spinner
- * @param {string} type - 'button' | 'submit' | 'reset'
- * @param {function} onClick - Callback przy kliknięciu
- * @param {ReactNode} leftIcon - Ikona po lewej stronie
- * @param {ReactNode} rightIcon - Ikona po prawej stronie
- * @param {string} className - Dodatkowe klasy CSS
  */
-const Button = ({
-                    children,
-                    variant = 'primary',
-                    size = 'md',
-                    fullWidth = false,
-                    disabled = false,
-                    loading = false,
-                    type = 'button',
-                    onClick,
-                    leftIcon,
-                    rightIcon,
-                    className = '',
-                    ...props
-                }) => {
+export function Button({
+                           children,
+                           variant = 'primary',
+                           size = 'md',
+                           fullWidth = false,
+                           disabled = false,
+                           loading = false,
+                           type = 'button',
+                           onClick,
+                           leftIcon,
+                           rightIcon,
+                           className = '',
+                           ...props
+                       }) {
     // Base classes - zawsze te same
     const baseClasses = 'inline-flex items-center justify-center gap-2 font-semibold rounded-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-primary';
 
@@ -69,13 +57,13 @@ const Button = ({
             onClick={handleClick}
             disabled={disabled || loading}
             className={`
-        ${baseClasses}
-        ${sizeClasses[size]}
-        ${variantClasses[variant]}
-        ${widthClass}
-        ${stateClasses}
-        ${className}
-      `}
+                ${baseClasses}
+                ${sizeClasses[size]}
+                ${variantClasses[variant]}
+                ${widthClass}
+                ${stateClasses}
+                ${className}
+            `}
             {...props}
         >
             {/* Loading spinner - pokazuje się gdy loading=true */}
@@ -86,29 +74,27 @@ const Button = ({
             {/* Left icon */}
             {!loading && leftIcon && (
                 <span className="flex-shrink-0">
-          {leftIcon}
-        </span>
+                    {leftIcon}
+                </span>
             )}
 
             {/* Button content */}
             <span>
-        {children}
-      </span>
+                {children}
+            </span>
 
             {/* Right icon */}
             {!loading && rightIcon && (
                 <span className="flex-shrink-0">
-          {rightIcon}
-        </span>
+                    {rightIcon}
+                </span>
             )}
         </button>
     );
-};
-
-export default Button;
+}
 
 // Demo examples (for testing)
-export const ButtonExamples = () => {
+export function ButtonExamples() {
     const [isLoading, setIsLoading] = React.useState(false);
 
     const handleLoadingDemo = () => {
@@ -147,21 +133,13 @@ export const ButtonExamples = () => {
                 <div>
                     <h3 className="text-white mb-4 text-lg font-semibold">With Icons</h3>
                     <div className="flex flex-wrap gap-3">
-                        <Button
-                            leftIcon={<span>📧</span>}
-                        >
+                        <Button leftIcon={<span>📧</span>}>
                             Wyślij Email
                         </Button>
-                        <Button
-                            rightIcon={<span>→</span>}
-                            variant="secondary"
-                        >
+                        <Button rightIcon={<span>→</span>} variant="secondary">
                             Dalej
                         </Button>
-                        <Button
-                            leftIcon={<span>🛒</span>}
-                            rightIcon={<span>✓</span>}
-                        >
+                        <Button leftIcon={<span>🛒</span>} rightIcon={<span>✓</span>}>
                             Dodaj do koszyka
                         </Button>
                     </div>
@@ -173,10 +151,7 @@ export const ButtonExamples = () => {
                     <div className="flex flex-wrap gap-3">
                         <Button>Normal</Button>
                         <Button disabled>Disabled</Button>
-                        <Button
-                            loading={isLoading}
-                            onClick={handleLoadingDemo}
-                        >
+                        <Button loading={isLoading} onClick={handleLoadingDemo}>
                             {isLoading ? 'Ładowanie...' : 'Kliknij (loading demo)'}
                         </Button>
                     </div>
@@ -210,11 +185,7 @@ export const ButtonExamples = () => {
                         {/* Contact Form */}
                         <div className="bg-primary-light p-4 rounded-lg">
                             <p className="text-muted text-sm mb-3">Contact Form:</p>
-                            <Button
-                                fullWidth
-                                leftIcon={<span>📧</span>}
-                                type="submit"
-                            >
+                            <Button fullWidth leftIcon={<span>📧</span>} type="submit">
                                 Wyślij wiadomość
                             </Button>
                         </div>
@@ -223,17 +194,10 @@ export const ButtonExamples = () => {
                         <div className="bg-primary-light p-4 rounded-lg">
                             <p className="text-muted text-sm mb-3">E-commerce (przyszłość):</p>
                             <div className="flex gap-2">
-                                <Button
-                                    fullWidth
-                                    leftIcon={<span>🛒</span>}
-                                >
+                                <Button fullWidth leftIcon={<span>🛒</span>}>
                                     Dodaj do koszyka
                                 </Button>
-                                <Button
-                                    variant="success"
-                                    fullWidth
-                                    leftIcon={<span>⚡</span>}
-                                >
+                                <Button variant="success" fullWidth leftIcon={<span>⚡</span>}>
                                     Kup teraz
                                 </Button>
                             </div>
@@ -245,4 +209,4 @@ export const ButtonExamples = () => {
             </div>
         </div>
     );
-};
+}
