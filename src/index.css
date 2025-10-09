@@ -142,8 +142,8 @@ html, body {
 /* Focus styles for accessibility */
 select:focus,
 button:focus {
-    outline: 2px solid #51685f;
-    outline-offset: 2px;
+    /*outline: 2px solid #51685f;*/
+    /*outline-offset: 2px;*/
 }
 
 /* Smooth transitions for all interactive elements */
@@ -180,8 +180,6 @@ select,
     width: auto;
     transition: none; /* Usunięte animacje */
 }
-
-/* Usunięte hover effects dla headera */
 
 /* Logo pionowe w footerze - zmiana koloru na biały */
 .footer-logo img {

@@ -36,16 +36,9 @@ function getNavLinkClasses({ isActive }) {
         px-3 
         py-2 
         text-white 
-        text-sm 
-        font-medium 
         transition-all 
         duration-300
         hover:text-white
-        focus:outline-none
-        focus:ring-2
-        focus:ring-accent
-        focus:ring-offset-2
-        focus:ring-offset-primary
         rounded
         ${isActive ? 'text-white' : ''}
         after:content-[''] 
@@ -54,7 +47,7 @@ function getNavLinkClasses({ isActive }) {
         after:left-1/2 
         after:-translate-x-1/2 
         after:w-0 
-        after:h-0.5 
+        after:h-[1.5px]
         after:bg-white
         after:transition-all 
         after:duration-300

@@ -84,9 +84,9 @@ export function Header() {
 
     // ========== STYLING ==========
     const headerBg = mobileMenuOpen
-        ? 'bg-primary-dark/95 backdrop-blur-md shadow-2xl border-b border-white/10'
+        ? 'bg-primary-dark/95 backdrop-blur-md shadow-2xl'
         : scrolled
-            ? 'bg-primary-dark/95 backdrop-blur-md shadow-2xl border-b border-white/10'
+            ? 'bg-primary-dark/95 backdrop-blur-md shadow-2xl'
             : 'bg-transparent';
 
     return (
