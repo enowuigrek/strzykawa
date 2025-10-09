@@ -61,41 +61,41 @@ export function CoffeeFilterBar({
                 {/* Main Filters - Always Visible */}
                 <div className="flex flex-wrap items-center gap-3 mb-3">
                     <MainFilterButton
-                        label="Wszystkie"
-                        count={allCount}
-                        isActive={!selectedRoastType}
-                        onClick={() => onRoastTypeChange('')}
-                    />
-                    <MainFilterButton
                         label="Espresso"
                         count={espressoCount}
                         isActive={selectedRoastType === 'Espresso'}
                         onClick={() => onRoastTypeChange('Espresso')}
                     />
                     <MainFilterButton
-                        label="Filter"
+                        label="Przelew"
                         count={filterCount}
                         isActive={selectedRoastType === 'Filter'}
                         onClick={() => onRoastTypeChange('Filter')}
                     />
+                    <MainFilterButton
+                        label="Wszystkie"
+                        count={allCount}
+                        isActive={!selectedRoastType}
+                        onClick={() => onRoastTypeChange('')}
+                    />
+                    {/*Narazie, chowam, bo niepotrzebne, jak wroce do tego, to trzeba inaczej wystylowac*/}
+                    {/*/!* Vertical Divider *!/*/}
+                    {/*<div className="hidden sm:block w-px h-8 bg-white/10" />*/}
 
-                    {/* Vertical Divider */}
-                    <div className="hidden sm:block w-px h-8 bg-white/10" />
-
-                    {/* More Filters Button */}
-                    <Button
-                        variant="ghost"
-                        size="sm"
-                        onClick={onMoreFiltersClick}
-                        className="text-white/70 hover:text-white"
-                    >
-                        Więcej filtrów
-                        {hasActiveAdvancedFilters && (
-                            <span className="ml-2 bg-accent text-white text-xs px-2 py-0.5 rounded-full">
-                                {[selectedCountry, selectedProcessing].filter(Boolean).length}
-                            </span>
-                        )}
-                    </Button>
+                    {/*/!* More Filters Button *!/*/}
+                    {/*<Button*/}
+                    {/*    variant="ghost"*/}
+                    {/*    size="sm"*/}
+                    {/*    onClick={onMoreFiltersClick}*/}
+                    {/*    className="text-white/70 hover:text-white justify-end"*/}
+                    {/*>*/}
+                    {/*    Więcej filtrów*/}
+                    {/*    {hasActiveAdvancedFilters && (*/}
+                    {/*        <span className="ml-2 bg-accent text-white text-xs px-2 py-0.5 rounded-full">*/}
+                    {/*            {[selectedCountry, selectedProcessing].filter(Boolean).length}*/}
+                    {/*        </span>*/}
+                    {/*    )}*/}
+                    {/*</Button>*/}
                 </div>
 
                 {/* Active Advanced Filters */}

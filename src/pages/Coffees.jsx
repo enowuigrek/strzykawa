@@ -101,7 +101,9 @@ export function Coffees() {
             {/* Filter Bar (Sticky) */}
             <CoffeeFilterBar
                 selectedRoastType={selectedRoastType}
-                onRoastTypeChange={setSelectedRoastType}
+                onRoastTypeChange={(type) =>
+                    setSelectedRoastType((prev) => (prev === type ? '' : type))
+                }
                 selectedCountry={selectedCountry}
                 onCountryRemove={() => setSelectedCountry('')}
                 selectedProcessing={selectedProcessing}
