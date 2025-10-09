@@ -35,16 +35,16 @@ export function Header() {
         const handleScroll = () => {
             const currentScrollY = window.scrollY;
 
-            setScrolled(currentScrollY > 10);
+            setScrolled(currentScrollY > 100);
 
             // Auto-hide logic
             if (currentScrollY < 270) {
                 setHideHeader(false);
             } else {
-                if (currentScrollY > lastScrollY && currentScrollY - lastScrollY > 5) {
+                if (currentScrollY > lastScrollY && currentScrollY - lastScrollY > 20) {
                     setHideHeader(true);
                     setMobileMenuOpen(false);
-                } else if (currentScrollY < lastScrollY && lastScrollY - currentScrollY > 5) {
+                } else if (currentScrollY < lastScrollY && lastScrollY - currentScrollY > 150) {
                     setHideHeader(false);
                 }
             }
@@ -86,7 +86,7 @@ export function Header() {
     const headerBg = mobileMenuOpen
         ? 'bg-primary-dark/95 backdrop-blur-md shadow-2xl'
         : scrolled
-            ? 'bg-primary-dark/95 backdrop-blur-md shadow-2xl'
+            ? 'bg-primary-dark backdrop-blur-md shadow-2xl'
             : 'bg-transparent';
 
     return (

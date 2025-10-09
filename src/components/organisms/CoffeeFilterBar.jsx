@@ -56,9 +56,9 @@ export function CoffeeFilterBar({
                 ${isSticky ? 'shadow-2xl shadow-black/50' : 'shadow-none'}
             `}
         >
-            <div className="container mx-auto max-w-7xl px-4 py-4">
+            <div className="container mx-auto max-w-7xl">
                 {/* Main Filters - Always Visible */}
-                <div className="flex flex-wrap items-center gap-3 mb-3">
+                <div className="flex flex-wrap items-center gap-3 pt-5 pb-5">
                     <MainFilterButton
                         label="Espresso"
                         count={espressoCount}
@@ -98,39 +98,39 @@ export function CoffeeFilterBar({
                 </div>
 
                 {/* Active Advanced Filters */}
-                {hasActiveAdvancedFilters && (
-                    <div className="flex flex-wrap items-center gap-2">
-                        <span className="text-white/50 text-sm">Aktywne filtry:</span>
+                {/*{hasActiveAdvancedFilters && (*/}
+                {/*    <div className="flex flex-wrap items-center gap-2">*/}
+                {/*        <span className="text-white/50 text-sm">Aktywne filtry:</span>*/}
 
-                        {selectedCountry && (
-                            <Chip
-                                variant="filter"
-                                onRemove={onCountryRemove}
-                            >
-                                {selectedCountry}
-                            </Chip>
-                        )}
+                {/*        {selectedCountry && (*/}
+                {/*            <Chip*/}
+                {/*                variant="filter"*/}
+                {/*                onRemove={onCountryRemove}*/}
+                {/*            >*/}
+                {/*                {selectedCountry}*/}
+                {/*            </Chip>*/}
+                {/*        )}*/}
 
-                        {selectedProcessing && (
-                            <Chip
-                                variant="filter"
-                                onRemove={onProcessingRemove}
-                            >
-                                {selectedProcessing}
-                            </Chip>
-                        )}
+                {/*        {selectedProcessing && (*/}
+                {/*            <Chip*/}
+                {/*                variant="filter"*/}
+                {/*                onRemove={onProcessingRemove}*/}
+                {/*            >*/}
+                {/*                {selectedProcessing}*/}
+                {/*            </Chip>*/}
+                {/*        )}*/}
 
-                        <button
-                            onClick={onClearAdvanced}
-                            className="text-xs text-white/50 hover:text-white transition-colors ml-2"
-                        >
-                            Wyczyść wszystkie
-                        </button>
-                    </div>
-                )}
+                {/*        <button*/}
+                {/*            onClick={onClearAdvanced}*/}
+                {/*            className="text-xs text-white/50 hover:text-white transition-colors ml-2"*/}
+                {/*        >*/}
+                {/*            Wyczyść wszystkie*/}
+                {/*        </button>*/}
+                {/*    </div>*/}
+                {/*)}*/}
 
                 {/* Results Count */}
-                <div className="mt-3 pt-3 border-t border-white/5">
+                <div className="pt-4 pb-4 border-t border-white/5">
                     <p className="text-sm text-white/70">
                         Znaleziono <span className="font-semibold text-white">{resultCount}</span> {' '}
                         {resultCount === 1 ? 'kawę' : resultCount < 5 ? 'kawy' : 'kaw'}
