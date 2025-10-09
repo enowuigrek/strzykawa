@@ -4,7 +4,7 @@ export function MobileMenuToggle({ isOpen, onToggle }) {
     return (
         <button
             onClick={onToggle}
-            className="md:hidden relative w-8 h-8 flex flex-col justify-center items-center group"
+            // className="md:hidden relative w-8 h-8"
             aria-label="Toggle mobile menu"
         >
             <span className={`

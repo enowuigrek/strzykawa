@@ -38,7 +38,7 @@ export function Header() {
             setScrolled(currentScrollY > 10);
 
             // Auto-hide logic
-            if (currentScrollY < 100) {
+            if (currentScrollY < 270) {
                 setHideHeader(false);
             } else {
                 if (currentScrollY > lastScrollY && currentScrollY - lastScrollY > 5) {
