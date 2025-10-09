@@ -15,7 +15,7 @@ export function Coffees() {
 
     // ========== SCROLL DETECTION ==========
     React.useEffect(() => {
-        const handleScroll = () => setIsSticky(window.scrollY > 200);
+        const handleScroll = () => setIsSticky(window.scrollY > 480);
         window.addEventListener('scroll', handleScroll);
         return () => window.removeEventListener('scroll', handleScroll);
     }, []);

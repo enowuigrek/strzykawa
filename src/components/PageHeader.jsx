@@ -10,12 +10,6 @@ export function PageHeader({
                            }) {
     return (
         <div className={`relative mb-12 ${className}`}>
-            {/* Animated Background Elements */}
-            <div className="absolute inset-0 opacity-10 pointer-events-none">
-                <div className="absolute top-4 right-4 w-32 h-32 bg-gradient-to-br from-accent to-muted blur-3xl animate-pulse"></div>
-                <div className="absolute bottom-4 left-4 w-24 h-24 bg-gradient-to-br from-muted to-accent blur-2xl animate-pulse delay-1000"></div>
-            </div>
-
             <div className="relative text-center max-w-3xl mx-auto">
                 {/* Header with Icon */}
                 <div className="mb-6">

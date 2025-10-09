@@ -50,7 +50,6 @@ export function CoffeeFilterBar({
                 top-0
                 z-50
                 bg-primary
-                border-b
                 border-white/10
                 transition-all
                 duration-300
