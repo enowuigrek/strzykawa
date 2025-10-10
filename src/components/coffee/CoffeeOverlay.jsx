@@ -1,98 +1,114 @@
-import React from 'react';
+// CoffeeOverlay.jsx
+import React, { useId } from 'react';
 
 export function CoffeeOverlay({ coffee, isOpen }) {
-    // Helper functions
-    const getOriginDisplay = (origin) =>
-        origin?.length ? origin.map((o) => o.country).filter(Boolean).join(', ') : '';
+    // Helpery
+    const getRegion = (o) => o?.map(x => x.region).filter(Boolean).join(', ') || '';
+    const getFarm   = (o) => o?.map(x => x.farm).filter(Boolean).join(', ') || '';
+    const getProc   = (o) => o?.map(x => x.processing).filter(Boolean)[0] || '';
+    const getVar    = (o) => (o?.flatMap(x => x.variety || []) || []).filter(Boolean).join(', ');
 
-    const getVarietyDisplay = (origin) => {
-        if (!origin?.length) return '';
-        const varieties = origin.flatMap((o) => o.variety || []).filter(Boolean);
-        return varieties.length ? varieties.join(', ') : '';
+    // Kolory naklejki wg kraju / themeColor
+    const COUNTRY_COLOR = {
+        Brazylia: '#1b8851', // świeża zieleń
+        Kolumbia: '#F4C64E', // ciepły szafran
+        Etiopia:  '#4AA3DF', // średni niebieski
+        Kenia:    '#982121', // głęboki czerwony
+        Peru:     '#8B6CEB', // fiołek
+        Rwanda:   '#F29C52', // bursztynowy pomarańcz
     };
+    const country = coffee.origin?.[0]?.country || '';
+    const stickerColor = coffee.themeColor || COUNTRY_COLOR[country] || '#F1CE6A';
 
-    const getProcessingDisplay = (origin) =>
-        origin?.length ? (origin.map((o) => o.processing).filter(Boolean)[0] || '') : '';
+    const nameUpper    = (coffee.name || '').toUpperCase();
+    const countryUpper = (coffee.origin?.[0]?.country || coffee.country || '').toUpperCase();
 
-    const getRegionDisplay = (origin) =>
-        origin?.length ? origin.map((o) => o.region).filter(Boolean).join(', ') : '';
-
-    const getFarmDisplay = (origin) =>
-        origin?.length ? origin.map((o) => o.farm).filter(Boolean).join(', ') : '';
-
-    const getAltitudeDisplay = (origin) => {
-        if (!origin?.length) return '';
-        const altitudes = origin.map((o) => o.altitudeMasl).filter(Boolean);
-        return altitudes.length ? `${altitudes[0]} m n.p.m.` : '';
-    };
+    // ID do ścieżki łuku
+    const uid = useId();
+    const nameArcId = `name-arc-${uid}`;
 
     return (
         <div
-            className={`absolute inset-0 bg-gradient-to-t from-primary-dark/95 via-primary/80 to-primary/60
-        backdrop-blur-md border-t border-white/10
-        transition-transform duration-300 ease-out z-10
-        ${isOpen ? 'translate-y-0' : 'translate-y-full'} hover:translate-y-0`}
+            role="dialog"
+            aria-hidden={!isOpen}
+            className={`
+                absolute inset-0 z-10 bg-primary-light
+                transition-opacity duration-150 ease-out
+                ${isOpen ? 'delay-0' : 'opacity-0 delay-100'}
+                pointer-events-none transition-opacity ease-out
+            `}
         >
-            {/* Prawy panel na treść */}
-            <div className="h-full flex">
+            {/* ZAWARTOŚĆ */}
+            <div className="relative h-full w-full flex items-center justify-center p-3">
+                {/* Duże koło — szybki zoom z prawej, działa w obie strony */}
                 <div
-                    className="
-            ml-auto w-full sm:w-[75%] md:w-[65%] lg:w-[55%]
-            pl-4 pr-0 pt-3
-            overflow-y-auto scrollbar-thin scrollbar-thumb-white/30 scrollbar-track-transparent
-            [scrollbar-gutter:stable]
-          "
+                    className={`
+                        relative rounded-full overflow-hidden
+                        aspect-square
+                        w-[88%] max-w-[240px] md:max-w-[240px]
+                        shadow-[0_12px_24px_rgba(0,0,0,0.25)]
+                        transition-transform duration-200 ease-out
+                        origin-[85%_45%] transform-gpu will-change-transform
+                        ${isOpen ? 'scale-100 translate-x-0 translate-y-0' : 'scale-[.22] translate-x-[12%] -translate-y-[4%]'}
+                        pointer-events-auto
+                    `}
+                    style={{ backgroundColor: stickerColor }}
                 >
-                    <dl className="grid grid-cols-[auto_1fr] gap-x-3 gap-y-1 text-sm">
-                        {getRegionDisplay(coffee.origin) && (
-                            <>
-                                <dt className="font-semibold text-muted opacity-90">Region:</dt>
-                                <dd className="text-white text-right">{getRegionDisplay(coffee.origin)}</dd>
-                            </>
-                        )}
+                    {/* delikatny połysk */}
+                    <div className="absolute -top-2 right-2 w-24 h-12 md:w-28 md:h-14 bg-white/25 rounded-full blur-md rotate-[-20deg] pointer-events-none" />
 
-                        {getProcessingDisplay(coffee.origin) && (
-                            <>
-                                <dt className="font-semibold text-muted opacity-90">Obróbka:</dt>
-                                <dd className="text-white text-right">{getProcessingDisplay(coffee.origin)}</dd>
-                            </>
-                        )}
+                    {/* ŁUK — kraj (jeśli jest) albo nazwa, po półokręgu WEWNĄTRZ koła */}
+                    <svg
+                        viewBox="0 0 160 160"
+                        className="absolute inset-0 w-full h-full pointer-events-none"
+                        aria-hidden="true"
+                    >
+                        <defs>
+                            {/* półokrąg tego samego koła, z marginesem do środka */}
+                            <path id={nameArcId} d="M 20 80 A 60 60 0 0 1 140 80" />
+                        </defs>
+                        <text className="fill-black" style={{ fontWeight: 800, letterSpacing: '0.06em' }}>
+                            <textPath
+                                href={`#${nameArcId}`}
+                                startOffset="50%"
+                                textAnchor="middle"
+                                fontSize="12"
+                                lengthAdjust="spacing"
+                            >
+                                {countryUpper || nameUpper}
+                            </textPath>
+                        </text>
+                    </svg>
 
-                        {getVarietyDisplay(coffee.origin) && (
-                            <>
-                                <dt className="font-semibold text-muted opacity-90">Odmiana:</dt>
-                                <dd className="text-white text-right">{getVarietyDisplay(coffee.origin)}</dd>
-                            </>
-                        )}
-
-                        {getFarmDisplay(coffee.origin) && (
-                            <>
-                                <dt className="font-semibold text-muted opacity-90">Farma:</dt>
-                                <dd className="text-white text-right">{getFarmDisplay(coffee.origin)}</dd>
-                            </>
-                        )}
-
-                        {coffee.species?.length > 0 && (
-                            <>
-                                <dt className="font-semibold text-muted opacity-90">Gatunek:</dt>
-                                <dd className="text-white text-right">{coffee.species.join(', ')}</dd>
-                            </>
-                        )}
-
-                        {getAltitudeDisplay(coffee.origin) && (
-                            <>
-                                <dt className="font-semibold text-muted opacity-90">Wysokość:</dt>
-                                <dd className="text-white text-right">{getAltitudeDisplay(coffee.origin)}</dd>
-                            </>
-                        )}
-
-                        {coffee.roastLevel && (
-                            <>
-                                <dt className="font-semibold text-muted opacity-90">Wypał:</dt>
-                                <dd className="text-white text-right">{coffee.roastLevel}</dd>
-                            </>
-                        )}
-                    </dl>
+                    {/* Treść w środku (left-align, czarny) */}
+                    <div className="relative z-10 w-[78%] mx-auto mt-12 md:mt-14">
+                        <dl className="grid grid-cols-[auto_1fr] gap-x-2 gap-y-1 text-[12px] md:text-[13px] leading-5 text-black">
+                            {getRegion(coffee.origin) && (
+                                <>
+                                    <dt className="font-semibold">Region:</dt>
+                                    <dd>{getRegion(coffee.origin)}</dd>
+                                </>
+                            )}
+                            {getFarm(coffee.origin) && (
+                                <>
+                                    <dt className="font-semibold">Farma:</dt>
+                                    <dd>{getFarm(coffee.origin)}</dd>
+                                </>
+                            )}
+                            {getProc(coffee.origin) && (
+                                <>
+                                    <dt className="font-semibold">Obróbka:</dt>
+                                    <dd>{getProc(coffee.origin)}</dd>
+                                </>
+                            )}
+                            {getVar(coffee.origin) && (
+                                <>
+                                    <dt className="font-semibold">Odmiana:</dt>
+                                    <dd>{getVar(coffee.origin)}</dd>
+                                </>
+                            )}
+                        </dl>
+                    </div>
                 </div>
             </div>
         </div>
