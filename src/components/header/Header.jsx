@@ -44,7 +44,7 @@ export function Header() {
                 if (currentScrollY > lastScrollY && currentScrollY - lastScrollY > 20) {
                     setHideHeader(true);
                     setMobileMenuOpen(false);
-                } else if (currentScrollY < lastScrollY && lastScrollY - currentScrollY > 150) {
+                } else if (currentScrollY < lastScrollY && lastScrollY - currentScrollY > 5) {
                     setHideHeader(false);
                 }
             }
@@ -84,9 +84,9 @@ export function Header() {
 
     // ========== STYLING ==========
     const headerBg = mobileMenuOpen
-        ? 'bg-primary-dark/95 backdrop-blur-md shadow-2xl'
+        ? 'bg-primary-dark/95 backdrop-blur-md shadow-2xl shadow-black/50'
         : scrolled
-            ? 'bg-primary-dark backdrop-blur-md shadow-2xl'
+            ? 'bg-primary-dark backdrop-blur-md shadow-2xl shadow-black/50'
             : 'bg-transparent';
 
     return (

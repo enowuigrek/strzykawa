@@ -10,7 +10,7 @@ import {
 } from 'react-icons/fa';
 import heroImage from '../assets/hero.jpg';
 
-function Footer() {
+export function Footer() {
   const currentYear = new Date().getFullYear();
 
   const socialLinks = [
@@ -167,5 +167,3 @@ function Footer() {
       </footer>
   );
 }
-
-export default Footer;

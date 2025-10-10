@@ -5,7 +5,7 @@ import { PageHeader } from '../components/PageHeader';
 import { useScrollToTop } from '../hooks/useScrollToTop';
 import {PageLayout} from "../components/PageLayout.jsx";
 
-function ContactSection() {
+export function ContactSection() {
     useScrollToTop();
 
     return (
@@ -29,5 +29,3 @@ function ContactSection() {
         </PageLayout>
     );
 }
-
-export default ContactSection;

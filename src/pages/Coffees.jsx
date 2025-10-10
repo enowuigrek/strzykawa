@@ -155,5 +155,3 @@ export function Coffees() {
         </PageLayout>
     );
 };
-
-export default Coffees;

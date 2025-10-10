@@ -1,9 +1,8 @@
 import React from 'react';
-import { PageHeader } from '../components/PageHeader';
 import {UniversalButton} from "../components/UniversalButton.jsx";
 import {PageLayout} from "../components/PageLayout.jsx";
 
-function B2B() {
+export function B2B() {
     return (
         <PageLayout
             title="Współpraca B2B"
@@ -27,5 +26,3 @@ function B2B() {
         </PageLayout>
     );
 }
-
-export default B2B;

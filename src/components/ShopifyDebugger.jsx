@@ -1,9 +1,7 @@
-// Stwórz nowy plik src/components/ShopifyDebugger.jsx
-
 import React, { useState, useEffect } from 'react';
 import { shopify } from '../services/shopify.js';
 
-export default function ShopifyDebugger() {
+export function ShopifyDebugger() {
     const [products, setProducts] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);

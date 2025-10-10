@@ -28,24 +28,40 @@ export function CoffeeCardMedia({
                 loading="lazy"
             />
 
-            {/* Roast Type Badge - lewy górny róg */}
+            {/* Roast Type Badge */}
             {getRoastTypeDisplay(coffee.roastType) && (
-                <div className={`absolute top-3 left-3 px-3 py-1 text-xs font-bold rounded-full z-20 ${
-                    coffee.roastType === 'Filter'
+                <div
+                    className={`absolute top-3 right-3 z-20 flex items-center justify-center
+                    w-16 h-16 rounded-full text-sm font-bold
+                    rotate-[45deg] border border-white/20
+                    shadow-[4px_4px_10px_rgba(0,0,0,0.35)]
+                    ${coffee.roastType === 'Filter'
                         ? 'bg-blue-500 text-white'
-                        : 'bg-gray-300 text-gray-800'
-                }`}>
-                    {getRoastTypeDisplay(coffee.roastType)}
+                        : 'bg-amber-900 text-white'
+                    }`}
+                >
+                    <span className="-rotate-[30deg]">{getRoastTypeDisplay(coffee.roastType)}</span>
                 </div>
             )}
 
             {/* Details Toggle - prawy górny róg */}
             <button
-                className="absolute top-3 right-3 w-8 h-8 border border-white/60 bg-black/40 backdrop-blur-sm text-white font-bold text-sm flex items-center justify-center z-20 transition-all duration-200 hover:bg-black/60 hover:scale-110 hover:border-white/80 rounded-full"
+                className={`absolute bottom-3 right-3 w-8 h-8 rounded-full
+                    flex items-center justify-center z-20
+                    bg-gradient-to-br from-white/15 to-black/20 text-white/90 backdrop-blur-md
+                    ring-1 ring-white/10 shadow-[0_4px_10px_rgba(0,0,0,0.4)]
+                    transition-all duration-300
+                    hover:bg-white/25 hover:ring-white/20 hover:shadow-[0_6px_14px_rgba(0,0,0,0.5)]
+                    active:scale-95
+                    ${overlayOpen ? 'bg-white/20 ring-white/25' : ''}`}
                 onClick={onToggleOverlay}
+                aria-pressed={overlayOpen}
                 aria-label={`${overlayOpen ? 'Ukryj' : 'Pokaż'} szczegóły kawy ${coffee.name}`}
             >
-                {overlayOpen ? <FaEyeSlash className="w-3 h-3" /> : <FaEye className="w-3 h-3" />}
+                {overlayOpen
+                    ? <FaEyeSlash className="w-3.5 h-3.5" />
+                    : <FaEye className="w-3.5 h-3.5 text-muted" />
+                }
             </button>
 
             {/* Cart Quantity Indicator - tylko jeśli w koszyku */}

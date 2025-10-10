@@ -2,7 +2,7 @@ import React from 'react';
 import HeroSection from '../components/hero/HeroSection.jsx';
 import { FaCoffee, FaLeaf, FaHeart } from 'react-icons/fa';
 
-function Home() {
+export function Home() {
     return (
         <div className="home-page">
             <HeroSection />
@@ -87,5 +87,3 @@ function Home() {
         </div>
     );
 }
-
-export default Home;
