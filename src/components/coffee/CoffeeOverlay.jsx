@@ -82,7 +82,7 @@ export function CoffeeOverlay({ coffee, isOpen }) {
 
                     {/* Treść w środku (left-align, czarny) */}
                     <div className="relative z-10 w-[78%] mx-auto mt-12 md:mt-14">
-                        <dl className="grid grid-cols-[auto_1fr] gap-x-2 gap-y-1 text-[12px] md:text-[13px] leading-5 text-black">
+                        <dl className="grid grid-cols-[auto_1fr] gap-x-2 gap-y-1 text-[16px] md:text-[16px] leading-5 text-black">
                             {getRegion(coffee.origin) && (
                                 <>
                                     <dt className="font-semibold">Region:</dt>
