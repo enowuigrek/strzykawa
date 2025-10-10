@@ -4,6 +4,7 @@ import { FaMapMarkerAlt, FaShoppingBag } from 'react-icons/fa';
 import { UniversalButton } from '../components/UniversalButton';
 import { PageLayout } from '../components/PageLayout.jsx';
 import { TimelineSection } from '../components/molecules/TimelineSection';
+import { TimelineBar } from '../components/organisms/TimelineBar';
 
 export function About() {
     useScrollToTop();
@@ -51,21 +52,27 @@ export function About() {
         }
     ];
 
+    // Extract years for TimelineBar
+    const years = timelineData.map(item => item.year);
+
     return (
         <PageLayout
             title="O Strzykawie"
             description="Nasza historia, pasja i filozofia. Poznaj ludzi i wartości, które stoją za każdą filiżanką kawy w Strzykawie."
         >
-            <div className="max-w-6xl mx-auto">
+            {/* Sticky Timeline Bar */}
+            <TimelineBar years={years} />
+
+            <div className="max-w-6xl mx-auto px-4">
                 {/* Page Title */}
-                <div className="mb-16 text-center">
+                <div className="mb-16 text-center pt-8">
                     <h2 className="text-3xl md:text-4xl text-white">
                         Nasza historia
                     </h2>
                 </div>
 
                 {/* Timeline Sections */}
-                <div className="container mx-auto max-w-7xl px-4 mt-8">
+                <div className="space-y-0">
                     {timelineData.map((item, index) => (
                         <TimelineSection
                             key={item.year}
