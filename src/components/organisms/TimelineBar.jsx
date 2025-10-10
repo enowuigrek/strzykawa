@@ -99,15 +99,15 @@ export function TimelineBar({ years = [], isSticky = false }) {
             sticky 
             top-0 
             z-50 
-            bg-primary 
-            border-b 
+            bg-primary
+            border 
             border-white/10
             transition-all
             duration-300
+            h-32
             ${isSticky ? 'shadow-2xl shadow-black/50' : 'shadow-none'}
         `}>
-            <div className="max-w-6xl mx-auto px-4 py-5">
-                {/* Timeline Container - Horizontal scroll on mobile */}
+            <div className="max-w-6xl mx-auto px-4 py-12">
                 {/* Timeline Container - Horizontal scroll on mobile */}
                 <div className="relative">
                     {canLeft && (
@@ -129,7 +129,7 @@ export function TimelineBar({ years = [], isSticky = false }) {
                                         className={`
               relative px-4 py-2 whitespace-nowrap transition-all duration-300
               ${activeYear === year
-                                            ? 'text-accent font-bold scale-110'
+                                            ? 'text-white font-bold scale-150'
                                             : 'text-white/60 hover:text-white/90'}
             `}
                                     >

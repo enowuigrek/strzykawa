@@ -43,7 +43,7 @@ export function CoffeeOverlay({ coffee, isOpen }) {
                 {/* Duże koło — szybki zoom z prawej, działa w obie strony */}
                 <div
                     className={`
-                        relative rounded-full overflow-hidden
+                        relative rounded-full overflow-hidden p-6 pt-3
                         aspect-square
                         w-[88%] max-w-[240px] md:max-w-[240px]
                         shadow-[0_12px_24px_rgba(0,0,0,0.25)]

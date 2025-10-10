@@ -1,22 +1,6 @@
 export default [
 
   {
-    id: "espresso-house-blend",
-    name: "Espresso House Blend",
-    image: new URL('../assets/coffee-placeholder.jpg', import.meta.url).href,
-    origin: [
-      { country: "Brazylia", region: "Cerrado", farm: "Fazenda Primavera", variety: ["Yellow Bourbon", "Mundo Novo"], altitudeMasl: 1100, processing: "Pulped natural", fermentation: "" },
-      { country: "Gwatemala", region: "Huehuetenango", farm: "Finca El Injerto", variety: ["Caturra"], altitudeMasl: 1600, processing: "Washed", fermentation: "" }
-    ],
-    species: ["Arabica"],
-    roastLevel: "Średni",
-    roastType: "Espresso",
-    roastDate: null,
-    tastingNotes: ["czekolada", "orzech", "śliwka"],
-    description: "Autorski blend pod espresso – słodycz czekolady, orzechowe body i śliwkowy finisz.",
-    availability: { espressoGrinders: true, quickFilter: false, brewBar: false, retailShelf: true }
-  },
-  {
     id: "espresso-colombia-el-paraiso",
     name: "Kolumbia El Paraíso",
     image: new URL('../assets/coffee-placeholder.jpg', import.meta.url).href,
