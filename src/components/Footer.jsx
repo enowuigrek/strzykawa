@@ -8,7 +8,7 @@ import {
   FaPhone,
   FaEnvelope
 } from 'react-icons/fa';
-import heroImage from '../assets/hero.jpg';
+import FooterImage from '../assets/footer.jpg';
 
 export function Footer() {
   const currentYear = new Date().getFullYear();
@@ -48,7 +48,7 @@ export function Footer() {
         {/* Background image */}
         <div
             className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-20"
-            style={{ backgroundImage: `url(${heroImage})` }}
+            style={{ backgroundImage: `url(${FooterImage})` }}
         />
 
         {/* Decorative gradient blobs */}

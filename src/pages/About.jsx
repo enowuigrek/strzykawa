@@ -1,10 +1,15 @@
 import React from 'react';
+import OpenImage from '../assets/history/z_zewnatrz.jpg';
+import FirstRoaster from '../assets/history/maly_piec.jpg';
+import Roastery from '../assets/history/duzy_piec.jpg';
+import Branding from '../assets/history/branding.jpg';
 import { useScrollToTop } from '../hooks/useScrollToTop';
 import { FaMapMarkerAlt, FaShoppingBag } from 'react-icons/fa';
 import { UniversalButton } from '../components/UniversalButton';
 import { PageLayout } from '../components/PageLayout.jsx';
 import { TimelineSection } from '../components/molecules/TimelineSection';
 import { TimelineBar } from '../components/organisms/TimelineBar';
+
 
 export function About() {
     useScrollToTop();
@@ -14,9 +19,7 @@ export function About() {
             year: "2020",
             title: "Początek podróży",
             content: "Otwieramy kawiarnię na Dąbrowskiego 4 w Częstochowie. Rozpoczynamy skromnie, do tego w okresie szalejącej pandemii. Zaczynamy serwować Częstochowianom kawę wysokiej jakości z zaprzyjaźnionych Polskich palarni.",
-            images: [
-                "https://placehold.co/600x400/232323/ffffff?text=2020+-+Otwarcie"
-            ]
+            images: [OpenImage]
         },
         {
             year: "2022",
@@ -30,25 +33,19 @@ export function About() {
             year: "2023",
             title: "Pierwszy krok w roasting",
             content: "Kupujemy mały elektryczny piec do wypalania kawy z maksymalnym zasypem 1 kg i jednocześnie wkraczamy w nowy świat. Szkolimy się w zakresie roastingu, następnie zaczynamy paczkować i sprzedawać własną kawę.",
-            images: [
-                "https://placehold.co/600x400/232323/ffffff?text=2023+-+Pierwszy+piec"
-            ]
+            images: [FirstRoaster]
         },
         {
             year: "2024",
             title: "Palarnia kawy",
             content: "Kupujemy większy piec i wynajmujemy kolejny lokal kilka kilometrów za Częstochową. Przystosowujemy i tworzymy palarnię kawy.",
-            images: [
-                "https://placehold.co/600x400/232323/ffffff?text=2024+-+Palarnia"
-            ]
+            images: [Roastery]
         },
         {
             year: "2025",
             title: "Nowy rozdział",
             content: "Zmieniamy branding opakowań i robimy pierwszy otwarty cupping w palarni.",
-            images: [
-                "https://placehold.co/600x400/232323/ffffff?text=2025+-+Branding"
-            ]
+            images: [Branding]
         }
     ];
 
