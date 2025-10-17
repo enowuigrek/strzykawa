@@ -19,3 +19,5 @@ dist/
 # development prompts (personal workflow docs)
 prompt.md
 *-prompt.md
+component-refactor-plan.md
+*-component-refactor-plan.md
