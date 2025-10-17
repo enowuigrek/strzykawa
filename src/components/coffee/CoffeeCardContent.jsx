@@ -1,5 +1,5 @@
 import React, { useMemo, useState } from 'react';
-import { WeightSelector, weightOptions, formOptions } from './WeightSelector';
+import { ParametrSelector, weightOptions, formOptions } from './ParametrSelector.jsx';
 
 export function CoffeeCardContent({ coffee }) {
     const [currentPrice, setCurrentPrice]   = useState(weightOptions[0].price);
@@ -19,7 +19,6 @@ export function CoffeeCardContent({ coffee }) {
 
     return (
         <div className="p-4 flex-1 grid grid-rows-[auto,1fr,auto] gap-3">
-            {/* Rząd 1: nagłówek */}
             <div className="flex items-start justify-between gap-3">
                 <div className="flex-1 min-w-0">
                     {/* 2 linie dla tytułu */}
@@ -36,14 +35,21 @@ export function CoffeeCardContent({ coffee }) {
                     <div className="text-3xl font-bold text-white leading-none">{currentPrice} zł</div>
                     {/* meta pod ceną */}
                     <div className="mt-1 text-[11px] uppercase tracking-wide text-white/70 flex items-center gap-2 justify-end">
-                        <span>{currentWeight}</span>
-                        <span className="w-1 h-1 rounded-full bg-white/30" />
                         <span>{formLabel}</span>
+                        <span className="w-1 h-1 rounded-full bg-white/30" />
+                        <span>{currentWeight}</span>
                     </div>
                 </div>
             </div>
-
-            {/* Rząd 2: profil (elastyczny) */}
+            <div className="flex justify-end">
+                <ParametrSelector
+                    size="sm"
+                    onPriceChange={setCurrentPrice}
+                    onWeightChange={setCurrentWeight}
+                    onFormChange={setCurrentForm}
+                />
+            </div>
+            {/*Jesli chcę profil na karcie*/}
             <div className="pt-3 border-t border-white/10">
                 <span className="text-xs font-semibold text-white uppercase tracking-wider">Profil</span>
                 {notes ? (
@@ -51,16 +57,6 @@ export function CoffeeCardContent({ coffee }) {
                         {notes}
                     </p>
                 ) : null}
-            </div>
-
-            {/* Rząd 3: selektory – na dole, wykorzystują pustą przestrzeń */}
-            <div className="flex justify-end">
-                <WeightSelector
-                    size="sm"
-                    onWeightChange={setCurrentWeight}
-                    onPriceChange={setCurrentPrice}
-                    onFormChange={setCurrentForm}
-                />
             </div>
         </div>
     );

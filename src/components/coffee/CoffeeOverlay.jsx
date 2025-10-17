@@ -1,4 +1,3 @@
-// CoffeeOverlay.jsx
 import React, { useId } from 'react';
 
 export function CoffeeOverlay({ coffee, isOpen }) {
@@ -7,7 +6,8 @@ export function CoffeeOverlay({ coffee, isOpen }) {
     const getFarm   = (o) => o?.map(x => x.farm).filter(Boolean).join(', ') || '';
     const getProc   = (o) => o?.map(x => x.processing).filter(Boolean)[0] || '';
     const getVar    = (o) => (o?.flatMap(x => x.variety || []) || []).filter(Boolean).join(', ');
-
+    // Jesli chce profil na naklejce
+    const getProfil = (notes) => (notes || []).filter(Boolean).join(', ') || '';
     // Kolory naklejki wg kraju / themeColor
     const COUNTRY_COLOR = {
         Brazylia: '#1b8851', // świeża zieleń
@@ -105,6 +105,13 @@ export function CoffeeOverlay({ coffee, isOpen }) {
                                 <>
                                     <dt className="font-semibold">Odmiana:</dt>
                                     <dd>{getVar(coffee.origin)}</dd>
+                                </>
+                            )}
+                            {/*Jesli chce profil na naklejce*/}
+                            {getProfil(coffee.tastingNotes) && (
+                                <>
+                                    <dt className="font-bold">Profil:</dt>
+                                    <dd>{getProfil(coffee.tastingNotes)}</dd>
                                 </>
                             )}
                         </dl>

@@ -12,7 +12,7 @@ export const formOptions = [
     { value: 'ground', label: 'Mielona', icon: TbGrain },
 ];
 
-export function WeightSelector({
+export function ParametrSelector({
                                    onWeightChange,
                                    onPriceChange,
                                    onFormChange,
@@ -44,7 +44,8 @@ export function WeightSelector({
     };
 
     return (
-        <div className={`flex items-center gap-2 ${className}`}>
+        <div className={`flex items-center gap-2 py-3 ${className}`}>
+
             {/* Forma */}
             <div role="group" aria-label="Forma kawy"
                  className={`inline-flex ${h} bg-white/10 border border-white/20 rounded-full overflow-hidden`}>
