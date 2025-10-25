@@ -69,7 +69,7 @@ export function About() {
                 </div>
 
                 {/* Timeline Sections */}
-                <div className="space-y-0">
+                <div className="space-y-24 md:space-y-32">
                     {timelineData.map((item, index) => (
                         <TimelineSection
                             key={item.year}
