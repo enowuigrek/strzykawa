@@ -2,25 +2,22 @@ import React, { useState } from 'react';
 import { GiCoffeeBeans } from 'react-icons/gi';
 import { TbGrain } from 'react-icons/tb';
 
-export const weightOptions = [
-    { value: '250g', price: 49 },
-    { value: '1kg',  price: 180 },
-];
-
+// ✅ Export tylko formOptions (nie weightOptions - będą dynamiczne)
 export const formOptions = [
     { value: 'whole',  label: 'Ziarna',  icon: GiCoffeeBeans },
     { value: 'ground', label: 'Mielona', icon: TbGrain },
 ];
 
 export function ParametrSelector({
-                                   onWeightChange,
-                                   onPriceChange,
-                                   onFormChange,
-                                   defaultWeight = '250g',
-                                   defaultForm = 'whole',
-                                   size = 'sm', // 'sm' | 'md'
-                                   className = '',
-                               }) {
+                                     weightOptions = [], // ✅ Przyjmuj jako prop
+                                     onWeightChange,
+                                     onPriceChange,
+                                     onFormChange,
+                                     defaultWeight = '250g',
+                                     defaultForm = 'whole',
+                                     size = 'sm', // 'sm' | 'md'
+                                     className = '',
+                                 }) {
     const [selectedWeight, setSelectedWeight] = useState(defaultWeight);
     const [selectedForm, setSelectedForm] = useState(defaultForm);
 
@@ -72,28 +69,30 @@ export function ParametrSelector({
                 })}
             </div>
 
-            {/* Waga */}
-            <div role="group" aria-label="Waga"
-                 className={`inline-flex ${h} bg-white/10 border border-white/20 rounded-full overflow-hidden`}>
-                {weightOptions.map((option, idx) => {
-                    const active = selectedWeight === option.value;
-                    return (
-                        <React.Fragment key={option.value}>
-                            <button
-                                type="button"
-                                onClick={() => handleWeightChange(option.value)}
-                                aria-pressed={active}
-                                className={`${pxWeight} py-1 ${textSm} font-medium transition-all duration-200 ${
-                                    active ? 'bg-accent text-white' : 'text-muted hover:text-white hover:bg-white/10'
-                                }`}
-                            >
-                                {option.value}
-                            </button>
-                            {idx < weightOptions.length - 1 && <div className="w-px bg-white/20" />}
-                        </React.Fragment>
-                    );
-                })}
-            </div>
+            {/* Waga - ✅ używa dynamicznych weightOptions */}
+            {weightOptions.length > 0 && (
+                <div role="group" aria-label="Waga"
+                     className={`inline-flex ${h} bg-white/10 border border-white/20 rounded-full overflow-hidden`}>
+                    {weightOptions.map((option, idx) => {
+                        const active = selectedWeight === option.value;
+                        return (
+                            <React.Fragment key={option.value}>
+                                <button
+                                    type="button"
+                                    onClick={() => handleWeightChange(option.value)}
+                                    aria-pressed={active}
+                                    className={`${pxWeight} py-1 ${textSm} font-medium transition-all duration-200 ${
+                                        active ? 'bg-accent text-white' : 'text-muted hover:text-white hover:bg-white/10'
+                                    }`}
+                                >
+                                    {option.value}
+                                </button>
+                                {idx < weightOptions.length - 1 && <div className="w-px bg-white/20" />}
+                            </React.Fragment>
+                        );
+                    })}
+                </div>
+            )}
         </div>
     );
 }
