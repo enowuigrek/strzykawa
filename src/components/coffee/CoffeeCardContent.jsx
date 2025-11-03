@@ -1,10 +1,64 @@
-import React, { useMemo, useState } from 'react';
-import { ParametrSelector, weightOptions, formOptions } from './ParametrSelector.jsx';
+import React, { useMemo, useState, useEffect } from 'react';
+import { ParametrSelector, formOptions } from './ParametrSelector.jsx';
 
 export function CoffeeCardContent({ coffee }) {
-    const [currentPrice, setCurrentPrice]   = useState(weightOptions[0].price);
-    const [currentWeight, setCurrentWeight] = useState(weightOptions[0].value);
-    const [currentForm, setCurrentForm]     = useState('whole');
+    // ✅ FIX: Buduj weightOptions DYNAMICZNIE z coffee.variants
+    const weightOptions = useMemo(() => {
+        if (!coffee?.variants || coffee.variants.length === 0) {
+            // Fallback - jeśli brak wariantów
+            return [
+                { value: '250g', price: 0 },
+                { value: '1kg', price: 0 }
+            ];
+        }
+
+        // Szukaj wariantów z gramaturą w title lub selectedOptions
+        const variants250g = coffee.variants.filter(v =>
+            v.title?.includes('250g') ||
+            v.selectedOptions?.some(opt => opt.value === '250g')
+        );
+
+        const variants1kg = coffee.variants.filter(v =>
+            v.title?.includes('1kg') ||
+            v.selectedOptions?.some(opt => opt.value === '1kg')
+        );
+
+        // Weź pierwszy wariant dla każdej gramatury (Ziarna preferowane)
+        const variant250g = variants250g.find(v => v.title?.includes('Ziarna')) || variants250g[0];
+        const variant1kg = variants1kg.find(v => v.title?.includes('Ziarna')) || variants1kg[0];
+
+        const options = [];
+
+        if (variant250g) {
+            options.push({
+                value: '250g',
+                price: variant250g.price || 0
+            });
+        }
+
+        if (variant1kg) {
+            options.push({
+                value: '1kg',
+                price: variant1kg.price || 0
+            });
+        }
+
+        console.log('💰 Built dynamic weight options:', options);
+        return options.length > 0 ? options : [{ value: '250g', price: 0 }];
+    }, [coffee?.variants]);
+
+    // State - inicjalizuj z pierwszej opcji
+    const [currentPrice, setCurrentPrice] = useState(weightOptions[0]?.price || 0);
+    const [currentWeight, setCurrentWeight] = useState(weightOptions[0]?.value || '250g');
+    const [currentForm, setCurrentForm] = useState('whole');
+
+    // ✅ Update price gdy weightOptions się zmienią (po załadowaniu z API)
+    useEffect(() => {
+        if (weightOptions.length > 0 && weightOptions[0].price !== currentPrice) {
+            setCurrentPrice(weightOptions[0].price);
+            setCurrentWeight(weightOptions[0].value);
+        }
+    }, [weightOptions]);
 
     const origin = useMemo(() => {
         if (!coffee?.origin?.length) return '';
@@ -12,6 +66,7 @@ export function CoffeeCardContent({ coffee }) {
     }, [coffee?.origin]);
 
     const notes = (coffee?.tastingNotes || []).join(', ');
+
     const formLabel = useMemo(() => {
         const f = formOptions.find(o => o.value === currentForm);
         return f ? f.label : '';
@@ -44,12 +99,13 @@ export function CoffeeCardContent({ coffee }) {
             <div className="flex justify-end">
                 <ParametrSelector
                     size="sm"
+                    weightOptions={weightOptions} // ✅ Przekaż dynamiczne opcje
                     onPriceChange={setCurrentPrice}
                     onWeightChange={setCurrentWeight}
                     onFormChange={setCurrentForm}
                 />
             </div>
-            {/*Jesli chcę profil na karcie*/}
+            {/* Jeśli chcę profil na karcie */}
             <div className="pt-3 border-t border-white/10">
                 <span className="text-xs font-semibold text-white uppercase tracking-wider">Profil</span>
                 {notes ? (
