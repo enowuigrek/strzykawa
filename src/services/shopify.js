@@ -515,7 +515,7 @@ class ShopifyService {
         return response.data.cart;
     }
 
-    // GŁÓWNA funkcja mapowania produktu - ZAKTUALIZOWANA!
+    // GŁÓWNA funkcja mapowania produktu - NAPRAWIONA!
     mapProduct(shopifyProduct) {
         console.log(`🔄 Mapping product: ${shopifyProduct.title}`);
 
@@ -557,7 +557,12 @@ class ShopifyService {
         const variety = getMetafield('variety') || '';
         const processing = getMetafield('processing') || '';
         const tastingNotes = getMetafield('tasting_notes') || '';
-        const roastType = getMetafield('roast_type') || 'Filter';
+
+        // ✅ FIX #1: Mapowanie roast_type - "Przelew" z Shopify → "Filter" w kodzie
+        const roastTypeRaw = getMetafield('roast_type') || 'Filter';
+        const roastType = roastTypeRaw === 'Przelew' ? 'Filter' : roastTypeRaw;
+        console.log(`🎨 Roast type mapping: "${roastTypeRaw}" → "${roastType}"`);
+
         const roastLevel = getMetafield('roast_level') || '';
         const altitude = getMetafield('altitude') || '';
         const farm = getMetafield('farm') || '';
@@ -581,6 +586,21 @@ class ShopifyService {
             });
         }
 
+        // ✅ FIX #2: Map i sortuj variants po cenie (od najtańszego do najdroższego)
+        // Dzięki temu najmniejsza gramatura (250g) będzie pierwsza
+        const variants = (shopifyProduct.variants?.edges?.map(edge => ({
+            id: edge.node.id,
+            title: edge.node.title || 'Default',
+            price: parseFloat(edge.node.price.amount) || 0,
+            compareAtPrice: edge.node.compareAtPrice ?
+                parseFloat(edge.node.compareAtPrice.amount) : null,
+            currencyCode: edge.node.price.currencyCode || 'PLN',
+            availableForSale: edge.node.availableForSale || false,
+            selectedOptions: edge.node.selectedOptions || []
+        })) || []).sort((a, b) => a.price - b.price); // Sortowanie po cenie rosnąco
+
+        console.log('💰 Sorted variants by price:', variants.map(v => `${v.title}: ${v.price} zł`));
+
         // Map product to our coffee model
         const mappedProduct = {
             // Podstawowe info
@@ -599,24 +619,15 @@ class ShopifyService {
             // Tags
             tags: shopifyProduct.tags || [],
 
-            // Variants (warianty: gramatura + mielenie)
-            variants: shopifyProduct.variants?.edges?.map(edge => ({
-                id: edge.node.id,
-                title: edge.node.title || 'Default',
-                price: parseFloat(edge.node.price.amount) || 0,
-                compareAtPrice: edge.node.compareAtPrice ?
-                    parseFloat(edge.node.compareAtPrice.amount) : null,
-                currencyCode: edge.node.price.currencyCode || 'PLN',
-                availableForSale: edge.node.availableForSale || false,
-                selectedOptions: edge.node.selectedOptions || []
-            })) || [],
+            // Variants (posortowane po cenie!)
+            variants: variants,
 
             // Coffee-specific fields (z metafields)
             origin: origin,
             species: parseList(species),
             roastLevel: roastLevel,
-            roastType: roastType,
-            roastDate: null, // Not in Shopify (can be added if needed)
+            roastType: roastType, // ✅ Zmapowany na "Filter" lub "Espresso"
+            roastDate: null,
             tastingNotes: parseList(tastingNotes),
             processing: processing,
             altitude: altitude,
