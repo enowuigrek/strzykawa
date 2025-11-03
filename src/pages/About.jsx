@@ -3,6 +3,8 @@ import OpenImage from '../assets/history/z_zewnatrz.jpg';
 import FirstRoaster from '../assets/history/maly_piec.jpg';
 import Roastery from '../assets/history/duzy_piec.jpg';
 import Branding from '../assets/history/branding.jpg';
+import Branding2 from '../assets/history/branding-2.jpg';
+import Branding5 from '../assets/history/branding-5.jpg';
 import { useScrollToTop } from '../hooks/useScrollToTop';
 import { FaMapMarkerAlt, FaShoppingBag } from 'react-icons/fa';
 import { UniversalButton } from '../components/UniversalButton';
@@ -45,7 +47,7 @@ export function About() {
             year: "2025",
             title: "Nowy rozdział",
             content: "Zmieniamy branding opakowań i robimy pierwszy otwarty cupping w palarni.",
-            images: [Branding]
+            images: [Branding, Branding2, Branding5]
         }
     ];
 
