@@ -1,8 +1,9 @@
 import React, { useMemo, useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { ParametrSelector, formOptions } from './ParametrSelector.jsx';
 
 export function CoffeeCardContent({ coffee }) {
-    // ✅ FIX: Buduj weightOptions DYNAMICZNIE z coffee.variants
+    // ✅ Buduj weightOptions DYNAMICZNIE z coffee.variants
     const weightOptions = useMemo(() => {
         if (!coffee?.variants || coffee.variants.length === 0) {
             // Fallback - jeśli brak wariantów
@@ -76,10 +77,16 @@ export function CoffeeCardContent({ coffee }) {
         <div className="p-4 flex-1 grid grid-rows-[auto,1fr,auto] gap-3">
             <div className="flex items-start justify-between gap-3">
                 <div className="flex-1 min-w-0">
-                    {/* 2 linie dla tytułu */}
-                    <h3 className="text-lg md:text-xl font-semibold text-white leading-snug line-clamp-2">
-                        {coffee.name}
-                    </h3>
+                    {/* ✅ NOWE: Link na nazwie (2 linie dla tytułu) */}
+                    <Link
+                        to={`/kawy/${coffee.shopifyHandle}`}
+                        className="block"
+                    >
+                        <h3 className="text-lg md:text-xl font-semibold text-white leading-snug line-clamp-2 hover:text-accent transition-colors">
+                            {coffee.name}
+                        </h3>
+                    </Link>
+
                     {/* 1 linia dla kraju */}
                     {origin ? (
                         <p className="mt-0.5 text-xs text-white/70 line-clamp-1">{origin}</p>
@@ -99,7 +106,7 @@ export function CoffeeCardContent({ coffee }) {
             <div className="flex justify-end">
                 <ParametrSelector
                     size="sm"
-                    weightOptions={weightOptions} // ✅ Przekaż dynamiczne opcje
+                    weightOptions={weightOptions}
                     onPriceChange={setCurrentPrice}
                     onWeightChange={setCurrentWeight}
                     onFormChange={setCurrentForm}

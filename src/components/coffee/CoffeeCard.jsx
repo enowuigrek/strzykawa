@@ -17,6 +17,7 @@ export function CoffeeCard ({ coffee }) {
     // Add to cart handler
     const handleAddToCart = async (e) => {
         e.stopPropagation(); // Prevent overlay toggle
+        e.preventDefault(); // Prevent link navigation
 
         setIsAdding(true);
 
@@ -58,6 +59,7 @@ export function CoffeeCard ({ coffee }) {
 
                 <div className="mt-auto pt-4 px-4 pb-4">
                     <CoffeeCardActions
+                        coffee={coffee} // ✅ DODANE - przekazujemy coffee
                         onAddToCart={handleAddToCart}
                         isAdding={isAdding}
                         justAdded={justAdded}

@@ -1,11 +1,9 @@
 import React, { useState } from 'react';
-import { GiCoffeeBeans } from 'react-icons/gi';
-import { TbGrain } from 'react-icons/tb';
 
-// ✅ Export tylko formOptions (nie weightOptions - będą dynamiczne)
+// ✅ Export tylko formOptions (bez ikon - używamy tekstu)
 export const formOptions = [
-    { value: 'whole',  label: 'Ziarna',  icon: GiCoffeeBeans },
-    { value: 'ground', label: 'Mielona', icon: TbGrain },
+    { value: 'whole',  label: 'Ziarna' },
+    { value: 'ground', label: 'Mielona' },
 ];
 
 export function ParametrSelector({
@@ -22,7 +20,7 @@ export function ParametrSelector({
     const [selectedForm, setSelectedForm] = useState(defaultForm);
 
     const h = size === 'md' ? 'h-[32px]' : 'h-[26px]';
-    const pxForm  = size === 'md' ? 'px-3'   : 'px-2';
+    const pxForm  = size === 'md' ? 'px-3'   : 'px-2.5';
     const pxWeight= size === 'md' ? 'px-3.5' : 'px-3';
     const textSm  = size === 'md' ? 'text-xs' : 'text-[11px]';
 
@@ -47,7 +45,6 @@ export function ParametrSelector({
             <div role="group" aria-label="Forma kawy"
                  className={`inline-flex ${h} bg-white/10 border border-white/20 rounded-full overflow-hidden`}>
                 {formOptions.map((option, idx) => {
-                    const Icon = option.icon;
                     const active = selectedForm === option.value;
                     return (
                         <React.Fragment key={option.value}>
@@ -57,11 +54,11 @@ export function ParametrSelector({
                                 aria-pressed={active}
                                 aria-label={option.label}
                                 title={option.label}
-                                className={`${pxForm} py-1 transition-all duration-200 flex items-center ${
+                                className={`${pxForm} py-1 ${textSm} font-medium transition-all duration-200 ${
                                     active ? 'bg-accent text-white' : 'text-muted hover:text-white hover:bg-white/10'
                                 }`}
                             >
-                                <Icon className="w-4 h-4" />
+                                {option.label}
                             </button>
                             {idx < formOptions.length - 1 && <div className="w-px bg-white/20" />}
                         </React.Fragment>
