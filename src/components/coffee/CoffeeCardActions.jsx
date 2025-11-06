@@ -1,79 +1,59 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { FaShoppingCart, FaCheck, FaInfoCircle } from 'react-icons/fa';
+import { FaShoppingCart, FaCheck } from 'react-icons/fa';
 
 /**
- * CoffeeCardActions - Split button: "Zobacz szczegóły" + ikona koszyka
- *
- * Layout:
- * ┌────────────────────┬─────────┐
- * │ Zobacz szczegóły   │   🛒    │
- * └────────────────────┴─────────┘
+ * CoffeeCardActions - Jedna pastylka z kreską pionową
+ * Lewo: Zobacz szczegóły (link do produktu) | Prawo: Ikona koszyka (quick add)
  */
 export function CoffeeCardActions({
-                                      coffee, // ✅ Dodane - potrzebne do Linka
-                                      onAddToCart,
+                                      coffee,
+                                      onQuickAdd,
                                       isAdding,
-                                      justAdded,
-                                      inCart,
-                                      currentQuantity
+                                      justAdded
                                   }) {
-
     const getCartIcon = () => {
         if (justAdded) return FaCheck;
         return FaShoppingCart;
     };
 
-    const getCartButtonClass = () => {
-        const baseClasses = "px-4 py-3 transition-all duration-200 flex items-center justify-center";
-
-        if (justAdded) {
-            return `${baseClasses} bg-green-500 text-white`;
-        }
-        if (isAdding) {
-            return `${baseClasses} bg-accent/50 text-white cursor-wait`;
-        }
-        return `${baseClasses} bg-accent text-white hover:bg-accent/80`;
-    };
-
     const CartIcon = getCartIcon();
 
     return (
-        <div className="flex items-stretch h-[48px] bg-white/10 border border-white/20 rounded-full overflow-hidden">
-
-            {/* Left: Zobacz szczegóły - WIĘKSZY (70%) */}
+        <div className="flex items-center bg-white/10 border border-white/20 rounded-full overflow-hidden">
+            {/* Zobacz szczegóły - LINK do produktu */}
             <Link
-                to={`/kawy/${coffee.shopifyHandle}`}
-                className="flex-1 px-4 py-3 text-sm font-medium transition-all duration-200 flex items-center justify-center gap-2 text-white hover:bg-white/20"
+                to={`/kawy/${coffee.shopifyHandle || coffee.id}`}
+                className="
+                    flex-1 group relative inline-flex items-center justify-center
+                    px-4 py-2.5 text-sm font-medium text-white
+                    hover:bg-white/10
+                    transition-all duration-200
+                "
             >
-                <FaInfoCircle className="w-4 h-4" />
-                <span>Zobacz szczegóły</span>
+                Zobacz szczegóły
             </Link>
 
-            {/* Vertical divider */}
-            <div className="w-px bg-white/20" />
+            {/* Pionowa kreska */}
+            <div className="w-px h-8 bg-white/20" />
 
-            {/* Right: Dodaj do koszyka - MNIEJSZY (30%) */}
+            {/* Ikona koszyka - Quick Add */}
             <button
-                onClick={onAddToCart}
+                onClick={(e) => {
+                    e.stopPropagation();
+                    onQuickAdd && onQuickAdd();
+                }}
                 disabled={isAdding}
-                className={getCartButtonClass()}
-                title={inCart ? `W koszyku: ${currentQuantity}` : 'Dodaj do koszyka'}
-                aria-label={inCart ? `Dodaj kolejną (${currentQuantity} w koszyku)` : 'Dodaj do koszyka'}
+                className={`
+                    group relative inline-flex items-center justify-center
+                    w-14 h-full
+                    text-white
+                    hover:bg-white/10
+                    transition-all duration-200
+                    disabled:opacity-50 disabled:cursor-not-allowed
+                `}
             >
-                {isAdding ? (
-                    <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
-                ) : (
-                    <div className="relative">
-                        <CartIcon className="w-5 h-5" />
-                        {/* Badge z ilością w koszyku */}
-                        {inCart && !justAdded && (
-                            <span className="absolute -top-2 -right-2 w-4 h-4 bg-white text-accent text-[10px] font-bold rounded-full flex items-center justify-center">
-                                {currentQuantity}
-                            </span>
-                        )}
-                    </div>
-                )}
+                <CartIcon className="w-5 h-5" />
             </button>
         </div>
     );

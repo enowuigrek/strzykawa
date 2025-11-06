@@ -1,122 +1,91 @@
-import React, { useId } from 'react';
+import React from 'react';
 
+/**
+ * CoffeeOverlay - Style jak na naklejce z nagłówkiem kraju
+ */
 export function CoffeeOverlay({ coffee, isOpen }) {
-    // Helpery
-    const getRegion = (o) => o?.map(x => x.region).filter(Boolean).join(', ') || '';
-    const getFarm   = (o) => o?.map(x => x.farm).filter(Boolean).join(', ') || '';
-    const getProc   = (o) => o?.map(x => x.processing).filter(Boolean)[0] || '';
-    const getVar    = (o) => (o?.flatMap(x => x.variety || []) || []).filter(Boolean).join(', ');
-    // Jesli chce profil na naklejce
-    const getProfil = (notes) => (notes || []).filter(Boolean).join(', ') || '';
-    // Kolory naklejki wg kraju / themeColor
+    const origin = coffee?.origin?.[0] || {};
+
+    // Kolory kraju
     const COUNTRY_COLOR = {
-        Brazylia: '#1b8851', // świeża zieleń
-        Kolumbia: '#F4C64E', // ciepły szafran
-        Etiopia:  '#4AA3DF', // średni niebieski
-        Kenia:    '#982121', // głęboki czerwony
-        Peru:     '#8B6CEB', // fiołek
-        Rwanda:   '#F29C52', // bursztynowy pomarańcz
+        Brazylia: '#1b8851',
+        Kolumbia: '#F4C64E',
+        Etiopia:  '#4AA3DF',
+        Kenia:    '#982121',
+        Peru:     '#8B6CEB',
+        Rwanda:   '#F29C52',
     };
-    const country = coffee.origin?.[0]?.country || '';
-    const stickerColor = coffee.themeColor || COUNTRY_COLOR[country] || '#F1CE6A';
+    const country = origin.country || '';
+    const bgColor = coffee.themeColor || COUNTRY_COLOR[country] || '#F1CE6A';
 
-    const nameUpper    = (coffee.name || '').toUpperCase();
-    const countryUpper = (coffee.origin?.[0]?.country || coffee.country || '').toUpperCase();
+    // Prepare details - BEZ kraju (będzie w nagłówku)
+    const details = [];
 
-    // ID do ścieżki łuku
-    const uid = useId();
-    const nameArcId = `name-arc-${uid}`;
+    if (origin.region) {
+        details.push({ label: 'Region', value: origin.region });
+    }
+
+    if (origin.processing) {
+        details.push({ label: 'Obróbka', value: origin.processing });
+    }
+
+    if (origin.variety && origin.variety.length > 0) {
+        details.push({ label: 'Odmiana', value: origin.variety.join(', ') });
+    }
+
+    if (coffee.tastingNotes && coffee.tastingNotes.length > 0) {
+        details.push({ label: 'Profil', value: coffee.tastingNotes.join(', ') });
+    }
 
     return (
         <div
-            role="dialog"
-            aria-hidden={!isOpen}
             className={`
-                absolute inset-0 z-10 bg-primary-light
-                transition-opacity duration-150 ease-out
-                ${isOpen ? 'delay-0' : 'opacity-0 delay-100'}
-                pointer-events-none transition-opacity ease-out
+                absolute inset-0
+                backdrop-blur-md
+                transition-transform duration-300 ease-out
+                ${isOpen ? 'translate-y-0' : 'translate-y-full'}
             `}
+            style={{
+                background: `linear-gradient(to top, ${bgColor}f2, ${bgColor}e6 40%, ${bgColor}cc)`
+            }}
         >
-            {/* ZAWARTOŚĆ */}
-            <div className="relative h-full w-full flex items-center justify-center p-3">
-                {/* Duże koło — szybki zoom z prawej, działa w obie strony */}
-                <div
-                    className={`
-                        relative rounded-full overflow-hidden p-6 pt-3
-                        aspect-square
-                        w-[88%] max-w-[240px] md:max-w-[240px]
-                        shadow-[0_12px_24px_rgba(0,0,0,0.25)]
-                        transition-transform duration-200 ease-out
-                        origin-[85%_45%] transform-gpu will-change-transform
-                        ${isOpen ? 'scale-100 translate-x-0 translate-y-0' : 'scale-[.22] translate-x-[12%] -translate-y-[4%]'}
-                        pointer-events-auto
-                    `}
-                    style={{ backgroundColor: stickerColor }}
-                >
-                    {/* delikatny połysk */}
-                    <div className="absolute -top-2 right-2 w-24 h-12 md:w-28 md:h-14 bg-white/25 rounded-full blur-md rotate-[-20deg] pointer-events-none" />
-
-                    {/* ŁUK — kraj (jeśli jest) albo nazwa, po półokręgu WEWNĄTRZ koła */}
-                    <svg
-                        viewBox="0 0 160 160"
-                        className="absolute inset-0 w-full h-full pointer-events-none"
-                        aria-hidden="true"
-                    >
-                        <defs>
-                            {/* półokrąg tego samego koła, z marginesem do środka */}
-                            <path id={nameArcId} d="M 20 80 A 60 60 0 0 1 140 80" />
-                        </defs>
-                        <text className="fill-black" style={{ fontWeight: 800, letterSpacing: '0.06em' }}>
-                            <textPath
-                                href={`#${nameArcId}`}
-                                startOffset="50%"
-                                textAnchor="middle"
-                                fontSize="12"
-                                lengthAdjust="spacing"
-                            >
-                                {countryUpper || nameUpper}
-                            </textPath>
-                        </text>
-                    </svg>
-
-                    {/* Treść w środku (left-align, czarny) */}
-                    <div className="relative z-10 w-[78%] mx-auto mt-12 md:mt-14">
-                        <dl className="grid grid-cols-[auto_1fr] gap-x-2 gap-y-1 text-[16px] md:text-[16px] leading-5 text-black">
-                            {getRegion(coffee.origin) && (
-                                <>
-                                    <dt className="font-semibold">Region:</dt>
-                                    <dd>{getRegion(coffee.origin)}</dd>
-                                </>
-                            )}
-                            {getFarm(coffee.origin) && (
-                                <>
-                                    <dt className="font-semibold">Farma:</dt>
-                                    <dd>{getFarm(coffee.origin)}</dd>
-                                </>
-                            )}
-                            {getProc(coffee.origin) && (
-                                <>
-                                    <dt className="font-semibold">Obróbka:</dt>
-                                    <dd>{getProc(coffee.origin)}</dd>
-                                </>
-                            )}
-                            {getVar(coffee.origin) && (
-                                <>
-                                    <dt className="font-semibold">Odmiana:</dt>
-                                    <dd>{getVar(coffee.origin)}</dd>
-                                </>
-                            )}
-                            {/*Jesli chce profil na naklejce*/}
-                            {getProfil(coffee.tastingNotes) && (
-                                <>
-                                    <dt className="font-bold">Profil:</dt>
-                                    <dd>{getProfil(coffee.tastingNotes)}</dd>
-                                </>
-                            )}
-                        </dl>
+            <div className="h-full overflow-y-auto p-6 flex flex-col items-center justify-center">
+                {/* Nagłówek z krajem - jak na naklejce */}
+                {country && (
+                    <div className="text-center mb-6">
+                        <h3 className="text-2xl font-bold text-black uppercase tracking-wide">
+                            {country}
+                        </h3>
+                        <p className="text-lg text-black font-normal mt-1">
+                            {coffee.name}
+                        </p>
                     </div>
-                </div>
+                )}
+
+                {/* Details jak na naklejce */}
+                {details.length > 0 ? (
+                    <div className="space-y-2 w-full max-w-xs">
+                        {details.map((detail, index) => (
+                            <div
+                                key={index}
+                                className="flex items-start gap-2"
+                            >
+                                {/* Label - normalny font */}
+                                <dt className="text-base text-black font-normal shrink-0">
+                                    {detail.label}:
+                                </dt>
+                                {/* Value - bold */}
+                                <dd className="text-base text-black font-bold">
+                                    {detail.value}
+                                </dd>
+                            </div>
+                        ))}
+                    </div>
+                ) : (
+                    <p className="text-sm text-black/70 text-center mt-4">
+                        Brak dodatkowych szczegółów
+                    </p>
+                )}
             </div>
         </div>
     );

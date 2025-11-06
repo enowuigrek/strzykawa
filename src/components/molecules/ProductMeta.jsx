@@ -1,11 +1,24 @@
 import React from 'react';
 
 /**
- * ProductMeta - Metadane produktu kawy
- * Wyświetla: kraj, region, odmiany, obróbkę, profil smakowy w prostej tabeli
+ * ProductMeta - Metadane produktu z akcentem koloru kraju
+ * Normalne tło + kolorowy border-left jako akcent
  */
 export function ProductMeta({ coffee }) {
     const origin = coffee?.origin?.[0] || {};
+
+    // Kolory kraju - jako akcent
+    const COUNTRY_COLOR = {
+        Brazylia: '#1b8851',
+        Kolumbia: '#F4C64E',
+        Etiopia:  '#4AA3DF',
+        Kenia:    '#b62424',
+        Peru:     '#8B6CEB',
+        Rwanda:   '#F29C52',
+    };
+    const country = origin.country || '';
+    const accentColor = coffee.themeColor || COUNTRY_COLOR[country] || '#F1CE6A';
+
     const metaItems = [];
 
     // Kraj
@@ -53,7 +66,13 @@ export function ProductMeta({ coffee }) {
     }
 
     return (
-        <div className="border border-white/10 bg-primary-light overflow-hidden">
+        <div
+            className="overflow-hidden"
+            style={{
+                borderLeftWidth: '4px',
+                borderLeftColor: accentColor
+            }}
+        >
             <table className="w-full">
                 <tbody>
                 {metaItems.map((item, index) => (
@@ -61,10 +80,10 @@ export function ProductMeta({ coffee }) {
                         key={index}
                         className="border-b border-white/10 last:border-b-0"
                     >
-                        <td className="px-4 py-3 text-muted text-sm font-medium w-32">
+                        <td className="px-4 py-3 text-muted text-base font-medium w-32">
                             {item.label}:
                         </td>
-                        <td className="px-4 py-3 text-white text-sm">
+                        <td className="px-4 py-3 text-white text-base">
                             {item.value}
                         </td>
                     </tr>

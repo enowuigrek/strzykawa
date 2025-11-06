@@ -124,8 +124,7 @@ export function CoffeeDetail() {
     const hasDiscount = compareAtPrice && compareAtPrice > price;
 
     return (
-        <PageLayout
-        >
+        <PageLayout>
             <div className="container mx-auto max-w-7xl px-4 py-8">
                 {/* Breadcrumb */}
                 <ProductBreadcrumb coffeeName={coffee.name} />
@@ -144,17 +143,17 @@ export function CoffeeDetail() {
                     <div className="space-y-6">
                         {/* Title & Roast Type Badge */}
                         <div className="relative">
-                            <h1 className="text-3xl lg:text-4xl font-bold text-white pr-16">
+                            <h1 className="text-3xl lg:text-4xl text-white pr-16">
                                 {coffee.name}
                             </h1>
 
                             {/* Roast Type Badge - okrągła naklejka jak na karcie */}
                             {coffee.roastType && (
                                 <div className={`
-                                    absolute -top-2 -right-0
+                                    absolute -top-2 -right-2
                                     w-16 h-16 rounded-full
                                     flex items-center justify-center
-                                    text-xs font-bold uppercase tracking-wider
+                                    text-xs uppercase tracking-wider
                                     shadow-lg transform
                                     ${coffee.roastType === 'Filter'
                                     ? 'bg-blue-500 text-white'
@@ -167,14 +166,14 @@ export function CoffeeDetail() {
                         </div>
 
                         {/* Price */}
-                        <div className="p-4 bg-primary-light border border-accent/30">
+                        <div>
                             <div className="flex items-baseline gap-3">
                                 {hasDiscount && (
                                     <span className="text-2xl text-muted line-through">
                                         {compareAtPrice.toFixed(2)} zł
                                     </span>
                                 )}
-                                <span className="text-3xl font-bold text-white">
+                                <span className="text-3xl text-muted">
                                     {price.toFixed(2)} zł
                                 </span>
                             </div>
@@ -191,6 +190,7 @@ export function CoffeeDetail() {
                         {/* Product Meta */}
                         <ProductMeta coffee={coffee} />
 
+
                         {/* Variant Selector */}
                         <VariantSelector
                             variants={coffee.variants}
@@ -200,43 +200,43 @@ export function CoffeeDetail() {
 
                         {/* Quantity & Add to Cart */}
                         <div className="space-y-3 pt-4 border-t border-white/10">
-                            <div className="flex items-center gap-4">
-                                <div>
-                                    <label className="block text-sm font-semibold text-white mb-2">
-                                        Liczba
-                                    </label>
-                                    <QuantitySelector
-                                        quantity={quantity}
-                                        onQuantityChange={setQuantity}
-                                        min={1}
-                                        max={20}
-                                        size="lg"
-                                    />
-                                </div>
-
-                                <div className="flex-1">
-                                    <label className="block text-sm font-semibold text-white mb-2 opacity-0">
-                                        Action
-                                    </label>
-                                    <UniversalButton
-                                        onClick={handleAddToCart}
-                                        disabled={addingToCart}
-                                        loading={addingToCart}
-                                        icon={FaShoppingCart}
-                                        variant="primary"
-                                        size="lg"
-                                        className="w-full"
-                                    >
-                                        {addingToCart ? 'Dodawanie...' : 'Dodaj do koszyka'}
-                                    </UniversalButton>
-                                </div>
+                            {/* Liczba */}
+                            <div>
+                                <label className="block text-sm font-semibold text-white mb-2">
+                                    Liczba
+                                </label>
+                                <QuantitySelector
+                                    quantity={quantity}
+                                    onQuantityChange={setQuantity}
+                                    min={1}
+                                    max={20}
+                                    size="lg"
+                                />
                             </div>
 
+                            {/* Przycisk dodaj - responsive text */}
+                            <UniversalButton
+                                onClick={handleAddToCart}
+                                disabled={addingToCart}
+                                loading={addingToCart}
+                                icon={FaShoppingCart}
+                                variant="primary"
+                                size="lg"
+                                className="w-full"
+                            >
+                                <span className="hidden sm:inline">
+                                    {addingToCart ? 'Dodawanie...' : 'Dodaj do koszyka'}
+                                </span>
+                                <span className="sm:hidden">
+                                    {addingToCart ? 'Dodawanie...' : 'Dodaj'}
+                                </span>
+                            </UniversalButton>
+
                             {/* Total Price Preview */}
-                            <div className="p-3 bg-accent/10 border border-accent/20">
+                            <div className="space-y-3 pt-4 border-t border-white/10">
                                 <div className="flex justify-between items-center">
                                     <span className="text-white">Razem:</span>
-                                    <span className="text-xl font-bold text-white">
+                                    <span className="text-xl text-white">
                                         {(price * quantity).toFixed(2)} zł
                                     </span>
                                 </div>
@@ -247,10 +247,10 @@ export function CoffeeDetail() {
 
                 {/* Description Section */}
                 {coffee.description && (
-                    <div>
+                    <div className="mx-auto">
                         <div className="p-6 lg:p-8 bg-primary-light border border-white/10">
                             <h2 className="text-2xl font-bold text-white mb-4">
-                                O tej kawie
+                                Opis:
                             </h2>
                             <div className="prose prose-invert max-w-none">
                                 <p className="text-white/90 leading-relaxed whitespace-pre-line">

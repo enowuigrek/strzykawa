@@ -19,7 +19,7 @@ export function PageHeader({
                                 <Icon className="w-8 h-8 text-accent" />
                             </div>
                         )}
-                        <h1 className="text-4xl md:text-5xl font-bold text-white text-shadow-lg">
+                        <h1 className="text-4xl md:text-5xl text-white text-shadow-lg">
                             {title}
                         </h1>
                     </div>
