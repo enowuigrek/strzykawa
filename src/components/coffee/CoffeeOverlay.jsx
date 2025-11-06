@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 /**
  * CoffeeOverlay - Style jak na naklejce z nagłówkiem kraju
@@ -17,6 +18,16 @@ export function CoffeeOverlay({ coffee, isOpen }) {
     };
     const country = origin.country || '';
     const bgColor = coffee.themeColor || COUNTRY_COLOR[country] || '#F1CE6A';
+
+    // IF: Jeśli nazwa zaczyna się od kraju, usuń kraj z nazwy
+    let displayName = coffee.name;
+    if (country && coffee.name.startsWith(country)) {
+        displayName = coffee.name.replace(country, '').trim();
+        // Jeśli po usunięciu kraju nazwa jest pusta, zostaw oryginalną
+        // if (!displayName) {
+        //     displayName = coffee.name;
+        // }
+    }
 
     // Prepare details - BEZ kraju (będzie w nagłówku)
     const details = [];
@@ -38,12 +49,14 @@ export function CoffeeOverlay({ coffee, isOpen }) {
     }
 
     return (
-        <div
+        <Link
+            to={`/kawy/${coffee.shopifyHandle || coffee.id}`}
             className={`
                 absolute inset-0
                 backdrop-blur-md
                 transition-transform duration-300 ease-out
-                ${isOpen ? 'translate-y-0' : 'translate-y-full'}
+                block
+                ${isOpen ? 'translate-y-0 z-40' : 'translate-y-full pointer-events-none'}
             `}
             style={{
                 background: `linear-gradient(to top, ${bgColor}f2, ${bgColor}e6 40%, ${bgColor}cc)`
@@ -57,7 +70,7 @@ export function CoffeeOverlay({ coffee, isOpen }) {
                             {country}
                         </h3>
                         <p className="text-lg text-black font-normal mt-1">
-                            {coffee.name}
+                            {displayName}
                         </p>
                     </div>
                 )}
@@ -87,6 +100,6 @@ export function CoffeeOverlay({ coffee, isOpen }) {
                     </p>
                 )}
             </div>
-        </div>
+        </Link>
     );
 }
