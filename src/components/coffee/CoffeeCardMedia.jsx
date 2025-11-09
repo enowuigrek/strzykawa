@@ -59,7 +59,7 @@ export function CoffeeCardMedia({ coffee, overlayOpen, onToggleOverlay }) {
                 }}
                 className={`
                     absolute bottom-3 right-3 w-8 h-8 rounded-full
-                    flex items-center justify-center z-30
+                    flex items-center justify-center z-50
                     bg-white/15 backdrop-blur-md text-white
                     ring-1 ring-white/10 shadow-lg
                     transition-all duration-300

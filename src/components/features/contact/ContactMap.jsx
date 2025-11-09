@@ -1,6 +1,6 @@
 import React from 'react';
 import { FaMapMarkerAlt, FaRoute } from 'react-icons/fa';
-import { UniversalButton } from '../UniversalButton';
+import { Button } from '../../atoms/Button.jsx';
 
 export function ContactMap() {
     const openGoogleMaps = () => {
@@ -32,7 +32,7 @@ export function ContactMap() {
 
                 {/* Buttons */}
                 <div className="space-y-3">
-                    <UniversalButton
+                    <Button
                         onClick={openGoogleMaps}
                         icon={FaMapMarkerAlt}
                         variant="primary"
@@ -40,9 +40,9 @@ export function ContactMap() {
                         className="w-full"
                     >
                         Zobacz na mapie
-                    </UniversalButton>
+                    </Button>
 
-                    <UniversalButton
+                    <Button
                         onClick={openDirections}
                         icon={FaRoute}
                         variant="secondary"
@@ -50,7 +50,7 @@ export function ContactMap() {
                         className="w-full"
                     >
                         Wyznacz trasę
-                    </UniversalButton>
+                    </Button>
                 </div>
             </div>
         </div>

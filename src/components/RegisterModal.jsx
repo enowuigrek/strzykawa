@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { FaTimes, FaUser, FaLock, FaEye, FaEyeSlash, FaEnvelope, FaUserPlus } from 'react-icons/fa';
 import { useAuthStore } from '../store/authStore';
-import { UniversalButton } from './UniversalButton';
+import { Button } from './atoms/Button';
 
 const RegisterModal = ({ isOpen, onClose, onSwitchToLogin }) => {
     const [formData, setFormData] = useState({
@@ -220,7 +220,7 @@ const RegisterModal = ({ isOpen, onClose, onSwitchToLogin }) => {
                         </div>
 
                         {/* Submit Button */}
-                        <UniversalButton
+                        <Button
                             type="submit"
                             disabled={isLoading}
                             loading={isLoading}
@@ -230,7 +230,7 @@ const RegisterModal = ({ isOpen, onClose, onSwitchToLogin }) => {
                             className="w-full mb-4"
                         >
                             {isLoading ? 'Tworzenie konta...' : 'Utwórz konto'}
-                        </UniversalButton>
+                        </Button>
 
                         {/* Switch to Login */}
                         <div className="text-center">

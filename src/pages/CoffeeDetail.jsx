@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { PageLayout } from '../components/PageLayout';
+import { PageLayout } from "../components/layout/PageLayout.jsx";
 import { ProductBreadcrumb } from '../components/molecules/ProductBreadcrumb';
 import { ProductGallery } from '../components/molecules/ProductGallery';
 import { ProductMeta } from '../components/molecules/ProductMeta';
 import { VariantSelector } from '../components/molecules/VariantSelector';
 import { QuantitySelector } from '../components/atoms/QuantitySelector';
-import { UniversalButton } from '../components/UniversalButton';
+import { Button } from '../components/atoms/Button';
 import { shopify } from '../services/shopify';
 import { useCartStore } from '../store/cartStore';
 import { FaShoppingCart, FaTag } from 'react-icons/fa';
@@ -106,12 +106,12 @@ export function CoffeeDetail() {
                 <div className="container mx-auto max-w-7xl px-4 py-12">
                     <div className="text-center">
                         <p className="text-red-400 text-lg mb-4">{error || 'Produkt nie został znaleziony'}</p>
-                        <UniversalButton
+                        <Button
                             onClick={() => window.history.back()}
                             variant="secondary"
                         >
                             Wróć
-                        </UniversalButton>
+                        </Button>
                     </div>
                 </div>
             </PageLayout>
@@ -215,7 +215,7 @@ export function CoffeeDetail() {
                             </div>
 
                             {/* Przycisk dodaj - responsive text */}
-                            <UniversalButton
+                            <Button
                                 onClick={handleAddToCart}
                                 disabled={addingToCart}
                                 loading={addingToCart}
@@ -230,7 +230,7 @@ export function CoffeeDetail() {
                                 <span className="sm:hidden">
                                     {addingToCart ? 'Dodawanie...' : 'Dodaj'}
                                 </span>
-                            </UniversalButton>
+                            </Button>
 
                             {/* Total Price Preview */}
                             <div className="space-y-3 pt-4 border-t border-white/10">

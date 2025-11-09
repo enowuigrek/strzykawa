@@ -1,5 +1,5 @@
 import React from 'react';
-import HeroSection from '../components/hero/HeroSection.jsx';
+import HeroSection from '../components/features/hero/HeroSection.jsx';
 import { FaCoffee, FaLeaf, FaHeart } from 'react-icons/fa';
 
 export function Home() {

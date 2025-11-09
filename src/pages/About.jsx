@@ -7,8 +7,8 @@ import Branding2 from '../assets/history/branding-2.jpg';
 import Branding5 from '../assets/history/branding-5.jpg';
 import { useScrollToTop } from '../hooks/useScrollToTop';
 import { FaMapMarkerAlt, FaShoppingBag } from 'react-icons/fa';
-import { UniversalButton } from '../components/UniversalButton';
-import { PageLayout } from '../components/PageLayout.jsx';
+import { Button } from '../components/atoms/Button';
+import { PageLayout } from "../components/layout/PageLayout.jsx";
 import { TimelineSection } from '../components/molecules/TimelineSection';
 import { TimelineBar } from '../components/organisms/TimelineBar';
 
@@ -91,23 +91,23 @@ export function About() {
                             Zapraszamy do Strzykawy!
                         </h2>
                         <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                            <UniversalButton
+                            <Button
                                 href="/kontakt"
                                 icon={FaMapMarkerAlt}
                                 variant="primary"
                                 size="lg"
                             >
                                 Znajdź nas
-                            </UniversalButton>
+                            </Button>
 
-                            <UniversalButton
+                            <Button
                                 href="/kawy"
                                 icon={FaShoppingBag}
                                 variant="secondary"
                                 size="lg"
                             >
                                 Zamów kawę
-                            </UniversalButton>
+                            </Button>
                         </div>
                     </div>
                 </div>

@@ -1,6 +1,6 @@
 import React, { useState, useMemo, useEffect } from 'react';
 import { shopify } from '../services/shopify.js';
-import { PageLayout } from '../components/PageLayout';
+import { PageLayout } from "../components/layout/PageLayout.jsx";
 import { CoffeeFilterBar } from '../components/organisms/CoffeeFilterBar';
 import { CoffeeGrid } from '../components/organisms/CoffeeGrid';
 import { FilterDrawer } from '../components/organisms/FilterDrawer';

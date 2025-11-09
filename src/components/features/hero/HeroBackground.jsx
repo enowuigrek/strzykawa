@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { useVideoLoop } from '../../hooks/useVideoLoop.js';
-import { useHeroAnimation } from '../../hooks/useHeroAnimation.js';
+import { useVideoLoop } from '../../../hooks/useVideoLoop.js';
+import { useHeroAnimation } from '../../../hooks/useHeroAnimation.js';
 
 export function HeroBackground({ videoDesktop, videoMobile, onReadyToShow }) {
     const [videoReady, setVideoReady] = useState(false);

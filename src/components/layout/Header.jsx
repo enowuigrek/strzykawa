@@ -3,12 +3,12 @@ import { useAuthStore } from '../../store/authStore.js';
 import { useCartStore } from '../../store/cartStore.js';
 import { useHeroAnimation } from '../../hooks/useHeroAnimation.js';
 import { Logo } from '../atoms/Logo.jsx';
-import { DesktopNavigation } from './DesktopNavigation.jsx';
-import { MobileNavigation } from './MobileNavigation.jsx';
-import { HeaderActions } from './HeaderActions.jsx';
-import { MobileMenuToggle } from './MobileMenuToggle.jsx';
-import { HeaderModals } from './HeaderModals.jsx';
-import { MobileBottomNavigation } from './MobileBottomNavigation.jsx';
+import { DesktopNavigation } from '../header/DesktopNavigation.jsx';
+import { MobileNavigation } from '../header/MobileNavigation.jsx';
+import { HeaderActions } from '../header/HeaderActions.jsx';
+import { MobileMenuToggle } from '../header/MobileMenuToggle.jsx';
+import { HeaderModals } from '../header/HeaderModals.jsx';
+import { MobileBottomNavigation } from '../header/MobileBottomNavigation.jsx';
 
 /**
  * Header - Main navigation with auto-hide and floating hamburger

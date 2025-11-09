@@ -86,8 +86,8 @@ export function FilterDrawer({
                         </h2>
                         {totalActiveFilters > 0 && (
                             <span className="bg-accent text-white px-2 py-0.5 rounded-full text-xs font-bold">
-                {totalActiveFilters}
-              </span>
+                                {totalActiveFilters}
+                            </span>
                         )}
                     </div>
 
@@ -112,40 +112,33 @@ export function FilterDrawer({
                                 Wyczyść wszystko
                             </button>
                         </div>
+
+                        {/* Active filters chips */}
                         <div className="flex flex-wrap gap-2">
-                            {Object.entries(activeFilters).map(([sectionId, filters]) => {
-                                const section = filterSections.find(s => s.id === sectionId);
-                                if (!section || filters.length === 0) return null;
-
-                                return filters.map(filterId => {
-                                    const option = section.options.find(opt => opt.id === filterId);
-                                    if (!option) return null;
-
-                                    return (
-                                        <Chip
-                                            key={`${sectionId}-${filterId}`}
-                                            label={option.label}
-                                            active={true}
-                                            removable={true}
-                                            onRemove={() => onFilterToggle(sectionId, filterId)}
-                                            size="sm"
-                                        />
-                                    );
-                                });
-                            })}
+                            {Object.entries(activeFilters).map(([category, values]) =>
+                                values.map((value) => (
+                                    <Chip
+                                        key={`${category}-${value}`}
+                                        label={value}
+                                        active={true}
+                                        onToggle={() => onFilterToggle(category, value)}
+                                        showRemove={true}
+                                    />
+                                ))
+                            )}
                         </div>
                     </div>
                 )}
 
-                {/* Scrollable Content */}
-                <div className="flex-1 overflow-y-auto p-4 space-y-6">
+                {/* Scrollable Filter Sections */}
+                <div className="flex-1 overflow-y-auto p-4 space-y-4">
                     {filterSections.map((section) => (
                         <FilterSection
                             key={section.id}
                             title={section.title}
                             options={section.options}
-                            activeFilters={activeFilters[section.id] || []}
-                            onFilterToggle={(filterId) => onFilterToggle(section.id, filterId)}
+                            selectedValues={activeFilters[section.id] || []}
+                            onToggle={(value) => onFilterToggle(section.id, value)}
                             showCounts={true}
                             layout="grid"
                             collapsible={true}
@@ -167,7 +160,7 @@ export function FilterDrawer({
                             variant="primary"
                             fullWidth
                             onClick={handleApply}
-                            leftIcon={<FiFilter size={18} />}
+                            leftIcon={FiFilter}
                         >
                             Pokaż wyniki ({totalResults})
                         </Button>
@@ -188,164 +181,6 @@ export function FilterDrawer({
             </div>
         </>
     );
-};
+}
 
 export default FilterDrawer;
-
-// Demo with trigger button
-export const FilterDrawerDemo = () => {
-    const [isDrawerOpen, setIsDrawerOpen] = React.useState(false);
-    const [activeFilters, setActiveFilters] = React.useState({
-        countries: ['etiopia'],
-        processing: [],
-        roastType: ['espresso'],
-    });
-
-    // Sample data
-    const filterSections = [
-        {
-            id: 'countries',
-            title: 'Kraj pochodzenia',
-            options: [
-                { id: 'etiopia', label: 'Etiopia', count: 5 },
-                { id: 'kolumbia', label: 'Kolumbia', count: 3 },
-                { id: 'brazylia', label: 'Brazylia', count: 2 },
-                { id: 'kostaryka', label: 'Kostaryka', count: 1 },
-                { id: 'peru', label: 'Peru', count: 2 },
-            ],
-            defaultOpen: true,
-        },
-        {
-            id: 'processing',
-            title: 'Obróbka',
-            options: [
-                { id: 'natural', label: 'Natural', count: 4 },
-                { id: 'washed', label: 'Washed', count: 6 },
-                { id: 'honey', label: 'Honey', count: 3 },
-                { id: 'anaerobic', label: 'Anaerobic', count: 2 },
-            ],
-            defaultOpen: false,
-        },
-        {
-            id: 'roastType',
-            title: 'Typ parzenia',
-            options: [
-                { id: 'espresso', label: 'Espresso', count: 7 },
-                { id: 'filter', label: 'Przelew', count: 6 },
-            ],
-            defaultOpen: false,
-        },
-        {
-            id: 'roastLevel',
-            title: 'Stopień palenia',
-            options: [
-                { id: 'light', label: 'Jasny', count: 5 },
-                { id: 'medium', label: 'Średni', count: 6 },
-                { id: 'dark', label: 'Ciemny', count: 2 },
-            ],
-            defaultOpen: false,
-        },
-    ];
-
-    // Toggle filter
-    const handleFilterToggle = (sectionId, filterId) => {
-        setActiveFilters(prev => {
-            const sectionFilters = prev[sectionId] || [];
-            const newFilters = sectionFilters.includes(filterId)
-                ? sectionFilters.filter(f => f !== filterId)
-                : [...sectionFilters, filterId];
-
-            return {
-                ...prev,
-                [sectionId]: newFilters,
-            };
-        });
-    };
-
-    // Clear all filters
-    const handleClearAll = () => {
-        setActiveFilters({
-            countries: [],
-            processing: [],
-            roastType: [],
-            roastLevel: [],
-        });
-    };
-
-    // Calculate total results (mock)
-    const totalActiveFilters = Object.values(activeFilters).flat().length;
-    const mockResults = 13 - totalActiveFilters * 2; // fake calculation
-
-    return (
-        <div className="min-h-screen bg-primary p-4">
-            <div className="max-w-md mx-auto">
-
-                {/* Page Header */}
-                <div className="mb-6">
-                    <h1 className="text-white text-2xl font-bold mb-2">Nasze Kawy</h1>
-                    <p className="text-muted">
-                        Znaleziono: <span className="text-accent font-bold">{mockResults}</span> kaw
-                    </p>
-                </div>
-
-                {/* Trigger Button */}
-                <Button
-                    variant="secondary"
-                    fullWidth
-                    leftIcon={<FiFilter />}
-                    onClick={() => setIsDrawerOpen(true)}
-                >
-                    Filtry {totalActiveFilters > 0 && `(${totalActiveFilters})`}
-                </Button>
-
-                {/* Active Filters Preview */}
-                {totalActiveFilters > 0 && (
-                    <div className="mt-4 p-3 bg-primary-light rounded-lg">
-                        <p className="text-muted text-sm mb-2">Aktywne filtry:</p>
-                        <div className="flex flex-wrap gap-2">
-                            {Object.entries(activeFilters).map(([sectionId, filters]) => {
-                                const section = filterSections.find(s => s.id === sectionId);
-                                return filters.map(filterId => {
-                                    const option = section.options.find(opt => opt.id === filterId);
-                                    return (
-                                        <Chip
-                                            key={`${sectionId}-${filterId}`}
-                                            label={option.label}
-                                            active={true}
-                                            removable={true}
-                                            onRemove={() => handleFilterToggle(sectionId, filterId)}
-                                            size="sm"
-                                        />
-                                    );
-                                });
-                            })}
-                        </div>
-                    </div>
-                )}
-
-                {/* Mock Coffee List */}
-                <div className="mt-6 space-y-3">
-                    {[...Array(mockResults)].map((_, i) => (
-                        <div key={i} className="bg-primary-light p-4 rounded-lg">
-                            <div className="h-4 bg-accent/20 rounded w-3/4 mb-2"></div>
-                            <div className="h-3 bg-accent/10 rounded w-1/2"></div>
-                        </div>
-                    ))}
-                </div>
-
-                {/* Filter Drawer */}
-                <FilterDrawer
-                    isOpen={isDrawerOpen}
-                    onClose={() => setIsDrawerOpen(false)}
-                    filterSections={filterSections}
-                    activeFilters={activeFilters}
-                    onFilterToggle={handleFilterToggle}
-                    onApply={() => console.log('Apply filters', activeFilters)}
-                    onClear={handleClearAll}
-                    totalResults={mockResults}
-                />
-
-            </div>
-        </div>
-    );
-};

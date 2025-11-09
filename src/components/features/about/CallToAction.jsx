@@ -1,6 +1,6 @@
 import React from 'react';
 import { FaMapMarkerAlt, FaShoppingBag } from 'react-icons/fa';
-import { UniversalButton } from '../UniversalButton';
+import { Button } from '../../atoms/Button';
 
 export function CallToAction() {
     return (
@@ -14,23 +14,23 @@ export function CallToAction() {
                     rośnie każdego dnia i dlaczego Strzykawa to więcej niż kawiarnia.
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                    <UniversalButton
+                    <Button
                         href="/kontakt"
                         icon={FaMapMarkerAlt}
                         variant="primary"
                         size="lg"
                     >
                         Znajdź nas
-                    </UniversalButton>
+                    </Button>
 
-                    <UniversalButton
+                    <Button
                         href="/kawy"
                         icon={FaShoppingBag}
                         variant="secondary"
                         size="lg"
                     >
                         Zamów kawę
-                    </UniversalButton>
+                    </Button>
                 </div>
             </div>
         </div>

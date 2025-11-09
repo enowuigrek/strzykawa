@@ -1,6 +1,6 @@
 import React from 'react';
-import {UniversalButton} from "../components/UniversalButton.jsx";
-import {PageLayout} from "../components/PageLayout.jsx";
+import { Button } from '../components/atoms/Button';
+import { PageLayout } from "../components/layout/PageLayout.jsx";
 
 export function B2B() {
     return (
@@ -14,13 +14,13 @@ export function B2B() {
                     <p className="text-white/70 mb-4">
                         Masz pytania dotyczące współpracy?
                     </p>
-                    <UniversalButton
+                    <Button
                         href="/kontakt"
                         variant="primary"
                         size="lg"
                     >
                         Skontaktuj się z nami
-                    </UniversalButton>
+                    </Button>
                 </div>
             </div>
         </PageLayout>

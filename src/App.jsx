@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { Routes, Route, useLocation } from 'react-router-dom';
-import { Header }from './components/header/Header.jsx';
-import { Footer } from './components/Footer.jsx';
+import { Header } from './components/layout/Header.jsx';
+import { Footer } from './components/layout/Footer.jsx';
 import { Home } from './pages/Home.jsx';
 import { Coffees }from './pages/Coffees.jsx';
 import { CoffeeDetail } from './pages/CoffeeDetail.jsx'; // ✅ NOWY IMPORT

@@ -4,8 +4,8 @@ import { MainHeading } from './MainHeading.jsx';
 import { ActionButtons } from './ActionButtons.jsx';
 import { Tagline } from './Tagline.jsx';
 import { HeroDescription } from './HeroDescription.jsx';
-import  heroVideoDesktop from '../../assets/hero-desktop.mp4';
-import  heroVideoMobile from '../../assets/hero-mobile.mp4';
+import  heroVideoDesktop from '../../../assets/hero-desktop.mp4';
+import  heroVideoMobile from '../../../assets/hero-mobile.mp4';
 
 function HeroSection() {
     const [showContent, setShowContent] = useState(false);

@@ -8,7 +8,7 @@ import {
   FaPhone,
   FaEnvelope
 } from 'react-icons/fa';
-import FooterImage from '../assets/footer.jpg';
+import FooterImage from '../../assets/footer.jpg';
 
 export function Footer() {
   const currentYear = new Date().getFullYear();

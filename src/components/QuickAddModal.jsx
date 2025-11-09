@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { IoClose } from 'react-icons/io5';
 import { FaShoppingCart } from 'react-icons/fa';
 import { QuantitySelector } from './atoms/QuantitySelector';
-import { UniversalButton } from './UniversalButton';
+import { Button } from './atoms/Button';
 
 /**
  * QuickAddModal - Modal do szybkiego dodawania do koszyka
@@ -206,7 +206,7 @@ export function QuickAddModal({ coffee, isOpen, onClose, onAddToCart }) {
 
                     {/* Footer */}
                     <div className="p-4 border-t border-white/10">
-                        <UniversalButton
+                        <Button
                             onClick={handleAdd}
                             disabled={!selectedVariant || adding}
                             loading={adding}
@@ -216,7 +216,7 @@ export function QuickAddModal({ coffee, isOpen, onClose, onAddToCart }) {
                             className="w-full"
                         >
                             {adding ? 'Dodawanie...' : `Dodaj - ${totalPrice} zł`}
-                        </UniversalButton>
+                        </Button>
                     </div>
                 </div>
             </div>

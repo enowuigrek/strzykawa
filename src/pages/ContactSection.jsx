@@ -1,9 +1,9 @@
 import React from 'react';
-import { ContactInfo } from '../components/contact/ContactInfo';
-import { ContactMap } from '../components/contact/ContactMap';
-import { PageHeader } from '../components/PageHeader';
+import { ContactInfo } from '../components/features/contact/ContactInfo';
+import { ContactMap } from '../components/features/contact/ContactMap';
+import { PageHeader } from '../components/layout/PageHeader';
 import { useScrollToTop } from '../hooks/useScrollToTop';
-import {PageLayout} from "../components/PageLayout.jsx";
+import { PageLayout } from "../components/layout/PageLayout.jsx";
 
 export function ContactSection() {
     useScrollToTop();
