@@ -219,6 +219,10 @@ class ShopifyService {
                                 node {
                                     id
                                     quantity
+                                    attributes {
+                                        key
+                                        value
+                                    }
                                     merchandise {
                                         ... on ProductVariant {
                                             id
@@ -231,6 +235,9 @@ class ShopifyService {
                                                 id
                                                 handle
                                                 title
+                                                featuredImage {
+                                                    url
+                                                }
                                                 images(first: 1) {
                                                     edges {
                                                         node {
@@ -239,6 +246,9 @@ class ShopifyService {
                                                         }
                                                     }
                                                 }
+                                            }
+                                            image {
+                                                url
                                             }
                                         }
                                     }
@@ -290,6 +300,10 @@ class ShopifyService {
                                 node {
                                     id
                                     quantity
+                                    attributes {
+                                        key
+                                        value
+                                    }
                                     merchandise {
                                         ... on ProductVariant {
                                             id
@@ -302,6 +316,9 @@ class ShopifyService {
                                                 id
                                                 handle
                                                 title
+                                                featuredImage {
+                                                    url
+                                                }
                                                 images(first: 1) {
                                                     edges {
                                                         node {
@@ -310,6 +327,9 @@ class ShopifyService {
                                                         }
                                                     }
                                                 }
+                                            }
+                                            image {
+                                                url
                                             }
                                         }
                                     }
@@ -354,6 +374,10 @@ class ShopifyService {
                                 node {
                                     id
                                     quantity
+                                    attributes {
+                                        key
+                                        value
+                                    }
                                     merchandise {
                                         ... on ProductVariant {
                                             id
@@ -366,6 +390,9 @@ class ShopifyService {
                                                 id
                                                 handle
                                                 title
+                                                featuredImage {
+                                                    url
+                                                }
                                                 images(first: 1) {
                                                     edges {
                                                         node {
@@ -374,6 +401,9 @@ class ShopifyService {
                                                         }
                                                     }
                                                 }
+                                            }
+                                            image {
+                                                url
                                             }
                                         }
                                     }
@@ -418,6 +448,10 @@ class ShopifyService {
                                 node {
                                     id
                                     quantity
+                                    attributes {
+                                        key
+                                        value
+                                    }
                                     merchandise {
                                         ... on ProductVariant {
                                             id
@@ -430,6 +464,9 @@ class ShopifyService {
                                                 id
                                                 handle
                                                 title
+                                                featuredImage {
+                                                    url
+                                                }
                                                 images(first: 1) {
                                                     edges {
                                                         node {
@@ -438,6 +475,9 @@ class ShopifyService {
                                                         }
                                                     }
                                                 }
+                                            }
+                                            image {
+                                                url
                                             }
                                         }
                                     }
@@ -481,6 +521,10 @@ class ShopifyService {
                             node {
                                 id
                                 quantity
+                                attributes {
+                                    key
+                                    value
+                                }
                                 merchandise {
                                     ... on ProductVariant {
                                         id

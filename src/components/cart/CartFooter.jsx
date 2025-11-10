@@ -1,6 +1,10 @@
 import React from 'react';
-import { FaArrowRight, FaCreditCard } from 'react-icons/fa';
+import { FaCreditCard } from 'react-icons/fa';
 
+/**
+ * CartFooter - Footer koszyka z totalem i checkout button
+ * REDESIGN: Checkout button - rounded-full (pastylka), reszta sharp
+ */
 export function CartFooter({ items, isLoading, totalPrice, onCheckout }) {
     if (items.length === 0) return null;
 
@@ -14,14 +18,15 @@ export function CartFooter({ items, isLoading, totalPrice, onCheckout }) {
                 </span>
             </div>
 
-            {/* Checkout Button - New Style */}
+            {/* Checkout Button - Rounded-full (pastylka) */}
             <button
                 onClick={onCheckout}
                 disabled={isLoading || items.length === 0}
-                className="group relative inline-flex items-center w-full justify-center bg-white/10 backdrop-blur-sm border border-white/30 rounded-full px-6 py-4 transition-all duration-300 hover:scale-105 hover:bg-white/20 hover:border-white/50 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
+                className="group relative inline-flex items-center w-full justify-center bg-white/10 backdrop-blur-sm border border-white/30 rounded-full px-6 py-4 transition-all duration-300 hover:scale-105 hover:bg-white/20 hover:border-white/50 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100 overflow-hidden"
             >
                 <div className="flex items-center space-x-3">
-                    <div className="p-2 bg-accent/20 rounded-full">
+                    {/* Icon box - sharp corners */}
+                    <div className="p-2 bg-accent/20">
                         {isLoading ? (
                             <div className="w-4 h-4 border-2 border-accent border-t-transparent rounded-full animate-spin"></div>
                         ) : (
@@ -34,7 +39,7 @@ export function CartFooter({ items, isLoading, totalPrice, onCheckout }) {
                 </div>
 
                 {/* Shine effect */}
-                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent skew-x-12 translate-x-[-200%] group-hover:translate-x-[200%] transition-transform duration-1000 ease-out rounded-full" />
+                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent skew-x-12 translate-x-[-200%] group-hover:translate-x-[200%] transition-transform duration-1000 ease-out" />
             </button>
 
             <p className="text-xs text-muted text-center mt-3">

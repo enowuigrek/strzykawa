@@ -4,6 +4,14 @@ import { CartHeader } from './CartHeader';
 import { CartContent } from './CartContent';
 import { CartFooter } from './CartFooter';
 
+/**
+ * CartModal - Główny komponent koszyka
+ * REDESIGN:
+ * - Sharp corners (border-l, no rounded)
+ * - Z-index z-[100] (nad filtrami)
+ * - QuantitySelector w CartItem
+ * - Auto-remove przy quantity=0
+ */
 export function CartModal({ isOpen, onClose }) {
     const {
         items,
@@ -26,13 +34,12 @@ export function CartModal({ isOpen, onClose }) {
         <>
             {/* Backdrop */}
             <div
-                className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50"
+                className="fixed inset-0 bg-black/50 backdrop-blur-sm z-[100]"
                 onClick={onClose}
             />
 
-            {/* Modal */}
-            <div className="fixed right-0 top-0 h-full w-full max-w-md bg-primary-dark border-white/20 z-50 shadow-2xl flex flex-col">
-
+            {/* Modal - Sharp corners, z-[100] */}
+            <div className="fixed right-0 top-0 h-full w-full max-w-md bg-primary-dark border-l border-white/20 z-[100] shadow-2xl flex flex-col">
                 <CartHeader
                     totalItems={getTotalItems()}
                     onClose={onClose}

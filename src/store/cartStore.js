@@ -1,11 +1,14 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
-import { shopify } from '../services/shopify.js';
+import { shopify } from '../services/shopify';
 
+/**
+ * Cart Store - Zustand store dla koszyka
+ * UPDATED: dodany selectedOptions dla wyświetlania wariantów w koszyku
+ */
 export const useCartStore = create(
     persist(
         (set, get) => ({
-            // State
             cart: null,
             items: [],
             isLoading: false,
@@ -14,37 +17,57 @@ export const useCartStore = create(
             // Initialize cart
             initializeCart: async () => {
                 const { cart } = get();
+                if (cart) return;
 
-                // If we have a cart ID, try to fetch it
-                if (cart?.id) {
-                    try {
-                        const updatedCart = await shopify.getCart(cart.id);
-                        if (updatedCart) {
-                            set({
-                                cart: updatedCart,
-                                items: get().mapCartToItems(updatedCart)
-                            });
-                            return;
-                        }
-                    } catch (error) {
-                        console.warn('Could not fetch existing cart, creating new one');
-                    }
-                }
-
-                // Create new cart
+                set({ isLoading: true });
                 try {
                     const newCart = await shopify.createCart();
-                    set({
-                        cart: newCart,
-                        items: []
-                    });
+                    set({ cart: newCart, isLoading: false });
                 } catch (error) {
-                    console.error('Failed to create cart:', error);
-                    set({ error: 'Nie udało się utworzyć koszyka' });
+                    console.error('Error initializing cart:', error);
+                    set({ error: 'Nie udało się utworzyć koszyka', isLoading: false });
                 }
             },
 
-            // Add item to cart
+            // Map Shopify cart to our items format - UPDATED z selectedOptions z attributes
+            mapCartToItems: (cart) => {
+                if (!cart?.lines?.edges) return [];
+
+                return cart.lines.edges.map(({ node: line }) => {
+                    const variant = line.merchandise;
+
+                    // 🔥 Wyciągnij selectedOptions z attributes (zapisane przy dodawaniu)
+                    const selectedOptionsAttr = line.attributes?.find(attr => attr.key === 'selected_options')?.value;
+                    let selectedOptions = [];
+
+                    if (selectedOptionsAttr) {
+                        try {
+                            selectedOptions = JSON.parse(selectedOptionsAttr);
+                        } catch (e) {
+                            console.error('Error parsing selectedOptions:', e);
+                        }
+                    }
+
+                    return {
+                        lineItemId: line.id,
+                        product: {
+                            id: variant.product.id,
+                            name: variant.product.title,
+                            roastLevel: line.attributes?.find(attr => attr.key === 'roast_level')?.value || '',
+                            tastingNotes: [],
+                            image: variant.image?.url || variant.product.featuredImage?.url || variant.product.images?.edges?.[0]?.node?.url || '',
+                            price: parseFloat(variant.price.amount),
+                            currencyCode: variant.price.currencyCode
+                        },
+                        variantId: variant.id,
+                        variantTitle: variant.title,
+                        selectedOptions: selectedOptions, // 🔥 Z attributes
+                        quantity: line.quantity
+                    };
+                });
+            },
+
+            // Add item to cart - ZAPISZ selectedOptions w attributes
             addItem: async (product, variantId, quantity = 1) => {
                 set({ isLoading: true, error: null });
 
@@ -56,12 +79,17 @@ export const useCartStore = create(
                         throw new Error('Brak koszyka');
                     }
 
+                    // 🔥 Znajdź variant żeby dostać selectedOptions
+                    const variant = product.variants?.find(v => v.id === variantId);
+                    const selectedOptions = variant?.selectedOptions || [];
+
                     const lines = [{
                         merchandiseId: variantId,
                         quantity: quantity,
                         attributes: [
                             { key: 'product_name', value: product.name },
-                            { key: 'roast_level', value: product.roastLevel || '' }
+                            { key: 'roast_level', value: product.roastLevel || '' },
+                            { key: 'selected_options', value: JSON.stringify(selectedOptions) } // 🔥 Zapisz selectedOptions
                         ]
                     }];
 
@@ -97,29 +125,28 @@ export const useCartStore = create(
                         items: get().mapCartToItems(updatedCart),
                         isLoading: false
                     });
-
                 } catch (error) {
                     console.error('Error removing from cart:', error);
                     set({
-                        error: 'Nie udało się usunąć produktu z koszyka',
+                        error: 'Nie udało się usunąć produktu',
                         isLoading: false
                     });
                 }
             },
 
-            // Update quantity
-            updateQuantity: async (lineId, quantity) => {
-                if (quantity <= 0) {
-                    return get().removeItem(lineId);
-                }
-
+            // Update item quantity
+            updateQuantity: async (lineId, newQuantity) => {
                 set({ isLoading: true, error: null });
 
                 try {
                     const { cart } = get();
                     if (!cart) throw new Error('Brak koszyka');
 
-                    const lines = [{ id: lineId, quantity }];
+                    const lines = [{
+                        id: lineId,
+                        quantity: newQuantity
+                    }];
+
                     const updatedCart = await shopify.updateCartLines(cart.id, lines);
 
                     set({
@@ -127,7 +154,6 @@ export const useCartStore = create(
                         items: get().mapCartToItems(updatedCart),
                         isLoading: false
                     });
-
                 } catch (error) {
                     console.error('Error updating quantity:', error);
                     set({
@@ -137,13 +163,9 @@ export const useCartStore = create(
                 }
             },
 
-            // Clear cart
+            // Clear entire cart
             clearCart: () => {
-                set({
-                    cart: null,
-                    items: [],
-                    error: null
-                });
+                set({ cart: null, items: [] });
             },
 
             // Go to checkout
@@ -152,39 +174,8 @@ export const useCartStore = create(
                 if (cart?.checkoutUrl) {
                     window.location.href = cart.checkoutUrl;
                 } else {
-                    set({ error: 'Nie można przejść do płatności' });
+                    console.error('No checkout URL available');
                 }
-            },
-
-            // Clear error
-            clearError: () => {
-                set({ error: null });
-            },
-
-            // Helper function to map Shopify cart to our items format
-            mapCartToItems: (cart) => {
-                if (!cart?.lines?.edges) return [];
-
-                return cart.lines.edges.map(edge => {
-                    const line = edge.node;
-                    const product = line.merchandise.product;
-                    const variant = line.merchandise;
-
-                    return {
-                        lineItemId: line.id,
-                        product: {
-                            id: product.id,
-                            shopifyHandle: product.handle,
-                            name: product.title,
-                            image: product.images?.edges?.[0]?.node?.url || '',
-                            price: parseFloat(variant.price.amount),
-                            currencyCode: variant.price.currencyCode
-                        },
-                        variantId: variant.id,
-                        variantTitle: variant.title,
-                        quantity: line.quantity
-                    };
-                });
             },
 
             // Getters
@@ -214,7 +205,6 @@ export const useCartStore = create(
             // Quick add methods for coffee products
             addCoffeeToCart: async (coffeeId, quantity = 1) => {
                 try {
-                    // First try to get product from Shopify
                     const product = await shopify.fetchProduct(coffeeId);
                     if (product && product.variants.length > 0) {
                         await get().addItem(product, product.variants[0].id, quantity);
