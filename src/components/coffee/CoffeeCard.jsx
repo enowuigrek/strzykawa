@@ -7,6 +7,7 @@ import { QuickAddModal } from '../QuickAddModal';
 
 /**
  * CoffeeCard - z Quick Add Modal
+ * FIXED: overflow-visible na article i wrapper dla badge
  */
 export function CoffeeCard({ coffee }) {
     const [overlayOpen, setOverlayOpen] = useState(false);
@@ -33,20 +34,22 @@ export function CoffeeCard({ coffee }) {
 
     return (
         <>
-            <article className="relative bg-gradient-to-br from-primary to-primary-light overflow-hidden border border-white/5 shadow-lg transition-all duration-300 hover:shadow-2xl hover:shadow-accent/20 hover:border-white/10 flex flex-col">
+            <article className="relative bg-gradient-to-br from-primary to-primary-light border border-white/5 shadow-lg transition-all duration-300 hover:shadow-2xl hover:shadow-accent/20 hover:border-white/10 flex flex-col overflow-visible">
                 {/* Subtle top border glow effect */}
                 <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-300"></div>
 
-                <CoffeeCardMedia
-                    coffee={coffee}
-                    overlayOpen={overlayOpen}
-                    onToggleOverlay={toggleOverlay}
-                />
+                <div className="overflow-hidden">
+                    <CoffeeCardMedia
+                        coffee={coffee}
+                        overlayOpen={overlayOpen}
+                        onToggleOverlay={toggleOverlay}
+                    />
+                </div>
 
                 <div className="flex flex-col flex-1">
                     <CoffeeCardContent coffee={coffee} />
 
-                    <div className="mt-auto px-4 pb-4">
+                    <div className="mt-auto px-4 pb-4 relative overflow-visible">
                         <CoffeeCardActions
                             coffee={coffee}
                             onQuickAdd={openQuickAdd}

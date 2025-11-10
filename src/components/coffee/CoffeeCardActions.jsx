@@ -1,10 +1,14 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { FaShoppingCart, FaCheck } from 'react-icons/fa';
+import { useCartStore } from '../../store/cartStore';
 
 /**
- * CoffeeCardActions - Jedna pastylka z kreską pionową
- * Lewo: Zobacz szczegóły (link do produktu) | Prawo: Ikona koszyka (quick add)
+ * CoffeeCardActions - Split button z badge i green success state
+ * FINAL FIX v4:
+ * - Hover NA CAŁYM buttonie (fixed height issue)
+ * - Badge w dobrej pozycji (nie za nisko)
+ * - Koszyk w dobrej wysokości (nie wypchany)
  */
 export function CoffeeCardActions({
                                       coffee,
@@ -12,6 +16,11 @@ export function CoffeeCardActions({
                                       isAdding,
                                       justAdded
                                   }) {
+    const { getItemQuantity } = useCartStore();
+
+    // Ile sztuk tej kawy jest w koszyku
+    const cartQuantity = getItemQuantity(coffee.id);
+
     const getCartIcon = () => {
         if (justAdded) return FaCheck;
         return FaShoppingCart;
@@ -20,22 +29,23 @@ export function CoffeeCardActions({
     const CartIcon = getCartIcon();
 
     return (
-        <div className="flex items-center bg-white/10 border border-white/20 rounded-full overflow-hidden">
+        <div className="flex items-stretch bg-white/10 border border-white/20 rounded-full overflow-visible">
             {/* Zobacz szczegóły - LINK do produktu */}
             <Link
                 to={`/kawy/${coffee.shopifyHandle || coffee.id}`}
                 className="
-                    flex-1 group relative inline-flex items-center justify-center
+                    flex-1 relative inline-flex items-center justify-center
                     px-4 py-2.5 text-sm font-medium text-white
-                    hover:bg-white/10
                     transition-all duration-200
+                    rounded-l-full
+                    hover:bg-white/15
                 "
             >
-                Zobacz szczegóły
+                <span className="relative z-10">Zobacz szczegóły</span>
             </Link>
 
             {/* Pionowa kreska */}
-            <div className="w-px h-8 bg-white/20" />
+            <div className="w-px bg-white/20 my-auto" style={{ height: '2rem' }} />
 
             {/* Ikona koszyka - Quick Add */}
             <button
@@ -45,15 +55,27 @@ export function CoffeeCardActions({
                 }}
                 disabled={isAdding}
                 className={`
-                    group relative inline-flex items-center justify-center
-                    w-14 h-full
+                    relative
+                    w-14 py-2.5
+                    inline-flex items-center justify-center
                     text-white
-                    hover:bg-white/10
-                    transition-all duration-200
+                    transition-all duration-300
                     disabled:opacity-50 disabled:cursor-not-allowed
+                    rounded-r-full
+                    ${justAdded
+                    ? 'bg-green-500 hover:bg-green-600'
+                    : 'hover:bg-white/15'
+                }
                 `}
             >
                 <CartIcon className="w-5 h-5" />
+
+                {/* Badge z liczbą sztuk w koszyku */}
+                {cartQuantity > 0 && !justAdded && (
+                    <span className="absolute -top-1 -right-1 bg-green-500 text-white text-[10px] w-5 h-5 rounded-full flex items-center justify-center font-bold z-20 shadow-lg pointer-events-none">
+                        {cartQuantity}
+                    </span>
+                )}
             </button>
         </div>
     );

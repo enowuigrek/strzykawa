@@ -6,7 +6,7 @@ import { Button } from './atoms/Button';
 
 /**
  * QuickAddModal - Modal do szybkiego dodawania do koszyka
- * Wybór: ziarna/mielona, gramatura, liczba sztuk
+ * FIXED: Przyciski Ziarna/Mielona jako pastylki (rounded-full)
  */
 export function QuickAddModal({ coffee, isOpen, onClose, onAddToCart }) {
     const [selectedVariant, setSelectedVariant] = useState(null);
@@ -89,59 +89,58 @@ export function QuickAddModal({ coffee, isOpen, onClose, onAddToCart }) {
         }
     };
 
-    const price = selectedVariant?.price || 0;
-    const totalPrice = (price * quantity).toFixed(2);
+    const price = selectedVariant?.price || '0.00';
+    const totalPrice = (parseFloat(price) * quantity).toFixed(2);
 
     if (!isOpen) return null;
 
     return (
         <>
-            {/* Backdrop */}
+            {/* Backdrop - z-[60] */}
             <div
-                className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4"
+                className="fixed inset-0 bg-black/60 backdrop-blur-sm z-[60] transition-opacity duration-300"
                 onClick={handleBackdropClick}
-            >
-                {/* Modal */}
+            />
+
+            {/* Modal - z-[100] - nad wszystkim */}
+            <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 pointer-events-none">
                 <div
-                    className="bg-primary border border-accent/30 w-full max-w-md"
+                    className="bg-primary border border-white/20 w-full max-w-md shadow-2xl pointer-events-auto"
                     onClick={(e) => e.stopPropagation()}
                 >
                     {/* Header */}
                     <div className="flex items-center justify-between p-4 border-b border-white/10">
                         <h3 className="text-lg font-bold text-white">
-                            Dodaj do koszyka
+                            {coffee.name}
                         </h3>
                         <button
                             onClick={onClose}
-                            className="w-8 h-8 flex items-center justify-center text-muted hover:text-white transition-colors"
+                            className="p-2 hover:bg-white/10 transition-colors"
+                            aria-label="Zamknij"
                         >
-                            <IoClose className="w-5 h-5" />
+                            <IoClose className="w-5 h-5 text-white" />
                         </button>
                     </div>
 
                     {/* Content */}
                     <div className="p-4 space-y-4">
-                        {/* Product name */}
-                        <div>
-                            <h4 className="text-white font-medium">{coffee.name}</h4>
-                            <p className="text-sm text-muted">{coffee.origin?.[0]?.country}</p>
-                        </div>
-
-                        {/* Gramatura */}
-                        {gramaturaOptions.length > 0 && (
+                        {/* Gramatura - PASTYLKI */}
+                        {gramaturaOptions.length > 1 && (
                             <div>
                                 <label className="block text-sm font-semibold text-white mb-2">
                                     Gramatura
                                 </label>
-                                <div className="flex flex-wrap gap-2">
-                                    {gramaturaOptions.map(value => (
+                                <div className="flex gap-2">
+                                    {gramaturaOptions.map((value) => (
                                         <button
                                             key={value}
                                             onClick={() => handleGramaturaChange(value)}
                                             className={`
-                                                px-4 py-2 font-medium transition-all rounded-full
+                                                flex-1 px-5 py-2.5 text-sm font-medium
+                                                transition-all duration-200
+                                                rounded-full
                                                 ${selectedGramatura === value
-                                                ? 'bg-accent text-white'
+                                                ? 'bg-accent text-white shadow-md'
                                                 : 'bg-primary-light text-muted border border-accent/30 hover:bg-accent/20 hover:text-white'
                                             }
                                             `}
@@ -153,21 +152,23 @@ export function QuickAddModal({ coffee, isOpen, onClose, onAddToCart }) {
                             </div>
                         )}
 
-                        {/* Typ - tylko jeśli więcej niż 1 opcja */}
+                        {/* Typ - PASTYLKI */}
                         {typOptions.length > 1 && (
                             <div>
                                 <label className="block text-sm font-semibold text-white mb-2">
-                                    Sposób przygotowania
+                                    Typ
                                 </label>
-                                <div className="flex flex-wrap gap-2">
-                                    {typOptions.map(value => (
+                                <div className="flex gap-2">
+                                    {typOptions.map((value) => (
                                         <button
                                             key={value}
                                             onClick={() => handleTypChange(value)}
                                             className={`
-                                                px-4 py-2 font-medium transition-all rounded-full
+                                                flex-1 px-5 py-2.5 text-sm font-medium
+                                                transition-all duration-200
+                                                rounded-full
                                                 ${selectedTyp === value
-                                                ? 'bg-accent text-white'
+                                                ? 'bg-accent text-white shadow-md'
                                                 : 'bg-primary-light text-muted border border-accent/30 hover:bg-accent/20 hover:text-white'
                                             }
                                             `}
@@ -179,7 +180,7 @@ export function QuickAddModal({ coffee, isOpen, onClose, onAddToCart }) {
                             </div>
                         )}
 
-                        {/* Quantity */}
+                        {/* Quantity - using QuantitySelector */}
                         <div>
                             <label className="block text-sm font-semibold text-white mb-2">
                                 Liczba
@@ -210,10 +211,10 @@ export function QuickAddModal({ coffee, isOpen, onClose, onAddToCart }) {
                             onClick={handleAdd}
                             disabled={!selectedVariant || adding}
                             loading={adding}
-                            icon={FaShoppingCart}
+                            leftIcon={FaShoppingCart}
                             variant="primary"
                             size="lg"
-                            className="w-full"
+                            fullWidth
                         >
                             {adding ? 'Dodawanie...' : `Dodaj - ${totalPrice} zł`}
                         </Button>

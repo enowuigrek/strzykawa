@@ -6,6 +6,7 @@ import coffeePlaceholder from '../../assets/coffee-placeholder.jpg';
 
 /**
  * CoffeeCardMedia - zdjęcie klikalane, oczko toggle, overlay klikalny
+ * FIXED: z-index hierarchy (oczko z-50, overlay z-40, naklejka z-20, zdjęcie z-10)
  */
 export function CoffeeCardMedia({ coffee, overlayOpen, onToggleOverlay }) {
     const getRoastTypeDisplay = (roastType) => {
@@ -50,7 +51,7 @@ export function CoffeeCardMedia({ coffee, overlayOpen, onToggleOverlay }) {
                 </div>
             )}
 
-            {/* OCZKO - toggle overlay */}
+            {/* OCZKO - toggle overlay - ZAWSZE NA WIERZCHU (z-50) */}
             <button
                 onClick={(e) => {
                     e.preventDefault();
@@ -76,7 +77,7 @@ export function CoffeeCardMedia({ coffee, overlayOpen, onToggleOverlay }) {
                 )}
             </button>
 
-            {/* Slide-up overlay (klikalny gdy open) */}
+            {/* Slide-up overlay (klikalny gdy open) - z-40 */}
             <CoffeeOverlay coffee={coffee} isOpen={overlayOpen} />
         </div>
     );
