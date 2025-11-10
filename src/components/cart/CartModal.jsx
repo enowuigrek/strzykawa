@@ -31,7 +31,7 @@ export function CartModal({ isOpen, onClose }) {
             />
 
             {/* Modal */}
-            <div className="fixed right-0 top-0 h-full w-full max-w-md bg-primary-dark border-l border-white/20 z-50 shadow-2xl flex flex-col">
+            <div className="fixed right-0 top-0 h-full w-full max-w-md bg-primary-dark border-white/20 z-50 shadow-2xl flex flex-col">
 
                 <CartHeader
                     totalItems={getTotalItems()}

@@ -10,7 +10,7 @@ export function CartContent({ items, isLoading, onUpdateQuantity, onRemove }) {
                     <div className="inline-flex items-center justify-center w-16 h-16 bg-white/10 border border-white/20 mb-4 rounded-full">
                         <FaShoppingCart className="w-8 h-8 text-muted" />
                     </div>
-                    <h3 className="text-lg font-semibold text-white mb-2">Koszyk jest pusty</h3>
+                    <h3 className="text-lg text-white mb-2">Koszyk jest pusty</h3>
                     <p className="text-muted">Dodaj produkty, aby kontynuować zakupy</p>
                 </div>
             ) : (

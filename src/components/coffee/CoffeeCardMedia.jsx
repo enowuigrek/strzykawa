@@ -38,7 +38,6 @@ export function CoffeeCardMedia({ coffee, overlayOpen, onToggleOverlay }) {
                         shadow-lg transform rotate-12
                         transition-opacity duration-300
                         pointer-events-none
-                        ${overlayOpen ? 'opacity-0' : 'opacity-100'}
                         ${coffee.roastType === 'Filter'
                         ? 'bg-blue-500 text-white'
                         : 'bg-gradient-to-br from-amber-600 to-amber-800 text-white'}

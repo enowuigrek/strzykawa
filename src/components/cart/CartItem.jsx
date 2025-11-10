@@ -17,7 +17,7 @@ export function CartItem({ item, onUpdateQuantity, onRemove, isLoading }) {
     };
 
     return (
-        <div className="bg-gradient-to-r from-primary-light/30 to-primary/30 border border-white/10 p-4 rounded-lg">
+        <div className="bg-gradient-to-r from-primary-light/30 to-primary/30 border border-white/10 p-4">
             <CartItemInfo product={product} />
 
             <CartItemQuantity

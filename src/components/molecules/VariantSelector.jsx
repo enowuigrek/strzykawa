@@ -2,7 +2,7 @@ import React from 'react';
 
 /**
  * VariantSelector - Wybór wariantu produktu
- * Obsługuje dwie opcje: Gramaturę (250g/1kg) i Typ (Ziarna/Mielona)
+ * ULTIMATE FIX: Czerwone tło + opacity + line-through (BEZ tekstu "niedostępne")
  */
 export function VariantSelector({
                                     variants = [],
@@ -13,8 +13,7 @@ export function VariantSelector({
         return null;
     }
 
-    // Extract unique option values
-    // Shopify variants mają selectedOptions: [{name: "Gramatura", value: "250g"}, {name: "Typ", value: "Ziarna"}]
+    // Extract ALL unique option values
     const extractOptions = (optionName) => {
         const options = new Set();
         variants.forEach(variant => {
@@ -26,10 +25,18 @@ export function VariantSelector({
         return Array.from(options);
     };
 
+    // Check if specific option is available
+    const isOptionAvailable = (optionName, optionValue) => {
+        return variants.some(v =>
+            v.availableForSale &&
+            v.selectedOptions?.find(opt => opt.name === optionName)?.value === optionValue
+        );
+    };
+
     const gramatura = extractOptions('Gramatura');
     const typ = extractOptions('Typ');
 
-    // Get currently selected options from selectedVariant
+    // Get currently selected options
     const selectedGramatura = selectedVariant?.selectedOptions?.find(
         opt => opt.name === 'Gramatura'
     )?.value;
@@ -44,7 +51,6 @@ export function VariantSelector({
             const variantGram = variant.selectedOptions?.find(opt => opt.name === 'Gramatura')?.value;
             const variantType = variant.selectedOptions?.find(opt => opt.name === 'Typ')?.value;
 
-            // Jeśli produkt nie ma opcji Typ (tylko gramatura), to szukamy tylko po gramaturze
             if (!type && typ.length === 0) {
                 return variantGram === gram;
             }
@@ -71,54 +77,68 @@ export function VariantSelector({
 
     return (
         <div className="space-y-4">
-            {/* Gramatura */}
+            {/* Gramatura - czerwone + line-through */}
             {gramatura.length > 0 && (
                 <div>
                     <label className="block text-sm font-semibold text-white mb-2">
                         Gramatura
                     </label>
                     <div className="flex flex-wrap gap-2">
-                        {gramatura.map(value => (
-                            <button
-                                key={value}
-                                onClick={() => handleGramaturaChange(value)}
-                                className={`
-                                    px-5 py-2.5 font-medium transition-all rounded-full
-                                    ${selectedGramatura === value
-                                    ? 'bg-accent text-white shadow-md ring-2 ring-accent/30'
-                                    : 'bg-primary-light text-muted border border-accent/30 hover:bg-accent/20 hover:text-white'
-                                }
-                                `}
-                            >
-                                {value}
-                            </button>
-                        ))}
+                        {gramatura.map(value => {
+                            const available = isOptionAvailable('Gramatura', value);
+
+                            return (
+                                <button
+                                    key={value}
+                                    onClick={() => available && handleGramaturaChange(value)}
+                                    disabled={!available}
+                                    className={`
+                                        px-5 py-2.5 font-medium transition-all rounded-full
+                                        ${!available
+                                        ? 'bg-red-900/20 text-red-400/70 opacity-60 cursor-not-allowed border border-red-800/30'
+                                        : selectedGramatura === value
+                                            ? 'bg-accent text-white shadow-md ring-2 ring-accent/30'
+                                            : 'bg-primary-light text-muted border border-accent/30 hover:bg-accent/20 hover:text-white'
+                                    }
+                                    `}
+                                >
+                                    <span className={!available ? 'line-through' : ''}>{value}</span>
+                                </button>
+                            );
+                        })}
                     </div>
                 </div>
             )}
 
-            {/* Typ (Ziarna/Mielona) - tylko jeśli istnieje ta opcja */}
+            {/* Typ - czerwone + line-through */}
             {typ.length > 1 && (
                 <div>
                     <label className="block text-sm font-semibold text-white mb-2">
                         Sposób przygotowania
                     </label>
                     <div className="flex flex-wrap gap-2">
-                        {typ.map(value => (
-                            <button
-                                key={value}
-                                onClick={() => handleTypChange(value)}
-                                className={`
-                                    px-5 py-2.5 font-medium transition-all rounded-full
-                                    ${selectedTyp === value
-                                    ? 'bg-accent text-white shadow-md ring-2 ring-accent/30'
-                                    : 'bg-primary-light text-muted border border-accent/30 hover:bg-accent/20 hover:text-white'
-                                }
-                                `}
-                            >
-                                {value}
-                            </button>
-                        ))}
+                        {typ.map(value => {
+                            const available = isOptionAvailable('Typ', value);
+
+                            return (
+                                <button
+                                    key={value}
+                                    onClick={() => available && handleTypChange(value)}
+                                    disabled={!available}
+                                    className={`
+                                        px-5 py-2.5 font-medium transition-all rounded-full
+                                        ${!available
+                                        ? 'bg-red-900/20 text-red-400/70 opacity-60 cursor-not-allowed border border-red-800/30'
+                                        : selectedTyp === value
+                                            ? 'bg-accent text-white shadow-md ring-2 ring-accent/30'
+                                            : 'bg-primary-light text-muted border border-accent/30 hover:bg-accent/20 hover:text-white'
+                                    }
+                                    `}
+                                >
+                                    <span className={!available ? 'line-through' : ''}>{value}</span>
+                                </button>
+                            );
+                        })}
                     </div>
                 </div>
             )}

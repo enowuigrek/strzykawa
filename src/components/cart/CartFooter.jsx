@@ -31,7 +31,6 @@ export function CartFooter({ items, isLoading, totalPrice, onCheckout }) {
                     <span className="text-white font-semibold text-lg">
                         {isLoading ? 'Ładowanie...' : 'Przejdź do płatności'}
                     </span>
-                    <FaArrowRight className="w-4 h-4 text-white transition-transform duration-300 group-hover:translate-x-1" />
                 </div>
 
                 {/* Shine effect */}

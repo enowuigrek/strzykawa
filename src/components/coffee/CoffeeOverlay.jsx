@@ -23,10 +23,6 @@ export function CoffeeOverlay({ coffee, isOpen }) {
     let displayName = coffee.name;
     if (country && coffee.name.startsWith(country)) {
         displayName = coffee.name.replace(country, '').trim();
-        // Jeśli po usunięciu kraju nazwa jest pusta, zostaw oryginalną
-        // if (!displayName) {
-        //     displayName = coffee.name;
-        // }
     }
 
     // Prepare details - BEZ kraju (będzie w nagłówku)
@@ -56,20 +52,20 @@ export function CoffeeOverlay({ coffee, isOpen }) {
                 backdrop-blur-md
                 transition-transform duration-300 ease-out
                 block
-                ${isOpen ? 'translate-y-0 z-40' : 'translate-y-full pointer-events-none'}
+                ${isOpen ? 'translate-y-0 z-30' : 'translate-y-full pointer-events-none'}
             `}
             style={{
                 background: `linear-gradient(to top, ${bgColor}f2, ${bgColor}e6 40%, ${bgColor}cc)`
             }}
         >
-            <div className="h-full overflow-y-auto p-6 flex flex-col items-center justify-center">
+            <div className="h-full overflow-y-auto p-3 flex flex-col items-center justify-center">
                 {/* Nagłówek z krajem - jak na naklejce */}
                 {country && (
-                    <div className="text-center mb-6">
+                    <div className="text-center mb-5">
                         <h3 className="text-2xl font-bold text-black uppercase tracking-wide">
                             {country}
                         </h3>
-                        <p className="text-lg text-black font-normal mt-1">
+                        <p className="text-lg text-black">
                             {displayName}
                         </p>
                     </div>
@@ -84,11 +80,11 @@ export function CoffeeOverlay({ coffee, isOpen }) {
                                 className="flex items-start gap-2"
                             >
                                 {/* Label - normalny font */}
-                                <dt className="text-base text-black font-normal shrink-0">
+                                <dt className="text-base text-black font-bold shrink-0">
                                     {detail.label}:
                                 </dt>
                                 {/* Value - bold */}
-                                <dd className="text-base text-black font-bold">
+                                <dd className="text-base text-black">
                                     {detail.value}
                                 </dd>
                             </div>

@@ -113,7 +113,6 @@ export function Coffees() {
                 <div className="container mx-auto px-4 py-16">
                     <div className="flex flex-col items-center justify-center min-h-[400px]">
                         <div className="animate-spin w-16 h-16 border-4 border-accent border-t-transparent rounded-full mb-6"></div>
-                        <p className="text-white text-lg">Ładowanie kaw...</p>
                     </div>
                 </div>
             </PageLayout>

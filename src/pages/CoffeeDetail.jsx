@@ -13,7 +13,7 @@ import { FaShoppingCart, FaTag } from 'react-icons/fa';
 
 /**
  * CoffeeDetail - Strona szczegółów produktu kawy
- * Pobiera dane z Shopify API i wyświetla pełne informacje o kawie
+ * FIXED: Blokada dodawania niedostępnych wariantów
  */
 export function CoffeeDetail() {
     const { handle } = useParams();
@@ -40,9 +40,10 @@ export function CoffeeDetail() {
                 }
 
                 setCoffee(product);
-                // Set default variant (first available)
+                // Set default variant (first AVAILABLE)
                 if (product.variants && product.variants.length > 0) {
-                    setSelectedVariant(product.variants[0]);
+                    const availableVariant = product.variants.find(v => v.availableForSale);
+                    setSelectedVariant(availableVariant || product.variants[0]);
                 }
             } catch (err) {
                 console.error('Error loading product:', err);
@@ -57,14 +58,13 @@ export function CoffeeDetail() {
         }
     }, [handle]);
 
-    // Handle add to cart
+    // Handle add to cart - CHECK availableForSale
     const handleAddToCart = async () => {
-        if (!selectedVariant || !coffee) return;
+        if (!selectedVariant || !coffee || !selectedVariant.availableForSale) return;
 
         try {
             setAddingToCart(true);
             await addItem(coffee, selectedVariant.id, quantity);
-            // Optional: Show success message or redirect to cart
             alert(`Dodano ${quantity}x ${coffee.name} do koszyka!`);
         } catch (err) {
             console.error('Error adding to cart:', err);
@@ -91,7 +91,6 @@ export function CoffeeDetail() {
                     <div className="flex items-center justify-center min-h-[400px]">
                         <div className="text-center">
                             <div className="animate-spin w-12 h-12 border-4 border-accent border-t-transparent rounded-full mx-auto mb-4"></div>
-                            <p className="text-white">Ładowanie kawy...</p>
                         </div>
                     </div>
                 </div>
@@ -122,6 +121,7 @@ export function CoffeeDetail() {
     const price = selectedVariant?.price || 0;
     const compareAtPrice = selectedVariant?.compareAtPrice;
     const hasDiscount = compareAtPrice && compareAtPrice > price;
+    const isAvailable = selectedVariant?.availableForSale ?? true;
 
     return (
         <PageLayout>
@@ -147,10 +147,10 @@ export function CoffeeDetail() {
                                 {coffee.name}
                             </h1>
 
-                            {/* Roast Type Badge - okrągła naklejka jak na karcie */}
+                            {/* Roast Type Badge */}
                             {coffee.roastType && (
                                 <div className={`
-                                    absolute -top-2 -right-2
+                                    absolute -top-2 right-0
                                     w-16 h-16 rounded-full
                                     flex items-center justify-center
                                     text-xs uppercase tracking-wider
@@ -174,7 +174,7 @@ export function CoffeeDetail() {
                                     </span>
                                 )}
                                 <span className="text-3xl text-muted">
-                                    {price.toFixed(2)} zł
+                                    {isAvailable ? `${price.toFixed(2)} zł` : 'Niedostępne'}
                                 </span>
                             </div>
                             {hasDiscount && (
@@ -190,7 +190,6 @@ export function CoffeeDetail() {
                         {/* Product Meta */}
                         <ProductMeta coffee={coffee} />
 
-
                         {/* Variant Selector */}
                         <VariantSelector
                             variants={coffee.variants}
@@ -200,7 +199,7 @@ export function CoffeeDetail() {
 
                         {/* Quantity & Add to Cart */}
                         <div className="space-y-3 pt-4 border-t border-white/10">
-                            {/* Liczba */}
+                            {/* Liczba - SIZE MD (mniejszy) */}
                             <div>
                                 <label className="block text-sm font-semibold text-white mb-2">
                                     Liczba
@@ -210,25 +209,30 @@ export function CoffeeDetail() {
                                     onQuantityChange={setQuantity}
                                     min={1}
                                     max={20}
-                                    size="lg"
+                                    size="md"
+                                    disabled={!isAvailable}
                                 />
                             </div>
 
-                            {/* Przycisk dodaj - responsive text */}
+                            {/* Przycisk dodaj - DISABLED gdy niedostępne */}
                             <Button
                                 onClick={handleAddToCart}
-                                disabled={addingToCart}
+                                disabled={addingToCart || !isAvailable}
                                 loading={addingToCart}
-                                icon={FaShoppingCart}
+                                leftIcon={FaShoppingCart}
                                 variant="primary"
                                 size="lg"
-                                className="w-full"
+                                fullWidth
                             >
                                 <span className="hidden sm:inline">
-                                    {addingToCart ? 'Dodawanie...' : 'Dodaj do koszyka'}
+                                    {addingToCart ? 'Dodawanie...' :
+                                        !isAvailable ? 'Niedostępne' :
+                                            'Dodaj do koszyka'}
                                 </span>
                                 <span className="sm:hidden">
-                                    {addingToCart ? 'Dodawanie...' : 'Dodaj'}
+                                    {addingToCart ? 'Dodawanie...' :
+                                        !isAvailable ? 'Niedostępne' :
+                                            'Dodaj'}
                                 </span>
                             </Button>
 
@@ -237,7 +241,7 @@ export function CoffeeDetail() {
                                 <div className="flex justify-between items-center">
                                     <span className="text-white">Razem:</span>
                                     <span className="text-xl text-white">
-                                        {(price * quantity).toFixed(2)} zł
+                                        {isAvailable ? `${(price * quantity).toFixed(2)} zł` : 'Niedostępne'}
                                     </span>
                                 </div>
                             </div>
