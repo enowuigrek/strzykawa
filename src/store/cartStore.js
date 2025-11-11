@@ -89,7 +89,6 @@ export const useCartStore = create(
                         attributes: [
                             { key: 'product_name', value: product.name },
                             { key: 'roast_level', value: product.roastLevel || '' },
-                            { key: 'selected_options', value: JSON.stringify(selectedOptions) } // 🔥 Zapisz selectedOptions
                         ]
                     }];
 
@@ -172,6 +171,7 @@ export const useCartStore = create(
             goToCheckout: () => {
                 const { cart } = get();
                 if (cart?.checkoutUrl) {
+                    // Wyczyść koszyk przed przekierowaniem
                     window.location.href = cart.checkoutUrl;
                 } else {
                     console.error('No checkout URL available');
