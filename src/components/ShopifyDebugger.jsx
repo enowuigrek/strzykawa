@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { shopify } from '../services/shopify.js';
+import { shopify } from '../services/shopify';
 
 export function ShopifyDebugger() {
     const [products, setProducts] = useState([]);
