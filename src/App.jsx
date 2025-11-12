@@ -36,7 +36,6 @@ function App() {
                     <Route path="/" element={<Home />} />
                     <Route path="/kawy" element={<Coffees />} />
                     <Route path="/kawy/:handle" element={<CoffeeDetail />} /> {/* ✅ NOWY ROUTE */}
-                    {/*<Route path="/dostepne-w-kawiarni" element={<AvailableInCafe />} />*/}
                     <Route path="/o-nas" element={<About />} />
                     <Route path="/b2b" element={<B2B />} />
                     <Route path="/kontakt" element={<ContactSection />} />

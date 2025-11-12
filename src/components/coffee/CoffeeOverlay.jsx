@@ -14,7 +14,8 @@ export function CoffeeOverlay({ coffee, isOpen }) {
         Etiopia:  '#4AA3DF',
         Kenia:    '#982121',
         Peru:     '#8B6CEB',
-        Rwanda:   '#F29C52',
+        Rwanda:   '#527ff2',
+
     };
     const country = origin.country || '';
     const bgColor = coffee.themeColor || COUNTRY_COLOR[country] || '#F1CE6A';

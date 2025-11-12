@@ -30,7 +30,7 @@ function HeroSection() {
                 {/* ActionButtons i Tagline na wszystkich ekranach */}
                 <Tagline />
                 <ActionButtons />
-                <HeroDescription />
+                {/*<HeroDescription />*/}
             </div>
         </section>
     );
