@@ -1,7 +1,6 @@
 import React from 'react';
 import { ContactInfo } from '../components/features/contact/ContactInfo';
 import { ContactMap } from '../components/features/contact/ContactMap';
-import { PageHeader } from '../components/layout/PageHeader';
 import { useScrollToTop } from '../hooks/useScrollToTop';
 import { PageLayout } from "../components/layout/PageLayout.jsx";
 

@@ -5,10 +5,10 @@ import { ContactDetails } from './ContactDetails';
 
 export function ContactInfo() {
     return (
-        <div className="bg-gradient-to-br from-primary-light/50 to-primary/50 backdrop-blur-sm border border-white/10 p-8">
+        <div className="p-8">
 
             {/* Locations */}
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-10">
                 <CafeLocation />
                 <RoasteryLocation />
             </div>

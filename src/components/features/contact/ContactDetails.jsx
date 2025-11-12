@@ -9,7 +9,7 @@ export function ContactDetails() {
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                 {/* Telefon */}
                 <div className="flex items-center gap-3">
-                    <div className="p-3 bg-accent/20 border border-accent/30">
+                    <div className="p-3">
                         <FaPhone className="w-5 h-5 text-accent" />
                     </div>
                     <div>
@@ -25,16 +25,16 @@ export function ContactDetails() {
 
                 {/* Email */}
                 <div className="flex items-center gap-3">
-                    <div className="p-3 bg-muted/20 border border-muted/30">
+                    <div className="p-3">
                         <FaEnvelope className="w-5 h-5 text-muted" />
                     </div>
                     <div>
                         <div className="font-semibold text-white">Email</div>
                         <a
-                            href="mailto:fitanddrink@gmail.com"
+                            href="mailto:kontakt@strzykawa.com"
                             className="text-muted hover:text-white transition-colors duration-300 break-all text-sm"
                         >
-                            fitanddrink@gmail.com
+                            kontakt@strzykawa.com
                         </a>
                     </div>
                 </div>

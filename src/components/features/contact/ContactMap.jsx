@@ -13,14 +13,14 @@ export function ContactMap() {
     };
 
     return (
-        <div className="relative h-96 lg:h-full min-h-[400px] bg-gradient-to-br from-primary-light/50 to-primary/50 border border-white/10 flex flex-col items-center justify-center p-8 text-center">
+        <div className="relative h-96 lg:h-full min-h-[400px] flex flex-col items-center p-8 text-center">
 
             {/* Content */}
             <div className="space-y-6">
 
                 {/* Icon */}
-                <div className="inline-flex items-center justify-center w-16 h-16 bg-accent/20 border border-accent/30">
-                    <FaMapMarkerAlt className="w-8 h-8 text-accent" />
+                <div className="inline-flex items-center justify-center w-16 h-16">
+                    <FaMapMarkerAlt className="w-8 h-8 text-muted" />
                 </div>
 
                 {/* Header */}

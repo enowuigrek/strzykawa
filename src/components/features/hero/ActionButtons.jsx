@@ -9,7 +9,6 @@ export function ActionButtons() {
                 href="/kawy"
                 icon={FaShoppingBag}
                 text="Sklep on-line"
-                colorClass="bg-muted/20 border border-muted/30 text-white"
             />
         </div>
     );

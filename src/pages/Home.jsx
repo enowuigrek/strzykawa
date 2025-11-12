@@ -15,9 +15,7 @@ export function Home() {
                     {/* Header sekcji */}
                     <div className="text-center mb-12">
                         <div className="inline-flex items-center gap-3 mb-6">
-                            <h2 className="text-4xl md:text-5xl font-bold text-white">
                                 <Logo />
-                            </h2>
                         </div>
                     </div>
 
