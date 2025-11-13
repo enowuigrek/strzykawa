@@ -18,7 +18,7 @@ export function SocialLinks() {
     ];
 
     return (
-        <div className="mt-32 max-w-4xl mx-auto text-center">
+        <div className="pt-16 max-w-4xl mx-auto text-center border-t border-white/10">
             {/* Header */}
             <div className="mb-10">
                 <h3 className="text-xl sm:text-2xl font-bold text-white mb-2">

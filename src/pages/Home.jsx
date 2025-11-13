@@ -40,7 +40,7 @@ export function Home() {
             </div>
 
             {/* Sekcja "O Strzykawie" - najeżdża na hero */}
-            <section className="relative z-20 min-h-screen bg-primary pt-24 pb-24 px-4">
+            <section className="relative z-20 min-h-screen bg-primary pt-24 pb-24">
                 <div className="container mx-auto max-w-4xl">
 
                     {/* Header sekcji */}
@@ -64,7 +64,7 @@ export function Home() {
                         </div>
 
                         {/* Feature cards */}
-                        <div className="grid md:grid-cols-3 gap-6 mt-16">
+                        <div className="grid md:grid-cols-3 gap-6 mt-16 border-t border-white/10">
 
                             {/* Palarnia */}
                             <div className="p-6 text-center">
@@ -89,7 +89,7 @@ export function Home() {
                             </div>
 
                             {/* Społeczność */}
-                            <div className="p-6 text-center">
+                            <div className="p-6 text-center ">
                                 <div className="inline-flex items-center justify-center w-16 h-16">
                                     <FaHeart className="w-8 h-8 text-red-400" />
                                 </div>
@@ -101,7 +101,7 @@ export function Home() {
                         </div>
 
                         {/* CTA */}
-                        <div className="text-center mt-16">
+                        <div className="text-center my-16 ">
                             <a
                                 href="/o-nas"
                                 className="inline-flex items-center bg-white/10 backdrop-blur-sm border border-white/30 rounded-full px-8 py-4 text-white font-semibold text-lg transition-all duration-300 hover:scale-105 hover:bg-white/20"

@@ -34,7 +34,7 @@ export function HeroReviews() {
     ];
 
     return (
-        <div className="mt-32 mb-32 max-w-6xl mx-auto">
+        <div className="pt-16 mb-16 max-w-6xl mx-auto border-t border-white/10">
             {/* Section Header */}
             <div className="text-center mb-16">
                 <h3 className="text-2xl sm:text-3xl font-bold text-white mb-2">

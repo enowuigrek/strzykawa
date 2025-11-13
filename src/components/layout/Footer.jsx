@@ -57,15 +57,15 @@ export function Footer() {
   ];
 
   return (
-      <footer className="relative bg-primary border-t border-white/10 overflow-hidden">
+      <footer className="relative bg-primary-dark/95 border-white/10 overflow-hidden">
         {/* Background image */}
-        <div
-            className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-20"
-            style={{ backgroundImage: `url(${FooterImage})` }}
-        />
+        {/*<div*/}
+        {/*    className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-20"*/}
+        {/*    style={{ backgroundImage: `url(${FooterImage})` }}*/}
+        {/*/>*/}
 
         {/* Main content */}
-        <div className="relative z-10 container mx-auto px-4 py-12">
+        <div className="relative z-10 container mx-auto px-4 py-8">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8">
 
             {/* Logo - 2 kolumny */}
@@ -148,12 +148,12 @@ export function Footer() {
         </div>
 
         {/* Bottom bar */}
-        <div className="relative z-10 border-t border-white/10 bg-primary-dark">
+        <div className="relative z-10 border-t border-white/10 bg-black">
           <div className="container mx-auto px-4 py-6">
             <div className="flex flex-col lg:flex-row justify-between items-center gap-6">
 
               {/* Left - Copyright */}
-              <div className="text-base text-white/60 text-center lg:text-left">
+              <div className="text-base text-muted text-center lg:text-left">
                 © {currentYear} Strzykawa. Wszystkie prawa zastrzeżone.
               </div>
 
@@ -163,7 +163,7 @@ export function Footer() {
                     <a
                         key={index}
                         href={link.href}
-                        className="text-white/50 hover:text-white transition-colors"
+                        className="text-white hover:text-muted transition-colors"
                     >
                       {link.label}
                     </a>
@@ -171,12 +171,12 @@ export function Footer() {
               </div>
 
               {/* Right - Credits */}
-              <div className="text-sm text-white/40 text-center lg:text-right">
+              <div className="text-sm text-white text-center lg:text-right">
                 <a
                     href="https://lukasznowak.dev"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="hover:text-white/60 transition-colors"
+                    className="hover:text-muted transition-colors"
                 >
                   Projekt: lukasznowak.dev
                 </a>
