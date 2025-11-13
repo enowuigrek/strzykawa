@@ -9,8 +9,12 @@ import { About } from "./pages/About.jsx";
 import { ContactSection } from "./pages/ContactSection.jsx";
 import { B2B } from './pages/B2B.jsx';
 import { ShopifyDebugger } from './components/ShopifyDebugger.jsx';
-import { Regulamin } from './pages/Regulamin';
-import { PolitykaPrywatnosci, PolitykaCookies, DostawaZwroty } from './pages/LegalPages';
+import { TermsAndConditions } from "./pages/TermsAndConditions.jsx";
+import {
+    PrivacyPolicy,
+    CookiePolicy,
+    ShippingAndReturns
+} from './pages/LegalPages';
 
 // Hook do automatycznego scrollowania na górę przy zmianie trasy
 function ScrollToTop() {
@@ -42,10 +46,10 @@ function App() {
                     <Route path="/b2b" element={<B2B />} />
                     <Route path="/kontakt" element={<ContactSection />} />
                     <Route path="/debug-shopify" element={<ShopifyDebugger />} />
-                    <Route path="/regulamin" element={<Regulamin />} />
-                    <Route path="/polityka-prywatnosci" element={<PolitykaPrywatnosci />} />
-                    <Route path="/polityka-cookies" element={<PolitykaCookies />} />
-                    <Route path="/dostawa-zwroty" element={<DostawaZwroty />} />
+                    <Route path="/regulamin" element={<TermsAndConditions />} />
+                    <Route path="/polityka-prywatnosci" element={<PrivacyPolicy />} />
+                    <Route path="/polityka-cookies" element={<CookiePolicy />} />
+                    <Route path="/dostawa-zwroty" element={<ShippingAndReturns />} />
                 </Routes>
             </main>
             <Footer />

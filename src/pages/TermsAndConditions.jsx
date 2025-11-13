@@ -1,6 +1,6 @@
 import React from 'react';
 
-export function Regulamin() {
+export function TermsAndConditions() {
     return (
         <div className=" flex items-center justify-center min-h-screen bg-primary py-16 px-4">
             <div className="container mx-auto max-w-4xl">

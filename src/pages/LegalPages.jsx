@@ -1,5 +1,5 @@
 // Polityka Prywatności
-export function PolitykaPrywatnosci() {
+export function PrivacyPolicy() {
     return (
         <div className=" flex items-center justify-center min-h-screen bg-primary py-16 px-4">
             <div className="container mx-auto max-w-4xl">
@@ -17,9 +17,9 @@ export function PolitykaPrywatnosci() {
 }
 
 // Polityka Cookies
-export function PolitykaCookies() {
+export function CookiePolicy() {
     return (
-        <div className="min-h-screen bg-primary py-16 px-4">
+        <div className=" flex items-center justify-center min-h-screen bg-primary py-16 px-4">
             <div className="container mx-auto max-w-4xl">
                 <div className="bg-primary-light border border-white/10 p-8">
                     <h1 className="text-3xl font-bold text-white mb-8">
@@ -35,9 +35,9 @@ export function PolitykaCookies() {
 }
 
 // Dostawa i zwroty
-export function DostawaZwroty() {
+export function ShippingAndReturns() {
     return (
-        <div className="min-h-screen bg-primary py-16 px-4">
+        <div className="flex items-center justify-center min-h-screen bg-primary py-16 px-4">
             <div className="container mx-auto max-w-4xl">
                 <div className="bg-primary-light border border-white/10 p-8">
                     <h1 className="text-3xl font-bold text-white mb-8">
