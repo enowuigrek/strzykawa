@@ -2,9 +2,7 @@ import React from 'react';
 import {
   FaFacebookF,
   FaInstagram,
-  FaHeart,
-  FaCoffee,
-  FaLeaf,
+  FaMapMarkerAlt,
   FaPhone,
   FaEnvelope
 } from 'react-icons/fa';
@@ -18,149 +16,172 @@ export function Footer() {
       icon: FaFacebookF,
       href: 'https://www.facebook.com/StrzykawaCoffeeShop/',
       label: 'Facebook',
-      color: 'hover:bg-white/20 hover:text-white'
+      hoverColor: 'hover:text-blue-500',
+      count: '1430+',
+      platform: 'Facebook'
     },
     {
       icon: FaInstagram,
       href: 'https://www.instagram.com/strzykawa_coffee_shop/',
       label: 'Instagram',
-      color: 'hover:bg-white/20 hover:text-white'
+      hoverColor: 'hover:text-pink-500',
+      count: '1559+',
+      platform: 'Instagram'
     }
   ];
 
-  const quickContacts = [
+  const contactInfo = [
+    {
+      icon: FaMapMarkerAlt,
+      text: 'Gen. Dąbrowskiego 4',
+      subtext: '42-200 Częstochowa',
+      href: 'https://maps.google.com/?q=Strzykawa+Częstochowa'
+    },
     {
       icon: FaPhone,
       text: '+48 668 011 806',
-      href: 'tel:+48668011806',
-      color: 'text-white/70'
+      href: 'tel:+48668011806'
     },
     {
       icon: FaEnvelope,
-      text: 'fitanddrink@gmail.com',
-      href: 'mailto:fitanddrink@gmail.com',
-      color: 'text-white/70'
+      text: 'kontakt@strzykawa.com',
+      href: 'mailto:kontakt@strzykawa.com'
     }
   ];
 
+  const legalLinks = [
+    { label: 'Regulamin sklepu', href: '/regulamin' },
+    { label: 'Polityka prywatności', href: '/polityka-prywatnosci' },
+    { label: 'Polityka cookies', href: '/polityka-cookies' },
+    { label: 'Dostawa i zwroty', href: '/dostawa-zwroty' }
+  ];
+
   return (
-      <footer className="relative bg-gradient-to-b from-primary-dark to-black border-t border-white/10 overflow-hidden">
+      <footer className="relative bg-primary border-t border-white/10 overflow-hidden">
         {/* Background image */}
         <div
             className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-20"
             style={{ backgroundImage: `url(${FooterImage})` }}
         />
 
-        {/* Decorative gradient blobs */}
-        <div className="absolute inset-0 opacity-5">
-          <div className="absolute top-0 left-1/4 w-64 h-64 bg-accent blur-3xl"></div>
-          <div className="absolute bottom-0 right-1/4 w-48 h-48 bg-muted blur-2xl"></div>
-        </div>
+        {/* Main content */}
+        <div className="relative z-10 container mx-auto px-4 py-12">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8">
 
-        <div className="relative z-10">
-          {/* Main content */}
-          <div className="container mx-auto px-4 py-12">
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
-
-              {/* Brand - teraz z pionowym logo po lewej */}
-              <div className="lg:col-span-2 space-y-6">
-                <div className="flex items-start gap-6">
-                  {/* Pionowe logo - większe */}
-                  <div className="flex-shrink-0 footer-logo">
-                    <img
-                        src="/logo/vertical-logo.png"
-                        alt="Strzykawa Coffee Shop & Roastery"
-                        className="w-auto"
-                    />
-                  </div>
-
-                  {/* Tekst obok logo - usunięte "Coffee Shop & Roastery" */}
-                  <div className="flex-grow space-y-4">
-                    <p className="text-muted/90 leading-relaxed">
-                      Pasjonaci kawy specialty z Częstochowy. Palimy, parzymy i dzielimy się miłością do najlepszych ziaren z całego świata. Każda filiżanka to podróż smakowa.
-                    </p>
-                  </div>
-                </div>
+            {/* Logo - 2 kolumny */}
+            <div className="lg:col-span-2">
+              <div className="footer-logo">
+                <img
+                    src="/logo/vertical-logo.png"
+                    alt="Strzykawa Coffee Shop & Roastery"
+                    className="w-auto h-32"
+                />
               </div>
+            </div>
 
-              {/* Kontakt */}
-              <div className="space-y-6">
-                <h4 className="text-xl font-semibold text-white">Kontakt</h4>
-                <div className="space-y-4">
-                  {quickContacts.map((contact, index) => {
-                    const Icon = contact.icon;
-                    const content = (
-                        <div className="flex items-center gap-3 text-sm transition-transform duration-300">
-                          <div className="flex-shrink-0 p-2">
-                            <Icon className={`w-4 h-4 ${contact.color}`} />
-                          </div>
-                          <span className="text-muted hover:text-white transition-colors duration-300">
-                        {contact.text}
-                      </span>
+            {/* Spacer - 1 kolumna */}
+            <div className="hidden lg:block lg:col-span-1"></div>
+
+            {/* Kontakt - 4 kolumny */}
+            <div className="lg:col-span-4 space-y-6">
+              <h4 className="text-xl font-semibold text-white">Kontakt</h4>
+              <div className="space-y-4">
+                {contactInfo.map((contact, index) => {
+                  const Icon = contact.icon;
+                  return (
+                      <a
+                          key={index}
+                          href={contact.href}
+                          target={contact.href?.startsWith('http') ? '_blank' : undefined}
+                          rel={contact.href?.startsWith('http') ? 'noopener noreferrer' : undefined}
+                          className="flex items-start gap-3 text-base text-white/70 hover:text-white transition-colors duration-300 group"
+                      >
+                        <Icon className="w-5 h-5 mt-0.5 flex-shrink-0 text-accent group-hover:text-white transition-colors" />
+                        <div>
+                          <div>{contact.text}</div>
+                          {contact.subtext && (
+                              <div className="text-white/50">{contact.subtext}</div>
+                          )}
                         </div>
-                    );
-
-                    return contact.href ? (
-                        <a key={index} href={contact.href}>
-                          {content}
-                        </a>
-                    ) : (
-                        <div key={index}>{content}</div>
-                    );
-                  })}
-                </div>
+                      </a>
+                  );
+                })}
               </div>
+            </div>
 
-              {/* Social media */}
-              <div className="space-y-6">
-                <h4 className="text-xl font-semibold text-white">Social Media</h4>
-                <div className="flex gap-6">
-                  {socialLinks.map((social, index) => {
-                    const Icon = social.icon;
-                    return (
+            {/* Spacer - 2 kolumny */}
+            <div className="hidden lg:block lg:col-span-2"></div>
+
+            {/* Social Media - 3 kolumny */}
+            <div className="lg:col-span-3 space-y-6">
+              <h4 className="text-xl font-semibold text-white">Śledź nas</h4>
+              <div className="space-y-4">
+                {socialLinks.map((social, index) => {
+                  const Icon = social.icon;
+                  return (
+                      <div key={index} className="flex items-center gap-4">
                         <a
-                            key={index}
                             href={social.href}
                             target="_blank"
                             rel="noopener noreferrer"
                             aria-label={social.label}
+                            className={`
+                        text-white
+                        transition-all duration-300
+                        hover:scale-110
+                        ${social.hoverColor}
+                      `}
                         >
-                          <Icon className="w-8 h-8 hover:text-muted" />
+                          <Icon className="w-8 h-8" />
                         </a>
-                    );
-                  })}
-                </div>
+                        <div className="text-sm">
+                          <div className="text-white font-semibold">{social.count}</div>
+                          <div className="text-white/50">na {social.platform}</div>
+                        </div>
+                      </div>
+                  );
+                })}
               </div>
             </div>
+
           </div>
+        </div>
 
-          {/* Bottom bar */}
-          <div className="border-t border-white/10 bg-primary-dark/80 backdrop-blur-sm">
-            <div className="container mx-auto px-4 py-6">
-              <div className="flex flex-col sm:flex-row justify-between items-center text-center sm:text-left gap-4">
-                {/* Left */}
-                <div className="text-sm text-muted">
-                  <span>&copy; {currentYear} Strzykawa. </span>
-                  <span>Wszystkie prawa zastrzeżone.</span>
-                </div>
+        {/* Bottom bar */}
+        <div className="relative z-10 border-t border-white/10 bg-primary-dark">
+          <div className="container mx-auto px-4 py-6">
+            <div className="flex flex-col lg:flex-row justify-between items-center gap-6">
 
-                {/* Right */}
-                <div className="flex items-center flex-wrap justify-center sm:justify-end gap-x-2 gap-y-1 text-xs sm:text-sm text-muted">
-                <span>
-                  <a
-                      href="https://lukasznowak.dev"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="hover:underline"
-                  >
-                    Projekt: enowuigrek
-                  </a>
-                </span>
-                  <span>•</span>
-                  <FaCoffee className="w-3 h-3 sm:w-4 sm:h-4 text-accent" />
-                  <span>• React • Tailwind CSS • Shopify</span>
-                </div>
+              {/* Left - Copyright */}
+              <div className="text-base text-white/60 text-center lg:text-left">
+                © {currentYear} Strzykawa. Wszystkie prawa zastrzeżone.
               </div>
+
+              {/* Center - Legal Links */}
+              <div className="flex flex-wrap justify-center gap-x-6 gap-y-2 text-sm">
+                {legalLinks.map((link, index) => (
+                    <a
+                        key={index}
+                        href={link.href}
+                        className="text-white/50 hover:text-white transition-colors"
+                    >
+                      {link.label}
+                    </a>
+                ))}
+              </div>
+
+              {/* Right - Credits */}
+              <div className="text-sm text-white/40 text-center lg:text-right">
+                <a
+                    href="https://lukasznowak.dev"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="hover:text-white/60 transition-colors"
+                >
+                  Projekt: lukasznowak.dev
+                </a>
+              </div>
+
             </div>
           </div>
         </div>

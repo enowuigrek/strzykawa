@@ -7,8 +7,9 @@ import { Link } from 'react-router-dom';
  * Automatycznie scrolluje na górę po kliknięciu
  *
  * @param {boolean} scrolled - Czy strona jest przewinięta (dla animacji)
+ * @param {string} size - Rozmiar logo: 'sm', 'md', 'lg', 'xl'
  */
-export function Logo({ scrolled }) {
+export function Logo({ scrolled, size = 'md' }) {
     const handleClick = () => {
         // Scroll to top po nawigacji
         window.scrollTo({
@@ -16,6 +17,14 @@ export function Logo({ scrolled }) {
             left: 0,
             behavior: 'smooth'
         });
+    };
+
+    // Size variants
+    const sizeClasses = {
+        sm: scrolled ? 'h-8 lg:h-10' : 'h-10 lg:h-12',
+        md: scrolled ? 'h-10 lg:h-12' : 'h-12 lg:h-14', // default
+        lg: scrolled ? 'h-14 lg:h-16' : 'h-16 lg:h-20',
+        xl: scrolled ? 'h-16 lg:h-20' : 'h-20 lg:h-24'
     };
 
     return (
@@ -32,7 +41,7 @@ export function Logo({ scrolled }) {
                     w-auto 
                     transition-all 
                     duration-300
-                    ${scrolled ? 'h-10 lg:h-12' : 'h-12 lg:h-14'}
+                    ${sizeClasses[size] || sizeClasses.md}
                 `}
             />
         </Link>
