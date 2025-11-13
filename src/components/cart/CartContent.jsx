@@ -12,7 +12,7 @@ export function CartContent({ items, isLoading, onUpdateQuantity, onRemove }) {
             {items.length === 0 ? (
                 <div className="text-center py-12">
                     {/* Empty state - sharp corners */}
-                    <div className="inline-flex items-center justify-center w-16 h-16 bg-white/10 border border-white/20 mb-4">
+                    <div className="inline-flex items-center justify-center w-16 h-16 mb-4">
                         <FaShoppingCart className="w-8 h-8 text-muted" />
                     </div>
                     <h3 className="text-lg text-white mb-2">Koszyk jest pusty</h3>
