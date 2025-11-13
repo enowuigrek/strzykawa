@@ -76,6 +76,26 @@ export function Footer() {
                     <div className="lg:col-span-9 grid grid-cols-1 sm:grid-cols-2 gap-8">
                         {/* Kontakt */}
                         <div className="space-y-6">
+                            <h4 className="text-xl font-semibold text-white">Social Media</h4>
+                            <div className="flex gap-4">
+                                {socialLinks.map((social, index) => {
+                                    const Icon = social.icon;
+                                    return (
+                                        <a
+                                            key={index}
+                                            href={social.href}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            aria-label={social.label}
+                                            className={`text-muted transition-all duration-300 hover:scale-110 ${social.hoverColor}`}
+                                        >
+                                            <Icon className="w-8 h-8" />
+                                        </a>
+                                    );
+                                })}
+                            </div>
+                        </div>
+                        <div className="space-y-6">
                             <h4 className="text-xl font-semibold text-white">Kontakt</h4>
                             <div className="space-y-4">
                                 {contactInfo.map((contact, index) => {
@@ -99,28 +119,6 @@ export function Footer() {
                                                     <div className="text-white/50">{contact.subtext}</div>
                                                 )}
                                             </div>
-                                        </a>
-                                    );
-                                })}
-                            </div>
-                        </div>
-
-                        {/* Social Media */}
-                        <div className="space-y-6">
-                            <h4 className="text-xl font-semibold text-white">Social Media</h4>
-                            <div className="flex gap-4">
-                                {socialLinks.map((social, index) => {
-                                    const Icon = social.icon;
-                                    return (
-                                        <a
-                                            key={index}
-                                            href={social.href}
-                                            target="_blank"
-                                            rel="noopener noreferrer"
-                                            aria-label={social.label}
-                                            className={`text-white transition-all duration-300 hover:scale-110 ${social.hoverColor}`}
-                                        >
-                                            <Icon className="w-8 h-8" />
                                         </a>
                                     );
                                 })}
@@ -162,14 +160,14 @@ export function Footer() {
                                 href="https://lukasznowak.dev"
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="hover:text-white transition-colors"
+                                className="hover:text-blue-600 transition-colors"
                             >
                                 lukasznowak.dev
                             </a>
-                            <div className="flex items-center gap-2">
-                                <SiReact className="w-4 h-4" />
-                                <BiCoffeeTogo className="w-4 h-4" />
-                                <SiShopify className="w-4 h-4" />
+                            <div className="flex items-center gap-3 md:self-center md:ml-auto">
+                                <SiReact className="w-5 h-5 hover:text-[#61DAFB]" />
+                                <SiShopify className="w-5 h-5 hover:text-[#95BF47]" />
+                                <BiCoffeeTogo className="w-5 h-5 hover:text-[#7B4B2A]" />
                             </div>
                         </div>
                     </div>
