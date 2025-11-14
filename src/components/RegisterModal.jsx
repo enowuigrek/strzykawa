@@ -1,8 +1,13 @@
 import React, { useState } from 'react';
-import { FaTimes, FaUser, FaLock, FaEye, FaEyeSlash, FaEnvelope, FaUserPlus } from 'react-icons/fa';
+import { FaUser, FaLock, FaEye, FaEyeSlash, FaEnvelope, FaUserPlus } from 'react-icons/fa';
 import { useAuthStore } from '../store/authStore';
 import { Button } from './atoms/Button';
+import { CloseButton } from './atoms/CloseButton';
 
+/**
+ * RegisterModal - Modal rejestracji
+ * FIXED: Sharp corners, CloseButton component
+ */
 const RegisterModal = ({ isOpen, onClose, onSwitchToLogin }) => {
     const [formData, setFormData] = useState({
         firstName: '',
@@ -71,28 +76,23 @@ const RegisterModal = ({ isOpen, onClose, onSwitchToLogin }) => {
         <>
             {/* Backdrop */}
             <div
-                className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50"
+                className="fixed inset-0 bg-black/50 backdrop-blur-sm z-[100]"
                 onClick={onClose}
             />
 
-            {/* Modal */}
-            <div className="fixed inset-0 flex items-center justify-center z-50 p-4">
-                <div className="w-full max-w-md bg-primary-dark border border-white/20 shadow-2xl rounded-lg max-h-[90vh] overflow-y-auto">
+            {/* Modal - Sharp corners! */}
+            <div className="fixed inset-0 flex items-center justify-center z-[100] p-4">
+                <div className="w-full max-w-md bg-primary-dark border border-white/20 shadow-2xl max-h-[90vh] overflow-y-auto">
 
                     {/* Header */}
                     <div className="flex items-center justify-between p-6 border-b border-white/10">
                         <div className="flex items-center gap-3">
-                            <div className="p-2 bg-accent/20 border border-accent/30 rounded">
+                            <div className="p-2 bg-accent/20 border border-accent/30">
                                 <FaUser className="w-5 h-5 text-accent" />
                             </div>
                             <h2 className="text-xl font-bold text-white">Utwórz konto</h2>
                         </div>
-                        <button
-                            onClick={onClose}
-                            className="p-2 hover:bg-white/10 transition-colors duration-300 rounded"
-                        >
-                            <FaTimes className="w-5 h-5 text-white" />
-                        </button>
+                        <CloseButton onClick={onClose} />
                     </div>
 
                     {/* Form */}
@@ -100,7 +100,7 @@ const RegisterModal = ({ isOpen, onClose, onSwitchToLogin }) => {
 
                         {/* Error Message */}
                         {error && (
-                            <div className="mb-4 p-3 bg-red-500/20 border border-red-500/30 rounded text-red-300 text-sm">
+                            <div className="mb-4 p-3 bg-red-500/20 border border-red-500/30 text-red-300 text-sm">
                                 {error}
                             </div>
                         )}
@@ -117,7 +117,7 @@ const RegisterModal = ({ isOpen, onClose, onSwitchToLogin }) => {
                                     name="firstName"
                                     value={formData.firstName}
                                     onChange={handleChange}
-                                    className="w-full px-4 py-3 bg-primary/50 border border-white/20 text-white placeholder-muted/70 focus:border-accent focus:ring-2 focus:ring-accent/20 transition-all duration-300 rounded"
+                                    className="w-full px-4 py-3 bg-primary/50 border border-white/20 text-white placeholder-muted/70 focus:border-accent focus:ring-2 focus:ring-accent/20 transition-all duration-300"
                                     placeholder="Jan"
                                     required
                                 />
@@ -132,7 +132,7 @@ const RegisterModal = ({ isOpen, onClose, onSwitchToLogin }) => {
                                     name="lastName"
                                     value={formData.lastName}
                                     onChange={handleChange}
-                                    className="w-full px-4 py-3 bg-primary/50 border border-white/20 text-white placeholder-muted/70 focus:border-accent focus:ring-2 focus:ring-accent/20 transition-all duration-300 rounded"
+                                    className="w-full px-4 py-3 bg-primary/50 border border-white/20 text-white placeholder-muted/70 focus:border-accent focus:ring-2 focus:ring-accent/20 transition-all duration-300"
                                     placeholder="Kowalski"
                                     required
                                 />
@@ -154,7 +154,7 @@ const RegisterModal = ({ isOpen, onClose, onSwitchToLogin }) => {
                                     name="email"
                                     value={formData.email}
                                     onChange={handleChange}
-                                    className="w-full pl-10 pr-4 py-3 bg-primary/50 border border-white/20 text-white placeholder-muted/70 focus:border-accent focus:ring-2 focus:ring-accent/20 transition-all duration-300 rounded"
+                                    className="w-full pl-10 pr-4 py-3 bg-primary/50 border border-white/20 text-white placeholder-muted/70 focus:border-accent focus:ring-2 focus:ring-accent/20 transition-all duration-300"
                                     placeholder="twoj@email.com"
                                     required
                                 />
@@ -176,7 +176,7 @@ const RegisterModal = ({ isOpen, onClose, onSwitchToLogin }) => {
                                     name="password"
                                     value={formData.password}
                                     onChange={handleChange}
-                                    className="w-full pl-10 pr-12 py-3 bg-primary/50 border border-white/20 text-white placeholder-muted/70 focus:border-accent focus:ring-2 focus:ring-accent/20 transition-all duration-300 rounded"
+                                    className="w-full pl-10 pr-12 py-3 bg-primary/50 border border-white/20 text-white placeholder-muted/70 focus:border-accent focus:ring-2 focus:ring-accent/20 transition-all duration-300"
                                     placeholder="Minimum 6 znaków"
                                     required
                                 />
@@ -205,7 +205,7 @@ const RegisterModal = ({ isOpen, onClose, onSwitchToLogin }) => {
                                     name="confirmPassword"
                                     value={formData.confirmPassword}
                                     onChange={handleChange}
-                                    className="w-full pl-10 pr-12 py-3 bg-primary/50 border border-white/20 text-white placeholder-muted/70 focus:border-accent focus:ring-2 focus:ring-accent/20 transition-all duration-300 rounded"
+                                    className="w-full pl-10 pr-12 py-3 bg-primary/50 border border-white/20 text-white placeholder-muted/70 focus:border-accent focus:ring-2 focus:ring-accent/20 transition-all duration-300"
                                     placeholder="Powtórz hasło"
                                     required
                                 />

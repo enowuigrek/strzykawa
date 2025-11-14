@@ -1,31 +1,44 @@
 import React from 'react';
-import { FaTimes, FaShoppingCart } from 'react-icons/fa';
+import { CloseButton } from '../atoms/CloseButton';
 
 /**
- * CartHeader - Header koszyka
- * REDESIGN: Sharp corners - usuń rounded z close button
+ * CartHeader - Header koszyka CONSISTENT z main Header
+ *
+ * FINAL FIX:
+ * - Taka sama wysokość: h-[100px] lg:h-[120px]
+ * - X bez absolute - justify-between robi robotę
+ * - Identyczna struktura jak główny Header
  */
 export function CartHeader({ totalItems, onClose }) {
     return (
-        <div className="flex items-center justify-between p-6 border-b border-white/10">
-            <div className="flex items-center gap-3">
-                {/* Icon box - sharp corners */}
-                <div className="p-2">
-                    <FaShoppingCart className="w-5 h-5 text-accent" />
+        <>
+            {/* Container - identyczny jak w głównym Header */}
+            <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+                {/* Header content - SZTYWNA wysokość jak główny Header */}
+                <div className="relative flex justify-between items-center h-[100px] lg:h-[120px]">
+                    {/* Title + Badge */}
+                    <div className="flex items-center gap-3">
+                        <h2 className="text-2xl font-normal text-white">
+                            Koszyk
+                        </h2>
+                        {totalItems > 0 && (
+                            <span className="px-3 py-1 bg-accent text-white text-sm font-bold rounded-full">
+                                {totalItems}
+                            </span>
+                        )}
+                    </div>
+
+                    {/* CloseButton - justify-between ustawia w prawo, bez absolute! */}
+                    <div className="absolute right-6 top-1/2 -translate-y-1/2">
+                        <CloseButton onClick={onClose} ariaLabel="Zamknij koszyk" />
+                    </div>
                 </div>
-                <h2 className="text-xl font-bold text-white">
-                    Koszyk ( {totalItems} )
-                </h2>
             </div>
 
-            {/* Close button - sharp corners */}
-            <button
-                onClick={onClose}
-                className="p-2 transition-colors duration-300"
-                aria-label="Zamknij koszyk"
-            >
-                <FaTimes className="w-5 h-5 text-white hover:text-muted" />
-            </button>
-        </div>
+            {/* Border - też w containerze */}
+            <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+                <div className="border-b border-white/10"></div>
+            </div>
+        </>
     );
 }

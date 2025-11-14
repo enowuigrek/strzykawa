@@ -1,3 +1,3 @@
 User-agent: *
 Allow: /
-Sitemap: https://golden-blini-2ab47b.netlify.app/sitemap.xml
+Sitemap: https://strzykawa.netlify.app/sitemap.xml

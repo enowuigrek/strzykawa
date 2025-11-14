@@ -3,7 +3,7 @@ import { HeroBackground } from '../components/features/hero/HeroBackground.jsx';
 import { Tagline } from '../components/features/hero/Tagline.jsx';
 import { ActionButtons } from '../components/features/hero/ActionButtons.jsx';
 import { ScrollDownIndicator } from '../components/features/hero/ScrollDownIndicator.jsx';
-import { FaCoffee, FaLeaf, FaHeart } from 'react-icons/fa';
+import {FaCoffee, FaLeaf, FaHeart, FaFire} from 'react-icons/fa';
 import { Logo } from "../components/atoms/Logo.jsx";
 import { HeroReviews } from '../components/features/hero/HeroReviews.jsx';
 import { SocialLinks } from '../components/SocialLinks.jsx';
@@ -69,7 +69,7 @@ export function Home() {
                             {/* Palarnia */}
                             <div className="p-6 text-center">
                                 <div className="inline-flex items-center justify-center w-16 h-16">
-                                    <FaLeaf className="w-8 h-8 text-accent" />
+                                    <FaFire className="w-8 h-8 text-muted" />
                                 </div>
                                 <h3 className="text-xl font-bold text-white mb-3">Własna palarnia</h3>
                                 <p className="text-muted leading-relaxed">

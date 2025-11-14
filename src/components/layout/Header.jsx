@@ -1,17 +1,22 @@
 import { useEffect, useState } from "react";
 import { useAuthStore } from '../../store/authStore.js';
 import { useCartStore } from '../../store/cartStore.js';
-import { useHeroAnimation } from '../../hooks/useHeroAnimation.js';
+import { HEADER } from '../../constants/layout.js';
 import { Logo } from '../atoms/Logo.jsx';
 import { DesktopNavigation } from '../header/DesktopNavigation.jsx';
 import { MobileNavigation } from '../header/MobileNavigation.jsx';
 import { HeaderActions } from '../header/HeaderActions.jsx';
-import { MobileMenuToggle } from '../header/MobileMenuToggle.jsx';
+import { MobileMenuToggle } from '../atoms/MobileMenuToggle.jsx';
 import { HeaderModals } from '../header/HeaderModals.jsx';
 import { MobileBottomNavigation } from '../header/MobileBottomNavigation.jsx';
 
 /**
- * Header - Main navigation with auto-hide and floating hamburger
+ * Header - Main navigation with auto-hide
+ *
+ * FIXED: Zwiększony padding żeby logo nie wpływało na wysokość
+ * - py-6 lg:py-8 (było py-4 lg:py-6)
+ * - Logo "pływa" w środku paddingu
+ * - Taka sama wysokość jak CartHeader
  */
 export function Header() {
     // ========== STATE ==========
@@ -26,9 +31,6 @@ export function Header() {
     // ========== STORES ==========
     const { logout } = useAuthStore();
     const { getTotalItems } = useCartStore();
-
-    // ========== HOOKS ==========
-    const { showContent: showHeader } = useHeroAnimation(100);
 
     // ========== SCROLL DETECTION + AUTO-HIDE ==========
     useEffect(() => {
@@ -91,46 +93,7 @@ export function Header() {
 
     return (
         <>
-            {/* Floating Hamburger - W TYM SAMYM miejscu co header hamburger */}
-            <div
-                className={`
-                    fixed
-                    right-6
-                    z-[70]
-                    md:hidden
-                `}
-                style={{
-                    top: 'calc(env(safe-area-inset-top) + 1.25rem)'
-                }}
-            >
-                {/* Hamburger z headera - widoczny gdy: header widoczny LUB menu otwarte */}
-                <div className={`
-                    transition-opacity 
-                    duration-300
-                    ${!hideHeader || mobileMenuOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'}
-                `}>
-                    <MobileMenuToggle
-                        isOpen={mobileMenuOpen}
-                        onToggle={() => setMobileMenuOpen(!mobileMenuOpen)}
-                    />
-                </div>
-
-                {/* Floating hamburger - widoczny TYLKO gdy: header schowany I menu zamknięte */}
-                <div className={`
-                    absolute
-                    inset-0
-                    transition-opacity 
-                    duration-300
-                    ${hideHeader && !mobileMenuOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'}
-                `}>
-                    <MobileMenuToggle
-                        isOpen={false}
-                        onToggle={() => setMobileMenuOpen(true)}
-                    />
-                </div>
-            </div>
-
-            {/* Main Header */}
+            {/* Main Header - ALWAYS VISIBLE */}
             <header
                 style={{ paddingTop: 'env(safe-area-inset-top)' }}
                 className={`
@@ -142,30 +105,34 @@ export function Header() {
                     duration-500 
                     ease-out
                     ${headerBg}
-                    ${mobileMenuOpen ? 'z-[60]' : 'z-50'}
-                    ${showHeader
-                    ? (hideHeader && !mobileMenuOpen)
-                        ? '-translate-y-full opacity-0'
-                        : 'translate-y-0 opacity-100'
-                    : '-translate-y-full opacity-0'
-                }
+                    ${mobileMenuOpen ? HEADER.Z_INDEX_MENU_OPEN : HEADER.Z_INDEX}
+                    ${hideHeader ? '-translate-y-full opacity-0' : 'translate-y-0 opacity-100'}
                 `}
             >
                 <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-                    <div className="flex justify-between items-center py-4 lg:py-6">
+                    {/* FIXED: WIĘKSZA sztywna wysokość dla logo z przestrzenią */}
+                    <div className="relative flex justify-between items-center h-[100px] lg:h-[120px]">
                         {/* Logo */}
                         <Logo scrolled={scrolled} />
 
                         {/* Desktop Navigation */}
                         <DesktopNavigation />
 
-                        {/* Desktop Actions - Zawsze po prawej */}
+                        {/* Desktop Actions */}
                         <div className="flex items-center gap-4">
                             <HeaderActions
                                 cartItemsCount={getTotalItems()}
                                 onOpenCart={modalActions.openCart}
                                 onOpenLogin={modalActions.openLogin}
                                 onLogout={handleLogout}
+                            />
+                        </div>
+
+                        {/* Mobile Hamburger - ALWAYS in header */}
+                        <div className="md:hidden absolute right-6 top-1/2 -translate-y-1/2">
+                            <MobileMenuToggle
+                                isOpen={mobileMenuOpen}
+                                onToggle={() => setMobileMenuOpen(!mobileMenuOpen)}
                             />
                         </div>
                     </div>

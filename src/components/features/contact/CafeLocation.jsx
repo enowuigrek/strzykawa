@@ -14,9 +14,9 @@ export function CafeLocation() {
     return (
         <div className="space-y-6">
             <div className="flex items-center gap-3 mb-4">
-                <div className="p-3 bg-accent/20">
-                    <FaCoffee className="w-6 h-6 text-muted" />
-                </div>
+                {/*<div className="p-3 bg-accent/20">*/}
+                {/*    /!*<FaCoffee className="w-6 h-6 text-muted" />*!/*/}
+                {/*</div>*/}
                 <h3 className="text-2xl font-bold text-white">Kawiarnia</h3>
             </div>
 
