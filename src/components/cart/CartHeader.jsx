@@ -29,7 +29,7 @@ export function CartHeader({ totalItems, onClose }) {
                     </div>
 
                     {/* CloseButton - justify-between ustawia w prawo, bez absolute! */}
-                    <div className="absolute right-6 top-1/2 -translate-y-1/2">
+                    <div className="absolute right-0 top-1/2 -translate-y-1/2">
                         <CloseButton onClick={onClose} ariaLabel="Zamknij koszyk" />
                     </div>
                 </div>

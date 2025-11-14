@@ -129,7 +129,7 @@ export function Header() {
                         </div>
 
                         {/* Mobile Hamburger - ALWAYS in header */}
-                        <div className="md:hidden absolute right-6 top-1/2 -translate-y-1/2">
+                        <div className="md:hidden absolute right-0 top-1/2 -translate-y-1/2">
                             <MobileMenuToggle
                                 isOpen={mobileMenuOpen}
                                 onToggle={() => setMobileMenuOpen(!mobileMenuOpen)}
