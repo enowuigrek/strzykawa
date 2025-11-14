@@ -143,8 +143,59 @@ export function CoffeeFilterBar({
 
 /**
  * MainFilterButton - Button for main filter types
+ *
+ * Active state:
+ * - Small colored circle with count only
+ * - Color depends on label:
+ *   - Espresso  -> badge-orange (jak naklejka Espresso)
+ *   - Przelew   -> badge-blue   (jak naklejka Filter)
+ *   - Wszystkie -> success      (zielony)
+ *
+ * Inactive state:
+ * - Standard text pill with label only (bez liczników, żeby oszczędzić miejsce)
  */
 function MainFilterButton({ label, count, isActive, onClick }) {
+    // Determine color based on label
+    const lowerLabel = (label || '').toLowerCase();
+    let colorClass = 'bg-success';
+
+    if (lowerLabel.includes('espresso')) {
+        colorClass = 'bg-badge-orange';
+    } else if (lowerLabel.includes('przelew') || lowerLabel.includes('filter')) {
+        colorClass = 'bg-badge-blue';
+    } else if (lowerLabel.includes('wszystkie') || lowerLabel.includes('all')) {
+        colorClass = 'bg-success';
+    }
+
+    if (isActive) {
+        // Active: small colored circle with count only
+        return (
+            <button
+                onClick={onClick}
+                className={`
+                    ${colorClass}
+                    text-white
+                    w-8
+                    h-8
+                    rounded-full
+                    flex
+                    items-center
+                    justify-center
+                    text-xs
+                    font-bold
+                    shadow-md
+                    transition-transform
+                    duration-300
+                    hover:scale-105
+                `}
+                aria-label={`${label} – ${count} kaw`}
+            >
+                {count}
+            </button>
+        );
+    }
+
+    // Inactive: text pill, no count to save horizontal space
     return (
         <button
             onClick={onClick}
@@ -156,20 +207,13 @@ function MainFilterButton({ label, count, isActive, onClick }) {
                 text-sm
                 transition-all 
                 duration-300
-                ${isActive
-                ? 'bg-accent text-white scale-105 shadow-lg'
-                : 'bg-white/5 text-white/70 hover:bg-white/10 hover:text-white'
-            }
+                bg-white/5 
+                text-white/70 
+                hover:bg-white/10 
+                hover:text-white
             `}
         >
             {label}
-            <span className={`
-                ml-2 
-                text-xs 
-                ${isActive ? 'text-white/80' : 'text-white/50'}
-            `}>
-                ({count})
-            </span>
         </button>
     );
 }
