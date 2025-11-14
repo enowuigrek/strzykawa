@@ -8,7 +8,7 @@ import { NAV_ITEMS } from '../../constants/navigation.js';
  *
  * Rozwijane menu dla urządzeń mobile z:
  * - Linkami nawigacyjnymi
- * - Koszykiem
+ * - Koszykiem z ZIELONYM badge (jak w CartHeader)
  * - Auth (login/logout)
  *
  * @param {boolean} isOpen - Czy menu jest otwarte
@@ -108,14 +108,21 @@ function MobileActionsSection({
                               }) {
     return (
         <div className="pt-4 border-t border-white/10 space-y-3">
-            {/* Cart */}
+            {/* Cart - z ZIELONYM badge (identyczny jak CartHeader) */}
             <button
                 onClick={onOpenCart}
                 className="flex items-center space-x-3 px-4 py-3 text-white hover:bg-white/5 rounded-lg w-full text-left transition-all duration-300"
                 aria-label={`Otwórz koszyk (${cartItemsCount} produktów)`}
             >
                 <FaShoppingCart className="w-4 h-4" />
-                <span>Koszyk ({cartItemsCount})</span>
+                <span className="flex items-center gap-2">
+                    Koszyk
+                    {cartItemsCount > 0 && (
+                        <span className="px-2 py-0.5 bg-green-500 text-white text-xs font-bold rounded-full">
+                            {cartItemsCount}
+                        </span>
+                    )}
+                </span>
             </button>
 
             {/* Auth */}

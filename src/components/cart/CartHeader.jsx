@@ -22,7 +22,7 @@ export function CartHeader({ totalItems, onClose }) {
                             Koszyk
                         </h2>
                         {totalItems > 0 && (
-                            <span className="px-3 py-1 bg-accent text-white text-sm font-bold rounded-full">
+                            <span className="px-3 py-1 bg-green-500 text-white text-sm font-bold rounded-full">
                                 {totalItems}
                             </span>
                         )}

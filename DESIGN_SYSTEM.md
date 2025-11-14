@@ -1,8 +1,8 @@
 # 🎨 STRZYKAWA - DESIGN SYSTEM
 
-> **Wersja:** 1.0  
-> **Ostatnia aktualizacja:** 14 Listopada 2025  
-> **Status:** Aktualne - oficjalne loga dodane
+> **Wersja:** 1.1  
+> **Ostatnia aktualizacja:** 14 Listopada 2025 - Evening  
+> **Status:** Aktualne - Count Badges ZIELONE
 
 ---
 
@@ -73,10 +73,12 @@ colors: {
 
 ```javascript
 // Funkcjonalne kolory
-success: '#10b981'   // Zielony (sukces, dodano do koszyka)
-error: '#ef4444'     // Czerwony (błędy, niedostępne)
-warning: '#f59e0b'   // Pomarańczowy (ostrzeżenia)
+green-500: '#10b981'  // Zielony (sukces, COUNT BADGES, dodano do koszyka)
+red-500: '#ef4444'    // Czerwony (błędy, niedostępne)
+orange-500: '#f59e0b' // Pomarańczowy (ostrzeżenia)
 ```
+
+**WAŻNE:** Count badges (liczba produktów) są **ZAWSZE `bg-green-500`** (nie accent!), aby wskazywać aktywny stan/sukces.
 
 ---
 
@@ -103,14 +105,14 @@ fontFamily: {
 | 400 (Regular) | Tekst body |
 | 500 (Medium) | Przyciski, linki |
 | 600 (SemiBold) | Nagłówki H3-H6, labels |
-| 700 (Bold) | Nagłówki H1-H2, CTA |
+| 700 (Bold) | Nagłówki H1-H2, CTA, **badges** |
 
 ### **Rozmiary Tekstu**
 
 ```javascript
 // Tailwind classes
-text-xs      // 12px - meta info, badges
-text-sm      // 14px - secondary text
+text-xs      // 12px - meta info, badges (small)
+text-sm      // 14px - secondary text, badges (large)
 text-base    // 16px - body text
 text-lg      // 18px - emphasized text
 text-xl      // 20px - H6
@@ -130,7 +132,7 @@ text-6xl     // 60px - H1, hero
 #### **GŁÓWNA ZASADA:**
 - ❌ **NIGDY `rounded` (rounded-lg, rounded-xl, etc.)**
 - ✅ **ZAWSZE sharp corners** (brak border-radius)
-- ✅ **WYJĄTEK: Buttony typu "pastylka"** → `rounded-full`
+- ✅ **WYJĄTEK: Buttony typu "pastylka" + Badges** → `rounded-full`
 
 #### **Przykłady:**
 
@@ -140,8 +142,9 @@ text-6xl     // 60px - H1, hero
 <button className="rounded-xl">...</button>
 
 // ✅ DOBRZE
-<div className="bg-primary">...</div>               // Sharp corners
-<button className="rounded-full px-8 py-3">...</button>  // Pastylka
+<div className="bg-primary">...</div>                     // Sharp corners
+<button className="rounded-full px-8 py-3">...</button>   // Pastylka
+<span className="rounded-full px-3 py-1">3</span>         // Badge
 ```
 
 ### **🎯 Design Philosophy**
@@ -150,6 +153,7 @@ text-6xl     // 60px - H1, hero
 2. **Geometric** - Proste kształty, ostre krawędzie
 3. **Functional** - Form follows function
 4. **Coffee-focused** - Wszystko podkreśla produkt
+5. **Success indicators** - Zielone badges = aktywny stan
 
 ---
 
@@ -336,17 +340,57 @@ import { CloseButton } from './atoms/CloseButton';
 
 ### **🏷️ Badges**
 
-#### **Cart Badge** (liczba produktów)
+#### **Count Badge (Liczba produktów) - ZIELONY**
+```jsx
+/* DUŻY (large) - do użycia w headers, modals */
+<span className="
+  px-3 py-1              /* lg: większy padding */
+  bg-green-500           /* ZAWSZE zielony (success) */
+  text-white 
+  text-sm 
+  font-bold
+  rounded-full           /* Pastylka */
+">
+  3
+</span>
+
+/* MAŁY (small) - mobile, inline */
+<span className="
+  px-2 py-0.5            /* Mniejszy padding */
+  bg-green-500 
+  text-white 
+  text-xs 
+  font-bold
+  rounded-full
+">
+  3
+</span>
+```
+
+**ZASADA:** Count badges są **ZAWSZE ZIELONE** (`bg-green-500`), aby wskazywać aktywny stan/sukces:
+- ✅ CartHeader - "Koszyk **[3]**"
+- ✅ MobileNavigation - "Koszyk **[3]**"
+- ✅ MobileBottomNavigation - badge przy ikonie koszyka
+- ✅ HeaderActions - badge przy ikonie koszyka (desktop)
+- ✅ CoffeeCardActions - badge przy cart button (produkt)
+
+**Użycie:**
+1. **Duży (lg):** `px-3 py-1 text-sm` - headers, modals
+2. **Mały (sm):** `px-2 py-0.5 text-xs` - inline, mobile, ikonki
+
+---
+
+#### **Cart Icon Badge** (przy ikonie koszyka)
 ```jsx
 <span className="
   absolute 
   -top-2 -right-2 
-  bg-accent 
+  bg-green-500           /* ZIELONY, nie accent! */
   text-white 
   text-xs 
   font-bold
   w-5 h-5 
-  rounded-full     /* Badge to pastylka */
+  rounded-full           /* Badge to pastylka */
   flex 
   items-center 
   justify-center
@@ -354,6 +398,13 @@ import { CloseButton } from './atoms/CloseButton';
   3
 </span>
 ```
+
+**Użycie:**
+- HeaderActions (desktop) - przy ikonie FaShoppingCart
+- MobileBottomNavigation - przy ikonie koszyka
+- CoffeeCardActions - przy cart button (po dodaniu do koszyka)
+
+---
 
 #### **Country Badge** (naklejka na kawie)
 ```jsx
@@ -370,6 +421,33 @@ import { CloseButton } from './atoms/CloseButton';
   Etiopia
 </span>
 ```
+
+**ZASADA:** Country badges są sharp corners (nie rounded), z dynamicznym kolorem zależnym od kraju.
+
+---
+
+#### **Variant Badge** (Gramatura, Typ)
+```jsx
+<span className="
+  inline-flex 
+  items-center 
+  px-2 py-0.5 
+  bg-accent/20 
+  border 
+  border-accent/30 
+  text-accent 
+  text-xs 
+  font-medium
+  rounded-full        /* Pastylka */
+">
+  250g
+</span>
+```
+
+**Użycie:**
+- CartItem - wyświetla opcje wariantu (Gramatura + Typ)
+- QuickAddModal - opcje wariantu
+- VariantSelector - opcje wyboru
 
 ---
 
@@ -542,17 +620,19 @@ screens: {
 
 ### **✅ DO:**
 - Używaj sharp corners (brak rounded)
-- Używaj pastylki (rounded-full) dla buttonów
+- Używaj pastylki (rounded-full) dla buttonów i badges
+- **Count badges ZAWSZE bg-green-500** (nie accent!)
 - Konsekwentny spacing (Tailwind scale)
 - Minimalistyczny design
 - Dużo breathing room
 - Focus na produkcie (kawa)
 
 ### **❌ DON'T:**
-- Nie używaj rounded-lg, rounded-xl nigdzie poza buttonami
+- Nie używaj rounded-lg, rounded-xl nigdzie poza buttonami i badges
+- **Nie używaj bg-accent dla count badges** - tylko bg-green-500!
 - Nie mieszaj różnych border-radius
 - Nie przeładowuj animacjami
-- Nie używaj jaskrawych kolorów (poza accent)
+- Nie używaj jaskrawych kolorów (poza green dla success states)
 - Nie ignoruj availability states
 
 ---
@@ -567,6 +647,14 @@ screens: {
 ---
 
 ## 📝 CHANGELOG
+
+### **14 Listopada 2025 - Count Badges (ZIELONE)**
+- **BREAKING:** Count badges teraz **bg-green-500** zamiast bg-accent
+- Dodano wytyczne: Count Badge (large + small)
+- Zaktualizowano CartHeader - zielony badge
+- Zaktualizowano MobileNavigation - zielony badge zamiast nawiasu
+- Dodano przykłady użycia: gdzie stosować zielone badges
+- Zaktualizowano sekcję Kolory - green-500 dla success states
 
 ### **14 Listopada 2025 - Evening Session**
 - Dodano **CloseButton** component (reusable X dla modali)
