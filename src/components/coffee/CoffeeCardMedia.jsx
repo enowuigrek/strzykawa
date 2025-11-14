@@ -39,8 +39,8 @@ export function CoffeeCardMedia({ coffee, overlayOpen, onToggleOverlay }) {
                         transition-opacity duration-300
                         pointer-events-none
                         ${coffee.roastType === 'Filter'
-                        ? 'bg-blue-500 text-white'
-                        : 'bg-gradient-to-br from-amber-600 to-amber-800 text-white'}
+                        ? 'bg-badge-blue text-white'
+                        : 'bg-badge-orange text-white'}
                     `}
                     aria-label={getRoastTypeDisplay(coffee.roastType)}
                 >

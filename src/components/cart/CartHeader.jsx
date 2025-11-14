@@ -22,7 +22,7 @@ export function CartHeader({ totalItems, onClose }) {
                             Koszyk
                         </h2>
                         {totalItems > 0 && (
-                            <span className="px-3 py-1 bg-green-500 text-white text-sm font-bold rounded-full">
+                            <span className="px-3 py-1 bg-success text-white text-sm font-bold rounded-full">
                                 {totalItems}
                             </span>
                         )}
@@ -35,9 +35,9 @@ export function CartHeader({ totalItems, onClose }) {
                 </div>
             </div>
 
-            {/* Border - też w containerze */}
+            {/* Border - identyczna jak w głównym Header */}
             <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-                <div className="border-b border-white/10"></div>
+                <div className="pt-2 border-b border-white/30"></div>
             </div>
         </>
     );

@@ -41,11 +41,16 @@ export function Button({
                        }) {
     // Variant styles
     const variants = {
-        primary: 'bg-accent hover:from-muted hover:to-accent text-white shadow-md hover:shadow-lg',
-        secondary: 'bg-white/10 border border-white/20 hover:bg-white/20 text-white',
-        ghost: 'bg-transparent text-accent hover:bg-accent/10 border border-accent/30',
-        success: 'bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-500 text-white shadow-md',
-        danger: 'bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-500 text-white shadow-md'
+        primary:
+            'bg-cta text-white hover:bg-cta-hover shadow-md hover:shadow-lg',
+        secondary:
+            'bg-white/5 border border-white/15 hover:bg-white/10 text-white',
+        ghost:
+            'bg-transparent text-accent hover:bg-accent/10 border border-accent/30',
+        success:
+            'bg-success text-white hover:bg-success-dark shadow-md hover:shadow-lg',
+        danger:
+            'bg-danger text-white hover:bg-danger-dark shadow-md hover:shadow-lg',
     };
 
     // Size variants

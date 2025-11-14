@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { IoClose } from 'react-icons/io5';
 import { FaShoppingCart, FaExclamationCircle } from 'react-icons/fa';
 import { QuantitySelector } from './atoms/QuantitySelector';
 import { Button } from './atoms/Button';
+import { CloseButton } from './atoms/CloseButton';
 
 /**
  * QuickAddModal - Modal do szybkiego dodawania do koszyka
@@ -118,21 +118,19 @@ export function QuickAddModal({ coffee, isOpen, onClose, onAddToCart }) {
             {/* Modal */}
             <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 pointer-events-none">
                 <div
-                    className="bg-primary border border-white/20 w-full max-w-md shadow-2xl pointer-events-auto"
+                    className="bg-primary w-full max-w-md shadow-2xl pointer-events-auto"
                     onClick={(e) => e.stopPropagation()}
                 >
                     {/* Header */}
-                    <div className="flex items-center justify-between p-4 border-b border-white/10">
+                    <div className="flex items-center justify-between p-4">
                         <h3 className="text-lg font-bold text-white">
                             {coffee.name}
                         </h3>
-                        <button
-                            onClick={onClose}
-                            className="p-2 hover:bg-white/10 transition-colors"
-                            aria-label="Zamknij"
-                        >
-                            <IoClose className="w-5 h-5 text-white" />
-                        </button>
+                        <CloseButton onClick={onClose} />
+                    </div>
+                    {/* Subtle divider under header title (like cart header) */}
+                    <div className="px-4">
+                        <div className="border-b border-white/30"></div>
                     </div>
 
                     {/* Content */}
@@ -153,15 +151,16 @@ export function QuickAddModal({ coffee, isOpen, onClose, onAddToCart }) {
                                                 onClick={() => available && handleGramaturaChange(value)}
                                                 disabled={!available}
                                                 className={`
-                                                    flex-1 px-5 py-2.5 text-sm font-medium
+                                                    ${gramaturaOptions.length === 1 ? 'inline-flex' : 'flex-1'}
+                                                    px-5 py-2.5 text-sm font-medium
                                                     transition-all duration-200
                                                     rounded-full
                                                     ${!available
-                                                    ? 'bg-red-900/20 text-red-400/70 opacity-60 cursor-not-allowed border border-red-800/30'
-                                                    : selectedGramatura === value
-                                                        ? 'bg-accent text-white shadow-md'
-                                                        : 'bg-primary-light text-muted border border-accent/30 hover:bg-accent/20 hover:text-white'
-                                                }
+                                                        ? 'bg-red-900/20 text-red-400/70 opacity-60 cursor-not-allowed border border-red-800/30'
+                                                        : selectedGramatura === value
+                                                            ? 'bg-accent text-white shadow-md'
+                                                            : 'bg-primary-light text-muted border border-accent/30 hover:bg-accent/20 hover:text-white'
+                                                    }
                                                 `}
                                             >
                                                 <span className={!available ? 'line-through' : ''}>{value}</span>
@@ -188,15 +187,16 @@ export function QuickAddModal({ coffee, isOpen, onClose, onAddToCart }) {
                                                 onClick={() => available && handleTypChange(value)}
                                                 disabled={!available}
                                                 className={`
-                                                    flex-1 px-5 py-2.5 text-sm font-medium
+                                                    ${typOptions.length === 1 ? 'inline-flex' : 'flex-1'}
+                                                    px-5 py-2.5 text-sm font-medium
                                                     transition-all duration-200
                                                     rounded-full
                                                     ${!available
-                                                    ? 'bg-red-900/20 text-red-400/70 opacity-60 cursor-not-allowed border border-red-800/30'
-                                                    : selectedTyp === value
-                                                        ? 'bg-accent text-white shadow-md'
-                                                        : 'bg-primary-light text-muted border border-accent/30 hover:bg-accent/20 hover:text-white'
-                                                }
+                                                        ? 'bg-red-900/20 text-red-400/70 opacity-60 cursor-not-allowed border border-red-800/30'
+                                                        : selectedTyp === value
+                                                            ? 'bg-accent text-white shadow-md'
+                                                            : 'bg-primary-light text-muted border border-accent/30 hover:bg-accent/20 hover:text-white'
+                                                    }
                                                 `}
                                             >
                                                 <span className={!available ? 'line-through' : ''}>{value}</span>
@@ -244,7 +244,7 @@ export function QuickAddModal({ coffee, isOpen, onClose, onAddToCart }) {
                     </div>
 
                     {/* Footer */}
-                    <div className="p-4 border-t border-white/10">
+                    <div className="p-4">
                         <Button
                             onClick={handleAdd}
                             disabled={!selectedVariant || !isAvailable || adding}

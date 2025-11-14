@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
-import { FaHome, FaShoppingCart, FaMapMarkerAlt, FaUser } from 'react-icons/fa';
+import { FaHome, FaShoppingCart, FaUser } from 'react-icons/fa';
 import { HiShoppingBag } from 'react-icons/hi';
 import { useAuthStore } from '../../store/authStore.js';
 import { useCartStore } from '../../store/cartStore.js';
@@ -46,67 +46,92 @@ export function MobileBottomNavigation({
     };
 
     return (
-        <div className={`md:hidden fixed bottom-0 left-0 right-0 z-40 bg-primary-dark/95 backdrop-blur-md border-t border-white/10 mobile-bottom-nav ${isVisible ? 'visible' : ''}`}>
+        <div className={`md:hidden fixed bottom-3 left-0 right-0 z-40 mobile-bottom-nav ${isVisible ? 'visible' : ''}`}>
             {/* Safe area padding for devices with bottom indicators */}
-            <div style={{ paddingBottom: 'env(safe-area-inset-bottom)' }}>
-                <div className="flex items-center justify-around px-2 py-2">
+            <div style={{ paddingBottom: 'env(safe-area-inset-bottom)' }} className="px-4 pb-3">
+                <div className="pointer-events-auto flex items-center justify-between rounded-full bg-primary-dark/95 border border-white/15 shadow-lg backdrop-blur-md px-4 py-2">
 
-                    {/* Home */}
+                    {/* Strzykawa logo / Home */}
                     <NavLink
                         to="/"
-                        className={({ isActive }) => `
-                            flex items-center justify-center p-3 transition-all duration-300 rounded-lg
-                            ${isActive ? 'mobile-nav-active' : 'text-white/70'}
-                        `}
+                        className={({ isActive }) =>
+                            `flex flex-col items-center gap-1 px-3 py-2 rounded-full transition-all duration-300 ${
+                                isActive ? 'text-white' : 'text-white/70'
+                            }`
+                        }
                     >
-                        <FaHome className="w-5 h-5" />
+                        <div
+                            className={`
+                                flex items-center justify-center w-9 h-9 rounded-full border border-white/15 bg-white/5
+                                ${''}
+                            `}
+                        >
+                            <FaHome className="w-5 h-5" />
+                        </div>
+                        <span className="text-[11px] leading-none">Home</span>
                     </NavLink>
 
                     {/* Sklep */}
-                    <NavLink
-                        to="/kawy"
-                        className={({ isActive }) => `
-                            flex items-center justify-center p-3 transition-all duration-300 rounded-lg
-                            ${isActive ? 'mobile-nav-active' : 'text-white/70'}
-                        `}
-                    >
-                        <HiShoppingBag className="w-5 h-5" />
+                    <NavLink to="/kawy">
+                        {({ isActive }) => (
+                            <div
+                                className={`flex flex-col items-center gap-1 px-3 py-2 rounded-full transition-all duration-300 ${
+                                    isActive ? 'text-white' : 'text-white/70'
+                                }`}
+                            >
+                                <div
+                                    className={`flex items-center justify-center w-9 h-9 rounded-full border border-white/15 ${
+                                        isActive ? 'bg-cta shadow-md' : 'bg-white/5'
+                                    }`}
+                                >
+                                    <HiShoppingBag className="w-5 h-5" />
+                                </div>
+                                <span className="text-[11px] leading-none">Sklep</span>
+                            </div>
+                        )}
                     </NavLink>
 
-                    {/* Koszyk - środek, większy, bez ramki */}
+                    {/* Koszyk */}
                     <button
                         onClick={onOpenCart}
-                        className="relative flex items-center justify-center p-4 transition-all duration-200 active:scale-95 rounded-lg"
+                        className="relative flex flex-col items-center gap-1 px-3 py-2 rounded-full transition-all duration-200 active:scale-95"
                     >
-                        <FaShoppingCart className="w-6 h-6 text-white/70" />
-                        {cartItemsCount > 0 && (
-                            <span className="absolute -top-1 -right-1 bg-green-500 text-white text-xs w-5 h-5 rounded-full flex items-center justify-center font-bold">
-                                {cartItemsCount}
-                            </span>
-                        )}
-                    </button>
-
-                    {/* Lokalizacja */}
-                    <button
-                        onClick={openDirections}
-                        className="flex items-center justify-center p-3 text-white/70 transition-all duration-200 active:scale-95 rounded-lg"
-                    >
-                        <FaMapMarkerAlt className="w-5 h-5" />
+                        <div
+                            className={`
+                                relative flex items-center justify-center w-9 h-9 rounded-full border border-white/15
+                                ${cartItemsCount > 0 ? 'bg-success/20 text-success' : 'bg-white/5 text-white/70'}
+                            `}
+                        >
+                            <FaShoppingCart className="w-5 h-5" />
+                            {cartItemsCount > 0 && (
+                                <span className="absolute -top-2 -right-2 bg-success text-white text-[10px] w-5 h-5 rounded-full flex items-center justify-center font-bold shadow-md">
+                                    {cartItemsCount}
+                                </span>
+                            )}
+                        </div>
+                        <span className="text-[11px] leading-none">Koszyk</span>
                     </button>
 
                     {/* Profil/Login */}
                     <button
                         onClick={handleAuthClick}
-                        className={`
-                            relative flex items-center justify-center p-3 transition-all duration-200 active:scale-95 rounded-lg
-                            ${isAuthenticated ? 'text-green-400' : 'text-white/70'}
-                        `}
+                        className="relative flex flex-col items-center gap-1 px-3 py-2 rounded-full transition-all duration-200 active:scale-95"
                     >
-                        <FaUser className="w-5 h-5" />
-                        {/* Zielona kropka gdy zalogowany */}
-                        {isAuthenticated && (
-                            <span className="absolute -top-0.5 -right-0.5 w-3 h-3 bg-green-500 rounded-full border border-primary-dark"></span>
-                        )}
+                        <div
+                            className={`
+                                relative flex items-center justify-center w-9 h-9 rounded-full border border-white/15
+                                ${isAuthenticated ? 'bg-success/20 text-success' : 'bg-white/5 text-white/70'}
+                            `}
+                        >
+                            <FaUser className="w-5 h-5" />
+                            {/* Zielona kropka gdy zalogowany */}
+                            {isAuthenticated && (
+                                <span className="absolute -top-0.5 -right-0.5 w-3 h-3 bg-success rounded-full border border-primary-dark"></span>
+                            )}
+                        </div>
+                        <span className="text-[11px] leading-none">
+                            {isAuthenticated ? 'Konto' : 'Zaloguj'}
+                        </span>
                     </button>
 
                 </div>

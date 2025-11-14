@@ -8,12 +8,28 @@ export default {
         extend: {
             colors: {
                 primary: {
-                    DEFAULT: '#1f2a25',
-                    light: '#2a3630',
-                    dark: '#151e1a'
+                    DEFAULT: '#1E2A25',
+                    light: '#2C3A35',
+                    dark: '#141C18',
                 },
-                accent: '#51685f',
-                muted: '#8a9d94'
+                accent: '#6B7F73',
+                muted: '#9CA8A1',
+                success: {
+                    DEFAULT: '#0E8C6F',
+                    dark: '#0B6F55',
+                },
+                danger: {
+                    DEFAULT: '#C9423A',
+                    dark: '#A7322D',
+                },
+                badge: {
+                    blue: '#7A8FA6',
+                    orange: '#C48F62',
+                },
+                cta: {
+                    DEFAULT: '#3A5F55',
+                    hover: '#2F4F46',
+                },
             },
             fontFamily: {
                 sans: ['Dosis', 'Arial', 'sans-serif']

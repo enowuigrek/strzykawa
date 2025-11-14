@@ -34,7 +34,7 @@ export function CoffeeCard({ coffee }) {
 
     return (
         <>
-            <article className="relative bg-gradient-to-br from-primary to-primary-light border border-white/5 shadow-lg transition-all duration-300 hover:shadow-2xl hover:shadow-accent/20 hover:border-white/10 flex flex-col overflow-visible">
+            <article className="relative bg-primary-dark/80 border border-white/5 shadow-lg transition-all duration-300 hover:shadow-xl hover:border-accent/40 hover:shadow-accent/20 flex flex-col overflow-visible">
                 {/* Subtle top border glow effect */}
                 <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-300"></div>
 

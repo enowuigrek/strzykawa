@@ -29,7 +29,7 @@ export function CoffeeCardActions({
     const CartIcon = getCartIcon();
 
     return (
-        <div className="flex items-stretch bg-white/10 border border-white/20 rounded-full overflow-visible">
+        <div className="group flex items-stretch bg-white/5 border border-white/15 rounded-full overflow-visible">
             {/* Zobacz szczegóły - LINK do produktu */}
             <Link
                 to={`/kawy/${coffee.shopifyHandle || coffee.id}`}
@@ -45,7 +45,10 @@ export function CoffeeCardActions({
             </Link>
 
             {/* Pionowa kreska */}
-            <div className="w-px bg-white/20 my-auto" style={{ height: '2rem' }} />
+            <div
+                className="w-px bg-white/20 my-auto transition-opacity duration-150 group-hover:opacity-0"
+                style={{ height: '2rem' }}
+            />
 
             {/* Ikona koszyka - Quick Add */}
             <button
@@ -63,16 +66,16 @@ export function CoffeeCardActions({
                     disabled:opacity-50 disabled:cursor-not-allowed
                     rounded-r-full
                     ${justAdded
-                    ? 'bg-green-500 hover:bg-green-600'
-                    : 'hover:bg-white/15'
-                }
+                        ? 'bg-success hover:bg-success-dark'
+                        : 'hover:bg-white/15'
+                    }
                 `}
             >
                 <CartIcon className="w-5 h-5" />
 
                 {/* Badge z liczbą sztuk w koszyku */}
                 {cartQuantity > 0 && !justAdded && (
-                    <span className="absolute -top-1 -right-1 bg-green-500 text-white text-[10px] w-5 h-5 rounded-full flex items-center justify-center font-bold z-20 shadow-lg pointer-events-none">
+                    <span className="absolute -top-1 -right-1 bg-success text-white text-[10px] w-5 h-5 rounded-full flex items-center justify-center font-bold z-20 shadow-lg pointer-events-none">
                         {cartQuantity}
                     </span>
                 )}

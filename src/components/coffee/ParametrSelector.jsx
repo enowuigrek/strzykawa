@@ -43,7 +43,7 @@ export function ParametrSelector({
 
             {/* Forma */}
             <div role="group" aria-label="Forma kawy"
-                 className={`inline-flex ${h} bg-white/10 border border-white/20 rounded-full overflow-hidden`}>
+                 className={`inline-flex ${h} bg-white/5 border border-white/15 rounded-full overflow-hidden`}>
                 {formOptions.map((option, idx) => {
                     const active = selectedForm === option.value;
                     return (
@@ -69,7 +69,7 @@ export function ParametrSelector({
             {/* Waga - ✅ używa dynamicznych weightOptions */}
             {weightOptions.length > 0 && (
                 <div role="group" aria-label="Waga"
-                     className={`inline-flex ${h} bg-white/10 border border-white/20 rounded-full overflow-hidden`}>
+                     className={`inline-flex ${h} bg-white/5 border border-white/15 rounded-full overflow-hidden`}>
                     {weightOptions.map((option, idx) => {
                         const active = selectedWeight === option.value;
                         return (

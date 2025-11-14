@@ -15,6 +15,7 @@ import {
     CookiePolicy,
     ShippingAndReturns
 } from './pages/LegalPages';
+import StyleGuide from "./pages/StyleGuide.jsx";
 
 // Hook do automatycznego scrollowania na górę przy zmianie trasy
 function ScrollToTop() {
@@ -50,6 +51,7 @@ function App() {
                     <Route path="/polityka-prywatnosci" element={<PrivacyPolicy />} />
                     <Route path="/polityka-cookies" element={<CookiePolicy />} />
                     <Route path="/dostawa-zwroty" element={<ShippingAndReturns />} />
+                    <Route path="/style-guide" element={<StyleGuide />} />
                 </Routes>
             </main>
             <Footer />
