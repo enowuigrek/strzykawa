@@ -104,9 +104,18 @@ export function MobileBottomNavigation({
 
     return (
         <div className={`md:hidden fixed bottom-0 left-0 right-0 z-[100] mobile-bottom-nav transition-transform duration-300 ease-out ${isVisible ? 'visible' : 'translate-y-28'}`}>
+            {/* Blur fade-out rectangle - od połowy wysokości nav bar do dołu ekranu */}
+            <div
+                className="pointer-events-none absolute inset-x-0 bottom-0 h-16  backdrop-blur-md"
+                style={{
+                    background: 'linear-gradient(to bottom, transparent 0%, rgba(0, 0, 0, 0.3) 100%)',
+                    paddingBottom: 'max(env(safe-area-inset-bottom), 16px)'
+                }}
+            />
+
             {/* Safe area padding - większy padding od dołu */}
-            <div style={{ paddingBottom: 'max(env(safe-area-inset-bottom), 16px)' }} className="px-4 pb-6">
-                <div className="pointer-events-auto flex items-center justify-between rounded-full bg-primary-dark/95 border border-white/15 shadow-lg backdrop-blur-md px-4 py-2">
+            <div style={{ paddingBottom: 'max(env(safe-area-inset-bottom), 16px)' }} className="relative z-10">
+                <div className="pointer-events-auto flex items-center justify-between rounded-full bg-primary-dark/95 shadow-lg backdrop-blur-md px-4 py-2">
 
                     {/* Home - NIE podświetlony gdy JAKIKOLWIEK modal otwarty */}
                     <button
