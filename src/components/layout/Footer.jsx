@@ -29,12 +29,6 @@ export function Footer() {
 
     const contactInfo = [
         {
-            icon: FaMapMarkerAlt,
-            text: 'Gen. Dąbrowskiego 4',
-            subtext: '42-200 Częstochowa',
-            href: 'https://maps.google.com/?q=Strzykawa+Częstochowa'
-        },
-        {
             icon: FaPhone,
             text: '+48 668 011 806',
             href: 'tel:+48668011806'
@@ -49,17 +43,16 @@ export function Footer() {
     const legalLinks = [
         { label: 'Regulamin sklepu', href: '/regulamin' },
         { label: 'Polityka prywatności', href: '/polityka-prywatnosci' },
-        { label: 'Polityka cookies', href: '/polityka-cookies' },
-        { label: 'Dostawa i zwroty', href: '/dostawa-zwroty' }
+        { label: 'Polityka cookies', href: '/polityka-cookies' }
     ];
 
     return (
         <footer className="relative bg-primary-dark/95 border-white/10 overflow-hidden">
             {/* Main content */}
             <div className="relative z-10 container mx-auto px-4 py-8">
-                <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-8">
-                    {/* Logo - 2 kolumny */}
-                    <div className="lg:col-span-2">
+                <div className="grid grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-12 items-start">
+                    {/* Logo */}
+                    <div className="flex justify-center md:justify-start">
                         <div className="footer-logo">
                             <img
                                 src="/logo/vertical-logo.png"
@@ -69,35 +62,12 @@ export function Footer() {
                         </div>
                     </div>
 
-                    {/* Spacer - 1 kolumna */}
-                    <div className="hidden lg:block lg:col-span-1" />
-
-                    {/* Kontakt + Social Media - 9 kolumn */}
-                    <div className="lg:col-span-9 grid grid-cols-1 sm:grid-cols-2 gap-8">
-                        {/* Kontakt */}
-                        <div className="space-y-6">
-                            <h4 className="text-xl font-semibold text-white">Social Media</h4>
-                            <div className="flex gap-4">
-                                {socialLinks.map((social, index) => {
-                                    const Icon = social.icon;
-                                    return (
-                                        <a
-                                            key={index}
-                                            href={social.href}
-                                            target="_blank"
-                                            rel="noopener noreferrer"
-                                            aria-label={social.label}
-                                            className={`text-muted transition-all duration-300 hover:scale-110 ${social.hoverColor}`}
-                                        >
-                                            <Icon className="w-8 h-8" />
-                                        </a>
-                                    );
-                                })}
-                            </div>
-                        </div>
-                        <div className="space-y-6">
+                    {/* Kontakt + Social Media */}
+                    <div className="col-span-1 lg:col-span-2 lg:grid lg:grid-cols-2 lg:gap-12 space-y-10 lg:space-y-0">
+                        {/* Kontakt (środkowa kolumna na desktopie) */}
+                        <div className="space-y-4">
                             <h4 className="text-xl font-semibold text-white">Kontakt</h4>
-                            <div className="space-y-4">
+                            <div className="space-y-3">
                                 {contactInfo.map((contact, index) => {
                                     const Icon = contact.icon;
                                     return (
@@ -110,9 +80,9 @@ export function Footer() {
                                                     ? 'noopener noreferrer'
                                                     : undefined
                                             }
-                                            className="flex items-start gap-3 text-base text-white/70 hover:text-white transition-colors duration-300 group"
+                                            className="flex items-start gap-3 text-base text-white/70 hover:text-accent transition-colors duration-300 group"
                                         >
-                                            <Icon className="w-5 h-5 mt-0.5 flex-shrink-0 text-accent group-hover:text-white transition-colors" />
+                                            <Icon className="w-5 h-5 mt-0.5 flex-shrink-0 text-white/80 group-hover:text-accent transition-colors" />
                                             <div>
                                                 <div>{contact.text}</div>
                                                 {contact.subtext && (
@@ -124,50 +94,108 @@ export function Footer() {
                                 })}
                             </div>
                         </div>
+
+                        {/* Social Media (prawa kolumna na desktopie) */}
+                        <div className="space-y-4 lg:text-right">
+                            <h4 className="text-xl font-semibold text-white">Social Media</h4>
+                            <div className="flex gap-4 lg:justify-end">
+                                {socialLinks.map((social, index) => {
+                                    const Icon = social.icon;
+                                    return (
+                                        <a
+                                            key={index}
+                                            href={social.href}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            aria-label={social.label}
+                                            className={`text-white/70 transition-all duration-300 hover:scale-110 ${social.hoverColor}`}
+                                        >
+                                            <Icon className="w-8 h-8" />
+                                        </a>
+                                    );
+                                })}
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
 
             {/* Bottom bar */}
-            <div className="relative z-10 border-t border-white/10 bg-black">
+            <div className="relative z-10 border-t border-white/10 bg-black/95">
                 <div className="container mx-auto px-4 py-6">
-                    <div className="flex flex-col lg:flex-row justify-between items-center gap-6">
-                        {/* Left - Copyright */}
-                        <div className="text-base text-muted text-center lg:text-left">
-                            © {currentYear} Strzykawa. Wszystkie prawa zastrzeżone.
+                    <div className="flex flex-col gap-4 text-sm text-white/70">
+                        {/* Row 1: three columns - copyright left, legal center, empty right */}
+                        <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-y-2">
+                            {/* Left: copyright */}
+                            <div className="md:w-1/3 text-white/70 text-center md:text-left">
+                                © {currentYear} Strzykawa. Wszystkie prawa zastrzeżone.
+                            </div>
+
+                            {/* Center: legal links */}
+                            <div className="md:w-1/3 flex flex-wrap justify-center gap-x-2 gap-y-1 text-center text-white/70">
+                                {legalLinks.map((link, index) => (
+                                    <React.Fragment key={index}>
+                                        <a
+                                            href={link.href}
+                                            className="hover:text-white transition-colors"
+                                        >
+                                            {link.label}
+                                        </a>
+                                        {index < legalLinks.length - 1 && (
+                                            <span className="text-white/40">|</span>
+                                        )}
+                                    </React.Fragment>
+                                ))}
+                            </div>
+
+                            {/* Right: empty column for visual balance */}
+                            <div className="md:w-1/3" />
                         </div>
 
-                        {/* Center - Legal Links */}
-                        <div className="flex flex-wrap justify-center gap-x-2 gap-y-2 text-sm">
-                            {legalLinks.map((link, index) => (
-                                <React.Fragment key={index}>
-                                    <a
-                                        href={link.href}
-                                        className="text-white hover:text-muted transition-colors"
-                                    >
-                                        {link.label}
-                                    </a>
-                                    {index < legalLinks.length - 1 && (
-                                        <span className="text-white/30 hidden md:inline">|</span>
-                                    )}
-                                </React.Fragment>
-                            ))}
-                        </div>
+                        {/* Row 2: Project (left) and technologies (right) */}
+                        <div className="flex flex-wrap items-center justify-between gap-3">
+                            {/* Left: project credit */}
+                            <span className="text-white/70">
+                                <span className="text-white/60">Projekt i wykonanie: </span>
+                                <a
+                                    href="https://lukasznowak.dev"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="text-white hover:text-accent transition-colors"
+                                >
+                                    lukasznowak.dev
+                                </a>
+                            </span>
 
-                        {/* Right - Credits & Tech Stack */}
-                        <div className="flex w-full max-w-xs items-center justify-between lg:justify-end gap-2 text-sm text-white/70">
-                            <a
-                                href="https://lukasznowak.dev"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="hover:text-blue-600 transition-colors"
-                            >
-                                lukasznowak.dev
-                            </a>
-                            <div className="flex items-center gap-3 md:self-center md:ml-auto">
-                                <SiReact className="w-5 h-5 hover:text-[#61DAFB]" />
-                                <SiShopify className="w-5 h-5 hover:text-[#95BF47]" />
-                                <BiCoffeeTogo className="w-5 h-5 hover:text-[#7B4B2A]" />
+                            {/* Right: technologies */}
+                            <div className="flex items-center gap-3 text-white/70">
+                                <span className="text-white/60">Użyte technologie:</span>
+
+                                <div className="flex items-center gap-3">
+                                    {/* React */}
+                                    <div className="flex items-center group">
+                                        <SiReact className="w-5 h-5 transition-colors duration-300 group-hover:text-[#61DAFB]" />
+                                        <span className="ml-2 text-xs text-white/60 overflow-hidden max-w-0 group-hover:max-w-[80px] opacity-0 group-hover:opacity-100 transition-all duration-300">
+                                            React
+                                        </span>
+                                    </div>
+
+                                    {/* Shopify */}
+                                    <div className="flex items-center group">
+                                        <SiShopify className="w-5 h-5 transition-colors duration-300 group-hover:text-[#95BF47]" />
+                                        <span className="ml-2 text-xs text-white/60 overflow-hidden max-w-0 group-hover:max-w-[80px] opacity-0 group-hover:opacity-100 transition-all duration-300">
+                                            Shopify
+                                        </span>
+                                    </div>
+
+                                    {/* Coffee */}
+                                    <div className="flex items-center group">
+                                        <BiCoffeeTogo className="w-5 h-5 transition-colors duration-300 group-hover:text-[#7B4B2A]" />
+                                        <span className="ml-2 text-xs text-white/60 overflow-hidden max-w-0 group-hover:max-w-[80px] opacity-0 group-hover:opacity-100 transition-all duration-300">
+                                            Kawa
+                                        </span>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
