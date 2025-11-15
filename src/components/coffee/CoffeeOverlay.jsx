@@ -53,7 +53,7 @@ export function CoffeeOverlay({ coffee, isOpen }) {
                 backdrop-blur-md
                 transition-transform duration-300 ease-out
                 block
-                ${isOpen ? 'translate-y-0 z-30' : 'translate-y-full pointer-events-none'}
+                ${isOpen ? 'translate-y-0 z-20' : 'translate-y-full pointer-events-none'}
             `}
             style={{
                 background: `linear-gradient(to top, ${bgColor}f2, ${bgColor}e6 40%, ${bgColor}cc)`

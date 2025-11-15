@@ -4,10 +4,6 @@ import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import { CoffeeOverlay } from './CoffeeOverlay';
 import coffeePlaceholder from '../../assets/coffee-placeholder.jpg';
 
-/**
- * CoffeeCardMedia - zdjęcie klikalane, oczko toggle, overlay klikalny
- * FIXED: z-index hierarchy (oczko z-50, overlay z-40, naklejka z-20, zdjęcie z-10)
- */
 export function CoffeeCardMedia({ coffee, overlayOpen, onToggleOverlay }) {
     const getRoastTypeDisplay = (roastType) => {
         const mapping = { Filter: 'Przelew', Espresso: 'Espresso' };
@@ -50,7 +46,6 @@ export function CoffeeCardMedia({ coffee, overlayOpen, onToggleOverlay }) {
                 </div>
             )}
 
-            {/* OCZKO - toggle overlay - ZAWSZE NA WIERZCHU (z-50) */}
             <button
                 onClick={(e) => {
                     e.preventDefault();
@@ -59,8 +54,8 @@ export function CoffeeCardMedia({ coffee, overlayOpen, onToggleOverlay }) {
                 }}
                 className={`
                     absolute bottom-3 right-3 w-8 h-8 rounded-full
-                    flex items-center justify-center z-50
-                    bg-white/15 backdrop-blur-md text-white
+                    flex items-center justify-center z-30
+                    bg-muted/15 backdrop-blur-md text-white
                     ring-1 ring-white/10 shadow-lg
                     transition-all duration-300
                     hover:bg-white/25 hover:ring-white/20

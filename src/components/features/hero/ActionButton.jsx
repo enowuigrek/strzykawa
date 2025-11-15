@@ -4,7 +4,7 @@ export function ActionButton({ href, icon: Icon, text, colorClass }) {
     return (
         <a
             href={href}
-            className="group relative inline-flex items-center bg-white/10 backdrop-blur-sm border border-white/30 rounded-full px-6 py-3 transition-all duration-300 hover:scale-105 hover:bg-white/20 hover:border-white/50"
+            className="group relative inline-flex items-center bg-white/10 backdrop-blur-0  rounded-full px-6 py-3 transition-all duration-300 hover:backdrop-blur-xl"
         >
             <div className="flex items-center space-x-3">
                 <div className={`p-2 ${colorClass} rounded-full`}>
@@ -14,9 +14,6 @@ export function ActionButton({ href, icon: Icon, text, colorClass }) {
                     {text}
                 </span>
             </div>
-
-            {/* Shine effect */}
-            {/*<div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent skew-x-12 translate-x-[-200%] group-hover:translate-x-[200%] transition-transform duration-1000 ease-out rounded-full" />*/}
         </a>
     );
 }

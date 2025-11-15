@@ -3,21 +3,6 @@ import { FaShoppingCart, FaUser, FaSignOutAlt } from 'react-icons/fa';
 import { useAuthStore } from '../../store/authStore.js';
 import { NAV_ITEMS } from '../../constants/navigation.js';
 
-/**
- * MobileNavigation - Mobile dropdown menu
- *
- * Rozwijane menu dla urządzeń mobile z:
- * - Linkami nawigacyjnymi
- * - Koszykiem z ZIELONYM badge (jak w CartHeader)
- * - Auth (login/logout)
- *
- * @param {boolean} isOpen - Czy menu jest otwarte
- * @param {function} onClose - Handler zamknięcia menu
- * @param {number} cartItemsCount - Liczba produktów w koszyku
- * @param {function} onOpenCart - Handler otwarcia koszyka
- * @param {function} onOpenLogin - Handler otwarcia modalu logowania
- * @param {function} onLogout - Handler wylogowania
- */
 export function MobileNavigation({
                                      isOpen,
                                      onClose,
@@ -86,18 +71,10 @@ function getMobileNavLinkClasses({ isActive }) {
         duration-300
         hover:text-muted 
         hover:bg-white/5 
-        rounded-lg 
         hover:translate-x-2
-        focus:outline-none
-        focus:ring-2
-        focus:ring-accent
         ${isActive ? 'text-muted bg-white/5 translate-x-2' : ''}
     `;
 }
-
-/**
- * MobileActionsSection - Cart i Auth dla mobile
- */
 function MobileActionsSection({
                                   cartItemsCount,
                                   onOpenCart,

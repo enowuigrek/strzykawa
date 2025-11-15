@@ -50,7 +50,7 @@ export function Footer() {
         <footer className="relative bg-primary-dark/95 border-white/10 overflow-hidden">
             {/* Main content */}
             <div className="relative z-10 container mx-auto px-4 py-8">
-                <div className="grid grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-12 items-start">
+                <div className="grid grid-cols-2 lg:grid-cols-3 gap-0 lg:gap-12 items-start">
                     {/* Logo */}
                     <div className="flex justify-center md:justify-start">
                         <div className="footer-logo">
@@ -80,9 +80,9 @@ export function Footer() {
                                                     ? 'noopener noreferrer'
                                                     : undefined
                                             }
-                                            className="flex items-start gap-3 text-base text-white/70 hover:text-accent transition-colors duration-300 group"
+                                            className="flex items-start gap-3 text-base transition-colors duration-300 group"
                                         >
-                                            <Icon className="w-5 h-5 mt-0.5 flex-shrink-0 text-white/80 group-hover:text-accent transition-colors" />
+                                            <Icon className="w-5 h-5 mt-0.5 flex-shrink-0 text-muted group-hover:text-accent transition-colors" />
                                             <div>
                                                 <div>{contact.text}</div>
                                                 {contact.subtext && (
@@ -123,11 +123,11 @@ export function Footer() {
             {/* Bottom bar */}
             <div className="relative z-10 border-t border-white/10 bg-black/95">
                 <div className="container mx-auto px-4 py-6">
-                    <div className="flex flex-col gap-4 text-sm text-white/70">
+                    <div className="flex flex-col gap-1 text-sm text-white/70">
                         {/* Row 1: three columns - copyright left, legal center, empty right */}
                         <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-y-2">
                             {/* Left: copyright */}
-                            <div className="md:w-1/3 text-white/70 text-center md:text-left">
+                            <div className="md:w-1/3 text-accent text-center md:text-left">
                                 © {currentYear} Strzykawa. Wszystkie prawa zastrzeżone.
                             </div>
 
@@ -171,29 +171,32 @@ export function Footer() {
                             <div className="flex items-center gap-3 text-white/70">
                                 <span className="text-white/60">Użyte technologie:</span>
 
-                                <div className="flex items-center gap-3">
+                                <div className="flex items-center gap-1">
                                     {/* React */}
                                     <div className="flex items-center group">
-                                        <SiReact className="w-5 h-5 transition-colors duration-300 group-hover:text-[#61DAFB]" />
-                                        <span className="ml-2 text-xs text-white/60 overflow-hidden max-w-0 group-hover:max-w-[80px] opacity-0 group-hover:opacity-100 transition-all duration-300">
+                                        <span className="mr-2 text-xs text-white/60 overflow-hidden max-w-0 group-hover:max-w-[80px] opacity-0 group-hover:opacity-100 transition-all duration-300">
                                             React
                                         </span>
+                                        <SiReact className="w-5 h-5 transition-colors duration-300 group-hover:text-[#61DAFB]" />
+
                                     </div>
 
                                     {/* Shopify */}
                                     <div className="flex items-center group">
-                                        <SiShopify className="w-5 h-5 transition-colors duration-300 group-hover:text-[#95BF47]" />
-                                        <span className="ml-2 text-xs text-white/60 overflow-hidden max-w-0 group-hover:max-w-[80px] opacity-0 group-hover:opacity-100 transition-all duration-300">
+                                        <span className="mr-2 text-xs text-white/60 overflow-hidden max-w-0 group-hover:max-w-[80px] opacity-0 group-hover:opacity-100 transition-all duration-300">
                                             Shopify
                                         </span>
+                                        <SiShopify className="w-5 h-5 transition-colors duration-300 group-hover:text-[#95BF47]" />
+
                                     </div>
 
                                     {/* Coffee */}
                                     <div className="flex items-center group">
-                                        <BiCoffeeTogo className="w-5 h-5 transition-colors duration-300 group-hover:text-[#7B4B2A]" />
-                                        <span className="ml-2 text-xs text-white/60 overflow-hidden max-w-0 group-hover:max-w-[80px] opacity-0 group-hover:opacity-100 transition-all duration-300">
+                                        <span className="mr-2 text-xs text-white/60 overflow-hidden max-w-0 group-hover:max-w-[80px] opacity-0 group-hover:opacity-100 transition-all duration-300">
                                             Kawa
                                         </span>
+                                        <BiCoffeeTogo className="w-5 h-5 transition-colors duration-300 group-hover:text-[#7B4B2A]" />
+
                                     </div>
                                 </div>
                             </div>

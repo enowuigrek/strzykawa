@@ -10,14 +10,6 @@ import { MobileMenuToggle } from '../atoms/MobileMenuToggle.jsx';
 import { HeaderModals } from '../header/HeaderModals.jsx';
 import { MobileBottomNavigation } from '../header/MobileBottomNavigation.jsx';
 
-/**
- * Header - Main navigation with auto-hide
- *
- * FIXED: Zwiększony padding żeby logo nie wpływało na wysokość
- * - py-6 lg:py-8 (było py-4 lg:py-6)
- * - Logo "pływa" w środku paddingu
- * - Taka sama wysokość jak CartHeader
- */
 export function Header() {
     // ========== STATE ==========
     const [scrolled, setScrolled] = useState(false);
@@ -110,7 +102,6 @@ export function Header() {
                 `}
             >
                 <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-                    {/* FIXED: WIĘKSZA sztywna wysokość dla logo z przestrzenią */}
                     <div className="relative flex justify-between items-center h-[100px] lg:h-[120px]">
                         {/* Logo */}
                         <Logo scrolled={scrolled} />
