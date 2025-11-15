@@ -5,28 +5,80 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
 
     <!-- SEO -->
-    <title>Strzykawa – Kawiarnia i palarnia</title>
+    <title>Strzykawa – Palarnia Kawy i Kawiarnia Specialty Coffee Częstochowa</title>
     <meta name="description"
-          content="Strzykawa — kawiarnia i palarnia specialty. Szybki przelew i oferta na wynos w centrum Częstochowy." />
-    <meta name="keywords" content="kawa, palarnia, kawiarnia, specialty coffee, Częstochowa, Strzykawa" />
+          content="Strzykawa — palarnia kawy i kawiarnia specialty coffee w centrum Częstochowy. Świeżo palona kawa, aktualne single origin na młynkach, szybki przelew i oferta na wynos. Odwiedź nas na ul. Dąbrowskiego 4." />
+    <meta name="keywords" content="palarnia kawy Częstochowa, kawiarnia specialty Częstochowa, specialty coffee Częstochowa, świeżo palona kawa, kawa ziarnista Częstochowa, filter coffee, espresso, kawa na wynos Częstochowa, Strzykawa, kawiarnia centrum Częstochowy, palarnia kawy artisan" />
     <meta name="author" content="Strzykawa Coffee Shop" />
     <meta name="theme-color" content="#1f2a25" />
     <link rel="canonical" href="https://strzykawa.com/" />
 
+    <!-- Structured Data (Local Business) -->
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "CafeOrCoffeeShop",
+            "name": "Strzykawa",
+            "description": "Palarnia kawy i kawiarnia specialty coffee w centrum Częstochowy. Świeżo palona kawa, aktualne single origin na młynkach.",
+            "image": "https://strzykawa.com/icons/icon-512x512.png",
+            "url": "https://strzykawa.com",
+            "telephone": "+48668011806",
+            "email": "kontakt@strzykawa.com",
+            "address": {
+                "@type": "PostalAddress",
+                "streetAddress": "ul. Dąbrowskiego 4",
+                "addressLocality": "Częstochowa",
+                "postalCode": "42-200",
+                "addressCountry": "PL"
+            },
+            "geo": {
+                "@type": "GeoCoordinates",
+                "latitude": "50.8118",
+                "longitude": "19.1203"
+            },
+            "servesCuisine": "Coffee",
+            "priceRange": "$$",
+            "openingHoursSpecification": [
+                {
+                    "@type": "OpeningHoursSpecification",
+                    "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+                    "opens": "08:00",
+                    "closes": "17:00"
+                },
+                {
+                    "@type": "OpeningHoursSpecification",
+                    "dayOfWeek": ["Saturday", "Sunday"],
+                    "opens": "09:00",
+                    "closes": "16:00"
+                }
+            ],
+            "currenciesAccepted": "PLN",
+            "paymentAccepted": "Cash, Credit Card, Blik, Mobile Payment",
+            "additionalProperty": [
+                {
+                    "@type": "PropertyValue",
+                    "name": "Palarnia",
+                    "value": "ul. Mstowska 1C, 42-242 Rędziny - otwarta pierwsza niedziela miesiąca"
+                }
+            ]
+        }
+    </script>
+
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website" />
-    <meta property="og:title" content="Strzykawa – Kawiarnia i palarnia" />
-    <meta property="og:description" content="Specialty coffee, aktualne kawy na młynkach, szybki przelew i oferta na wynos." />
-    <meta property="og:image" content="/icons/icon-512x512.png" />
-    <meta property="og:image:alt" content="Logo Strzykawa – kubek z aeropressem" />
+    <meta property="og:title" content="Strzykawa – Palarnia Kawy i Kawiarnia Specialty Coffee Częstochowa" />
+    <meta property="og:description" content="Świeżo palona kawa specialty, aktualne single origin na młynkach, szybki przelew i oferta na wynos w centrum Częstochowy." />
+    <meta property="og:image" content="https://strzykawa.com/icons/icon-512x512.png" />
+    <meta property="og:image:alt" content="Logo Strzykawa – palarnia kawy Częstochowa" />
     <meta property="og:url" content="https://strzykawa.com/" />
     <meta property="og:site_name" content="Strzykawa Coffee Shop" />
+    <meta property="og:locale" content="pl_PL" />
 
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Strzykawa – Kawiarnia i palarnia" />
-    <meta name="twitter:description" content="Specialty coffee, aktualne kawy na młynkach, szybki przelew i oferta na wynos." />
-    <meta name="twitter:image" content="/icons/icon-512x512.png" />
+    <meta name="twitter:title" content="Strzykawa – Palarnia Kawy Częstochowa" />
+    <meta name="twitter:description" content="Świeżo palona specialty coffee, aktualne kawy na młynkach, szybki przelew w centrum Częstochowy." />
+    <meta name="twitter:image" content="https://strzykawa.com/icons/icon-512x512.png" />
 
     <!-- Favicon + PWA -->
     <link rel="icon" type="image/png" href="/icons/icon-192x192.png" />
@@ -38,6 +90,12 @@
 
     <!-- Splash screen (placeholder — można dodać większe wersje) -->
     <link rel="apple-touch-startup-image" href="/icons/icon-512x512.png" />
+
+    <!-- Geo tags -->
+    <meta name="geo.region" content="PL-SL" />
+    <meta name="geo.placename" content="Częstochowa" />
+    <meta name="geo.position" content="50.8118;19.1203" />
+    <meta name="ICBM" content="50.8118, 19.1203" />
 </head>
 
 <body>
