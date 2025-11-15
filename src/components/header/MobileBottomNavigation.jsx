@@ -18,7 +18,7 @@ export function MobileBottomNavigation({
     // Show navigation when user starts scrolling
     useEffect(() => {
         const handleScroll = () => {
-            const scrolled = window.scrollY > 100; // Show after 100px scroll
+            const scrolled = window.scrollY > 10; // Show after 10px scroll
             setIsVisible(scrolled);
         };
 
@@ -32,10 +32,6 @@ export function MobileBottomNavigation({
         };
     }, []);
 
-    const openDirections = () => {
-        const address = encodeURIComponent('ul. Dąbrowskiego 4, 42-200 Częstochowa');
-        window.open(`https://www.google.com/maps/dir/?api=1&destination=Strzykawa`, '_blank');
-    };
 
     const handleAuthClick = () => {
         if (isAuthenticated) {
@@ -46,7 +42,7 @@ export function MobileBottomNavigation({
     };
 
     return (
-        <div className={`md:hidden fixed bottom-3 left-0 right-0 z-40 mobile-bottom-nav ${isVisible ? 'visible' : ''}`}>
+        <div className={`md:hidden fixed bottom-0 left-0 right-0 z-40 mobile-bottom-nav transition-transform duration-300 ease-out ${isVisible ? 'visible' : 'translate-y-28'}`}>
             {/* Safe area padding for devices with bottom indicators */}
             <div style={{ paddingBottom: 'env(safe-area-inset-bottom)' }} className="px-4 pb-3">
                 <div className="pointer-events-auto flex items-center justify-between rounded-full bg-primary-dark/95 border border-white/15 shadow-lg backdrop-blur-md px-4 py-2">
