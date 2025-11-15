@@ -13,6 +13,7 @@ import { useState, useEffect, useRef } from 'react';
 export function CoffeeFilterBar({
                                     selectedRoastType,
                                     onRoastTypeChange,
+                                    onSearchChange, // NOWE: callback dla search
                                     selectedCountry,
                                     onCountryRemove,
                                     selectedProcessing,
@@ -27,6 +28,7 @@ export function CoffeeFilterBar({
                                 }) {
     // Lokalny state dla instant UI feedback
     const [localActiveType, setLocalActiveType] = useState(selectedRoastType);
+    const [searchQuery, setSearchQuery] = useState(''); // NOWE: search state
     const isLocalChange = useRef(false);
 
     // Sync z props tylko gdy NIE jest to lokalna zmiana
@@ -44,6 +46,13 @@ export function CoffeeFilterBar({
         setLocalActiveType(type);
         // Async data update
         onRoastTypeChange(type);
+    };
+
+    const handleSearchChange = (e) => {
+        const value = e.target.value;
+        setSearchQuery(value);
+        // Przekaż do parent (jeśli handler istnieje)
+        onSearchChange?.(value);
     };
 
     return (
@@ -69,6 +78,8 @@ export function CoffeeFilterBar({
                         <input
                             type="text"
                             placeholder="Szukaj"
+                            value={searchQuery}
+                            onChange={handleSearchChange}
                             className="
                                 w-full
                                 pl-7

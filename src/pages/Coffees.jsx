@@ -10,6 +10,7 @@ export function Coffees() {
     const [selectedRoastType, setSelectedRoastType] = useState('');
     const [selectedCountry, setSelectedCountry] = useState('');
     const [selectedProcessing, setSelectedProcessing] = useState('');
+    const [searchQuery, setSearchQuery] = useState(''); // NOWE: search query
     const [isDrawerOpen, setIsDrawerOpen] = useState(false);
     const [isSticky, setIsSticky] = useState(false);
 
@@ -48,18 +49,39 @@ export function Coffees() {
         return () => window.removeEventListener('scroll', handleScroll);
     }, []);
 
-    // ========== FILTERING ==========
+    // ========== FILTERING (+ SEARCH) ==========
     const filteredCoffees = useMemo(() => {
         return products.filter((coffee) => {
+            // Roast type filter
             const matchesRoastType = !selectedRoastType || coffee.roastType === selectedRoastType;
+
+            // Country filter
             const matchesCountry = !selectedCountry ||
                 coffee.origin.some(o => o.country === selectedCountry);
+
+            // Processing filter
             const matchesProcessing = !selectedProcessing ||
                 coffee.origin.some(o => o.processing === selectedProcessing);
 
-            return matchesRoastType && matchesCountry && matchesProcessing;
+            // Search filter - comprehensive (title, roast type, country, processing, variety, tasting notes)
+            const searchLower = searchQuery.toLowerCase();
+            // Alias: przelew → filter
+            const normalizedSearch = searchLower === 'przelew' ? 'filter' : searchLower;
+
+            const matchesSearch = !searchQuery ||
+                coffee.title?.toLowerCase().includes(normalizedSearch) ||
+                coffee.name?.toLowerCase().includes(normalizedSearch) ||
+                coffee.roastType?.toLowerCase().includes(normalizedSearch) ||
+                coffee.tastingNotes?.some(note => note.toLowerCase().includes(normalizedSearch)) ||
+                coffee.origin?.some(o =>
+                    (o.country && o.country.toLowerCase().includes(normalizedSearch)) ||
+                    (o.processing && o.processing.toLowerCase().includes(normalizedSearch)) ||
+                    (o.variety && o.variety.some(v => v.toLowerCase().includes(normalizedSearch)))
+                );
+
+            return matchesRoastType && matchesCountry && matchesProcessing && matchesSearch;
         });
-    }, [products, selectedRoastType, selectedCountry, selectedProcessing]);
+    }, [products, selectedRoastType, selectedCountry, selectedProcessing, searchQuery]);
 
     // ========== FILTER DATA (DYNAMIC) ==========
     const filterData = useMemo(() => {
@@ -96,6 +118,7 @@ export function Coffees() {
         setSelectedRoastType('');
         setSelectedCountry('');
         setSelectedProcessing('');
+        setSearchQuery(''); // Clear search too
     };
 
     // ========== COUNTS FOR FILTER BAR ==========
@@ -154,6 +177,7 @@ export function Coffees() {
                 onRoastTypeChange={(type) =>
                     setSelectedRoastType((prev) => (prev === type ? '' : type))
                 }
+                onSearchChange={setSearchQuery} // NOWE: search handler
                 selectedCountry={selectedCountry}
                 onCountryRemove={() => setSelectedCountry('')}
                 selectedProcessing={selectedProcessing}
