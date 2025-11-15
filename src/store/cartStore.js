@@ -13,16 +13,20 @@ export const useCartStore = create(
             items: [],
             isLoading: false,
             error: null,
+            // ✅ status checkoutu: 'idle' | 'pending' | 'completed'
+            status: 'idle',
 
             // Initialize cart
             initializeCart: async () => {
-                const { cart } = get();
-                if (cart) return;
+                const { cart, status } = get();
+
+                // ✅ jeśli mamy koszyk i nie jest oznaczony jako zakończony – używamy go dalej
+                if (cart && status !== 'completed') return;
 
                 set({ isLoading: true });
                 try {
                     const newCart = await shopify.createCart();
-                    set({ cart: newCart, isLoading: false });
+                    set({ cart: newCart, isLoading: false, status: 'idle' });
                 } catch (error) {
                     console.error('Error initializing cart:', error);
                     set({ error: 'Nie udało się utworzyć koszyka', isLoading: false });
@@ -37,7 +41,6 @@ export const useCartStore = create(
                 return cart.lines.edges.map(({ node: line }) => {
                     const variant = line.merchandise;
 
-                    // 🔥 selectedOptions teraz przychodzi z GraphQL (dodane do CART_LINE_FRAGMENT w cart.js)
                     const selectedOptions = variant.selectedOptions || [];
 
                     return {
@@ -53,7 +56,7 @@ export const useCartStore = create(
                         },
                         variantId: variant.id,
                         variantTitle: variant.title,
-                        selectedOptions: selectedOptions, // 🔥 Z GraphQL, nie z attributes!
+                        selectedOptions: selectedOptions,
                         quantity: line.quantity
                     };
                 });
@@ -152,7 +155,8 @@ export const useCartStore = create(
 
             // Clear entire cart
             clearCart: () => {
-                set({ cart: null, items: [] });
+                // ✅ czyścimy też status
+                set({ cart: null, items: [], status: 'idle' });
             },
 
             // Clear error
@@ -164,10 +168,22 @@ export const useCartStore = create(
             goToCheckout: () => {
                 const { cart } = get();
                 if (cart?.checkoutUrl) {
+                    // ✅ oznaczamy, że jesteśmy w trakcie checkoutu
+                    set({ status: 'pending' });
                     window.location.href = cart.checkoutUrl;
                 } else {
                     console.error('No checkout URL available');
                 }
+            },
+
+            // ✅ Wywołasz to na stronie /checkout/success
+            markCheckoutCompleted: () => {
+                set({ cart: null, items: [], status: 'completed' });
+            },
+
+            // ✅ Wywołasz to na stronie /checkout/canceled
+            markCheckoutCanceled: () => {
+                set({ status: 'idle' });
             },
 
             // Getters
@@ -182,7 +198,6 @@ export const useCartStore = create(
                     return parseFloat(cart.cost.totalAmount.amount);
                 }
 
-                // Fallback calculation
                 const { items } = get();
                 return items.reduce((total, item) => {
                     return total + (item.product.price * item.quantity);
@@ -194,7 +209,6 @@ export const useCartStore = create(
                 return cart?.cost?.totalAmount?.currencyCode || 'PLN';
             },
 
-            // Quick add methods for coffee products
             addCoffeeToCart: async (coffeeId, quantity = 1) => {
                 try {
                     const product = await shopify.fetchProduct(coffeeId);
@@ -209,13 +223,11 @@ export const useCartStore = create(
                 }
             },
 
-            // Check if specific product is in cart
             isInCart: (productId) => {
                 const { items } = get();
                 return items.some(item => item.product.id === productId);
             },
 
-            // Get quantity of specific product in cart
             getItemQuantity: (productId) => {
                 const { items } = get();
                 const item = items.find(item => item.product.id === productId);
@@ -226,7 +238,9 @@ export const useCartStore = create(
             name: 'strzykawa-cart',
             partialize: (state) => ({
                 cart: state.cart,
-                items: state.items
+                items: state.items,
+                // ✅ zapisujemy status checkoutu w localStorage
+                status: state.status
             }),
             version: 1
         }

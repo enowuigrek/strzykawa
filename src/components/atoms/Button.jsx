@@ -1,29 +1,5 @@
 import React from 'react';
 
-/**
- * Button Component - Ultimate button combining best of both worlds
- *
- * Features:
- * - Can be <a> link (with href) or <button>
- * - Shine effect animation
- * - leftIcon + rightIcon support
- * - type prop (button/submit)
- * - fullWidth option
- * - Loading state with spinner
- * - Multiple variants and sizes
- *
- * @example
- * // As link
- * <Button href="/kawy" leftIcon={FaCoffee}>Zobacz kawy</Button>
- *
- * // As button with loading
- * <Button type="submit" loading={isSubmitting} leftIcon={FaShoppingCart}>
- *   Dodaj do koszyka
- * </Button>
- *
- * // Full width
- * <Button fullWidth variant="success">Zatwierdź</Button>
- */
 export function Button({
                            children,
                            leftIcon: LeftIcon,

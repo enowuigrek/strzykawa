@@ -2,10 +2,6 @@ import React from 'react';
 import { FaCreditCard } from 'react-icons/fa';
 import { Button } from '../atoms/Button';
 
-/**
- * CartFooter - Footer koszyka z totalem i checkout button
- * FIXED: Dodano container mx-auto dla consistency
- */
 export function CartFooter({ items, isLoading, totalPrice, onCheckout }) {
     if (items.length === 0) return null;
 

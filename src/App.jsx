@@ -16,6 +16,8 @@ import {
     ShippingAndReturns
 } from './pages/LegalPages';
 import StyleGuide from "./pages/StyleGuide.jsx";
+import {CheckoutSuccess} from "./pages/CheckoutSuccess.jsx";
+import {CheckoutCanceled} from "./pages/CheckoutCanceled.jsx";
 
 // Hook do automatycznego scrollowania na górę przy zmianie trasy
 function ScrollToTop() {
@@ -52,6 +54,8 @@ function App() {
                     <Route path="/polityka-cookies" element={<CookiePolicy />} />
                     <Route path="/dostawa-zwroty" element={<ShippingAndReturns />} />
                     <Route path="/style-guide" element={<StyleGuide />} />
+                    <Route path="/checkout/success" element={<CheckoutSuccess />} />
+                    <Route path="/checkout/canceled" element={<CheckoutCanceled />} />
                 </Routes>
             </main>
             <Footer />
