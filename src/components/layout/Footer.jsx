@@ -29,12 +29,6 @@ export function Footer() {
 
     const contactInfo = [
         {
-            icon: FaMapMarkerAlt,
-            text: 'Kawiarnia',
-            subtext: 'ul. Dąbrowskiego 4, 42-200 Częstochowa',
-            href: 'https://maps.google.com/?q=Strzykawa+Coffee+Shop+Częstochowa'
-        },
-        {
             icon: FaPhone,
             text: '+48 668 011 806',
             href: 'tel:+48668011806'
@@ -65,7 +59,7 @@ export function Footer() {
                             <img
                                 src="/logo/vertical-logo.png"
                                 alt="Strzykawa Coffee Shop & Roastery"
-                                className="w-auto h-14 md:h-32"
+                                className="w-auto h-12 md:h-32"
                             />
                         </div>
                     </div>

@@ -1,10 +1,6 @@
 import React from 'react';
 import { PageHeader } from './PageHeader';
 
-/**
- * PageLayout - Universal wrapper for all pages
- * Provides consistent layout, spacing, and optional header
- */
 export function PageLayout({
                                children,
                                title,

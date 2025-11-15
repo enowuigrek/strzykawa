@@ -18,6 +18,7 @@ import {
 import StyleGuide from "./pages/StyleGuide.jsx";
 import {CheckoutSuccess} from "./pages/CheckoutSuccess.jsx";
 import {CheckoutCanceled} from "./pages/CheckoutCanceled.jsx";
+import { NotFound } from './pages/NotFound.jsx';
 
 // Hook do automatycznego scrollowania na górę przy zmianie trasy
 function ScrollToTop() {
@@ -56,6 +57,7 @@ function App() {
                     <Route path="/style-guide" element={<StyleGuide />} />
                     <Route path="/checkout/success" element={<CheckoutSuccess />} />
                     <Route path="/checkout/canceled" element={<CheckoutCanceled />} />
+                    <Route path="*" element={<NotFound />} />
                 </Routes>
             </main>
             <Footer />
