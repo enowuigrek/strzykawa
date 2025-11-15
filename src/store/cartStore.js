@@ -4,7 +4,7 @@ import { shopify } from '../services/shopify';
 
 /**
  * Cart Store - Zustand store dla koszyka
- * UPDATED: dodany selectedOptions dla wyświetlania wariantów w koszyku
+ * FIXED: Używa variant.selectedOptions z GraphQL (dodane w cart.js)
  */
 export const useCartStore = create(
     persist(
@@ -29,24 +29,16 @@ export const useCartStore = create(
                 }
             },
 
-            // Map Shopify cart to our items format - UPDATED z selectedOptions z attributes
+            // Map Shopify cart to our items format
+            // 🔥 FIXED: Używa variant.selectedOptions z GraphQL (nie z attributes!)
             mapCartToItems: (cart) => {
                 if (!cart?.lines?.edges) return [];
 
                 return cart.lines.edges.map(({ node: line }) => {
                     const variant = line.merchandise;
 
-                    // 🔥 Wyciągnij selectedOptions z attributes (zapisane przy dodawaniu)
-                    const selectedOptionsAttr = line.attributes?.find(attr => attr.key === 'selected_options')?.value;
-                    let selectedOptions = [];
-
-                    if (selectedOptionsAttr) {
-                        try {
-                            selectedOptions = JSON.parse(selectedOptionsAttr);
-                        } catch (e) {
-                            console.error('Error parsing selectedOptions:', e);
-                        }
-                    }
+                    // 🔥 selectedOptions teraz przychodzi z GraphQL (dodane do CART_LINE_FRAGMENT w cart.js)
+                    const selectedOptions = variant.selectedOptions || [];
 
                     return {
                         lineItemId: line.id,
@@ -61,13 +53,13 @@ export const useCartStore = create(
                         },
                         variantId: variant.id,
                         variantTitle: variant.title,
-                        selectedOptions: selectedOptions, // 🔥 Z attributes
+                        selectedOptions: selectedOptions, // 🔥 Z GraphQL, nie z attributes!
                         quantity: line.quantity
                     };
                 });
             },
 
-            // Add item to cart - ZAPISZ selectedOptions w attributes
+            // Add item to cart
             addItem: async (product, variantId, quantity = 1) => {
                 set({ isLoading: true, error: null });
 
@@ -78,10 +70,6 @@ export const useCartStore = create(
                     if (!cart) {
                         throw new Error('Brak koszyka');
                     }
-
-                    // 🔥 Znajdź variant żeby dostać selectedOptions
-                    const variant = product.variants?.find(v => v.id === variantId);
-                    const selectedOptions = variant?.selectedOptions || [];
 
                     const lines = [{
                         merchandiseId: variantId,
@@ -167,11 +155,15 @@ export const useCartStore = create(
                 set({ cart: null, items: [] });
             },
 
+            // Clear error
+            clearError: () => {
+                set({ error: null });
+            },
+
             // Go to checkout
             goToCheckout: () => {
                 const { cart } = get();
                 if (cart?.checkoutUrl) {
-                    // Wyczyść koszyk przed przekierowaniem
                     window.location.href = cart.checkoutUrl;
                 } else {
                     console.error('No checkout URL available');

@@ -4,11 +4,10 @@ import { QuantitySelector } from '../atoms/QuantitySelector';
 
 /**
  * CartItem - Produkt w koszyku
- * REDESIGN:
- * - Sharp corners
- * - QuantitySelector zamiast +/- buttons
- * - Auto-remove przy quantity=0
- * - Neutral background (no rounded card)
+ * REDESIGN v3:
+ * - Zmniejszony QuantitySelector (size="sm")
+ * - Ciemniejsze zielone pastylki (jak na przykładzie)
+ * - Biały tekst na ciemnym tle
  */
 export function CartItem({ item, onUpdateQuantity, onRemove, isLoading }) {
     const { product, quantity, lineItemId } = item;
@@ -37,13 +36,13 @@ export function CartItem({ item, onUpdateQuantity, onRemove, isLoading }) {
                 <div className="flex-1 min-w-0">
                     <h4 className="font-semibold text-white truncate">{product.name}</h4>
 
-                    {/* Variant pills */}
+                    {/* Variant pills - ciemny zielony jak na przykładzie */}
                     {item.selectedOptions?.length > 0 && (
                         <div className="flex flex-wrap gap-1.5 mt-1.5">
                             {item.selectedOptions.map((option) => (
                                 <span
                                     key={option.name}
-                                    className="inline-flex items-center px-2 py-0.5 bg-accent/20 border border-accent/30 text-accent text-xs font-medium rounded-full"
+                                    className="inline-flex items-center px-3 py-1 bg-[#3A5F55] text-white text-xs font-medium rounded-full"
                                 >
                                     {option.value}
                                 </span>
@@ -63,12 +62,12 @@ export function CartItem({ item, onUpdateQuantity, onRemove, isLoading }) {
             {/* Bottom row */}
             <div className="flex items-center justify-between mt-4">
 
-                {/* QuantitySelector */}
+                {/* QuantitySelector - SIZE SM (mniejszy!) */}
                 <QuantitySelector
                     quantity={quantity}
                     onQuantityChange={handleQuantityChange}
                     disabled={isLoading}
-                    size="md"
+                    size="sm"
                 />
 
                 {/* Price + Remove */}

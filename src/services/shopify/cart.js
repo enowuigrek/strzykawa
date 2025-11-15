@@ -1,6 +1,8 @@
 /**
  * Shopify Cart API
  * Handles all cart operations (create, add, update, remove, get)
+ *
+ * FIXED: Dodano selectedOptions do CART_LINE_FRAGMENT
  */
 
 // Fragment for cart line with attributes
@@ -18,6 +20,10 @@ const CART_LINE_FRAGMENT = `
             price {
                 amount
                 currencyCode
+            }
+            selectedOptions {
+                name
+                value
             }
             product {
                 id
