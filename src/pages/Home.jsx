@@ -9,6 +9,7 @@ import { HeroReviews } from '../components/features/hero/HeroReviews.jsx';
 import { SocialLinks } from '../components/SocialLinks.jsx';
 import heroVideoDesktop from '../assets/hero-desktop.mp4';
 import heroVideoMobile from '../assets/hero-mobile.mp4';
+import {PageLayout} from "../components/layout/PageLayout.jsx";
 
 export function Home() {
     const [showContent, setShowContent] = React.useState(false);
@@ -40,12 +41,11 @@ export function Home() {
             </div>
 
             {/* Sekcja "O Strzykawie" - najeżdża na hero */}
-            <section className="relative z-20 min-h-screen bg-primary pt-24 pb-24">
-                <div className="container mx-auto max-w-4xl">
-
-                    {/* Header sekcji */}
+            <PageLayout className="relative z-20  bg-primary pt-14">
+                <div className="container">
+                {/* Header sekcji */}
                     <div className="text-center mb-16">
-                        <div className="inline-flex items-center gap-3 mb-6 scale-150">
+                        <div className="inline-flex items-center gap-3 mb-6 scale-100 md:scale-150">
                             <Logo />
                         </div>
                     </div>
@@ -115,10 +115,9 @@ export function Home() {
 
                         {/* SOCIAL LINKS */}
                         <SocialLinks />
-
                     </div>
                 </div>
-            </section>
+            </PageLayout>
         </div>
     );
 }

@@ -21,15 +21,6 @@ html, body {
 
 #root {
     min-height: 100vh;
-    /* Padding bottom dla mobile bottom navigation - zmniejszony */
-    padding-bottom: 70px; /* Zmniejszona wysokość */
-}
-
-/* Na desktop nie potrzebujemy tego paddingu */
-@media (min-width: 768px) {
-    #root {
-        padding-bottom: 0;
-    }
 }
 
 * {
