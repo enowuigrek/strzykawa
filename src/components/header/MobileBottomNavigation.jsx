@@ -104,12 +104,13 @@ export function MobileBottomNavigation({
 
     return (
         <div className={`md:hidden fixed bottom-0 left-0 right-0 z-[100] mobile-bottom-nav transition-transform duration-300 ease-out ${isVisible ? 'visible' : 'translate-y-28'}`}>
-            {/* Blur fade-out rectangle - od połowy wysokości nav bar do dołu ekranu */}
+            {/* Blur fade-out rectangle - zaczyna się od środka nav bar, sięga do address bar */}
             <div
-                className="pointer-events-none absolute inset-x-0 bottom-0 h-16  backdrop-blur-md"
+                className="pointer-events-none absolute inset-x-0 backdrop-blur-md"
                 style={{
-                    background: 'linear-gradient(to bottom, transparent 0%, rgba(0, 0, 0, 0.3) 100%)',
-                    paddingBottom: 'max(env(safe-area-inset-bottom), 16px)'
+                    top: '50%',
+                    height: '200px',
+                    background: 'linear-gradient(to bottom, transparent 0%, rgba(31, 42, 37, 0.3) 40%, rgba(31, 42, 37, 0.7) 75%, rgba(31, 42, 37, 0.95) 100%)'
                 }}
             />
 
