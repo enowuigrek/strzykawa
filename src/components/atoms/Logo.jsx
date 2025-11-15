@@ -1,14 +1,5 @@
 import { Link } from 'react-router-dom';
 
-/**
- * Logo - Navigation logo component
- *
- * Komponent logo z linkiem do strony głównej
- * Automatycznie scrolluje na górę po kliknięciu
- *
- * @param {boolean} scrolled - Czy strona jest przewinięta (dla animacji)
- * @param {string} size - Rozmiar logo: 'sm', 'md', 'lg', 'xl'
- */
 export function Logo({ scrolled, size = 'md' }) {
     const handleClick = () => {
         // Scroll to top po nawigacji

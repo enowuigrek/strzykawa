@@ -1,12 +1,5 @@
 import React from 'react';
 
-/**
- * CloseButton - Reusable close button with hamburger-style X
- *
- * FIXED: Identyczny positioning jak MobileMenuToggle w stanie isOpen
- * - Użycie translate-y-1 i -translate-y-2 jak w MobileMenuToggle
- * - flex-col items-center justify-center (nie absolute na kreskach)
- */
 export function CloseButton({
                                 onClick,
                                 className = '',

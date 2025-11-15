@@ -4,13 +4,6 @@ import { QuantitySelector } from './atoms/QuantitySelector';
 import { Button } from './atoms/Button';
 import { CloseButton } from './atoms/CloseButton';
 
-/**
- * QuickAddModal - Modal do szybkiego dodawania do koszyka
- * ULTIMATE FIX:
- * - Czerwone tło + opacity + line-through dla niedostępnych (BEZ tekstu)
- * - Licznik size="md" (mniejszy)
- * - Wszystkie przyciski tej samej wysokości
- */
 export function QuickAddModal({ coffee, isOpen, onClose, onAddToCart }) {
     const [selectedVariant, setSelectedVariant] = useState(null);
     const [quantity, setQuantity] = useState(1);
@@ -123,14 +116,14 @@ export function QuickAddModal({ coffee, isOpen, onClose, onAddToCart }) {
                 >
                     {/* Header */}
                     <div className="flex items-center justify-between p-4">
-                        <h3 className="text-lg font-bold text-white">
+                        <h3 className="text-xl font-semibold text-white">
                             {coffee.name}
                         </h3>
                         <CloseButton onClick={onClose} />
                     </div>
                     {/* Subtle divider under header title (like cart header) */}
                     <div className="px-4">
-                        <div className="border-b border-white/30"></div>
+                        <div className="border-b border-white/10"></div>
                     </div>
 
                     {/* Content */}
@@ -233,7 +226,7 @@ export function QuickAddModal({ coffee, isOpen, onClose, onAddToCart }) {
                         </div>
 
                         {/* Total price */}
-                        <div className="p-3 bg-accent/10 border border-accent/20">
+                        <div className="p-3  border-t border-accent/20">
                             <div className="flex justify-between items-center">
                                 <span className="text-white font-medium">Razem:</span>
                                 <span className="text-xl font-bold text-white">

@@ -43,7 +43,7 @@ export function SocialLinks() {
                             aria-label={`Odwiedź nasz ${social.name}`}
                         >
                             <Icon className="text-white text-xl" />
-                            <span className="text-white font-medium hidden sm:inline">
+                            <span className="text-white font-medium sm:inline">
                                 {social.name}
                             </span>
                         </a>

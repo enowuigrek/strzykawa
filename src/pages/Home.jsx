@@ -41,11 +41,11 @@ export function Home() {
             </div>
 
             {/* Sekcja "O Strzykawie" - najeżdża na hero */}
-            <PageLayout className="relative z-20  bg-primary pt-14">
+            <PageLayout className="relative z-20 bg-primary pt-14 pb-20">
                 <div className="container">
                 {/* Header sekcji */}
                     <div className="text-center mb-16">
-                        <div className="inline-flex items-center gap-3 mb-6 scale-100 md:scale-150">
+                        <div className="inline-flex items-center gap-3 mb-6 scale-125 md:scale-150">
                             <Logo />
                         </div>
                     </div>

@@ -2,13 +2,6 @@ import React from 'react';
 import { FaShoppingCart } from 'react-icons/fa';
 import { CartItem } from './CartItem';
 
-/**
- * CartContent - Zawartość koszyka (lista produktów)
- *
- * FIXED: Container mx-auto dla consistency
- * - Nie dodaje top padding (CartHeader już ma swój)
- * - Zachowuje side + bottom padding dla contentu
- */
 export function CartContent({ items, isLoading, onUpdateQuantity, onRemove }) {
     return (
         <div className="flex-1 overflow-y-auto min-h-0">

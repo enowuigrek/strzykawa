@@ -29,6 +29,12 @@ export function Footer() {
 
     const contactInfo = [
         {
+            icon: FaMapMarkerAlt,
+            text: 'Kawiarnia',
+            subtext: 'ul. Dąbrowskiego 4, 42-200 Częstochowa',
+            href: 'https://maps.google.com/?q=Strzykawa+Coffee+Shop+Częstochowa'
+        },
+        {
             icon: FaPhone,
             text: '+48 668 011 806',
             href: 'tel:+48668011806'
@@ -49,25 +55,27 @@ export function Footer() {
     return (
         <footer className="relative bg-primary-dark/95 border-white/10 overflow-hidden">
             {/* Main content */}
-            <div className="relative z-10 container mx-auto px-4 py-8">
-                <div className="grid grid-cols-2 lg:grid-cols-3 gap-0 lg:gap-12 items-start">
-                    {/* Logo */}
-                    <div className="flex justify-center md:justify-start">
+            <div className="relative z-10 container mx-auto px-4 py-6 md:py-8">
+                {/* Mobile: 2 kolumny (Logo | Kontakt+Social) */}
+                {/* Desktop: 3 kolumny (Logo | Kontakt | Social) */}
+                <div className="grid grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-16 items-start">
+                    {/* Logo - mobile 1/2, desktop 1/3 */}
+                    <div className="flex justify-center lg:justify-start col-span-1">
                         <div className="footer-logo">
                             <img
                                 src="/logo/vertical-logo.png"
                                 alt="Strzykawa Coffee Shop & Roastery"
-                                className="w-auto h-32"
+                                className="w-auto h-20 md:h-32"
                             />
                         </div>
                     </div>
 
-                    {/* Kontakt + Social Media */}
-                    <div className="col-span-1 lg:col-span-2 lg:grid lg:grid-cols-2 lg:gap-12 space-y-10 lg:space-y-0">
-                        {/* Kontakt (środkowa kolumna na desktopie) */}
-                        <div className="space-y-4">
-                            <h4 className="text-xl font-semibold text-white">Kontakt</h4>
-                            <div className="space-y-3">
+                    {/* Kontakt + Social (mobile razem w 1 kolumnie, desktop osobno) */}
+                    <div className="col-span-1 lg:col-span-2 lg:grid lg:grid-cols-2 lg:gap-12 space-y-6 lg:space-y-0">
+                        {/* Kontakt */}
+                        <div className="space-y-3 md:space-y-4">
+                            <h4 className="text-base md:text-xl font-semibold text-white">Kontakt</h4>
+                            <div className="space-y-2 md:space-y-3">
                                 {contactInfo.map((contact, index) => {
                                     const Icon = contact.icon;
                                     return (
@@ -80,13 +88,17 @@ export function Footer() {
                                                     ? 'noopener noreferrer'
                                                     : undefined
                                             }
-                                            className="flex items-start gap-3 text-base transition-colors duration-300 group"
+                                            className="flex items-start gap-2 md:gap-3 text-xs md:text-base transition-colors duration-300 group"
                                         >
-                                            <Icon className="w-5 h-5 mt-0.5 flex-shrink-0 text-muted group-hover:text-accent transition-colors" />
-                                            <div>
-                                                <div>{contact.text}</div>
+                                            <Icon className="w-3.5 h-3.5 md:w-5 md:h-5 mt-0.5 flex-shrink-0 text-muted group-hover:text-accent transition-colors" />
+                                            <div className="flex-1 min-w-0">
+                                                <div className="text-white/90 group-hover:text-white transition-colors break-words">
+                                                    {contact.text}
+                                                </div>
                                                 {contact.subtext && (
-                                                    <div className="text-white/50">{contact.subtext}</div>
+                                                    <div className="text-white/50 text-[10px] md:text-sm break-words">
+                                                        {contact.subtext}
+                                                    </div>
                                                 )}
                                             </div>
                                         </a>
@@ -95,10 +107,10 @@ export function Footer() {
                             </div>
                         </div>
 
-                        {/* Social Media (prawa kolumna na desktopie) */}
-                        <div className="space-y-4 lg:text-right">
-                            <h4 className="text-xl font-semibold text-white">Social Media</h4>
-                            <div className="flex gap-4 lg:justify-end">
+                        {/* Social Media */}
+                        <div className="space-y-3 md:space-y-4 lg:text-right">
+                            <h4 className="text-base md:text-xl font-semibold text-white">Social Media</h4>
+                            <div className="flex gap-3 md:gap-4 lg:justify-end">
                                 {socialLinks.map((social, index) => {
                                     const Icon = social.icon;
                                     return (
@@ -110,7 +122,7 @@ export function Footer() {
                                             aria-label={social.label}
                                             className={`text-white/70 transition-all duration-300 hover:scale-110 ${social.hoverColor}`}
                                         >
-                                            <Icon className="w-8 h-8" />
+                                            <Icon className="w-6 h-6 md:w-8 md:h-8" />
                                         </a>
                                     );
                                 })}
@@ -123,16 +135,29 @@ export function Footer() {
             {/* Bottom bar */}
             <div className="relative z-10 border-t border-white/10 bg-black/95">
                 <div className="container mx-auto px-4 py-6">
-                    <div className="flex flex-col gap-1 text-sm text-white/70">
-                        {/* Row 1: three columns - copyright left, legal center, empty right */}
-                        <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-y-2">
-                            {/* Left: copyright */}
-                            <div className="md:w-1/3 text-accent text-center md:text-left">
-                                © {currentYear} Strzykawa. Wszystkie prawa zastrzeżone.
-                            </div>
+                    <div className="flex flex-col gap-3 text-sm text-white/70">
+                        {/* Row 1: Copyright (left) */}
+                        <div className="text-accent text-center md:text-left">
+                            © {currentYear} Strzykawa. Wszystkie prawa zastrzeżone.
+                        </div>
+
+                        {/* Row 2: Project (left), Legal links (center), Technologies (right) */}
+                        <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-3">
+                            {/* Left: project credit */}
+                            <span className="text-white/70 text-center md:text-left">
+                                <span className="text-white/60">Projekt i wykonanie: </span>
+                                <a
+                                    href="https://lukasznowak.dev"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="text-white hover:text-accent transition-colors"
+                                >
+                                    lukasznowak.dev
+                                </a>
+                            </span>
 
                             {/* Center: legal links */}
-                            <div className="md:w-1/3 flex flex-wrap justify-center gap-x-2 gap-y-1 text-center text-white/70">
+                            <div className="flex flex-wrap justify-center gap-x-2 gap-y-1 text-center text-white/70">
                                 {legalLinks.map((link, index) => (
                                     <React.Fragment key={index}>
                                         <a
@@ -148,28 +173,9 @@ export function Footer() {
                                 ))}
                             </div>
 
-                            {/* Right: empty column for visual balance */}
-                            <div className="md:w-1/3" />
-                        </div>
-
-                        {/* Row 2: Project (left) and technologies (right) */}
-                        <div className="flex flex-wrap items-center justify-between gap-3">
-                            {/* Left: project credit */}
-                            <span className="text-white/70">
-                                <span className="text-white/60">Projekt i wykonanie: </span>
-                                <a
-                                    href="https://lukasznowak.dev"
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    className="text-white hover:text-accent transition-colors"
-                                >
-                                    lukasznowak.dev
-                                </a>
-                            </span>
-
                             {/* Right: technologies */}
-                            <div className="flex items-center gap-3 text-white/70">
-                                <span className="text-white/60">Użyte technologie:</span>
+                            <div className="flex flex-col sm:flex-row items-center justify-center md:justify-end gap-2 sm:gap-3 text-white/70">
+                                <span className="text-white/60 text-center">Użyte technologie:</span>
 
                                 <div className="flex items-center gap-1">
                                     {/* React */}
@@ -178,7 +184,6 @@ export function Footer() {
                                             React
                                         </span>
                                         <SiReact className="w-5 h-5 transition-colors duration-300 group-hover:text-[#61DAFB]" />
-
                                     </div>
 
                                     {/* Shopify */}
@@ -187,7 +192,6 @@ export function Footer() {
                                             Shopify
                                         </span>
                                         <SiShopify className="w-5 h-5 transition-colors duration-300 group-hover:text-[#95BF47]" />
-
                                     </div>
 
                                     {/* Coffee */}
@@ -196,7 +200,6 @@ export function Footer() {
                                             Kawa
                                         </span>
                                         <BiCoffeeTogo className="w-5 h-5 transition-colors duration-300 group-hover:text-[#7B4B2A]" />
-
                                     </div>
                                 </div>
                             </div>
