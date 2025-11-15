@@ -4,12 +4,6 @@ import { CartHeader } from './CartHeader';
 import { CartContent } from './CartContent';
 import { CartFooter } from './CartFooter';
 
-/**
- * CartModal - Główny komponent koszyka
- * FIXED:
- * - Full width na mobile (jak menu)
- * - max-w-md tylko na desktop
- */
 export function CartModal({ isOpen, onClose }) {
     const {
         items,
