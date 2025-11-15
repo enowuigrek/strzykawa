@@ -65,7 +65,7 @@ export function Footer() {
                             <img
                                 src="/logo/vertical-logo.png"
                                 alt="Strzykawa Coffee Shop & Roastery"
-                                className="w-auto h-20 md:h-32"
+                                className="w-auto h-14 md:h-32"
                             />
                         </div>
                     </div>
@@ -74,7 +74,7 @@ export function Footer() {
                     <div className="col-span-1 lg:col-span-2 lg:grid lg:grid-cols-2 lg:gap-12 space-y-6 lg:space-y-0">
                         {/* Kontakt */}
                         <div className="space-y-3 md:space-y-4">
-                            <h4 className="text-base md:text-xl font-semibold text-white">Kontakt</h4>
+                            <h4 className="text-xl md:text-xl font-semibold text-white">Kontakt</h4>
                             <div className="space-y-2 md:space-y-3">
                                 {contactInfo.map((contact, index) => {
                                     const Icon = contact.icon;
@@ -88,15 +88,15 @@ export function Footer() {
                                                     ? 'noopener noreferrer'
                                                     : undefined
                                             }
-                                            className="flex items-start gap-2 md:gap-3 text-xs md:text-base transition-colors duration-300 group"
+                                            className="flex items-start gap-2 md:gap-3 text-base md:text-base transition-colors duration-300 group"
                                         >
-                                            <Icon className="w-3.5 h-3.5 md:w-5 md:h-5 mt-0.5 flex-shrink-0 text-muted group-hover:text-accent transition-colors" />
+                                            <Icon className="w-5 h-5 md:w-5 md:h-5 mt-0.5 flex-shrink-0 text-muted group-hover:text-accent transition-colors" />
                                             <div className="flex-1 min-w-0">
                                                 <div className="text-white/90 group-hover:text-white transition-colors break-words">
                                                     {contact.text}
                                                 </div>
                                                 {contact.subtext && (
-                                                    <div className="text-white/50 text-[10px] md:text-sm break-words">
+                                                    <div className="text-white/50 text-sm md:text-sm break-words">
                                                         {contact.subtext}
                                                     </div>
                                                 )}
@@ -109,7 +109,7 @@ export function Footer() {
 
                         {/* Social Media */}
                         <div className="space-y-3 md:space-y-4 lg:text-right">
-                            <h4 className="text-base md:text-xl font-semibold text-white">Social Media</h4>
+                            <h4 className="text-xl md:text-xl font-semibold text-white">Social Media</h4>
                             <div className="flex gap-3 md:gap-4 lg:justify-end">
                                 {socialLinks.map((social, index) => {
                                     const Icon = social.icon;
@@ -122,7 +122,7 @@ export function Footer() {
                                             aria-label={social.label}
                                             className={`text-white/70 transition-all duration-300 hover:scale-110 ${social.hoverColor}`}
                                         >
-                                            <Icon className="w-6 h-6 md:w-8 md:h-8" />
+                                            <Icon className="w-8 h-8 md:w-8 md:h-8" />
                                         </a>
                                     );
                                 })}
