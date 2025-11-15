@@ -26,12 +26,12 @@ export function CartModal({ isOpen, onClose }) {
         <>
             {/* Backdrop */}
             <div
-                className="fixed inset-0 bg-black/50 backdrop-blur-sm z-[100]"
+                className="fixed inset-0 bg-black/50 backdrop-blur-sm z-[190]"
                 onClick={onClose}
             />
 
             {/* Modal - Full width mobile, max-w-md desktop */}
-            <div className="fixed right-0 top-0 h-full w-full md:max-w-md bg-primary-dark border-l border-white/20 z-[100] shadow-2xl flex flex-col">
+            <div className="fixed right-0 top-0 h-full w-full md:max-w-md bg-primary-dark border-l border-white/20 z-[200] shadow-2xl flex flex-col">
                 <CartHeader
                     totalItems={getTotalItems()}
                     onClose={onClose}

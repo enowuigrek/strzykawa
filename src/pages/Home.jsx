@@ -41,7 +41,7 @@ export function Home() {
             </div>
 
             {/* Sekcja "O Strzykawie" - najeżdża na hero */}
-            <PageLayout className="relative z-20 bg-primary pt-14 pb-20">
+            <PageLayout className="relative z-20 bg-primary pt-8 pb-20">
                 <div className="container">
                 {/* Header sekcji */}
                     <div className="text-center mb-16">

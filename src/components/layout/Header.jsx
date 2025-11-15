@@ -29,18 +29,23 @@ export function Header() {
         const handleScroll = () => {
             const currentScrollY = window.scrollY;
 
+            // Kolorowanie po 100px
             setScrolled(currentScrollY > 100);
 
-            // Auto-hide logic
-            if (currentScrollY < 270) {
-                setHideHeader(false);
-            } else {
-                if (currentScrollY > lastScrollY && currentScrollY - lastScrollY > 20) {
+            // Auto-hide po 300px (jak scroll w dół)
+            if (currentScrollY > 300) {
+                // Scrollujemy w dół - ukryj header
+                if (currentScrollY > lastScrollY) {
                     setHideHeader(true);
                     setMobileMenuOpen(false);
-                } else if (currentScrollY < lastScrollY && lastScrollY - currentScrollY > 5) {
+                }
+                // Scrollujemy w górę - pokaż header
+                else if (currentScrollY < lastScrollY) {
                     setHideHeader(false);
                 }
+            } else {
+                // Poniżej 300px - zawsze pokazuj
+                setHideHeader(false);
             }
 
             setLastScrollY(currentScrollY);
@@ -94,6 +99,26 @@ export function Header() {
 
     return (
         <>
+            {/* Mobile Hamburger - FIXED w kontenerze jak CartHeader */}
+            <div
+                className="md:hidden fixed z-[150] w-full pointer-events-none"
+                style={{
+                    top: 'calc(env(safe-area-inset-top, 0px))'
+                }}
+            >
+                <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+                    <div className="relative flex justify-between items-center h-[100px]">
+                        <div /> {/* Spacer dla justify-between */}
+                        <div className="absolute right-0 top-1/2 -translate-y-1/2 pointer-events-auto">
+                            <MobileMenuToggle
+                                isOpen={mobileMenuOpen}
+                                onToggle={() => setMobileMenuOpen(!mobileMenuOpen)}
+                            />
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             {/* Main Header - ALWAYS VISIBLE */}
             <header
                 style={{ paddingTop: 'env(safe-area-inset-top)' }}
@@ -125,14 +150,6 @@ export function Header() {
                                 onOpenCart={modalActions.openCart}
                                 onOpenLogin={modalActions.openLogin}
                                 onLogout={handleLogout}
-                            />
-                        </div>
-
-                        {/* Mobile Hamburger - ALWAYS in header */}
-                        <div className="md:hidden absolute right-0 top-1/2 -translate-y-1/2 z-50">
-                            <MobileMenuToggle
-                                isOpen={mobileMenuOpen}
-                                onToggle={() => setMobileMenuOpen(!mobileMenuOpen)}
                             />
                         </div>
                     </div>
