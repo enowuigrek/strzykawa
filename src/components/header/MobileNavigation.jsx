@@ -7,6 +7,8 @@ export function MobileNavigation({
                                      isOpen,
                                      onClose,
                                      cartItemsCount,
+                                     isCartOpen,
+                                     isLoginOpen,
                                      onOpenCart,
                                      onOpenLogin,
                                      onLogout
@@ -46,6 +48,8 @@ export function MobileNavigation({
                 {/* Mobile Auth & Cart Section */}
                 <MobileActionsSection
                     cartItemsCount={cartItemsCount}
+                    isCartOpen={isCartOpen}
+                    isLoginOpen={isLoginOpen}
                     onOpenCart={() => { onOpenCart(); onClose(); }}
                     onOpenLogin={() => { onOpenLogin(); onClose(); }}
                     onLogout={onLogout}
@@ -75,8 +79,11 @@ function getMobileNavLinkClasses({ isActive }) {
         ${isActive ? 'text-muted bg-white/5 translate-x-2' : ''}
     `;
 }
+
 function MobileActionsSection({
                                   cartItemsCount,
+                                  isCartOpen,
+                                  isLoginOpen,
                                   onOpenCart,
                                   onOpenLogin,
                                   onLogout,
@@ -85,16 +92,22 @@ function MobileActionsSection({
                               }) {
     return (
         <div className="pt-4 border-t border-white/10 space-y-3">
-            {/* Cart - z ZIELONYM badge (identyczny jak CartHeader) */}
+            {/* Cart - podświetlony gdy otwarty */}
             <button
                 onClick={onOpenCart}
-                className="flex items-center space-x-3 px-4 py-3 text-white hover:bg-white/5 rounded-lg w-full text-left transition-all duration-300"
+                className={`
+                    flex items-center space-x-3 px-4 py-3 rounded-lg w-full text-left transition-all duration-300
+                    ${isCartOpen
+                    ? 'bg-cta/20 text-white'
+                    : 'text-white hover:bg-white/5'
+                }
+                `}
                 aria-label={`Otwórz koszyk (${cartItemsCount} produktów)`}
             >
                 <FaShoppingCart className="w-4 h-4" />
                 <span className="flex items-center gap-2">
                     Koszyk
-                    {cartItemsCount > 0 && (
+                    {cartItemsCount > 0 && !isCartOpen && (
                         <span className="px-2 py-0.5 bg-green-500 text-white text-xs font-bold rounded-full">
                             {cartItemsCount}
                         </span>
@@ -108,7 +121,13 @@ function MobileActionsSection({
             ) : (
                 <button
                     onClick={onOpenLogin}
-                    className="flex items-center space-x-3 px-4 py-3 text-white hover:bg-accent/20 rounded-lg w-full text-left transition-all duration-300"
+                    className={`
+                        flex items-center space-x-3 px-4 py-3 rounded-lg w-full text-left transition-all duration-300
+                        ${isLoginOpen
+                        ? 'bg-cta/20 text-white'
+                        : 'text-white hover:bg-accent/20'
+                    }
+                    `}
                     aria-label="Zaloguj się"
                 >
                     <FaUser className="w-4 h-4" />

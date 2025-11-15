@@ -4,7 +4,7 @@ import { Header } from './components/layout/Header.jsx';
 import { Footer } from './components/layout/Footer.jsx';
 import { Home } from './pages/Home.jsx';
 import { Coffees }from './pages/Coffees.jsx';
-import { CoffeeDetail } from './pages/CoffeeDetail.jsx'; // ✅ NOWY IMPORT
+import { CoffeeDetail } from './pages/CoffeeDetail.jsx';
 import { About } from "./pages/About.jsx";
 import { ContactSection } from "./pages/ContactSection.jsx";
 import { B2B } from './pages/B2B.jsx';
@@ -42,7 +42,7 @@ function App() {
                 <Routes>
                     <Route path="/" element={<Home />} />
                     <Route path="/kawy" element={<Coffees />} />
-                    <Route path="/kawy/:handle" element={<CoffeeDetail />} /> {/* ✅ NOWY ROUTE */}
+                    <Route path="/kawy/:handle" element={<CoffeeDetail />} />
                     <Route path="/o-nas" element={<About />} />
                     <Route path="/b2b" element={<B2B />} />
                     <Route path="/kontakt" element={<ContactSection />} />

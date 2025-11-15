@@ -58,12 +58,20 @@ export function Header() {
         openLogin: () => {
             setShowLoginModal(true);
             setShowRegisterModal(false);
+            setShowCartModal(false);
         },
         openRegister: () => {
             setShowRegisterModal(true);
             setShowLoginModal(false);
+            setShowCartModal(false);
         },
-        openCart: () => setShowCartModal(true),
+        openCart: () => {
+            setShowCartModal(true);
+            setShowLoginModal(false);
+            setShowRegisterModal(false);
+        },
+        closeCart: () => setShowCartModal(false),
+        closeLogin: () => setShowLoginModal(false),
         closeAll: () => {
             setShowLoginModal(false);
             setShowRegisterModal(false);
@@ -74,6 +82,7 @@ export function Header() {
     const handleLogout = () => {
         logout();
         closeMobileMenu();
+        modalActions.closeAll();
     };
 
     // ========== STYLING ==========
@@ -133,6 +142,8 @@ export function Header() {
                         isOpen={mobileMenuOpen}
                         onClose={closeMobileMenu}
                         cartItemsCount={getTotalItems()}
+                        isCartOpen={showCartModal}
+                        isLoginOpen={showLoginModal}
                         onOpenCart={modalActions.openCart}
                         onOpenLogin={modalActions.openLogin}
                         onLogout={handleLogout}
@@ -142,8 +153,12 @@ export function Header() {
 
             {/* Mobile Bottom Navigation */}
             <MobileBottomNavigation
+                isCartOpen={showCartModal}
+                isLoginOpen={showLoginModal}
                 onOpenCart={modalActions.openCart}
+                onCloseCart={modalActions.closeCart}
                 onOpenLogin={modalActions.openLogin}
+                onCloseLogin={modalActions.closeLogin}
                 onLogout={handleLogout}
             />
 
@@ -160,6 +175,8 @@ export function Header() {
                 cartModal={{
                     isOpen: showCartModal
                 }}
+                onCloseCart={modalActions.closeCart}
+                onCloseLogin={modalActions.closeLogin}
                 onCloseAll={modalActions.closeAll}
             />
         </>

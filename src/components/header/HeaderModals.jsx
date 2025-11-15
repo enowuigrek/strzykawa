@@ -7,13 +7,15 @@ export function HeaderModals({
                                  loginModal,
                                  registerModal,
                                  cartModal,
+                                 onCloseCart,
+                                 onCloseLogin,
                                  onCloseAll
                              }) {
     return (
         <>
             <LoginModal
                 isOpen={loginModal.isOpen}
-                onClose={onCloseAll}
+                onClose={onCloseLogin || onCloseAll}
                 onSwitchToRegister={loginModal.onSwitchToRegister}
             />
             <RegisterModal
@@ -23,7 +25,7 @@ export function HeaderModals({
             />
             <CartModal
                 isOpen={cartModal.isOpen}
-                onClose={onCloseAll}
+                onClose={onCloseCart || onCloseAll}
             />
         </>
     );
