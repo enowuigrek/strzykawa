@@ -11,7 +11,7 @@ export function ComingSoon() {
                     <img
                         src="/logo/vertical-logo.png"
                         alt="Strzykawa Coffee Shop & Roastery"
-                        className="h-80 md:h-80 w-auto"
+                        className="h-64 md:h-80 w-auto"
                         style={{
                             filter: 'brightness(0) saturate(100%) invert(100%)'
                         }}
