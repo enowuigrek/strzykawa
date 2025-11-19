@@ -25,7 +25,7 @@ export function ComingSoon() {
                     </p>
                     <p className="text-lg text-muted max-w-2xl mx-auto">
                         Już wkrótce uruchomimy nasz sklep online!
-                        <br className="hidden md:block" />
+                        <br/>
                         Będziesz mógł zamówić swoją ulubioną kawę z dostawą do domu.
                     </p>
                 </div>
