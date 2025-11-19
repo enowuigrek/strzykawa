@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 
-// ✅ Export tylko formOptions (bez ikon - używamy tekstu)
 export const formOptions = [
     { value: 'whole',  label: 'Ziarna' },
     { value: 'ground', label: 'Mielona' },

@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { Routes, Route, useLocation } from 'react-router-dom';
+import { ComingSoon } from './pages/ComingSoon.jsx';
 import { Header } from './components/layout/Header.jsx';
 import { Footer } from './components/layout/Footer.jsx';
 import { Home } from './pages/Home.jsx';
@@ -20,6 +21,9 @@ import {CheckoutSuccess} from "./pages/CheckoutSuccess.jsx";
 import {CheckoutCanceled} from "./pages/CheckoutCanceled.jsx";
 import { NotFound } from './pages/NotFound.jsx';
 
+// 🚨 COMING SOON MODE - Zmień na false gdy chcesz włączyć pełną stronę
+const COMING_SOON_MODE = true;
+
 // Hook do automatycznego scrollowania na górę przy zmianie trasy
 function ScrollToTop() {
     const { pathname } = useLocation();
@@ -37,6 +41,16 @@ function ScrollToTop() {
 
 // The main application component. It defines top-level layout and routing.
 function App() {
+    // 🚨 Jeśli COMING_SOON_MODE = true, pokazuj tylko Coming Soon
+    if (COMING_SOON_MODE) {
+        return (
+            <div className="app">
+                <ComingSoon />
+            </div>
+        );
+    }
+
+    // 🟢 Normalna strona (gdy COMING_SOON_MODE = false)
     return (
         <div className="app">
             <ScrollToTop />

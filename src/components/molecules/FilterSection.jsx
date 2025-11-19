@@ -1,9 +1,7 @@
 import React from 'react';
 import { Chip } from '../atoms/Chip.jsx';
 
-/**
- * FilterSection Component - Sekcja filtrów z tytułem i listą opcji
- */
+
 export function FilterSection({
                                   title,
                                   options = [],

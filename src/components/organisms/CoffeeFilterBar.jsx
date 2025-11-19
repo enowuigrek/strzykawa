@@ -3,13 +3,6 @@ import { Chip } from '../atoms/Chip';
 import { FaSearch } from 'react-icons/fa';
 import { useState, useEffect, useRef } from 'react';
 
-/**
- * CoffeeFilterBar - Sticky filter bar with search and coffee type filters
- *
- * Optimistic UI:
- * - Lokalny state dla instant feedback
- * - Ignoruje parent updates gdy lokalnie zmieniliśmy (optimistic)
- */
 export function CoffeeFilterBar({
                                     selectedRoastType,
                                     onRoastTypeChange,
