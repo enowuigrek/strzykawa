@@ -82,7 +82,7 @@ export function ComingSoon() {
 
                 {/* Footer info */}
                 <div className="mt-16 text-center text-white/50 text-sm">
-                    <p>© 2024 Strzykawa Coffee Shop & Roastery</p>
+                    <p>© 2025 Strzykawa Coffee Shop & Roastery</p>
                 </div>
             </div>
         </div>
