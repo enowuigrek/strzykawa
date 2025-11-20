@@ -47,7 +47,7 @@
                 },
                 {
                     "@type": "OpeningHoursSpecification",
-                    "dayOfWeek": ["Saturday", "Sunday"],
+                    "dayOfWeek": ["Saturday"],
                     "opens": "09:00",
                     "closes": "16:00"
                 }
@@ -80,10 +80,17 @@
     <meta name="twitter:description" content="Palarnia kawy i kawiarnia specialty coffee w centrum Częstochowy. Świeżo palona kawa z najlepszych ziaren." />
     <meta name="twitter:image" content="https://strzykawa.com/logo/og-image.png" />
 
-    <!-- Favicon + PWA -->
-    <link rel="icon" type="image/png" href="/icons/icon-192x192.png" />
-    <link rel="apple-touch-icon" href="/icons/icon-192x192.png" />
+    <!-- Favicon -->
+    <link rel="icon" href="/favicon.ico" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+
+    <!-- Apple / iOS -->
+    <link rel="apple-touch-icon" sizes="180x180" href="/icons/icon-180x180.png" />
+
+    <!-- PWA / Android -->
     <link rel="manifest" href="/manifest.json" />
+    <meta name="theme-color" content="#1f2a25" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
     <meta name="apple-mobile-web-app-title" content="Strzykawa" />
