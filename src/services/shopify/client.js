@@ -1,8 +1,3 @@
-/**
- * Shopify API Client - Core
- * Handles authentication and GraphQL requests
- */
-
 class ShopifyClient {
     constructor() {
         this.domain = import.meta.env.VITE_SHOPIFY_DOMAIN;
@@ -10,11 +5,13 @@ class ShopifyClient {
         this.apiUrl = `https://${this.domain}/api/2023-10/graphql.json`;
 
         if (!this.domain || !this.storefrontToken) {
-            console.warn('⚠️ Shopify credentials not found. Using mock data.');
-            this.useMockData = true;
-        } else {
-            console.log('✅ Shopify client initialized');
+            throw new Error(
+                '❌ Shopify credentials not configured!\n' +
+                'Check .env file and ensure VITE_SHOPIFY_DOMAIN and VITE_SHOPIFY_STOREFRONT_TOKEN are set.'
+            );
         }
+
+        console.log('✅ Shopify client initialized');
     }
 
     /**
@@ -24,10 +21,6 @@ class ShopifyClient {
      * @returns {Promise<object>} Response data
      */
     async graphqlFetch(query, variables = {}) {
-        if (this.useMockData) {
-            throw new Error('Mock mode - use getMockResponse from mocks.js');
-        }
-
         try {
             const response = await fetch(this.apiUrl, {
                 method: 'POST',

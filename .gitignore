@@ -21,3 +21,6 @@ prompt.md
 *-prompt.md
 component-refactor-plan.md
 *-component-refactor-plan.md
+
+# Style Guide (development only)
+/src/pages/StyleGuide.jsx

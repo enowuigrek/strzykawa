@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import { ImageModal } from '../ImageModal';
-import { MobileCarousel } from '../MobileCarousel';
-import strzykawaImg01 from '../../assets/strzykawa-01.jpg';
-import strzykawaImg02 from '../../assets/strzykawa-02.jpg';
-import strzykawaImg07 from '../../assets/strzykawa-07.jpg';
-import strzykawaImg06 from '../../assets/strzykawa-06.jpg';
+import { ImageModal } from '../../molecules/ImageModal';
+import { MobileCarousel } from '../../molecules/MobileCarousel';
+import strzykawaImg01 from '../../../assets/strzykawa-01.jpg';
+import strzykawaImg02 from '../../../assets/strzykawa-02.jpg';
+import strzykawaImg07 from '../../../assets/strzykawa-07.jpg';
+import strzykawaImg06 from '../../../assets/strzykawa-06.jpg';
 
 export function PhotoGallery() {
     const [modalOpen, setModalOpen] = useState(false);

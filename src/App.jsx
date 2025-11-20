@@ -9,7 +9,6 @@ import { CoffeeDetail } from './pages/CoffeeDetail.jsx';
 import { About } from "./pages/About.jsx";
 import { ContactSection } from "./pages/ContactSection.jsx";
 import { B2B } from './pages/B2B.jsx';
-import { ShopifyDebugger } from './components/ShopifyDebugger.jsx';
 import { TermsAndConditions } from "./pages/TermsAndConditions.jsx";
 import {
     PrivacyPolicy,
@@ -63,7 +62,6 @@ function App() {
                     <Route path="/o-nas" element={<About />} />
                     <Route path="/b2b" element={<B2B />} />
                     <Route path="/kontakt" element={<ContactSection />} />
-                    <Route path="/debug-shopify" element={<ShopifyDebugger />} />
                     <Route path="/regulamin" element={<TermsAndConditions />} />
                     <Route path="/polityka-prywatnosci" element={<PrivacyPolicy />} />
                     <Route path="/polityka-cookies" element={<CookiePolicy />} />

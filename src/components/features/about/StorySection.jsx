@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import { ImageModal } from '../ImageModal';
-import { MobileCarousel } from '../MobileCarousel';
-import strzykawaImg04 from '../../assets/strzykawa-04.jpg';
-import strzykawaImg05 from '../../assets/strzykawa-05.jpg';
+import { ImageModal } from '../../molecules/ImageModal';
+import { MobileCarousel } from '../../molecules/MobileCarousel';
+import strzykawaImg04 from '../../../assets/strzykawa-04.jpg';
+import strzykawaImg05 from '../../../assets/strzykawa-05.jpg';
 
 export function StorySection() {
     const [modalOpen, setModalOpen] = useState(false);
