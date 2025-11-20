@@ -1,15 +1,15 @@
 import React from 'react';
 import { HeroBackground } from '../components/features/hero/HeroBackground.jsx';
+import {PageLayout} from "../components/layout/PageLayout.jsx";
 import { Tagline } from '../components/features/hero/Tagline.jsx';
 import { ActionButtons } from '../components/features/hero/ActionButtons.jsx';
 import { ScrollDownIndicator } from '../components/features/hero/ScrollDownIndicator.jsx';
 import {FaCoffee, FaLeaf, FaHeart, FaFire} from 'react-icons/fa';
 import { Logo } from "../components/atoms/Logo.jsx";
 import { HeroReviews } from '../components/features/hero/HeroReviews.jsx';
-import { SocialLinks } from '../components/SocialLinks.jsx';
+import { SocialLinks } from '../components/molecules/SocialLinks.jsx';
 import heroVideoDesktop from '../assets/hero-desktop.mp4';
 import heroVideoMobile from '../assets/hero-mobile.mp4';
-import {PageLayout} from "../components/layout/PageLayout.jsx";
 
 export function Home() {
     const [showContent, setShowContent] = React.useState(false);

@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { FaUser, FaLock, FaEye, FaEyeSlash, FaEnvelope, FaUserPlus } from 'react-icons/fa';
-import { useAuthStore } from '../store/authStore';
-import { Button } from './atoms/Button';
-import { CloseButton } from './atoms/CloseButton';
+import { useAuthStore } from '../../store/authStore.js';
+import { Button } from '../atoms/Button.jsx';
+import { CloseButton } from '../atoms/CloseButton.jsx';
 
 /**
  * RegisterModal - Modal rejestracji

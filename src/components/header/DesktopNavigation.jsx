@@ -1,12 +1,6 @@
 import { NavLink } from 'react-router-dom';
 import { NAV_ITEMS } from '../../constants/navigation.js';
 
-/**
- * DesktopNavigation - Desktop navigation menu
- *
- * Wyświetla główne linki nawigacyjne dla dużych ekranów
- * Ukrywa się na urządzeniach mobile (<lg)
- */
 export function DesktopNavigation() {
     return (
         <nav
@@ -27,9 +21,6 @@ export function DesktopNavigation() {
     );
 }
 
-/**
- * Style dla linków nawigacyjnych z active state
- */
 function getNavLinkClasses({ isActive }) {
     return `
         relative 

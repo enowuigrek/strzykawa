@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { FaShoppingCart, FaExclamationCircle } from 'react-icons/fa';
-import { QuantitySelector } from './atoms/QuantitySelector';
-import { Button } from './atoms/Button';
-import { CloseButton } from './atoms/CloseButton';
+import { QuantitySelector } from '../atoms/QuantitySelector.jsx';
+import { Button } from '../atoms/Button.jsx';
+import { CloseButton } from '../atoms/CloseButton.jsx';
 
 export function QuickAddModal({ coffee, isOpen, onClose, onAddToCart }) {
     const [selectedVariant, setSelectedVariant] = useState(null);

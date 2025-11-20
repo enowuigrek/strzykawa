@@ -99,7 +99,6 @@ export function Header() {
 
     return (
         <>
-            {/* Mobile Hamburger - FIXED w kontenerze jak CartHeader */}
             <div
                 className="md:hidden fixed z-[150] w-full pointer-events-none"
                 style={{

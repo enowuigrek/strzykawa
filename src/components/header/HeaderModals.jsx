@@ -1,6 +1,6 @@
 import React from 'react';
-import { LoginModal } from '../LoginModal.jsx';
-import { RegisterModal } from '../RegisterModal.jsx';
+import { LoginModal } from '../modals/LoginModal.jsx';
+import { RegisterModal } from '../modals/RegisterModal.jsx';
 import { CartModal } from '../cart/CartModal.jsx';
 
 export function HeaderModals({

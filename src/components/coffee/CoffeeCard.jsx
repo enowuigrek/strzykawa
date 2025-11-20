@@ -3,7 +3,7 @@ import { useCartStore } from '../../store/cartStore.js';
 import { CoffeeCardMedia } from './CoffeeCardMedia';
 import { CoffeeCardContent } from './CoffeeCardContent';
 import { CoffeeCardActions } from './CoffeeCardActions';
-import { QuickAddModal } from '../QuickAddModal';
+import { QuickAddModal } from '../modals/QuickAddModal.jsx';
 
 /**
  * CoffeeCard - z Quick Add Modal

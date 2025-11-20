@@ -10,7 +10,6 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@react-buddy/ide-toolbox": "^2.4.0",
     "@tailwindcss/typography": "^0.5.16",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
