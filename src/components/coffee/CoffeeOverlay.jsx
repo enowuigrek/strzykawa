@@ -6,10 +6,30 @@ import { COUNTRY_COLORS, DEFAULT_COUNTRY_COLOR } from '../../constants/colors.js
  * CoffeeOverlay - Style jak na naklejce z nagłówkiem kraju
  */
 export function CoffeeOverlay({ coffee, isOpen }) {
+    // Check if it's a blend (multiple origins)
+    const isBlend = coffee?.origin?.length > 1;
     const origin = coffee?.origin?.[0] || {};
-
     const country = origin.country || '';
-    const bgColor = coffee.themeColor || COUNTRY_COLORS[country] || DEFAULT_COUNTRY_COLOR;
+
+    // Determine background color/gradient based on blend status
+    let backgroundStyle;
+    if (isBlend && coffee.origin[1]) {
+        // Blend: horizontal gradient from first to second country color
+        const country1 = coffee.origin[0]?.country || '';
+        const country2 = coffee.origin[1]?.country || '';
+        const color1 = coffee.themeColor || COUNTRY_COLORS[country1] || DEFAULT_COUNTRY_COLOR;
+        const color2 = COUNTRY_COLORS[country2] || DEFAULT_COUNTRY_COLOR;
+
+        // Horizontal gradient with subtle vertical darkening overlay
+        backgroundStyle = `
+            linear-gradient(to top, rgba(0,0,0,0.08), transparent 40%, rgba(0,0,0,0.05)),
+            linear-gradient(to right, ${color1}, ${color2})
+        `;
+    } else {
+        // Single origin: existing vertical gradient
+        const bgColor = coffee.themeColor || COUNTRY_COLORS[country] || DEFAULT_COUNTRY_COLOR;
+        backgroundStyle = `linear-gradient(to top, ${bgColor}f2, ${bgColor}e6 40%, ${bgColor}cc)`;
+    }
 
     // IF: Jeśli nazwa zaczyna się od kraju, usuń kraj z nazwy
     let displayName = coffee.name;
@@ -42,12 +62,12 @@ export function CoffeeOverlay({ coffee, isOpen }) {
             className={`
                 absolute inset-0
                 backdrop-blur-md
-                transition-transform duration-300 ease-out
+                transition-all duration-300 ease-out
                 block
-                ${isOpen ? 'translate-y-0 z-20' : 'translate-y-full pointer-events-none'}
+                ${isOpen ? 'translate-y-0 opacity-100 z-20' : 'translate-y-full opacity-0 pointer-events-none'}
             `}
             style={{
-                background: `linear-gradient(to top, ${bgColor}f2, ${bgColor}e6 40%, ${bgColor}cc)`
+                background: backgroundStyle
             }}
         >
             <div className="h-full overflow-y-auto p-3 flex flex-col items-center justify-center">
