@@ -4,6 +4,7 @@ import { FiFilter } from 'react-icons/fi';
 import { Button } from '../atoms/Button';
 import { Chip } from '../atoms/Chip';
 import { FilterSection } from '../molecules/FilterSection';
+import { useBackdropClick } from '../../hooks/useBackdropClick.js';
 
 /**
  * FilterDrawer Component - Mobile drawer z filtrami
@@ -34,12 +35,7 @@ export function FilterDrawer({
     // Count total active filters
     const totalActiveFilters = Object.values(activeFilters).flat().length;
 
-    // Handle backdrop click
-    const handleBackdropClick = (e) => {
-        if (e.target === e.currentTarget) {
-            onClose();
-        }
-    };
+    const handleBackdropClick = useBackdropClick(onClose);
 
     // Handle apply
     const handleApply = () => {

@@ -3,6 +3,7 @@ import { FaShoppingCart, FaExclamationCircle } from 'react-icons/fa';
 import { QuantitySelector } from '../atoms/QuantitySelector.jsx';
 import { Button } from '../atoms/Button.jsx';
 import { CloseButton } from '../atoms/CloseButton.jsx';
+import { useBackdropClick } from '../../hooks/useBackdropClick.js';
 
 export function QuickAddModal({ coffee, isOpen, onClose, onAddToCart }) {
     const [selectedVariant, setSelectedVariant] = useState(null);
@@ -87,12 +88,7 @@ export function QuickAddModal({ coffee, isOpen, onClose, onAddToCart }) {
         }, 500);
     };
 
-    // Handle backdrop click
-    const handleBackdropClick = (e) => {
-        if (e.target === e.currentTarget) {
-            onClose();
-        }
-    };
+    const handleBackdropClick = useBackdropClick(onClose);
 
     const price = selectedVariant?.price || '0.00';
     const totalPrice = (parseFloat(price) * quantity).toFixed(2);
