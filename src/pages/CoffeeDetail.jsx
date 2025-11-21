@@ -10,6 +10,7 @@ import { Button } from '../components/atoms/Button';
 import { Spinner } from '../components/atoms/Spinner';
 import { shopify } from '../services/shopify';
 import { useCartStore } from '../store/cartStore';
+import { ROAST_TYPE_COLORS } from '../constants/colors';
 import { FaShoppingCart, FaTag } from 'react-icons/fa';
 
 /**
@@ -150,17 +151,10 @@ export function CoffeeDetail() {
 
                             {/* Roast Type Badge */}
                             {coffee.roastType && (
-                                <div className={`
-                                    absolute -top-2 right-0
-                                    w-16 h-16 rounded-full
-                                    flex items-center justify-center
-                                    text-xs uppercase tracking-wider
-                                    shadow-lg transform
-                                    ${coffee.roastType === 'Filter'
-                                    ? 'bg-blue-500 text-white'
-                                    : 'bg-gradient-to-br from-amber-600 to-amber-800 text-white'
-                                }
-                                `}>
+                                <div
+                                    className="absolute -top-2 right-0 w-16 h-16 rounded-full flex items-center justify-center text-xs uppercase tracking-wider text-white shadow-lg transform"
+                                    style={{ backgroundColor: ROAST_TYPE_COLORS[coffee.roastType] || ROAST_TYPE_COLORS.Espresso }}
+                                >
                                     {getRoastTypeDisplay(coffee.roastType)}
                                 </div>
                             )}

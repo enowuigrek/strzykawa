@@ -15,3 +15,12 @@ export const COUNTRY_COLORS = {
  * Domyślny kolor dla krajów nie na liście
  */
 export const DEFAULT_COUNTRY_COLOR = '#F1CE6A';
+
+/**
+ * Kolory dla typów parzenia (Espresso / Filter)
+ * Używane na badges w kartach produktów i szczegółach
+ */
+export const ROAST_TYPE_COLORS = {
+  Espresso: '#C48F62', // badge-orange
+  Filter: '#7A8FA6',   // badge-blue
+};
