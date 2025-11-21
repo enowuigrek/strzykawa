@@ -192,55 +192,56 @@ export function CoffeeDetail() {
                             onVariantChange={setSelectedVariant}
                         />
 
-                        {/* Quantity & Add to Cart */}
-                        <div className="space-y-3 pt-4 border-t border-white/10">
-                            {/* Liczba - SIZE MD (mniejszy) */}
-                            <div>
-                                <label className="block text-sm font-semibold text-white mb-2">
-                                    Liczba
-                                </label>
-                                <QuantitySelector
-                                    quantity={quantity}
-                                    onQuantityChange={setQuantity}
-                                    min={1}
-                                    max={20}
-                                    size="md"
-                                    disabled={!isAvailable}
-                                />
-                            </div>
-
-                            {/* Przycisk dodaj - DISABLED gdy niedostępne */}
-                            <Button
-                                onClick={handleAddToCart}
-                                disabled={addingToCart || !isAvailable}
-                                loading={addingToCart}
-                                leftIcon={FaShoppingCart}
-                                variant="primary"
-                                size="lg"
-                                fullWidth
-                            >
-                                <span className="hidden sm:inline">
-                                    {addingToCart ? 'Dodawanie...' :
-                                        !isAvailable ? 'Niedostępne' :
-                                            'Dodaj do koszyka'}
-                                </span>
-                                <span className="sm:hidden">
-                                    {addingToCart ? 'Dodawanie...' :
-                                        !isAvailable ? 'Niedostępne' :
-                                            'Dodaj'}
-                                </span>
-                            </Button>
-
-                            {/* Total Price Preview */}
-                            <div className="space-y-3 pt-4 border-t border-white/10">
-                                <div className="flex justify-between items-center">
-                                    <span className="text-white">Razem:</span>
-                                    <span className="text-xl text-white">
-                                        {isAvailable ? `${(price * quantity).toFixed(2)} zł` : 'Niedostępne'}
-                                    </span>
-                                </div>
-                            </div>
+                        {/* Liczba - w tej samej sekcji co warianty */}
+                        <div>
+                            <label className="block text-sm font-semibold text-white mb-2">
+                                Liczba
+                            </label>
+                            <QuantitySelector
+                                quantity={quantity}
+                                onQuantityChange={setQuantity}
+                                min={1}
+                                max={20}
+                                size="md"
+                                disabled={!isAvailable}
+                            />
                         </div>
+
+                        {/* Divider */}
+                        <div className="border-t border-accent/20"></div>
+
+                        {/* Razem */}
+                        <div className="flex justify-between items-center py-2">
+                            <span className="text-white font-medium">Razem:</span>
+                            <span className="text-xl font-bold text-white">
+                                {isAvailable ? `${(price * quantity).toFixed(2)} zł` : 'Niedostępne'}
+                            </span>
+                        </div>
+
+                        {/* Divider */}
+                        <div className="border-t border-accent/20"></div>
+
+                        {/* Przycisk dodaj */}
+                        <Button
+                            onClick={handleAddToCart}
+                            disabled={addingToCart || !isAvailable}
+                            loading={addingToCart}
+                            leftIcon={FaShoppingCart}
+                            variant="primary"
+                            size="lg"
+                            fullWidth
+                        >
+                            <span className="hidden sm:inline">
+                                {addingToCart ? 'Dodawanie...' :
+                                    !isAvailable ? 'Niedostępne' :
+                                        'Dodaj do koszyka'}
+                            </span>
+                            <span className="sm:hidden">
+                                {addingToCart ? 'Dodawanie...' :
+                                    !isAvailable ? 'Niedostępne' :
+                                        'Dodaj'}
+                            </span>
+                        </Button>
                     </div>
                 </div>
 
