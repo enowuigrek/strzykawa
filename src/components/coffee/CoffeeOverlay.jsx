@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { COUNTRY_COLORS, DEFAULT_COUNTRY_COLOR } from '../../constants/colors.js';
 
 /**
  * CoffeeOverlay - Style jak na naklejce z nagłówkiem kraju
@@ -7,18 +8,8 @@ import { Link } from 'react-router-dom';
 export function CoffeeOverlay({ coffee, isOpen }) {
     const origin = coffee?.origin?.[0] || {};
 
-    // Kolory kraju
-    const COUNTRY_COLOR = {
-        Brazylia: '#1b8851',
-        Kolumbia: '#F4C64E',
-        Etiopia:  '#4AA3DF',
-        Kenia:    '#982121',
-        Peru:     '#8B6CEB',
-        Rwanda:   '#527ff2',
-
-    };
     const country = origin.country || '';
-    const bgColor = coffee.themeColor || COUNTRY_COLOR[country] || '#F1CE6A';
+    const bgColor = coffee.themeColor || COUNTRY_COLORS[country] || DEFAULT_COUNTRY_COLOR;
 
     // IF: Jeśli nazwa zaczyna się od kraju, usuń kraj z nazwy
     let displayName = coffee.name;

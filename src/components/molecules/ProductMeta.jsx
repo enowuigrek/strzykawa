@@ -1,4 +1,5 @@
 import React from 'react';
+import { COUNTRY_COLORS, DEFAULT_COUNTRY_COLOR } from '../../constants/colors.js';
 
 /**
  * ProductMeta - Metadane produktu z akcentem koloru kraju
@@ -7,17 +8,8 @@ import React from 'react';
 export function ProductMeta({ coffee }) {
     const origin = coffee?.origin?.[0] || {};
 
-    // Kolory kraju - jako akcent
-    const COUNTRY_COLOR = {
-        Brazylia: '#1b8851',
-        Kolumbia: '#F4C64E',
-        Etiopia:  '#4AA3DF',
-        Kenia:    '#b62424',
-        Peru:     '#8B6CEB',
-        Rwanda:   '#F29C52',
-    };
     const country = origin.country || '';
-    const accentColor = coffee.themeColor || COUNTRY_COLOR[country] || '#F1CE6A';
+    const accentColor = coffee.themeColor || COUNTRY_COLORS[country] || DEFAULT_COUNTRY_COLOR;
 
     const metaItems = [];
 
