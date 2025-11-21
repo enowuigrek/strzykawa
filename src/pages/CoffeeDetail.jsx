@@ -192,34 +192,31 @@ export function CoffeeDetail() {
                             onVariantChange={setSelectedVariant}
                         />
 
-                        {/* Liczba - w tej samej sekcji co warianty */}
-                        <div>
-                            <label className="block text-sm font-semibold text-white mb-2">
-                                Liczba
-                            </label>
-                            <QuantitySelector
-                                quantity={quantity}
-                                onQuantityChange={setQuantity}
-                                min={1}
-                                max={20}
-                                size="md"
-                                disabled={!isAvailable}
-                            />
-                        </div>
-
                         {/* Divider */}
                         <div className="border-t border-accent/20"></div>
 
-                        {/* Razem */}
+                        {/* Razem + Liczba w jednym rzędzie */}
                         <div className="flex justify-between items-center py-2">
-                            <span className="text-white font-medium">Razem:</span>
-                            <span className="text-xl font-bold text-white">
-                                {isAvailable ? `${(price * quantity).toFixed(2)} zł` : 'Niedostępne'}
-                            </span>
+                            <div>
+                                <span className="text-white font-medium">Razem:</span>
+                                <span className="text-xl font-bold text-white ml-3">
+                                    {isAvailable ? `${(price * quantity).toFixed(2)} zł` : 'Niedostępne'}
+                                </span>
+                            </div>
+                            <div className="flex items-center gap-3">
+                                <label className="text-sm font-semibold text-white">
+                                    Liczba
+                                </label>
+                                <QuantitySelector
+                                    quantity={quantity}
+                                    onQuantityChange={setQuantity}
+                                    min={1}
+                                    max={20}
+                                    size="md"
+                                    disabled={!isAvailable}
+                                />
+                            </div>
                         </div>
-
-                        {/* Divider */}
-                        <div className="border-t border-accent/20"></div>
 
                         {/* Przycisk dodaj */}
                         <Button
