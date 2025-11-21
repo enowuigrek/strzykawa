@@ -20,8 +20,9 @@ import {CheckoutSuccess} from "./pages/CheckoutSuccess.jsx";
 import {CheckoutCanceled} from "./pages/CheckoutCanceled.jsx";
 import { NotFound } from './pages/NotFound.jsx';
 
-// 🚨 COMING SOON MODE - Zmień na false gdy chcesz włączyć pełną stronę
-const COMING_SOON_MODE = true;
+// 🚨 COMING SOON MODE - Kontrolowane przez zmienną środowiskową
+// Lokalne: .env.development (false) | Produkcja: .env.production (true)
+const COMING_SOON_MODE = import.meta.env.VITE_COMING_SOON === 'true';
 
 // Hook do automatycznego scrollowania na górę przy zmianie trasy
 function ScrollToTop() {

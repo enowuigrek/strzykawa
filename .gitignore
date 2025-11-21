@@ -12,7 +12,8 @@ dist/
 *.lock
 
 # environment variables
-.env
+# NOTE: .env.development i .env.production SĄ w repo (konfiguracja publiczna)
+# Tylko .env.local i .env.*.local są ignorowane (sekrety lokalne)
 .env.local
 .env.*.local
 
