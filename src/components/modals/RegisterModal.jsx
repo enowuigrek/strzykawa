@@ -85,7 +85,7 @@ const RegisterModal = ({ isOpen, onClose, onSwitchToLogin }) => {
                 <div className="w-full max-w-md bg-primary-dark border border-white/20 shadow-2xl max-h-[90vh] overflow-y-auto">
 
                     {/* Header */}
-                    <div className="flex items-center justify-between p-6 border-b border-white/10">
+                    <div className="flex items-center justify-between p-6">
                         <div className="flex items-center gap-3">
                             <div className="p-2 bg-accent/20 border border-accent/30">
                                 <FaUser className="w-5 h-5 text-accent" />
@@ -93,6 +93,10 @@ const RegisterModal = ({ isOpen, onClose, onSwitchToLogin }) => {
                             <h2 className="text-xl font-bold text-white">Utwórz konto</h2>
                         </div>
                         <CloseButton onClick={onClose} />
+                    </div>
+                    {/* Divider - nie dotyka krawędzi */}
+                    <div className="px-6">
+                        <div className="border-b border-white/10"></div>
                     </div>
 
                     {/* Form */}

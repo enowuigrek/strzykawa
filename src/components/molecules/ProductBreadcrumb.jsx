@@ -11,7 +11,7 @@ export function ProductBreadcrumb({ coffeeName }) {
             {/* Back button - mobile */}
             <Link
                 to="/kawy"
-                className="lg:hidden inline-flex items-center gap-2 px-4 py-2 bg-primary-light border border-accent/30 text-white hover:bg-accent/20 hover:border-accent transition-all"
+                className="lg:hidden inline-flex items-center gap-2 px-5 py-2.5 bg-primary-light border border-accent/30 text-muted hover:bg-accent/20 hover:text-white rounded-full transition-all"
             >
                 <FaArrowLeft className="w-4 h-4" />
                 <span>Powrót</span>

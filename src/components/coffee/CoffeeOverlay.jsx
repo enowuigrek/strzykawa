@@ -6,21 +6,33 @@ import { COUNTRY_COLORS, DEFAULT_COUNTRY_COLOR } from '../../constants/colors.js
  * CoffeeOverlay - Style jak na naklejce z nagłówkiem kraju
  */
 export function CoffeeOverlay({ coffee, isOpen }) {
-    // Check if it's a blend (multiple origins)
-    const isBlend = coffee?.origin?.length > 1;
     const origin = coffee?.origin?.[0] || {};
     const country = origin.country || '';
 
+    // Check if it's a blend - either multiple origins OR comma-separated countries in one origin
+    const countries = country.includes(',')
+        ? country.split(',').map(c => c.trim())
+        : [country];
+    const isBlend = countries.length > 1 || coffee?.origin?.length > 1;
+
     // Determine background color/gradient based on blend status
     let backgroundStyle;
-    if (isBlend && coffee.origin[1]) {
-        // Blend: horizontal gradient from first to second country color
+    if (isBlend && countries.length > 1) {
+        // Blend with comma-separated countries: horizontal gradient
+        const color1 = coffee.themeColor || COUNTRY_COLORS[countries[0]] || DEFAULT_COUNTRY_COLOR;
+        const color2 = COUNTRY_COLORS[countries[1]] || DEFAULT_COUNTRY_COLOR;
+
+        backgroundStyle = `
+            linear-gradient(to top, rgba(0,0,0,0.08), transparent 40%, rgba(0,0,0,0.05)),
+            linear-gradient(to right, ${color1}, ${color2})
+        `;
+    } else if (isBlend && coffee?.origin?.length > 1) {
+        // Blend with multiple origin objects: horizontal gradient
         const country1 = coffee.origin[0]?.country || '';
         const country2 = coffee.origin[1]?.country || '';
         const color1 = coffee.themeColor || COUNTRY_COLORS[country1] || DEFAULT_COUNTRY_COLOR;
         const color2 = COUNTRY_COLORS[country2] || DEFAULT_COUNTRY_COLOR;
 
-        // Horizontal gradient with subtle vertical darkening overlay
         backgroundStyle = `
             linear-gradient(to top, rgba(0,0,0,0.08), transparent 40%, rgba(0,0,0,0.05)),
             linear-gradient(to right, ${color1}, ${color2})
@@ -64,7 +76,7 @@ export function CoffeeOverlay({ coffee, isOpen }) {
                 backdrop-blur-md
                 transition-all duration-300 ease-out
                 block
-                ${isOpen ? 'translate-y-0 opacity-100 z-20' : 'translate-y-full opacity-0 pointer-events-none'}
+                ${isOpen ? 'translate-y-0 opacity-100' : 'translate-y-full opacity-0 pointer-events-none'} z-20
             `}
             style={{
                 background: backgroundStyle
