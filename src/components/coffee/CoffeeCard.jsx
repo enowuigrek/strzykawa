@@ -4,6 +4,7 @@ import { CoffeeCardMedia } from './CoffeeCardMedia';
 import { CoffeeCardContent } from './CoffeeCardContent';
 import { CoffeeCardActions } from './CoffeeCardActions';
 import { QuickAddModal } from '../modals/QuickAddModal.jsx';
+import { ANIMATION_DURATION, FEEDBACK_DURATION } from '../../constants/timings.js';
 
 /**
  * CoffeeCard - z Quick Add Modal
@@ -28,8 +29,8 @@ export function CoffeeCard({ coffee }) {
         setTimeout(() => {
             setIsAdding(false);
             setJustAdded(true);
-            setTimeout(() => setJustAdded(false), 2000);
-        }, 500);
+            setTimeout(() => setJustAdded(false), FEEDBACK_DURATION.SUCCESS);
+        }, ANIMATION_DURATION.MEDIUM);
     };
 
     return (

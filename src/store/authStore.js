@@ -1,4 +1,5 @@
 import { create } from 'zustand';
+import { LOADING_DELAY } from '../constants/timings.js';
 
 // Mock user data for development
 const mockUsers = [
@@ -23,7 +24,7 @@ export const useAuthStore = create((set, get) => ({
 
         try {
             // Mock API delay
-            await new Promise(resolve => setTimeout(resolve, 1000));
+            await new Promise(resolve => setTimeout(resolve, LOADING_DELAY.LOGIN));
 
             // Find user in mock data
             const user = mockUsers.find(u => u.email === email && u.password === password);
@@ -51,7 +52,7 @@ export const useAuthStore = create((set, get) => ({
 
         try {
             // Mock API delay
-            await new Promise(resolve => setTimeout(resolve, 1200));
+            await new Promise(resolve => setTimeout(resolve, LOADING_DELAY.REGISTER));
 
             // Check if user already exists
             const existingUser = mockUsers.find(u => u.email === email);

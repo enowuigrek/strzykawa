@@ -4,6 +4,7 @@ import { PageLayout } from "../components/layout/PageLayout.jsx";
 import { CoffeeFilterBar } from '../components/organisms/CoffeeFilterBar';
 import { CoffeeGrid } from '../components/organisms/CoffeeGrid';
 import { FilterDrawer } from '../components/organisms/FilterDrawer';
+import { SCROLL_THRESHOLDS } from '../constants/timings.js';
 
 export function Coffees() {
     // ========== STATE ==========
@@ -44,7 +45,7 @@ export function Coffees() {
 
     // ========== SCROLL DETECTION ==========
     useEffect(() => {
-        const handleScroll = () => setIsSticky(window.scrollY > 480);
+        const handleScroll = () => setIsSticky(window.scrollY > SCROLL_THRESHOLDS.STICKY_FILTERS);
         window.addEventListener('scroll', handleScroll);
         return () => window.removeEventListener('scroll', handleScroll);
     }, []);
