@@ -24,4 +24,4 @@ component-refactor-plan.md
 *-component-refactor-plan.md
 
 # Style Guide (development only)
-/src/pages/StyleGuide.jsx
+/src/pages/StyleGuide.jsx.env
