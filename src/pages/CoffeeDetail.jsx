@@ -185,26 +185,17 @@ export function CoffeeDetail() {
                         {/* Product Meta */}
                         <ProductMeta coffee={coffee} />
 
-                        {/* Variant Selector */}
-                        <VariantSelector
-                            variants={coffee.variants}
-                            selectedVariant={selectedVariant}
-                            onVariantChange={setSelectedVariant}
-                        />
-
-                        {/* Divider */}
-                        <div className="border-t border-accent/20"></div>
-
-                        {/* Razem + Liczba w jednym rzędzie */}
-                        <div className="flex justify-between items-center py-2">
-                            <div>
-                                <span className="text-white font-medium">Razem:</span>
-                                <span className="text-xl font-bold text-white ml-3">
-                                    {isAvailable ? `${(price * quantity).toFixed(2)} zł` : 'Niedostępne'}
-                                </span>
+                        {/* Variant Selector + Liczba */}
+                        <div className="flex justify-between items-end gap-4">
+                            <div className="flex-1">
+                                <VariantSelector
+                                    variants={coffee.variants}
+                                    selectedVariant={selectedVariant}
+                                    onVariantChange={setSelectedVariant}
+                                />
                             </div>
-                            <div className="flex items-center gap-3">
-                                <label className="text-sm font-semibold text-white">
+                            <div className="flex flex-col items-end">
+                                <label className="text-sm font-semibold text-white mb-2">
                                     Liczba
                                 </label>
                                 <QuantitySelector
@@ -212,10 +203,21 @@ export function CoffeeDetail() {
                                     onQuantityChange={setQuantity}
                                     min={1}
                                     max={20}
-                                    size="md"
+                                    size="lg"
                                     disabled={!isAvailable}
                                 />
                             </div>
+                        </div>
+
+                        {/* Divider */}
+                        <div className="border-t border-accent/20"></div>
+
+                        {/* Razem */}
+                        <div className="flex justify-between items-center py-2">
+                            <span className="text-white font-medium">Razem:</span>
+                            <span className="text-xl font-bold text-white">
+                                {isAvailable ? `${(price * quantity).toFixed(2)} zł` : 'Niedostępne'}
+                            </span>
                         </div>
 
                         {/* Przycisk dodaj */}
