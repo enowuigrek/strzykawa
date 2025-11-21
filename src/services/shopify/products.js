@@ -78,13 +78,9 @@ export async function fetchProducts(client, mapProduct, limit = 20) {
     `;
 
     try {
-        console.log('🔍 Fetching products from Shopify...');
         const response = await client.graphqlFetch(query, { first: limit });
-        console.log('📦 Raw Shopify response:', response);
 
         const products = response.data.products.edges.map(edge => {
-            console.log('🔄 Processing product:', edge.node.title);
-
             try {
                 return mapProduct(edge.node);
             } catch (error) {
@@ -93,7 +89,6 @@ export async function fetchProducts(client, mapProduct, limit = 20) {
             }
         }).filter(Boolean);
 
-        console.log('✅ All mapped products:', products);
         return products;
     } catch (error) {
         console.error('❌ Error fetching products:', error);

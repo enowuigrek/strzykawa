@@ -25,11 +25,7 @@ export function Coffees() {
         const loadProducts = async () => {
             try {
                 setLoading(true);
-                console.log('🔍 Loading products from Shopify...');
-
                 const fetchedProducts = await shopify.fetchProducts(50); // Fetch up to 50 products
-
-                console.log('✅ Products loaded:', fetchedProducts);
                 setProducts(fetchedProducts);
                 setError(null);
             } catch (err) {

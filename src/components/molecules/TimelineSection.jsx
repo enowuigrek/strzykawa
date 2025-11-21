@@ -26,17 +26,12 @@ export function TimelineSection({ year, title, content, images = [], index }) {
         const width = img.naturalWidth;
         const height = img.naturalHeight;
 
-        console.log(`📸 Main image loaded: ${width}x${height}`);
-
         if (height > width * 1.2) {
             setMainImageOrientation('portrait');
-            console.log('✅ Main: PORTRAIT');
         } else if (width > height * 1.2) {
             setMainImageOrientation('landscape');
-            console.log('✅ Main: LANDSCAPE');
         } else {
             setMainImageOrientation('square');
-            console.log('✅ Main: SQUARE');
         }
     };
 
@@ -46,18 +41,13 @@ export function TimelineSection({ year, title, content, images = [], index }) {
         const width = img.naturalWidth;
         const height = img.naturalHeight;
 
-        console.log(`📸 Additional image [${imageIndex}] loaded: ${width}x${height}`);
-
         let orientation;
         if (height > width * 1.2) {
             orientation = 'portrait';
-            console.log(`✅ Additional [${imageIndex}]: PORTRAIT`);
         } else if (width > height * 1.2) {
             orientation = 'landscape';
-            console.log(`✅ Additional [${imageIndex}]: LANDSCAPE`);
         } else {
             orientation = 'square';
-            console.log(`✅ Additional [${imageIndex}]: SQUARE`);
         }
 
         // Zapisz orientację dla tego konkretnego obrazka
