@@ -76,7 +76,7 @@ export function CoffeeOverlay({ coffee, isOpen }) {
                 backdrop-blur-md
                 transition-all duration-300 ease-out
                 block
-                ${isOpen ? 'translate-y-0 opacity-100 z-20' : 'translate-y-full opacity-0 pointer-events-none'}
+                ${isOpen ? 'translate-y-0 opacity-100' : 'translate-y-full opacity-0 pointer-events-none'} z-20
             `}
             style={{
                 background: backgroundStyle
