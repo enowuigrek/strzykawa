@@ -7,6 +7,7 @@ import { ProductMeta } from '../components/molecules/ProductMeta';
 import { VariantSelector } from '../components/molecules/VariantSelector';
 import { QuantitySelector } from '../components/atoms/QuantitySelector';
 import { Button } from '../components/atoms/Button';
+import { Spinner } from '../components/atoms/Spinner';
 import { shopify } from '../services/shopify';
 import { useCartStore } from '../store/cartStore';
 import { FaShoppingCart, FaTag } from 'react-icons/fa';
@@ -90,7 +91,7 @@ export function CoffeeDetail() {
                 <div className="container mx-auto max-w-7xl px-4 py-12">
                     <div className="flex items-center justify-center min-h-[400px]">
                         <div className="text-center">
-                            <div className="animate-spin w-12 h-12 border-4 border-accent border-t-transparent rounded-full mx-auto mb-4"></div>
+                            <Spinner size="md" className="mx-auto mb-4" />
                         </div>
                     </div>
                 </div>
