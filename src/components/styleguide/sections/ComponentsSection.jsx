@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { FaChevronLeft, FaChevronRight } from 'react-icons/fa';
 import { Section } from '../helpers';
 import { QuantitySelector } from '../../atoms/QuantitySelector';
 import { CloseButton } from '../../atoms/CloseButton';
@@ -71,6 +72,35 @@ export function ComponentsSection({ quantity, setQuantity, menuOpen, setMenuOpen
                             <Spinner size="lg" />
                             <span className="text-muted text-sm">Large</span>
                         </div>
+                    </div>
+                </div>
+                <div>
+                    <h3 className="text-xl text-accent mb-4">Gallery Navigation Arrows:</h3>
+                    <p className="text-muted text-sm mb-4">Strzalki nawigacji w galeriach - pojawiaja sie na hover</p>
+                    <div className="flex items-center gap-4">
+                        <button className="w-10 h-10 bg-primary/80 backdrop-blur-sm border border-white/10 flex items-center justify-center text-white transition-all duration-300 hover:bg-accent hover:border-accent">
+                            <FaChevronLeft className="w-4 h-4" />
+                        </button>
+                        <span className="text-muted text-sm">Default</span>
+                        <button className="w-10 h-10 bg-accent border border-accent flex items-center justify-center text-white">
+                            <FaChevronRight className="w-4 h-4" />
+                        </button>
+                        <span className="text-muted text-sm">Hover state</span>
+                    </div>
+                    <div className="mt-4 p-4 bg-primary-light rounded-lg">
+                        <code className="text-xs text-muted block">
+                            bg-primary/80 backdrop-blur-sm border border-white/10 → hover:bg-accent hover:border-accent
+                        </code>
+                    </div>
+                </div>
+                <div>
+                    <h3 className="text-xl text-accent mb-4">Image Counter Badge:</h3>
+                    <p className="text-muted text-sm mb-4">Licznik zdjec w galeriach</p>
+                    <div className="flex items-center gap-4">
+                        <div className="px-2 py-1 bg-primary/80 backdrop-blur-sm border border-white/10 text-white text-sm font-medium">
+                            1/5
+                        </div>
+                        <span className="text-muted text-sm">bg-primary/80 backdrop-blur-sm border border-white/10</span>
                     </div>
                 </div>
             </div>

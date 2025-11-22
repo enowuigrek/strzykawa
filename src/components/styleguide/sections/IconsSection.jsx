@@ -1,7 +1,7 @@
 import React from 'react';
 import {
     FaShoppingCart, FaHeart, FaSearch, FaUser, FaCoffee, FaLeaf, FaCheck, FaTimes,
-    FaFacebook, FaInstagram, FaArrowLeft, FaHome, FaChevronRight, FaMapMarkerAlt,
+    FaFacebook, FaInstagram, FaArrowLeft, FaHome, FaChevronRight, FaChevronLeft, FaMapMarkerAlt,
     FaShoppingBag, FaEye, FaEyeSlash, FaLock, FaSignInAlt, FaSignOutAlt, FaStar,
     FaPhone, FaEnvelope, FaClock, FaExternalLinkAlt, FaFire, FaRoute, FaUserPlus
 } from 'react-icons/fa';
@@ -32,6 +32,7 @@ export function IconsSection() {
                         <IconCard icon={FaInstagram} name="FaInstagram" />
                         <IconCard icon={FaArrowLeft} name="FaArrowLeft" />
                         <IconCard icon={FaHome} name="FaHome" />
+                        <IconCard icon={FaChevronLeft} name="FaChevronLeft" />
                         <IconCard icon={FaChevronRight} name="FaChevronRight" />
                         <IconCard icon={FaMapMarkerAlt} name="FaMapMarkerAlt" />
                         <IconCard icon={FaShoppingBag} name="FaShoppingBag" />
