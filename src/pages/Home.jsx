@@ -4,15 +4,22 @@ import {PageLayout} from "../components/layout/PageLayout.jsx";
 import { Tagline } from '../components/features/hero/Tagline.jsx';
 import { ActionButtons } from '../components/features/hero/ActionButtons.jsx';
 import { ScrollDownIndicator } from '../components/features/hero/ScrollDownIndicator.jsx';
-import {FaCoffee, FaLeaf, FaHeart, FaFire} from 'react-icons/fa';
+import {FaCoffee, FaHeart, FaFire} from 'react-icons/fa';
 import { Logo } from "../components/atoms/Logo.jsx";
 import { HeroReviews } from '../components/features/hero/HeroReviews.jsx';
 import { SocialLinks } from '../components/molecules/SocialLinks.jsx';
+import { useScrollAnimation, scrollAnimations } from '../hooks/useScrollAnimation';
 import heroVideoDesktop from '../assets/hero-desktop.mp4';
 import heroVideoMobile from '../assets/hero-mobile.mp4';
 
 export function Home() {
     const [showContent, setShowContent] = React.useState(false);
+
+    // Scroll animations
+    const [logoRef, logoVisible] = useScrollAnimation({ threshold: 0.3 });
+    const [descRef, descVisible] = useScrollAnimation({ threshold: 0.2 });
+    const [featuresRef, featuresVisible] = useScrollAnimation({ threshold: 0.1 });
+    const [ctaRef, ctaVisible] = useScrollAnimation({ threshold: 0.3 });
 
     return (
         <div className="home-page relative">
@@ -41,10 +48,15 @@ export function Home() {
             </div>
 
             {/* Sekcja "O Strzykawie" - najeżdża na hero */}
-            <PageLayout className="relative z-20 bg-primary pt-8 pb-20">
-                <div className="container">
-                {/* Header sekcji */}
-                    <div className="text-center mb-16">
+            <PageLayout className="relative z-20 bg-primary pt-12 sm:pt-16 pb-20">
+                <div className="container px-6 sm:px-8">
+                {/* Header sekcji - logo */}
+                    <div
+                        ref={logoRef}
+                        className={`text-center mb-16 transition-all duration-700 ease-out ${
+                            logoVisible ? scrollAnimations.pourDown.visible : scrollAnimations.pourDown.hidden
+                        }`}
+                    >
                         <div className="inline-flex items-center gap-3 mb-6 scale-125 md:scale-150">
                             <Logo />
                         </div>
@@ -54,7 +66,12 @@ export function Home() {
                     <div>
 
                         {/* Główny opis */}
-                        <div className="text-center pb-8">
+                        <div
+                            ref={descRef}
+                            className={`text-center pb-8 transition-all duration-700 ease-out delay-100 ${
+                                descVisible ? scrollAnimations.fade.visible : scrollAnimations.fade.hidden
+                            }`}
+                        >
                             <p className="text-white/70 text-lg sm:text-xl leading-relaxed text-center font-light">
                                 Zaopatrujemy się w najwyższej jakości surowiec pochodzący z małych, rodzinnych farm,
                                 gdzie kawa traktowana jest z najwyższą starannością. Współpracujemy z topowymi importerami
@@ -64,11 +81,18 @@ export function Home() {
                         </div>
 
                         {/* Feature cards */}
-                        <div className="grid md:grid-cols-3 gap-6 mt-16 border-t border-white/10">
-
+                        <div
+                            ref={featuresRef}
+                            className="grid md:grid-cols-3 gap-6 mt-16 pt-8 border-t border-white/10"
+                        >
                             {/* Palarnia */}
-                            <div className="p-6 text-center">
-                                <div className="inline-flex items-center justify-center w-16 h-16">
+                            <div
+                                className={`p-6 text-center transition-all duration-500 ease-out ${
+                                    featuresVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-[20px]'
+                                }`}
+                                style={{ transitionDelay: featuresVisible ? '0ms' : '0ms' }}
+                            >
+                                <div className="inline-flex items-center justify-center w-16 h-16 mb-4">
                                     <FaFire className="w-8 h-8 text-muted" />
                                 </div>
                                 <h3 className="text-xl font-bold text-white mb-3">Własna palarnia</h3>
@@ -78,7 +102,12 @@ export function Home() {
                             </div>
 
                             {/* Kawiarnia */}
-                            <div className="p-6 text-center">
+                            <div
+                                className={`p-6 text-center transition-all duration-500 ease-out ${
+                                    featuresVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-[20px]'
+                                }`}
+                                style={{ transitionDelay: featuresVisible ? '100ms' : '0ms' }}
+                            >
                                 <div className="inline-flex items-center justify-center w-16 h-16 mb-4">
                                     <FaCoffee className="w-8 h-8 text-muted" />
                                 </div>
@@ -89,8 +118,13 @@ export function Home() {
                             </div>
 
                             {/* Społeczność */}
-                            <div className="p-6 text-center ">
-                                <div className="inline-flex items-center justify-center w-16 h-16">
+                            <div
+                                className={`p-6 text-center transition-all duration-500 ease-out ${
+                                    featuresVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-[20px]'
+                                }`}
+                                style={{ transitionDelay: featuresVisible ? '200ms' : '0ms' }}
+                            >
+                                <div className="inline-flex items-center justify-center w-16 h-16 mb-4">
                                     <FaHeart className="w-8 h-8 text-red-400" />
                                 </div>
                                 <h3 className="text-xl font-bold text-white mb-3">Pasja</h3>
@@ -101,7 +135,12 @@ export function Home() {
                         </div>
 
                         {/* CTA */}
-                        <div className="text-center my-16 ">
+                        <div
+                            ref={ctaRef}
+                            className={`text-center my-16 transition-all duration-700 ease-out ${
+                                ctaVisible ? scrollAnimations.spread.visible : scrollAnimations.spread.hidden
+                            }`}
+                        >
                             <a
                                 href="/o-nas"
                                 className="inline-flex items-center bg-white/10 backdrop-blur-sm border border-white/30 rounded-full px-8 py-4 text-white font-semibold text-lg transition-all duration-300 hover:scale-105 hover:bg-white/20"
