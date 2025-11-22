@@ -2,32 +2,39 @@ import React, { useState, useRef } from 'react';
 
 /**
  * MobileCarousel - Instagram-style carousel
- * - Swipe left/right to navigate
+ * - Swipe/drag left/right to navigate
  * - Dots indicator at bottom
  * - No looping - bounces at edges
- * - Counter badge in corner
+ * - Works with both touch and mouse
  */
 export function MobileCarousel({ images, className = "", showCounter = true, aspectRatio = "4/3" }) {
     const [currentIndex, setCurrentIndex] = useState(0);
-    const [touchStart, setTouchStart] = useState(null);
-    const [touchDelta, setTouchDelta] = useState(0);
-    const [isSwiping, setIsSwiping] = useState(false);
+    const [isDragging, setIsDragging] = useState(false);
+    const [startX, setStartX] = useState(0);
+    const [dragDelta, setDragDelta] = useState(0);
     const containerRef = useRef(null);
 
-    // Edge resistance factor (smaller = more resistance)
     const EDGE_RESISTANCE = 0.3;
     const SWIPE_THRESHOLD = 50;
 
-    const handleTouchStart = (e) => {
-        setTouchStart(e.touches[0].clientX);
-        setIsSwiping(true);
+    const getClientX = (e) => {
+        return e.touches ? e.touches[0].clientX : e.clientX;
     };
 
-    const handleTouchMove = (e) => {
-        if (!touchStart || !isSwiping) return;
+    const getEndClientX = (e) => {
+        return e.changedTouches ? e.changedTouches[0].clientX : e.clientX;
+    };
 
-        const currentX = e.touches[0].clientX;
-        let delta = currentX - touchStart;
+    const handleDragStart = (e) => {
+        setIsDragging(true);
+        setStartX(getClientX(e));
+    };
+
+    const handleDragMove = (e) => {
+        if (!isDragging) return;
+
+        const currentX = getClientX(e);
+        let delta = currentX - startX;
 
         // Apply resistance at edges
         const isAtStart = currentIndex === 0 && delta > 0;
@@ -37,79 +44,75 @@ export function MobileCarousel({ images, className = "", showCounter = true, asp
             delta = delta * EDGE_RESISTANCE;
         }
 
-        setTouchDelta(delta);
+        setDragDelta(delta);
 
-        // Prevent vertical scroll when swiping horizontally
+        // Prevent default to avoid scrolling
         if (Math.abs(delta) > 10) {
             e.preventDefault();
         }
     };
 
-    const handleTouchEnd = () => {
-        if (!isSwiping) return;
+    const handleDragEnd = (e) => {
+        if (!isDragging) return;
 
-        const delta = touchDelta;
+        const endX = getEndClientX(e);
+        const delta = endX - startX;
 
         if (Math.abs(delta) > SWIPE_THRESHOLD) {
             if (delta < 0 && currentIndex < images.length - 1) {
-                // Swipe left - next image
                 setCurrentIndex(currentIndex + 1);
             } else if (delta > 0 && currentIndex > 0) {
-                // Swipe right - previous image
                 setCurrentIndex(currentIndex - 1);
             }
         }
 
-        // Reset
-        setTouchStart(null);
-        setTouchDelta(0);
-        setIsSwiping(false);
+        setIsDragging(false);
+        setStartX(0);
+        setDragDelta(0);
     };
 
     const goToSlide = (index) => {
         setCurrentIndex(index);
     };
 
-    // Calculate transform with swipe delta
-    const getTransform = () => {
-        const baseTranslate = -currentIndex * 100;
-        const containerWidth = containerRef.current?.offsetWidth || 300;
-        const deltaPercent = (touchDelta / containerWidth) * 100;
-        return `translateX(calc(${baseTranslate}% + ${deltaPercent}%))`;
-    };
-
     if (!images || images.length === 0) {
         return null;
     }
 
+    // Calculate offset percentage
+    const containerWidth = containerRef.current?.offsetWidth || 300;
+    const dragPercent = (dragDelta / containerWidth) * 100;
+    const translateX = -(currentIndex * 100) + dragPercent;
+
     return (
         <div className={`relative w-full ${className}`}>
-            {/* Carousel container with aspect ratio */}
+            {/* Carousel container */}
             <div
                 ref={containerRef}
-                className="relative w-full overflow-hidden bg-primary-light border border-white/10"
+                className="relative w-full overflow-hidden bg-primary-light border border-white/10 select-none"
                 style={{ aspectRatio }}
-                onTouchStart={handleTouchStart}
-                onTouchMove={handleTouchMove}
-                onTouchEnd={handleTouchEnd}
+                onTouchStart={handleDragStart}
+                onTouchMove={handleDragMove}
+                onTouchEnd={handleDragEnd}
+                onMouseDown={handleDragStart}
+                onMouseMove={handleDragMove}
+                onMouseUp={handleDragEnd}
+                onMouseLeave={() => isDragging && handleDragEnd({ clientX: startX })}
             >
+                {/* Slides container */}
                 <div
-                    className={`absolute top-0 left-0 h-full flex ${isSwiping ? '' : 'transition-transform duration-300 ease-out'}`}
-                    style={{
-                        transform: getTransform(),
-                        width: `${images.length * 100}%`
-                    }}
+                    className={`flex h-full ${isDragging ? '' : 'transition-transform duration-300 ease-out'}`}
+                    style={{ transform: `translateX(${translateX}%)` }}
                 >
                     {images.map((image, index) => (
                         <div
                             key={index}
-                            className="h-full flex-shrink-0 overflow-hidden"
-                            style={{ width: `${100 / images.length}%` }}
+                            className="w-full h-full flex-shrink-0"
                         >
                             <img
                                 src={typeof image === 'string' ? image : image.src}
                                 alt={typeof image === 'string' ? `Zdjęcie ${index + 1}` : image.alt}
-                                className="w-full h-full object-cover"
+                                className="w-full h-full object-cover pointer-events-none"
                                 draggable={false}
                             />
                         </div>
