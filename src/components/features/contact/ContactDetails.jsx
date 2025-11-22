@@ -9,9 +9,7 @@ export function ContactDetails() {
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                 {/* Telefon */}
                 <div className="flex items-center gap-4">
-                    <div className="p-3 bg-accent/10 rounded-lg">
-                        <FaPhone className="w-5 h-5 text-accent" />
-                    </div>
+                    <FaPhone className="w-5 h-5 text-accent flex-shrink-0" />
                     <div>
                         <div className="font-semibold text-white">Telefon</div>
                         <a
@@ -25,9 +23,7 @@ export function ContactDetails() {
 
                 {/* Email */}
                 <div className="flex items-center gap-4">
-                    <div className="p-3 bg-accent/10 rounded-lg">
-                        <FaEnvelope className="w-5 h-5 text-accent" />
-                    </div>
+                    <FaEnvelope className="w-5 h-5 text-accent flex-shrink-0" />
                     <div>
                         <div className="font-semibold text-white">Email</div>
                         <a
