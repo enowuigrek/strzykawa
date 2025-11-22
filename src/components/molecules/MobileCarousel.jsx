@@ -94,11 +94,10 @@ export function MobileCarousel({ images, className = "", showCounter = true, asp
                 onTouchEnd={handleTouchEnd}
             >
                 <div
-                    className={`absolute inset-0 flex ${isSwiping ? '' : 'transition-transform duration-300 ease-out'}`}
+                    className={`absolute top-0 left-0 h-full flex ${isSwiping ? '' : 'transition-transform duration-300 ease-out'}`}
                     style={{
                         transform: getTransform(),
-                        width: `${images.length * 100}%`,
-                        height: '100%'
+                        width: `${images.length * 100}%`
                     }}
                 >
                     {images.map((image, index) => (
