@@ -41,6 +41,9 @@ function ScrollToTop() {
 
 // The main application component. It defines top-level layout and routing.
 function App() {
+    const { pathname } = useLocation();
+    const isStyleGuide = pathname === '/style-guide';
+
     // 🚨 Jeśli COMING_SOON_MODE = true, pokazuj tylko Coming Soon
     if (COMING_SOON_MODE) {
         return (
@@ -54,7 +57,7 @@ function App() {
     return (
         <div className="app">
             <ScrollToTop />
-            <Header />
+            {!isStyleGuide && <Header />}
             <main id="main">
                 <Routes>
                     <Route path="/" element={<Home />} />
@@ -73,7 +76,7 @@ function App() {
                     <Route path="*" element={<NotFound />} />
                 </Routes>
             </main>
-            <Footer />
+            {!isStyleGuide && <Footer />}
         </div>
     );
 }
