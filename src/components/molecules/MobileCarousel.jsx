@@ -97,19 +97,20 @@ export function MobileCarousel({ images, className = "", showCounter = true, asp
                     className={`absolute inset-0 flex ${isSwiping ? '' : 'transition-transform duration-300 ease-out'}`}
                     style={{
                         transform: getTransform(),
-                        width: `${images.length * 100}%`
+                        width: `${images.length * 100}%`,
+                        height: '100%'
                     }}
                 >
                     {images.map((image, index) => (
                         <div
                             key={index}
-                            className="relative flex-shrink-0"
+                            className="h-full flex-shrink-0 overflow-hidden"
                             style={{ width: `${100 / images.length}%` }}
                         >
                             <img
                                 src={typeof image === 'string' ? image : image.src}
                                 alt={typeof image === 'string' ? `Zdjęcie ${index + 1}` : image.alt}
-                                className="absolute inset-0 w-full h-full object-cover"
+                                className="w-full h-full object-cover"
                                 draggable={false}
                             />
                         </div>
