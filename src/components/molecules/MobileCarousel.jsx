@@ -94,14 +94,14 @@ export function MobileCarousel({ images, className = "", showCounter = true }) {
                 style={{ touchAction: 'pan-y pinch-zoom' }}
             >
                 <div
-                    className={`flex ${isSwiping ? '' : 'transition-transform duration-300 ease-out'}`}
+                    className={`flex h-full ${isSwiping ? '' : 'transition-transform duration-300 ease-out'}`}
                     style={{
                         transform: getTransform(),
                         width: `${images.length * 100}%`
                     }}
                 >
                     {images.map((image, index) => (
-                        <div key={index} className="w-full flex-shrink-0">
+                        <div key={index} className="w-full flex-shrink-0 h-full">
                             <img
                                 src={typeof image === 'string' ? image : image.src}
                                 alt={typeof image === 'string' ? `Zdjęcie ${index + 1}` : image.alt}

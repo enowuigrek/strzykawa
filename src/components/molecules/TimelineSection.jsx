@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { MobileCarousel } from './MobileCarousel';
 
 /**
  * TimelineSection - Single timeline entry component
@@ -10,6 +11,7 @@ import React, { useState } from 'react';
  * @param {number} index - Index for alternating layout
  */
 export function TimelineSection({ year, title, content, images = [], index }) {
+    const hasMultipleImages = images.length > 1;
     const isEven = index % 2 === 0;
     const mainImage = images[0];
     const additionalImages = images.slice(1);
@@ -91,6 +93,17 @@ export function TimelineSection({ year, title, content, images = [], index }) {
             id={`year-${year}`}
             className="scroll-mt-32 mb-24 md:mb-32"
         >
+            {/* Mobile: Carousel for multiple images */}
+            {hasMultipleImages && (
+                <div className="md:hidden mb-8">
+                    <MobileCarousel
+                        images={images}
+                        className="aspect-[4/3]"
+                        showCounter={true}
+                    />
+                </div>
+            )}
+
             {/* Main Content + Image */}
             <div className={`grid md:grid-cols-2 gap-8 md:gap-12 items-start ${
                 isEven ? '' : 'md:grid-flow-dense'
@@ -115,9 +128,9 @@ export function TimelineSection({ year, title, content, images = [], index }) {
                     </div>
                 </div>
 
-                {/* Main Image */}
+                {/* Main Image - Desktop only when multiple, always on single */}
                 {mainImage && (
-                    <div className={`${isEven ? '' : 'md:col-start-1 md:row-start-1'}`}>
+                    <div className={`${hasMultipleImages ? 'hidden md:block' : ''} ${isEven ? '' : 'md:col-start-1 md:row-start-1'}`}>
                         <div className={`${getAspectClass()} bg-gradient-to-br from-primary-light/30 to-primary/50 border border-white/10 overflow-hidden shadow-lg`}>
                             <img
                                 src={mainImage}
@@ -137,10 +150,10 @@ export function TimelineSection({ year, title, content, images = [], index }) {
                 )}
             </div>
 
-            {/* Additional Images Grid */}
+            {/* Additional Images Grid - Desktop only when multiple images */}
             {additionalImages.length > 0 && (
-                <>
-                    {/* 🆕 Jeśli JEDNO dodatkowe zdjęcie - wycentrowane, pełna szerokość */}
+                <div className={hasMultipleImages ? 'hidden md:block' : ''}>
+                    {/* Jeśli JEDNO dodatkowe zdjęcie - wycentrowane, pełna szerokość */}
                     {additionalImages.length === 1 && (
                         <div className="mt-8 flex justify-center">
                             <div
@@ -193,7 +206,7 @@ export function TimelineSection({ year, title, content, images = [], index }) {
                             ))}
                         </div>
                     )}
-                </>
+                </div>
             )}
         </section>
     );
