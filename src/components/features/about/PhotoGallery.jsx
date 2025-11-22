@@ -58,10 +58,11 @@ export function PhotoGallery() {
                 </h2>
 
                 {/* Mobile version - Carousel */}
-                <div className="md:hidden">
+                <div className="md:hidden mb-8">
                     <MobileCarousel
                         images={images}
-                        className="aspect-[16/9] mb-8"
+                        aspectRatio="16/9"
+                        showCounter={true}
                     />
                 </div>
 

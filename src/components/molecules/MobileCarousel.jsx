@@ -7,7 +7,7 @@ import React, { useState, useRef } from 'react';
  * - No looping - bounces at edges
  * - Counter badge in corner
  */
-export function MobileCarousel({ images, className = "", showCounter = true }) {
+export function MobileCarousel({ images, className = "", showCounter = true, aspectRatio = "4/3" }) {
     const [currentIndex, setCurrentIndex] = useState(0);
     const [touchStart, setTouchStart] = useState(null);
     const [touchDelta, setTouchDelta] = useState(0);
@@ -83,34 +83,45 @@ export function MobileCarousel({ images, className = "", showCounter = true }) {
     }
 
     return (
-        <div className={`relative ${className}`}>
-            {/* Carousel container */}
+        <div className={`relative w-full ${className}`}>
+            {/* Carousel container with aspect ratio */}
             <div
                 ref={containerRef}
-                className="overflow-hidden bg-primary-light border border-white/10"
+                className="relative w-full overflow-hidden bg-primary-light border border-white/10"
+                style={{ aspectRatio }}
                 onTouchStart={handleTouchStart}
                 onTouchMove={handleTouchMove}
                 onTouchEnd={handleTouchEnd}
-                style={{ touchAction: 'pan-y pinch-zoom' }}
             >
                 <div
-                    className={`flex h-full ${isSwiping ? '' : 'transition-transform duration-300 ease-out'}`}
+                    className={`absolute inset-0 flex ${isSwiping ? '' : 'transition-transform duration-300 ease-out'}`}
                     style={{
                         transform: getTransform(),
                         width: `${images.length * 100}%`
                     }}
                 >
                     {images.map((image, index) => (
-                        <div key={index} className="w-full flex-shrink-0 h-full">
+                        <div
+                            key={index}
+                            className="relative flex-shrink-0"
+                            style={{ width: `${100 / images.length}%` }}
+                        >
                             <img
                                 src={typeof image === 'string' ? image : image.src}
                                 alt={typeof image === 'string' ? `Zdjęcie ${index + 1}` : image.alt}
-                                className="w-full h-full object-cover"
+                                className="absolute inset-0 w-full h-full object-cover"
                                 draggable={false}
                             />
                         </div>
                     ))}
                 </div>
+
+                {/* Counter badge */}
+                {showCounter && images.length > 1 && (
+                    <div className="absolute top-3 right-3 px-2 py-1 bg-primary/80 backdrop-blur-sm border border-white/10 text-white text-sm font-medium z-10">
+                        {currentIndex + 1}/{images.length}
+                    </div>
+                )}
             </div>
 
             {/* Dots indicator */}
@@ -128,13 +139,6 @@ export function MobileCarousel({ images, className = "", showCounter = true }) {
                             aria-label={`Przejdź do zdjęcia ${index + 1}`}
                         />
                     ))}
-                </div>
-            )}
-
-            {/* Counter badge */}
-            {showCounter && images.length > 1 && (
-                <div className="absolute top-3 right-3 px-2 py-1 bg-primary/80 backdrop-blur-sm border border-white/10 text-white text-sm font-medium">
-                    {currentIndex + 1}/{images.length}
                 </div>
             )}
         </div>

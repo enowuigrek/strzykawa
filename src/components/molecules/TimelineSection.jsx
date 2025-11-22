@@ -98,7 +98,7 @@ export function TimelineSection({ year, title, content, images = [], index }) {
                 <div className="md:hidden mb-8">
                     <MobileCarousel
                         images={images}
-                        className="aspect-[4/3]"
+                        aspectRatio="4/3"
                         showCounter={true}
                     />
                 </div>

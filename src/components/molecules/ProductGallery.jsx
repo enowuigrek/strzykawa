@@ -40,7 +40,7 @@ export function ProductGallery({ images = [], coffeeName }) {
                 {hasManyImages ? (
                     <MobileCarousel
                         images={images}
-                        className="aspect-square"
+                        aspectRatio="1/1"
                         showCounter={true}
                     />
                 ) : (
