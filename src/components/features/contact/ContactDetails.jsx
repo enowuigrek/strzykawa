@@ -8,10 +8,8 @@ export function ContactDetails() {
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                 {/* Telefon */}
-                <div className="flex items-center gap-3">
-                    <div className="p-3">
-                        <FaPhone className="w-5 h-5 text-accent" />
-                    </div>
+                <div className="flex items-center gap-4">
+                    <FaPhone className="w-5 h-5 text-accent flex-shrink-0" />
                     <div>
                         <div className="font-semibold text-white">Telefon</div>
                         <a
@@ -24,15 +22,13 @@ export function ContactDetails() {
                 </div>
 
                 {/* Email */}
-                <div className="flex items-center gap-3">
-                    <div className="p-3">
-                        <FaEnvelope className="w-5 h-5 text-muted" />
-                    </div>
+                <div className="flex items-center gap-4">
+                    <FaEnvelope className="w-5 h-5 text-accent flex-shrink-0" />
                     <div>
                         <div className="font-semibold text-white">Email</div>
                         <a
                             href="mailto:kontakt@strzykawa.com"
-                            className="text-muted hover:text-white transition-colors duration-300 break-all text-sm"
+                            className="text-muted hover:text-white transition-colors duration-300"
                         >
                             kontakt@strzykawa.com
                         </a>

@@ -1,11 +1,17 @@
 import React from 'react';
-import { FaStar } from 'react-icons/fa';
-import { HiExternalLink } from 'react-icons/hi';
+import { FaStar, FaTripadvisor, FaGoogle, FaFacebookF, FaTrophy } from 'react-icons/fa';
+import { useScrollAnimation, scrollAnimations } from '../../../hooks/useScrollAnimation';
 
 export function HeroReviews() {
+    const [headerRef, headerVisible] = useScrollAnimation({ threshold: 0.2 });
+    const [cardsRef, cardsVisible] = useScrollAnimation({ threshold: 0.1 });
+    const [quoteRef, quoteVisible] = useScrollAnimation({ threshold: 0.3 });
+
     const reviews = [
         {
             platform: 'TripAdvisor',
+            icon: FaTripadvisor,
+            iconColor: 'text-green-500',
             rating: '5.0',
             stars: 5,
             count: 7,
@@ -13,6 +19,8 @@ export function HeroReviews() {
         },
         {
             platform: 'Google',
+            icon: FaGoogle,
+            iconColor: 'text-blue-400',
             rating: '4.8',
             stars: 5,
             count: '100+',
@@ -20,133 +28,111 @@ export function HeroReviews() {
         },
         {
             platform: 'Facebook',
+            icon: FaFacebookF,
+            iconColor: 'text-blue-500',
             rating: '94%',
             count: 14,
             label: 'poleca',
             url: 'https://www.facebook.com/StrzykawaCoffeeShop/reviews'
         },
         {
-            platform: 'Ranking',
+            platform: 'Ranking 2025',
+            icon: FaTrophy,
+            iconColor: 'text-yellow-400',
             badge: '#1',
-            subtitle: 'Palarnia w Częstochowie',
+            subtitle: 'Palarnia w Czestochowie',
             url: 'https://panoramaczestochowy.pl/firmy/palarnia-kawy-czestochowa'
         }
     ];
 
     return (
-        <div className="pt-16 mb-16 max-w-6xl mx-auto border-t border-white/10">
+        <div className="py-16 max-w-6xl mx-auto">
+            {/* Divider - pelna szerokosc */}
+            <div className="border-t border-white/10 mb-16"></div>
+
             {/* Section Header */}
-            <div className="text-center mb-16">
+            <div
+                ref={headerRef}
+                className={`text-center mb-16 transition-all duration-700 ease-out ${
+                    headerVisible ? scrollAnimations.pourDown.visible : scrollAnimations.pourDown.hidden
+                }`}
+            >
                 <h3 className="text-2xl sm:text-3xl font-bold text-white mb-2">
-                    Co mówią o nas
+                    Co mowia o nas
                 </h3>
                 <p className="text-white/60 text-sm sm:text-base">
-                    Opinie naszych gości
+                    Opinie naszych gosci
                 </p>
             </div>
 
             {/* Reviews Grid - 4 cards */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 px-4">
+            <div
+                ref={cardsRef}
+                className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 px-4"
+            >
+                {reviews.map((review, index) => {
+                    const Icon = review.icon;
+                    const delay = index * 100;
 
-                {/* TripAdvisor */}
-                <a
-                    href={reviews[0].url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="group bg-white/10 backdrop-blur-sm border border-white/20 p-5 hover:bg-white/15 hover:scale-105 transition-all duration-300"
-                >
-                    <div className="flex items-center gap-2 mb-2">
-                        <div className="flex text-yellow-400 text-lg">
-                            {[...Array(reviews[0].stars)].map((_, i) => (
-                                <FaStar key={i} />
-                            ))}
-                        </div>
-                        <span className="text-white font-bold text-xl">{reviews[0].rating}</span>
-                    </div>
-                    <p className="text-white/70 text-sm mb-1">
-                        {reviews[0].count} recenzji
-                    </p>
-                    <div className="flex items-center justify-between mt-3">
-                        <p className="text-white/50 text-xs font-medium">
-                            {reviews[0].platform}
-                        </p>
-                        <HiExternalLink className="text-white/30 group-hover:text-white/50 transition-colors text-sm" />
-                    </div>
-                </a>
+                    return (
+                        <a
+                            key={review.platform}
+                            href={review.url}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className={`group bg-white/10 backdrop-blur-sm border border-white/20 p-5 hover:bg-white/15 hover:scale-105 transition-all duration-500 ease-out ${
+                                cardsVisible
+                                    ? 'opacity-100 translate-y-0'
+                                    : 'opacity-0 translate-y-[30px]'
+                            }`}
+                            style={{ transitionDelay: cardsVisible ? `${delay}ms` : '0ms' }}
+                        >
+                            {/* Rating or Badge */}
+                            {review.stars ? (
+                                <div className="flex items-center gap-2 mb-2">
+                                    <div className="flex text-yellow-400 text-lg">
+                                        {[...Array(review.stars)].map((_, i) => (
+                                            <FaStar key={i} />
+                                        ))}
+                                    </div>
+                                    <span className="text-white font-bold text-xl">{review.rating}</span>
+                                </div>
+                            ) : review.badge ? (
+                                <div className="mb-2">
+                                    <span className="text-yellow-400 font-bold text-3xl">{review.badge}</span>
+                                </div>
+                            ) : (
+                                <div className="flex items-center gap-2 mb-2">
+                                    <span className="text-white font-bold text-2xl">{review.rating}</span>
+                                </div>
+                            )}
 
-                {/* Google Reviews */}
-                <a
-                    href={reviews[1].url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="group bg-white/10 backdrop-blur-sm border border-white/20 p-5 hover:bg-white/15 hover:scale-105 transition-all duration-300"
-                >
-                    <div className="flex items-center gap-2 mb-2">
-                        <div className="flex text-yellow-400 text-lg">
-                            {[...Array(reviews[1].stars)].map((_, i) => (
-                                <FaStar key={i} />
-                            ))}
-                        </div>
-                        <span className="text-white font-bold text-xl">{reviews[1].rating}</span>
-                    </div>
-                    <p className="text-white/70 text-sm mb-1">
-                        {reviews[1].count} opinii
-                    </p>
-                    <div className="flex items-center justify-between mt-3">
-                        <p className="text-white/50 text-xs font-medium">
-                            {reviews[1].platform}
-                        </p>
-                        <HiExternalLink className="text-white/30 group-hover:text-white/50 transition-colors text-sm" />
-                    </div>
-                </a>
+                            {/* Count / Subtitle */}
+                            <p className="text-white/70 text-sm mb-3">
+                                {review.count ? `${review.count} ${review.label || 'opinii'}` : review.subtitle}
+                            </p>
 
-                {/* Facebook */}
-                <a
-                    href={reviews[2].url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="group bg-white/10 backdrop-blur-sm border border-white/20 p-5 hover:bg-white/15 hover:scale-105 transition-all duration-300"
-                >
-                    <div className="flex items-center gap-2 mb-2">
-                        <span className="text-white font-bold text-2xl">{reviews[2].rating}</span>
-                    </div>
-                    <p className="text-white/70 text-sm mb-1">
-                        {reviews[2].count} osób {reviews[2].label}
-                    </p>
-                    <div className="flex items-center justify-between mt-3">
-                        <p className="text-white/50 text-xs font-medium">
-                            {reviews[2].platform}
-                        </p>
-                        <HiExternalLink className="text-white/30 group-hover:text-white/50 transition-colors text-sm" />
-                    </div>
-                </a>
-
-                {/* Ranking */}
-                <a
-                    href={reviews[3].url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="group bg-white/10 backdrop-blur-sm border border-white/20 p-5 hover:bg-white/15 hover:scale-105 transition-all duration-300"
-                >
-                    <div className="mb-2">
-                        <span className="text-yellow-400 font-bold text-3xl">{reviews[3].badge}</span>
-                    </div>
-                    <p className="text-white/70 text-sm mb-1">
-                        {reviews[3].subtitle}
-                    </p>
-                    <div className="flex items-center justify-between mt-3">
-                        <p className="text-white/50 text-xs font-medium">
-                            Ranking 2025
-                        </p>
-                        <HiExternalLink className="text-white/30 group-hover:text-white/50 transition-colors text-sm" />
-                    </div>
-                </a>
+                            {/* Platform with icon */}
+                            <div className="flex items-center gap-2 pt-2 border-t border-white/10">
+                                <Icon className={`${review.iconColor} text-lg`} />
+                                <p className="text-white/50 text-xs font-medium">
+                                    {review.platform}
+                                </p>
+                            </div>
+                        </a>
+                    );
+                })}
             </div>
 
             {/* Review Quote */}
-            <div className="mt-10 max-w-3xl mx-auto px-4">
+            <div
+                ref={quoteRef}
+                className={`mt-10 max-w-3xl mx-auto px-4 transition-all duration-700 ease-out delay-300 ${
+                    quoteVisible ? scrollAnimations.fade.visible : scrollAnimations.fade.hidden
+                }`}
+            >
                 <blockquote className="text-white/70 text-base sm:text-lg italic text-center leading-relaxed">
-                    "The best coffee in Częstochowa. Great quality coffee.
+                    "The best coffee in Czestochowa. Great quality coffee.
                     The flat white was amazing."
                 </blockquote>
                 <p className="text-white/50 text-sm text-center mt-3">
