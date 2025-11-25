@@ -30,7 +30,9 @@ export function Coffees() {
                 setProducts(fetchedProducts);
                 setError(null);
             } catch (err) {
-                console.error('❌ Error loading products:', err);
+                if (import.meta.env.DEV) {
+                    console.error('❌ Error loading products:', err);
+                }
                 setError('Nie udało się załadować kaw. Spróbuj ponownie później.');
             } finally {
                 setLoading(false);

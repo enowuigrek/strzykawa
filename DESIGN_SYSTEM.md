@@ -49,12 +49,12 @@
 // tailwind.config.js
 colors: {
   primary: {
-    DEFAULT: '#1f2a25',  // Ciemny zielony (zbliżone do logo)
-    light: '#2a3630',     // Jaśniejszy odcień
-    dark: '#151e1a'       // Najciemniejszy
+    DEFAULT: '#1E2A25',  // Ciemny zielony (zbliżone do logo)
+    light: '#2C3A35',     // Jaśniejszy odcień
+    dark: '#141C18'       // Najciemniejszy
   },
-  accent: '#51685f',      // Średni zielony (akcenty)
-  muted: '#8a9d94'        // Jasny zielony (tekst secondary)
+  accent: '#6B7F73',      // Średni zielony (akcenty)
+  muted: '#9CA8A1'        // Jasny zielony (tekst secondary)
 }
 ```
 
@@ -73,12 +73,17 @@ colors: {
 
 ```javascript
 // Funkcjonalne kolory
-green-500: '#10b981'  // Zielony (sukces, COUNT BADGES, dodano do koszyka)
-red-500: '#ef4444'    // Czerwony (błędy, niedostępne)
-orange-500: '#f59e0b' // Pomarańczowy (ostrzeżenia)
+success: {
+  DEFAULT: '#0E8C6F',  // Zielony (sukces, COUNT BADGES, dodano do koszyka)
+  dark: '#0B6F55'      // Ciemniejszy odcień success
+},
+danger: {
+  DEFAULT: '#C9423A',  // Czerwony (błędy, niedostępne)
+  dark: '#A7322D'      // Ciemniejszy odcień danger
+}
 ```
 
-**WAŻNE:** Count badges (liczba produktów) są **ZAWSZE `bg-green-500`** (nie accent!), aby wskazywać aktywny stan/sukces.
+**WAŻNE:** Count badges (liczba produktów) są **ZAWSZE `bg-success`** (nie accent!), aby wskazywać aktywny stan/sukces.
 
 ---
 
@@ -198,9 +203,9 @@ text-6xl     // 60px - H1, hero
 #### **Success State** (np. dodano do koszyka)
 ```jsx
 <button className="
-  rounded-full 
-  px-8 py-3 
-  bg-green-500 
+  rounded-full
+  px-8 py-3
+  bg-success
   text-white
 ">
   ✓ Dodano!
@@ -345,9 +350,9 @@ import { CloseButton } from './atoms/CloseButton';
 /* DUŻY (large) - do użycia w headers, modals */
 <span className="
   px-3 py-1              /* lg: większy padding */
-  bg-green-500           /* ZAWSZE zielony (success) */
-  text-white 
-  text-sm 
+  bg-success             /* ZAWSZE zielony (success) */
+  text-white
+  text-sm
   font-bold
   rounded-full           /* Pastylka */
 ">
@@ -357,9 +362,9 @@ import { CloseButton } from './atoms/CloseButton';
 /* MAŁY (small) - mobile, inline */
 <span className="
   px-2 py-0.5            /* Mniejszy padding */
-  bg-green-500 
-  text-white 
-  text-xs 
+  bg-success
+  text-white
+  text-xs
   font-bold
   rounded-full
 ">
@@ -367,7 +372,7 @@ import { CloseButton } from './atoms/CloseButton';
 </span>
 ```
 
-**ZASADA:** Count badges są **ZAWSZE ZIELONE** (`bg-green-500`), aby wskazywać aktywny stan/sukces:
+**ZASADA:** Count badges są **ZAWSZE ZIELONE** (`bg-success`), aby wskazywać aktywny stan/sukces:
 - ✅ CartHeader - "Koszyk **[3]**"
 - ✅ MobileNavigation - "Koszyk **[3]**"
 - ✅ MobileBottomNavigation - badge przy ikonie koszyka
@@ -383,16 +388,16 @@ import { CloseButton } from './atoms/CloseButton';
 #### **Cart Icon Badge** (przy ikonie koszyka)
 ```jsx
 <span className="
-  absolute 
-  -top-2 -right-2 
-  bg-green-500           /* ZIELONY, nie accent! */
-  text-white 
-  text-xs 
+  absolute
+  -top-2 -right-2
+  bg-success             /* ZIELONY, nie accent! */
+  text-white
+  text-xs
   font-bold
-  w-5 h-5 
+  w-5 h-5
   rounded-full           /* Badge to pastylka */
-  flex 
-  items-center 
+  flex
+  items-center
   justify-center
 ">
   3
@@ -527,7 +532,7 @@ setShowSuccess(true);
 setTimeout(() => setShowSuccess(false), 2000);
 
 // W JSX:
-className={showSuccess ? 'bg-green-500' : 'bg-accent'}
+className={showSuccess ? 'bg-success' : 'bg-accent'}
 ```
 
 ### **Loading States**
@@ -621,7 +626,7 @@ screens: {
 ### **✅ DO:**
 - Używaj sharp corners (brak rounded)
 - Używaj pastylki (rounded-full) dla buttonów i badges
-- **Count badges ZAWSZE bg-green-500** (nie accent!)
+- **Count badges ZAWSZE bg-success** (nie accent!)
 - Konsekwentny spacing (Tailwind scale)
 - Minimalistyczny design
 - Dużo breathing room
@@ -629,10 +634,10 @@ screens: {
 
 ### **❌ DON'T:**
 - Nie używaj rounded-lg, rounded-xl nigdzie poza buttonami i badges
-- **Nie używaj bg-accent dla count badges** - tylko bg-green-500!
+- **Nie używaj bg-accent dla count badges** - tylko bg-success!
 - Nie mieszaj różnych border-radius
 - Nie przeładowuj animacjami
-- Nie używaj jaskrawych kolorów (poza green dla success states)
+- Nie używaj jaskrawych kolorów (poza success/danger states)
 - Nie ignoruj availability states
 
 ---
@@ -648,13 +653,21 @@ screens: {
 
 ## 📝 CHANGELOG
 
+### **25 Listopada 2025 - Synchronizacja Design System**
+- **UPDATED:** Zsynchronizowano kolory z tailwind.config.js
+- **BREAKING:** Count badges używają **bg-success** zamiast bg-green-500 (custom Tailwind color)
+- Zaktualizowano wszystkie przykłady kodu w dokumentacji (bg-green-500 → bg-success)
+- Zaktualizowano palety kolorów: success, danger (custom colors z tailwind.config)
+- Poprawiono kolory: primary (#1E2A25), accent (#6B7F73), muted (#9CA8A1)
+- Naprawiono HeaderActions - badge używa bg-success zamiast bg-accent
+
 ### **14 Listopada 2025 - Count Badges (ZIELONE)**
-- **BREAKING:** Count badges teraz **bg-green-500** zamiast bg-accent
+- **BREAKING:** Count badges teraz **bg-success** zamiast bg-accent
 - Dodano wytyczne: Count Badge (large + small)
 - Zaktualizowano CartHeader - zielony badge
 - Zaktualizowano MobileNavigation - zielony badge zamiast nawiasu
 - Dodano przykłady użycia: gdzie stosować zielone badges
-- Zaktualizowano sekcję Kolory - green-500 dla success states
+- Zaktualizowano sekcję Kolory - success dla success states
 
 ### **14 Listopada 2025 - Evening Session**
 - Dodano **CloseButton** component (reusable X dla modali)

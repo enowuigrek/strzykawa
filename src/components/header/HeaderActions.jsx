@@ -16,7 +16,7 @@ export function HeaderActions({ cartItemsCount, onOpenCart, onOpenLogin, onLogou
                 >
                     <FaShoppingCart className="w-4 h-4" />
                     {cartItemsCount > 0 && (
-                        <span className="absolute -top-1 -right-1 bg-accent text-white text-xs w-5 h-5 rounded-full flex items-center justify-center font-bold animate-pulse">
+                        <span className="absolute -top-1 -right-1 bg-success text-white text-xs w-5 h-5 rounded-full flex items-center justify-center font-bold animate-pulse">
                             {cartItemsCount}
                         </span>
                     )}
