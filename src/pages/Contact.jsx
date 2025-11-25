@@ -4,7 +4,7 @@ import { ContactMap } from '../components/features/contact/ContactMap';
 import { useScrollToTop } from '../hooks/useScrollToTop';
 import { PageLayout } from "../components/layout/PageLayout.jsx";
 
-export function ContactSection() {
+export function Contact() {
     useScrollToTop();
 
     return (

@@ -1,0 +1,21 @@
+# Dependencies
+node_modules
+
+# Build output
+dist
+build
+.vite
+
+# Config files
+*.config.js
+*.config.cjs
+postcss.config.js
+tailwind.config.js
+vite.config.js
+
+# Environment files
+.env*
+
+# Assets
+public
+src/assets

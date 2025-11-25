@@ -20,6 +20,7 @@ export function CoffeeCardActions({
 
     // Ile sztuk tej kawy jest w koszyku
     const cartQuantity = getItemQuantity(coffee.id);
+    const isUnavailable = !coffee.availableForSale;
 
     const getCartIcon = () => {
         if (justAdded) return FaCheck;
@@ -54,9 +55,11 @@ export function CoffeeCardActions({
             <button
                 onClick={(e) => {
                     e.stopPropagation();
-                    onQuickAdd && onQuickAdd();
+                    if (!isUnavailable) {
+                        onQuickAdd && onQuickAdd();
+                    }
                 }}
-                disabled={isAdding}
+                disabled={isAdding || isUnavailable}
                 className={`
                     relative
                     w-14 py-2.5
@@ -67,9 +70,12 @@ export function CoffeeCardActions({
                     rounded-r-full
                     ${justAdded
                         ? 'bg-success hover:bg-success-dark'
-                        : 'hover:bg-white/15'
+                        : isUnavailable
+                            ? 'bg-white/5'
+                            : 'hover:bg-white/15'
                     }
                 `}
+                title={isUnavailable ? 'Produkt niedostępny' : 'Dodaj do koszyka'}
             >
                 <CartIcon className="w-5 h-5" />
 

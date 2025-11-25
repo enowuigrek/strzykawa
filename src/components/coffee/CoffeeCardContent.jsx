@@ -22,6 +22,8 @@ export function CoffeeCardContent({ coffee }) {
         return { prefix: 'od', value: minPrice.toFixed(2) };
     };
 
+    const isUnavailable = !coffee.availableForSale;
+
     return (
         <div className="p-5 space-y-3">
             {/* Nazwa - klikalana */}
@@ -29,28 +31,36 @@ export function CoffeeCardContent({ coffee }) {
                 to={`/kawy/${coffee.shopifyHandle || coffee.id}`}
                 className="block hover:text-accent transition-colors"
             >
-                <h3 className="text-xl md:text-2xl  text-white leading-tight">
+                <h3 className="text-xl md:text-2xl text-white leading-tight">
                     {coffee.name}
                 </h3>
             </Link>
 
-            {/* Cena */}
-            <div className="flex items-baseline gap-2">
-                {(() => {
-                    const price = getPrice();
-                    return (
-                        <>
-                            {price.prefix && (
-                                <span className="text-sm text-muted uppercase tracking-wide">
-                                    {price.prefix}
-                                </span>
-                            )}
-                            <span className="text-xl md:text-2xl text-accent font-semibold">
-                                {price.value} zł
-                            </span>
-                        </>
-                    );
-                })()}
+            {/* Cena i status */}
+            <div className="flex items-baseline gap-2 flex-wrap">
+                {isUnavailable ? (
+                    <span className="px-3 py-1 bg-danger/20 border border-danger/30 text-danger text-sm font-bold rounded-full">
+                        Niedostępne
+                    </span>
+                ) : (
+                    <>
+                        {(() => {
+                            const price = getPrice();
+                            return (
+                                <>
+                                    {price.prefix && (
+                                        <span className="text-sm text-muted uppercase tracking-wide">
+                                            {price.prefix}
+                                        </span>
+                                    )}
+                                    <span className="text-xl md:text-2xl text-accent font-semibold">
+                                        {price.value} zł
+                                    </span>
+                                </>
+                            );
+                        })()}
+                    </>
+                )}
             </div>
         </div>
     );
