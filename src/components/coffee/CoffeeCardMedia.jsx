@@ -10,6 +10,8 @@ export function CoffeeCardMedia({ coffee, overlayOpen, onToggleOverlay }) {
         return mapping[roastType] || roastType || '';
     };
 
+    const isUnavailable = !coffee.availableForSale;
+
     return (
         <div className="relative h-64 overflow-hidden">
             {/* Zdjęcie - klikalny link */}
@@ -20,10 +22,21 @@ export function CoffeeCardMedia({ coffee, overlayOpen, onToggleOverlay }) {
                 <img
                     src={coffee.image || coffeePlaceholder}
                     alt={`Opakowanie kawy ${coffee.name}`}
-                    className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
+                    className={`w-full h-full object-cover transition-all duration-500 hover:scale-105 ${
+                        isUnavailable ? 'opacity-40 grayscale' : ''
+                    }`}
                     loading="lazy"
                 />
             </Link>
+
+            {/* Overlay niedostępności */}
+            {isUnavailable && (
+                <div className="absolute inset-0 z-15 bg-primary-dark/40 backdrop-blur-[2px] flex items-center justify-center pointer-events-none">
+                    <div className="bg-danger text-white px-6 py-3 font-bold text-lg tracking-wide shadow-lg">
+                        NIEDOSTĘPNE
+                    </div>
+                </div>
+            )}
 
             {/* Naklejka roast type - FADE OUT gdy overlay open */}
             {getRoastTypeDisplay(coffee.roastType) && (
