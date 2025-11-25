@@ -1,5 +1,6 @@
 import React, { useState, useMemo, useEffect } from 'react';
 import { shopify } from '../services/shopify';
+import { logger } from '../utils/logger';
 import { PageLayout } from "../components/layout/PageLayout.jsx";
 import { CoffeeFilterBar } from '../components/organisms/CoffeeFilterBar';
 import { CoffeeGrid } from '../components/organisms/CoffeeGrid';
@@ -30,9 +31,7 @@ export function Coffees() {
                 setProducts(fetchedProducts);
                 setError(null);
             } catch (err) {
-                if (import.meta.env.DEV) {
-                    console.error('❌ Error loading products:', err);
-                }
+                logger.error('❌ Error loading products:', err);
                 setError('Nie udało się załadować kaw. Spróbuj ponownie później.');
             } finally {
                 setLoading(false);

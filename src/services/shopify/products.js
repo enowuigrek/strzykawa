@@ -3,6 +3,8 @@
  * Handles product fetching and queries
  */
 
+import { logger } from '../../utils/logger';
+
 const PRODUCT_FRAGMENT = `
     id
     handle
@@ -84,14 +86,14 @@ export async function fetchProducts(client, mapProduct, limit = 20) {
             try {
                 return mapProduct(edge.node);
             } catch (error) {
-                console.error('❌ Error mapping product:', edge.node.title, error);
+                logger.error('❌ Error mapping product:', edge.node.title, error);
                 return null;
             }
         }).filter(Boolean);
 
         return products;
     } catch (error) {
-        console.error('❌ Error fetching products:', error);
+        logger.error('❌ Error fetching products:', error);
         throw error;
     }
 }

@@ -1,3 +1,5 @@
+import { logger } from '../../utils/logger';
+
 class ShopifyClient {
     constructor() {
         this.domain = import.meta.env.VITE_SHOPIFY_DOMAIN;
@@ -11,9 +13,7 @@ class ShopifyClient {
             );
         }
 
-        if (import.meta.env.DEV) {
-            console.log('✅ Shopify client initialized');
-        }
+        logger.log('✅ Shopify client initialized');
     }
 
     /**
@@ -40,17 +40,13 @@ class ShopifyClient {
             const data = await response.json();
 
             if (data.errors) {
-                if (import.meta.env.DEV) {
-                    console.error('GraphQL errors:', data.errors);
-                }
+                logger.error('GraphQL errors:', data.errors);
                 throw new Error(data.errors[0]?.message || 'GraphQL error');
             }
 
             return data;
         } catch (error) {
-            if (import.meta.env.DEV) {
-                console.error('Shopify API error:', error);
-            }
+            logger.error('Shopify API error:', error);
             throw error;
         }
     }
