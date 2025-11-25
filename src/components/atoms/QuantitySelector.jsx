@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { FiMinus, FiPlus } from 'react-icons/fi';
 
 /**
@@ -115,3 +116,12 @@ export function QuantitySelector({
         </div>
     );
 }
+
+QuantitySelector.propTypes = {
+    quantity: PropTypes.number,
+    onQuantityChange: PropTypes.func.isRequired,
+    min: PropTypes.number,
+    max: PropTypes.number,
+    disabled: PropTypes.bool,
+    size: PropTypes.oneOf(['sm', 'md', 'lg']),
+};

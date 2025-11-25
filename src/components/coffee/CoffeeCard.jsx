@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 import { useCartStore } from '../../store/cartStore.js';
 import { CoffeeCardMedia } from './CoffeeCardMedia';
 import { CoffeeCardContent } from './CoffeeCardContent';
@@ -70,3 +71,21 @@ export function CoffeeCard({ coffee }) {
         </>
     );
 }
+
+CoffeeCard.propTypes = {
+    coffee: PropTypes.shape({
+        id: PropTypes.string.isRequired,
+        name: PropTypes.string.isRequired,
+        image: PropTypes.string,
+        shopifyHandle: PropTypes.string,
+        roastType: PropTypes.string,
+        availableForSale: PropTypes.bool,
+        variants: PropTypes.arrayOf(
+            PropTypes.shape({
+                id: PropTypes.string.isRequired,
+                title: PropTypes.string,
+                price: PropTypes.number,
+            })
+        ),
+    }).isRequired,
+};
