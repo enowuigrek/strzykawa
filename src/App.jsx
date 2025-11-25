@@ -7,7 +7,7 @@ import { Home } from './pages/Home.jsx';
 import { Coffees }from './pages/Coffees.jsx';
 import { CoffeeDetail } from './pages/CoffeeDetail.jsx';
 import { About } from "./pages/About.jsx";
-import { ContactSection } from "./pages/ContactSection.jsx";
+import { Contact } from "./pages/Contact.jsx";
 import { B2B } from './pages/B2B.jsx';
 import { TermsAndConditions } from "./pages/TermsAndConditions.jsx";
 import {
@@ -65,7 +65,7 @@ function App() {
                     <Route path="/kawy/:handle" element={<CoffeeDetail />} />
                     <Route path="/o-nas" element={<About />} />
                     <Route path="/b2b" element={<B2B />} />
-                    <Route path="/kontakt" element={<ContactSection />} />
+                    <Route path="/kontakt" element={<Contact />} />
                     <Route path="/regulamin" element={<TermsAndConditions />} />
                     <Route path="/polityka-prywatnosci" element={<PrivacyPolicy />} />
                     <Route path="/polityka-cookies" element={<CookiePolicy />} />
