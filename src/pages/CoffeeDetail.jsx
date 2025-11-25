@@ -48,7 +48,9 @@ export function CoffeeDetail() {
                     setSelectedVariant(availableVariant || product.variants[0]);
                 }
             } catch (err) {
-                console.error('Error loading product:', err);
+                if (import.meta.env.DEV) {
+                    console.error('Error loading product:', err);
+                }
                 setError('Nie udało się załadować produktu');
             } finally {
                 setLoading(false);
@@ -69,7 +71,9 @@ export function CoffeeDetail() {
             await addItem(coffee, selectedVariant.id, quantity);
             alert(`Dodano ${quantity}x ${coffee.name} do koszyka!`);
         } catch (err) {
-            console.error('Error adding to cart:', err);
+            if (import.meta.env.DEV) {
+                console.error('Error adding to cart:', err);
+            }
             alert('Nie udało się dodać do koszyka');
         } finally {
             setAddingToCart(false);

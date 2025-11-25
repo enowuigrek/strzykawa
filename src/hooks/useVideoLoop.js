@@ -9,7 +9,11 @@ export function useVideoLoop(startTime = 2) {
         if (videoElement) {
             const handleEnded = () => {
                 videoElement.currentTime = startTime;
-                videoElement.play().catch(console.log);
+                videoElement.play().catch(err => {
+                    if (import.meta.env.DEV) {
+                        console.log('Video autoplay prevented:', err);
+                    }
+                });
             };
 
             videoElement.addEventListener('ended', handleEnded);

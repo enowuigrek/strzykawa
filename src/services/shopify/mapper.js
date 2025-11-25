@@ -40,8 +40,6 @@ function getMetafield(product, key) {
  * @returns {object} Mapped product
  */
 export function mapProduct(shopifyProduct) {
-    console.log(`🔄 Mapping product: ${shopifyProduct.title}`);
-
     // Extract metafields
     const country = getMetafield(shopifyProduct, 'country') || '';
     const region = getMetafield(shopifyProduct, 'region') || '';
@@ -55,7 +53,6 @@ export function mapProduct(shopifyProduct) {
     // Map roast_type: "Przelew" → "Filter"
     const roastTypeRaw = getMetafield(shopifyProduct, 'roast_type') || 'Filter';
     const roastType = roastTypeRaw === 'Przelew' ? 'Filter' : roastTypeRaw;
-    console.log(`🎨 Roast type mapping: "${roastTypeRaw}" → "${roastType}"`);
 
     const roastLevel = getMetafield(shopifyProduct, 'roast_level') || '';
 
@@ -84,8 +81,6 @@ export function mapProduct(shopifyProduct) {
         availableForSale: edge.node.availableForSale || false,
         selectedOptions: edge.node.selectedOptions || []
     })) || []).sort((a, b) => a.price - b.price);
-
-    console.log('💰 Sorted variants:', variants.map(v => `${v.title}: ${v.price} zł`));
 
     // Map to internal format
     const mappedProduct = {
@@ -127,6 +122,5 @@ export function mapProduct(shopifyProduct) {
         }
     };
 
-    console.log('✅ Mapped product:', mappedProduct.name);
     return mappedProduct;
 }

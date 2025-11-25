@@ -11,7 +11,9 @@ class ShopifyClient {
             );
         }
 
-        console.log('✅ Shopify client initialized');
+        if (import.meta.env.DEV) {
+            console.log('✅ Shopify client initialized');
+        }
     }
 
     /**
@@ -38,13 +40,17 @@ class ShopifyClient {
             const data = await response.json();
 
             if (data.errors) {
-                console.error('GraphQL errors:', data.errors);
+                if (import.meta.env.DEV) {
+                    console.error('GraphQL errors:', data.errors);
+                }
                 throw new Error(data.errors[0]?.message || 'GraphQL error');
             }
 
             return data;
         } catch (error) {
-            console.error('Shopify API error:', error);
+            if (import.meta.env.DEV) {
+                console.error('Shopify API error:', error);
+            }
             throw error;
         }
     }

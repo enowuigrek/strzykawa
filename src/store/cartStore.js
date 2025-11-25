@@ -28,7 +28,9 @@ export const useCartStore = create(
                     const newCart = await shopify.createCart();
                     set({ cart: newCart, isLoading: false, status: 'idle' });
                 } catch (error) {
-                    console.error('Error initializing cart:', error);
+                    if (import.meta.env.DEV) {
+                        console.error('Error initializing cart:', error);
+                    }
                     set({ error: 'Nie udało się utworzyć koszyka', isLoading: false });
                 }
             },
@@ -92,7 +94,9 @@ export const useCartStore = create(
                     });
 
                 } catch (error) {
-                    console.error('Error adding to cart:', error);
+                    if (import.meta.env.DEV) {
+                        console.error('Error adding to cart:', error);
+                    }
                     set({
                         error: 'Nie udało się dodać produktu do koszyka',
                         isLoading: false
@@ -116,7 +120,9 @@ export const useCartStore = create(
                         isLoading: false
                     });
                 } catch (error) {
-                    console.error('Error removing from cart:', error);
+                    if (import.meta.env.DEV) {
+                        console.error('Error removing from cart:', error);
+                    }
                     set({
                         error: 'Nie udało się usunąć produktu',
                         isLoading: false
@@ -145,7 +151,9 @@ export const useCartStore = create(
                         isLoading: false
                     });
                 } catch (error) {
-                    console.error('Error updating quantity:', error);
+                    if (import.meta.env.DEV) {
+                        console.error('Error updating quantity:', error);
+                    }
                     set({
                         error: 'Nie udało się zaktualizować ilości',
                         isLoading: false
@@ -172,7 +180,9 @@ export const useCartStore = create(
                     set({ status: 'pending' });
                     window.location.href = cart.checkoutUrl;
                 } else {
-                    console.error('No checkout URL available');
+                    if (import.meta.env.DEV) {
+                        console.error('No checkout URL available');
+                    }
                 }
             },
 
@@ -218,7 +228,9 @@ export const useCartStore = create(
                         throw new Error('Produkt nie został znaleziony');
                     }
                 } catch (error) {
-                    console.error('Error adding coffee to cart:', error);
+                    if (import.meta.env.DEV) {
+                        console.error('Error adding coffee to cart:', error);
+                    }
                     set({ error: 'Nie udało się dodać kawy do koszyka' });
                 }
             },
