@@ -7,12 +7,11 @@ import Branding2 from '../assets/history/branding-2.jpg';
 import Branding5 from '../assets/history/branding-5.jpg';
 import TeamPhoto from '../assets/history/damian_karolina.jpg';
 import { useScrollToTop } from '../hooks/useScrollToTop';
-import { FaMapMarkerAlt, FaShoppingBag, FaCoffee, FaHeart, FaLeaf } from 'react-icons/fa';
+import { FaMapMarkerAlt, FaShoppingBag } from 'react-icons/fa';
 import { Button } from '../components/atoms/Button';
 import { PageLayout } from "../components/layout/PageLayout.jsx";
 import { TimelineSection } from '../components/molecules/TimelineSection';
 import { TimelineBar } from '../components/organisms/TimelineBar';
-
 
 export function About() {
     useScrollToTop();
@@ -50,69 +49,30 @@ export function About() {
         }
     ];
 
-    // Extract years for TimelineBar
     const years = timelineData.map(item => item.year);
 
     return (
         <PageLayout
             title="O Strzykawie"
-            description="Nasza historia, pasja i filozofia. Poznaj ludzi i wartości, które stoją za każdą filiżanką kawy w Strzykawie."
+            description="Nasza historia. Poznaj drogę od małej kawiarni do palarni kawy."
         >
-            {/* Hero Section */}
-            <div className="bg-gradient-to-b from-primary-light/40 to-primary border-b border-white/10">
-                <div className="max-w-6xl mx-auto px-4 py-16 md:py-24">
-                    <div className="text-center max-w-3xl mx-auto space-y-8">
-                        <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white">
-                            Pasja do kawy specialty
-                        </h1>
-                        <p className="text-lg md:text-xl text-white/80 leading-relaxed">
-                            Od małej kawiarni w centrum Częstochowy do własnej palarni kawy.
-                            Poznaj historię Strzykawy - miejsca, gdzie kawa to coś więcej niż napój.
-                        </p>
-
-                        {/* Values Grid */}
-                        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 pt-8">
-                            <div className="bg-primary/60 border border-white/10 p-6 backdrop-blur-sm">
-                                <FaCoffee className="w-8 h-8 text-accent mx-auto mb-3" />
-                                <h3 className="text-white font-semibold mb-2">Jakość</h3>
-                                <p className="text-white/70 text-sm">
-                                    Starannie wyselekcjonowane ziarna z najlepszych plantacji świata
-                                </p>
-                            </div>
-                            <div className="bg-primary/60 border border-white/10 p-6 backdrop-blur-sm">
-                                <FaHeart className="w-8 h-8 text-accent mx-auto mb-3" />
-                                <h3 className="text-white font-semibold mb-2">Pasja</h3>
-                                <p className="text-white/70 text-sm">
-                                    Każdy etap - od wypalania po serwowanie - traktujemy z najwyższą starannością
-                                </p>
-                            </div>
-                            <div className="bg-primary/60 border border-white/10 p-6 backdrop-blur-sm">
-                                <FaLeaf className="w-8 h-8 text-accent mx-auto mb-3" />
-                                <h3 className="text-white font-semibold mb-2">Zrównoważony rozwój</h3>
-                                <p className="text-white/70 text-sm">
-                                    Dbamy o środowisko i fair trade - kawa z szacunkiem dla ludzi i planety
-                                </p>
-                            </div>
-                        </div>
-                    </div>
+            {/* Simple Header */}
+            <div className="bg-primary border-b border-white/10">
+                <div className="max-w-6xl mx-auto px-4 py-12 md:py-16">
+                    <h1 className="text-4xl md:text-5xl font-bold text-white text-center mb-4">
+                        Nasza historia
+                    </h1>
+                    <p className="text-lg text-white/70 text-center max-w-2xl mx-auto">
+                        Od małej kawiarni w centrum Częstochowy do własnej palarni kawy
+                    </p>
                 </div>
             </div>
 
-            {/* Sticky Timeline Bar */}
+            {/* Timeline Bar */}
             <TimelineBar years={years} />
 
+            {/* Timeline Content */}
             <div className="max-w-6xl mx-auto px-4 py-16">
-                {/* Section Title */}
-                <div className="mb-20 text-center">
-                    <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
-                        Nasza historia
-                    </h2>
-                    <p className="text-white/70 text-lg max-w-2xl mx-auto">
-                        Pięć lat rozwoju, setki godzin szkoleń i niezliczone filiżanki kawy
-                    </p>
-                </div>
-
-                {/* Timeline Sections */}
                 <div className="space-y-20 md:space-y-24">
                     {timelineData.map((item, index) => (
                         <TimelineSection

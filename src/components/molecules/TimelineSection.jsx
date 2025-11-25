@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { MobileCarousel } from './MobileCarousel';
 
 /**
@@ -7,7 +7,7 @@ import { MobileCarousel } from './MobileCarousel';
  * @param {string} year - Year/date of the event
  * @param {string} title - Title of the event
  * @param {string} content - Description text
- * @param {string[]} images - Array of image URLs (first is main, rest in grid)
+ * @param {string[]} images - Array of image URLs
  * @param {number} index - Index for alternating layout
  */
 export function TimelineSection({ year, title, content, images = [], index }) {
@@ -16,96 +16,22 @@ export function TimelineSection({ year, title, content, images = [], index }) {
     const mainImage = images[0];
     const additionalImages = images.slice(1);
 
-    // State dla orientacji głównego zdjęcia
-    const [mainImageOrientation, setMainImageOrientation] = useState('landscape');
-
-    // State dla orientacji dodatkowych zdjęć (array)
-    const [additionalImagesOrientation, setAdditionalImagesOrientation] = useState([]);
-
-    // Funkcja wykrywania orientacji głównego zdjęcia
-    const handleImageLoad = (event) => {
-        const img = event.target;
-        const width = img.naturalWidth;
-        const height = img.naturalHeight;
-
-        if (height > width * 1.2) {
-            setMainImageOrientation('portrait');
-        } else if (width > height * 1.2) {
-            setMainImageOrientation('landscape');
-        } else {
-            setMainImageOrientation('square');
-        }
-    };
-
-    // Funkcja wykrywania orientacji dodatkowych zdjęć
-    const handleAdditionalImageLoad = (event, imageIndex) => {
-        const img = event.target;
-        const width = img.naturalWidth;
-        const height = img.naturalHeight;
-
-        let orientation;
-        if (height > width * 1.2) {
-            orientation = 'portrait';
-        } else if (width > height * 1.2) {
-            orientation = 'landscape';
-        } else {
-            orientation = 'square';
-        }
-
-        // Zapisz orientację dla tego konkretnego obrazka
-        setAdditionalImagesOrientation(prev => {
-            const newOrientations = [...prev];
-            newOrientations[imageIndex] = orientation;
-            return newOrientations;
-        });
-    };
-
-    // Wybierz aspect class dla głównego zdjęcia
-    const getAspectClass = () => {
-        switch (mainImageOrientation) {
-            case 'portrait':
-                return 'aspect-[3/4]';
-            case 'square':
-                return 'aspect-square';
-            case 'landscape':
-            default:
-                return 'aspect-[4/3]';
-        }
-    };
-
-    // Wybierz aspect class dla dodatkowego zdjęcia
-    const getAdditionalAspectClass = (imageIndex) => {
-        const orientation = additionalImagesOrientation[imageIndex] || 'landscape';
-
-        switch (orientation) {
-            case 'portrait':
-                return 'aspect-[3/4]';
-            case 'square':
-                return 'aspect-square';
-            case 'landscape':
-            default:
-                return 'aspect-[4/3]';
-        }
-    };
-
     return (
         <section
             id={`year-${year}`}
             className="scroll-mt-32"
         >
-            {/* Mobile: Carousel for multiple images */}
-            {hasMultipleImages && (
-                <div className="md:hidden mb-10">
-                    <MobileCarousel
-                        images={images}
-                        aspectRatio="4/3"
-                        showCounter={true}
-                    />
-                </div>
-            )}
+            {/* Mobile: Carousel for all images */}
+            <div className="md:hidden mb-10">
+                <MobileCarousel
+                    images={images}
+                    aspectRatio="4/3"
+                    showCounter={true}
+                />
+            </div>
 
-            {/* Main Content + Image */}
-            <div className={`grid md:grid-cols-2 gap-10 md:gap-16 items-center ${
+            {/* Desktop: Main Content + First Image */}
+            <div className={`grid md:grid-cols-2 gap-10 md:gap-16 items-start ${
                 isEven ? '' : 'md:grid-flow-dense'
             }`}>
                 {/* Content */}
@@ -128,76 +54,63 @@ export function TimelineSection({ year, title, content, images = [], index }) {
                     </div>
                 </div>
 
-                {/* Main Image - Desktop only when multiple, always on single */}
+                {/* Main Image - Desktop only */}
                 {mainImage && (
-                    <div className={`${hasMultipleImages ? 'hidden md:block' : ''} ${isEven ? '' : 'md:col-start-1 md:row-start-1'}`}>
-                        <div className={`${getAspectClass()} bg-gradient-to-br from-primary-light/30 to-primary/50 border border-white/10 overflow-hidden shadow-xl transition-shadow duration-300 hover:shadow-2xl`}>
+                    <div className={`hidden md:block ${isEven ? '' : 'md:col-start-1 md:row-start-1'}`}>
+                        <div className="bg-gradient-to-br from-primary-light/30 to-primary/50 border border-white/10 overflow-hidden shadow-xl">
                             <img
                                 src={mainImage}
                                 alt={`Strzykawa ${year} - ${title}`}
-                                className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
-                                onLoad={handleImageLoad}
+                                className="w-full h-auto object-contain"
                             />
                         </div>
                     </div>
                 )}
-
-                {/* If no main image, make content full width */}
-                {!mainImage && (
-                    <div className="md:col-span-2">
-                        {/* Content already rendered above, this just adjusts grid */}
-                    </div>
-                )}
             </div>
 
-            {/* Additional Images Grid - Desktop only when multiple images */}
+            {/* Additional Images Grid - Desktop only */}
             {additionalImages.length > 0 && (
-                <div className={hasMultipleImages ? 'hidden md:block' : ''}>
-                    {/* Jeśli JEDNO dodatkowe zdjęcie - wycentrowane, pełna szerokość */}
+                <div className="hidden md:block mt-12">
                     {additionalImages.length === 1 && (
-                        <div className="mt-12 flex justify-center">
-                            <div
-                                className="w-full max-w-3xl aspect-[4/3] bg-gradient-to-br from-primary-light/30 to-primary/50 border border-white/10 overflow-hidden shadow-xl transition-shadow duration-300 hover:shadow-2xl"
-                            >
+                        <div className="flex justify-center">
+                            <div className="w-full max-w-3xl bg-gradient-to-br from-primary-light/30 to-primary/50 border border-white/10 overflow-hidden shadow-xl">
                                 <img
                                     src={additionalImages[0]}
                                     alt={`Strzykawa ${year} - dodatkowe zdjęcie`}
-                                    className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
+                                    className="w-full h-auto object-contain"
                                 />
                             </div>
                         </div>
                     )}
 
-                    {/* Jeśli DWA dodatkowe zdjęcia - obok siebie, z max-width */}
                     {additionalImages.length === 2 && (
-                        <div className="mt-12 grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
                             {additionalImages.map((image, idx) => (
                                 <div
                                     key={idx}
-                                    className="aspect-[4/3] bg-gradient-to-br from-primary-light/30 to-primary/50 border border-white/10 overflow-hidden shadow-xl transition-shadow duration-300 hover:shadow-2xl"
+                                    className="bg-gradient-to-br from-primary-light/30 to-primary/50 border border-white/10 overflow-hidden shadow-xl"
                                 >
                                     <img
                                         src={image}
                                         alt={`Strzykawa ${year} - dodatkowe zdjęcie ${idx + 1}`}
-                                        className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
+                                        className="w-full h-auto object-contain"
                                     />
                                 </div>
                             ))}
                         </div>
                     )}
 
-                    {/* Jeśli TRZY lub więcej - normalny grid */}
                     {additionalImages.length >= 3 && (
-                        <div className="mt-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
                             {additionalImages.map((image, idx) => (
                                 <div
                                     key={idx}
-                                    className="aspect-[4/3] bg-gradient-to-br from-primary-light/30 to-primary/50 border border-white/10 overflow-hidden shadow-xl transition-shadow duration-300 hover:shadow-2xl"
+                                    className="bg-gradient-to-br from-primary-light/30 to-primary/50 border border-white/10 overflow-hidden shadow-xl"
                                 >
                                     <img
                                         src={image}
                                         alt={`Strzykawa ${year} - dodatkowe zdjęcie ${idx + 1}`}
-                                        className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
+                                        className="w-full h-auto object-contain"
                                     />
                                 </div>
                             ))}
