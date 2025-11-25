@@ -19,7 +19,7 @@ export function TimelineSection({ year, title, content, images = [], index }) {
     // State dla orientacji głównego zdjęcia
     const [mainImageOrientation, setMainImageOrientation] = useState('landscape');
 
-    // 🆕 NOWE: State dla orientacji dodatkowych zdjęć (array)
+    // State dla orientacji dodatkowych zdjęć (array)
     const [additionalImagesOrientation, setAdditionalImagesOrientation] = useState([]);
 
     // Funkcja wykrywania orientacji głównego zdjęcia
@@ -37,7 +37,7 @@ export function TimelineSection({ year, title, content, images = [], index }) {
         }
     };
 
-    // 🆕 NOWE: Funkcja wykrywania orientacji dodatkowych zdjęć
+    // Funkcja wykrywania orientacji dodatkowych zdjęć
     const handleAdditionalImageLoad = (event, imageIndex) => {
         const img = event.target;
         const width = img.naturalWidth;
@@ -73,7 +73,7 @@ export function TimelineSection({ year, title, content, images = [], index }) {
         }
     };
 
-    // 🆕 NOWE: Wybierz aspect class dla dodatkowego zdjęcia
+    // Wybierz aspect class dla dodatkowego zdjęcia
     const getAdditionalAspectClass = (imageIndex) => {
         const orientation = additionalImagesOrientation[imageIndex] || 'landscape';
 
@@ -91,11 +91,11 @@ export function TimelineSection({ year, title, content, images = [], index }) {
     return (
         <section
             id={`year-${year}`}
-            className="scroll-mt-32 mb-24 md:mb-32"
+            className="scroll-mt-32"
         >
             {/* Mobile: Carousel for multiple images */}
             {hasMultipleImages && (
-                <div className="md:hidden mb-8">
+                <div className="md:hidden mb-10">
                     <MobileCarousel
                         images={images}
                         aspectRatio="4/3"
@@ -105,23 +105,23 @@ export function TimelineSection({ year, title, content, images = [], index }) {
             )}
 
             {/* Main Content + Image */}
-            <div className={`grid md:grid-cols-2 gap-8 md:gap-12 items-start ${
+            <div className={`grid md:grid-cols-2 gap-10 md:gap-16 items-center ${
                 isEven ? '' : 'md:grid-flow-dense'
             }`}>
                 {/* Content */}
-                <div className={`space-y-6 ${isEven ? '' : 'md:col-start-2'}`}>
+                <div className={`space-y-8 ${isEven ? '' : 'md:col-start-2'}`}>
                     {/* Year + Title */}
-                    <div className="space-y-2">
-                        <div className="text-5xl md:text-6xl font-bold text-accent/30">
+                    <div className="space-y-3">
+                        <div className="text-5xl md:text-6xl lg:text-7xl font-bold text-accent/30">
                             {year}
                         </div>
-                        <h3 className="text-2xl md:text-3xl font-bold text-white">
+                        <h3 className="text-2xl md:text-3xl lg:text-4xl font-bold text-white">
                             {title}
                         </h3>
                     </div>
 
                     {/* Description */}
-                    <div className="bg-gradient-to-r from-primary-light/20 to-primary/30 border border-white/10 p-6 md:p-8">
+                    <div className="bg-gradient-to-r from-primary-light/20 to-primary/30 border border-white/10 p-8 md:p-10">
                         <p className="text-base md:text-lg text-white/90 leading-relaxed">
                             {content}
                         </p>
@@ -131,11 +131,11 @@ export function TimelineSection({ year, title, content, images = [], index }) {
                 {/* Main Image - Desktop only when multiple, always on single */}
                 {mainImage && (
                     <div className={`${hasMultipleImages ? 'hidden md:block' : ''} ${isEven ? '' : 'md:col-start-1 md:row-start-1'}`}>
-                        <div className={`${getAspectClass()} bg-gradient-to-br from-primary-light/30 to-primary/50 border border-white/10 overflow-hidden shadow-lg`}>
+                        <div className={`${getAspectClass()} bg-gradient-to-br from-primary-light/30 to-primary/50 border border-white/10 overflow-hidden shadow-xl transition-shadow duration-300 hover:shadow-2xl`}>
                             <img
                                 src={mainImage}
                                 alt={`Strzykawa ${year} - ${title}`}
-                                className="w-full h-full object-cover transition-transform duration-300 hover:scale-105"
+                                className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
                                 onLoad={handleImageLoad}
                             />
                         </div>
@@ -155,32 +155,32 @@ export function TimelineSection({ year, title, content, images = [], index }) {
                 <div className={hasMultipleImages ? 'hidden md:block' : ''}>
                     {/* Jeśli JEDNO dodatkowe zdjęcie - wycentrowane, pełna szerokość */}
                     {additionalImages.length === 1 && (
-                        <div className="mt-8 flex justify-center">
+                        <div className="mt-12 flex justify-center">
                             <div
-                                className={`w-full max-w-2xl ${getAdditionalAspectClass(0)} bg-gradient-to-br from-primary-light/30 to-primary/50 border border-white/10 overflow-hidden shadow-lg`}
+                                className={`w-full max-w-3xl ${getAdditionalAspectClass(0)} bg-gradient-to-br from-primary-light/30 to-primary/50 border border-white/10 overflow-hidden shadow-xl transition-shadow duration-300 hover:shadow-2xl`}
                             >
                                 <img
                                     src={additionalImages[0]}
                                     alt={`Strzykawa ${year} - dodatkowe zdjęcie`}
-                                    className="w-full h-full object-cover transition-transform duration-300 hover:scale-105"
+                                    className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
                                     onLoad={(e) => handleAdditionalImageLoad(e, 0)}
                                 />
                             </div>
                         </div>
                     )}
 
-                    {/* 🆕 Jeśli DWA dodatkowe zdjęcia - obok siebie, z max-width */}
+                    {/* Jeśli DWA dodatkowe zdjęcia - obok siebie, z max-width */}
                     {additionalImages.length === 2 && (
-                        <div className="mt-8 grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+                        <div className="mt-12 grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
                             {additionalImages.map((image, idx) => (
                                 <div
                                     key={idx}
-                                    className={`${getAdditionalAspectClass(idx)} bg-gradient-to-br from-primary-light/30 to-primary/50 border border-white/10 overflow-hidden shadow-lg`}
+                                    className={`${getAdditionalAspectClass(idx)} bg-gradient-to-br from-primary-light/30 to-primary/50 border border-white/10 overflow-hidden shadow-xl transition-shadow duration-300 hover:shadow-2xl`}
                                 >
                                     <img
                                         src={image}
                                         alt={`Strzykawa ${year} - dodatkowe zdjęcie ${idx + 1}`}
-                                        className="w-full h-full object-cover transition-transform duration-300 hover:scale-105"
+                                        className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
                                         onLoad={(e) => handleAdditionalImageLoad(e, idx)}
                                     />
                                 </div>
@@ -188,18 +188,18 @@ export function TimelineSection({ year, title, content, images = [], index }) {
                         </div>
                     )}
 
-                    {/* 🆕 Jeśli TRZY lub więcej - normalny grid */}
+                    {/* Jeśli TRZY lub więcej - normalny grid */}
                     {additionalImages.length >= 3 && (
-                        <div className="mt-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                        <div className="mt-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
                             {additionalImages.map((image, idx) => (
                                 <div
                                     key={idx}
-                                    className={`${getAdditionalAspectClass(idx)} bg-gradient-to-br from-primary-light/30 to-primary/50 border border-white/10 overflow-hidden shadow-lg`}
+                                    className={`${getAdditionalAspectClass(idx)} bg-gradient-to-br from-primary-light/30 to-primary/50 border border-white/10 overflow-hidden shadow-xl transition-shadow duration-300 hover:shadow-2xl`}
                                 >
                                     <img
                                         src={image}
                                         alt={`Strzykawa ${year} - dodatkowe zdjęcie ${idx + 1}`}
-                                        className="w-full h-full object-cover transition-transform duration-300 hover:scale-105"
+                                        className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
                                         onLoad={(e) => handleAdditionalImageLoad(e, idx)}
                                     />
                                 </div>
