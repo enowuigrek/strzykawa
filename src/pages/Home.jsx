@@ -48,12 +48,12 @@ export function Home() {
             </div>
 
             {/* Sekcja "O Strzykawie" - najeżdża na hero */}
-            <PageLayout className="relative z-20 bg-primary pt-12 sm:pt-16 pb-20">
+            <PageLayout className="relative z-20 bg-primary pt-20 sm:pt-24 pb-32">
                 <div className="container px-6 sm:px-8">
                 {/* Header sekcji - logo */}
                     <div
                         ref={logoRef}
-                        className={`text-center mb-16 transition-all duration-700 ease-out ${
+                        className={`text-center mb-20 transition-all duration-700 ease-out ${
                             logoVisible ? scrollAnimations.pourDown.visible : scrollAnimations.pourDown.hidden
                         }`}
                     >

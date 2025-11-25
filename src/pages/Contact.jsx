@@ -13,7 +13,7 @@ export function Contact() {
             description="Znajdź nas w sercu miasta. Zapraszamy na kawę i rozmowę o najlepszych ziarnach z całego świata. Odwiedź także naszą palarnię i zobacz jak powstają nasze kawy specialty."
         >
 
-            <div className="container space-y-8 lg:space-y-0 lg:grid lg:grid-cols-5 lg:gap-8">
+            <div className="container space-y-8 lg:space-y-0 lg:grid lg:grid-cols-5 lg:gap-8 py-8">
 
                 {/* Contact Information - zajmuje 3/5 na desktop */}
                 <div className="lg:col-span-3">
