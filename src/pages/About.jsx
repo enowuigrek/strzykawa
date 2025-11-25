@@ -113,7 +113,7 @@ export function About() {
                 </div>
 
                 {/* Timeline Sections */}
-                <div className="space-y-32 md:space-y-40">
+                <div className="space-y-20 md:space-y-24">
                     {timelineData.map((item, index) => (
                         <TimelineSection
                             key={item.year}
@@ -124,49 +124,6 @@ export function About() {
                             index={index}
                         />
                     ))}
-                </div>
-
-                {/* Team Section */}
-                <div className="mt-40 mb-32">
-                    <div className="text-center mb-12">
-                        <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
-                            Zespół Strzykawy
-                        </h2>
-                        <p className="text-white/70 text-lg max-w-2xl mx-auto">
-                            Za każdą filiżanką kawy stoją ludzie z pasją
-                        </p>
-                    </div>
-
-                    <div className="grid md:grid-cols-2 gap-12 items-center max-w-5xl mx-auto">
-                        <div className="order-2 md:order-1">
-                            <div className="bg-gradient-to-r from-primary-light/20 to-primary/30 border border-white/10 p-8 md:p-10 space-y-6">
-                                <div>
-                                    <h3 className="text-2xl font-bold text-white mb-2">Damian & Karolina</h3>
-                                    <p className="text-accent font-medium">Założyciele Strzykawy</p>
-                                </div>
-                                <p className="text-white/80 leading-relaxed">
-                                    Nasza przygoda z kawą zaczęła się od fascynacji specialty coffee
-                                    i chęci dzielenia się tą pasją z innymi. Dziś prowadzimy nie tylko
-                                    kawiarnię, ale także własną palarnię, gdzie każdego dnia tworzymy
-                                    coś wyjątkowego.
-                                </p>
-                                <p className="text-white/80 leading-relaxed">
-                                    Wierzymy, że dobra kawa to efekt pracy wielu ludzi - od farmerów,
-                                    przez roasterów, aż po baristów. Nasza rola to połączenie tych
-                                    wszystkich ogniw z szacunkiem i pasją.
-                                </p>
-                            </div>
-                        </div>
-                        <div className="order-1 md:order-2">
-                            <div className="aspect-[4/3] bg-gradient-to-br from-primary-light/30 to-primary/50 border border-white/10 overflow-hidden shadow-lg">
-                                <img
-                                    src={TeamPhoto}
-                                    alt="Damian i Karolina - Założyciele Strzykawy"
-                                    className="w-full h-full object-cover"
-                                />
-                            </div>
-                        </div>
-                    </div>
                 </div>
 
                 {/* Call to Action */}
