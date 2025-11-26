@@ -46,65 +46,105 @@ export function Footer() {
         { label: 'Polityka cookies', href: '/polityka-cookies' }
     ];
 
+    const quickLinks = [
+        { label: 'Kawy', href: '/kawy' },
+        { label: 'O Strzykawie', href: '/o-nas' },
+        { label: 'Kontakt', href: '/kontakt' },
+        { label: 'Współpraca B2B', href: '/b2b' }
+    ];
+
+    const locationInfo = {
+        address: 'ul. Dąbrowskiego 4',
+        city: '42-200 Częstochowa',
+        hours: 'Pn-Pt: 8:00 - 18:00, Sb-Nd: 10:00 - 16:00'
+    };
+
     return (
         <footer className="relative bg-primary-dark/95 border-white/10 overflow-hidden">
             {/* Main content */}
-            <div className="relative z-10 container mx-auto px-4 py-6 md:py-8">
-                {/* Mobile: 2 kolumny (Logo | Kontakt+Social) */}
-                {/* Desktop: 3 kolumny (Logo | Kontakt | Social) */}
-                <div className="grid grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-16 items-start">
-                    {/* Logo - mobile 1/2, desktop 1/3 */}
-                    <div className="flex justify-center lg:justify-start col-span-1">
+            <div className="relative z-10 container mx-auto px-4 py-8 md:py-12">
+                {/* Mobile: Logo pełna szerokość, potem 2 kolumny */}
+                {/* Desktop: 4 kolumny równo */}
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-10">
+                    {/* Logo + opis - mobile pełna szerokość */}
+                    <div className="col-span-2 md:col-span-1 flex flex-col items-center md:items-start space-y-4">
                         <div className="footer-logo">
                             <img
                                 src="/logo/vertical-logo.png"
                                 alt="Strzykawa Coffee Shop & Roastery"
-                                className="w-auto h-12 md:h-32"
+                                className="w-auto h-28 md:h-32"
                             />
+                        </div>
+                        <p className="text-white/60 text-sm text-center md:text-left leading-relaxed">
+                            Kawiarnia i palarnia kawy specialty w sercu Częstochowy
+                        </p>
+                    </div>
+
+                    {/* Linki szybkie */}
+                    <div className="space-y-4">
+                        <h4 className="text-lg text-white">Menu</h4>
+                        <ul className="space-y-2">
+                            {quickLinks.map((link, index) => (
+                                <li key={index}>
+                                    <a
+                                        href={link.href}
+                                        className="text-white/70 hover:text-white text-sm transition-colors duration-300"
+                                    >
+                                        {link.label}
+                                    </a>
+                                </li>
+                            ))}
+                        </ul>
+                    </div>
+
+                    {/* Kontakt + Adres */}
+                    <div className="space-y-4">
+                        <h4 className="text-lg text-white">Kontakt</h4>
+                        <div className="space-y-3">
+                            {contactInfo.map((contact, index) => {
+                                const Icon = contact.icon;
+                                return (
+                                    <a
+                                        key={index}
+                                        href={contact.href}
+                                        className="flex items-start gap-2 text-sm transition-colors duration-300 group"
+                                    >
+                                        <Icon className="w-4 h-4 mt-0.5 flex-shrink-0 text-muted group-hover:text-accent transition-colors" />
+                                        <span className="text-white/70 group-hover:text-white transition-colors break-words">
+                                            {contact.text}
+                                        </span>
+                                    </a>
+                                );
+                            })}
+
+                            {/* Adres */}
+                            <div className="flex items-start gap-2 text-sm pt-2">
+                                <FaMapMarkerAlt className="w-4 h-4 mt-0.5 flex-shrink-0 text-muted" />
+                                <div className="text-white/70">
+                                    <div>{locationInfo.address}</div>
+                                    <div>{locationInfo.city}</div>
+                                </div>
+                            </div>
                         </div>
                     </div>
 
-                    {/* Kontakt + Social (mobile razem w 1 kolumnie, desktop osobno) */}
-                    <div className="col-span-1 lg:col-span-2 lg:grid lg:grid-cols-2 lg:gap-12 space-y-6 lg:space-y-0">
-                        {/* Kontakt */}
-                        <div className="space-y-3 md:space-y-4">
-                            <h4 className="text-xl md:text-xl text-white">Kontakt</h4>
-                            <div className="space-y-2 md:space-y-3">
-                                {contactInfo.map((contact, index) => {
-                                    const Icon = contact.icon;
-                                    return (
-                                        <a
-                                            key={index}
-                                            href={contact.href}
-                                            target={contact.href?.startsWith('http') ? '_blank' : undefined}
-                                            rel={
-                                                contact.href?.startsWith('http')
-                                                    ? 'noopener noreferrer'
-                                                    : undefined
-                                            }
-                                            className="flex items-start gap-2 md:gap-3 text-base md:text-base transition-colors duration-300 group"
-                                        >
-                                            <Icon className="w-5 h-5 md:w-5 md:h-5 mt-0.5 flex-shrink-0 text-muted group-hover:text-accent transition-colors" />
-                                            <div className="flex-1 min-w-0">
-                                                <div className="text-white/90 group-hover:text-white transition-colors break-words">
-                                                    {contact.text}
-                                                </div>
-                                                {contact.subtext && (
-                                                    <div className="text-white/50 text-sm md:text-sm break-words">
-                                                        {contact.subtext}
-                                                    </div>
-                                                )}
-                                            </div>
-                                        </a>
-                                    );
-                                })}
+                    {/* Social Media + Godziny */}
+                    <div className="space-y-4">
+                        <h4 className="text-lg text-white">Odwiedź nas</h4>
+
+                        {/* Godziny */}
+                        <div className="text-sm text-white/70 space-y-1">
+                            <div className="text-white/90">Godziny otwarcia:</div>
+                            <div className="text-xs leading-relaxed">
+                                Pn-Pt: 8:00 - 18:00<br />
+                                Sb-Nd: 10:00 - 16:00
                             </div>
                         </div>
 
                         {/* Social Media */}
-                        <div className="space-y-3 md:space-y-4 lg:text-right">
-                            <h4 className="text-xl md:text-xl text-white">Social Media</h4>
-                            <div className="flex gap-3 md:gap-4 lg:justify-end">
+                        <div className="pt-2">
+                            <div className="text-sm text-white/90 mb-3">Śledź nas:</div>
+                            <div className="flex gap-3">
                                 {socialLinks.map((social, index) => {
                                     const Icon = social.icon;
                                     return (
@@ -116,7 +156,7 @@ export function Footer() {
                                             aria-label={social.label}
                                             className={`text-white/70 transition-all duration-300 hover:scale-110 ${social.hoverColor}`}
                                         >
-                                            <Icon className="w-8 h-8 md:w-8 md:h-8" />
+                                            <Icon className="w-7 h-7" />
                                         </a>
                                     );
                                 })}
