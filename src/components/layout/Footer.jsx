@@ -73,13 +73,13 @@ export function Footer() {
                             <img
                                 src="/logo/horizontal-logo.png"
                                 alt="Strzykawa Coffee Shop & Roastery"
-                                className="md:hidden w-auto h-8"
+                                className="md:hidden w-auto h-2"
                             />
                             {/* Desktop: pionowe logo */}
                             <img
                                 src="/logo/vertical-logo.png"
                                 alt="Strzykawa Coffee Shop & Roastery"
-                                className="hidden md:block w-auto h-20"
+                                className="hidden md:block w-auto h-5"
                             />
                         </div>
                     </div>
