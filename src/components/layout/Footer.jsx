@@ -62,7 +62,7 @@ export function Footer() {
     return (
         <footer className="relative bg-primary-dark/95 border-white/10 overflow-hidden">
             {/* Main content */}
-            <div className="relative z-10 container mx-auto px-4 py-8 md:py-12">
+            <div className="relative z-10 container mx-auto px-4 py-4 md:py-12">
                 {/* Mobile: Logo pełna szerokość, potem 2 kolumny */}
                 {/* Desktop: 4 kolumny równo */}
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-10">
@@ -236,10 +236,10 @@ export function Footer() {
                                 <span className="text-white/60 text-xs md:text-sm mb-1 md:mb-0 md:inline md:mr-2">
                                     Użyte technologie:
                                 </span>
-                                <div className="flex items-center gap-1 md:inline-flex">
+                                <div className="flex items-center justify-start gap-1 md:inline-flex">
                                     {/* React */}
                                     <div className="flex items-center group">
-                                        <span className="mr-2 text-xs text-white/60 overflow-hidden max-w-0 group-hover:max-w-[80px] opacity-0 group-hover:opacity-100 transition-all duration-300">
+                                        <span className="hidden md:block mr-2 text-xs text-white/60 overflow-hidden max-w-0 group-hover:max-w-[80px] opacity-0 group-hover:opacity-100 transition-all duration-300">
                                             React
                                         </span>
                                         <SiReact className="w-5 h-5 transition-colors duration-300 group-hover:text-[#61DAFB]" />
@@ -247,7 +247,7 @@ export function Footer() {
 
                                     {/* Shopify */}
                                     <div className="flex items-center group">
-                                        <span className="mr-2 text-xs text-white/60 overflow-hidden max-w-0 group-hover:max-w-[80px] opacity-0 group-hover:opacity-100 transition-all duration-300">
+                                        <span className="hidden md:block mr-2 text-xs text-white/60 overflow-hidden max-w-0 group-hover:max-w-[80px] opacity-0 group-hover:opacity-100 transition-all duration-300">
                                             Shopify
                                         </span>
                                         <SiShopify className="w-5 h-5 transition-colors duration-300 group-hover:text-[#95BF47]" />
@@ -255,7 +255,7 @@ export function Footer() {
 
                                     {/* Coffee */}
                                     <div className="flex items-center group">
-                                        <span className="mr-2 text-xs text-white/60 overflow-hidden max-w-0 group-hover:max-w-[80px] opacity-0 group-hover:opacity-100 transition-all duration-300">
+                                        <span className="hidden md:block mr-2 text-xs text-white/60 overflow-hidden max-w-0 group-hover:max-w-[80px] opacity-0 group-hover:opacity-100 transition-all duration-300">
                                             Kawa
                                         </span>
                                         <BiCoffeeTogo className="w-5 h-5 transition-colors duration-300 group-hover:text-[#7B4B2A]" />
