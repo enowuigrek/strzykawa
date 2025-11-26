@@ -67,7 +67,7 @@ export function Footer() {
                 {/* Desktop: 4 kolumny równo */}
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-10">
                     {/* Logo + opis - mobile pełna szerokość */}
-                    <div className="col-span-2 md:col-span-1 flex flex-col items-center md:items-start space-y-4">
+                    <div className="col-span-2 md:col-span-1 flex flex-col items-center md:items-start md:space-y-4">
                         <div className="footer-logo">
                             {/* Mobile: poziome logo */}
                             <img
@@ -175,28 +175,47 @@ export function Footer() {
             <div className="relative z-10 border-t border-white/10 bg-black/95">
                 <div className="container mx-auto px-4 py-6">
                     <div className="flex flex-col gap-3 text-sm text-white/70">
-                        {/* Row 1: Copyright (left) */}
+                        {/* Row 1: Copyright */}
                         <div className="text-accent text-center md:text-left">
                             © {currentYear} Strzykawa. Wszystkie prawa zastrzeżone.
                         </div>
 
-                        {/* Row 2: Project (left), Legal links (center), Technologies (right) */}
-                        <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-3">
+                        {/* Row 2 (mobile only): Legal links */}
+                        <div className="md:hidden flex flex-wrap justify-center gap-x-2 gap-y-1 text-center text-white/70">
+                            {legalLinks.map((link, index) => (
+                                <React.Fragment key={index}>
+                                    <a
+                                        href={link.href}
+                                        className="hover:text-white transition-colors"
+                                    >
+                                        {link.label}
+                                    </a>
+                                    {index < legalLinks.length - 1 && (
+                                        <span className="text-white/40">|</span>
+                                    )}
+                                </React.Fragment>
+                            ))}
+                        </div>
+
+                        {/* Row 3 (mobile: 2 columns) / Row 2 (desktop: 3 columns) */}
+                        <div className="grid grid-cols-2 md:flex md:flex-row md:items-center md:justify-between gap-4 md:gap-3">
                             {/* Left: project credit */}
-                            <span className="text-white/70 text-center md:text-left">
-                                <span className="text-white/60">Projekt i wykonanie: </span>
+                            <div className="flex flex-col items-start text-left text-white/70">
+                                <span className="text-white/60 text-xs md:text-sm mb-1 md:mb-0 md:inline">
+                                    Projekt i wykonanie:{' '}
+                                </span>
                                 <a
                                     href="https://lukasznowak.dev"
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    className="text-white hover:text-accent transition-colors"
+                                    className="text-white hover:text-accent transition-colors md:inline"
                                 >
                                     lukasznowak.dev
                                 </a>
-                            </span>
+                            </div>
 
-                            {/* Center: legal links */}
-                            <div className="flex flex-wrap justify-center gap-x-2 gap-y-1 text-center text-white/70">
+                            {/* Center: legal links (desktop only) */}
+                            <div className="hidden md:flex flex-wrap justify-center gap-x-2 gap-y-1 text-center text-white/70">
                                 {legalLinks.map((link, index) => (
                                     <React.Fragment key={index}>
                                         <a
@@ -213,10 +232,11 @@ export function Footer() {
                             </div>
 
                             {/* Right: technologies */}
-                            <div className="flex flex-col sm:flex-row items-center justify-center md:justify-end gap-2 sm:gap-3 text-white/70">
-                                <span className="text-white/60 text-center">Użyte technologie:</span>
-
-                                <div className="flex items-center gap-1">
+                            <div className="flex flex-col items-start md:items-end text-left md:text-right text-white/70">
+                                <span className="text-white/60 text-xs md:text-sm mb-1 md:mb-0 md:inline md:mr-2">
+                                    Użyte technologie:
+                                </span>
+                                <div className="flex items-center gap-1 md:inline-flex">
                                     {/* React */}
                                     <div className="flex items-center group">
                                         <span className="mr-2 text-xs text-white/60 overflow-hidden max-w-0 group-hover:max-w-[80px] opacity-0 group-hover:opacity-100 transition-all duration-300">
