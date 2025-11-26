@@ -33,60 +33,141 @@ export function WaveAnimation() {
     );
 }
 
-// 2022 - Rozbudowa i rozwój - Rosnące kręgi
-export function CirclesAnimation() {
+// 2022 - Rozbudowa i rozwój - Młotek budujący
+export function HammerAnimation() {
     return (
         <svg
-            className="w-full h-32 opacity-15"
+            className="w-full h-32 opacity-25"
             viewBox="0 0 400 100"
             preserveAspectRatio="xMidYMid meet"
         >
-            <circle cx="100" cy="50" r="5" fill="currentColor" className="text-accent">
-                <animate
-                    attributeName="r"
-                    values="5;25;5"
-                    dur="4s"
-                    repeatCount="indefinite"
+            <g transform="translate(200, 50)">
+                {/* Młotek */}
+                <g>
+                    {/* Rączka młotka */}
+                    <rect
+                        x="-3"
+                        y="0"
+                        width="6"
+                        height="35"
+                        fill="currentColor"
+                        className="text-accent"
+                        opacity="0.7"
+                        rx="2"
+                    >
+                        <animateTransform
+                            attributeName="transform"
+                            type="rotate"
+                            values="0 0 0; -25 0 0; 0 0 0"
+                            dur="1.5s"
+                            repeatCount="indefinite"
+                        />
+                    </rect>
+
+                    {/* Główka młotka */}
+                    <rect
+                        x="-12"
+                        y="-8"
+                        width="24"
+                        height="10"
+                        fill="currentColor"
+                        className="text-accent"
+                        opacity="0.9"
+                        rx="1"
+                    >
+                        <animateTransform
+                            attributeName="transform"
+                            type="rotate"
+                            values="0 0 0; -25 0 0; 0 0 0"
+                            dur="1.5s"
+                            repeatCount="indefinite"
+                        />
+                    </rect>
+
+                    {/* Iskry przy uderzeniu */}
+                    <g opacity="0.8">
+                        {/* Iskra 1 */}
+                        <circle cx="-8" cy="40" r="1.5" fill="currentColor" className="text-white">
+                            <animate
+                                attributeName="opacity"
+                                values="0;1;0"
+                                dur="1.5s"
+                                keyTimes="0;0.33;0.5"
+                                repeatCount="indefinite"
+                            />
+                            <animate
+                                attributeName="cx"
+                                values="-8;-15;-8"
+                                dur="1.5s"
+                                keyTimes="0;0.5;1"
+                                repeatCount="indefinite"
+                            />
+                            <animate
+                                attributeName="cy"
+                                values="40;38;40"
+                                dur="1.5s"
+                                keyTimes="0;0.5;1"
+                                repeatCount="indefinite"
+                            />
+                        </circle>
+
+                        {/* Iskra 2 */}
+                        <circle cx="8" cy="40" r="1.5" fill="currentColor" className="text-white">
+                            <animate
+                                attributeName="opacity"
+                                values="0;1;0"
+                                dur="1.5s"
+                                keyTimes="0;0.33;0.5"
+                                repeatCount="indefinite"
+                            />
+                            <animate
+                                attributeName="cx"
+                                values="8;15;8"
+                                dur="1.5s"
+                                keyTimes="0;0.5;1"
+                                repeatCount="indefinite"
+                            />
+                            <animate
+                                attributeName="cy"
+                                values="40;37;40"
+                                dur="1.5s"
+                                keyTimes="0;0.5;1"
+                                repeatCount="indefinite"
+                            />
+                        </circle>
+
+                        {/* Iskra 3 */}
+                        <circle cx="0" cy="40" r="1.5" fill="currentColor" className="text-white">
+                            <animate
+                                attributeName="opacity"
+                                values="0;1;0"
+                                dur="1.5s"
+                                keyTimes="0;0.33;0.5"
+                                repeatCount="indefinite"
+                            />
+                            <animate
+                                attributeName="cy"
+                                values="40;35;40"
+                                dur="1.5s"
+                                keyTimes="0;0.5;1"
+                                repeatCount="indefinite"
+                            />
+                        </circle>
+                    </g>
+                </g>
+
+                {/* Podłoże/gwóźdź */}
+                <rect
+                    x="-15"
+                    y="38"
+                    width="30"
+                    height="4"
+                    fill="currentColor"
+                    className="text-accent"
+                    opacity="0.4"
+                    rx="1"
                 />
-                <animate
-                    attributeName="opacity"
-                    values="1;0.2;1"
-                    dur="4s"
-                    repeatCount="indefinite"
-                />
-            </circle>
-            <circle cx="200" cy="50" r="5" fill="currentColor" className="text-accent">
-                <animate
-                    attributeName="r"
-                    values="5;25;5"
-                    dur="4s"
-                    begin="1s"
-                    repeatCount="indefinite"
-                />
-                <animate
-                    attributeName="opacity"
-                    values="1;0.2;1"
-                    dur="4s"
-                    begin="1s"
-                    repeatCount="indefinite"
-                />
-            </circle>
-            <circle cx="300" cy="50" r="5" fill="currentColor" className="text-accent">
-                <animate
-                    attributeName="r"
-                    values="5;25;5"
-                    dur="4s"
-                    begin="2s"
-                    repeatCount="indefinite"
-                />
-                <animate
-                    attributeName="opacity"
-                    values="1;0.2;1"
-                    dur="4s"
-                    begin="2s"
-                    repeatCount="indefinite"
-                />
-            </circle>
+            </g>
         </svg>
     );
 }
@@ -95,53 +176,47 @@ export function CirclesAnimation() {
 export function FlameSmallAnimation() {
     return (
         <svg
-            className="w-full h-32 opacity-25"
+            className="w-full h-32 opacity-30"
             viewBox="0 0 400 100"
             preserveAspectRatio="xMidYMid meet"
         >
-            {/* Mały płomień */}
-            <g transform="translate(180, 20)">
-                {/* Zewnętrzna część płomienia */}
+            {/* Mały płomień - bardziej realistyczny */}
+            <g transform="translate(185, 10)">
+                {/* Główny płomień - wysoki i spiczasty */}
                 <path
-                    d="M20,60 Q15,45 20,30 Q25,15 20,0 Q15,15 10,30 Q5,45 10,60 Z"
+                    d="M15,90 Q12,70 8,55 Q5,40 10,25 Q12,15 15,5 Q17,0 15,-5 Q13,0 11,5 Q8,15 6,25 Q2,40 5,55 Q8,70 6,90 Z"
                     fill="currentColor"
                     className="text-accent"
+                    opacity="0.9"
                 >
                     <animate
                         attributeName="d"
                         values="
-                            M20,60 Q15,45 20,30 Q25,15 20,0 Q15,15 10,30 Q5,45 10,60 Z;
-                            M20,60 Q18,45 20,28 Q22,12 20,0 Q18,12 16,28 Q14,45 16,60 Z;
-                            M20,60 Q12,45 20,32 Q28,18 20,0 Q12,18 4,32 Q-2,45 4,60 Z;
-                            M20,60 Q15,45 20,30 Q25,15 20,0 Q15,15 10,30 Q5,45 10,60 Z
+                            M15,90 Q12,70 8,55 Q5,40 10,25 Q12,15 15,5 Q17,0 15,-5 Q13,0 11,5 Q8,15 6,25 Q2,40 5,55 Q8,70 6,90 Z;
+                            M15,90 Q10,70 12,55 Q8,40 13,25 Q14,15 15,3 Q16,0 15,-8 Q14,0 13,3 Q10,15 8,25 Q6,40 10,55 Q12,70 8,90 Z;
+                            M15,90 Q14,70 10,55 Q7,40 11,25 Q13,15 15,4 Q16,0 15,-6 Q14,0 12,4 Q9,15 7,25 Q4,40 8,55 Q11,70 9,90 Z;
+                            M15,90 Q12,70 8,55 Q5,40 10,25 Q12,15 15,5 Q17,0 15,-5 Q13,0 11,5 Q8,15 6,25 Q2,40 5,55 Q8,70 6,90 Z
                         "
-                        dur="2s"
-                        repeatCount="indefinite"
-                    />
-                    <animate
-                        attributeName="opacity"
-                        values="0.6;0.9;0.7;0.6"
-                        dur="2s"
+                        dur="1.5s"
                         repeatCount="indefinite"
                     />
                 </path>
 
-                {/* Wewnętrzna jasna część */}
+                {/* Jasne jądro płomienia */}
                 <path
-                    d="M20,50 Q17,40 20,30 Q23,20 20,10 Q17,20 14,30 Q11,40 14,50 Z"
+                    d="M15,70 Q13,55 11,45 Q10,35 12,25 Q13,18 15,10 Q16,18 14,25 Q12,35 13,45 Q14,55 12,70 Z"
                     fill="currentColor"
                     className="text-white"
-                    opacity="0.3"
+                    opacity="0.5"
                 >
                     <animate
                         attributeName="d"
                         values="
-                            M20,50 Q17,40 20,30 Q23,20 20,10 Q17,20 14,30 Q11,40 14,50 Z;
-                            M20,50 Q19,40 20,28 Q21,18 20,10 Q19,18 18,28 Q17,40 18,50 Z;
-                            M20,50 Q15,40 20,32 Q25,22 20,10 Q15,22 10,32 Q7,40 10,50 Z;
-                            M20,50 Q17,40 20,30 Q23,20 20,10 Q17,20 14,30 Q11,40 14,50 Z
+                            M15,70 Q13,55 11,45 Q10,35 12,25 Q13,18 15,10 Q16,18 14,25 Q12,35 13,45 Q14,55 12,70 Z;
+                            M15,70 Q14,55 12,45 Q11,35 13,25 Q14,18 15,8 Q15,18 13,25 Q11,35 12,45 Q13,55 11,70 Z;
+                            M15,70 Q13,55 11,45 Q10,35 12,25 Q13,18 15,10 Q16,18 14,25 Q12,35 13,45 Q14,55 12,70 Z
                         "
-                        dur="2s"
+                        dur="1.5s"
                         repeatCount="indefinite"
                     />
                 </path>
@@ -154,106 +229,90 @@ export function FlameSmallAnimation() {
 export function FlameLargeAnimation() {
     return (
         <svg
-            className="w-full h-32 opacity-25"
+            className="w-full h-32 opacity-30"
             viewBox="0 0 400 100"
             preserveAspectRatio="xMidYMid meet"
         >
             {/* Duży ogień - trzy płomienie */}
             {/* Lewy płomień */}
-            <g transform="translate(120, 10)">
+            <g transform="translate(130, 5)">
                 <path
-                    d="M25,70 Q18,50 25,35 Q32,20 25,0 Q18,20 11,35 Q4,50 11,70 Z"
+                    d="M20,95 Q17,75 13,60 Q10,45 15,30 Q17,20 20,10 Q22,5 20,0 Q18,5 16,10 Q13,20 11,30 Q6,45 9,60 Q12,75 10,95 Z"
                     fill="currentColor"
                     className="text-accent"
+                    opacity="0.85"
                 >
                     <animate
                         attributeName="d"
                         values="
-                            M25,70 Q18,50 25,35 Q32,20 25,0 Q18,20 11,35 Q4,50 11,70 Z;
-                            M25,70 Q22,50 25,32 Q28,15 25,0 Q22,15 19,32 Q16,50 19,70 Z;
-                            M25,70 Q15,50 25,38 Q35,22 25,0 Q15,22 5,38 Q0,50 5,70 Z;
-                            M25,70 Q18,50 25,35 Q32,20 25,0 Q18,20 11,35 Q4,50 11,70 Z
+                            M20,95 Q17,75 13,60 Q10,45 15,30 Q17,20 20,10 Q22,5 20,0 Q18,5 16,10 Q13,20 11,30 Q6,45 9,60 Q12,75 10,95 Z;
+                            M20,95 Q15,75 17,60 Q13,45 18,30 Q19,20 20,8 Q21,5 20,-3 Q19,5 17,8 Q14,20 12,30 Q9,45 13,60 Q16,75 13,95 Z;
+                            M20,95 Q18,75 15,60 Q12,45 16,30 Q18,20 20,9 Q21,5 20,-2 Q19,5 17,9 Q14,20 12,30 Q8,45 12,60 Q15,75 12,95 Z;
+                            M20,95 Q17,75 13,60 Q10,45 15,30 Q17,20 20,10 Q22,5 20,0 Q18,5 16,10 Q13,20 11,30 Q6,45 9,60 Q12,75 10,95 Z
                         "
-                        dur="1.8s"
-                        repeatCount="indefinite"
-                    />
-                    <animate
-                        attributeName="opacity"
-                        values="0.6;0.9;0.7;0.6"
-                        dur="1.8s"
+                        dur="1.6s"
                         repeatCount="indefinite"
                     />
                 </path>
             </g>
 
             {/* Środkowy płomień (największy) */}
-            <g transform="translate(165, 0)">
+            <g transform="translate(180, 0)">
                 <path
-                    d="M35,80 Q25,55 35,35 Q45,15 35,0 Q25,15 15,35 Q5,55 15,80 Z"
+                    d="M20,100 Q17,75 12,55 Q8,40 15,25 Q18,12 20,5 Q22,0 20,-10 Q18,0 16,5 Q13,12 10,25 Q5,40 10,55 Q14,75 10,100 Z"
                     fill="currentColor"
                     className="text-accent"
+                    opacity="0.95"
                 >
                     <animate
                         attributeName="d"
                         values="
-                            M35,80 Q25,55 35,35 Q45,15 35,0 Q25,15 15,35 Q5,55 15,80 Z;
-                            M35,80 Q30,55 35,30 Q40,12 35,0 Q30,12 25,30 Q20,55 25,80 Z;
-                            M35,80 Q20,55 35,38 Q50,20 35,0 Q20,20 5,38 Q0,55 5,80 Z;
-                            M35,80 Q25,55 35,35 Q45,15 35,0 Q25,15 15,35 Q5,55 15,80 Z
+                            M20,100 Q17,75 12,55 Q8,40 15,25 Q18,12 20,5 Q22,0 20,-10 Q18,0 16,5 Q13,12 10,25 Q5,40 10,55 Q14,75 10,100 Z;
+                            M20,100 Q14,75 16,55 Q11,40 17,25 Q19,12 20,3 Q21,0 20,-12 Q19,0 17,3 Q14,12 11,25 Q7,40 12,55 Q16,75 12,100 Z;
+                            M20,100 Q16,75 14,55 Q10,40 16,25 Q18,12 20,4 Q21,0 20,-11 Q19,0 17,4 Q14,12 11,25 Q6,40 11,55 Q15,75 11,100 Z;
+                            M20,100 Q17,75 12,55 Q8,40 15,25 Q18,12 20,5 Q22,0 20,-10 Q18,0 16,5 Q13,12 10,25 Q5,40 10,55 Q14,75 10,100 Z
                         "
-                        dur="2s"
-                        repeatCount="indefinite"
-                    />
-                    <animate
-                        attributeName="opacity"
-                        values="0.7;1;0.8;0.7"
-                        dur="2s"
+                        dur="1.7s"
                         repeatCount="indefinite"
                     />
                 </path>
                 {/* Jasne jądro */}
                 <path
-                    d="M35,65 Q30,48 35,35 Q40,22 35,12 Q30,22 25,35 Q20,48 25,65 Z"
+                    d="M20,80 Q18,60 15,48 Q13,38 16,28 Q17,20 20,12 Q21,20 18,28 Q16,38 17,48 Q19,60 17,80 Z"
                     fill="currentColor"
                     className="text-white"
-                    opacity="0.4"
+                    opacity="0.6"
                 >
                     <animate
                         attributeName="d"
                         values="
-                            M35,65 Q30,48 35,35 Q40,22 35,12 Q30,22 25,35 Q20,48 25,65 Z;
-                            M35,65 Q32,48 35,32 Q38,20 35,12 Q32,20 29,32 Q26,48 29,65 Z;
-                            M35,65 Q27,48 35,38 Q43,25 35,12 Q27,25 19,38 Q15,48 19,65 Z;
-                            M35,65 Q30,48 35,35 Q40,22 35,12 Q30,22 25,35 Q20,48 25,65 Z
+                            M20,80 Q18,60 15,48 Q13,38 16,28 Q17,20 20,12 Q21,20 18,28 Q16,38 17,48 Q19,60 17,80 Z;
+                            M20,80 Q19,60 16,48 Q14,38 17,28 Q18,20 20,10 Q20,20 17,28 Q15,38 16,48 Q18,60 16,80 Z;
+                            M20,80 Q18,60 15,48 Q13,38 16,28 Q17,20 20,12 Q21,20 18,28 Q16,38 17,48 Q19,60 17,80 Z
                         "
-                        dur="2s"
+                        dur="1.7s"
                         repeatCount="indefinite"
                     />
                 </path>
             </g>
 
             {/* Prawy płomień */}
-            <g transform="translate(230, 10)">
+            <g transform="translate(230, 5)">
                 <path
-                    d="M25,70 Q18,50 25,35 Q32,20 25,0 Q18,20 11,35 Q4,50 11,70 Z"
+                    d="M20,95 Q17,75 13,60 Q10,45 15,30 Q17,20 20,10 Q22,5 20,0 Q18,5 16,10 Q13,20 11,30 Q6,45 9,60 Q12,75 10,95 Z"
                     fill="currentColor"
                     className="text-accent"
+                    opacity="0.85"
                 >
                     <animate
                         attributeName="d"
                         values="
-                            M25,70 Q18,50 25,35 Q32,20 25,0 Q18,20 11,35 Q4,50 11,70 Z;
-                            M25,70 Q20,50 25,38 Q30,22 25,0 Q20,22 15,38 Q12,50 15,70 Z;
-                            M25,70 Q22,50 25,32 Q28,15 25,0 Q22,15 19,32 Q16,50 19,70 Z;
-                            M25,70 Q18,50 25,35 Q32,20 25,0 Q18,20 11,35 Q4,50 11,70 Z
+                            M20,95 Q17,75 13,60 Q10,45 15,30 Q17,20 20,10 Q22,5 20,0 Q18,5 16,10 Q13,20 11,30 Q6,45 9,60 Q12,75 10,95 Z;
+                            M20,95 Q18,75 15,60 Q12,45 17,30 Q18,20 20,9 Q21,5 20,-1 Q19,5 17,9 Q15,20 13,30 Q9,45 12,60 Q15,75 12,95 Z;
+                            M20,95 Q16,75 14,60 Q11,45 16,30 Q18,20 20,10 Q21,5 20,1 Q19,5 17,10 Q14,20 12,30 Q8,45 11,60 Q14,75 11,95 Z;
+                            M20,95 Q17,75 13,60 Q10,45 15,30 Q17,20 20,10 Q22,5 20,0 Q18,5 16,10 Q13,20 11,30 Q6,45 9,60 Q12,75 10,95 Z
                         "
-                        dur="2.2s"
-                        repeatCount="indefinite"
-                    />
-                    <animate
-                        attributeName="opacity"
-                        values="0.6;0.8;0.9;0.6"
-                        dur="2.2s"
+                        dur="1.9s"
                         repeatCount="indefinite"
                     />
                 </path>
@@ -265,140 +324,146 @@ export function FlameLargeAnimation() {
 // 2025 - Nowy rozdział - Logo i kubek cuppingowy z parą
 export function LogoCuppingAnimation() {
     return (
-        <div className="w-full h-32 flex items-center justify-center gap-8 opacity-80">
-            {/* Logo pionowe */}
-            <div className="h-24 flex items-center">
+        <div className="relative w-full h-32 flex items-center justify-center">
+            {/* Logo pionowe jako duże tło */}
+            <div className="absolute inset-0 flex items-center justify-center opacity-15">
                 <img
                     src="/logo/vertical-logo.png"
                     alt="Strzykawa Logo"
-                    className="h-full w-auto object-contain opacity-90"
+                    className="h-full w-auto object-contain"
                 />
             </div>
 
-            {/* Kubek cuppingowy z animowaną parą */}
+            {/* Kubek cuppingowy z animowaną parą - na pierwszym planie */}
             <svg
-                className="h-24 w-24"
-                viewBox="0 0 100 100"
+                className="relative h-28 w-40 z-10"
+                viewBox="0 0 120 80"
                 preserveAspectRatio="xMidYMid meet"
             >
-                {/* Kubek cuppingowy (bez ucha) */}
-                <g transform="translate(50, 50)">
-                    {/* Korpus kubka */}
+                {/* Kubek cuppingowy (szerszy niż wyższy, bez ucha) */}
+                <g transform="translate(60, 40)">
+                    {/* Korpus kubka - szerszy kształt */}
                     <path
-                        d="M-15,10 L-12,-15 L12,-15 L15,10 Q15,15 10,18 Q5,20 0,20 Q-5,20 -10,18 Q-15,15 -15,10 Z"
+                        d="M-30,15 L-25,-10 L25,-10 L30,15 Q30,20 22,24 Q11,28 0,28 Q-11,28 -22,24 Q-30,20 -30,15 Z"
                         fill="currentColor"
                         className="text-accent"
-                        opacity="0.8"
+                        opacity="0.85"
                     />
-                    {/* Brzeg kubka */}
+                    {/* Brzeg kubka (elipsa) */}
                     <ellipse
                         cx="0"
-                        cy="-15"
-                        rx="12"
-                        ry="3"
+                        cy="-10"
+                        rx="25"
+                        ry="5"
                         fill="currentColor"
                         className="text-accent"
                         opacity="0.9"
                     />
-                    {/* Powierzchnia kawy */}
+                    {/* Powierzchnia kawy w środku */}
                     <ellipse
                         cx="0"
-                        cy="-13"
-                        rx="10"
-                        ry="2"
+                        cy="-8"
+                        rx="22"
+                        ry="4"
                         fill="currentColor"
                         className="text-primary-dark"
-                        opacity="0.6"
+                        opacity="0.7"
                     />
 
-                    {/* Para unosząca się - 3 strumienie */}
+                    {/* Para unosząca się - bardziej realistyczna z zawirowaniami */}
                     {/* Lewy strumień pary */}
-                    <path
-                        d="M-6,-15 Q-8,-25 -6,-35 Q-4,-45 -6,-50"
-                        stroke="currentColor"
-                        strokeWidth="1.5"
-                        fill="none"
-                        className="text-white"
-                        strokeLinecap="round"
-                        opacity="0.6"
-                    >
-                        <animate
-                            attributeName="opacity"
-                            values="0;0.6;0"
-                            dur="3s"
-                            repeatCount="indefinite"
-                        />
-                        <animate
-                            attributeName="d"
-                            values="
-                                M-6,-15 Q-8,-25 -6,-35 Q-4,-45 -6,-50;
-                                M-6,-15 Q-4,-25 -6,-35 Q-8,-45 -6,-50;
-                                M-6,-15 Q-8,-25 -6,-35 Q-4,-45 -6,-50
-                            "
-                            dur="3s"
-                            repeatCount="indefinite"
-                        />
-                    </path>
+                    <g opacity="0.7">
+                        <path
+                            d="M-12,-10 Q-14,-18 -12,-26 Q-10,-34 -12,-40 Q-14,-46 -11,-52"
+                            stroke="currentColor"
+                            strokeWidth="1.2"
+                            fill="none"
+                            className="text-white"
+                            strokeLinecap="round"
+                        >
+                            <animate
+                                attributeName="opacity"
+                                values="0;0.7;0.3;0"
+                                dur="4s"
+                                repeatCount="indefinite"
+                            />
+                            <animate
+                                attributeName="d"
+                                values="
+                                    M-12,-10 Q-14,-18 -12,-26 Q-10,-34 -12,-40 Q-14,-46 -11,-52;
+                                    M-12,-10 Q-10,-18 -12,-26 Q-14,-34 -10,-40 Q-8,-46 -11,-52;
+                                    M-12,-10 Q-15,-18 -11,-26 Q-9,-34 -13,-40 Q-15,-46 -12,-52;
+                                    M-12,-10 Q-14,-18 -12,-26 Q-10,-34 -12,-40 Q-14,-46 -11,-52
+                                "
+                                dur="4s"
+                                repeatCount="indefinite"
+                            />
+                        </path>
+                    </g>
 
-                    {/* Środkowy strumień pary */}
-                    <path
-                        d="M0,-15 Q2,-25 0,-35 Q-2,-45 0,-52"
-                        stroke="currentColor"
-                        strokeWidth="1.5"
-                        fill="none"
-                        className="text-white"
-                        strokeLinecap="round"
-                        opacity="0.6"
-                    >
-                        <animate
-                            attributeName="opacity"
-                            values="0;0.6;0"
-                            dur="3s"
-                            begin="1s"
-                            repeatCount="indefinite"
-                        />
-                        <animate
-                            attributeName="d"
-                            values="
-                                M0,-15 Q2,-25 0,-35 Q-2,-45 0,-52;
-                                M0,-15 Q-2,-25 0,-35 Q2,-45 0,-52;
-                                M0,-15 Q2,-25 0,-35 Q-2,-45 0,-52
-                            "
-                            dur="3s"
-                            begin="1s"
-                            repeatCount="indefinite"
-                        />
-                    </path>
+                    {/* Środkowy strumień pary (prawy) */}
+                    <g opacity="0.7">
+                        <path
+                            d="M0,-10 Q3,-18 0,-26 Q-3,-34 1,-40 Q4,-46 0,-54"
+                            stroke="currentColor"
+                            strokeWidth="1.2"
+                            fill="none"
+                            className="text-white"
+                            strokeLinecap="round"
+                        >
+                            <animate
+                                attributeName="opacity"
+                                values="0;0.7;0.4;0"
+                                dur="4.5s"
+                                begin="1.2s"
+                                repeatCount="indefinite"
+                            />
+                            <animate
+                                attributeName="d"
+                                values="
+                                    M0,-10 Q3,-18 0,-26 Q-3,-34 1,-40 Q4,-46 0,-54;
+                                    M0,-10 Q-3,-18 1,-26 Q4,-34 0,-40 Q-2,-46 1,-54;
+                                    M0,-10 Q2,-18 -1,-26 Q-4,-34 2,-40 Q5,-46 1,-54;
+                                    M0,-10 Q3,-18 0,-26 Q-3,-34 1,-40 Q4,-46 0,-54
+                                "
+                                dur="4.5s"
+                                begin="1.2s"
+                                repeatCount="indefinite"
+                            />
+                        </path>
+                    </g>
 
                     {/* Prawy strumień pary */}
-                    <path
-                        d="M6,-15 Q8,-25 6,-35 Q4,-45 6,-50"
-                        stroke="currentColor"
-                        strokeWidth="1.5"
-                        fill="none"
-                        className="text-white"
-                        strokeLinecap="round"
-                        opacity="0.6"
-                    >
-                        <animate
-                            attributeName="opacity"
-                            values="0;0.6;0"
-                            dur="3s"
-                            begin="2s"
-                            repeatCount="indefinite"
-                        />
-                        <animate
-                            attributeName="d"
-                            values="
-                                M6,-15 Q8,-25 6,-35 Q4,-45 6,-50;
-                                M6,-15 Q4,-25 6,-35 Q8,-45 6,-50;
-                                M6,-15 Q8,-25 6,-35 Q4,-45 6,-50
-                            "
-                            dur="3s"
-                            begin="2s"
-                            repeatCount="indefinite"
-                        />
-                    </path>
+                    <g opacity="0.7">
+                        <path
+                            d="M12,-10 Q15,-18 12,-26 Q9,-34 13,-40 Q16,-46 12,-53"
+                            stroke="currentColor"
+                            strokeWidth="1.2"
+                            fill="none"
+                            className="text-white"
+                            strokeLinecap="round"
+                        >
+                            <animate
+                                attributeName="opacity"
+                                values="0;0.7;0.35;0"
+                                dur="4.2s"
+                                begin="2.3s"
+                                repeatCount="indefinite"
+                            />
+                            <animate
+                                attributeName="d"
+                                values="
+                                    M12,-10 Q15,-18 12,-26 Q9,-34 13,-40 Q16,-46 12,-53;
+                                    M12,-10 Q9,-18 13,-26 Q16,-34 11,-40 Q8,-46 12,-53;
+                                    M12,-10 Q14,-18 11,-26 Q8,-34 14,-40 Q17,-46 13,-53;
+                                    M12,-10 Q15,-18 12,-26 Q9,-34 13,-40 Q16,-46 12,-53
+                                "
+                                dur="4.2s"
+                                begin="2.3s"
+                                repeatCount="indefinite"
+                            />
+                        </path>
+                    </g>
                 </g>
             </svg>
         </div>
@@ -411,7 +476,7 @@ export function TimelineAnimation({ year }) {
         case '2020':
             return <WaveAnimation />;
         case '2022':
-            return <CirclesAnimation />;
+            return <HammerAnimation />;
         case '2023':
             return <FlameSmallAnimation />;
         case '2024':
