@@ -69,6 +69,8 @@ export function TimelineSection({ year, title, content, images = [], index }) {
                             images={images}
                             coffeeName={`${year} - ${title}`}
                             showThumbnails={false}
+                            autoplay={true}
+                            autoplayInterval={4000}
                         />
                     </div>
                 )}

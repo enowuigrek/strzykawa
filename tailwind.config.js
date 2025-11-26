@@ -40,6 +40,7 @@ export default {
             animation: {
                 'fade-in': 'fadeIn 1s ease-out forwards',
                 'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                'fadeIn': 'fadeInSimple 0.5s ease-in-out',
             },
             keyframes: {
                 fadeIn: {
@@ -50,6 +51,14 @@ export default {
                     '100%': {
                         opacity: '1',
                         transform: 'translateY(0)'
+                    }
+                },
+                fadeInSimple: {
+                    '0%': {
+                        opacity: '0'
+                    },
+                    '100%': {
+                        opacity: '1'
                     }
                 }
             },
