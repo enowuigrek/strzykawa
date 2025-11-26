@@ -1,5 +1,6 @@
 import React from 'react';
 import { ProductGallery } from './ProductGallery';
+import { TimelineAnimation } from '../atoms/TimelineAnimations';
 
 /**
  * TimelineSection - Single timeline entry component
@@ -19,26 +20,34 @@ export function TimelineSection({ year, title, content, images = [], index }) {
             className="scroll-mt-32"
         >
             {/* Desktop: Main Content + Gallery */}
-            <div className={`grid md:grid-cols-5 gap-10 md:gap-16 items-start ${
+            <div className={`grid md:grid-cols-5 gap-10 md:gap-16 items-stretch ${
                 isEven ? '' : 'md:grid-flow-dense'
             }`}>
-                {/* Content */}
-                <div className={`space-y-6 md:col-span-2 ${isEven ? '' : 'md:col-start-4'}`}>
-                    {/* Year + Title */}
-                    <div className="space-y-2">
-                        <div className="text-2xl md:text-3xl text-accent tracking-wide">
-                            {year}
-                        </div>
-                        <h3 className="text-3xl md:text-4xl text-white">
-                            {title}
-                        </h3>
-                    </div>
+                {/* Content - Full height with animation at bottom */}
+                <div className={`md:col-span-2 ${isEven ? '' : 'md:col-start-4'}`}>
+                    <div className="h-full flex flex-col bg-gradient-to-r from-primary-light/20 to-primary/30 border border-white/10">
+                        {/* Top: Year + Title + Description */}
+                        <div className="p-6 md:p-8 space-y-6">
+                            {/* Year + Title */}
+                            <div className="space-y-2">
+                                <div className="text-2xl md:text-3xl text-accent tracking-wide">
+                                    {year}
+                                </div>
+                                <h3 className="text-3xl md:text-4xl text-white">
+                                    {title}
+                                </h3>
+                            </div>
 
-                    {/* Description */}
-                    <div className="bg-gradient-to-r from-primary-light/20 to-primary/30 border border-white/10 p-6 md:p-8">
-                        <p className="text-base md:text-lg text-white/90 leading-relaxed">
-                            {content}
-                        </p>
+                            {/* Description */}
+                            <p className="text-base md:text-lg text-white/90 leading-relaxed">
+                                {content}
+                            </p>
+                        </div>
+
+                        {/* Bottom: Animation */}
+                        <div className="mt-auto px-6 md:px-8 pb-6 md:pb-8">
+                            <TimelineAnimation year={year} />
+                        </div>
                     </div>
                 </div>
 
