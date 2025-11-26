@@ -73,18 +73,15 @@ export function Footer() {
                             <img
                                 src="/logo/horizontal-logo.png"
                                 alt="Strzykawa Coffee Shop & Roastery"
-                                className="md:hidden w-auto h-16"
+                                className="md:hidden w-auto h-12"
                             />
                             {/* Desktop: pionowe logo */}
                             <img
                                 src="/logo/vertical-logo.png"
                                 alt="Strzykawa Coffee Shop & Roastery"
-                                className="hidden md:block w-auto h-32"
+                                className="hidden md:block w-auto h-24"
                             />
                         </div>
-                        <p className="text-white/60 text-sm text-center md:text-left leading-relaxed">
-                            Kawiarnia i palarnia kawy specialty w sercu Częstochowy
-                        </p>
                     </div>
 
                     {/* Linki szybkie */}
@@ -136,40 +133,38 @@ export function Footer() {
                     </div>
 
                     {/* Social Media + Godziny */}
-                    <div className="col-span-2 md:col-span-1">
-                        <h4 className="text-lg text-white mb-4">Odwiedź nas</h4>
-
-                        {/* Mobile: flex (godziny | social obok siebie), Desktop: stack */}
-                        <div className="flex md:flex-col gap-6 md:gap-4">
+                    <div className="col-span-2 md:col-span-1 space-y-4">
+                        <div>
+                            <h4 className="text-lg text-white mb-4">Odwiedź nas</h4>
                             {/* Godziny */}
-                            <div className="text-sm text-white/70 space-y-1 flex-1">
+                            <div className="text-sm text-white/70 space-y-1">
                                 <div className="text-white/90">Godziny otwarcia:</div>
                                 <div className="text-xs leading-relaxed">
                                     Pn-Pt: 8:00 - 18:00<br />
                                     Sb-Nd: 10:00 - 16:00
                                 </div>
                             </div>
+                        </div>
 
-                            {/* Social Media */}
-                            <div className="flex-1 md:pt-2">
-                                <div className="text-sm text-white/90 mb-3">Śledź nas:</div>
-                                <div className="flex gap-3">
-                                    {socialLinks.map((social, index) => {
-                                        const Icon = social.icon;
-                                        return (
-                                            <a
-                                                key={index}
-                                                href={social.href}
-                                                target="_blank"
-                                                rel="noopener noreferrer"
-                                                aria-label={social.label}
-                                                className={`text-white/70 transition-all duration-300 hover:scale-110 ${social.hoverColor}`}
-                                            >
-                                                <Icon className="w-7 h-7" />
-                                            </a>
-                                        );
-                                    })}
-                                </div>
+                        {/* Social Media */}
+                        <div>
+                            <h4 className="text-lg text-white mb-4">Śledź nas</h4>
+                            <div className="flex gap-3">
+                                {socialLinks.map((social, index) => {
+                                    const Icon = social.icon;
+                                    return (
+                                        <a
+                                            key={index}
+                                            href={social.href}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            aria-label={social.label}
+                                            className={`text-white/70 transition-all duration-300 hover:scale-110 ${social.hoverColor}`}
+                                        >
+                                            <Icon className="w-7 h-7" />
+                                        </a>
+                                    );
+                                })}
                             </div>
                         </div>
                     </div>
