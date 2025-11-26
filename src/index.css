@@ -132,10 +132,10 @@ html, body {
 }
 
 /* Focus styles for accessibility */
-select:focus,
-button:focus {
-    /*outline: 2px solid #51685f;*/
-    /*outline-offset: 2px;*/
+select:focus-visible,
+button:focus-visible {
+    outline: 2px solid #6B7F73;
+    outline-offset: 2px;
 }
 
 /* Smooth transitions for all interactive elements */

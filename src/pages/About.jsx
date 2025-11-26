@@ -5,13 +5,13 @@ import Roastery from '../assets/history/duzy_piec.jpg';
 import Branding from '../assets/history/branding.jpg';
 import Branding2 from '../assets/history/branding-2.jpg';
 import Branding5 from '../assets/history/branding-5.jpg';
+import TeamPhoto from '../assets/history/damian_karolina.jpg';
 import { useScrollToTop } from '../hooks/useScrollToTop';
 import { FaMapMarkerAlt, FaShoppingBag } from 'react-icons/fa';
 import { Button } from '../components/atoms/Button';
 import { PageLayout } from "../components/layout/PageLayout.jsx";
 import { TimelineSection } from '../components/molecules/TimelineSection';
 import { TimelineBar } from '../components/organisms/TimelineBar';
-
 
 export function About() {
     useScrollToTop();
@@ -26,10 +26,8 @@ export function About() {
         {
             year: "2022",
             title: "Rozbudowa i rozwój",
-            content: "Przeprowadzamy remont w lokalu zwiększając ilość miejsc siedzących. Przystosowujemy kuchnię i zaczynamy wypiekać słodkości.",
-            images: [
-                "https://placehold.co/600x400/232323/ffffff?text=2022+-+Remont"
-            ]
+            content: "Przeprowadzamy remont w lokalu zwiększając ilość miejsc siedzących. Przystosowujemy kuchnię i zaczynamy wypiekać słodkości. To czas gdy Strzykawa staje się nie tylko kawiarnią, ale miejscem spotkań lokalnej społeczności.",
+            images: [TeamPhoto]
         },
         {
             year: "2023",
@@ -51,27 +49,19 @@ export function About() {
         }
     ];
 
-    // Extract years for TimelineBar
     const years = timelineData.map(item => item.year);
 
     return (
         <PageLayout
             title="O Strzykawie"
-            description="Nasza historia, pasja i filozofia. Poznaj ludzi i wartości, które stoją za każdą filiżanką kawy w Strzykawie."
+            description="Nasza historia. Poznaj drogę od małej kawiarni do palarni kawy."
         >
-            {/* Sticky Timeline Bar */}
+            {/* Timeline Bar */}
             <TimelineBar years={years} />
 
-            <div className="max-w-6xl mx-auto px-4">
-                {/* Page Title */}
-                <div className="mb-16 text-center pt-8">
-                    <h2 className="text-3xl md:text-4xl text-white">
-                        Nasza historia
-                    </h2>
-                </div>
-
-                {/* Timeline Sections */}
-                <div className="space-y-24 md:space-y-32">
+            {/* Timeline Content */}
+            <div className="max-w-6xl mx-auto px-4 py-16">
+                <div className="space-y-20 md:space-y-24">
                     {timelineData.map((item, index) => (
                         <TimelineSection
                             key={item.year}
@@ -85,11 +75,14 @@ export function About() {
                 </div>
 
                 {/* Call to Action */}
-                <div className="text-center mt-16">
-                    <div className="bg-gradient-to-r from-primary-light/20 to-primary/30 border border-white/10 p-8 md:p-12">
-                        <h2 className="text-2xl md:text-3xl font-bold text-white mb-6">
+                <div className="mt-32">
+                    <div className="bg-gradient-to-r from-primary-light/20 to-primary/30 border border-white/10 p-12 md:p-16 text-center">
+                        <h2 className="text-3xl md:text-4xl text-white mb-6">
                             Zapraszamy do Strzykawy!
                         </h2>
+                        <p className="text-white/70 text-lg mb-10 max-w-2xl mx-auto">
+                            Odwiedź nas w kawiarni na Dąbrowskiego 4 lub zamów naszą kawę online
+                        </p>
                         <div className="flex flex-col sm:flex-row gap-4 justify-center">
                             <Button
                                 href="/kontakt"

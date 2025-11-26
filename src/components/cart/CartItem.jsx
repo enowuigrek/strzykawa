@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { FaTrash } from 'react-icons/fa';
 import { QuantitySelector } from '../atoms/QuantitySelector';
 
@@ -90,3 +91,25 @@ export function CartItem({ item, onUpdateQuantity, onRemove, isLoading }) {
         </div>
     );
 }
+
+CartItem.propTypes = {
+    item: PropTypes.shape({
+        lineItemId: PropTypes.string.isRequired,
+        product: PropTypes.shape({
+            name: PropTypes.string.isRequired,
+            image: PropTypes.string,
+            price: PropTypes.number.isRequired,
+            tastingNotes: PropTypes.arrayOf(PropTypes.string),
+        }).isRequired,
+        quantity: PropTypes.number.isRequired,
+        selectedOptions: PropTypes.arrayOf(
+            PropTypes.shape({
+                name: PropTypes.string,
+                value: PropTypes.string,
+            })
+        ),
+    }).isRequired,
+    onUpdateQuantity: PropTypes.func.isRequired,
+    onRemove: PropTypes.func.isRequired,
+    isLoading: PropTypes.bool,
+};

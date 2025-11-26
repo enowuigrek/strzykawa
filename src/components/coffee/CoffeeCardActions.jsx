@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { FaShoppingCart, FaCheck } from 'react-icons/fa';
 import { useCartStore } from '../../store/cartStore';
@@ -89,3 +90,14 @@ export function CoffeeCardActions({
         </div>
     );
 }
+
+CoffeeCardActions.propTypes = {
+    coffee: PropTypes.shape({
+        id: PropTypes.string.isRequired,
+        shopifyHandle: PropTypes.string,
+        availableForSale: PropTypes.bool,
+    }).isRequired,
+    onQuickAdd: PropTypes.func,
+    isAdding: PropTypes.bool,
+    justAdded: PropTypes.bool,
+};

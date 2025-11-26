@@ -1,4 +1,5 @@
 import { useRef, useEffect } from 'react';
+import { logger } from '../utils/logger';
 
 export function useVideoLoop(startTime = 2) {
     const videoRef = useRef(null);
@@ -10,9 +11,7 @@ export function useVideoLoop(startTime = 2) {
             const handleEnded = () => {
                 videoElement.currentTime = startTime;
                 videoElement.play().catch(err => {
-                    if (import.meta.env.DEV) {
-                        console.log('Video autoplay prevented:', err);
-                    }
+                    logger.log('Video autoplay prevented:', err);
                 });
             };
 

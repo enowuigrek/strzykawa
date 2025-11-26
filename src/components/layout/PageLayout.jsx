@@ -12,7 +12,7 @@ export function PageLayout({
                                contentClassName = '',
                            }) {
     return (
-        <div className={` min-h-screen bg-primary pt-36 pb-8 ${className}`}>
+        <div className={` min-h-screen bg-primary pt-36 pb-20 ${className}`}>
 
             {/* Page Header Section */}
             {showHeader && (title || subtitle || description) && (

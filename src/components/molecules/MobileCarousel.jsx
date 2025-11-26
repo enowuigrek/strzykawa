@@ -121,7 +121,7 @@ export function MobileCarousel({ images, className = "", showCounter = true, asp
 
                 {/* Counter badge */}
                 {showCounter && images.length > 1 && (
-                    <div className="absolute top-3 right-3 px-2 py-1 bg-primary/80 backdrop-blur-sm border border-white/10 text-white text-sm font-medium z-10">
+                    <div className="absolute top-3 right-3 px-2 py-1 text-white/80 text-sm font-medium drop-shadow-lg z-10">
                         {currentIndex + 1}/{images.length}
                     </div>
                 )}

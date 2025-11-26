@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 export function Button({
                            children,
@@ -107,3 +108,18 @@ export function Button({
         </button>
     );
 }
+
+Button.propTypes = {
+    children: PropTypes.node.isRequired,
+    leftIcon: PropTypes.elementType,
+    rightIcon: PropTypes.elementType,
+    variant: PropTypes.oneOf(['primary', 'secondary', 'ghost', 'success', 'danger']),
+    size: PropTypes.oneOf(['sm', 'md', 'lg']),
+    fullWidth: PropTypes.bool,
+    disabled: PropTypes.bool,
+    loading: PropTypes.bool,
+    type: PropTypes.oneOf(['button', 'submit', 'reset']),
+    onClick: PropTypes.func,
+    href: PropTypes.string,
+    className: PropTypes.string,
+};
