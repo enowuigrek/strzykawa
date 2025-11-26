@@ -95,7 +95,7 @@ export function Home() {
                                 <div className="inline-flex items-center justify-center w-16 h-16 mb-4">
                                     <FaFire className="w-8 h-8 text-muted" />
                                 </div>
-                                <h3 className="text-xl font-bold text-white mb-3">Własna palarnia</h3>
+                                <h3 className="text-xl text-white mb-3">Własna palarnia</h3>
                                 <p className="text-muted leading-relaxed">
                                     Palimy ziarna w małych partiach, dbając o każdy szczegół procesu dla idealnego smaku.
                                 </p>
@@ -111,7 +111,7 @@ export function Home() {
                                 <div className="inline-flex items-center justify-center w-16 h-16 mb-4">
                                     <FaCoffee className="w-8 h-8 text-muted" />
                                 </div>
-                                <h3 className="text-xl font-bold text-white mb-3">Kawiarnia</h3>
+                                <h3 className="text-xl text-white mb-3">Kawiarnia</h3>
                                 <p className="text-muted leading-relaxed">
                                     Miejsce spotkań i rozmów. Tu kawa to nie tylko napój, ale doświadczenie i społeczność.
                                 </p>
@@ -127,7 +127,7 @@ export function Home() {
                                 <div className="inline-flex items-center justify-center w-16 h-16 mb-4">
                                     <FaHeart className="w-8 h-8 text-red-400" />
                                 </div>
-                                <h3 className="text-xl font-bold text-white mb-3">Pasja</h3>
+                                <h3 className="text-xl text-white mb-3">Pasja</h3>
                                 <p className="text-muted leading-relaxed">
                                     Dzielimy się miłością do najlepszych ziaren z całego świata i tradycji parzenia kawy.
                                 </p>
@@ -143,7 +143,7 @@ export function Home() {
                         >
                             <a
                                 href="/o-nas"
-                                className="inline-flex items-center bg-white/10 backdrop-blur-sm border border-white/30 rounded-full px-8 py-4 text-white font-semibold text-lg transition-all duration-300 hover:scale-105 hover:bg-white/20"
+                                className="inline-flex items-center bg-white/10 backdrop-blur-sm border border-white/30 rounded-full px-8 py-4 text-white text-lg transition-all duration-300 hover:scale-105 hover:bg-white/20"
                             >
                                 Poznaj naszą historię
                             </a>

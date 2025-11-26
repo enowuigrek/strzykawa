@@ -40,13 +40,13 @@ export function FilterSection({
             {/* Section Header */}
             <div className="flex items-center justify-between mb-3">
                 <div className="flex items-center gap-2">
-                    <h3 className="text-white font-semibold text-sm uppercase tracking-wide">
+                    <h3 className="text-white text-sm uppercase tracking-wide">
                         {title}
                     </h3>
 
                     {/* Active count badge */}
                     {activeCount > 0 && (
-                        <span className="bg-accent/20 text-accent px-2 py-0.5 rounded-full text-xs font-bold">
+                        <span className="bg-accent/20 text-accent px-2 py-0.5 rounded-full text-xs">
                             {activeCount}
                         </span>
                     )}

@@ -77,11 +77,11 @@ export function FilterDrawer({
                 <div className="flex items-center justify-between p-4 border-b border-accent/20">
                     <div className="flex items-center gap-3">
                         <FiFilter className="text-accent" size={24} />
-                        <h2 className="text-white text-lg font-bold">
+                        <h2 className="text-white text-lg">
                             Filtry
                         </h2>
                         {totalActiveFilters > 0 && (
-                            <span className="bg-accent text-white px-2 py-0.5 rounded-full text-xs font-bold">
+                            <span className="bg-accent text-white px-2 py-0.5 rounded-full text-xs">
                                 {totalActiveFilters}
                             </span>
                         )}
@@ -147,7 +147,7 @@ export function FilterDrawer({
                 <div className="p-4 border-t border-accent/20 bg-primary-light space-y-2">
                     {/* Results count */}
                     <p className="text-center text-muted text-sm mb-3">
-                        Znaleziono: <span className="text-accent font-bold">{totalResults}</span> kaw
+                        Znaleziono: <span className="text-accent">{totalResults}</span> kaw
                     </p>
 
                     {/* Action buttons */}

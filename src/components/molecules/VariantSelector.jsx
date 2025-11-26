@@ -80,7 +80,7 @@ export function VariantSelector({
             {/* Gramatura - czerwone + line-through */}
             {gramatura.length > 0 && (
                 <div>
-                    <label className="block text-sm font-semibold text-white mb-2">
+                    <label className="block text-sm text-white mb-2">
                         Gramatura
                     </label>
                     <div className="flex flex-wrap gap-2">
@@ -113,7 +113,7 @@ export function VariantSelector({
             {/* Typ - czerwone + line-through */}
             {typ.length > 1 && (
                 <div>
-                    <label className="block text-sm font-semibold text-white mb-2">
+                    <label className="block text-sm text-white mb-2">
                         Sposób przygotowania
                     </label>
                     <div className="flex flex-wrap gap-2">

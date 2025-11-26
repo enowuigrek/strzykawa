@@ -68,7 +68,7 @@ export function Footer() {
                     <div className="col-span-1 lg:col-span-2 lg:grid lg:grid-cols-2 lg:gap-12 space-y-6 lg:space-y-0">
                         {/* Kontakt */}
                         <div className="space-y-3 md:space-y-4">
-                            <h4 className="text-xl md:text-xl font-semibold text-white">Kontakt</h4>
+                            <h4 className="text-xl md:text-xl text-white">Kontakt</h4>
                             <div className="space-y-2 md:space-y-3">
                                 {contactInfo.map((contact, index) => {
                                     const Icon = contact.icon;
@@ -103,7 +103,7 @@ export function Footer() {
 
                         {/* Social Media */}
                         <div className="space-y-3 md:space-y-4 lg:text-right">
-                            <h4 className="text-xl md:text-xl font-semibold text-white">Social Media</h4>
+                            <h4 className="text-xl md:text-xl text-white">Social Media</h4>
                             <div className="flex gap-3 md:gap-4 lg:justify-end">
                                 {socialLinks.map((social, index) => {
                                     const Icon = social.icon;

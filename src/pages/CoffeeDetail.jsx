@@ -176,7 +176,7 @@ export function CoffeeDetail() {
                             {hasDiscount && (
                                 <div className="mt-2 flex items-center gap-2">
                                     <FaTag className="text-red-400" />
-                                    <span className="text-sm text-red-400 font-semibold">
+                                    <span className="text-sm text-red-400">
                                         Oszczędzasz {(compareAtPrice - price).toFixed(2)} zł
                                     </span>
                                 </div>
@@ -196,7 +196,7 @@ export function CoffeeDetail() {
                                 />
                             </div>
                             <div className="flex flex-col items-end">
-                                <label className="text-sm font-semibold text-white mb-2">
+                                <label className="text-sm text-white mb-2">
                                     Liczba
                                 </label>
                                 <QuantitySelector
@@ -215,8 +215,8 @@ export function CoffeeDetail() {
 
                         {/* Razem */}
                         <div className="flex justify-between items-center py-2">
-                            <span className="text-white font-medium">Razem:</span>
-                            <span className="text-xl font-bold text-white">
+                            <span className="text-white">Razem:</span>
+                            <span className="text-xl text-white">
                                 {isAvailable ? `${(price * quantity).toFixed(2)} zł` : 'Niedostępne'}
                             </span>
                         </div>
@@ -249,7 +249,7 @@ export function CoffeeDetail() {
                 {coffee.description && (
                     <div className="mx-auto">
                         <div className="p-6 lg:p-8 bg-primary-light border border-white/10">
-                            <h2 className="text-2xl font-bold text-white mb-4">
+                            <h2 className="text-2xl text-white mb-4">
                                 Opis:
                             </h2>
                             <div className="prose prose-invert max-w-none">

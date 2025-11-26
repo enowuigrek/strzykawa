@@ -56,18 +56,6 @@ export function About() {
             title="O Strzykawie"
             description="Nasza historia. Poznaj drogę od małej kawiarni do palarni kawy."
         >
-            {/* Simple Header */}
-            <div className="bg-primary border-b border-white/10">
-                <div className="max-w-6xl mx-auto px-4 py-12 md:py-16">
-                    <h1 className="text-4xl md:text-5xl font-bold text-white text-center mb-4">
-                        Nasza historia
-                    </h1>
-                    <p className="text-lg text-white/70 text-center max-w-2xl mx-auto">
-                        Od małej kawiarni w centrum Częstochowy do własnej palarni kawy
-                    </p>
-                </div>
-            </div>
-
             {/* Timeline Bar */}
             <TimelineBar years={years} />
 
@@ -89,7 +77,7 @@ export function About() {
                 {/* Call to Action */}
                 <div className="mt-32">
                     <div className="bg-gradient-to-r from-primary-light/20 to-primary/30 border border-white/10 p-12 md:p-16 text-center">
-                        <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">
+                        <h2 className="text-3xl md:text-4xl text-white mb-6">
                             Zapraszamy do Strzykawy!
                         </h2>
                         <p className="text-white/70 text-lg mb-10 max-w-2xl mx-auto">

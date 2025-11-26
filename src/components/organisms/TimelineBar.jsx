@@ -129,7 +129,7 @@ export function TimelineBar({ years = [], isSticky = false }) {
                                         className={`
               relative px-4 py-2 whitespace-nowrap transition-all duration-300
               ${activeYear === year
-                                            ? 'text-white font-bold scale-150'
+                                            ? 'text-white scale-150'
                                             : 'text-white/60 hover:text-white/90'}
             `}
                                     >
@@ -197,7 +197,7 @@ const years = ["2020", "2022", "2023", "2024", "2025"];
                         id={`year-${year}`}
                         className="scroll-mt-32 min-h-[400px] border border-white/20 p-8"
                     >
-                        <h2 className="text-4xl font-bold text-white mb-4">{year}</h2>
+                        <h2 className="text-4xl text-white mb-4">{year}</h2>
                         <p className="text-white/70 text-lg">
                             Scroll down to see the timeline bar update automatically.
                             Click on years in the bar to jump to sections.
