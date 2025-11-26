@@ -73,13 +73,13 @@ export function Footer() {
                             <img
                                 src="/logo/horizontal-logo.png"
                                 alt="Strzykawa Coffee Shop & Roastery"
-                                className="md:hidden w-auto h-12"
+                                className="md:hidden w-auto h-8"
                             />
                             {/* Desktop: pionowe logo */}
                             <img
                                 src="/logo/vertical-logo.png"
                                 alt="Strzykawa Coffee Shop & Roastery"
-                                className="hidden md:block w-auto h-24"
+                                className="hidden md:block w-auto h-20"
                             />
                         </div>
                     </div>
@@ -133,8 +133,8 @@ export function Footer() {
                     </div>
 
                     {/* Social Media + Godziny */}
-                    <div className="col-span-2 md:col-span-1 space-y-4">
-                        <div>
+                    <div className="col-span-2 md:col-span-1 flex gap-6 md:flex-col md:gap-4">
+                        <div className="flex-1">
                             <h4 className="text-lg text-white mb-4">Odwiedź nas</h4>
                             {/* Godziny */}
                             <div className="text-sm text-white/70 space-y-1">
@@ -147,7 +147,7 @@ export function Footer() {
                         </div>
 
                         {/* Social Media */}
-                        <div>
+                        <div className="flex-1">
                             <h4 className="text-lg text-white mb-4">Śledź nas</h4>
                             <div className="flex gap-3">
                                 {socialLinks.map((social, index) => {
