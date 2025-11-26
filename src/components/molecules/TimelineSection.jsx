@@ -31,11 +31,11 @@ export function TimelineSection({ year, title, content, images = [], index }) {
             </div>
 
             {/* Desktop: Main Content + First Image */}
-            <div className={`grid md:grid-cols-2 gap-10 md:gap-16 items-start ${
+            <div className={`grid md:grid-cols-5 gap-10 md:gap-16 items-start ${
                 isEven ? '' : 'md:grid-flow-dense'
             }`}>
                 {/* Content */}
-                <div className={`space-y-6 ${isEven ? '' : 'md:col-start-2'}`}>
+                <div className={`space-y-6 md:col-span-2 ${isEven ? '' : 'md:col-start-4'}`}>
                     {/* Year + Title */}
                     <div className="space-y-2">
                         <div className="text-lg md:text-xl font-semibold text-accent tracking-wide">
@@ -56,7 +56,7 @@ export function TimelineSection({ year, title, content, images = [], index }) {
 
                 {/* Main Image - Desktop only */}
                 {mainImage && (
-                    <div className={`hidden md:block ${isEven ? '' : 'md:col-start-1 md:row-start-1'}`}>
+                    <div className={`hidden md:block md:col-span-3 ${isEven ? '' : 'md:col-start-1 md:row-start-1'}`}>
                         <div className="bg-gradient-to-br from-primary-light/30 to-primary/50 border border-white/10 overflow-hidden shadow-xl">
                             <img
                                 src={mainImage}
