@@ -4,10 +4,10 @@ import { MobileCarousel } from './MobileCarousel';
 
 /**
  * ProductGallery - Galeria zdjęć produktu
- * Desktop: Główne zdjęcie z strzałkami + thumbnails
+ * Desktop: Główne zdjęcie z strzałkami + opcjonalne thumbnails
  * Mobile: Instagram-style carousel
  */
-export function ProductGallery({ images = [], coffeeName }) {
+export function ProductGallery({ images = [], coffeeName, showThumbnails = true }) {
     const [selectedImageIndex, setSelectedImageIndex] = useState(0);
 
     if (!images || images.length === 0) {
@@ -96,7 +96,7 @@ export function ProductGallery({ images = [], coffeeName }) {
                 </div>
 
                 {/* Thumbnails */}
-                {hasManyImages && (
+                {showThumbnails && hasManyImages && (
                     <div className="grid grid-cols-4 gap-3">
                         {images.map((image, index) => (
                             <button

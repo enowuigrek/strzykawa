@@ -48,6 +48,7 @@ export function TimelineSection({ year, title, content, images = [], index }) {
                         <ProductGallery
                             images={images}
                             coffeeName={`${year} - ${title}`}
+                            showThumbnails={false}
                         />
                     </div>
                 )}
