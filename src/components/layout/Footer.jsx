@@ -133,7 +133,7 @@ export function Footer() {
                     </div>
 
                     {/* Social Media + Godziny */}
-                    <div className="col-span-2 md:col-span-1 flex gap-6 md:flex-col md:gap-4">
+                    <div className="col-span-2 md:col-span-1 flex flex-col md:flex-row gap-6 md:gap-8">
                         <div className="flex-1">
                             <h4 className="text-lg text-white mb-4">Odwiedź nas</h4>
                             {/* Godziny */}
@@ -149,7 +149,7 @@ export function Footer() {
                         {/* Social Media */}
                         <div className="flex-1">
                             <h4 className="text-lg text-white mb-4">Śledź nas</h4>
-                            <div className="flex gap-3">
+                            <div className="flex gap-3 md:justify-end">
                                 {socialLinks.map((social, index) => {
                                     const Icon = social.icon;
                                     return (
@@ -200,15 +200,15 @@ export function Footer() {
                         {/* Row 3 (mobile: 2 columns) / Row 2 (desktop: 3 columns) */}
                         <div className="grid grid-cols-2 md:flex md:flex-row md:items-center md:justify-between gap-4 md:gap-3">
                             {/* Left: project credit */}
-                            <div className="flex flex-col items-start text-left text-white/70">
-                                <span className="text-white/60 text-xs md:text-sm mb-1 md:mb-0 md:inline">
+                            <div className="flex flex-col md:flex-row md:items-center items-start text-left text-white/70">
+                                <span className="text-white/60 text-xs md:text-sm mb-1 md:mb-0">
                                     Projekt i wykonanie:{' '}
                                 </span>
                                 <a
                                     href="https://lukasznowak.dev"
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    className="text-white hover:text-accent transition-colors md:inline"
+                                    className="text-white hover:text-accent transition-colors"
                                 >
                                     lukasznowak.dev
                                 </a>
@@ -232,11 +232,11 @@ export function Footer() {
                             </div>
 
                             {/* Right: technologies */}
-                            <div className="flex flex-col items-start md:items-end text-left md:text-right text-white/70">
-                                <span className="text-white/60 text-xs md:text-sm mb-1 md:mb-0 md:inline md:mr-2">
+                            <div className="flex flex-col md:flex-row md:items-center items-start md:items-end text-left md:text-right text-white/70">
+                                <span className="text-white/60 text-xs md:text-sm mb-1 md:mb-0 md:mr-2">
                                     Użyte technologie:
                                 </span>
-                                <div className="flex items-center justify-start gap-1 md:inline-flex">
+                                <div className="flex items-center justify-start gap-1">
                                     {/* React */}
                                     <div className="flex items-center group">
                                         <span className="hidden md:block mr-2 text-xs text-white/60 overflow-hidden max-w-0 group-hover:max-w-[80px] opacity-0 group-hover:opacity-100 transition-all duration-300">
