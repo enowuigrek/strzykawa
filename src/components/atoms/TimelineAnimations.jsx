@@ -9,7 +9,7 @@ import React from 'react';
 export function WaveAnimation() {
     return (
         <svg
-            className="w-full h-32 opacity-20"
+            className="w-full h-48 opacity-35"
             viewBox="0 0 400 100"
             preserveAspectRatio="none"
         >
@@ -37,7 +37,7 @@ export function WaveAnimation() {
 export function TablesAnimation() {
     return (
         <svg
-            className="w-full h-32 opacity-15"
+            className="w-full h-48 opacity-30"
             viewBox="0 0 400 100"
             preserveAspectRatio="xMidYMid meet"
         >
@@ -161,7 +161,7 @@ export function TablesAnimation() {
 export function SmallRoasterAnimation() {
     return (
         <svg
-            className="w-full h-32 opacity-20"
+            className="w-full h-48 opacity-35"
             viewBox="0 0 400 100"
             preserveAspectRatio="xMidYMid meet"
         >
@@ -265,7 +265,7 @@ export function SmallRoasterAnimation() {
 export function RoasteryAnimation() {
     return (
         <svg
-            className="w-full h-32 opacity-15"
+            className="w-full h-48 opacity-30"
             viewBox="0 0 400 100"
             preserveAspectRatio="xMidYMid meet"
         >
@@ -346,7 +346,7 @@ export function RoasteryAnimation() {
 export function CuppingAnimation() {
     return (
         <svg
-            className="w-full h-32 opacity-15"
+            className="w-full h-48 opacity-30"
             viewBox="0 0 400 100"
             preserveAspectRatio="xMidYMid meet"
         >
