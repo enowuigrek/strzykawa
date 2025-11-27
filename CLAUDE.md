@@ -327,11 +327,12 @@ if (COMING_SOON_MODE) {
 
 ### Core Design Principles
 
-1. **Sharp Corners Only** - NEVER use `rounded-lg`, `rounded-xl`, etc.
-2. **Pills for Buttons & Badges** - Use `rounded-full` ONLY for buttons and badges
-3. **Green Count Badges** - Count badges ALWAYS use `bg-success` (not accent!)
-4. **Minimalist Aesthetic** - Clean, geometric, coffee-focused
-5. **Mobile-First** - Design for mobile, enhance for desktop
+1. **Buttons = Pills** - Buttons and links ALWAYS use `rounded-full` (pastylki!)
+2. **Badges = Pills** - Count badges use `rounded-full` + `bg-success` (not accent!)
+3. **Info Boxes = Subtle Rounded** - Info boxes, containers use `rounded-lg`
+4. **Cards = Sharp Corners** - Product cards, modals have NO rounding
+5. **Minimalist Aesthetic** - Clean, geometric, coffee-focused
+6. **Mobile-First** - Design for mobile, enhance for desktop
 
 ### Color System
 
@@ -483,16 +484,17 @@ screens: {
 ### Important Design Rules
 
 ✅ **DO:**
-- Use sharp corners for cards, modals, inputs
-- Use `rounded-full` for buttons and badges
-- Use `bg-success` for count badges
+- **Buttons/Links:** ALWAYS `rounded-full` (pastylki)
+- **Badges:** `rounded-full` + `bg-success` for counts
+- **Info boxes:** `rounded-lg` is OK for containers, demo boxes
+- **Cards/Modals:** Sharp corners (NO rounding)
 - Follow mobile-first approach
 - Keep designs minimalist and clean
 
 ❌ **DON'T:**
-- Don't use `rounded-lg`, `rounded-xl` anywhere except buttons/badges
+- **NEVER** use `rounded-lg` on buttons (ONLY `rounded-full`)
 - Don't use `bg-accent` for count badges (use `bg-success`)
-- Don't mix different border-radius values
+- Don't make divs `rounded-full` (only buttons/badges)
 - Don't add features beyond requirements (avoid over-engineering)
 - Don't ignore availability states in products
 
@@ -1098,8 +1100,9 @@ npm run lint
 Before submitting changes:
 
 - [ ] Read `DESIGN_SYSTEM.md` for design rules
-- [ ] No `rounded-lg`/`rounded-xl` (except buttons/badges)
-- [ ] Count badges use `bg-success`
+- [ ] Buttons use `rounded-full` (NEVER `rounded-lg`)
+- [ ] Count badges use `bg-success` + `rounded-full`
+- [ ] Info boxes can use `rounded-lg`
 - [ ] Mobile-first responsive design
 - [ ] No console.log() statements (use logger utility)
 - [ ] PropTypes defined for components
@@ -1132,8 +1135,9 @@ When working on tasks:
 ### Common Pitfalls to Avoid
 
 ❌ **Don't:**
-- Use `rounded-lg` or `rounded-xl` on cards/modals
+- Use `rounded-lg` on buttons (ONLY `rounded-full` for buttons!)
 - Use `bg-accent` for count badges (use `bg-success`)
+- Make divs/containers `rounded-full` (only buttons/badges)
 - Create new components when existing ones can be reused
 - Add features not requested
 - Ignore mobile view

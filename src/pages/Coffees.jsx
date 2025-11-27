@@ -154,7 +154,7 @@ export function Coffees() {
                         <p className="text-white text-lg mb-4">{error}</p>
                         <button
                             onClick={() => window.location.reload()}
-                            className="px-6 py-3 bg-accent text-white rounded-lg hover:bg-accent/80 transition-colors"
+                            className="px-6 py-3 bg-accent text-white rounded-full hover:bg-accent/80 transition-colors"
                         >
                             Spróbuj ponownie
                         </button>

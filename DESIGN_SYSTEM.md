@@ -135,21 +135,35 @@ text-6xl     // 60px - H1, hero
 ### **🔲 Corners & Borders**
 
 #### **GŁÓWNA ZASADA:**
-- ❌ **NIGDY `rounded` (rounded-lg, rounded-xl, etc.)**
-- ✅ **ZAWSZE sharp corners** (brak border-radius)
-- ✅ **WYJĄTEK: Buttony typu "pastylka" + Badges** → `rounded-full`
+
+**Przyciski i interaktywne elementy:**
+- ✅ **Przyciski (buttons, links)** → `rounded-full` (pastylki!)
+- ✅ **Badges** → `rounded-full`
+
+**Elementy dekoracyjne i layout:**
+- ✅ **Info boxes, code containers, demo boxes** → `rounded-lg` (delikatne zaokrąglenie)
+- ✅ **Karty produktów, modals, główne sekcje** → **sharp corners** (brak rounded)
 
 #### **Przykłady:**
 
 ```jsx
-// ❌ ŹLE
-<div className="rounded-lg bg-primary">...</div>
-<button className="rounded-xl">...</button>
+// ✅ PRZYCISKI - rounded-full (pastylki)
+<button className="rounded-full px-8 py-3 bg-accent">Kup teraz</button>
+<Link className="rounded-full px-6 py-3">Wróć</Link>
 
-// ✅ DOBRZE
-<div className="bg-primary">...</div>                     // Sharp corners
-<button className="rounded-full px-8 py-3">...</button>   // Pastylka
-<span className="rounded-full px-3 py-1">3</span>         // Badge
+// ✅ BADGES - rounded-full
+<span className="rounded-full px-3 py-1 bg-success">3</span>
+
+// ✅ INFO BOXES - rounded-lg (delikatne)
+<div className="rounded-lg bg-primary-light p-4">User info</div>
+<pre className="rounded-lg bg-black p-4">Code example</pre>
+
+// ✅ KARTY - sharp corners (brak rounded)
+<div className="bg-primary">...</div>
+
+// ❌ ŹLE - nie mieszamy stylów
+<button className="rounded-lg">...</button>  // Buttony MUSZĄ być rounded-full
+<div className="rounded-full">...</div>      // Diva nie robimy w pastylkę
 ```
 
 ### **🎯 Design Philosophy**
@@ -624,8 +638,10 @@ screens: {
 ## ✅ DO'S & DON'TS
 
 ### **✅ DO:**
-- Używaj sharp corners (brak rounded)
-- Używaj pastylki (rounded-full) dla buttonów i badges
+- **Buttony i linki:** ZAWSZE `rounded-full` (pastylki)
+- **Badges:** `rounded-full`
+- **Info boxes/containers:** `rounded-lg` dozwolone
+- **Karty produktów:** sharp corners (brak rounded)
 - **Count badges ZAWSZE bg-success** (nie accent!)
 - Konsekwentny spacing (Tailwind scale)
 - Minimalistyczny design
@@ -633,9 +649,10 @@ screens: {
 - Focus na produkcie (kawa)
 
 ### **❌ DON'T:**
-- Nie używaj rounded-lg, rounded-xl nigdzie poza buttonami i badges
+- **NIE dawaj buttonom `rounded-lg`** - TYLKO `rounded-full`!
 - **Nie używaj bg-accent dla count badges** - tylko bg-success!
-- Nie mieszaj różnych border-radius
+- Nie mieszaj różnych border-radius na tym samym typie elementu
+- Nie rób divów w `rounded-full` (to tylko dla buttonów/badges)
 - Nie przeładowuj animacjami
 - Nie używaj jaskrawych kolorów (poza success/danger states)
 - Nie ignoruj availability states

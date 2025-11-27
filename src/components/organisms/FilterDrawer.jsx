@@ -89,7 +89,7 @@ export function FilterDrawer({
 
                     <button
                         onClick={onClose}
-                        className="text-muted hover:text-white transition-colors p-2 hover:bg-accent/10 rounded-lg"
+                        className="text-muted hover:text-white transition-colors p-2 hover:bg-accent/10 rounded-full"
                         aria-label="Zamknij filtry"
                     >
                         <IoClose size={24} />

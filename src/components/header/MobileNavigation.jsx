@@ -96,7 +96,7 @@ function MobileActionsSection({
             <button
                 onClick={onOpenCart}
                 className={`
-                    flex items-center space-x-3 px-4 py-3 rounded-lg w-full text-left transition-all duration-300
+                    flex items-center space-x-3 px-4 py-3 rounded-full w-full text-left transition-all duration-300
                     ${isCartOpen
                     ? 'bg-cta/20 text-white'
                     : 'text-white hover:bg-white/5'
@@ -122,7 +122,7 @@ function MobileActionsSection({
                 <button
                     onClick={onOpenLogin}
                     className={`
-                        flex items-center space-x-3 px-4 py-3 rounded-lg w-full text-left transition-all duration-300
+                        flex items-center space-x-3 px-4 py-3 rounded-full w-full text-left transition-all duration-300
                         ${isLoginOpen
                         ? 'bg-cta/20 text-white'
                         : 'text-white hover:bg-accent/20'
@@ -150,7 +150,7 @@ function MobileAuthenticatedUser({ user, onLogout }) {
             </div>
             <button
                 onClick={onLogout}
-                className="flex items-center space-x-3 px-4 py-3 text-red-300 hover:bg-red-500/10 rounded-lg w-full text-left transition-all duration-300"
+                className="flex items-center space-x-3 px-4 py-3 text-red-300 hover:bg-red-500/10 rounded-full w-full text-left transition-all duration-300"
                 aria-label="Wyloguj się"
             >
                 <FaSignOutAlt className="w-4 h-4" />
