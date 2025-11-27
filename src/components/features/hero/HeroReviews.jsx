@@ -132,8 +132,8 @@ export function HeroReviews() {
                 }`}
             >
                 <blockquote className="text-white/70 text-base sm:text-lg italic text-center leading-relaxed">
-                    "The best coffee in Czestochowa. Great quality coffee.
-                    The flat white was amazing."
+                    &quot;The best coffee in Czestochowa. Great quality coffee.
+                    The flat white was amazing.&quot;
                 </blockquote>
                 <p className="text-white/50 text-sm text-center mt-3">
                     — TripAdvisor Review
