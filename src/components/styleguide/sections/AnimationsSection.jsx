@@ -13,7 +13,7 @@ function ScrollAnimationDemo({ name, animation, description }) {
     return (
         <div className="flex flex-col items-center gap-3">
             <div
-                className={`w-24 h-24 bg-accent/80 rounded-lg flex items-center justify-center transition-all duration-700 ease-out ${
+                className={`w-24 h-24 bg-accent/80 flex items-center justify-center transition-all duration-700 ease-out ${
                     isVisible ? animation.visible : animation.hidden
                 }`}
             >
@@ -44,7 +44,7 @@ function StaggeredDemo() {
                 {[0, 1, 2, 3].map((index) => (
                     <div
                         key={index}
-                        className={`w-16 h-16 bg-accent/80 rounded-lg transition-all duration-500 ease-out ${
+                        className={`w-16 h-16 bg-accent/80 transition-all duration-500 ease-out ${
                             isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-[20px]'
                         }`}
                         style={{ transitionDelay: isVisible ? `${index * 100}ms` : '0ms' }}
@@ -115,7 +115,7 @@ export function AnimationsSection() {
                         Elementy pojawiaja sie z opoznieniem (100ms na element) - idealne dla kart i list
                     </p>
                     <StaggeredDemo />
-                    <div className="mt-4 p-4 bg-primary-light rounded-lg">
+                    <div className="mt-4 p-4 bg-primary-light">
                         <code className="text-xs text-muted block whitespace-pre">{`// Uzycie staggered delay
 style={{ transitionDelay: isVisible ? \`\${index * 100}ms\` : '0ms' }}`}</code>
                     </div>
@@ -187,7 +187,7 @@ style={{ transitionDelay: isVisible ? \`\${index * 100}ms\` : '0ms' }}`}</code>
                 {/* Usage Code */}
                 <div>
                     <h3 className="text-xl text-accent mb-4">Uzycie useScrollAnimation:</h3>
-                    <div className="p-4 bg-primary-light rounded-lg overflow-x-auto">
+                    <div className="p-4 bg-primary-light overflow-x-auto">
                         <code className="text-xs text-muted block whitespace-pre">{`import { useScrollAnimation, scrollAnimations } from '../hooks/useScrollAnimation';
 
 function MyComponent() {

@@ -87,7 +87,7 @@ export function ComponentsSection({ quantity, setQuantity, menuOpen, setMenuOpen
                         </button>
                         <span className="text-muted text-sm">Hover state</span>
                     </div>
-                    <div className="mt-4 p-4 bg-primary-light rounded-lg">
+                    <div className="mt-4 p-4 bg-primary-light">
                         <code className="text-xs text-muted block">
                             bg-primary/80 backdrop-blur-sm border border-white/10 → hover:bg-accent hover:border-accent
                         </code>
