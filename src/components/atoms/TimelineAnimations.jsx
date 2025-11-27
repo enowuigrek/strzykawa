@@ -2,10 +2,10 @@ import React from 'react';
 
 /**
  * TimelineAnimations - Delikatne SVG animacje dla timeline sections
- * Każdy rok ma swoją unikalną animację
+ * Każdy rok ma swoją unikalną animację nawiązującą do treści
  */
 
-// 2020 - Początek podróży - Fale kawy
+// 2020 - Początek podróży - Fale kawy (ZACHOWANE - user lubi!)
 export function WaveAnimation() {
     return (
         <svg
@@ -33,149 +33,227 @@ export function WaveAnimation() {
     );
 }
 
-// 2022 - Rozbudowa i rozwój - Rosnące kręgi
-export function CirclesAnimation() {
+// 2022 - Rozbudowa i rozwój - Stoliki/miejsca siedzące pojawiające się
+export function TablesAnimation() {
     return (
         <svg
             className="w-full h-32 opacity-15"
             viewBox="0 0 400 100"
             preserveAspectRatio="xMidYMid meet"
         >
-            <circle cx="100" cy="50" r="5" fill="currentColor" className="text-accent">
-                <animate
-                    attributeName="r"
-                    values="5;25;5"
-                    dur="4s"
-                    repeatCount="indefinite"
-                />
-                <animate
-                    attributeName="opacity"
-                    values="1;0.2;1"
-                    dur="4s"
-                    repeatCount="indefinite"
-                />
+            {/* Stolik 1 - lewa strona */}
+            <g>
+                <rect x="60" y="60" width="40" height="4" fill="currentColor" className="text-accent">
+                    <animate
+                        attributeName="opacity"
+                        values="0;1;1"
+                        dur="6s"
+                        begin="0s"
+                        repeatCount="indefinite"
+                    />
+                </rect>
+                <rect x="64" y="64" width="4" height="20" fill="currentColor" className="text-accent">
+                    <animate
+                        attributeName="opacity"
+                        values="0;1;1"
+                        dur="6s"
+                        begin="0s"
+                        repeatCount="indefinite"
+                    />
+                </rect>
+                <rect x="92" y="64" width="4" height="20" fill="currentColor" className="text-accent">
+                    <animate
+                        attributeName="opacity"
+                        values="0;1;1"
+                        dur="6s"
+                        begin="0s"
+                        repeatCount="indefinite"
+                    />
+                </rect>
+            </g>
+
+            {/* Stolik 2 - środek */}
+            <g>
+                <rect x="180" y="50" width="40" height="4" fill="currentColor" className="text-accent">
+                    <animate
+                        attributeName="opacity"
+                        values="0;0;1;1"
+                        dur="6s"
+                        begin="0s"
+                        repeatCount="indefinite"
+                    />
+                </rect>
+                <rect x="184" y="54" width="4" height="30" fill="currentColor" className="text-accent">
+                    <animate
+                        attributeName="opacity"
+                        values="0;0;1;1"
+                        dur="6s"
+                        begin="0s"
+                        repeatCount="indefinite"
+                    />
+                </rect>
+                <rect x="212" y="54" width="4" height="30" fill="currentColor" className="text-accent">
+                    <animate
+                        attributeName="opacity"
+                        values="0;0;1;1"
+                        dur="6s"
+                        begin="0s"
+                        repeatCount="indefinite"
+                    />
+                </rect>
+            </g>
+
+            {/* Stolik 3 - prawa strona */}
+            <g>
+                <rect x="300" y="55" width="40" height="4" fill="currentColor" className="text-accent">
+                    <animate
+                        attributeName="opacity"
+                        values="0;0;0;1"
+                        dur="6s"
+                        begin="0s"
+                        repeatCount="indefinite"
+                    />
+                </rect>
+                <rect x="304" y="59" width="4" height="25" fill="currentColor" className="text-accent">
+                    <animate
+                        attributeName="opacity"
+                        values="0;0;0;1"
+                        dur="6s"
+                        begin="0s"
+                        repeatCount="indefinite"
+                    />
+                </rect>
+                <rect x="332" y="59" width="4" height="25" fill="currentColor" className="text-accent">
+                    <animate
+                        attributeName="opacity"
+                        values="0;0;0;1"
+                        dur="6s"
+                        begin="0s"
+                        repeatCount="indefinite"
+                    />
+                </rect>
+            </g>
+
+            {/* Ludzie - kropki nad stolikami pojawiające się */}
+            <circle cx="70" cy="50" r="3" fill="currentColor" className="text-accent">
+                <animate attributeName="opacity" values="0;0;1" dur="6s" repeatCount="indefinite" />
             </circle>
-            <circle cx="200" cy="50" r="5" fill="currentColor" className="text-accent">
-                <animate
-                    attributeName="r"
-                    values="5;25;5"
-                    dur="4s"
-                    begin="1s"
-                    repeatCount="indefinite"
-                />
-                <animate
-                    attributeName="opacity"
-                    values="1;0.2;1"
-                    dur="4s"
-                    begin="1s"
-                    repeatCount="indefinite"
-                />
+            <circle cx="90" cy="50" r="3" fill="currentColor" className="text-accent">
+                <animate attributeName="opacity" values="0;0;1" dur="6s" repeatCount="indefinite" />
             </circle>
-            <circle cx="300" cy="50" r="5" fill="currentColor" className="text-accent">
-                <animate
-                    attributeName="r"
-                    values="5;25;5"
-                    dur="4s"
-                    begin="2s"
-                    repeatCount="indefinite"
-                />
-                <animate
-                    attributeName="opacity"
-                    values="1;0.2;1"
-                    dur="4s"
-                    begin="2s"
-                    repeatCount="indefinite"
-                />
+            <circle cx="190" cy="40" r="3" fill="currentColor" className="text-accent">
+                <animate attributeName="opacity" values="0;0;0;1" dur="6s" repeatCount="indefinite" />
+            </circle>
+            <circle cx="210" cy="40" r="3" fill="currentColor" className="text-accent">
+                <animate attributeName="opacity" values="0;0;0;1" dur="6s" repeatCount="indefinite" />
+            </circle>
+            <circle cx="310" cy="45" r="3" fill="currentColor" className="text-accent">
+                <animate attributeName="opacity" values="0;0;0;0;1" dur="6s" repeatCount="indefinite" />
+            </circle>
+            <circle cx="330" cy="45" r="3" fill="currentColor" className="text-accent">
+                <animate attributeName="opacity" values="0;0;0;0;1" dur="6s" repeatCount="indefinite" />
             </circle>
         </svg>
     );
 }
 
-// 2023 - Pierwszy krok w roasting - Delikatne płomienie/para
-export function SteamAnimation() {
+// 2023 - Pierwszy krok w roasting - Ziarna wpadające do małego pieca
+export function SmallRoasterAnimation() {
     return (
         <svg
             className="w-full h-32 opacity-20"
             viewBox="0 0 400 100"
             preserveAspectRatio="xMidYMid meet"
         >
-            {/* Para unosząca się */}
-            <path
-                d="M100,80 Q100,60 110,40 Q120,20 130,0"
-                stroke="currentColor"
-                strokeWidth="2"
-                fill="none"
-                className="text-accent"
-                strokeLinecap="round"
-            >
+            {/* Mały piec - prostokąt z otworem na górze */}
+            <rect x="170" y="50" width="60" height="40" fill="none" stroke="currentColor" strokeWidth="2" className="text-accent" />
+            <rect x="175" y="45" width="50" height="5" fill="currentColor" className="text-accent" opacity="0.3" />
+
+            {/* Ziarna wpadające (kropki spadające w loop) */}
+            <circle cx="200" cy="10" r="3" fill="currentColor" className="text-accent">
                 <animate
-                    attributeName="opacity"
-                    values="0;0.8;0"
+                    attributeName="cy"
+                    values="10;45;45;10"
                     dur="3s"
                     repeatCount="indefinite"
                 />
                 <animate
+                    attributeName="opacity"
+                    values="1;1;0;0;1"
+                    dur="3s"
+                    repeatCount="indefinite"
+                />
+            </circle>
+            <circle cx="195" cy="10" r="3" fill="currentColor" className="text-accent">
+                <animate
+                    attributeName="cy"
+                    values="10;45;45;10"
+                    dur="3s"
+                    begin="0.3s"
+                    repeatCount="indefinite"
+                />
+                <animate
+                    attributeName="opacity"
+                    values="1;1;0;0;1"
+                    dur="3s"
+                    begin="0.3s"
+                    repeatCount="indefinite"
+                />
+            </circle>
+            <circle cx="205" cy="10" r="3" fill="currentColor" className="text-accent">
+                <animate
+                    attributeName="cy"
+                    values="10;45;45;10"
+                    dur="3s"
+                    begin="0.6s"
+                    repeatCount="indefinite"
+                />
+                <animate
+                    attributeName="opacity"
+                    values="1;1;0;0;1"
+                    dur="3s"
+                    begin="0.6s"
+                    repeatCount="indefinite"
+                />
+            </circle>
+
+            {/* Ciepło/para z pieca (fale unoszące się) */}
+            <path
+                d="M180,50 Q185,45 190,50"
+                stroke="currentColor"
+                strokeWidth="1.5"
+                fill="none"
+                className="text-accent"
+                opacity="0.4"
+            >
+                <animate
                     attributeName="d"
                     values="
-                        M100,80 Q100,60 110,40 Q120,20 130,0;
-                        M100,80 Q110,60 100,40 Q90,20 100,0;
-                        M100,80 Q100,60 110,40 Q120,20 130,0
+                        M180,50 Q185,45 190,50;
+                        M180,50 Q185,48 190,50;
+                        M180,50 Q185,45 190,50
                     "
-                    dur="3s"
+                    dur="2s"
                     repeatCount="indefinite"
                 />
             </path>
             <path
-                d="M200,80 Q200,60 210,40 Q220,20 230,0"
+                d="M210,50 Q215,45 220,50"
                 stroke="currentColor"
-                strokeWidth="2"
+                strokeWidth="1.5"
                 fill="none"
                 className="text-accent"
-                strokeLinecap="round"
+                opacity="0.4"
             >
-                <animate
-                    attributeName="opacity"
-                    values="0;0.8;0"
-                    dur="3s"
-                    begin="1s"
-                    repeatCount="indefinite"
-                />
                 <animate
                     attributeName="d"
                     values="
-                        M200,80 Q200,60 210,40 Q220,20 230,0;
-                        M200,80 Q210,60 200,40 Q190,20 200,0;
-                        M200,80 Q200,60 210,40 Q220,20 230,0
+                        M210,50 Q215,45 220,50;
+                        M210,50 Q215,48 220,50;
+                        M210,50 Q215,45 220,50
                     "
-                    dur="3s"
-                    begin="1s"
-                    repeatCount="indefinite"
-                />
-            </path>
-            <path
-                d="M300,80 Q300,60 310,40 Q320,20 330,0"
-                stroke="currentColor"
-                strokeWidth="2"
-                fill="none"
-                className="text-accent"
-                strokeLinecap="round"
-            >
-                <animate
-                    attributeName="opacity"
-                    values="0;0.8;0"
-                    dur="3s"
-                    begin="2s"
-                    repeatCount="indefinite"
-                />
-                <animate
-                    attributeName="d"
-                    values="
-                        M300,80 Q300,60 310,40 Q320,20 330,0;
-                        M300,80 Q310,60 300,40 Q290,20 300,0;
-                        M300,80 Q300,60 310,40 Q320,20 330,0
-                    "
-                    dur="3s"
-                    begin="2s"
+                    dur="2s"
+                    begin="0.5s"
                     repeatCount="indefinite"
                 />
             </path>
@@ -183,139 +261,161 @@ export function SteamAnimation() {
     );
 }
 
-// 2024 - Palarnia kawy - Krążące ziarna
-export function BeansAnimation() {
+// 2024 - Palarnia kawy - Budynek palarni budujący się / większy piec
+export function RoasteryAnimation() {
     return (
         <svg
             className="w-full h-32 opacity-15"
             viewBox="0 0 400 100"
             preserveAspectRatio="xMidYMid meet"
         >
-            {/* Ziarnko 1 */}
-            <ellipse cx="200" cy="50" rx="8" ry="12" fill="currentColor" className="text-accent">
-                <animateTransform
-                    attributeName="transform"
-                    type="rotate"
-                    values="0 200 50; 360 200 50"
-                    dur="10s"
+            {/* Budynek palarni - buduje się od dołu */}
+            <rect x="140" y="40" width="120" height="50" fill="none" stroke="currentColor" strokeWidth="2" className="text-accent">
+                <animate
+                    attributeName="height"
+                    values="0;50"
+                    dur="4s"
                     repeatCount="indefinite"
                 />
                 <animate
-                    attributeName="cx"
-                    values="200; 250; 200; 150; 200"
-                    dur="10s"
+                    attributeName="y"
+                    values="90;40"
+                    dur="4s"
                     repeatCount="indefinite"
                 />
-                <animate
-                    attributeName="cy"
-                    values="50; 30; 50; 70; 50"
-                    dur="10s"
-                    repeatCount="indefinite"
-                />
-            </ellipse>
+            </rect>
 
-            {/* Ziarnko 2 */}
-            <ellipse cx="200" cy="50" rx="8" ry="12" fill="currentColor" className="text-accent">
-                <animateTransform
-                    attributeName="transform"
-                    type="rotate"
-                    values="180 200 50; 540 200 50"
-                    dur="12s"
-                    repeatCount="indefinite"
-                />
-                <animate
-                    attributeName="cx"
-                    values="200; 150; 200; 250; 200"
-                    dur="12s"
-                    repeatCount="indefinite"
-                />
-                <animate
-                    attributeName="cy"
-                    values="50; 70; 50; 30; 50"
-                    dur="12s"
-                    repeatCount="indefinite"
-                />
-            </ellipse>
-
-            {/* Ziarnko 3 */}
-            <ellipse cx="200" cy="50" rx="8" ry="12" fill="currentColor" className="text-accent">
-                <animateTransform
-                    attributeName="transform"
-                    type="rotate"
-                    values="90 200 50; 450 200 50"
-                    dur="11s"
-                    repeatCount="indefinite"
-                />
-                <animate
-                    attributeName="cx"
-                    values="200; 230; 200; 170; 200"
-                    dur="11s"
-                    repeatCount="indefinite"
-                />
-                <animate
-                    attributeName="cy"
-                    values="50; 40; 50; 60; 50"
-                    dur="11s"
-                    repeatCount="indefinite"
-                />
-            </ellipse>
-        </svg>
-    );
-}
-
-// 2025 - Nowy rozdział - Rozwijające się formy
-export function BloomAnimation() {
-    return (
-        <svg
-            className="w-full h-32 opacity-15"
-            viewBox="0 0 400 100"
-            preserveAspectRatio="xMidYMid meet"
-        >
-            {/* Gwiazdka rozwijająca się */}
-            <polygon
-                points="200,20 210,40 230,45 215,60 220,80 200,70 180,80 185,60 170,45 190,40"
-                fill="currentColor"
-                className="text-accent"
-            >
-                <animateTransform
-                    attributeName="transform"
-                    type="scale"
-                    values="0.5 0.5; 1.2 1.2; 0.5 0.5"
-                    dur="6s"
-                    repeatCount="indefinite"
-                    additive="sum"
-                />
-                <animateTransform
-                    attributeName="transform"
-                    type="rotate"
-                    values="0 200 50; 360 200 50"
-                    dur="12s"
-                    repeatCount="indefinite"
-                    additive="sum"
-                />
+            {/* Dach */}
+            <polygon points="135,40 200,20 265,40" fill="none" stroke="currentColor" strokeWidth="2" className="text-accent">
                 <animate
                     attributeName="opacity"
-                    values="0.3;1;0.3"
-                    dur="6s"
+                    values="0;0;0;1"
+                    dur="4s"
                     repeatCount="indefinite"
                 />
             </polygon>
 
-            {/* Drugie kółko */}
-            <circle cx="200" cy="50" r="30" stroke="currentColor" strokeWidth="2" fill="none" className="text-accent">
+            {/* Okna pojawiające się */}
+            <rect x="160" y="55" width="20" height="15" fill="currentColor" className="text-accent" opacity="0.3">
                 <animate
-                    attributeName="r"
-                    values="20;35;20"
+                    attributeName="opacity"
+                    values="0;0;0.3"
+                    dur="4s"
+                    repeatCount="indefinite"
+                />
+            </rect>
+            <rect x="190" y="55" width="20" height="15" fill="currentColor" className="text-accent" opacity="0.3">
+                <animate
+                    attributeName="opacity"
+                    values="0;0;0;0.3"
+                    dur="4s"
+                    repeatCount="indefinite"
+                />
+            </rect>
+            <rect x="220" y="55" width="20" height="15" fill="currentColor" className="text-accent" opacity="0.3">
+                <animate
+                    attributeName="opacity"
+                    values="0;0;0;0;0.3"
+                    dur="4s"
+                    repeatCount="indefinite"
+                />
+            </rect>
+
+            {/* Dym z komina */}
+            <circle cx="200" cy="15" r="4" fill="currentColor" className="text-accent">
+                <animate
+                    attributeName="cy"
+                    values="20;5;5;20"
                     dur="5s"
+                    begin="4s"
                     repeatCount="indefinite"
                 />
                 <animate
                     attributeName="opacity"
-                    values="0.8;0.2;0.8"
+                    values="0.5;0;0;0.5"
+                    dur="5s"
+                    begin="4s"
+                    repeatCount="indefinite"
+                />
+            </circle>
+        </svg>
+    );
+}
+
+// 2025 - Nowy rozdział - Filiżanki cupping w okręgu + nowy branding
+export function CuppingAnimation() {
+    return (
+        <svg
+            className="w-full h-32 opacity-15"
+            viewBox="0 0 400 100"
+            preserveAspectRatio="xMidYMid meet"
+        >
+            {/* Filiżanki w okręgu (5 filiżanek - jak na cupping) */}
+
+            {/* Filiżanka 1 - góra */}
+            <g>
+                <ellipse cx="200" cy="25" rx="8" ry="6" fill="none" stroke="currentColor" strokeWidth="1.5" className="text-accent">
+                    <animate attributeName="opacity" values="0;1" dur="5s" repeatCount="indefinite" />
+                </ellipse>
+                <path d="M192,25 L192,35 Q200,38 208,35 L208,25" fill="none" stroke="currentColor" strokeWidth="1.5" className="text-accent">
+                    <animate attributeName="opacity" values="0;1" dur="5s" repeatCount="indefinite" />
+                </path>
+            </g>
+
+            {/* Filiżanka 2 - prawa góra */}
+            <g>
+                <ellipse cx="240" cy="40" rx="8" ry="6" fill="none" stroke="currentColor" strokeWidth="1.5" className="text-accent">
+                    <animate attributeName="opacity" values="0;0;1" dur="5s" repeatCount="indefinite" />
+                </ellipse>
+                <path d="M232,40 L232,50 Q240,53 248,50 L248,40" fill="none" stroke="currentColor" strokeWidth="1.5" className="text-accent">
+                    <animate attributeName="opacity" values="0;0;1" dur="5s" repeatCount="indefinite" />
+                </path>
+            </g>
+
+            {/* Filiżanka 3 - prawa dół */}
+            <g>
+                <ellipse cx="230" cy="70" rx="8" ry="6" fill="none" stroke="currentColor" strokeWidth="1.5" className="text-accent">
+                    <animate attributeName="opacity" values="0;0;0;1" dur="5s" repeatCount="indefinite" />
+                </ellipse>
+                <path d="M222,70 L222,80 Q230,83 238,80 L238,70" fill="none" stroke="currentColor" strokeWidth="1.5" className="text-accent">
+                    <animate attributeName="opacity" values="0;0;0;1" dur="5s" repeatCount="indefinite" />
+                </path>
+            </g>
+
+            {/* Filiżanka 4 - lewa dół */}
+            <g>
+                <ellipse cx="170" cy="70" rx="8" ry="6" fill="none" stroke="currentColor" strokeWidth="1.5" className="text-accent">
+                    <animate attributeName="opacity" values="0;0;0;0;1" dur="5s" repeatCount="indefinite" />
+                </ellipse>
+                <path d="M162,70 L162,80 Q170,83 178,80 L178,70" fill="none" stroke="currentColor" strokeWidth="1.5" className="text-accent">
+                    <animate attributeName="opacity" values="0;0;0;0;1" dur="5s" repeatCount="indefinite" />
+                </path>
+            </g>
+
+            {/* Filiżanka 5 - lewa góra */}
+            <g>
+                <ellipse cx="160" cy="40" rx="8" ry="6" fill="none" stroke="currentColor" strokeWidth="1.5" className="text-accent">
+                    <animate attributeName="opacity" values="0;0;0;0;0;1" dur="5s" repeatCount="indefinite" />
+                </ellipse>
+                <path d="M152,40 L152,50 Q160,53 168,50 L168,40" fill="none" stroke="currentColor" strokeWidth="1.5" className="text-accent">
+                    <animate attributeName="opacity" values="0;0;0;0;0;1" dur="5s" repeatCount="indefinite" />
+                </path>
+            </g>
+
+            {/* Okrąg łączący (stół cupping) */}
+            <circle cx="200" cy="50" r="50" fill="none" stroke="currentColor" strokeWidth="1" className="text-accent" opacity="0.2">
+                <animate
+                    attributeName="stroke-dasharray"
+                    values="0 314; 314 0"
                     dur="5s"
                     repeatCount="indefinite"
                 />
             </circle>
+
+            {/* Para z filiżanek */}
+            <path d="M200,20 Q202,15 200,10" stroke="currentColor" strokeWidth="1" fill="none" className="text-accent" opacity="0.3">
+                <animate attributeName="opacity" values="0;0.3;0" dur="3s" begin="5s" repeatCount="indefinite" />
+            </path>
         </svg>
     );
 }
@@ -326,13 +426,13 @@ export function TimelineAnimation({ year }) {
         case '2020':
             return <WaveAnimation />;
         case '2022':
-            return <CirclesAnimation />;
+            return <TablesAnimation />;
         case '2023':
-            return <SteamAnimation />;
+            return <SmallRoasterAnimation />;
         case '2024':
-            return <BeansAnimation />;
+            return <RoasteryAnimation />;
         case '2025':
-            return <BloomAnimation />;
+            return <CuppingAnimation />;
         default:
             return null;
     }
