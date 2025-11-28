@@ -80,9 +80,9 @@ export function TimelineBar({ years = [], isSticky = false }) {
         `}>
             <div className="max-w-6xl mx-auto px-4 h-full flex items-center">
                 {/* Timeline Container */}
-                <div className="relative w-full flex justify-center">
+                <div className="relative w-full flex justify-start md:justify-center">
                     <div className="w-full max-w-[70%] md:max-w-none overflow-hidden md:overflow-visible">
-                        <div className="flex items-center justify-center gap-1 md:gap-2">
+                        <div className="flex items-center justify-start md:justify-center gap-1 md:gap-2">
                             {years.map((year, index) => (
                                 <React.Fragment key={year}>
                                     <button
