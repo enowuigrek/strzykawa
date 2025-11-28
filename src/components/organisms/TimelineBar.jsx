@@ -96,25 +96,24 @@ export function TimelineBar({ years = [], isSticky = false }) {
 
     return (
         <div className={`
-            sticky 
-            top-0 
-            z-50 
-            bg-primary
-            border 
+            sticky
+            top-0
+            z-50
+            ${isSticky ? 'bg-primary-dark backdrop-blur-md shadow-2xl shadow-black/50' : 'bg-primary shadow-none'}
+            border-b
             border-white/10
             transition-all
-            duration-300
-            h-32
-            ${isSticky ? 'shadow-2xl shadow-black/50' : 'shadow-none'}
+            duration-500
+            h-[100px]
         `}>
-            <div className="max-w-6xl mx-auto px-4 py-12">
+            <div className="max-w-6xl mx-auto px-4 h-full flex items-center">
                 {/* Timeline Container - Horizontal scroll on mobile */}
-                <div className="relative">
+                <div className="relative w-full">
                     {canLeft && (
-                        <div className="absolute left-0 top-0 bottom-0 w-10 bg-gradient-to-r from-primary to-transparent pointer-events-none md:hidden z-10" />
+                        <div className={`absolute left-0 top-0 bottom-0 w-10 ${isSticky ? 'bg-gradient-to-r from-primary-dark to-transparent' : 'bg-gradient-to-r from-primary to-transparent'} pointer-events-none md:hidden z-10`} />
                     )}
                     {canRight && (
-                        <div className="absolute right-0 top-0 bottom-0 w-10 bg-gradient-to-l from-primary to-transparent pointer-events-none md:hidden z-10" />
+                        <div className={`absolute right-0 top-0 bottom-0 w-10 ${isSticky ? 'bg-gradient-to-l from-primary-dark to-transparent' : 'bg-gradient-to-l from-primary to-transparent'} pointer-events-none md:hidden z-10`} />
                     )}
 
                     <div
@@ -164,14 +163,14 @@ export function TimelineBar({ years = [], isSticky = false }) {
 
                     {/* Left scroll hint */}
                     {canLeft && (
-                        <div className="absolute left-4 -bottom-2 md:hidden text-white/70 bg-primary/60 rounded-full p-[2px] drop-shadow-[0_0_6px_rgba(0,0,0,0.4)] animate-pulse">
+                        <div className={`absolute left-4 -bottom-2 md:hidden text-white/70 ${isSticky ? 'bg-primary-dark/60' : 'bg-primary/60'} rounded-full p-[2px] drop-shadow-[0_0_6px_rgba(0,0,0,0.4)] animate-pulse`}>
                             <FaAngleLeft className="w-4 h-4" />
                         </div>
                     )}
 
                     {/* Right scroll hint */}
                     {canRight && (
-                        <div className="absolute right-4 -bottom-2 md:hidden text-white/70 bg-primary/60 rounded-full p-[2px] drop-shadow-[0_0_6px_rgba(0,0,0,0.4)] animate-pulse">
+                        <div className={`absolute right-4 -bottom-2 md:hidden text-white/70 ${isSticky ? 'bg-primary-dark/60' : 'bg-primary/60'} rounded-full p-[2px] drop-shadow-[0_0_6px_rgba(0,0,0,0.4)] animate-pulse`}>
                             <FaAngleRight className="w-4 h-4" />
                         </div>
                     )}

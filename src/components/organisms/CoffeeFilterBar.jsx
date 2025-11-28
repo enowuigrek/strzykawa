@@ -51,20 +51,19 @@ export function CoffeeFilterBar({
     return (
         <div
             className={`
-                sticky 
+                sticky
                 top-0
                 z-50
-                bg-primary
+                ${isSticky ? 'bg-primary-dark backdrop-blur-md shadow-2xl shadow-black/50' : 'bg-primary shadow-none'}
                 border-b
                 border-white/10
-                shadow-2xl 
-                shadow-black/50
                 transition-all
-                duration-300
+                duration-500
+                h-[100px]
             `}
         >
-            <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-                {/* Górna połowa - Wyszukiwarka (50px) */}
+            <div className="container mx-auto px-4 sm:px-6 lg:px-8 h-full flex flex-col justify-center">
+                {/* Górna połowa - Wyszukiwarka */}
                 <div className="flex items-center h-[50px]">
                     <div className="relative w-full max-w-xs">
                         <FaSearch className="absolute left-0 top-1/2 -translate-y-1/2 text-white text-sm" />

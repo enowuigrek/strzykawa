@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import OpenImage from '../assets/history/z_zewnatrz.jpg';
 import FirstRoaster from '../assets/history/maly_piec.jpg';
 import Roastery from '../assets/history/duzy_piec.jpg';
@@ -12,9 +12,23 @@ import { Button } from '../components/atoms/Button';
 import { PageLayout } from "../components/layout/PageLayout.jsx";
 import { TimelineSection } from '../components/molecules/TimelineSection';
 import { TimelineBar } from '../components/organisms/TimelineBar';
+import { SCROLL_THRESHOLDS } from '../constants/timings.js';
 
 export function About() {
     useScrollToTop();
+    const [isSticky, setIsSticky] = useState(false);
+
+    // Scroll detection dla TimelineBar
+    useEffect(() => {
+        const handleScroll = () => {
+            // TimelineBar jest przypięty gdy scroll > 200px (po PageHeader)
+            setIsSticky(window.scrollY > 200);
+        };
+
+        handleScroll();
+        window.addEventListener('scroll', handleScroll, { passive: true });
+        return () => window.removeEventListener('scroll', handleScroll);
+    }, []);
 
     const timelineData = [
         {
@@ -57,7 +71,7 @@ export function About() {
             description="Nasza historia. Poznaj drogę od małej kawiarni do palarni kawy."
         >
             {/* Timeline Bar */}
-            <TimelineBar years={years} />
+            <TimelineBar years={years} isSticky={isSticky} />
 
             {/* Timeline Content */}
             <div className="max-w-6xl mx-auto px-4 py-16">
