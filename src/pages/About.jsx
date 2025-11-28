@@ -20,35 +20,25 @@ export function About() {
     const [hideBar, setHideBar] = useState(false);
     const ctaRef = React.useRef(null);
 
-    // Scroll detection dla TimelineBar
+    // Scroll detection dla TimelineBar i ukrywanie przy CTA
     useEffect(() => {
         const handleScroll = () => {
             // TimelineBar jest przypięty gdy scroll > 200px (po PageHeader)
             setIsSticky(window.scrollY > 200);
+
+            // Chowaj pasek gdy dojedziemy do sekcji CTA
+            if (ctaRef.current) {
+                const ctaTop = ctaRef.current.offsetTop;
+                const scrollPosition = window.scrollY + window.innerHeight / 2;
+
+                // Chowaj gdy jesteśmy w okolicy CTA (300px przed)
+                setHideBar(scrollPosition >= ctaTop - 300);
+            }
         };
 
         handleScroll();
         window.addEventListener('scroll', handleScroll, { passive: true });
         return () => window.removeEventListener('scroll', handleScroll);
-    }, []);
-
-    // Observer dla sekcji CTA - chowa TimelineBar gdy dojedziemy do "Zapraszamy"
-    useEffect(() => {
-        const observer = new IntersectionObserver(
-            ([entry]) => {
-                setHideBar(entry.isIntersecting);
-            },
-            {
-                threshold: 0.1, // Trigger gdy 10% sekcji widoczne
-                rootMargin: '-100px 0px 0px 0px' // Offset od góry
-            }
-        );
-
-        if (ctaRef.current) {
-            observer.observe(ctaRef.current);
-        }
-
-        return () => observer.disconnect();
     }, []);
 
     const timelineData = [
