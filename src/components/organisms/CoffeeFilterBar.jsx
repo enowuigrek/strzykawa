@@ -58,6 +58,7 @@ export function CoffeeFilterBar({
                 transition-all
                 duration-500
                 h-[100px]
+                lg:h-[120px]
             `}
         >
             <div className="container mx-auto px-4 sm:px-6 lg:px-8 h-full flex flex-col justify-center">

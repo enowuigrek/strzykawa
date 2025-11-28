@@ -103,6 +103,7 @@ export function TimelineBar({ years = [], isSticky = false }) {
             transition-all
             duration-500
             h-[100px]
+            lg:h-[120px]
         `}>
             <div className="max-w-6xl mx-auto px-4 h-full flex items-center">
                 {/* Timeline Container - Horizontal scroll on mobile */}
