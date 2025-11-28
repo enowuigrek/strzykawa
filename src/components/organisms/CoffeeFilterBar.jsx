@@ -144,47 +144,30 @@ function MainFilterButton({ label, count, isActive, onClick }) {
     }
 
     if (isActive) {
-        // Active: text pill + kolorowe kółko z liczbą
+        // Active: kolorowy pill z liczbą wewnątrz
         return (
-            <div className="flex items-center gap-2">
-                {/* Text pill (taki sam jak inactive) */}
-                <button
-                    onClick={onClick}
-                    className={`
-                        px-4
-                        py-2
-                        rounded-full
-                        font-medium
-                        text-sm
-                        transition-all
-                        duration-150
-                        ${colorClass}
-                        text-white
-                    `}
-                >
-                    {label}
-                </button>
-
-                {/* Kółko z liczbą (tylko desktop) */}
+            <button
+                onClick={onClick}
+                className={`
+                    px-4
+                    py-2
+                    rounded-full
+                    font-medium
+                    text-sm
+                    transition-all
+                    duration-150
+                    ${colorClass}
+                    text-white
+                    flex
+                    items-center
+                    gap-2
+                `}
+            >
+                <span>{label}</span>
                 {count > 0 && (
-                    <div className={`
-                        hidden
-                        md:flex
-                        ${colorClass}
-                        text-white
-                        w-8
-                        h-8
-                        rounded-full
-                        items-center
-                        justify-center
-                        text-xs
-                        font-bold
-                        shadow-md
-                    `}>
-                        {count}
-                    </div>
+                    <span className="hidden md:inline font-bold">{count}</span>
                 )}
-            </div>
+            </button>
         );
     }
 
