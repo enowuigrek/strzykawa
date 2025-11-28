@@ -144,26 +144,43 @@ function MainFilterButton({ label, count, isActive, onClick }) {
     }
 
     if (isActive) {
-        // Active: kolorowy pill z liczbą wewnątrz
+        // Active:
+        // Desktop: kolorowy pill z nazwą i liczbą wewnątrz
+        // Mobile: tylko kolorowe kółko z liczbą
         return (
             <button
                 onClick={onClick}
                 className={`
-                    px-4
-                    py-2
-                    rounded-full
-                    font-medium
-                    text-sm
-                    transition-all
-                    duration-150
                     ${colorClass}
                     text-white
+                    rounded-full
+                    font-medium
+                    transition-all
+                    duration-150
                     flex
                     items-center
-                    gap-2
+                    justify-center
+                    md:px-4
+                    md:py-2
+                    md:gap-2
+                    w-8
+                    h-8
+                    md:w-auto
+                    md:h-auto
+                    text-xs
+                    md:text-sm
+                    font-bold
+                    md:font-medium
+                    shadow-md
+                    hover:scale-105
                 `}
+                aria-label={`${label}${count > 0 ? ` – ${count} kaw` : ''}`}
             >
-                <span>{label}</span>
+                {/* Mobile: tylko liczba */}
+                <span className="md:hidden">{count > 0 ? count : ''}</span>
+
+                {/* Desktop: nazwa + liczba */}
+                <span className="hidden md:inline">{label}</span>
                 {count > 0 && (
                     <span className="hidden md:inline font-bold">{count}</span>
                 )}
