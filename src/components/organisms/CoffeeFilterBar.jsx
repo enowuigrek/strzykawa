@@ -144,40 +144,47 @@ function MainFilterButton({ label, count, isActive, onClick }) {
     }
 
     if (isActive) {
-        // Active: kolorowe kółko (instant)
-        // Mobile: tylko kółko
-        // Desktop: kółko + nazwa
+        // Active: text pill + kolorowe kółko z liczbą
         return (
-            <button
-                onClick={onClick}
-                className="flex items-center gap-2"
-                aria-label={`${label}${count > 0 ? ` – ${count} kaw` : ''}`}
-            >
-                {/* Kółko z liczbą */}
-                <div className={`
-                    ${colorClass}
-                    text-white
-                    w-8
-                    h-8
-                    rounded-full
-                    flex
-                    items-center
-                    justify-center
-                    text-xs
-                    font-bold
-                    shadow-md
-                    transition-all
-                    duration-150
-                    hover:scale-105
-                `}>
-                    {count > 0 ? count : ''}
-                </div>
-
-                {/* Desktop: nazwa */}
-                <span className="hidden md:inline text-white font-medium text-sm">
+            <div className="flex items-center gap-2">
+                {/* Text pill (taki sam jak inactive) */}
+                <button
+                    onClick={onClick}
+                    className={`
+                        px-4
+                        py-2
+                        rounded-full
+                        font-medium
+                        text-sm
+                        transition-all
+                        duration-150
+                        ${colorClass}
+                        text-white
+                    `}
+                >
                     {label}
-                </span>
-            </button>
+                </button>
+
+                {/* Kółko z liczbą (tylko desktop) */}
+                {count > 0 && (
+                    <div className={`
+                        hidden
+                        md:flex
+                        ${colorClass}
+                        text-white
+                        w-8
+                        h-8
+                        rounded-full
+                        items-center
+                        justify-center
+                        text-xs
+                        font-bold
+                        shadow-md
+                    `}>
+                        {count}
+                    </div>
+                )}
+            </div>
         );
     }
 
