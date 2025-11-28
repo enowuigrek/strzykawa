@@ -33,18 +33,18 @@ export function Header() {
             setScrolled(currentScrollY > 100);
 
             // Auto-hide po 300px (jak scroll w dół)
-            if (currentScrollY > 300) {
+            // ALE: NIE chowaj headera gdy hamburger jest otwarty
+            if (currentScrollY > 300 && !mobileMenuOpen) {
                 // Scrollujemy w dół - ukryj header
                 if (currentScrollY > lastScrollY) {
                     setHideHeader(true);
-                    setMobileMenuOpen(false);
                 }
                 // Scrollujemy w górę - pokaż header
                 else if (currentScrollY < lastScrollY) {
                     setHideHeader(false);
                 }
             } else {
-                // Poniżej 300px - zawsze pokazuj
+                // Poniżej 300px LUB hamburger otwarty - zawsze pokazuj
                 setHideHeader(false);
             }
 
@@ -54,7 +54,7 @@ export function Header() {
         handleScroll();
         window.addEventListener("scroll", handleScroll, { passive: true });
         return () => window.removeEventListener("scroll", handleScroll);
-    }, [lastScrollY]);
+    }, [lastScrollY, mobileMenuOpen]);
 
     // ========== HANDLERS ==========
     const closeMobileMenu = () => setMobileMenuOpen(false);
