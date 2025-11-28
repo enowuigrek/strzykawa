@@ -127,6 +127,9 @@ export function CoffeeFilterBar({
  * Instant UI:
  * - isActive kontroluje wygląd (natychmiastowa zmiana)
  * - count pojawia się async gdy dane gotowe
+ *
+ * Mobile: tylko kółko z liczbą
+ * Desktop: nazwa + kółko z liczbą
  */
 function MainFilterButton({ label, count, isActive, onClick }) {
     const lowerLabel = (label || '').toLowerCase();
@@ -142,11 +145,21 @@ function MainFilterButton({ label, count, isActive, onClick }) {
 
     if (isActive) {
         // Active: kolorowe kółko (instant)
-        // Licznik pojawia się gdy count > 0 (async)
+        // Mobile: tylko kółko
+        // Desktop: nazwa + kółko
         return (
             <button
                 onClick={onClick}
-                className={`
+                className="flex items-center gap-2"
+                aria-label={`${label}${count > 0 ? ` – ${count} kaw` : ''}`}
+            >
+                {/* Desktop: nazwa */}
+                <span className="hidden md:inline text-white font-medium text-sm">
+                    {label}
+                </span>
+
+                {/* Kółko z liczbą */}
+                <div className={`
                     ${colorClass}
                     text-white
                     w-8
@@ -161,10 +174,9 @@ function MainFilterButton({ label, count, isActive, onClick }) {
                     transition-all
                     duration-150
                     hover:scale-105
-                `}
-                aria-label={`${label}${count > 0 ? ` – ${count} kaw` : ''}`}
-            >
-                {count > 0 ? count : ''}
+                `}>
+                    {count > 0 ? count : ''}
+                </div>
             </button>
         );
     }
@@ -174,16 +186,16 @@ function MainFilterButton({ label, count, isActive, onClick }) {
         <button
             onClick={onClick}
             className={`
-                px-4 
-                py-2 
-                rounded-full 
-                font-medium 
+                px-4
+                py-2
+                rounded-full
+                font-medium
                 text-sm
-                transition-all 
+                transition-all
                 duration-150
-                bg-white/5 
-                text-white/70 
-                hover:bg-white/10 
+                bg-white/5
+                text-white/70
+                hover:bg-white/10
                 hover:text-white
             `}
         >
