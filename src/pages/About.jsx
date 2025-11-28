@@ -17,6 +17,8 @@ import { SCROLL_THRESHOLDS } from '../constants/timings.js';
 export function About() {
     useScrollToTop();
     const [isSticky, setIsSticky] = useState(false);
+    const [hideBar, setHideBar] = useState(false);
+    const ctaRef = React.useRef(null);
 
     // Scroll detection dla TimelineBar
     useEffect(() => {
@@ -28,6 +30,25 @@ export function About() {
         handleScroll();
         window.addEventListener('scroll', handleScroll, { passive: true });
         return () => window.removeEventListener('scroll', handleScroll);
+    }, []);
+
+    // Observer dla sekcji CTA - chowa TimelineBar gdy dojedziemy do "Zapraszamy"
+    useEffect(() => {
+        const observer = new IntersectionObserver(
+            ([entry]) => {
+                setHideBar(entry.isIntersecting);
+            },
+            {
+                threshold: 0.1, // Trigger gdy 10% sekcji widoczne
+                rootMargin: '-100px 0px 0px 0px' // Offset od góry
+            }
+        );
+
+        if (ctaRef.current) {
+            observer.observe(ctaRef.current);
+        }
+
+        return () => observer.disconnect();
     }, []);
 
     const timelineData = [
@@ -71,7 +92,7 @@ export function About() {
             description="Nasza historia. Poznaj drogę od małej kawiarni do palarni kawy."
         >
             {/* Timeline Bar */}
-            <TimelineBar years={years} isSticky={isSticky} />
+            <TimelineBar years={years} isSticky={isSticky} hide={hideBar} />
 
             {/* Timeline Content */}
             <div className="max-w-6xl mx-auto px-4 py-16">
@@ -89,7 +110,7 @@ export function About() {
                 </div>
 
                 {/* Call to Action */}
-                <div className="mt-32">
+                <div ref={ctaRef} className="mt-32">
                     <div className="bg-gradient-to-r from-primary-light/20 to-primary/30 border border-white/10 p-12 md:p-16 text-center">
                         <h2 className="text-3xl md:text-4xl text-white mb-6">
                             Zapraszamy do Strzykawy!

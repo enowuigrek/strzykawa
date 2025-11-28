@@ -44,7 +44,7 @@ function useTimelineScroll(years) {
  *
  * @param {Array} years - Array of years/dates to display
  */
-export function TimelineBar({ years = [], isSticky = false }) {
+export function TimelineBar({ years = [], isSticky = false, hide = false }) {
     const activeYear = useTimelineScroll(years);
     const activeIndex = years.indexOf(activeYear);
 
@@ -77,6 +77,7 @@ export function TimelineBar({ years = [], isSticky = false }) {
             duration-500
             h-[100px]
             lg:h-[120px]
+            ${hide ? '-translate-y-full opacity-0' : 'translate-y-0 opacity-100'}
         `}>
             <div className="max-w-6xl mx-auto px-4 h-full flex items-center">
                 {/* Timeline Container */}
