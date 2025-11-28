@@ -1,5 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { FaAngleRight, FaAngleLeft } from "react-icons/fa";
+import React, { useState, useEffect } from 'react';
 /**
  * useTimelineScroll - Custom hook for detecting active timeline section
  * @param {string[]} years - Array of years to track
@@ -49,32 +48,6 @@ export function TimelineBar({ years = [], isSticky = false }) {
     const activeYear = useTimelineScroll(years);
     const activeIndex = years.indexOf(activeYear);
 
-    const scrollerRef = useRef(null);
-    const [canLeft, setCanLeft] = useState(false);
-    const [canRight, setCanRight] = useState(false);
-
-    const updateScrollHints = () => {
-        const el = scrollerRef.current;
-        if (!el) return;
-        const { scrollLeft, scrollWidth, clientWidth } = el;
-        setCanLeft(scrollLeft > 0);
-        setCanRight(scrollLeft + clientWidth < scrollWidth - 1);
-    };
-
-    useEffect(() => {
-        updateScrollHints();
-        const el = scrollerRef.current;
-        if (!el) return;
-
-        el.addEventListener('scroll', updateScrollHints);
-        window.addEventListener('resize', updateScrollHints);
-
-        return () => {
-            el.removeEventListener('scroll', updateScrollHints);
-            window.removeEventListener('resize', updateScrollHints);
-        };
-    }, [years]);
-
     const handleYearClick = (year) => {
         const element = document.getElementById(`year-${year}`);
         if (element) {
@@ -106,39 +79,29 @@ export function TimelineBar({ years = [], isSticky = false }) {
             lg:h-[120px]
         `}>
             <div className="max-w-6xl mx-auto px-4 h-full flex items-center">
-                {/* Timeline Container - Horizontal scroll on mobile */}
-                <div className="relative w-full">
-                    {canLeft && (
-                        <div className={`absolute left-0 top-0 bottom-0 w-10 ${isSticky ? 'bg-gradient-to-r from-primary-dark to-transparent' : 'bg-gradient-to-r from-primary-light to-transparent'} pointer-events-none md:hidden z-10`} />
-                    )}
-                    {canRight && (
-                        <div className={`absolute right-0 top-0 bottom-0 w-10 ${isSticky ? 'bg-gradient-to-l from-primary-dark to-transparent' : 'bg-gradient-to-l from-primary-light to-transparent'} pointer-events-none md:hidden z-10`} />
-                    )}
-
-                    <div
-                        ref={scrollerRef}
-                        className="overflow-x-auto scrollbar-hide -mx-4 px-4 md:mx-0 select-none"
-                    >
-                        <div className="flex items-center justify-start md:justify-center gap-2 min-w-max md:min-w-0 cursor-grab active:cursor-grabbing">
+                {/* Timeline Container */}
+                <div className="relative w-full flex justify-center">
+                    <div className="w-full max-w-[70%] md:max-w-none overflow-hidden md:overflow-visible">
+                        <div className="flex items-center justify-center gap-1 md:gap-2">
                             {years.map((year, index) => (
                                 <React.Fragment key={year}>
                                     <button
                                         onClick={() => handleYearClick(year)}
                                         className={`
-              relative px-4 py-2 whitespace-nowrap transition-all duration-300
-              ${activeYear === year
-                                            ? 'text-white scale-150'
-                                            : 'text-white/60 hover:text-white/90'}
-            `}
+                                            relative px-2 md:px-4 py-2 whitespace-nowrap transition-all duration-300
+                                            ${activeYear === year
+                                                ? 'text-white scale-110 md:scale-150'
+                                                : 'text-white/60 hover:text-white/90'}
+                                        `}
                                     >
-                                        <span className="text-lg md:text-xl">{year}</span>
+                                        <span className="text-sm md:text-lg md:text-xl">{year}</span>
                                         {activeYear === year && (
                                             <div className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-2 h-2 bg-accent rounded-full" />
                                         )}
                                     </button>
 
                                     {index < years.length - 1 && (
-                                        <div className="relative h-[2px] w-12 md:w-16 bg-white/20">
+                                        <div className="relative h-[2px] w-8 md:w-12 md:w-16 bg-white/20">
                                             <div
                                                 className="absolute top-0 left-0 h-full bg-accent transition-all duration-500"
                                                 style={{
@@ -159,20 +122,6 @@ export function TimelineBar({ years = [], isSticky = false }) {
                             ))}
                         </div>
                     </div>
-
-                    {/* Left scroll hint */}
-                    {canLeft && (
-                        <div className={`absolute left-4 -bottom-2 md:hidden text-white/70 ${isSticky ? 'bg-primary-dark/60' : 'bg-primary-light/60'} rounded-full p-[2px] drop-shadow-[0_0_6px_rgba(0,0,0,0.4)] animate-pulse`}>
-                            <FaAngleLeft className="w-4 h-4" />
-                        </div>
-                    )}
-
-                    {/* Right scroll hint */}
-                    {canRight && (
-                        <div className={`absolute right-4 -bottom-2 md:hidden text-white/70 ${isSticky ? 'bg-primary-dark/60' : 'bg-primary-light/60'} rounded-full p-[2px] drop-shadow-[0_0_6px_rgba(0,0,0,0.4)] animate-pulse`}>
-                            <FaAngleRight className="w-4 h-4" />
-                        </div>
-                    )}
                 </div>
             </div>
         </div>
