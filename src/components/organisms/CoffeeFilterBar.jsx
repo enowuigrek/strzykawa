@@ -146,18 +146,13 @@ function MainFilterButton({ label, count, isActive, onClick }) {
     if (isActive) {
         // Active: kolorowe kółko (instant)
         // Mobile: tylko kółko
-        // Desktop: nazwa + kółko
+        // Desktop: kółko + nazwa
         return (
             <button
                 onClick={onClick}
                 className="flex items-center gap-2"
                 aria-label={`${label}${count > 0 ? ` – ${count} kaw` : ''}`}
             >
-                {/* Desktop: nazwa */}
-                <span className="hidden md:inline text-white font-medium text-sm">
-                    {label}
-                </span>
-
                 {/* Kółko z liczbą */}
                 <div className={`
                     ${colorClass}
@@ -177,6 +172,11 @@ function MainFilterButton({ label, count, isActive, onClick }) {
                 `}>
                     {count > 0 ? count : ''}
                 </div>
+
+                {/* Desktop: nazwa */}
+                <span className="hidden md:inline text-white font-medium text-sm">
+                    {label}
+                </span>
             </button>
         );
     }
