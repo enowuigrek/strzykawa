@@ -88,16 +88,13 @@ export function TimelineBar({ years = [], isSticky = false }) {
                                     <button
                                         onClick={() => handleYearClick(year)}
                                         className={`
-                                            relative px-2 md:px-4 py-2 whitespace-nowrap transition-all duration-300
+                                            px-3 md:px-4 py-2 whitespace-nowrap transition-all duration-300
                                             ${activeYear === year
-                                                ? 'text-white scale-110 md:scale-150'
+                                                ? 'text-white scale-125 md:scale-150'
                                                 : 'text-white/60 hover:text-white/90'}
                                         `}
                                     >
-                                        <span className="text-sm md:text-lg md:text-xl">{year}</span>
-                                        {activeYear === year && (
-                                            <div className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-2 h-2 bg-accent rounded-full" />
-                                        )}
+                                        <span className="text-base md:text-lg md:text-xl">{year}</span>
                                     </button>
 
                                     {index < years.length - 1 && (
