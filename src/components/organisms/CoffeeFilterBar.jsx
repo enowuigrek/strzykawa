@@ -54,9 +54,7 @@ export function CoffeeFilterBar({
                 sticky
                 top-0
                 z-50
-                ${isSticky ? 'bg-primary-dark backdrop-blur-md shadow-2xl shadow-black/50' : 'bg-primary shadow-none'}
-                border-b
-                border-white/10
+                ${isSticky ? 'bg-primary-dark backdrop-blur-md shadow-2xl shadow-black/50' : 'bg-primary-light'}
                 transition-all
                 duration-500
                 h-[100px]
