@@ -41,15 +41,15 @@ export function QuantitySelector({
     };
 
     const buttonSizeClasses = {
-        sm: 'w-8',
-        md: 'w-10',
-        lg: 'w-12'
+        sm: 'w-6',
+        md: 'w-8',
+        lg: 'w-10'
     };
 
     const inputSizeClasses = {
-        sm: 'w-12 text-sm',
-        md: 'w-16 text-base',
-        lg: 'w-20 text-lg'
+        sm: 'w-8 text-sm',
+        md: 'w-10 text-base',
+        lg: 'w-14 text-lg'
     };
 
     return (

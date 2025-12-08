@@ -350,17 +350,23 @@ import { CloseButton } from './atoms/CloseButton';
 #### **QuantitySelector (Pastylka)**
 ```jsx
 <div className="
-  flex 
-  items-center 
-  gap-2 
-  bg-primary-light 
+  flex
+  items-center
+  bg-primary-light
   rounded-full    /* Pastylka! */
-  px-2 py-1
+  border border-accent/30
+  overflow-hidden
 ">
-  <button className="rounded-full w-8 h-8">-</button>
-  <span className="w-8 text-center">1</span>
-  <button className="rounded-full w-8 h-8">+</button>
+  <button className="w-8 h-10">-</button>
+  <input className="w-10 text-center" />
+  <button className="w-8 h-10">+</button>
 </div>
+
+/* Sizes (wersje):
+ * sm: buttons w-6, input w-8, height h-8
+ * md: buttons w-8, input w-10, height h-10 (domyślny)
+ * lg: buttons w-10, input w-14, height h-12
+ */
 ```
 
 ---
