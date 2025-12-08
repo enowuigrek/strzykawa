@@ -90,7 +90,7 @@ const RegisterModal = ({ isOpen, onClose, onSwitchToLogin }) => {
                             <div className="p-2 bg-accent/20 border border-accent/30">
                                 <FaUser className="w-5 h-5 text-accent" />
                             </div>
-                            <h2 className="text-xl font-bold text-white">Utwórz konto</h2>
+                            <h2 className="text-xl text-white">Utwórz konto</h2>
                         </div>
                         <CloseButton onClick={onClose} />
                     </div>

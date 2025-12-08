@@ -53,7 +53,7 @@ export function PhotoGallery() {
     return (
         <>
             <div className="mb-20">
-                <h2 className="text-3xl md:text-4xl font-bold text-white text-center mb-12">
+                <h2 className="text-3xl md:text-4xl text-white text-center mb-12">
                     Strzykawa dziś
                 </h2>
 

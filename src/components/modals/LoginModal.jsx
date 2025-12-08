@@ -56,7 +56,7 @@ const LoginModal = ({ isOpen, onClose, onSwitchToRegister }) => {
                             <div className="p-2 bg-accent/20 border border-accent/30">
                                 <FaUser className="w-5 h-5 text-accent" />
                             </div>
-                            <h2 className="text-xl font-bold text-white">Zaloguj się</h2>
+                            <h2 className="text-xl text-white">Zaloguj się</h2>
                         </div>
                         <CloseButton onClick={onClose} />
                     </div>
