@@ -44,10 +44,18 @@ export function CoffeeDetail() {
                 }
 
                 setCoffee(product);
-                // Set default variant (first AVAILABLE)
+                // Set default variant - prioritize "Ziarna" (whole beans)
                 if (product.variants && product.variants.length > 0) {
-                    const availableVariant = product.variants.find(v => v.availableForSale);
-                    setSelectedVariant(availableVariant || product.variants[0]);
+                    // First try to find available "Ziarna" variant
+                    const ziarnaVariant = product.variants.find(v =>
+                        v.availableForSale &&
+                        v.selectedOptions?.some(opt => opt.name === 'Typ' && opt.value === 'Ziarna')
+                    );
+
+                    // If no "Ziarna" available, fall back to any available variant
+                    const fallbackVariant = product.variants.find(v => v.availableForSale);
+
+                    setSelectedVariant(ziarnaVariant || fallbackVariant || product.variants[0]);
                 }
             } catch (err) {
                 logger.error('Error loading product:', err);

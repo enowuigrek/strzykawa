@@ -11,11 +11,19 @@ export function QuickAddModal({ coffee, isOpen, onClose, onAddToCart }) {
     const [adding, setAdding] = useState(false);
     const [grindMethod, setGrindMethod] = useState(null); // Pod ekspres / Pod drip
 
-    // Set default variant when modal opens - pierwszy DOSTĘPNY
+    // Set default variant when modal opens - prioritize "Ziarna" (whole beans)
     useEffect(() => {
         if (isOpen && coffee?.variants?.length > 0) {
-            const availableVariant = coffee.variants.find(v => v.availableForSale);
-            setSelectedVariant(availableVariant || coffee.variants[0]);
+            // First try to find available "Ziarna" variant
+            const ziarnaVariant = coffee.variants.find(v =>
+                v.availableForSale &&
+                v.selectedOptions?.some(opt => opt.name === 'Typ' && opt.value === 'Ziarna')
+            );
+
+            // If no "Ziarna" available, fall back to any available variant
+            const fallbackVariant = coffee.variants.find(v => v.availableForSale);
+
+            setSelectedVariant(ziarnaVariant || fallbackVariant || coffee.variants[0]);
             setQuantity(1);
             setGrindMethod(null); // Reset grind method
         }
