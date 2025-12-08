@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useCartStore } from '../../store/cartStore';
 import { CartHeader } from './CartHeader';
 import { CartContent } from './CartContent';
@@ -15,6 +15,17 @@ export function CartModal({ isOpen, onClose }) {
         getTotalPrice
     } = useCartStore();
 
+    const [isAnimating, setIsAnimating] = useState(false);
+
+    useEffect(() => {
+        if (isOpen) {
+            // Trigger animation after mount
+            setTimeout(() => setIsAnimating(true), 10);
+        } else {
+            setIsAnimating(false);
+        }
+    }, [isOpen]);
+
     if (!isOpen) return null;
 
     const handleCheckout = () => {
@@ -24,14 +35,31 @@ export function CartModal({ isOpen, onClose }) {
 
     return (
         <>
-            {/* Backdrop */}
+            {/* Backdrop - z animacją fade-in i blur + przyciemnienie */}
             <div
-                className="fixed inset-0 bg-black/50 backdrop-blur-sm z-[190]"
+                className={`
+                    fixed inset-0 bg-black/70 z-[190]
+                    backdrop-blur-md
+                    transition-all duration-300 ease-out
+                    ${isAnimating ? 'opacity-100' : 'opacity-0'}
+                `}
                 onClick={onClose}
             />
 
-            {/* Modal - Full width mobile, max-w-md desktop */}
-            <div className="fixed right-0 top-0 h-full w-full md:max-w-md bg-primary-dark border-l border-white/20 z-[200] shadow-2xl flex flex-col">
+            {/* Modal - Slide-in z prawej (desktop), slide-up (mobile) */}
+            <div
+                className={`
+                    fixed h-full w-full md:max-w-md
+                    bg-primary-dark border-l border-white/20
+                    z-[200] shadow-2xl flex flex-col
+                    transition-all duration-300 ease-out
+
+                    ${isAnimating
+                        ? 'right-0 bottom-0 md:translate-x-0 translate-y-0'
+                        : 'right-0 md:translate-x-full bottom-0 translate-y-full md:translate-y-0'
+                    }
+                `}
+            >
                 <CartHeader
                     totalItems={getTotalItems()}
                     onClose={onClose}
