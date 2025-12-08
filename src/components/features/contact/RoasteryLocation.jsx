@@ -1,5 +1,5 @@
 import React from 'react';
-import { FaMapMarkerAlt, FaFire, FaExternalLinkAlt } from 'react-icons/fa';
+import { FaMapMarkerAlt, FaFire, FaExternalLinkAlt, FaFacebookF, FaInstagram } from 'react-icons/fa';
 
 export function RoasteryLocation() {
     const openGoogleMaps = () => {
@@ -29,10 +29,34 @@ export function RoasteryLocation() {
                 </div>
 
                 {/* Info o palarni */}
-                <div className="text-sm text-white/80">
-                    <p>
-                        Palarnie otwieramy dla gości w kazdą pierwszą niedziele miesiąca, gdzie najczęściej wspolnie wybieramy, które kawy będziemy dla Was wypalać w najbliszej przyszłości. O szczegółach informujemy na naszym mediach społecznościowych, dlatego zachęcamu do śledzenia.
+                <div className="space-y-3">
+                    <p className="text-sm text-white/80">
+                        W palarni organizujemy eventy i spotkania. Śledź nasze media społecznościowe, aby być na bieżąco z nadchodzącymi wydarzeniami.
                     </p>
+
+                    {/* Social media links */}
+                    <div className="flex items-center gap-3">
+                        <a
+                            href="https://www.facebook.com/StrzykawaCoffeeShop/"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="flex items-center gap-2 text-white/70 hover:text-blue-500 transition-colors text-sm"
+                            aria-label="Facebook"
+                        >
+                            <FaFacebookF className="w-4 h-4" />
+                            <span>Facebook</span>
+                        </a>
+                        <a
+                            href="https://www.instagram.com/strzykawa_coffee_shop/"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="flex items-center gap-2 text-white/70 hover:text-pink-500 transition-colors text-sm"
+                            aria-label="Instagram"
+                        >
+                            <FaInstagram className="w-4 h-4" />
+                            <span>Instagram</span>
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
