@@ -80,6 +80,14 @@ success: {
 danger: {
   DEFAULT: '#C9423A',  // Czerwony (błędy, niedostępne)
   dark: '#A7322D'      // Ciemniejszy odcień danger
+},
+cta: {
+  DEFAULT: '#3A5F55',  // Zielony CTA (przyciski płatności, checkout)
+  hover: '#2F4F46'     // CTA hover state
+},
+badge: {
+  blue: '#7A8FA6',     // Badge FILTER/PRZELEW (typ parzenia)
+  orange: '#C48F62'    // Badge ESPRESSO (typ parzenia)
 }
 ```
 
@@ -107,10 +115,10 @@ fontFamily: {
 
 | Weight | Użycie |
 |--------|--------|
-| 400 (Regular) | Tekst body |
+| 400 (Regular) | Tekst body, **nagłówki H1-H2** |
 | 500 (Medium) | Przyciski, linki |
 | 600 (SemiBold) | Nagłówki H3-H6, labels |
-| 700 (Bold) | Nagłówki H1-H2, CTA, **badges** |
+| 700 (Bold) | **Badges**, niektóre CTA |
 
 ### **Rozmiary Tekstu**
 
