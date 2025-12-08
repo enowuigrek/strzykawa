@@ -26,6 +26,7 @@ export function CoffeeDetail() {
     const [quantity, setQuantity] = useState(1);
     const [selectedVariant, setSelectedVariant] = useState(null);
     const [addingToCart, setAddingToCart] = useState(false);
+    const [grindMethod, setGrindMethod] = useState(null); // Pod ekspres / Pod drip
 
     const { addItem } = useCartStore();
 
@@ -186,15 +187,19 @@ export function CoffeeDetail() {
                         {/* Product Meta */}
                         <ProductMeta coffee={coffee} />
 
-                        {/* Variant Selector + Liczba */}
-                        <div className="flex justify-between items-end gap-4">
-                            <div className="flex-1">
-                                <VariantSelector
-                                    variants={coffee.variants}
-                                    selectedVariant={selectedVariant}
-                                    onVariantChange={setSelectedVariant}
-                                />
-                            </div>
+                        {/* Variant Selector - Gramatura, Sposób przygotowania, Sposób mielenia */}
+                        <div>
+                            <VariantSelector
+                                variants={coffee.variants}
+                                selectedVariant={selectedVariant}
+                                onVariantChange={setSelectedVariant}
+                                grindMethod={grindMethod}
+                                onGrindMethodChange={setGrindMethod}
+                            />
+                        </div>
+
+                        {/* Liczba - poniżej, wyrównana do prawej */}
+                        <div className="flex justify-end">
                             <div className="flex flex-col items-end">
                                 <label className="text-sm text-white mb-2">
                                     Liczba

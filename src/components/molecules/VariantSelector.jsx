@@ -3,11 +3,14 @@ import React from 'react';
 /**
  * VariantSelector - Wybór wariantu produktu
  * ULTIMATE FIX: Czerwone tło + opacity + line-through (BEZ tekstu "niedostępne")
+ * UPDATE: Dodano sposób mielenia (ekspres/drip) - pokazuje się gdy wybrana Mielona
  */
 export function VariantSelector({
                                     variants = [],
                                     selectedVariant,
-                                    onVariantChange
+                                    onVariantChange,
+                                    grindMethod = null,
+                                    onGrindMethodChange = null
                                 }) {
     if (!variants || variants.length === 0) {
         return null;
@@ -139,6 +142,32 @@ export function VariantSelector({
                                 </button>
                             );
                         })}
+                    </div>
+                </div>
+            )}
+
+            {/* Sposób mielenia - tylko gdy wybrana "Mielona" */}
+            {selectedTyp === 'Mielona' && onGrindMethodChange && (
+                <div>
+                    <label className="block text-sm text-white mb-2">
+                        Sposób mielenia
+                    </label>
+                    <div className="flex flex-wrap gap-2">
+                        {['Pod ekspres', 'Pod drip'].map(value => (
+                            <button
+                                key={value}
+                                onClick={() => onGrindMethodChange(value)}
+                                className={`
+                                    px-5 py-2.5 font-medium transition-all rounded-full
+                                    ${grindMethod === value
+                                        ? 'bg-accent text-white shadow-md ring-2 ring-accent/30'
+                                        : 'bg-primary-light text-muted border border-accent/30 hover:bg-accent/20 hover:text-white'
+                                }
+                                `}
+                            >
+                                {value}
+                            </button>
+                        ))}
                     </div>
                 </div>
             )}

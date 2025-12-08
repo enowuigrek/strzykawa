@@ -9,6 +9,7 @@ export function QuickAddModal({ coffee, isOpen, onClose, onAddToCart }) {
     const [selectedVariant, setSelectedVariant] = useState(null);
     const [quantity, setQuantity] = useState(1);
     const [adding, setAdding] = useState(false);
+    const [grindMethod, setGrindMethod] = useState(null); // Pod ekspres / Pod drip
 
     // Set default variant when modal opens - pierwszy DOSTĘPNY
     useEffect(() => {
@@ -16,6 +17,7 @@ export function QuickAddModal({ coffee, isOpen, onClose, onAddToCart }) {
             const availableVariant = coffee.variants.find(v => v.availableForSale);
             setSelectedVariant(availableVariant || coffee.variants[0]);
             setQuantity(1);
+            setGrindMethod(null); // Reset grind method
         }
     }, [isOpen, coffee]);
 
@@ -160,11 +162,11 @@ export function QuickAddModal({ coffee, isOpen, onClose, onAddToCart }) {
                             </div>
                         )}
 
-                        {/* Typ - czerwone tło + opacity + line-through */}
+                        {/* Sposób przygotowania - czerwone tło + opacity + line-through */}
                         {typOptions.length > 1 && (
                             <div>
                                 <label className="block text-sm font-semibold text-white mb-2">
-                                    Typ
+                                    Sposób przygotowania
                                 </label>
                                 <div className="flex gap-2">
                                     {typOptions.map((value) => {
@@ -192,6 +194,35 @@ export function QuickAddModal({ coffee, isOpen, onClose, onAddToCart }) {
                                             </button>
                                         );
                                     })}
+                                </div>
+                            </div>
+                        )}
+
+                        {/* Sposób mielenia - tylko gdy wybrana "Mielona" */}
+                        {selectedTyp === 'Mielona' && (
+                            <div>
+                                <label className="block text-sm font-semibold text-white mb-2">
+                                    Sposób mielenia
+                                </label>
+                                <div className="flex gap-2">
+                                    {['Pod ekspres', 'Pod drip'].map(value => (
+                                        <button
+                                            key={value}
+                                            onClick={() => setGrindMethod(value)}
+                                            className={`
+                                                flex-1
+                                                px-5 py-2.5 text-sm font-medium
+                                                transition-all duration-200
+                                                rounded-full
+                                                ${grindMethod === value
+                                                    ? 'bg-accent text-white shadow-md'
+                                                    : 'bg-primary-light text-muted border border-accent/30 hover:bg-accent/20 hover:text-white'
+                                                }
+                                            `}
+                                        >
+                                            {value}
+                                        </button>
+                                    ))}
                                 </div>
                             </div>
                         )}
