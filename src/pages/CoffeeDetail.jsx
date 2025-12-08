@@ -187,7 +187,7 @@ export function CoffeeDetail() {
                         {/* Product Meta */}
                         <ProductMeta coffee={coffee} />
 
-                        {/* Variant Selector - Gramatura, Sposób przygotowania, Sposób mielenia */}
+                        {/* Variant Selector - Gramatura + Liczba (lewa) | Sposób przygotowania + Sposób mielenia (prawa) */}
                         <div>
                             <VariantSelector
                                 variants={coffee.variants}
@@ -195,24 +195,22 @@ export function CoffeeDetail() {
                                 onVariantChange={setSelectedVariant}
                                 grindMethod={grindMethod}
                                 onGrindMethodChange={setGrindMethod}
-                            />
-                        </div>
-
-                        {/* Liczba - poniżej, wyrównana do prawej */}
-                        <div className="flex justify-end">
-                            <div className="flex flex-col items-end">
-                                <label className="text-sm text-white mb-2">
-                                    Liczba
-                                </label>
-                                <QuantitySelector
-                                    quantity={quantity}
-                                    onQuantityChange={setQuantity}
-                                    min={1}
-                                    max={20}
-                                    size="lg"
-                                    disabled={!isAvailable}
-                                />
-                            </div>
+                            >
+                                {/* Liczba - renderowana w lewej kolumnie pod Gramaturą */}
+                                <div>
+                                    <label className="block text-sm text-white mb-2">
+                                        Liczba
+                                    </label>
+                                    <QuantitySelector
+                                        quantity={quantity}
+                                        onQuantityChange={setQuantity}
+                                        min={1}
+                                        max={20}
+                                        size="lg"
+                                        disabled={!isAvailable}
+                                    />
+                                </div>
+                            </VariantSelector>
                         </div>
 
                         {/* Divider */}

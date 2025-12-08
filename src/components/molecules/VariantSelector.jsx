@@ -10,7 +10,8 @@ export function VariantSelector({
                                     selectedVariant,
                                     onVariantChange,
                                     grindMethod = null,
-                                    onGrindMethodChange = null
+                                    onGrindMethodChange = null,
+                                    children = null // Slot dla dodatkowej zawartości w lewej kolumnie (np. Liczba)
                                 }) {
     if (!variants || variants.length === 0) {
         return null;
@@ -79,98 +80,106 @@ export function VariantSelector({
     };
 
     return (
-        <div className="space-y-4">
-            {/* Gramatura - czerwone + line-through */}
-            {gramatura.length > 0 && (
-                <div>
-                    <label className="block text-sm text-white mb-2">
-                        Gramatura
-                    </label>
-                    <div className="flex flex-wrap gap-2">
-                        {gramatura.map(value => {
-                            const available = isOptionAvailable('Gramatura', value);
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {/* LEWA KOLUMNA: Gramatura + children (np. Liczba) */}
+            <div className="space-y-4">
+                {gramatura.length > 0 && (
+                    <div>
+                        <label className="block text-sm text-white mb-2">
+                            Gramatura
+                        </label>
+                        <div className="flex flex-wrap gap-2">
+                            {gramatura.map(value => {
+                                const available = isOptionAvailable('Gramatura', value);
 
-                            return (
+                                return (
+                                    <button
+                                        key={value}
+                                        onClick={() => available && handleGramaturaChange(value)}
+                                        disabled={!available}
+                                        className={`
+                                            px-5 py-2.5 font-medium transition-all rounded-full
+                                            ${!available
+                                            ? 'bg-red-900/20 text-red-400/70 opacity-60 cursor-not-allowed border border-red-800/30'
+                                            : selectedGramatura === value
+                                                ? 'bg-accent text-white shadow-md ring-2 ring-accent/30'
+                                                : 'bg-primary-light text-muted border border-accent/30 hover:bg-accent/20 hover:text-white'
+                                        }
+                                        `}
+                                    >
+                                        <span className={!available ? 'line-through' : ''}>{value}</span>
+                                    </button>
+                                );
+                            })}
+                        </div>
+                    </div>
+                )}
+
+                {/* Renderuj children (np. Liczba) w lewej kolumnie */}
+                {children}
+            </div>
+
+            {/* PRAWA KOLUMNA: Sposób przygotowania + Sposób mielenia */}
+            <div className="space-y-4">
+                {/* Sposób przygotowania */}
+                {typ.length > 1 && (
+                    <div>
+                        <label className="block text-sm text-white mb-2">
+                            Sposób przygotowania
+                        </label>
+                        <div className="flex flex-wrap gap-2">
+                            {typ.map(value => {
+                                const available = isOptionAvailable('Typ', value);
+
+                                return (
+                                    <button
+                                        key={value}
+                                        onClick={() => available && handleTypChange(value)}
+                                        disabled={!available}
+                                        className={`
+                                            px-5 py-2.5 font-medium transition-all rounded-full
+                                            ${!available
+                                            ? 'bg-red-900/20 text-red-400/70 opacity-60 cursor-not-allowed border border-red-800/30'
+                                            : selectedTyp === value
+                                                ? 'bg-accent text-white shadow-md ring-2 ring-accent/30'
+                                                : 'bg-primary-light text-muted border border-accent/30 hover:bg-accent/20 hover:text-white'
+                                        }
+                                        `}
+                                    >
+                                        <span className={!available ? 'line-through' : ''}>{value}</span>
+                                    </button>
+                                );
+                            })}
+                        </div>
+                    </div>
+                )}
+
+                {/* Sposób mielenia - tylko gdy wybrana "Mielona" */}
+                {selectedTyp === 'Mielona' && onGrindMethodChange && (
+                    <div>
+                        <label className="block text-sm text-white mb-2">
+                            Sposób mielenia
+                        </label>
+                        <div className="flex flex-wrap gap-2">
+                            {['Pod ekspres', 'Pod drip'].map(value => (
                                 <button
                                     key={value}
-                                    onClick={() => available && handleGramaturaChange(value)}
-                                    disabled={!available}
+                                    onClick={() => onGrindMethodChange(value)}
                                     className={`
                                         px-5 py-2.5 font-medium transition-all rounded-full
-                                        ${!available
-                                        ? 'bg-red-900/20 text-red-400/70 opacity-60 cursor-not-allowed border border-red-800/30'
-                                        : selectedGramatura === value
+                                        ${grindMethod === value
                                             ? 'bg-accent text-white shadow-md ring-2 ring-accent/30'
                                             : 'bg-primary-light text-muted border border-accent/30 hover:bg-accent/20 hover:text-white'
                                     }
                                     `}
                                 >
-                                    <span className={!available ? 'line-through' : ''}>{value}</span>
+                                    {value}
                                 </button>
-                            );
-                        })}
+                            ))}
+                        </div>
                     </div>
-                </div>
-            )}
-
-            {/* Typ - czerwone + line-through */}
-            {typ.length > 1 && (
-                <div>
-                    <label className="block text-sm text-white mb-2">
-                        Sposób przygotowania
-                    </label>
-                    <div className="flex flex-wrap gap-2">
-                        {typ.map(value => {
-                            const available = isOptionAvailable('Typ', value);
-
-                            return (
-                                <button
-                                    key={value}
-                                    onClick={() => available && handleTypChange(value)}
-                                    disabled={!available}
-                                    className={`
-                                        px-5 py-2.5 font-medium transition-all rounded-full
-                                        ${!available
-                                        ? 'bg-red-900/20 text-red-400/70 opacity-60 cursor-not-allowed border border-red-800/30'
-                                        : selectedTyp === value
-                                            ? 'bg-accent text-white shadow-md ring-2 ring-accent/30'
-                                            : 'bg-primary-light text-muted border border-accent/30 hover:bg-accent/20 hover:text-white'
-                                    }
-                                    `}
-                                >
-                                    <span className={!available ? 'line-through' : ''}>{value}</span>
-                                </button>
-                            );
-                        })}
-                    </div>
-                </div>
-            )}
-
-            {/* Sposób mielenia - tylko gdy wybrana "Mielona" */}
-            {selectedTyp === 'Mielona' && onGrindMethodChange && (
-                <div>
-                    <label className="block text-sm text-white mb-2">
-                        Sposób mielenia
-                    </label>
-                    <div className="flex flex-wrap gap-2">
-                        {['Pod ekspres', 'Pod drip'].map(value => (
-                            <button
-                                key={value}
-                                onClick={() => onGrindMethodChange(value)}
-                                className={`
-                                    px-5 py-2.5 font-medium transition-all rounded-full
-                                    ${grindMethod === value
-                                        ? 'bg-accent text-white shadow-md ring-2 ring-accent/30'
-                                        : 'bg-primary-light text-muted border border-accent/30 hover:bg-accent/20 hover:text-white'
-                                }
-                                `}
-                            >
-                                {value}
-                            </button>
-                        ))}
-                    </div>
-                </div>
-            )}
+                )}
+            </div>
         </div>
     );
 }
