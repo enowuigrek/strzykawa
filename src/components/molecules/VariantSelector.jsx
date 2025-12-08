@@ -129,15 +129,18 @@ export function VariantSelector({
                 {/* Sposób przygotowania */}
                 {typ.length > 1 && (
                     <div>
-                        {/* Nagłówek w grid - nad drugim przyciskiem (Mielona) */}
-                        <div className="grid grid-cols-2 gap-2 mb-2">
+                        {/* Nagłówek - mobile: na lewo, desktop: grid nad Mielona */}
+                        <label className="block md:hidden text-sm text-white mb-2">
+                            Sposób przygotowania
+                        </label>
+                        <div className="hidden md:grid md:grid-cols-2 gap-2 mb-2">
                             <div /> {/* Pusta kolumna nad Ziarna */}
                             <label className="text-sm text-white">
                                 Sposób przygotowania
                             </label>
                         </div>
-                        {/* Przyciski w grid - Ziarna | Mielona */}
-                        <div className="grid grid-cols-2 gap-2">
+                        {/* Przyciski - mobile: column full width, desktop: grid 2 kolumny */}
+                        <div className="flex flex-col md:grid md:grid-cols-2 gap-2">
                             {typ.map(value => {
                                 const available = isOptionAvailable('Typ', value);
 
@@ -167,10 +170,11 @@ export function VariantSelector({
                 {/* Sposób mielenia - tylko gdy wybrana "Mielona" */}
                 {selectedTyp === 'Mielona' && onGrindMethodChange && (
                     <div>
-                        <label className="block text-sm text-white mb-2 text-right">
+                        <label className="block text-sm text-white mb-2 md:text-right">
                             Sposób mielenia
                         </label>
-                        <div className="flex flex-wrap gap-2 justify-end">
+                        {/* Mobile: column full width, Desktop: flex row */}
+                        <div className="flex flex-col md:flex-row gap-2 md:justify-end">
                             {['Pod ekspres', 'Pod drip'].map(value => (
                                 <button
                                     key={value}

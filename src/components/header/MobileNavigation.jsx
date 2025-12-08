@@ -108,7 +108,7 @@ function MobileActionsSection({
                 <span className="flex items-center gap-2">
                     Koszyk
                     {cartItemsCount > 0 && !isCartOpen && (
-                        <span className="px-2 py-0.5 bg-green-500 text-white text-xs font-bold rounded-full">
+                        <span className="px-2 py-0.5 bg-success text-white text-xs font-bold rounded-full">
                             {cartItemsCount}
                         </span>
                     )}
