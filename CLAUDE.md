@@ -216,6 +216,7 @@ strzykawa-site/
 │   │   ├── navigation.js    # Navigation links
 │   │   ├── layout.js        # Layout constants
 │   │   ├── colors.js        # Color constants
+│   │   ├── shipping.js      # Shipping config (FREE_SHIPPING_THRESHOLD)
 │   │   └── timings.js       # Animation timings
 │   │
 │   ├── utils/               # Utility functions
@@ -883,6 +884,20 @@ npm run dev
 # 5. Commit with descriptive message
 git add .
 git commit -m "fix: Description of bug fix"
+```
+
+### Task 6: Change Free Shipping Threshold
+
+```javascript
+// UWAGA: Bardzo łatwe do zmiany!
+
+// 1. Otwórz src/constants/shipping.js
+export const FREE_SHIPPING_THRESHOLD = 250; // ← Zmień tę wartość
+
+// 2. Gotowe! Zmiana będzie widoczna od razu w koszyku
+// Koszyk automatycznie pokazuje:
+// - "Do darmowej wysyłki brakuje: XX.XX zł" (jeśli poniżej progu)
+// - "Gratulacje! Masz darmową wysyłkę! 🎉" (jeśli osiągnięty próg)
 ```
 
 ---
