@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Routes, Route, useLocation } from 'react-router-dom';
 import { ComingSoon } from './pages/ComingSoon.jsx';
 import { Header } from './components/layout/Header.jsx';
@@ -19,6 +19,7 @@ import StyleGuide from "./pages/StyleGuide.jsx";
 import {CheckoutSuccess} from "./pages/CheckoutSuccess.jsx";
 import {CheckoutCanceled} from "./pages/CheckoutCanceled.jsx";
 import { NotFound } from './pages/NotFound.jsx';
+import { PREVIEW_PASSWORD, PREVIEW_STORAGE_KEY } from './constants/preview.js';
 
 // 🚨 COMING SOON MODE - Kontrolowane przez zmienną środowiskową
 // Lokalne: .env.development (false) | Produkcja: .env.production (true)
@@ -39,13 +40,40 @@ function ScrollToTop() {
     return null;
 }
 
+// Hook do sprawdzania preview mode (tajny dostęp mimo Coming Soon)
+function usePreviewMode() {
+    const [isPreviewMode, setIsPreviewMode] = useState(false);
+    const location = useLocation();
+
+    useEffect(() => {
+        // Sprawdź URL params przy każdym załadowaniu
+        const params = new URLSearchParams(location.search);
+        const previewParam = params.get('preview');
+
+        // Jeśli URL zawiera poprawne hasło, zapisz w localStorage
+        if (previewParam === PREVIEW_PASSWORD) {
+            localStorage.setItem(PREVIEW_STORAGE_KEY, 'true');
+            setIsPreviewMode(true);
+            // Usuń param z URL (opcjonalnie, dla czystości)
+            window.history.replaceState({}, '', location.pathname);
+        }
+        // Jeśli localStorage ma flagę preview, aktywuj preview mode
+        else if (localStorage.getItem(PREVIEW_STORAGE_KEY) === 'true') {
+            setIsPreviewMode(true);
+        }
+    }, [location]);
+
+    return isPreviewMode;
+}
+
 // The main application component. It defines top-level layout and routing.
 function App() {
     const { pathname } = useLocation();
     const isStyleGuide = pathname === '/style-guide';
+    const isPreviewMode = usePreviewMode();
 
-    // 🚨 Jeśli COMING_SOON_MODE = true, pokazuj tylko Coming Soon
-    if (COMING_SOON_MODE) {
+    // 🚨 Jeśli COMING_SOON_MODE = true I NIE MA preview mode, pokazuj tylko Coming Soon
+    if (COMING_SOON_MODE && !isPreviewMode) {
         return (
             <div className="app">
                 <ComingSoon />

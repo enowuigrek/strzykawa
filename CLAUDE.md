@@ -315,10 +315,27 @@ VITE_COMING_SOON=true   // Show Coming Soon page in production
 // App.jsx
 const COMING_SOON_MODE = import.meta.env.VITE_COMING_SOON === 'true';
 
-if (COMING_SOON_MODE) {
+if (COMING_SOON_MODE && !isPreviewMode) {
     return <ComingSoon />; // Shows landing page
 }
 ```
+
+### Preview Mode (Tajny dostęp do pełnej strony)
+
+Gdy Coming Soon mode jest włączony, możesz nadal udostępnić pełną stronę wybranym osobom (np. właścicielom do testów) za pomocą tajnego linku:
+
+**Jak używać:**
+1. Wyślij link z hasłem: `https://strzykawa.netlify.app/?preview=strzykawa2025`
+2. Po wejściu hasło zapisze się w localStorage
+3. Osoba będzie mogła przeglądać pełną stronę mimo Coming Soon mode
+4. Dostęp pozostaje aktywny dopóki nie wyczyści localStorage
+
+**Zmiana hasła:**
+- Edytuj: `src/constants/preview.js`
+- Zmień wartość `PREVIEW_PASSWORD`
+
+**Wyłączenie dostępu:**
+- Zmień hasło w `preview.js` - stare linki przestaną działać
 
 ---
 
