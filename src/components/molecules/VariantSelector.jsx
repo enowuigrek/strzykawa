@@ -38,7 +38,12 @@ export function VariantSelector({
     };
 
     const gramatura = extractOptions('Gramatura');
-    const typ = extractOptions('Typ');
+    const typ = extractOptions('Typ').sort((a, b) => {
+        // Ziarna zawsze pierwsze, potem Mielona
+        if (a === 'Ziarna') return -1;
+        if (b === 'Ziarna') return 1;
+        return 0;
+    });
 
     // Get currently selected options
     const selectedGramatura = selectedVariant?.selectedOptions?.find(
@@ -124,10 +129,15 @@ export function VariantSelector({
                 {/* Sposób przygotowania */}
                 {typ.length > 1 && (
                     <div>
-                        <label className="block text-sm text-white mb-2 text-right">
-                            Sposób przygotowania
-                        </label>
-                        <div className="flex flex-wrap gap-2 justify-end">
+                        {/* Nagłówek w grid - nad drugim przyciskiem (Mielona) */}
+                        <div className="grid grid-cols-2 gap-2 mb-2">
+                            <div /> {/* Pusta kolumna nad Ziarna */}
+                            <label className="text-sm text-white">
+                                Sposób przygotowania
+                            </label>
+                        </div>
+                        {/* Przyciski w grid - Ziarna | Mielona */}
+                        <div className="grid grid-cols-2 gap-2">
                             {typ.map(value => {
                                 const available = isOptionAvailable('Typ', value);
 

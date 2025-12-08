@@ -49,7 +49,12 @@ export function QuickAddModal({ coffee, isOpen, onClose, onAddToCart }) {
     };
 
     const gramaturaOptions = extractAllOptions('Gramatura');
-    const typOptions = extractAllOptions('Typ');
+    const typOptions = extractAllOptions('Typ').sort((a, b) => {
+        // Ziarna zawsze pierwsze, potem Mielona
+        if (a === 'Ziarna') return -1;
+        if (b === 'Ziarna') return 1;
+        return 0;
+    });
 
     // Get selected options
     const selectedGramatura = selectedVariant?.selectedOptions?.find(
@@ -194,10 +199,15 @@ export function QuickAddModal({ coffee, isOpen, onClose, onAddToCart }) {
                                 {/* Sposób przygotowania */}
                                 {typOptions.length > 1 && (
                                     <div>
-                                        <label className="block text-sm font-semibold text-white mb-2 text-right">
-                                            Sposób przygotowania
-                                        </label>
-                                        <div className="flex gap-2 justify-end">
+                                        {/* Nagłówek w grid - nad drugim przyciskiem (Mielona) */}
+                                        <div className="grid grid-cols-2 gap-2 mb-2">
+                                            <div /> {/* Pusta kolumna nad Ziarna */}
+                                            <label className="text-sm font-semibold text-white">
+                                                Sposób przygotowania
+                                            </label>
+                                        </div>
+                                        {/* Przyciski w grid - Ziarna | Mielona */}
+                                        <div className="grid grid-cols-2 gap-2">
                                             {typOptions.map((value) => {
                                                 const available = isOptionAvailable('Typ', value);
 
@@ -207,7 +217,6 @@ export function QuickAddModal({ coffee, isOpen, onClose, onAddToCart }) {
                                                         onClick={() => available && handleTypChange(value)}
                                                         disabled={!available}
                                                         className={`
-                                                            ${typOptions.length === 1 ? 'inline-flex' : 'flex-1'}
                                                             px-5 py-2.5 text-sm font-medium
                                                             transition-all duration-200
                                                             rounded-full
