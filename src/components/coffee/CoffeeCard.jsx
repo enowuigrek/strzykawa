@@ -31,6 +31,8 @@ export function CoffeeCard({ coffee }) {
             setIsAdding(false);
             setJustAdded(true);
             setTimeout(() => setJustAdded(false), FEEDBACK_DURATION.SUCCESS);
+            // Otwórz koszyk po dodaniu produktu
+            window.dispatchEvent(new CustomEvent('openCart'));
         }, ANIMATION_DURATION.MEDIUM);
     };
 

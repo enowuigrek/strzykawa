@@ -199,18 +199,12 @@ export function QuickAddModal({ coffee, isOpen, onClose, onAddToCart }) {
                                 {/* Sposób przygotowania */}
                                 {typOptions.length > 1 && (
                                     <div>
-                                        {/* Nagłówek - mobile: na lewo, desktop: grid nad Mielona */}
-                                        <label className="block md:hidden text-sm font-semibold text-white mb-2">
+                                        {/* Nagłówek zawsze na lewo */}
+                                        <label className="block text-sm font-semibold text-white mb-2">
                                             Sposób przygotowania
                                         </label>
-                                        <div className="hidden md:grid md:grid-cols-2 gap-2 mb-2">
-                                            <div /> {/* Pusta kolumna nad Ziarna */}
-                                            <label className="text-sm font-semibold text-white">
-                                                Sposób przygotowania
-                                            </label>
-                                        </div>
-                                        {/* Przyciski - mobile: column full width, desktop: grid 2 kolumny */}
-                                        <div className="flex flex-col md:grid md:grid-cols-2 gap-2">
+                                        {/* Przyciski zawsze grid 2 kolumny - obok siebie */}
+                                        <div className="grid grid-cols-2 gap-2">
                                             {typOptions.map((value) => {
                                                 const available = isOptionAvailable('Typ', value);
 
@@ -242,17 +236,17 @@ export function QuickAddModal({ coffee, isOpen, onClose, onAddToCart }) {
                                 {/* Sposób mielenia - tylko gdy wybrana "Mielona" */}
                                 {selectedTyp === 'Mielona' && (
                                     <div>
-                                        <label className="block text-sm font-semibold text-white mb-2 md:text-right">
+                                        {/* Nagłówek zawsze na lewo */}
+                                        <label className="block text-sm font-semibold text-white mb-2">
                                             Sposób mielenia
                                         </label>
-                                        {/* Mobile: column full width, Desktop: flex row */}
-                                        <div className="flex flex-col md:flex-row gap-2 md:justify-end">
+                                        {/* Przyciski zawsze grid 2 kolumny - obok siebie */}
+                                        <div className="grid grid-cols-2 gap-2">
                                             {['Pod ekspres', 'Pod drip'].map(value => (
                                                 <button
                                                     key={value}
                                                     onClick={() => setGrindMethod(value)}
                                                     className={`
-                                                        md:flex-1
                                                         px-5 py-2.5 text-sm font-medium
                                                         transition-all duration-200
                                                         rounded-full

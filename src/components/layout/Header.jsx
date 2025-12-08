@@ -56,6 +56,18 @@ export function Header() {
         return () => window.removeEventListener("scroll", handleScroll);
     }, [lastScrollY, mobileMenuOpen]);
 
+    // ========== GLOBAL CART OPEN EVENT ==========
+    useEffect(() => {
+        const handleOpenCart = () => {
+            setShowCartModal(true);
+            setShowLoginModal(false);
+            setShowRegisterModal(false);
+        };
+
+        window.addEventListener('openCart', handleOpenCart);
+        return () => window.removeEventListener('openCart', handleOpenCart);
+    }, []);
+
     // ========== HANDLERS ==========
     const closeMobileMenu = () => setMobileMenuOpen(false);
 
