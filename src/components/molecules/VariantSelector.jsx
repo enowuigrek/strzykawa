@@ -124,7 +124,7 @@ export function VariantSelector({
                 {/* Sposób przygotowania */}
                 {typ.length > 1 && (
                     <div>
-                        <label className="block text-sm text-white mb-2">
+                        <label className="block text-sm text-white mb-2 text-right">
                             Sposób przygotowania
                         </label>
                         <div className="flex flex-wrap gap-2 justify-end">
@@ -157,7 +157,7 @@ export function VariantSelector({
                 {/* Sposób mielenia - tylko gdy wybrana "Mielona" */}
                 {selectedTyp === 'Mielona' && onGrindMethodChange && (
                     <div>
-                        <label className="block text-sm text-white mb-2">
+                        <label className="block text-sm text-white mb-2 text-right">
                             Sposób mielenia
                         </label>
                         <div className="flex flex-wrap gap-2 justify-end">

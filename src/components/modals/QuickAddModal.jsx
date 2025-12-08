@@ -186,7 +186,7 @@ export function QuickAddModal({ coffee, isOpen, onClose, onAddToCart }) {
                                 {/* Sposób przygotowania */}
                                 {typOptions.length > 1 && (
                                     <div>
-                                        <label className="block text-sm font-semibold text-white mb-2">
+                                        <label className="block text-sm font-semibold text-white mb-2 text-right">
                                             Sposób przygotowania
                                         </label>
                                         <div className="flex gap-2 justify-end">
@@ -222,7 +222,7 @@ export function QuickAddModal({ coffee, isOpen, onClose, onAddToCart }) {
                                 {/* Sposób mielenia - tylko gdy wybrana "Mielona" */}
                                 {selectedTyp === 'Mielona' && (
                                     <div>
-                                        <label className="block text-sm font-semibold text-white mb-2">
+                                        <label className="block text-sm font-semibold text-white mb-2 text-right">
                                             Sposób mielenia
                                         </label>
                                         <div className="flex gap-2 justify-end">
