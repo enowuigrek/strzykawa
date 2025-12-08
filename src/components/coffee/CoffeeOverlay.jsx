@@ -3,6 +3,17 @@ import { Link } from 'react-router-dom';
 import { COUNTRY_COLORS, DEFAULT_COUNTRY_COLOR } from '../../constants/colors.js';
 
 /**
+ * Helper: Kapitalizuje pierwszy wyraz w liście
+ */
+const capitalizeFirst = (items) => {
+    if (!items || items.length === 0) return '';
+    const capitalized = items.map((item, index) =>
+        index === 0 ? item.charAt(0).toUpperCase() + item.slice(1) : item
+    );
+    return capitalized.join(', ');
+};
+
+/**
  * CoffeeOverlay - Style jak na naklejce z nagłówkiem kraju
  */
 export function CoffeeOverlay({ coffee, isOpen }) {
@@ -65,7 +76,7 @@ export function CoffeeOverlay({ coffee, isOpen }) {
     }
 
     if (coffee.tastingNotes && coffee.tastingNotes.length > 0) {
-        details.push({ label: 'Profil', value: coffee.tastingNotes.join(', ') });
+        details.push({ label: 'Profil', value: capitalizeFirst(coffee.tastingNotes) });
     }
 
     return (

@@ -127,7 +127,7 @@ export function VariantSelector({
                         <label className="block text-sm text-white mb-2">
                             Sposób przygotowania
                         </label>
-                        <div className="flex flex-wrap gap-2">
+                        <div className="flex flex-wrap gap-2 justify-end">
                             {typ.map(value => {
                                 const available = isOptionAvailable('Typ', value);
 
@@ -160,7 +160,7 @@ export function VariantSelector({
                         <label className="block text-sm text-white mb-2">
                             Sposób mielenia
                         </label>
-                        <div className="flex flex-wrap gap-2">
+                        <div className="flex flex-wrap gap-2 justify-end">
                             {['Pod ekspres', 'Pod drip'].map(value => (
                                 <button
                                     key={value}

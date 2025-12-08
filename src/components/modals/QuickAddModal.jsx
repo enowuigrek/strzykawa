@@ -189,7 +189,7 @@ export function QuickAddModal({ coffee, isOpen, onClose, onAddToCart }) {
                                         <label className="block text-sm font-semibold text-white mb-2">
                                             Sposób przygotowania
                                         </label>
-                                        <div className="flex gap-2">
+                                        <div className="flex gap-2 justify-end">
                                             {typOptions.map((value) => {
                                                 const available = isOptionAvailable('Typ', value);
 
@@ -225,7 +225,7 @@ export function QuickAddModal({ coffee, isOpen, onClose, onAddToCart }) {
                                         <label className="block text-sm font-semibold text-white mb-2">
                                             Sposób mielenia
                                         </label>
-                                        <div className="flex gap-2">
+                                        <div className="flex gap-2 justify-end">
                                             {['Pod ekspres', 'Pod drip'].map(value => (
                                                 <button
                                                     key={value}

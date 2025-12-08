@@ -4,6 +4,17 @@ import { FaTrash } from 'react-icons/fa';
 import { QuantitySelector } from '../atoms/QuantitySelector';
 
 /**
+ * Helper: Kapitalizuje pierwszy wyraz w liście
+ */
+const capitalizeFirst = (items) => {
+    if (!items || items.length === 0) return '';
+    const capitalized = items.map((item, index) =>
+        index === 0 ? item.charAt(0).toUpperCase() + item.slice(1) : item
+    );
+    return capitalized.join(', ');
+};
+
+/**
  * CartItem - Produkt w koszyku
  * REDESIGN v3:
  * - Zmniejszony QuantitySelector (size="sm")
@@ -51,10 +62,10 @@ export function CartItem({ item, onUpdateQuantity, onRemove, isLoading }) {
                         </div>
                     )}
 
-                    {/* Tasting notes */}
+                    {/* Tasting notes - z wielką literą na początku */}
                     {product.tastingNotes?.length > 0 && (
                         <p className="text-xs text-muted/80 truncate mt-1">
-                            {product.tastingNotes.join(', ')}
+                            {capitalizeFirst(product.tastingNotes)}
                         </p>
                     )}
                 </div>

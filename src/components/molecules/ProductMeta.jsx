@@ -2,6 +2,17 @@ import React from 'react';
 import { COUNTRY_COLORS, DEFAULT_COUNTRY_COLOR } from '../../constants/colors.js';
 
 /**
+ * Helper: Kapitalizuje pierwszy wyraz w liście
+ */
+const capitalizeFirst = (items) => {
+    if (!items || items.length === 0) return '';
+    const capitalized = items.map((item, index) =>
+        index === 0 ? item.charAt(0).toUpperCase() + item.slice(1) : item
+    );
+    return capitalized.join(', ');
+};
+
+/**
  * ProductMeta - Metadane produktu z akcentem koloru kraju
  * Normalne tło + kolorowy border-left jako akcent
  */
@@ -45,11 +56,11 @@ export function ProductMeta({ coffee }) {
         });
     }
 
-    // Profil smakowy
+    // Profil smakowy - z wielką literą na początku
     if (coffee.tastingNotes && coffee.tastingNotes.length > 0) {
         metaItems.push({
             label: 'Profil',
-            value: coffee.tastingNotes.join(', ')
+            value: capitalizeFirst(coffee.tastingNotes)
         });
     }
 
