@@ -153,16 +153,18 @@ export function QuickAddModal({ coffee, isOpen, onClose, onAddToCart }) {
                 onClick={(e) => e.stopPropagation()}
             >
                 {/* Header */}
-                <div className="flex items-center justify-between p-4 border-b border-white/10">
-                    <h3 className="text-xl font-semibold text-white">
-                        {coffee.name}
-                    </h3>
-                    {/* Close button - pojawia się PO animacji */}
-                    <div className={`
-                        transition-opacity duration-300 delay-300
-                        ${isAnimating ? 'opacity-100' : 'opacity-0'}
-                    `}>
-                        <CloseButton onClick={onClose} />
+                <div className="px-4">
+                    <div className="flex items-center justify-between py-4 border-b border-white/10">
+                        <h3 className="text-xl font-semibold text-white">
+                            {coffee.name}
+                        </h3>
+                        {/* Close button - pojawia się PO animacji */}
+                        <div className={`
+                            transition-opacity duration-300 delay-300
+                            ${isAnimating ? 'opacity-100' : 'opacity-0'}
+                        `}>
+                            <CloseButton onClick={onClose} />
+                        </div>
                     </div>
                 </div>
 

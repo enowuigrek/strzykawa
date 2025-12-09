@@ -79,19 +79,21 @@ const LoginModal = ({ isOpen, onClose, onSwitchToRegister }) => {
                 `}
             >
                 {/* Header */}
-                <div className="flex items-center justify-between p-6 border-b border-white/10">
-                    <div className="flex items-center gap-3">
-                        <div className="p-2 bg-accent/20 border border-accent/30">
-                            <FaUser className="w-5 h-5 text-accent" />
+                <div className="px-6">
+                    <div className="flex items-center justify-between py-6 border-b border-white/10">
+                        <div className="flex items-center gap-3">
+                            <div className="p-2 bg-accent/20 border border-accent/30">
+                                <FaUser className="w-5 h-5 text-accent" />
+                            </div>
+                            <h2 className="text-xl text-white">Zaloguj się</h2>
                         </div>
-                        <h2 className="text-xl text-white">Zaloguj się</h2>
-                    </div>
-                    {/* Close button - pojawia się PO animacji */}
-                    <div className={`
-                        transition-opacity duration-300 delay-300
-                        ${isAnimating ? 'opacity-100' : 'opacity-0'}
-                    `}>
-                        <CloseButton onClick={onClose} />
+                        {/* Close button - pojawia się PO animacji */}
+                        <div className={`
+                            transition-opacity duration-300 delay-300
+                            ${isAnimating ? 'opacity-100' : 'opacity-0'}
+                        `}>
+                            <CloseButton onClick={onClose} />
+                        </div>
                     </div>
                 </div>
 
