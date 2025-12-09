@@ -135,10 +135,10 @@ export function QuickAddModal({ coffee, isOpen, onClose, onAddToCart }) {
                 onClick={handleBackdropClick}
             />
 
-            {/* Modal - Fullscreen mobile, wycentrowany desktop */}
+            {/* Modal - Dynamiczna wysokość na mobile i desktop */}
             <div
                 className={`
-                    fixed h-full w-full md:h-auto md:max-w-md
+                    fixed h-auto max-h-[90vh] w-full md:max-w-md
                     bg-primary border-white/20 md:border
                     z-[200] shadow-2xl flex flex-col
                     transition-all duration-300 ease-out
@@ -160,7 +160,7 @@ export function QuickAddModal({ coffee, isOpen, onClose, onAddToCart }) {
                 />
 
                 {/* Content - scrollable */}
-                <div className="flex-1 overflow-y-auto">
+                <div className="overflow-y-auto">
                     <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-4">
                         <div className="space-y-3">
                             {/* Gramatura */}

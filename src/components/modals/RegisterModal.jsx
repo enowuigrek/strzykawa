@@ -96,10 +96,10 @@ const RegisterModal = ({ isOpen, onClose, onSwitchToLogin }) => {
                 onClick={onClose}
             />
 
-            {/* Modal - Fullscreen mobile, wycentrowany desktop */}
+            {/* Modal - Dynamiczna wysokość na mobile i desktop */}
             <div
                 className={`
-                    fixed h-full w-full md:h-auto md:max-w-md
+                    fixed h-auto max-h-[90vh] w-full md:max-w-md
                     bg-primary-dark border-white/20 md:border
                     z-[200] shadow-2xl flex flex-col
                     transition-all duration-300 ease-out
@@ -121,7 +121,7 @@ const RegisterModal = ({ isOpen, onClose, onSwitchToLogin }) => {
                 />
 
                 {/* Form - scrollable content */}
-                <div className="flex-1 overflow-y-auto">
+                <div className="overflow-y-auto">
                     <div className="container mx-auto px-4 sm:px-6 lg:px-8 pt-6 pb-2">
                         <form onSubmit={handleSubmit}>
 
