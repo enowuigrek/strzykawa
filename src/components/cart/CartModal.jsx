@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useCartStore } from '../../store/cartStore';
 import { ModalHeader } from '../layout/ModalHeader';
 import { CartContent } from './CartContent';
+import { ShippingProgress } from './ShippingProgress';
 import { CartFooter } from './CartFooter';
 
 export function CartModal({ isOpen, onClose }) {
@@ -77,6 +78,11 @@ export function CartModal({ isOpen, onClose }) {
                     onUpdateQuantity={updateQuantity}
                     onRemove={removeItem}
                 />
+
+                {/* Shipping Progress - na dole zawartości, przed footrem */}
+                {items.length > 0 && (
+                    <ShippingProgress totalPrice={getTotalPrice()} />
+                )}
 
                 <CartFooter
                     items={items}
