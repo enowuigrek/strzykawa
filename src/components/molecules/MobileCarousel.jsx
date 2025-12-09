@@ -6,6 +6,9 @@ import React, { useState, useRef } from 'react';
  * - Dots indicator at bottom
  * - No looping - bounces at edges
  * - Works with both touch and mouse
+ * - Gesture disambiguation: wybiera poziomy ALBO pionowy scroll (nie oba naraz)
+ *   • Gdy przesuwasz bardziej w poziomie → karuzela (blokuje scroll strony)
+ *   • Gdy przesuwasz bardziej w pionie → scroll strony (karuzela nie reaguje)
  */
 export function MobileCarousel({ images, className = "", showCounter = true, aspectRatio = "4/3" }) {
     const [currentIndex, setCurrentIndex] = useState(0);
@@ -13,10 +16,12 @@ export function MobileCarousel({ images, className = "", showCounter = true, asp
     const [startX, setStartX] = useState(0);
     const [startY, setStartY] = useState(0); // Track Y coordinate
     const [dragDelta, setDragDelta] = useState(0);
+    const [committedDirection, setCommittedDirection] = useState(null); // 'horizontal' | 'vertical' | null
     const containerRef = useRef(null);
 
     const EDGE_RESISTANCE = 0.3;
     const SWIPE_THRESHOLD = 50;
+    const DIRECTION_THRESHOLD = 10; // Po 10px decydujemy o kierunku
 
     const getClientX = (e) => {
         return e.touches ? e.touches[0].clientX : e.clientX;
@@ -32,6 +37,7 @@ export function MobileCarousel({ images, className = "", showCounter = true, asp
 
     const handleDragStart = (e) => {
         setIsDragging(true);
+        setCommittedDirection(null); // Reset direction
         setStartX(getClientX(e));
         setStartY(getClientY(e)); // Save starting Y position
     };
@@ -47,40 +53,61 @@ export function MobileCarousel({ images, className = "", showCounter = true, asp
         const deltaX = Math.abs(currentX - startX);
         const deltaY = Math.abs(currentY - startY);
 
-        // Apply resistance at edges
-        const isAtStart = currentIndex === 0 && delta > 0;
-        const isAtEnd = currentIndex === images.length - 1 && delta < 0;
-
-        if (isAtStart || isAtEnd) {
-            delta = delta * EDGE_RESISTANCE;
+        // ✨ INSTAGRAM-STYLE GESTURE DISAMBIGUATION
+        // Jeśli jeszcze nie zdecydowaliśmy o kierunku, sprawdź który jest dominujący
+        if (committedDirection === null && (deltaX > DIRECTION_THRESHOLD || deltaY > DIRECTION_THRESHOLD)) {
+            if (deltaX > deltaY) {
+                // Poziomy ruch dominuje - commituj do karuzeli
+                setCommittedDirection('horizontal');
+            } else {
+                // Pionowy ruch dominuje - commituj do scrollu strony
+                setCommittedDirection('vertical');
+            }
         }
 
-        setDragDelta(delta);
+        // Jeśli commitujemy do pionowego scrollu, nie rób NIC - pozwól scrollować
+        if (committedDirection === 'vertical') {
+            return;
+        }
 
-        // ✨ INSTAGRAM-STYLE: Blokuj scroll strony TYLKO gdy ruch jest BARDZIEJ poziomy niż pionowy
-        // To zapobiega scrollowaniu strony gdy użytkownik przesuwa karuzele
-        if (deltaX > deltaY && deltaX > 10) {
+        // Jeśli commitujemy do poziomego ruchu (karuzela), blokuj scroll strony
+        if (committedDirection === 'horizontal') {
             e.preventDefault();
+
+            // Apply resistance at edges
+            const isAtStart = currentIndex === 0 && delta > 0;
+            const isAtEnd = currentIndex === images.length - 1 && delta < 0;
+
+            if (isAtStart || isAtEnd) {
+                delta = delta * EDGE_RESISTANCE;
+            }
+
+            setDragDelta(delta);
         }
     };
 
     const handleDragEnd = (e) => {
         if (!isDragging) return;
 
-        const endX = getEndClientX(e);
-        const delta = endX - startX;
+        // Tylko gdy commitowaliśmy do poziomego ruchu, zmieniaj slajdy
+        if (committedDirection === 'horizontal') {
+            const endX = getEndClientX(e);
+            const delta = endX - startX;
 
-        if (Math.abs(delta) > SWIPE_THRESHOLD) {
-            if (delta < 0 && currentIndex < images.length - 1) {
-                setCurrentIndex(currentIndex + 1);
-            } else if (delta > 0 && currentIndex > 0) {
-                setCurrentIndex(currentIndex - 1);
+            if (Math.abs(delta) > SWIPE_THRESHOLD) {
+                if (delta < 0 && currentIndex < images.length - 1) {
+                    setCurrentIndex(currentIndex + 1);
+                } else if (delta > 0 && currentIndex > 0) {
+                    setCurrentIndex(currentIndex - 1);
+                }
             }
         }
 
+        // Reset wszystkich stanów
         setIsDragging(false);
+        setCommittedDirection(null);
         setStartX(0);
-        setStartY(0); // Reset Y position
+        setStartY(0);
         setDragDelta(0);
     };
 
@@ -103,10 +130,7 @@ export function MobileCarousel({ images, className = "", showCounter = true, asp
             <div
                 ref={containerRef}
                 className="relative w-full overflow-hidden bg-primary-light border border-white/10 select-none"
-                style={{
-                    aspectRatio,
-                    touchAction: 'pan-x' // ✨ CSS: Zezwól TYLKO na poziomy scroll, zablokuj pionowy
-                }}
+                style={{ aspectRatio }}
                 onTouchStart={handleDragStart}
                 onTouchMove={handleDragMove}
                 onTouchEnd={handleDragEnd}
