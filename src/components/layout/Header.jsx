@@ -126,8 +126,19 @@ export function Header() {
 
     return (
         <>
+            {/* Mobile Hamburger Toggle - ukrywa się gdy footer widoczny (żeby nie wchodzić na logo) */}
             <div
-                className="md:hidden fixed z-[150] w-full pointer-events-none"
+                className={`
+                    md:hidden
+                    fixed
+                    z-[150]
+                    w-full
+                    pointer-events-none
+                    transition-all
+                    duration-500
+                    ease-out
+                    ${hideHeader ? '-translate-y-full opacity-0' : 'translate-y-0 opacity-100'}
+                `}
                 style={{
                     top: 'calc(env(safe-area-inset-top, 0px))'
                 }}
