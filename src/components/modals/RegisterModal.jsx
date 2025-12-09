@@ -114,7 +114,7 @@ const RegisterModal = ({ isOpen, onClose, onSwitchToLogin }) => {
             >
                 {/* Header */}
                 <div className="px-6">
-                    <div className="flex items-center justify-between py-6 border-b border-white/10">
+                    <div className="relative flex items-center justify-between h-[100px] border-b border-white/10">
                         <div className="flex items-center gap-3">
                             <div className="p-2 bg-accent/20 border border-accent/30">
                                 <FaUser className="w-5 h-5 text-accent" />
@@ -123,6 +123,7 @@ const RegisterModal = ({ isOpen, onClose, onSwitchToLogin }) => {
                         </div>
                         {/* Close button - pojawia się PO animacji */}
                         <div className={`
+                            absolute right-0 top-1/2 -translate-y-1/2
                             transition-opacity duration-300 delay-300
                             ${isAnimating ? 'opacity-100' : 'opacity-0'}
                         `}>

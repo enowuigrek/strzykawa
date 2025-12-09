@@ -154,12 +154,13 @@ export function QuickAddModal({ coffee, isOpen, onClose, onAddToCart }) {
             >
                 {/* Header */}
                 <div className="px-4">
-                    <div className="flex items-center justify-between py-4 border-b border-white/10">
+                    <div className="relative flex items-center justify-between h-[100px] border-b border-white/10">
                         <h3 className="text-xl font-semibold text-white">
                             {coffee.name}
                         </h3>
                         {/* Close button - pojawia się PO animacji */}
                         <div className={`
+                            absolute right-0 top-1/2 -translate-y-1/2
                             transition-opacity duration-300 delay-300
                             ${isAnimating ? 'opacity-100' : 'opacity-0'}
                         `}>
