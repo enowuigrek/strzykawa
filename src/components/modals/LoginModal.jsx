@@ -70,7 +70,7 @@ const LoginModal = ({ isOpen, onClose, onSwitchToRegister }) => {
                     z-[200] shadow-2xl flex flex-col
                     transition-all duration-300 ease-out
 
-                    md:left-1/2 md:top-1/2 md:-translate-x-1/2
+                    left-0 md:left-1/2 md:top-1/2 md:-translate-x-1/2
 
                     ${isAnimating
                         ? 'bottom-0 translate-y-0 md:-translate-y-1/2 opacity-100'
