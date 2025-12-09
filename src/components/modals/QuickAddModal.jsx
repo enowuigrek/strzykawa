@@ -10,6 +10,17 @@ export function QuickAddModal({ coffee, isOpen, onClose, onAddToCart }) {
     const [quantity, setQuantity] = useState(1);
     const [adding, setAdding] = useState(false);
     const [grindMethod, setGrindMethod] = useState(null); // Pod ekspres / Pod drip
+    const [isAnimating, setIsAnimating] = useState(false);
+
+    // Animation trigger
+    useEffect(() => {
+        if (isOpen) {
+            // Trigger animation after mount
+            setTimeout(() => setIsAnimating(true), 10);
+        } else {
+            setIsAnimating(false);
+        }
+    }, [isOpen]);
 
     // Set default variant when modal opens - prioritize "Ziarna" (whole beans)
     useEffect(() => {
@@ -113,31 +124,51 @@ export function QuickAddModal({ coffee, isOpen, onClose, onAddToCart }) {
 
     return (
         <>
-            {/* Backdrop */}
+            {/* Backdrop - z animacją fade-in i blur + przyciemnienie */}
             <div
-                className="fixed inset-0 bg-black/60 backdrop-blur-sm z-[60] transition-opacity duration-300"
+                className={`
+                    fixed inset-0 bg-black/70 z-[190]
+                    backdrop-blur-md
+                    transition-all duration-300 ease-out
+                    ${isAnimating ? 'opacity-100' : 'opacity-0'}
+                `}
                 onClick={handleBackdropClick}
             />
 
-            {/* Modal */}
-            <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 pointer-events-none">
-                <div
-                    className="bg-primary w-full max-w-md shadow-2xl pointer-events-auto"
-                    onClick={(e) => e.stopPropagation()}
-                >
-                    {/* Header */}
-                    <div className="flex items-center justify-between p-4">
-                        <h3 className="text-xl font-semibold text-white">
-                            {coffee.name}
-                        </h3>
+            {/* Modal - Fullscreen mobile, wycentrowany desktop */}
+            <div
+                className={`
+                    fixed h-full w-full md:h-auto md:max-w-md
+                    bg-primary border-white/20 md:border
+                    z-[200] shadow-2xl flex flex-col
+                    transition-all duration-300 ease-out
+
+                    md:left-1/2 md:top-1/2 md:-translate-x-1/2
+
+                    ${isAnimating
+                        ? 'bottom-0 translate-y-0 md:-translate-y-1/2 opacity-100'
+                        : 'bottom-0 translate-y-full md:translate-y-0 md:-translate-y-1/2 opacity-0'
+                    }
+                `}
+                onClick={(e) => e.stopPropagation()}
+            >
+                {/* Header */}
+                <div className="flex items-center justify-between p-4 border-b border-white/10">
+                    <h3 className="text-xl font-semibold text-white">
+                        {coffee.name}
+                    </h3>
+                    {/* Close button - pojawia się PO animacji */}
+                    <div className={`
+                        transition-opacity duration-300 delay-300
+                        ${isAnimating ? 'opacity-100' : 'opacity-0'}
+                    `}>
                         <CloseButton onClick={onClose} />
                     </div>
-                    {/* Subtle divider under header title (like cart header) */}
-                    <div className="px-4">
-                        <div className="border-b border-white/10"></div>
-                    </div>
+                </div>
 
-                    {/* Content - Grid 2 kolumny */}
+                {/* Content - scrollable */}
+                <div className="flex-1 overflow-y-auto">
+                    {/* Grid 2 kolumny */}
                     <div className="p-4">
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                             {/* LEWA KOLUMNA: Gramatura + Liczba */}
@@ -276,7 +307,7 @@ export function QuickAddModal({ coffee, isOpen, onClose, onAddToCart }) {
                         )}
 
                         {/* Total price */}
-                        <div className="p-3  border-t border-accent/20">
+                        <div className="p-3 mt-4 border-t border-accent/20">
                             <div className="flex justify-between items-center">
                                 <span className="text-white font-medium">Razem:</span>
                                 <span className="text-xl font-bold text-white">
@@ -285,9 +316,10 @@ export function QuickAddModal({ coffee, isOpen, onClose, onAddToCart }) {
                             </div>
                         </div>
                     </div>
+                </div>
 
-                    {/* Footer */}
-                    <div className="p-4">
+                {/* Footer - sticky na dole */}
+                <div className="p-4 border-t border-white/10">
                         <Button
                             onClick={handleAdd}
                             disabled={!selectedVariant || !isAvailable || adding}

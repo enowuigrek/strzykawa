@@ -63,6 +63,7 @@ export function CartModal({ isOpen, onClose }) {
                 <CartHeader
                     totalItems={getTotalItems()}
                     onClose={onClose}
+                    isAnimating={isAnimating}
                 />
 
                 <CartContent

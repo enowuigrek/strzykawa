@@ -1,7 +1,7 @@
 import React from 'react';
 import { CloseButton } from '../atoms/CloseButton';
 
-export function CartHeader({ totalItems, onClose }) {
+export function CartHeader({ totalItems, onClose, isAnimating }) {
     return (
         <>
             <div className="container mx-auto px-4 sm:px-6 lg:px-8">
@@ -17,7 +17,12 @@ export function CartHeader({ totalItems, onClose }) {
                             </span>
                         )}
                     </div>
-                    <div className="absolute right-0 top-1/2 -translate-y-1/2">
+                    {/* Close button - pojawia się PO animacji */}
+                    <div className={`
+                        absolute right-0 top-1/2 -translate-y-1/2
+                        transition-opacity duration-300 delay-300
+                        ${isAnimating ? 'opacity-100' : 'opacity-0'}
+                    `}>
                         <CloseButton onClick={onClose} ariaLabel="Zamknij koszyk" />
                     </div>
                 </div>

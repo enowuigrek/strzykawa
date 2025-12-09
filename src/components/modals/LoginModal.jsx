@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { FaUser, FaLock, FaEye, FaEyeSlash, FaSignInAlt } from 'react-icons/fa';
 import { useAuthStore } from '../../store/authStore.js';
 import { Button } from '../atoms/Button.jsx';
@@ -6,15 +6,26 @@ import { CloseButton } from '../atoms/CloseButton.jsx';
 
 /**
  * LoginModal - Modal logowania
- * FIXED: Sharp corners, CloseButton component
+ * Mobile: fullscreen z animacją z dołu
+ * Desktop: wycentrowany modal
  */
 const LoginModal = ({ isOpen, onClose, onSwitchToRegister }) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [showPassword, setShowPassword] = useState(false);
     const [error, setError] = useState('');
+    const [isAnimating, setIsAnimating] = useState(false);
 
     const { login, isLoading } = useAuthStore();
+
+    useEffect(() => {
+        if (isOpen) {
+            // Trigger animation after mount
+            setTimeout(() => setIsAnimating(true), 10);
+        } else {
+            setIsAnimating(false);
+        }
+    }, [isOpen]);
 
     if (!isOpen) return null;
 
@@ -40,32 +51,52 @@ const LoginModal = ({ isOpen, onClose, onSwitchToRegister }) => {
 
     return (
         <>
-            {/* Backdrop */}
+            {/* Backdrop - z animacją fade-in i blur + przyciemnienie */}
             <div
-                className="fixed inset-0 bg-black/50 backdrop-blur-sm z-[100]"
+                className={`
+                    fixed inset-0 bg-black/70 z-[190]
+                    backdrop-blur-md
+                    transition-all duration-300 ease-out
+                    ${isAnimating ? 'opacity-100' : 'opacity-0'}
+                `}
                 onClick={onClose}
             />
 
-            {/* Modal - Sharp corners! */}
-            <div className="fixed inset-0 flex items-center justify-center z-[100] p-4">
-                <div className="w-full max-w-md bg-primary-dark border border-white/20 shadow-2xl">
+            {/* Modal - Fullscreen mobile, wycentrowany desktop */}
+            <div
+                className={`
+                    fixed h-full w-full md:h-auto md:max-w-md
+                    bg-primary-dark border-white/20 md:border
+                    z-[200] shadow-2xl flex flex-col
+                    transition-all duration-300 ease-out
 
-                    {/* Header */}
-                    <div className="flex items-center justify-between p-6">
-                        <div className="flex items-center gap-3">
-                            <div className="p-2 bg-accent/20 border border-accent/30">
-                                <FaUser className="w-5 h-5 text-accent" />
-                            </div>
-                            <h2 className="text-xl text-white">Zaloguj się</h2>
+                    md:left-1/2 md:top-1/2 md:-translate-x-1/2
+
+                    ${isAnimating
+                        ? 'bottom-0 translate-y-0 md:-translate-y-1/2 opacity-100'
+                        : 'bottom-0 translate-y-full md:translate-y-0 md:-translate-y-1/2 opacity-0'
+                    }
+                `}
+            >
+                {/* Header */}
+                <div className="flex items-center justify-between p-6 border-b border-white/10">
+                    <div className="flex items-center gap-3">
+                        <div className="p-2 bg-accent/20 border border-accent/30">
+                            <FaUser className="w-5 h-5 text-accent" />
                         </div>
+                        <h2 className="text-xl text-white">Zaloguj się</h2>
+                    </div>
+                    {/* Close button - pojawia się PO animacji */}
+                    <div className={`
+                        transition-opacity duration-300 delay-300
+                        ${isAnimating ? 'opacity-100' : 'opacity-0'}
+                    `}>
                         <CloseButton onClick={onClose} />
                     </div>
-                    {/* Divider - nie dotyka krawędzi */}
-                    <div className="px-6">
-                        <div className="border-b border-white/10"></div>
-                    </div>
+                </div>
 
-                    {/* Form */}
+                {/* Form - scrollable content */}
+                <div className="flex-1 overflow-y-auto">
                     <form onSubmit={handleSubmit} className="p-6">
 
                         {/* Error Message */}

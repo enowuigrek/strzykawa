@@ -148,8 +148,15 @@ export function Header() {
                         <div /> {/* Spacer dla justify-between */}
                         <div className="absolute right-0 top-1/2 -translate-y-1/2 pointer-events-auto">
                             <MobileMenuToggle
-                                isOpen={mobileMenuOpen}
-                                onToggle={() => setMobileMenuOpen(!mobileMenuOpen)}
+                                isOpen={mobileMenuOpen || showCartModal}
+                                onToggle={() => {
+                                    // Jeśli koszyk otwarty, zamknij koszyk zamiast otwierać hamburger
+                                    if (showCartModal) {
+                                        modalActions.closeCart();
+                                    } else {
+                                        setMobileMenuOpen(!mobileMenuOpen);
+                                    }
+                                }}
                             />
                         </div>
                     </div>
