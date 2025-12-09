@@ -54,24 +54,29 @@ export function MobileCarousel({ images, className = "", showCounter = true, asp
         const deltaY = Math.abs(currentY - startY);
 
         // ✨ INSTAGRAM-STYLE GESTURE DISAMBIGUATION
+        // Określ aktualny kierunek (może być już commitowany, albo dopiero decydujemy)
+        let currentDirection = committedDirection;
+
         // Jeśli jeszcze nie zdecydowaliśmy o kierunku, sprawdź który jest dominujący
-        if (committedDirection === null && (deltaX > DIRECTION_THRESHOLD || deltaY > DIRECTION_THRESHOLD)) {
+        if (currentDirection === null && (deltaX > DIRECTION_THRESHOLD || deltaY > DIRECTION_THRESHOLD)) {
             if (deltaX > deltaY) {
                 // Poziomy ruch dominuje - commituj do karuzeli
+                currentDirection = 'horizontal';
                 setCommittedDirection('horizontal');
             } else {
                 // Pionowy ruch dominuje - commituj do scrollu strony
+                currentDirection = 'vertical';
                 setCommittedDirection('vertical');
             }
         }
 
         // Jeśli commitujemy do pionowego scrollu, nie rób NIC - pozwól scrollować
-        if (committedDirection === 'vertical') {
+        if (currentDirection === 'vertical') {
             return;
         }
 
         // Jeśli commitujemy do poziomego ruchu (karuzela), blokuj scroll strony
-        if (committedDirection === 'horizontal') {
+        if (currentDirection === 'horizontal') {
             e.preventDefault();
 
             // Apply resistance at edges

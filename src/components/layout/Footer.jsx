@@ -60,9 +60,9 @@ export function Footer() {
     };
 
     return (
-        <footer className="relative bg-primary-dark/95 border-white/10 overflow-hidden min-h-screen flex items-center">
+        <footer className="relative bg-primary-dark/95 border-white/10 overflow-hidden">
             {/* Main content */}
-            <div className="relative z-10 container mx-auto px-4 py-4 md:py-12 w-full">
+            <div className="relative z-10 container mx-auto px-4 py-4 md:py-12">
                 {/* Mobile: Logo pełna szerokość, potem 2 kolumny */}
                 {/* Desktop: 4 kolumny równo */}
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-10">
