@@ -160,7 +160,7 @@ export function QuickAddModal({ coffee, isOpen, onClose, onAddToCart }) {
                 />
 
                 {/* Content - scrollable */}
-                <div className="overflow-y-auto">
+                <div className="flex-shrink-0">
                     <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-4">
                         <div className="space-y-3">
                             {/* Gramatura */}
