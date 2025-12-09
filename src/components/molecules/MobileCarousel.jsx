@@ -11,6 +11,7 @@ export function MobileCarousel({ images, className = "", showCounter = true, asp
     const [currentIndex, setCurrentIndex] = useState(0);
     const [isDragging, setIsDragging] = useState(false);
     const [startX, setStartX] = useState(0);
+    const [startY, setStartY] = useState(0); // Track Y coordinate
     const [dragDelta, setDragDelta] = useState(0);
     const containerRef = useRef(null);
 
@@ -21,6 +22,10 @@ export function MobileCarousel({ images, className = "", showCounter = true, asp
         return e.touches ? e.touches[0].clientX : e.clientX;
     };
 
+    const getClientY = (e) => {
+        return e.touches ? e.touches[0].clientY : e.clientY;
+    };
+
     const getEndClientX = (e) => {
         return e.changedTouches ? e.changedTouches[0].clientX : e.clientX;
     };
@@ -28,13 +33,19 @@ export function MobileCarousel({ images, className = "", showCounter = true, asp
     const handleDragStart = (e) => {
         setIsDragging(true);
         setStartX(getClientX(e));
+        setStartY(getClientY(e)); // Save starting Y position
     };
 
     const handleDragMove = (e) => {
         if (!isDragging) return;
 
         const currentX = getClientX(e);
+        const currentY = getClientY(e);
         let delta = currentX - startX;
+
+        // Calculate horizontal and vertical movement
+        const deltaX = Math.abs(currentX - startX);
+        const deltaY = Math.abs(currentY - startY);
 
         // Apply resistance at edges
         const isAtStart = currentIndex === 0 && delta > 0;
@@ -46,8 +57,9 @@ export function MobileCarousel({ images, className = "", showCounter = true, asp
 
         setDragDelta(delta);
 
-        // Prevent default to avoid scrolling
-        if (Math.abs(delta) > 10) {
+        // ✨ INSTAGRAM-STYLE: Blokuj scroll strony TYLKO gdy ruch jest BARDZIEJ poziomy niż pionowy
+        // To zapobiega scrollowaniu strony gdy użytkownik przesuwa karuzele
+        if (deltaX > deltaY && deltaX > 10) {
             e.preventDefault();
         }
     };
@@ -68,6 +80,7 @@ export function MobileCarousel({ images, className = "", showCounter = true, asp
 
         setIsDragging(false);
         setStartX(0);
+        setStartY(0); // Reset Y position
         setDragDelta(0);
     };
 
@@ -90,7 +103,10 @@ export function MobileCarousel({ images, className = "", showCounter = true, asp
             <div
                 ref={containerRef}
                 className="relative w-full overflow-hidden bg-primary-light border border-white/10 select-none"
-                style={{ aspectRatio }}
+                style={{
+                    aspectRatio,
+                    touchAction: 'pan-x' // ✨ CSS: Zezwól TYLKO na poziomy scroll, zablokuj pionowy
+                }}
                 onTouchStart={handleDragStart}
                 onTouchMove={handleDragMove}
                 onTouchEnd={handleDragEnd}
