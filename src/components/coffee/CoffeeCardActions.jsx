@@ -1,34 +1,22 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import { FaShoppingCart, FaCheck } from 'react-icons/fa';
+import { FaShoppingCart } from 'react-icons/fa';
 import { useCartStore } from '../../store/cartStore';
 
 /**
- * CoffeeCardActions - Split button z badge i green success state
- * FINAL FIX v4:
- * - Hover NA CAŁYM buttonie (fixed height issue)
- * - Badge w dobrej pozycji (nie za nisko)
- * - Koszyk w dobrej wysokości (nie wypchany)
+ * CoffeeCardActions - Split button z badge
+ * QuickAdd otwarty przez global event - uproszczone (bez local loading state)
  */
 export function CoffeeCardActions({
                                       coffee,
-                                      onQuickAdd,
-                                      isAdding,
-                                      justAdded
+                                      onQuickAdd
                                   }) {
     const { getItemQuantity } = useCartStore();
 
     // Ile sztuk tej kawy jest w koszyku
     const cartQuantity = getItemQuantity(coffee.id);
     const isUnavailable = !coffee.availableForSale;
-
-    const getCartIcon = () => {
-        if (justAdded) return FaCheck;
-        return FaShoppingCart;
-    };
-
-    const CartIcon = getCartIcon();
 
     return (
         <div className="group flex items-stretch bg-white/5 border border-white/15 rounded-full overflow-visible">
@@ -60,7 +48,7 @@ export function CoffeeCardActions({
                         onQuickAdd && onQuickAdd();
                     }
                 }}
-                disabled={isAdding || isUnavailable}
+                disabled={isUnavailable}
                 className={`
                     relative
                     w-14 py-2.5
@@ -69,19 +57,14 @@ export function CoffeeCardActions({
                     transition-all duration-300
                     disabled:opacity-50 disabled:cursor-not-allowed
                     rounded-r-full
-                    ${justAdded
-                        ? 'bg-success hover:bg-success-dark'
-                        : isUnavailable
-                            ? 'bg-white/5'
-                            : 'hover:bg-white/15'
-                    }
+                    ${isUnavailable ? 'bg-white/5' : 'hover:bg-white/15'}
                 `}
                 title={isUnavailable ? 'Produkt niedostępny' : 'Dodaj do koszyka'}
             >
-                <CartIcon className="w-5 h-5" />
+                <FaShoppingCart className="w-5 h-5" />
 
                 {/* Badge z liczbą sztuk w koszyku */}
-                {cartQuantity > 0 && !justAdded && (
+                {cartQuantity > 0 && (
                     <span className="absolute -top-1 -right-1 bg-success text-white text-[10px] w-5 h-5 rounded-full flex items-center justify-center font-bold z-20 shadow-lg pointer-events-none">
                         {cartQuantity}
                     </span>
@@ -98,6 +81,4 @@ CoffeeCardActions.propTypes = {
         availableForSale: PropTypes.bool,
     }).isRequired,
     onQuickAdd: PropTypes.func,
-    isAdding: PropTypes.bool,
-    justAdded: PropTypes.bool,
 };

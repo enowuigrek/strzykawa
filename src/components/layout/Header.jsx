@@ -19,6 +19,8 @@ export function Header() {
     const [showLoginModal, setShowLoginModal] = useState(false);
     const [showRegisterModal, setShowRegisterModal] = useState(false);
     const [showCartModal, setShowCartModal] = useState(false);
+    const [showQuickAddModal, setShowQuickAddModal] = useState(false);
+    const [quickAddCoffee, setQuickAddCoffee] = useState(null);
 
     // ========== STORES ==========
     const { logout } = useAuthStore();
@@ -77,10 +79,28 @@ export function Header() {
             setShowCartModal(true);
             setShowLoginModal(false);
             setShowRegisterModal(false);
+            setShowQuickAddModal(false);
         };
 
         window.addEventListener('openCart', handleOpenCart);
         return () => window.removeEventListener('openCart', handleOpenCart);
+    }, []);
+
+    // ========== GLOBAL QUICK ADD OPEN EVENT ==========
+    useEffect(() => {
+        const handleOpenQuickAdd = (event) => {
+            const coffee = event.detail?.coffee;
+            if (coffee) {
+                setQuickAddCoffee(coffee);
+                setShowQuickAddModal(true);
+                setShowCartModal(false);
+                setShowLoginModal(false);
+                setShowRegisterModal(false);
+            }
+        };
+
+        window.addEventListener('openQuickAdd', handleOpenQuickAdd);
+        return () => window.removeEventListener('openQuickAdd', handleOpenQuickAdd);
     }, []);
 
     // ========== HANDLERS ==========
@@ -91,23 +111,31 @@ export function Header() {
             setShowLoginModal(true);
             setShowRegisterModal(false);
             setShowCartModal(false);
+            setShowQuickAddModal(false);
         },
         openRegister: () => {
             setShowRegisterModal(true);
             setShowLoginModal(false);
             setShowCartModal(false);
+            setShowQuickAddModal(false);
         },
         openCart: () => {
             setShowCartModal(true);
             setShowLoginModal(false);
             setShowRegisterModal(false);
+            setShowQuickAddModal(false);
         },
         closeCart: () => setShowCartModal(false),
         closeLogin: () => setShowLoginModal(false),
+        closeQuickAdd: () => {
+            setShowQuickAddModal(false);
+            setQuickAddCoffee(null);
+        },
         closeAll: () => {
             setShowLoginModal(false);
             setShowRegisterModal(false);
             setShowCartModal(false);
+            setShowQuickAddModal(false);
         }
     };
 
@@ -119,7 +147,7 @@ export function Header() {
 
     // ========== STYLING ==========
     // Sprawdź czy JAKIKOLWIEK modal jest otwarty
-    const anyModalOpen = showCartModal || showLoginModal || showRegisterModal;
+    const anyModalOpen = showCartModal || showLoginModal || showRegisterModal || showQuickAddModal;
 
     const headerBg = mobileMenuOpen || anyModalOpen
         ? 'bg-primary-dark backdrop-blur-md shadow-2xl shadow-black/50'
@@ -151,7 +179,7 @@ export function Header() {
                         <div /> {/* Spacer dla justify-between */}
                         <div className="absolute right-0 top-1/2 -translate-y-1/2 pointer-events-auto">
                             <MobileMenuToggle
-                                isOpen={mobileMenuOpen || showCartModal || showLoginModal || showRegisterModal}
+                                isOpen={mobileMenuOpen || showCartModal || showLoginModal || showRegisterModal || showQuickAddModal}
                                 onToggle={() => {
                                     // Jeśli jakikolwiek modal otwarty, zamknij go zamiast otwierać hamburger
                                     if (showCartModal) {
@@ -160,6 +188,8 @@ export function Header() {
                                         modalActions.closeLogin();
                                     } else if (showRegisterModal) {
                                         modalActions.closeAll();
+                                    } else if (showQuickAddModal) {
+                                        modalActions.closeQuickAdd();
                                     } else {
                                         setMobileMenuOpen(!mobileMenuOpen);
                                     }
@@ -243,8 +273,13 @@ export function Header() {
                 cartModal={{
                     isOpen: showCartModal
                 }}
+                quickAddModal={{
+                    isOpen: showQuickAddModal,
+                    coffee: quickAddCoffee
+                }}
                 onCloseCart={modalActions.closeCart}
                 onCloseLogin={modalActions.closeLogin}
+                onCloseQuickAdd={modalActions.closeQuickAdd}
                 onCloseAll={modalActions.closeAll}
             />
         </>

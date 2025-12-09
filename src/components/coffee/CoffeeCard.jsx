@@ -1,39 +1,23 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { useCartStore } from '../../store/cartStore.js';
 import { CoffeeCardMedia } from './CoffeeCardMedia';
 import { CoffeeCardContent } from './CoffeeCardContent';
 import { CoffeeCardActions } from './CoffeeCardActions';
-import { QuickAddModal } from '../modals/QuickAddModal.jsx';
-import { ANIMATION_DURATION, FEEDBACK_DURATION } from '../../constants/timings.js';
 
 /**
- * CoffeeCard - z Quick Add Modal
- * FIXED: overflow-visible na article i wrapper dla badge
+ * CoffeeCard - używa globalnego QuickAddModal z Header
+ * QuickAdd otwarty przez global event 'openQuickAdd'
  */
 export function CoffeeCard({ coffee }) {
     const [overlayOpen, setOverlayOpen] = useState(false);
-    const [quickAddOpen, setQuickAddOpen] = useState(false);
-    const [isAdding, setIsAdding] = useState(false);
-    const [justAdded, setJustAdded] = useState(false);
-
-    const { addItem } = useCartStore();
 
     const toggleOverlay = () => setOverlayOpen(!overlayOpen);
-    const openQuickAdd = () => setQuickAddOpen(true);
-    const closeQuickAdd = () => setQuickAddOpen(false);
 
-    const handleAddToCart = async (coffee, variant, quantity) => {
-        setIsAdding(true);
-        await addItem(coffee, variant.id, quantity);
-
-        setTimeout(() => {
-            setIsAdding(false);
-            setJustAdded(true);
-            setTimeout(() => setJustAdded(false), FEEDBACK_DURATION.SUCCESS);
-            // Otwórz koszyk po dodaniu produktu
-            window.dispatchEvent(new CustomEvent('openCart'));
-        }, ANIMATION_DURATION.MEDIUM);
+    const openQuickAdd = () => {
+        // Dispatch global event z coffee data
+        window.dispatchEvent(new CustomEvent('openQuickAdd', {
+            detail: { coffee }
+        }));
     };
 
     return (
@@ -57,19 +41,10 @@ export function CoffeeCard({ coffee }) {
                         <CoffeeCardActions
                             coffee={coffee}
                             onQuickAdd={openQuickAdd}
-                            isAdding={isAdding}
-                            justAdded={justAdded}
                         />
                     </div>
                 </div>
             </article>
-
-            <QuickAddModal
-                coffee={coffee}
-                isOpen={quickAddOpen}
-                onClose={closeQuickAdd}
-                onAddToCart={handleAddToCart}
-            />
         </>
     );
 }
