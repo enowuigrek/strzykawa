@@ -91,10 +91,8 @@ export async function createCart(client) {
     const response = await client.graphqlFetch(query, {
         input: {
             lines: [],
-            attributes: [
-                { key: "source", value: "strzykawa-website" }
-            ]
-        }
+            attributes: [{ key: 'source', value: 'strzykawa-website' }],
+        },
     });
 
     if (response.data.cartCreate.userErrors.length > 0) {

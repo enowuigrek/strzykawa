@@ -5,7 +5,7 @@ import { COUNTRY_COLORS, DEFAULT_COUNTRY_COLOR } from '../../constants/colors.js
 /**
  * Helper: Kapitalizuje pierwszy wyraz w liście
  */
-const capitalizeFirst = (items) => {
+const capitalizeFirst = items => {
     if (!items || items.length === 0) return '';
     const capitalized = items.map((item, index) =>
         index === 0 ? item.charAt(0).toUpperCase() + item.slice(1) : item
@@ -21,9 +21,7 @@ export function CoffeeOverlay({ coffee, isOpen }) {
     const country = origin.country || '';
 
     // Check if it's a blend - either multiple origins OR comma-separated countries in one origin
-    const countries = country.includes(',')
-        ? country.split(',').map(c => c.trim())
-        : [country];
+    const countries = country.includes(',') ? country.split(',').map(c => c.trim()) : [country];
     const isBlend = countries.length > 1 || coffee?.origin?.length > 1;
 
     // Determine background color/gradient based on blend status
@@ -90,7 +88,7 @@ export function CoffeeOverlay({ coffee, isOpen }) {
                 ${isOpen ? 'translate-y-0 opacity-100' : 'translate-y-full opacity-0 pointer-events-none'} z-20
             `}
             style={{
-                background: backgroundStyle
+                background: backgroundStyle,
             }}
         >
             <div className="h-full overflow-y-auto p-3 flex flex-col items-center justify-center">
@@ -100,9 +98,7 @@ export function CoffeeOverlay({ coffee, isOpen }) {
                         <h3 className="text-2xl font-bold text-black uppercase tracking-wide">
                             {country}
                         </h3>
-                        <p className="text-lg text-black">
-                            {displayName}
-                        </p>
+                        <p className="text-lg text-black">{displayName}</p>
                     </div>
                 )}
 
@@ -110,18 +106,13 @@ export function CoffeeOverlay({ coffee, isOpen }) {
                 {details.length > 0 ? (
                     <div className="space-y-2 w-full max-w-xs">
                         {details.map((detail, index) => (
-                            <div
-                                key={index}
-                                className="flex items-start gap-2"
-                            >
+                            <div key={index} className="flex items-start gap-2">
                                 {/* Label - normalny font */}
                                 <dt className="text-base text-black font-bold shrink-0">
                                     {detail.label}:
                                 </dt>
                                 {/* Value - bold */}
-                                <dd className="text-base text-black">
-                                    {detail.value}
-                                </dd>
+                                <dd className="text-base text-black">{detail.value}</dd>
                             </div>
                         ))}
                     </div>

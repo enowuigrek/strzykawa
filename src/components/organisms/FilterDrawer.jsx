@@ -10,15 +10,15 @@ import { useBackdropClick } from '../../hooks/useBackdropClick.js';
  * FilterDrawer Component - Mobile drawer z filtrami
  */
 export function FilterDrawer({
-                                 isOpen = false,
-                                 onClose,
-                                 filterSections = [],
-                                 activeFilters = {},
-                                 onFilterToggle,
-                                 onApply,
-                                 onClear,
-                                 totalResults = 0,
-                             }) {
+    isOpen = false,
+    onClose,
+    filterSections = [],
+    activeFilters = {},
+    onFilterToggle,
+    onApply,
+    onClear,
+    totalResults = 0,
+}) {
     // Lock body scroll when drawer is open
     useEffect(() => {
         if (isOpen) {
@@ -63,7 +63,7 @@ export function FilterDrawer({
             {/* Drawer */}
             <div
                 className={`
-          fixed inset-x-0 bottom-0 z-50 bg-primary rounded-t-3xl shadow-2xl
+          fixed inset-x-0 bottom-0 z-50 bg-primary shadow-2xl
           transform transition-transform duration-300 ease-out
           max-h-[85vh] flex flex-col
           ${isOpen ? 'translate-y-0' : 'translate-y-full'}
@@ -72,14 +72,11 @@ export function FilterDrawer({
                 aria-modal="true"
                 aria-label="Filtry"
             >
-
                 {/* Header */}
                 <div className="flex items-center justify-between p-4 border-b border-accent/20">
                     <div className="flex items-center gap-3">
                         <FiFilter className="text-accent" size={24} />
-                        <h2 className="text-white text-lg">
-                            Filtry
-                        </h2>
+                        <h2 className="text-white text-lg">Filtry</h2>
                         {totalActiveFilters > 0 && (
                             <span className="bg-accent text-white px-2 py-0.5 rounded-full text-xs">
                                 {totalActiveFilters}
@@ -112,7 +109,7 @@ export function FilterDrawer({
                         {/* Active filters chips */}
                         <div className="flex flex-wrap gap-2">
                             {Object.entries(activeFilters).map(([category, values]) =>
-                                values.map((value) => (
+                                values.map(value => (
                                     <Chip
                                         key={`${category}-${value}`}
                                         label={value}
@@ -128,13 +125,13 @@ export function FilterDrawer({
 
                 {/* Scrollable Filter Sections */}
                 <div className="flex-1 overflow-y-auto p-4 space-y-4">
-                    {filterSections.map((section) => (
+                    {filterSections.map(section => (
                         <FilterSection
                             key={section.id}
                             title={section.title}
                             options={section.options}
                             selectedValues={activeFilters[section.id] || []}
-                            onToggle={(value) => onFilterToggle(section.id, value)}
+                            onToggle={value => onFilterToggle(section.id, value)}
                             showCounts={true}
                             layout="grid"
                             collapsible={true}
@@ -163,17 +160,11 @@ export function FilterDrawer({
                     </div>
 
                     {totalActiveFilters > 0 && (
-                        <Button
-                            variant="ghost"
-                            fullWidth
-                            onClick={handleClear}
-                            size="sm"
-                        >
+                        <Button variant="ghost" fullWidth onClick={handleClear} size="sm">
                             Wyczyść wszystko
                         </Button>
                     )}
                 </div>
-
             </div>
         </>
     );

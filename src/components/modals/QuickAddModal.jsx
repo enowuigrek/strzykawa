@@ -26,9 +26,10 @@ export function QuickAddModal({ coffee, isOpen, onClose, onAddToCart }) {
     useEffect(() => {
         if (isOpen && coffee?.variants?.length > 0) {
             // First try to find available "Ziarna" variant
-            const ziarnaVariant = coffee.variants.find(v =>
-                v.availableForSale &&
-                v.selectedOptions?.some(opt => opt.name === 'Typ' && opt.value === 'Ziarna')
+            const ziarnaVariant = coffee.variants.find(
+                v =>
+                    v.availableForSale &&
+                    v.selectedOptions?.some(opt => opt.name === 'Typ' && opt.value === 'Ziarna')
             );
 
             // If no "Ziarna" available, fall back to any available variant
@@ -41,7 +42,7 @@ export function QuickAddModal({ coffee, isOpen, onClose, onAddToCart }) {
     }, [isOpen, coffee]);
 
     // Extract ALL unique options
-    const extractAllOptions = (optionName) => {
+    const extractAllOptions = optionName => {
         if (!coffee?.variants) return [];
         const options = new Set();
         coffee.variants.forEach(variant => {
@@ -53,9 +54,10 @@ export function QuickAddModal({ coffee, isOpen, onClose, onAddToCart }) {
 
     // Check if specific option value is available
     const isOptionAvailable = (optionName, optionValue) => {
-        return coffee.variants.some(v =>
-            v.availableForSale &&
-            v.selectedOptions?.find(opt => opt.name === optionName)?.value === optionValue
+        return coffee.variants.some(
+            v =>
+                v.availableForSale &&
+                v.selectedOptions?.find(opt => opt.name === optionName)?.value === optionValue
         );
     };
 
@@ -72,14 +74,14 @@ export function QuickAddModal({ coffee, isOpen, onClose, onAddToCart }) {
         opt => opt.name === 'Gramatura'
     )?.value;
 
-    const selectedTyp = selectedVariant?.selectedOptions?.find(
-        opt => opt.name === 'Typ'
-    )?.value;
+    const selectedTyp = selectedVariant?.selectedOptions?.find(opt => opt.name === 'Typ')?.value;
 
     // Find variant by options
     const findVariant = (gram, type) => {
         return coffee.variants.find(variant => {
-            const variantGram = variant.selectedOptions?.find(opt => opt.name === 'Gramatura')?.value;
+            const variantGram = variant.selectedOptions?.find(
+                opt => opt.name === 'Gramatura'
+            )?.value;
             const variantType = variant.selectedOptions?.find(opt => opt.name === 'Typ')?.value;
 
             if (!type && typOptions.length === 0) {
@@ -91,12 +93,12 @@ export function QuickAddModal({ coffee, isOpen, onClose, onAddToCart }) {
     };
 
     // Handle variant change
-    const handleGramaturaChange = (value) => {
+    const handleGramaturaChange = value => {
         const newVariant = findVariant(value, selectedTyp || typOptions[0]);
         if (newVariant) setSelectedVariant(newVariant);
     };
 
-    const handleTypChange = (value) => {
+    const handleTypChange = value => {
         const newVariant = findVariant(selectedGramatura, value);
         if (newVariant) setSelectedVariant(newVariant);
     };
@@ -145,23 +147,24 @@ export function QuickAddModal({ coffee, isOpen, onClose, onAddToCart }) {
 
                     md:left-1/2 md:top-1/2 md:-translate-x-1/2
 
-                    ${isAnimating
-                        ? 'bottom-0 translate-y-0 md:-translate-y-1/2 opacity-100'
-                        : 'bottom-0 translate-y-full md:translate-y-0 md:-translate-y-1/2 opacity-0'
+                    ${
+                        isAnimating
+                            ? 'bottom-0 translate-y-0 md:-translate-y-1/2 opacity-100'
+                            : 'bottom-0 translate-y-full md:translate-y-0 md:-translate-y-1/2 opacity-0'
                     }
                 `}
-                onClick={(e) => e.stopPropagation()}
+                onClick={e => e.stopPropagation()}
             >
                 {/* Header */}
                 <div className="flex items-center justify-between p-4 border-b border-white/10">
-                    <h3 className="text-xl font-semibold text-white">
-                        {coffee.name}
-                    </h3>
+                    <h3 className="text-xl font-semibold text-white">{coffee.name}</h3>
                     {/* Close button - pojawia się PO animacji */}
-                    <div className={`
+                    <div
+                        className={`
                         transition-opacity duration-300 delay-300
                         ${isAnimating ? 'opacity-100' : 'opacity-0'}
-                    `}>
+                    `}
+                    >
                         <CloseButton onClick={onClose} />
                     </div>
                 </div>
@@ -180,28 +183,41 @@ export function QuickAddModal({ coffee, isOpen, onClose, onAddToCart }) {
                                             Gramatura
                                         </label>
                                         <div className="flex gap-2">
-                                            {gramaturaOptions.map((value) => {
-                                                const available = isOptionAvailable('Gramatura', value);
+                                            {gramaturaOptions.map(value => {
+                                                const available = isOptionAvailable(
+                                                    'Gramatura',
+                                                    value
+                                                );
 
                                                 return (
                                                     <button
                                                         key={value}
-                                                        onClick={() => available && handleGramaturaChange(value)}
+                                                        onClick={() =>
+                                                            available &&
+                                                            handleGramaturaChange(value)
+                                                        }
                                                         disabled={!available}
                                                         className={`
                                                             ${gramaturaOptions.length === 1 ? 'inline-flex' : 'flex-1'}
                                                             px-5 py-2.5 text-sm font-medium
                                                             transition-all duration-200
                                                             rounded-full
-                                                            ${!available
-                                                                ? 'bg-red-900/20 text-red-400/70 opacity-60 cursor-not-allowed border border-red-800/30'
-                                                                : selectedGramatura === value
-                                                                    ? 'bg-accent text-white shadow-md'
-                                                                    : 'bg-primary-light text-muted border border-accent/30 hover:bg-accent/20 hover:text-white'
+                                                            ${
+                                                                !available
+                                                                    ? 'bg-red-900/20 text-red-400/70 opacity-60 cursor-not-allowed border border-red-800/30'
+                                                                    : selectedGramatura === value
+                                                                      ? 'bg-accent text-white shadow-md'
+                                                                      : 'bg-primary-light text-muted border border-accent/30 hover:bg-accent/20 hover:text-white'
                                                             }
                                                         `}
                                                     >
-                                                        <span className={!available ? 'line-through' : ''}>{value}</span>
+                                                        <span
+                                                            className={
+                                                                !available ? 'line-through' : ''
+                                                            }
+                                                        >
+                                                            {value}
+                                                        </span>
                                                     </button>
                                                 );
                                             })}
@@ -236,27 +252,36 @@ export function QuickAddModal({ coffee, isOpen, onClose, onAddToCart }) {
                                         </label>
                                         {/* Przyciski zawsze grid 2 kolumny - obok siebie */}
                                         <div className="grid grid-cols-2 gap-2">
-                                            {typOptions.map((value) => {
+                                            {typOptions.map(value => {
                                                 const available = isOptionAvailable('Typ', value);
 
                                                 return (
                                                     <button
                                                         key={value}
-                                                        onClick={() => available && handleTypChange(value)}
+                                                        onClick={() =>
+                                                            available && handleTypChange(value)
+                                                        }
                                                         disabled={!available}
                                                         className={`
                                                             px-5 py-2.5 text-sm font-medium
                                                             transition-all duration-200
                                                             rounded-full
-                                                            ${!available
-                                                                ? 'bg-red-900/20 text-red-400/70 opacity-60 cursor-not-allowed border border-red-800/30'
-                                                                : selectedTyp === value
-                                                                    ? 'bg-accent text-white shadow-md'
-                                                                    : 'bg-primary-light text-muted border border-accent/30 hover:bg-accent/20 hover:text-white'
+                                                            ${
+                                                                !available
+                                                                    ? 'bg-red-900/20 text-red-400/70 opacity-60 cursor-not-allowed border border-red-800/30'
+                                                                    : selectedTyp === value
+                                                                      ? 'bg-accent text-white shadow-md'
+                                                                      : 'bg-primary-light text-muted border border-accent/30 hover:bg-accent/20 hover:text-white'
                                                             }
                                                         `}
                                                     >
-                                                        <span className={!available ? 'line-through' : ''}>{value}</span>
+                                                        <span
+                                                            className={
+                                                                !available ? 'line-through' : ''
+                                                            }
+                                                        >
+                                                            {value}
+                                                        </span>
                                                     </button>
                                                 );
                                             })}
@@ -281,9 +306,10 @@ export function QuickAddModal({ coffee, isOpen, onClose, onAddToCart }) {
                                                         px-5 py-2.5 text-sm font-medium
                                                         transition-all duration-200
                                                         rounded-full
-                                                        ${grindMethod === value
-                                                            ? 'bg-accent text-white shadow-md'
-                                                            : 'bg-primary-light text-muted border border-accent/30 hover:bg-accent/20 hover:text-white'
+                                                        ${
+                                                            grindMethod === value
+                                                                ? 'bg-accent text-white shadow-md'
+                                                                : 'bg-primary-light text-muted border border-accent/30 hover:bg-accent/20 hover:text-white'
                                                         }
                                                     `}
                                                 >
@@ -300,9 +326,7 @@ export function QuickAddModal({ coffee, isOpen, onClose, onAddToCart }) {
                         {!isAvailable && (
                             <div className="flex items-center gap-2 p-3 bg-red-500/10 border border-red-500/30 text-red-300 mt-4">
                                 <FaExclamationCircle className="w-4 h-4 flex-shrink-0" />
-                                <p className="text-sm">
-                                    Ten wariant jest obecnie niedostępny
-                                </p>
+                                <p className="text-sm">Ten wariant jest obecnie niedostępny</p>
                             </div>
                         )}
 
@@ -320,20 +344,21 @@ export function QuickAddModal({ coffee, isOpen, onClose, onAddToCart }) {
 
                 {/* Footer - sticky na dole */}
                 <div className="p-4 border-t border-white/10">
-                        <Button
-                            onClick={handleAdd}
-                            disabled={!selectedVariant || !isAvailable || adding}
-                            loading={adding}
-                            leftIcon={FaShoppingCart}
-                            variant="primary"
-                            size="lg"
-                            fullWidth
-                        >
-                            {adding ? 'Dodawanie...' :
-                                !isAvailable ? 'Niedostępne' :
-                                    `Dodaj - ${totalPrice} zł`}
-                        </Button>
-                    </div>
+                    <Button
+                        onClick={handleAdd}
+                        disabled={!selectedVariant || !isAvailable || adding}
+                        loading={adding}
+                        leftIcon={FaShoppingCart}
+                        variant="primary"
+                        size="lg"
+                        fullWidth
+                    >
+                        {adding
+                            ? 'Dodawanie...'
+                            : !isAvailable
+                              ? 'Niedostępne'
+                              : `Dodaj - ${totalPrice} zł`}
+                    </Button>
                 </div>
             </div>
         </>

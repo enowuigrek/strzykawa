@@ -6,7 +6,7 @@ export function Logo({ scrolled, size = 'md' }) {
         window.scrollTo({
             top: 0,
             left: 0,
-            behavior: 'smooth'
+            behavior: 'smooth',
         });
     };
 
@@ -15,7 +15,7 @@ export function Logo({ scrolled, size = 'md' }) {
         sm: scrolled ? 'h-8 lg:h-10' : 'h-10 lg:h-12',
         md: scrolled ? 'h-10 lg:h-12' : 'h-12 lg:h-14', // default
         lg: scrolled ? 'h-14 lg:h-16' : 'h-16 lg:h-20',
-        xl: scrolled ? 'h-16 lg:h-20' : 'h-20 lg:h-24'
+        xl: scrolled ? 'h-16 lg:h-20' : 'h-20 lg:h-24',
     };
 
     return (

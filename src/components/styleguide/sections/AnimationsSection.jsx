@@ -41,7 +41,7 @@ function StaggeredDemo() {
     return (
         <div className="space-y-4">
             <div className="flex gap-4 justify-center">
-                {[0, 1, 2, 3].map((index) => (
+                {[0, 1, 2, 3].map(index => (
                     <div
                         key={index}
                         className={`w-16 h-16 bg-accent/80 transition-all duration-500 ease-out ${
@@ -71,8 +71,11 @@ export function AnimationsSection() {
                 <div>
                     <h3 className="text-xl text-accent mb-2">Scroll Animations (kawowe nazwy):</h3>
                     <p className="text-muted text-sm mb-6">
-                        Hook: <code className="bg-primary-light px-2 py-1 rounded">useScrollAnimation()</code> -
-                        animacje przy scrollowaniu z tematycznymi nazwami
+                        Hook:{' '}
+                        <code className="bg-primary-light px-2 py-1 rounded">
+                            useScrollAnimation()
+                        </code>{' '}
+                        - animacje przy scrollowaniu z tematycznymi nazwami
                     </p>
                     <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
                         <ScrollAnimationDemo
@@ -112,7 +115,8 @@ export function AnimationsSection() {
                 <div>
                     <h3 className="text-xl text-accent mb-2">Staggered Animation:</h3>
                     <p className="text-muted text-sm mb-6">
-                        Elementy pojawiaja sie z opoznieniem (100ms na element) - idealne dla kart i list
+                        Elementy pojawiaja sie z opoznieniem (100ms na element) - idealne dla kart i
+                        list
                     </p>
                     <StaggeredDemo />
                     <div className="mt-4 p-4 bg-primary-light">

@@ -7,13 +7,13 @@ import { FiMinus, FiPlus } from 'react-icons/fi';
  * Minus (półkolo) | Liczba | Plus (półkolo)
  */
 export function QuantitySelector({
-                                     quantity = 1,
-                                     onQuantityChange,
-                                     min = 1,
-                                     max = 99,
-                                     disabled = false,
-                                     size = 'md'
-                                 }) {
+    quantity = 1,
+    onQuantityChange,
+    min = 1,
+    max = 99,
+    disabled = false,
+    size = 'md',
+}) {
     const handleDecrease = () => {
         if (quantity > min && !disabled) {
             onQuantityChange(quantity - 1);
@@ -26,7 +26,7 @@ export function QuantitySelector({
         }
     };
 
-    const handleInputChange = (e) => {
+    const handleInputChange = e => {
         const value = parseInt(e.target.value);
         if (!isNaN(value) && value >= min && value <= max) {
             onQuantityChange(value);
@@ -37,23 +37,25 @@ export function QuantitySelector({
     const sizeClasses = {
         sm: 'h-8',
         md: 'h-10',
-        lg: 'h-12'
+        lg: 'h-12',
     };
 
     const buttonSizeClasses = {
         sm: 'w-6',
         md: 'w-8',
-        lg: 'w-10'
+        lg: 'w-10',
     };
 
     const inputSizeClasses = {
         sm: 'w-8 text-sm',
         md: 'w-10 text-base',
-        lg: 'w-14 text-lg'
+        lg: 'w-14 text-lg',
     };
 
     return (
-        <div className={`inline-flex items-center bg-primary-light border border-accent/30 rounded-full overflow-hidden ${sizeClasses[size]}`}>
+        <div
+            className={`inline-flex items-center bg-primary-light border border-accent/30 rounded-full overflow-hidden ${sizeClasses[size]}`}
+        >
             {/* Decrease Button - Left semicircle */}
             <button
                 type="button"

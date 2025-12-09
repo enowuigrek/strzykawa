@@ -1,8 +1,8 @@
 // src/pages/CheckoutCanceled.jsx
 import React, { useEffect } from 'react';
 import { useCartStore } from '../store/cartStore';
-import {PageLayout} from "../components/layout/PageLayout.jsx";
-import {Link} from "react-router-dom";
+import { PageLayout } from '../components/layout/PageLayout.jsx';
+import { Link } from 'react-router-dom';
 
 export function CheckoutCanceled() {
     const markCheckoutCanceled = useCartStore(s => s.markCheckoutCanceled);

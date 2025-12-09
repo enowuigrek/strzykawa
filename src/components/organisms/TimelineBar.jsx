@@ -11,11 +11,11 @@ function useTimelineScroll(years) {
         const observerOptions = {
             root: null,
             rootMargin: '-20% 0px -60% 0px', // Trigger when section is ~20% from top
-            threshold: 0
+            threshold: 0,
         };
 
-        const observerCallback = (entries) => {
-            entries.forEach((entry) => {
+        const observerCallback = entries => {
+            entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     const year = entry.target.id.replace('year-', '');
                     setActiveYear(year);
@@ -26,7 +26,7 @@ function useTimelineScroll(years) {
         const observer = new IntersectionObserver(observerCallback, observerOptions);
 
         // Observe all year sections
-        years.forEach((year) => {
+        years.forEach(year => {
             const element = document.getElementById(`year-${year}`);
             if (element) {
                 observer.observe(element);
@@ -48,7 +48,7 @@ export function TimelineBar({ years = [], isSticky = false, hide = false }) {
     const activeYear = useTimelineScroll(years);
     const activeIndex = years.indexOf(activeYear);
 
-    const handleYearClick = (year) => {
+    const handleYearClick = year => {
         const element = document.getElementById(`year-${year}`);
         if (element) {
             const offset = 80; // Offset for sticky bar
@@ -57,18 +57,17 @@ export function TimelineBar({ years = [], isSticky = false, hide = false }) {
 
             window.scrollTo({
                 top: offsetPosition,
-                behavior: 'smooth'
+                behavior: 'smooth',
             });
         }
     };
 
     // Calculate progress percentage
-    const progressPercentage = years.length > 1
-        ? (activeIndex / (years.length - 1)) * 100
-        : 0;
+    const progressPercentage = years.length > 1 ? (activeIndex / (years.length - 1)) * 100 : 0;
 
     return (
-        <div className={`
+        <div
+            className={`
             sticky
             top-0
             z-50
@@ -78,7 +77,8 @@ export function TimelineBar({ years = [], isSticky = false, hide = false }) {
             h-[100px]
             lg:h-[120px]
             ${hide ? '-translate-y-full opacity-0' : 'translate-y-0 opacity-100'}
-        `}>
+        `}
+        >
             <div className="max-w-6xl mx-auto px-4 h-full flex items-center">
                 {/* Timeline Container */}
                 <div className="relative w-full flex justify-start md:justify-center">
@@ -90,12 +90,16 @@ export function TimelineBar({ years = [], isSticky = false, hide = false }) {
                                         onClick={() => handleYearClick(year)}
                                         className={`
                                             px-3 md:px-4 py-2 whitespace-nowrap transition-all duration-300
-                                            ${activeYear === year
-                                                ? 'text-white scale-125 md:scale-150'
-                                                : 'text-white/60 hover:text-white/90'}
+                                            ${
+                                                activeYear === year
+                                                    ? 'text-white scale-125 md:scale-150'
+                                                    : 'text-white/60 hover:text-white/90'
+                                            }
                                         `}
                                     >
-                                        <span className="text-base md:text-lg md:text-xl">{year}</span>
+                                        <span className="text-base md:text-lg md:text-xl">
+                                            {year}
+                                        </span>
                                     </button>
 
                                     {index < years.length - 1 && (
@@ -107,11 +111,13 @@ export function TimelineBar({ years = [], isSticky = false, hide = false }) {
                                                         index < activeIndex
                                                             ? '100%'
                                                             : index === activeIndex
-                                                                ? `${(
-                                                                    progressPercentage -
-                                                                    (activeIndex * 100) / (years.length - 1)
-                                                                ) * (years.length - 1)}%`
-                                                                : '0%',
+                                                              ? `${
+                                                                    (progressPercentage -
+                                                                        (activeIndex * 100) /
+                                                                            (years.length - 1)) *
+                                                                    (years.length - 1)
+                                                                }%`
+                                                              : '0%',
                                                 }}
                                             />
                                         </div>
@@ -128,7 +134,7 @@ export function TimelineBar({ years = [], isSticky = false, hide = false }) {
 
 // Demo Component
 export function TimelineBarExample() {
-const years = ["2020", "2022", "2023", "2024", "2025"];
+    const years = ['2020', '2022', '2023', '2024', '2025'];
 
     return (
         <div className="min-h-screen bg-primary">
@@ -136,7 +142,7 @@ const years = ["2020", "2022", "2023", "2024", "2025"];
 
             {/* Demo sections */}
             <div className="max-w-6xl mx-auto px-4 py-8 space-y-96">
-                {years.map((year) => (
+                {years.map(year => (
                     <section
                         key={year}
                         id={`year-${year}`}
@@ -144,8 +150,8 @@ const years = ["2020", "2022", "2023", "2024", "2025"];
                     >
                         <h2 className="text-4xl text-white mb-4">{year}</h2>
                         <p className="text-white/70 text-lg">
-                            Scroll down to see the timeline bar update automatically.
-                            Click on years in the bar to jump to sections.
+                            Scroll down to see the timeline bar update automatically. Click on years
+                            in the bar to jump to sections.
                         </p>
                     </section>
                 ))}

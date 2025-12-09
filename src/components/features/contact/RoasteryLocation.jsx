@@ -1,5 +1,11 @@
 import React from 'react';
-import { FaMapMarkerAlt, FaFire, FaExternalLinkAlt, FaFacebookF, FaInstagram } from 'react-icons/fa';
+import {
+    FaMapMarkerAlt,
+    FaFire,
+    FaExternalLinkAlt,
+    FaFacebookF,
+    FaInstagram,
+} from 'react-icons/fa';
 
 export function RoasteryLocation() {
     const openGoogleMaps = () => {
@@ -31,7 +37,8 @@ export function RoasteryLocation() {
                 {/* Info o palarni */}
                 <div className="space-y-3">
                     <p className="text-sm text-white/80">
-                        W palarni organizujemy eventy i spotkania. Śledź nasze media społecznościowe, aby być na bieżąco z nadchodzącymi wydarzeniami.
+                        W palarni organizujemy eventy i spotkania. Śledź nasze media
+                        społecznościowe, aby być na bieżąco z nadchodzącymi wydarzeniami.
                     </p>
 
                     {/* Social media links */}

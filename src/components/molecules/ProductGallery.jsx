@@ -14,7 +14,7 @@ export function ProductGallery({
     coffeeName,
     showThumbnails = true,
     autoplay = false,
-    autoplayInterval = 4000
+    autoplayInterval = 4000,
 }) {
     const [selectedImageIndex, setSelectedImageIndex] = useState(0);
     const timerRef = useRef(null);
@@ -42,9 +42,7 @@ export function ProductGallery({
 
         // Start new timer
         timerRef.current = setInterval(() => {
-            setSelectedImageIndex((prev) =>
-                prev === images.length - 1 ? 0 : prev + 1
-            );
+            setSelectedImageIndex(prev => (prev === images.length - 1 ? 0 : prev + 1));
         }, autoplayInterval);
 
         // Cleanup
@@ -76,19 +74,15 @@ export function ProductGallery({
 
     const goToPrevious = () => {
         resetTimer();
-        setSelectedImageIndex((prev) =>
-            prev === 0 ? images.length - 1 : prev - 1
-        );
+        setSelectedImageIndex(prev => (prev === 0 ? images.length - 1 : prev - 1));
     };
 
     const goToNext = () => {
         resetTimer();
-        setSelectedImageIndex((prev) =>
-            prev === images.length - 1 ? 0 : prev + 1
-        );
+        setSelectedImageIndex(prev => (prev === images.length - 1 ? 0 : prev + 1));
     };
 
-    const handleThumbnailClick = (index) => {
+    const handleThumbnailClick = index => {
         resetTimer();
         setSelectedImageIndex(index);
     };
@@ -98,11 +92,7 @@ export function ProductGallery({
             {/* Mobile - Carousel (only if more than 1 image) */}
             <div className="md:hidden">
                 {hasManyImages ? (
-                    <MobileCarousel
-                        images={images}
-                        aspectRatio="1/1"
-                        showCounter={true}
-                    />
+                    <MobileCarousel images={images} aspectRatio="1/1" showCounter={true} />
                 ) : (
                     <div className="aspect-square bg-primary-light border border-white/10 overflow-hidden">
                         <img
@@ -165,10 +155,11 @@ export function ProductGallery({
                                 onClick={() => handleThumbnailClick(index)}
                                 className={`
                                     aspect-square overflow-hidden border-2 transition-all duration-300
-                                    ${index === selectedImageIndex
-                                    ? 'border-accent'
-                                    : 'border-white/10 hover:border-accent/50'
-                                }
+                                    ${
+                                        index === selectedImageIndex
+                                            ? 'border-accent'
+                                            : 'border-white/10 hover:border-accent/50'
+                                    }
                                 `}
                             >
                                 <img

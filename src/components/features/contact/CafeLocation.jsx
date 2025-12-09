@@ -38,7 +38,9 @@ export function CafeLocation() {
                         {cafeHours.map((schedule, index) => (
                             <div key={index} className="flex justify-between items-center text-sm">
                                 <span className="text-muted">{schedule.days}</span>
-                                <span className="text-white font-medium ml-4">{schedule.hours}</span>
+                                <span className="text-white font-medium ml-4">
+                                    {schedule.hours}
+                                </span>
                             </div>
                         ))}
                     </div>

@@ -1,11 +1,11 @@
 import React from 'react';
 import { HeroBackground } from '../components/features/hero/HeroBackground.jsx';
-import {PageLayout} from "../components/layout/PageLayout.jsx";
+import { PageLayout } from '../components/layout/PageLayout.jsx';
 import { Tagline } from '../components/features/hero/Tagline.jsx';
 import { ActionButtons } from '../components/features/hero/ActionButtons.jsx';
 import { ScrollDownIndicator } from '../components/features/hero/ScrollDownIndicator.jsx';
-import {FaCoffee, FaHeart, FaFire} from 'react-icons/fa';
-import { Logo } from "../components/atoms/Logo.jsx";
+import { FaCoffee, FaHeart, FaFire } from 'react-icons/fa';
+import { Logo } from '../components/atoms/Logo.jsx';
 import { HeroReviews } from '../components/features/hero/HeroReviews.jsx';
 import { SocialLinks } from '../components/molecules/SocialLinks.jsx';
 import { useScrollAnimation, scrollAnimations } from '../hooks/useScrollAnimation';
@@ -50,11 +50,13 @@ export function Home() {
             {/* Sekcja "O Strzykawie" - najeżdża na hero */}
             <PageLayout className="relative z-20 bg-primary pt-20 sm:pt-24 pb-32">
                 <div className="container px-6 sm:px-8">
-                {/* Header sekcji - logo */}
+                    {/* Header sekcji - logo */}
                     <div
                         ref={logoRef}
                         className={`text-center mb-20 transition-all duration-700 ease-out ${
-                            logoVisible ? scrollAnimations.pourDown.visible : scrollAnimations.pourDown.hidden
+                            logoVisible
+                                ? scrollAnimations.pourDown.visible
+                                : scrollAnimations.pourDown.hidden
                         }`}
                     >
                         <div className="inline-flex items-center gap-3 mb-6 scale-125 md:scale-150">
@@ -64,19 +66,22 @@ export function Home() {
 
                     {/* Treść */}
                     <div>
-
                         {/* Główny opis */}
                         <div
                             ref={descRef}
                             className={`text-center pb-8 transition-all duration-700 ease-out delay-100 ${
-                                descVisible ? scrollAnimations.fade.visible : scrollAnimations.fade.hidden
+                                descVisible
+                                    ? scrollAnimations.fade.visible
+                                    : scrollAnimations.fade.hidden
                             }`}
                         >
                             <p className="text-white/70 text-lg sm:text-xl leading-relaxed text-center font-light">
-                                Zaopatrujemy się w najwyższej jakości surowiec pochodzący z małych, rodzinnych farm,
-                                gdzie kawa traktowana jest z najwyższą starannością. Współpracujemy z topowymi importerami
-                                z Polski i zagranicy. Lubimy nietuzinkowe smaki, dlatego w naszej ofercie znajdziecie
-                                ciekawe obróbki ziarna charakteryzujące się unikalnym profilem smakowym.
+                                Zaopatrujemy się w najwyższej jakości surowiec pochodzący z małych,
+                                rodzinnych farm, gdzie kawa traktowana jest z najwyższą
+                                starannością. Współpracujemy z topowymi importerami z Polski i
+                                zagranicy. Lubimy nietuzinkowe smaki, dlatego w naszej ofercie
+                                znajdziecie ciekawe obróbki ziarna charakteryzujące się unikalnym
+                                profilem smakowym.
                             </p>
                         </div>
 
@@ -88,7 +93,9 @@ export function Home() {
                             {/* Palarnia */}
                             <div
                                 className={`p-6 text-center transition-all duration-500 ease-out ${
-                                    featuresVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-[20px]'
+                                    featuresVisible
+                                        ? 'opacity-100 translate-y-0'
+                                        : 'opacity-0 translate-y-[20px]'
                                 }`}
                                 style={{ transitionDelay: featuresVisible ? '0ms' : '0ms' }}
                             >
@@ -97,14 +104,17 @@ export function Home() {
                                 </div>
                                 <h3 className="text-xl text-white mb-3">Własna palarnia</h3>
                                 <p className="text-muted leading-relaxed">
-                                    Palimy ziarna w małych partiach, dbając o każdy szczegół procesu dla idealnego smaku.
+                                    Palimy ziarna w małych partiach, dbając o każdy szczegół procesu
+                                    dla idealnego smaku.
                                 </p>
                             </div>
 
                             {/* Kawiarnia */}
                             <div
                                 className={`p-6 text-center transition-all duration-500 ease-out ${
-                                    featuresVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-[20px]'
+                                    featuresVisible
+                                        ? 'opacity-100 translate-y-0'
+                                        : 'opacity-0 translate-y-[20px]'
                                 }`}
                                 style={{ transitionDelay: featuresVisible ? '100ms' : '0ms' }}
                             >
@@ -113,14 +123,17 @@ export function Home() {
                                 </div>
                                 <h3 className="text-xl text-white mb-3">Kawiarnia</h3>
                                 <p className="text-muted leading-relaxed">
-                                    Miejsce spotkań i rozmów. Tu kawa to nie tylko napój, ale doświadczenie i społeczność.
+                                    Miejsce spotkań i rozmów. Tu kawa to nie tylko napój, ale
+                                    doświadczenie i społeczność.
                                 </p>
                             </div>
 
                             {/* Społeczność */}
                             <div
                                 className={`p-6 text-center transition-all duration-500 ease-out ${
-                                    featuresVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-[20px]'
+                                    featuresVisible
+                                        ? 'opacity-100 translate-y-0'
+                                        : 'opacity-0 translate-y-[20px]'
                                 }`}
                                 style={{ transitionDelay: featuresVisible ? '200ms' : '0ms' }}
                             >
@@ -129,7 +142,8 @@ export function Home() {
                                 </div>
                                 <h3 className="text-xl text-white mb-3">Pasja</h3>
                                 <p className="text-muted leading-relaxed">
-                                    Dzielimy się miłością do najlepszych ziaren z całego świata i tradycji parzenia kawy.
+                                    Dzielimy się miłością do najlepszych ziaren z całego świata i
+                                    tradycji parzenia kawy.
                                 </p>
                             </div>
                         </div>
@@ -138,7 +152,9 @@ export function Home() {
                         <div
                             ref={ctaRef}
                             className={`text-center my-16 transition-all duration-700 ease-out ${
-                                ctaVisible ? scrollAnimations.spread.visible : scrollAnimations.spread.hidden
+                                ctaVisible
+                                    ? scrollAnimations.spread.visible
+                                    : scrollAnimations.spread.hidden
                             }`}
                         >
                             <a

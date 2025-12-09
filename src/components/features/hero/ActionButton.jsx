@@ -10,9 +10,7 @@ export function ActionButton({ href, icon: Icon, text, colorClass = 'bg-white/20
                 <div className={`p-2 ${colorClass} rounded-full`}>
                     <Icon className="w-4 h-4 text-white" />
                 </div>
-                <span className="text-white font-semibold text-lg">
-                    {text}
-                </span>
+                <span className="text-white font-semibold text-lg">{text}</span>
             </div>
         </a>
     );

@@ -12,7 +12,8 @@ export function MobileMenuToggle({ isOpen, onToggle }) {
             aria-label="Toggle mobile menu"
         >
             {/* Top line */}
-            <span className={`
+            <span
+                className={`
                 block 
                 w-6 
                 h-0.5 
@@ -22,10 +23,12 @@ export function MobileMenuToggle({ isOpen, onToggle }) {
                 ease-out
                 group-hover:w-7
                 ${isOpen ? 'rotate-45 translate-y-1' : 'translate-y-0'}
-            `}></span>
+            `}
+            ></span>
 
             {/* Middle line */}
-            <span className={`
+            <span
+                className={`
                 block 
                 w-6 
                 h-0.5 
@@ -36,10 +39,12 @@ export function MobileMenuToggle({ isOpen, onToggle }) {
                 mt-1
                 group-hover:w-7
                 ${isOpen ? 'opacity-0' : 'opacity-100'}
-            `}></span>
+            `}
+            ></span>
 
             {/* Bottom line */}
-            <span className={`
+            <span
+                className={`
                 block 
                 w-6 
                 h-0.5 
@@ -50,7 +55,8 @@ export function MobileMenuToggle({ isOpen, onToggle }) {
                 mt-1
                 group-hover:w-7
                 ${isOpen ? '-rotate-45 -translate-y-2' : 'translate-y-0'}
-            `}></span>
+            `}
+            ></span>
         </button>
     );
 }

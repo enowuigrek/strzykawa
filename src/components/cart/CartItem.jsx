@@ -6,7 +6,7 @@ import { QuantitySelector } from '../atoms/QuantitySelector';
 /**
  * Helper: Kapitalizuje pierwszy wyraz w liście
  */
-const capitalizeFirst = (items) => {
+const capitalizeFirst = items => {
     if (!items || items.length === 0) return '';
     const capitalized = items.map((item, index) =>
         index === 0 ? item.charAt(0).toUpperCase() + item.slice(1) : item
@@ -24,7 +24,7 @@ const capitalizeFirst = (items) => {
 export function CartItem({ item, onUpdateQuantity, onRemove, isLoading }) {
     const { product, quantity, lineItemId } = item;
 
-    const handleQuantityChange = (newQuantity) => {
+    const handleQuantityChange = newQuantity => {
         if (newQuantity === 0) {
             onRemove(lineItemId);
         } else if (newQuantity > 0) {
@@ -51,7 +51,7 @@ export function CartItem({ item, onUpdateQuantity, onRemove, isLoading }) {
                     {/* Variant pills - ciemny zielony jak na przykładzie */}
                     {item.selectedOptions?.length > 0 && (
                         <div className="flex flex-wrap gap-1.5 mt-1.5">
-                            {item.selectedOptions.map((option) => (
+                            {item.selectedOptions.map(option => (
                                 <span
                                     key={option.name}
                                     className="inline-flex items-center px-3 py-1 bg-[#3A5F55] text-white text-xs font-medium rounded-full"
@@ -73,7 +73,6 @@ export function CartItem({ item, onUpdateQuantity, onRemove, isLoading }) {
 
             {/* Bottom row */}
             <div className="flex items-center justify-between mt-4">
-
                 {/* QuantitySelector - SIZE SM (mniejszy!) */}
                 <QuantitySelector
                     quantity={quantity}

@@ -14,19 +14,15 @@ import { useState } from 'react';
 export function useToggleSet(initialItems = []) {
     const [items, setItems] = useState(initialItems);
 
-    const toggle = (item) => {
-        setItems(prev =>
-            prev.includes(item)
-                ? prev.filter(i => i !== item)
-                : [...prev, item]
-        );
+    const toggle = item => {
+        setItems(prev => (prev.includes(item) ? prev.filter(i => i !== item) : [...prev, item]));
     };
 
-    const add = (item) => {
-        setItems(prev => prev.includes(item) ? prev : [...prev, item]);
+    const add = item => {
+        setItems(prev => (prev.includes(item) ? prev : [...prev, item]));
     };
 
-    const remove = (item) => {
+    const remove = item => {
         setItems(prev => prev.filter(i => i !== item));
     };
 

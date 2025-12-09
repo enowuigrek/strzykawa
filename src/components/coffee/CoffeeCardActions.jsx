@@ -11,12 +11,7 @@ import { useCartStore } from '../../store/cartStore';
  * - Badge w dobrej pozycji (nie za nisko)
  * - Koszyk w dobrej wysokości (nie wypchany)
  */
-export function CoffeeCardActions({
-                                      coffee,
-                                      onQuickAdd,
-                                      isAdding,
-                                      justAdded
-                                  }) {
+export function CoffeeCardActions({ coffee, onQuickAdd, isAdding, justAdded }) {
     const { getItemQuantity } = useCartStore();
 
     // Ile sztuk tej kawy jest w koszyku
@@ -54,7 +49,7 @@ export function CoffeeCardActions({
 
             {/* Ikona koszyka - Quick Add */}
             <button
-                onClick={(e) => {
+                onClick={e => {
                     e.stopPropagation();
                     if (!isUnavailable) {
                         onQuickAdd && onQuickAdd();
@@ -69,11 +64,12 @@ export function CoffeeCardActions({
                     transition-all duration-300
                     disabled:opacity-50 disabled:cursor-not-allowed
                     rounded-r-full
-                    ${justAdded
-                        ? 'bg-success hover:bg-success-dark'
-                        : isUnavailable
-                            ? 'bg-white/5'
-                            : 'hover:bg-white/15'
+                    ${
+                        justAdded
+                            ? 'bg-success hover:bg-success-dark'
+                            : isUnavailable
+                              ? 'bg-white/5'
+                              : 'hover:bg-white/15'
                     }
                 `}
                 title={isUnavailable ? 'Produkt niedostępny' : 'Dodaj do koszyka'}

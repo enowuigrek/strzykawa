@@ -29,7 +29,7 @@ const LoginModal = ({ isOpen, onClose, onSwitchToRegister }) => {
 
     if (!isOpen) return null;
 
-    const handleSubmit = async (e) => {
+    const handleSubmit = async e => {
         e.preventDefault();
         setError('');
 
@@ -72,9 +72,10 @@ const LoginModal = ({ isOpen, onClose, onSwitchToRegister }) => {
 
                     md:left-1/2 md:top-1/2 md:-translate-x-1/2
 
-                    ${isAnimating
-                        ? 'bottom-0 translate-y-0 md:-translate-y-1/2 opacity-100'
-                        : 'bottom-0 translate-y-full md:translate-y-0 md:-translate-y-1/2 opacity-0'
+                    ${
+                        isAnimating
+                            ? 'bottom-0 translate-y-0 md:-translate-y-1/2 opacity-100'
+                            : 'bottom-0 translate-y-full md:translate-y-0 md:-translate-y-1/2 opacity-0'
                     }
                 `}
             >
@@ -87,10 +88,12 @@ const LoginModal = ({ isOpen, onClose, onSwitchToRegister }) => {
                         <h2 className="text-xl text-white">Zaloguj się</h2>
                     </div>
                     {/* Close button - pojawia się PO animacji */}
-                    <div className={`
+                    <div
+                        className={`
                         transition-opacity duration-300 delay-300
                         ${isAnimating ? 'opacity-100' : 'opacity-0'}
-                    `}>
+                    `}
+                    >
                         <CloseButton onClick={onClose} />
                     </div>
                 </div>
@@ -98,7 +101,6 @@ const LoginModal = ({ isOpen, onClose, onSwitchToRegister }) => {
                 {/* Form - scrollable content */}
                 <div className="flex-1 overflow-y-auto">
                     <form onSubmit={handleSubmit} className="p-6">
-
                         {/* Error Message */}
                         {error && (
                             <div className="mb-4 p-3 bg-red-500/20 border border-red-500/30 text-red-300 text-sm">
@@ -108,7 +110,10 @@ const LoginModal = ({ isOpen, onClose, onSwitchToRegister }) => {
 
                         {/* Email Field */}
                         <div className="mb-4">
-                            <label htmlFor="email" className="block text-sm font-semibold text-muted mb-2">
+                            <label
+                                htmlFor="email"
+                                className="block text-sm font-semibold text-muted mb-2"
+                            >
                                 E-mail
                             </label>
                             <div className="relative">
@@ -119,7 +124,7 @@ const LoginModal = ({ isOpen, onClose, onSwitchToRegister }) => {
                                     type="email"
                                     id="email"
                                     value={email}
-                                    onChange={(e) => setEmail(e.target.value)}
+                                    onChange={e => setEmail(e.target.value)}
                                     className="w-full pl-10 pr-4 py-3 bg-primary/50 border border-white/20 text-white placeholder-muted/70 focus:border-accent focus:ring-2 focus:ring-accent/20 transition-all duration-300"
                                     placeholder="twoj@email.com"
                                     required
@@ -129,7 +134,10 @@ const LoginModal = ({ isOpen, onClose, onSwitchToRegister }) => {
 
                         {/* Password Field */}
                         <div className="mb-6">
-                            <label htmlFor="password" className="block text-sm font-semibold text-muted mb-2">
+                            <label
+                                htmlFor="password"
+                                className="block text-sm font-semibold text-muted mb-2"
+                            >
                                 Hasło
                             </label>
                             <div className="relative">
@@ -140,7 +148,7 @@ const LoginModal = ({ isOpen, onClose, onSwitchToRegister }) => {
                                     type={showPassword ? 'text' : 'password'}
                                     id="password"
                                     value={password}
-                                    onChange={(e) => setPassword(e.target.value)}
+                                    onChange={e => setPassword(e.target.value)}
                                     className="w-full pl-10 pr-12 py-3 bg-primary/50 border border-white/20 text-white placeholder-muted/70 focus:border-accent focus:ring-2 focus:ring-accent/20 transition-all duration-300"
                                     placeholder="Twoje hasło"
                                     required
@@ -150,7 +158,11 @@ const LoginModal = ({ isOpen, onClose, onSwitchToRegister }) => {
                                     onClick={() => setShowPassword(!showPassword)}
                                     className="absolute right-3 top-1/2 transform -translate-y-1/2 text-muted hover:text-white transition-colors duration-300"
                                 >
-                                    {showPassword ? <FaEyeSlash className="w-4 h-4" /> : <FaEye className="w-4 h-4" />}
+                                    {showPassword ? (
+                                        <FaEyeSlash className="w-4 h-4" />
+                                    ) : (
+                                        <FaEye className="w-4 h-4" />
+                                    )}
                                 </button>
                             </div>
                         </div>

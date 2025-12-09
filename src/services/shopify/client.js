@@ -9,7 +9,7 @@ class ShopifyClient {
         if (!this.domain || !this.storefrontToken) {
             throw new Error(
                 '❌ Shopify credentials not configured!\n' +
-                'Check .env file and ensure VITE_SHOPIFY_DOMAIN and VITE_SHOPIFY_STOREFRONT_TOKEN are set.'
+                    'Check .env file and ensure VITE_SHOPIFY_DOMAIN and VITE_SHOPIFY_STOREFRONT_TOKEN are set.'
             );
         }
 

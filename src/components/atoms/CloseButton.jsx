@@ -1,10 +1,6 @@
 import React from 'react';
 
-export function CloseButton({
-                                onClick,
-                                className = '',
-                                ariaLabel = 'Zamknij'
-                            }) {
+export function CloseButton({ onClick, className = '', ariaLabel = 'Zamknij' }) {
     return (
         <button
             onClick={onClick}
@@ -25,7 +21,8 @@ export function CloseButton({
             aria-label={ariaLabel}
         >
             {/* Top line - DOKŁADNIE jak MobileMenuToggle isOpen */}
-            <span className="
+            <span
+                className="
                 block
                 w-6
                 h-0.5
@@ -35,10 +32,12 @@ export function CloseButton({
                 transition-all
                 duration-200
                 group-hover:w-7
-            "></span>
+            "
+            ></span>
 
             {/* Middle line - hidden jak w MobileMenuToggle isOpen */}
-            <span className="
+            <span
+                className="
                 block
                 w-6
                 h-0.5
@@ -48,10 +47,12 @@ export function CloseButton({
                 transition-all
                 duration-200
                 group-hover:w-7
-            "></span>
+            "
+            ></span>
 
             {/* Bottom line - DOKŁADNIE jak MobileMenuToggle isOpen */}
-            <span className="
+            <span
+                className="
                 block
                 w-6
                 h-0.5
@@ -62,7 +63,8 @@ export function CloseButton({
                 transition-all
                 duration-200
                 group-hover:w-7
-            "></span>
+            "
+            ></span>
         </button>
     );
 }

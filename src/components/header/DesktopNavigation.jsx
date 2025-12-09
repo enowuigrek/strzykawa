@@ -7,7 +7,7 @@ export function DesktopNavigation() {
             className="hidden lg:flex items-center space-x-6 xl:space-x-8"
             aria-label="Główna nawigacja"
         >
-            {NAV_ITEMS.map((item) => (
+            {NAV_ITEMS.map(item => (
                 <NavLink
                     key={item.to}
                     to={item.to}

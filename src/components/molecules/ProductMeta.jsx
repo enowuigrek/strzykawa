@@ -4,7 +4,7 @@ import { COUNTRY_COLORS, DEFAULT_COUNTRY_COLOR } from '../../constants/colors.js
 /**
  * Helper: Kapitalizuje pierwszy wyraz w liście
  */
-const capitalizeFirst = (items) => {
+const capitalizeFirst = items => {
     if (!items || items.length === 0) return '';
     const capitalized = items.map((item, index) =>
         index === 0 ? item.charAt(0).toUpperCase() + item.slice(1) : item
@@ -21,9 +21,7 @@ export function ProductMeta({ coffee }) {
     const country = origin.country || '';
 
     // Check if it's a blend - either multiple origins OR comma-separated countries
-    const countries = country.includes(',')
-        ? country.split(',').map(c => c.trim())
-        : [country];
+    const countries = country.includes(',') ? country.split(',').map(c => c.trim()) : [country];
     const isBlend = countries.length > 1 || coffee?.origin?.length > 1;
 
     // Determine accent color/gradient
@@ -52,7 +50,7 @@ export function ProductMeta({ coffee }) {
     if (origin.country) {
         metaItems.push({
             label: 'Kraj',
-            value: origin.country
+            value: origin.country,
         });
     }
 
@@ -60,7 +58,7 @@ export function ProductMeta({ coffee }) {
     if (origin.region) {
         metaItems.push({
             label: 'Region',
-            value: origin.region
+            value: origin.region,
         });
     }
 
@@ -68,7 +66,7 @@ export function ProductMeta({ coffee }) {
     if (origin.processing) {
         metaItems.push({
             label: 'Obróbka',
-            value: origin.processing
+            value: origin.processing,
         });
     }
 
@@ -76,7 +74,7 @@ export function ProductMeta({ coffee }) {
     if (origin.variety && origin.variety.length > 0) {
         metaItems.push({
             label: 'Odmiana',
-            value: origin.variety.join(', ')
+            value: origin.variety.join(', '),
         });
     }
 
@@ -84,7 +82,7 @@ export function ProductMeta({ coffee }) {
     if (coffee.tastingNotes && coffee.tastingNotes.length > 0) {
         metaItems.push({
             label: 'Profil',
-            value: capitalizeFirst(coffee.tastingNotes)
+            value: capitalizeFirst(coffee.tastingNotes),
         });
     }
 
@@ -98,7 +96,7 @@ export function ProductMeta({ coffee }) {
             <div
                 className="w-1 flex-shrink-0"
                 style={{
-                    background: accentStyle
+                    background: accentStyle,
                 }}
             />
 
@@ -110,14 +108,10 @@ export function ProductMeta({ coffee }) {
                             <div className="text-muted text-base font-medium w-32">
                                 {item.label}:
                             </div>
-                            <div className="text-white text-base flex-1">
-                                {item.value}
-                            </div>
+                            <div className="text-white text-base flex-1">{item.value}</div>
                         </div>
                         {/* Separator odsunięty od obu krawędzi */}
-                        {index < metaItems.length - 1 && (
-                            <div className="h-px bg-white/10 mx-4" />
-                        )}
+                        {index < metaItems.length - 1 && <div className="h-px bg-white/10 mx-4" />}
                     </div>
                 ))}
             </div>

@@ -41,9 +41,7 @@ function AuthenticatedUser({ user, onLogout }) {
         <div className="flex items-center">
             <div className="flex items-center space-x-2 px-4 py-2">
                 <FaUser className="w-4 h-4 text-accent" />
-                <span className="text-white text-sm font-medium">
-                    {user?.firstName}
-                </span>
+                <span className="text-white text-sm font-medium">{user?.firstName}</span>
             </div>
             <button
                 onClick={onLogout}

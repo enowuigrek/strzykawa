@@ -2,7 +2,7 @@ import React from 'react';
 import { ContactInfo } from '../components/features/contact/ContactInfo';
 import { ContactMap } from '../components/features/contact/ContactMap';
 import { useScrollToTop } from '../hooks/useScrollToTop';
-import { PageLayout } from "../components/layout/PageLayout.jsx";
+import { PageLayout } from '../components/layout/PageLayout.jsx';
 
 export function Contact() {
     useScrollToTop();
@@ -12,9 +12,7 @@ export function Contact() {
             title="Kontakt & Lokalizacja"
             description="Znajdź nas w sercu miasta. Zapraszamy na kawę i rozmowę o najlepszych ziarnach z całego świata. Odwiedź także naszą palarnię i zobacz jak powstają nasze kawy specialty."
         >
-
             <div className="container space-y-8 lg:space-y-0 lg:grid lg:grid-cols-5 lg:gap-8 py-8">
-
                 {/* Contact Information - zajmuje 3/5 na desktop */}
                 <div className="lg:col-span-3">
                     <ContactInfo />

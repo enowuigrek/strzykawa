@@ -5,7 +5,6 @@ export function ComingSoon() {
     return (
         <div className="min-h-screen bg-primary flex items-center justify-center px-4 py-12">
             <div className="max-w-4xl mx-auto text-center">
-
                 {/* Logo vertical */}
                 <div className="mb-12 flex justify-center">
                     <img
@@ -13,7 +12,7 @@ export function ComingSoon() {
                         alt="Strzykawa Coffee Shop & Roastery"
                         className="h-64 md:h-80 w-auto"
                         style={{
-                            filter: 'brightness(0) saturate(100%) invert(100%)'
+                            filter: 'brightness(0) saturate(100%) invert(100%)',
                         }}
                     />
                 </div>
@@ -25,16 +24,14 @@ export function ComingSoon() {
                     </p>
                     <p className="text-lg text-muted max-w-2xl mx-auto">
                         Już wkrótce uruchomimy nasz sklep online!
-                        <br/>
+                        <br />
                         Będziesz mógł zamówić swoją ulubioną kawę z dostawą do domu.
                     </p>
                 </div>
 
                 {/* CTA - Odwiedź kawiarnię */}
                 <div className="mb-16 pb-8 border-b border-white/10">
-                    <p className="text-white/90 mb-4">
-                        Tymczasem zapraszamy do kawiarni!
-                    </p>
+                    <p className="text-white/90 mb-4">Tymczasem zapraszamy do kawiarni!</p>
                     <div className="flex flex-col sm:flex-row gap-4 justify-center">
                         <a
                             href="https://maps.app.goo.gl/TkVzjmw5Z8tXtYiq8"
@@ -53,9 +50,7 @@ export function ComingSoon() {
 
                 {/* Social Media */}
                 <div>
-                    <p className="text-white/90 mb-6">
-                        Śledź nas w mediach społecznościowych:
-                    </p>
+                    <p className="text-white/90 mb-6">Śledź nas w mediach społecznościowych:</p>
                     <div className="flex items-center justify-center gap-4">
                         <a
                             href="https://www.facebook.com/StrzykawaCoffeeShop"

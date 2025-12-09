@@ -1,11 +1,5 @@
 import React from 'react';
-import {
-    FaFacebookF,
-    FaInstagram,
-    FaMapMarkerAlt,
-    FaPhone,
-    FaEnvelope
-} from 'react-icons/fa';
+import { FaFacebookF, FaInstagram, FaMapMarkerAlt, FaPhone, FaEnvelope } from 'react-icons/fa';
 import { SiShopify, SiReact } from 'react-icons/si';
 import { BiCoffeeTogo } from 'react-icons/bi';
 
@@ -17,46 +11,46 @@ export function Footer() {
             icon: FaFacebookF,
             href: 'https://www.facebook.com/StrzykawaCoffeeShop/',
             label: 'Facebook',
-            hoverColor: 'hover:text-blue-500'
+            hoverColor: 'hover:text-blue-500',
         },
         {
             icon: FaInstagram,
             href: 'https://www.instagram.com/strzykawa_coffee_shop/',
             label: 'Instagram',
-            hoverColor: 'hover:text-pink-500'
-        }
+            hoverColor: 'hover:text-pink-500',
+        },
     ];
 
     const contactInfo = [
         {
             icon: FaPhone,
             text: '+48 668 011 806',
-            href: 'tel:+48668011806'
+            href: 'tel:+48668011806',
         },
         {
             icon: FaEnvelope,
             text: 'kontakt@strzykawa.com',
-            href: 'mailto:kontakt@strzykawa.com'
-        }
+            href: 'mailto:kontakt@strzykawa.com',
+        },
     ];
 
     const legalLinks = [
         { label: 'Regulamin sklepu', href: '/regulamin' },
         { label: 'Polityka prywatności', href: '/polityka-prywatnosci' },
-        { label: 'Polityka cookies', href: '/polityka-cookies' }
+        { label: 'Polityka cookies', href: '/polityka-cookies' },
     ];
 
     const quickLinks = [
         { label: 'Kawy', href: '/kawy' },
         { label: 'O Strzykawie', href: '/o-nas' },
         { label: 'Kontakt', href: '/kontakt' },
-        { label: 'Współpraca B2B', href: '/b2b' }
+        { label: 'Współpraca B2B', href: '/b2b' },
     ];
 
     const locationInfo = {
         address: 'ul. Dąbrowskiego 4',
         city: '42-200 Częstochowa',
-        hours: 'Pn-Pt: 8:00 - 18:00, Sb-Nd: 10:00 - 16:00'
+        hours: 'Pn-Pt: 8:00 - 18:00, Sb-Nd: 10:00 - 16:00',
     };
 
     return (
@@ -140,7 +134,8 @@ export function Footer() {
                             <div className="text-sm text-white/70 space-y-1">
                                 <div className="text-white/90">Godziny otwarcia:</div>
                                 <div className="text-xs leading-relaxed">
-                                    Pn-Pt: 8:00 - 18:00<br />
+                                    Pn-Pt: 8:00 - 18:00
+                                    <br />
                                     Sb-Nd: 10:00 - 16:00
                                 </div>
                             </div>

@@ -4,7 +4,9 @@ import { Section, SpacingRow } from '../helpers';
 export function SpacingSection() {
     return (
         <Section id="spacing" title="Odstepy">
-            <p className="text-muted mb-6">Standardowa skala Tailwind - najczesciej uzywane wartosci</p>
+            <p className="text-muted mb-6">
+                Standardowa skala Tailwind - najczesciej uzywane wartosci
+            </p>
             <div className="space-y-4">
                 <SpacingRow size="2" px="8px" usage="gap-2, p-2" />
                 <SpacingRow size="3" px="12px" usage="gap-3, p-3" />

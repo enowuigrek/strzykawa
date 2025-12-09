@@ -4,15 +4,15 @@ import { useAuthStore } from '../../store/authStore.js';
 import { NAV_ITEMS } from '../../constants/navigation.js';
 
 export function MobileNavigation({
-                                     isOpen,
-                                     onClose,
-                                     cartItemsCount,
-                                     isCartOpen,
-                                     isLoginOpen,
-                                     onOpenCart,
-                                     onOpenLogin,
-                                     onLogout
-                                 }) {
+    isOpen,
+    onClose,
+    cartItemsCount,
+    isCartOpen,
+    isLoginOpen,
+    onOpenCart,
+    onOpenLogin,
+    onLogout,
+}) {
     const { user, isAuthenticated } = useAuthStore();
 
     return (
@@ -33,7 +33,7 @@ export function MobileNavigation({
                 aria-label="Menu mobilne"
             >
                 {/* Navigation Links */}
-                {NAV_ITEMS.map((item) => (
+                {NAV_ITEMS.map(item => (
                     <NavLink
                         key={item.to}
                         to={item.to}
@@ -50,8 +50,14 @@ export function MobileNavigation({
                     cartItemsCount={cartItemsCount}
                     isCartOpen={isCartOpen}
                     isLoginOpen={isLoginOpen}
-                    onOpenCart={() => { onOpenCart(); onClose(); }}
-                    onOpenLogin={() => { onOpenLogin(); onClose(); }}
+                    onOpenCart={() => {
+                        onOpenCart();
+                        onClose();
+                    }}
+                    onOpenLogin={() => {
+                        onOpenLogin();
+                        onClose();
+                    }}
                     onLogout={onLogout}
                     user={user}
                     isAuthenticated={isAuthenticated}
@@ -81,15 +87,15 @@ function getMobileNavLinkClasses({ isActive }) {
 }
 
 function MobileActionsSection({
-                                  cartItemsCount,
-                                  isCartOpen,
-                                  isLoginOpen,
-                                  onOpenCart,
-                                  onOpenLogin,
-                                  onLogout,
-                                  user,
-                                  isAuthenticated
-                              }) {
+    cartItemsCount,
+    isCartOpen,
+    isLoginOpen,
+    onOpenCart,
+    onOpenLogin,
+    onLogout,
+    user,
+    isAuthenticated,
+}) {
     return (
         <div className="pt-4 border-t border-white/10 space-y-3">
             {/* Cart - podświetlony gdy otwarty */}
@@ -97,10 +103,7 @@ function MobileActionsSection({
                 onClick={onOpenCart}
                 className={`
                     flex items-center space-x-3 px-4 py-3 rounded-full w-full text-left transition-all duration-300
-                    ${isCartOpen
-                    ? 'bg-cta/20 text-white'
-                    : 'text-white hover:bg-white/5'
-                }
+                    ${isCartOpen ? 'bg-cta/20 text-white' : 'text-white hover:bg-white/5'}
                 `}
                 aria-label={`Otwórz koszyk (${cartItemsCount} produktów)`}
             >
@@ -123,10 +126,7 @@ function MobileActionsSection({
                     onClick={onOpenLogin}
                     className={`
                         flex items-center space-x-3 px-4 py-3 rounded-full w-full text-left transition-all duration-300
-                        ${isLoginOpen
-                        ? 'bg-cta/20 text-white'
-                        : 'text-white hover:bg-accent/20'
-                    }
+                        ${isLoginOpen ? 'bg-cta/20 text-white' : 'text-white hover:bg-accent/20'}
                     `}
                     aria-label="Zaloguj się"
                 >
@@ -146,7 +146,9 @@ function MobileAuthenticatedUser({ user, onLogout }) {
         <div className="space-y-2">
             <div className="flex items-center space-x-3 px-4 py-3 bg-white/5 rounded-lg">
                 <FaUser className="w-4 h-4 text-accent" />
-                <span className="text-white">{user?.firstName} {user?.lastName}</span>
+                <span className="text-white">
+                    {user?.firstName} {user?.lastName}
+                </span>
             </div>
             <button
                 onClick={onLogout}

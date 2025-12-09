@@ -36,7 +36,7 @@ export const useCartStore = create(
 
             // Map Shopify cart to our items format
             // 🔥 FIXED: Używa variant.selectedOptions z GraphQL (nie z attributes!)
-            mapCartToItems: (cart) => {
+            mapCartToItems: cart => {
                 if (!cart?.lines?.edges) return [];
 
                 return cart.lines.edges.map(({ node: line }) => {
@@ -49,16 +49,22 @@ export const useCartStore = create(
                         product: {
                             id: variant.product.id,
                             name: variant.product.title,
-                            roastLevel: line.attributes?.find(attr => attr.key === 'roast_level')?.value || '',
+                            roastLevel:
+                                line.attributes?.find(attr => attr.key === 'roast_level')?.value ||
+                                '',
                             tastingNotes: [],
-                            image: variant.image?.url || variant.product.featuredImage?.url || variant.product.images?.edges?.[0]?.node?.url || '',
+                            image:
+                                variant.image?.url ||
+                                variant.product.featuredImage?.url ||
+                                variant.product.images?.edges?.[0]?.node?.url ||
+                                '',
                             price: parseFloat(variant.price.amount),
-                            currencyCode: variant.price.currencyCode
+                            currencyCode: variant.price.currencyCode,
                         },
                         variantId: variant.id,
                         variantTitle: variant.title,
                         selectedOptions: selectedOptions,
-                        quantity: line.quantity
+                        quantity: line.quantity,
                     };
                 });
             },
@@ -75,34 +81,35 @@ export const useCartStore = create(
                         throw new Error('Brak koszyka');
                     }
 
-                    const lines = [{
-                        merchandiseId: variantId,
-                        quantity: quantity,
-                        attributes: [
-                            { key: 'product_name', value: product.name },
-                            { key: 'roast_level', value: product.roastLevel || '' },
-                        ]
-                    }];
+                    const lines = [
+                        {
+                            merchandiseId: variantId,
+                            quantity: quantity,
+                            attributes: [
+                                { key: 'product_name', value: product.name },
+                                { key: 'roast_level', value: product.roastLevel || '' },
+                            ],
+                        },
+                    ];
 
                     const updatedCart = await shopify.addToCart(cart.id, lines);
 
                     set({
                         cart: updatedCart,
                         items: get().mapCartToItems(updatedCart),
-                        isLoading: false
+                        isLoading: false,
                     });
-
                 } catch (error) {
                     logger.error('Error adding to cart:', error);
                     set({
                         error: 'Nie udało się dodać produktu do koszyka',
-                        isLoading: false
+                        isLoading: false,
                     });
                 }
             },
 
             // Remove item from cart
-            removeItem: async (lineId) => {
+            removeItem: async lineId => {
                 set({ isLoading: true, error: null });
 
                 try {
@@ -114,13 +121,13 @@ export const useCartStore = create(
                     set({
                         cart: updatedCart,
                         items: get().mapCartToItems(updatedCart),
-                        isLoading: false
+                        isLoading: false,
                     });
                 } catch (error) {
                     logger.error('Error removing from cart:', error);
                     set({
                         error: 'Nie udało się usunąć produktu',
-                        isLoading: false
+                        isLoading: false,
                     });
                 }
             },
@@ -133,23 +140,25 @@ export const useCartStore = create(
                     const { cart } = get();
                     if (!cart) throw new Error('Brak koszyka');
 
-                    const lines = [{
-                        id: lineId,
-                        quantity: newQuantity
-                    }];
+                    const lines = [
+                        {
+                            id: lineId,
+                            quantity: newQuantity,
+                        },
+                    ];
 
                     const updatedCart = await shopify.updateCartLines(cart.id, lines);
 
                     set({
                         cart: updatedCart,
                         items: get().mapCartToItems(updatedCart),
-                        isLoading: false
+                        isLoading: false,
                     });
                 } catch (error) {
                     logger.error('Error updating quantity:', error);
                     set({
                         error: 'Nie udało się zaktualizować ilości',
-                        isLoading: false
+                        isLoading: false,
                     });
                 }
             },
@@ -201,7 +210,7 @@ export const useCartStore = create(
 
                 const { items } = get();
                 return items.reduce((total, item) => {
-                    return total + (item.product.price * item.quantity);
+                    return total + item.product.price * item.quantity;
                 }, 0);
             },
 
@@ -224,26 +233,26 @@ export const useCartStore = create(
                 }
             },
 
-            isInCart: (productId) => {
+            isInCart: productId => {
                 const { items } = get();
                 return items.some(item => item.product.id === productId);
             },
 
-            getItemQuantity: (productId) => {
+            getItemQuantity: productId => {
                 const { items } = get();
                 const item = items.find(item => item.product.id === productId);
                 return item ? item.quantity : 0;
-            }
+            },
         }),
         {
             name: 'strzykawa-cart',
-            partialize: (state) => ({
+            partialize: state => ({
                 cart: state.cart,
                 items: state.items,
                 // ✅ zapisujemy status checkoutu w localStorage
-                status: state.status
+                status: state.status,
             }),
-            version: 1
+            version: 1,
         }
     )
 );

@@ -5,7 +5,7 @@ import { CoffeeOverlay } from './CoffeeOverlay';
 import coffeePlaceholder from '../../assets/coffee-placeholder.jpg';
 
 export function CoffeeCardMedia({ coffee, overlayOpen, onToggleOverlay }) {
-    const getRoastTypeDisplay = (roastType) => {
+    const getRoastTypeDisplay = roastType => {
         const mapping = { Filter: 'Przelew', Espresso: 'Espresso' };
         return mapping[roastType] || roastType || '';
     };
@@ -47,9 +47,11 @@ export function CoffeeCardMedia({ coffee, overlayOpen, onToggleOverlay }) {
                         shadow-lg transform rotate-12
                         transition-opacity duration-300
                         pointer-events-none
-                        ${coffee.roastType === 'Filter'
-                        ? 'bg-badge-blue text-white'
-                        : 'bg-badge-orange text-white'}
+                        ${
+                            coffee.roastType === 'Filter'
+                                ? 'bg-badge-blue text-white'
+                                : 'bg-badge-orange text-white'
+                        }
                     `}
                     aria-label={getRoastTypeDisplay(coffee.roastType)}
                 >
@@ -60,7 +62,7 @@ export function CoffeeCardMedia({ coffee, overlayOpen, onToggleOverlay }) {
             )}
 
             <button
-                onClick={(e) => {
+                onClick={e => {
                     e.preventDefault();
                     e.stopPropagation();
                     onToggleOverlay();

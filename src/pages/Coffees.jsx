@@ -1,7 +1,7 @@
 import React, { useState, useMemo, useEffect } from 'react';
 import { shopify } from '../services/shopify';
 import { logger } from '../utils/logger';
-import { PageLayout } from "../components/layout/PageLayout.jsx";
+import { PageLayout } from '../components/layout/PageLayout.jsx';
 import { CoffeeFilterBar } from '../components/organisms/CoffeeFilterBar';
 import { CoffeeGrid } from '../components/organisms/CoffeeGrid';
 import { FilterDrawer } from '../components/organisms/FilterDrawer';
@@ -50,32 +50,35 @@ export function Coffees() {
 
     // ========== FILTERING (+ SEARCH) ==========
     const filteredCoffees = useMemo(() => {
-        return products.filter((coffee) => {
+        return products.filter(coffee => {
             // Roast type filter
             const matchesRoastType = !selectedRoastType || coffee.roastType === selectedRoastType;
 
             // Country filter
-            const matchesCountry = !selectedCountry ||
-                coffee.origin.some(o => o.country === selectedCountry);
+            const matchesCountry =
+                !selectedCountry || coffee.origin.some(o => o.country === selectedCountry);
 
             // Processing filter
-            const matchesProcessing = !selectedProcessing ||
-                coffee.origin.some(o => o.processing === selectedProcessing);
+            const matchesProcessing =
+                !selectedProcessing || coffee.origin.some(o => o.processing === selectedProcessing);
 
             // Search filter - comprehensive (title, roast type, country, processing, variety, tasting notes)
             const searchLower = searchQuery.toLowerCase();
             // Alias: przelew → filter
             const normalizedSearch = searchLower === 'przelew' ? 'filter' : searchLower;
 
-            const matchesSearch = !searchQuery ||
+            const matchesSearch =
+                !searchQuery ||
                 coffee.title?.toLowerCase().includes(normalizedSearch) ||
                 coffee.name?.toLowerCase().includes(normalizedSearch) ||
                 coffee.roastType?.toLowerCase().includes(normalizedSearch) ||
                 coffee.tastingNotes?.some(note => note.toLowerCase().includes(normalizedSearch)) ||
-                coffee.origin?.some(o =>
-                    (o.country && o.country.toLowerCase().includes(normalizedSearch)) ||
-                    (o.processing && o.processing.toLowerCase().includes(normalizedSearch)) ||
-                    (o.variety && o.variety.some(v => v.toLowerCase().includes(normalizedSearch)))
+                coffee.origin?.some(
+                    o =>
+                        (o.country && o.country.toLowerCase().includes(normalizedSearch)) ||
+                        (o.processing && o.processing.toLowerCase().includes(normalizedSearch)) ||
+                        (o.variety &&
+                            o.variety.some(v => v.toLowerCase().includes(normalizedSearch)))
                 );
 
             return matchesRoastType && matchesCountry && matchesProcessing && matchesSearch;
@@ -100,15 +103,23 @@ export function Coffees() {
 
         return {
             roastTypes: [
-                { value: 'Espresso', label: 'Espresso', count: products.filter(c => c.roastType === 'Espresso').length },
-                { value: 'Filter', label: 'Przelew', count: products.filter(c => c.roastType === 'Filter').length }
+                {
+                    value: 'Espresso',
+                    label: 'Espresso',
+                    count: products.filter(c => c.roastType === 'Espresso').length,
+                },
+                {
+                    value: 'Filter',
+                    label: 'Przelew',
+                    count: products.filter(c => c.roastType === 'Filter').length,
+                },
             ],
             countries: Array.from(countryMap.entries())
                 .map(([value, count]) => ({ value, label: value, count }))
                 .sort((a, b) => b.count - a.count),
             processing: Array.from(procMap.entries())
                 .map(([value, count]) => ({ value, label: value, count }))
-                .sort((a, b) => b.count - a.count)
+                .sort((a, b) => b.count - a.count),
         };
     }, [products]);
 
@@ -173,8 +184,8 @@ export function Coffees() {
             {/* Filter Bar - Sticky */}
             <CoffeeFilterBar
                 selectedRoastType={selectedRoastType}
-                onRoastTypeChange={(type) =>
-                    setSelectedRoastType((prev) => (prev === type ? '' : type))
+                onRoastTypeChange={type =>
+                    setSelectedRoastType(prev => (prev === type ? '' : type))
                 }
                 onSearchChange={setSearchQuery} // NOWE: search handler
                 selectedCountry={selectedCountry}
@@ -195,10 +206,7 @@ export function Coffees() {
 
             {/* ✅ FIX #3: Coffee Grid z CONTAINER WRAPPEREM */}
             <div className="container mx-auto max-w-7xl px-4 mt-8">
-                <CoffeeGrid
-                    coffees={filteredCoffees}
-                    onClearFilters={handleClearFilters}
-                />
+                <CoffeeGrid coffees={filteredCoffees} onClearFilters={handleClearFilters} />
             </div>
 
             {/* Filter Drawer - Mobile */}
@@ -212,7 +220,7 @@ export function Coffees() {
                         options: filterData.countries.map(c => ({
                             id: c.value.toLowerCase(),
                             label: c.label,
-                            count: c.count
+                            count: c.count,
                         })),
                         defaultOpen: true,
                     },
@@ -222,7 +230,7 @@ export function Coffees() {
                         options: filterData.processing.map(p => ({
                             id: p.value.toLowerCase(),
                             label: p.label,
-                            count: p.count
+                            count: p.count,
                         })),
                         defaultOpen: false,
                     },
@@ -233,10 +241,14 @@ export function Coffees() {
                 }}
                 onFilterToggle={(sectionId, filterId) => {
                     if (sectionId === 'countries') {
-                        const country = filterData.countries.find(c => c.value.toLowerCase() === filterId)?.value;
+                        const country = filterData.countries.find(
+                            c => c.value.toLowerCase() === filterId
+                        )?.value;
                         setSelectedCountry(selectedCountry === country ? '' : country);
                     } else if (sectionId === 'processing') {
-                        const processing = filterData.processing.find(p => p.value.toLowerCase() === filterId)?.value;
+                        const processing = filterData.processing.find(
+                            p => p.value.toLowerCase() === filterId
+                        )?.value;
                         setSelectedProcessing(selectedProcessing === processing ? '' : processing);
                     }
                 }}

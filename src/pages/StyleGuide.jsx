@@ -14,7 +14,7 @@ import {
     ZIndexSection,
     AnimationsSection,
     TimingsSection,
-    RulesSection
+    RulesSection,
 } from '../components/styleguide/sections';
 
 /**
@@ -50,13 +50,11 @@ export default function StyleGuide() {
         setTimeout(() => setShowSuccess(false), FEEDBACK_DURATION.SUCCESS);
     };
 
-    const toggleChip = (id) => {
-        setActiveChips(prev =>
-            prev.includes(id) ? prev.filter(c => c !== id) : [...prev, id]
-        );
+    const toggleChip = id => {
+        setActiveChips(prev => (prev.includes(id) ? prev.filter(c => c !== id) : [...prev, id]));
     };
 
-    const scrollToSection = (id) => {
+    const scrollToSection = id => {
         setActiveSection(id);
         const element = document.getElementById(id);
         if (element) {

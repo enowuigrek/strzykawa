@@ -12,7 +12,7 @@ export function CartModal({ isOpen, onClose }) {
         updateQuantity,
         goToCheckout,
         getTotalItems,
-        getTotalPrice
+        getTotalPrice,
     } = useCartStore();
 
     const [isAnimating, setIsAnimating] = useState(false);
@@ -54,9 +54,10 @@ export function CartModal({ isOpen, onClose }) {
                     z-[200] shadow-2xl flex flex-col
                     transition-all duration-300 ease-out
 
-                    ${isAnimating
-                        ? 'right-0 bottom-0 md:translate-x-0 translate-y-0'
-                        : 'right-0 md:translate-x-full bottom-0 translate-y-full md:translate-y-0'
+                    ${
+                        isAnimating
+                            ? 'right-0 bottom-0 md:translate-x-0 translate-y-0'
+                            : 'right-0 md:translate-x-full bottom-0 translate-y-full md:translate-y-0'
                     }
                 `}
             >

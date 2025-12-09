@@ -9,7 +9,7 @@ import TeamPhoto from '../assets/history/damian_karolina.jpg';
 import { useScrollToTop } from '../hooks/useScrollToTop';
 import { FaMapMarkerAlt, FaShoppingBag } from 'react-icons/fa';
 import { Button } from '../components/atoms/Button';
-import { PageLayout } from "../components/layout/PageLayout.jsx";
+import { PageLayout } from '../components/layout/PageLayout.jsx';
 import { TimelineSection } from '../components/molecules/TimelineSection';
 import { TimelineBar } from '../components/organisms/TimelineBar';
 import { SCROLL_THRESHOLDS } from '../constants/timings.js';
@@ -43,35 +43,39 @@ export function About() {
 
     const timelineData = [
         {
-            year: "2020",
-            title: "Początek podróży",
-            content: "Otwieramy kawiarnię na Dąbrowskiego 4 w Częstochowie. Rozpoczynamy skromnie, do tego w okresie szalejącej pandemii. Zaczynamy serwować Częstochowianom kawę wysokiej jakości z zaprzyjaźnionych Polskich palarni.",
-            images: [OpenImage]
+            year: '2020',
+            title: 'Początek podróży',
+            content:
+                'Otwieramy kawiarnię na Dąbrowskiego 4 w Częstochowie. Rozpoczynamy skromnie, do tego w okresie szalejącej pandemii. Zaczynamy serwować Częstochowianom kawę wysokiej jakości z zaprzyjaźnionych Polskich palarni.',
+            images: [OpenImage],
         },
         {
-            year: "2022",
-            title: "Rozbudowa i rozwój",
-            content: "Przeprowadzamy remont w lokalu zwiększając ilość miejsc siedzących. Przystosowujemy kuchnię i zaczynamy wypiekać słodkości. To czas gdy Strzykawa staje się nie tylko kawiarnią, ale miejscem spotkań lokalnej społeczności.",
-            images: [TeamPhoto]
+            year: '2022',
+            title: 'Rozbudowa i rozwój',
+            content:
+                'Przeprowadzamy remont w lokalu zwiększając ilość miejsc siedzących. Przystosowujemy kuchnię i zaczynamy wypiekać słodkości. To czas gdy Strzykawa staje się nie tylko kawiarnią, ale miejscem spotkań lokalnej społeczności.',
+            images: [TeamPhoto],
         },
         {
-            year: "2023",
-            title: "Pierwszy krok w roasting",
-            content: "Kupujemy mały elektryczny piec do wypalania kawy z maksymalnym zasypem 1 kg i jednocześnie wkraczamy w nowy świat. Szkolimy się w zakresie roastingu, następnie zaczynamy paczkować i sprzedawać własną kawę.",
-            images: [FirstRoaster]
+            year: '2023',
+            title: 'Pierwszy krok w roasting',
+            content:
+                'Kupujemy mały elektryczny piec do wypalania kawy z maksymalnym zasypem 1 kg i jednocześnie wkraczamy w nowy świat. Szkolimy się w zakresie roastingu, następnie zaczynamy paczkować i sprzedawać własną kawę.',
+            images: [FirstRoaster],
         },
         {
-            year: "2024",
-            title: "Palarnia kawy",
-            content: "Kupujemy większy piec i wynajmujemy kolejny lokal kilka kilometrów za Częstochową. Przystosowujemy i tworzymy palarnię kawy.",
-            images: [Roastery]
+            year: '2024',
+            title: 'Palarnia kawy',
+            content:
+                'Kupujemy większy piec i wynajmujemy kolejny lokal kilka kilometrów za Częstochową. Przystosowujemy i tworzymy palarnię kawy.',
+            images: [Roastery],
         },
         {
-            year: "2025",
-            title: "Nowy rozdział",
-            content: "Zmieniamy branding opakowań i robimy pierwszy otwarty cupping w palarni.",
-            images: [Branding, Branding2, Branding5]
-        }
+            year: '2025',
+            title: 'Nowy rozdział',
+            content: 'Zmieniamy branding opakowań i robimy pierwszy otwarty cupping w palarni.',
+            images: [Branding, Branding2, Branding5],
+        },
     ];
 
     const years = timelineData.map(item => item.year);
@@ -118,12 +122,7 @@ export function About() {
                                 Znajdź nas
                             </Button>
 
-                            <Button
-                                href="/kawy"
-                                icon={FaShoppingBag}
-                                variant="secondary"
-                                size="lg"
-                            >
+                            <Button href="/kawy" icon={FaShoppingBag} variant="secondary" size="lg">
                                 Zamów kawę
                             </Button>
                         </div>

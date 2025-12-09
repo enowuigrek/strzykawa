@@ -13,20 +13,28 @@ export function RulesSection() {
                 <Rule title="Rounded-full dla buttonow i badges" good>
                     <p className="text-muted mb-4">Wszystkie przyciski i count badges</p>
                     <div className="flex gap-4">
-                        <button className="px-6 py-2 bg-accent text-white rounded-full">Button</button>
-                        <span className="px-3 py-1 bg-success text-white rounded-full font-bold">3</span>
+                        <button className="px-6 py-2 bg-accent text-white rounded-full">
+                            Button
+                        </button>
+                        <span className="px-3 py-1 bg-success text-white rounded-full font-bold">
+                            3
+                        </span>
                     </div>
                 </Rule>
                 <Rule title="Count badges = bg-success" good>
                     <p className="text-muted mb-4">Liczniki zawsze zielone</p>
                     <div className="relative inline-block">
                         <FaShoppingCart className="w-8 h-8" />
-                        <span className="absolute -top-2 -right-2 bg-success text-white text-xs w-5 h-5 rounded-full flex items-center justify-center font-bold">3</span>
+                        <span className="absolute -top-2 -right-2 bg-success text-white text-xs w-5 h-5 rounded-full flex items-center justify-center font-bold">
+                            3
+                        </span>
                     </div>
                 </Rule>
                 <Rule title="Modals na z-[100]" good>
                     <p className="text-muted mb-4">Modale zawsze najwyzej</p>
-                    <span className="px-3 py-1 bg-primary-light border border-accent/30 text-sm font-mono">z-[100]</span>
+                    <span className="px-3 py-1 bg-primary-light border border-accent/30 text-sm font-mono">
+                        z-[100]
+                    </span>
                 </Rule>
                 <Rule title="Brak emotikon na stronie" good>
                     <p className="text-muted mb-4">Strona ma profesjonalny charakter</p>

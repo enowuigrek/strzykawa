@@ -11,7 +11,7 @@ export function CoffeeCardContent({ coffee }) {
             return { prefix: '', value: '0.00' };
         }
 
-        const prices = coffee.variants.map((v) => parseFloat(v.price));
+        const prices = coffee.variants.map(v => parseFloat(v.price));
         const minPrice = Math.min(...prices);
         const maxPrice = Math.max(...prices);
 
@@ -31,9 +31,7 @@ export function CoffeeCardContent({ coffee }) {
                 to={`/kawy/${coffee.shopifyHandle || coffee.id}`}
                 className="block hover:text-accent transition-colors"
             >
-                <h3 className="text-xl md:text-2xl text-white leading-tight">
-                    {coffee.name}
-                </h3>
+                <h3 className="text-xl md:text-2xl text-white leading-tight">{coffee.name}</h3>
             </Link>
 
             {/* Cena i status */}

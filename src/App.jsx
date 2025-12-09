@@ -4,20 +4,16 @@ import { ComingSoon } from './pages/ComingSoon.jsx';
 import { Header } from './components/layout/Header.jsx';
 import { Footer } from './components/layout/Footer.jsx';
 import { Home } from './pages/Home.jsx';
-import { Coffees }from './pages/Coffees.jsx';
+import { Coffees } from './pages/Coffees.jsx';
 import { CoffeeDetail } from './pages/CoffeeDetail.jsx';
-import { About } from "./pages/About.jsx";
-import { Contact } from "./pages/Contact.jsx";
+import { About } from './pages/About.jsx';
+import { Contact } from './pages/Contact.jsx';
 import { B2B } from './pages/B2B.jsx';
-import { TermsAndConditions } from "./pages/TermsAndConditions.jsx";
-import {
-    PrivacyPolicy,
-    CookiePolicy,
-    ShippingAndReturns
-} from './pages/LegalPages';
-import StyleGuide from "./pages/StyleGuide.jsx";
-import {CheckoutSuccess} from "./pages/CheckoutSuccess.jsx";
-import {CheckoutCanceled} from "./pages/CheckoutCanceled.jsx";
+import { TermsAndConditions } from './pages/TermsAndConditions.jsx';
+import { PrivacyPolicy, CookiePolicy, ShippingAndReturns } from './pages/LegalPages';
+import StyleGuide from './pages/StyleGuide.jsx';
+import { CheckoutSuccess } from './pages/CheckoutSuccess.jsx';
+import { CheckoutCanceled } from './pages/CheckoutCanceled.jsx';
 import { NotFound } from './pages/NotFound.jsx';
 import { PREVIEW_PASSWORD, PREVIEW_STORAGE_KEY } from './constants/preview.js';
 
@@ -33,7 +29,7 @@ function ScrollToTop() {
         window.scrollTo({
             top: 0,
             left: 0,
-            behavior: "auto"
+            behavior: 'auto',
         });
     }, [pathname]);
 

@@ -1,19 +1,12 @@
 import React, { useEffect } from 'react';
 import { FaTimes, FaChevronLeft, FaChevronRight } from 'react-icons/fa';
 
-export function ImageModal({
-                               isOpen,
-                               onClose,
-                               images,
-                               currentIndex,
-                               onPrevious,
-                               onNext
-                           }) {
+export function ImageModal({ isOpen, onClose, images, currentIndex, onPrevious, onNext }) {
     // Obsługa klawiatury
     useEffect(() => {
         if (!isOpen) return;
 
-        const handleKeyPress = (e) => {
+        const handleKeyPress = e => {
             if (e.key === 'Escape') onClose();
             if (e.key === 'ArrowLeft') onPrevious();
             if (e.key === 'ArrowRight') onNext();
@@ -35,14 +28,10 @@ export function ImageModal({
     return (
         <div className="fixed inset-0 bg-black/90 z-50 flex items-center justify-center p-4">
             {/* Backdrop - kliknij żeby zamknąć */}
-            <div
-                className="absolute inset-0"
-                onClick={onClose}
-            />
+            <div className="absolute inset-0" onClick={onClose} />
 
             {/* Modal Content */}
             <div className="relative max-w-7xl max-h-full w-full h-full flex items-center justify-center">
-
                 {/* Close Button */}
                 <button
                     onClick={onClose}
@@ -85,9 +74,7 @@ export function ImageModal({
 
                     {/* Image Info */}
                     <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-6">
-                        <p className="text-white text-center">
-                            {currentImage.alt}
-                        </p>
+                        <p className="text-white text-center">{currentImage.alt}</p>
                         {images.length > 1 && (
                             <p className="text-white/60 text-center text-sm mt-2">
                                 {currentIndex + 1} / {images.length}

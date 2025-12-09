@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState } from 'react';
 import { useAuthStore } from '../../store/authStore.js';
 import { useCartStore } from '../../store/cartStore.js';
 import { HEADER } from '../../constants/layout.js';
@@ -67,8 +67,8 @@ export function Header() {
         };
 
         handleScroll();
-        window.addEventListener("scroll", handleScroll, { passive: true });
-        return () => window.removeEventListener("scroll", handleScroll);
+        window.addEventListener('scroll', handleScroll, { passive: true });
+        return () => window.removeEventListener('scroll', handleScroll);
     }, [lastScrollY, mobileMenuOpen]);
 
     // ========== GLOBAL CART OPEN EVENT ==========
@@ -108,7 +108,7 @@ export function Header() {
             setShowLoginModal(false);
             setShowRegisterModal(false);
             setShowCartModal(false);
-        }
+        },
     };
 
     const handleLogout = () => {
@@ -121,8 +121,8 @@ export function Header() {
     const headerBg = mobileMenuOpen
         ? 'bg-primary-dark/95 backdrop-blur-md shadow-2xl shadow-black/50'
         : scrolled
-            ? 'bg-primary-dark backdrop-blur-md shadow-2xl shadow-black/50'
-            : 'bg-transparent';
+          ? 'bg-primary-dark backdrop-blur-md shadow-2xl shadow-black/50'
+          : 'bg-transparent';
 
     return (
         <>
@@ -140,7 +140,7 @@ export function Header() {
                     ${hideHeader ? '-translate-y-full opacity-0' : 'translate-y-0 opacity-100'}
                 `}
                 style={{
-                    top: 'calc(env(safe-area-inset-top, 0px))'
+                    top: 'calc(env(safe-area-inset-top, 0px))',
                 }}
             >
                 <div className="container mx-auto px-4 sm:px-6 lg:px-8">
@@ -227,14 +227,14 @@ export function Header() {
             <HeaderModals
                 loginModal={{
                     isOpen: showLoginModal,
-                    onSwitchToRegister: modalActions.openRegister
+                    onSwitchToRegister: modalActions.openRegister,
                 }}
                 registerModal={{
                     isOpen: showRegisterModal,
-                    onSwitchToLogin: modalActions.openLogin
+                    onSwitchToLogin: modalActions.openLogin,
                 }}
                 cartModal={{
-                    isOpen: showCartModal
+                    isOpen: showCartModal,
                 }}
                 onCloseCart={modalActions.closeCart}
                 onCloseLogin={modalActions.closeLogin}

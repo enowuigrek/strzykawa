@@ -4,21 +4,21 @@ import { FaSearch } from 'react-icons/fa';
 import { useState, useEffect, useRef } from 'react';
 
 export function CoffeeFilterBar({
-                                    selectedRoastType,
-                                    onRoastTypeChange,
-                                    onSearchChange, // NOWE: callback dla search
-                                    selectedCountry,
-                                    onCountryRemove,
-                                    selectedProcessing,
-                                    onProcessingRemove,
-                                    onMoreFiltersClick,
-                                    onClearAdvanced,
-                                    allCount,
-                                    espressoCount,
-                                    filterCount,
-                                    resultCount,
-                                    isSticky
-                                }) {
+    selectedRoastType,
+    onRoastTypeChange,
+    onSearchChange, // NOWE: callback dla search
+    selectedCountry,
+    onCountryRemove,
+    selectedProcessing,
+    onProcessingRemove,
+    onMoreFiltersClick,
+    onClearAdvanced,
+    allCount,
+    espressoCount,
+    filterCount,
+    resultCount,
+    isSticky,
+}) {
     // Lokalny state dla instant UI feedback
     const [localActiveType, setLocalActiveType] = useState(selectedRoastType);
     const [searchQuery, setSearchQuery] = useState(''); // NOWE: search state
@@ -32,7 +32,7 @@ export function CoffeeFilterBar({
         isLocalChange.current = false;
     }, [selectedRoastType]);
 
-    const handleFilterClick = (type) => {
+    const handleFilterClick = type => {
         // Oznacz że to lokalna zmiana
         isLocalChange.current = true;
         // Instant UI update
@@ -41,7 +41,7 @@ export function CoffeeFilterBar({
         onRoastTypeChange(type);
     };
 
-    const handleSearchChange = (e) => {
+    const handleSearchChange = e => {
         const value = e.target.value;
         setSearchQuery(value);
         // Przekaż do parent (jeśli handler istnieje)
@@ -181,9 +181,7 @@ function MainFilterButton({ label, count, isActive, onClick }) {
 
                 {/* Desktop: nazwa + liczba */}
                 <span className="hidden md:inline">{label}</span>
-                {count > 0 && (
-                    <span className="hidden md:inline font-bold">{count}</span>
-                )}
+                {count > 0 && <span className="hidden md:inline font-bold">{count}</span>}
             </button>
         );
     }

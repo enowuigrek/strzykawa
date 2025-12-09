@@ -1,12 +1,12 @@
 // ========== HEADER ==========
 export const HEADER = {
     // Wysokości
-    HEIGHT_MOBILE: 'h-16',      // 64px (4rem)
-    HEIGHT_DESKTOP: 'h-20',     // 80px (5rem)
+    HEIGHT_MOBILE: 'h-16', // 64px (4rem)
+    HEIGHT_DESKTOP: 'h-20', // 80px (5rem)
 
     // Padding
     PADDING_X: 'px-4 sm:px-6 lg:px-8',
-    PADDING_Y: 'py-4',          // Vertical centering
+    PADDING_Y: 'py-4', // Vertical centering
 
     // Z-index
     Z_INDEX: 'z-50',
@@ -23,7 +23,7 @@ export const MODAL = {
     BACKDROP: 'fixed inset-0 bg-black/50 backdrop-blur-sm',
 
     // Header height (taka sama jak main header!)
-    HEADER_HEIGHT: 'h-16',      // 64px - SYNC Z HEADER.HEIGHT_MOBILE
+    HEADER_HEIGHT: 'h-16', // 64px - SYNC Z HEADER.HEIGHT_MOBILE
     HEADER_PADDING: 'p-6',
 };
 

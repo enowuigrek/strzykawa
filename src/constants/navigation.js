@@ -7,24 +7,24 @@
 
 export const NAV_ITEMS = [
     {
-        to: "/o-nas",
-        label: "O Strzykawie",
-        ariaLabel: "Przejdź do strony o nas"
+        to: '/o-nas',
+        label: 'O Strzykawie',
+        ariaLabel: 'Przejdź do strony o nas',
     },
     {
-        to: "/kawy",
-        label: "Sklep on-line",
-        ariaLabel: "Przejdź do sklepu online"
+        to: '/kawy',
+        label: 'Sklep on-line',
+        ariaLabel: 'Przejdź do sklepu online',
     },
     {
-        to: "/b2b",
-        label: "B2B",
-        ariaLabel: "Przejdź do oferty B2B"
+        to: '/b2b',
+        label: 'B2B',
+        ariaLabel: 'Przejdź do oferty B2B',
     },
     {
-        to: "/kontakt",
-        label: "Kontakt",
-        ariaLabel: "Przejdź do strony kontakt"
+        to: '/kontakt',
+        label: 'Kontakt',
+        ariaLabel: 'Przejdź do strony kontakt',
     },
 ];
 
@@ -34,16 +34,16 @@ export const NAV_ITEMS = [
  */
 export const MOBILE_BOTTOM_NAV_ITEMS = [
     {
-        to: "/",
-        icon: "FaHome",
-        label: "Strona główna",
-        ariaLabel: "Przejdź do strony głównej"
+        to: '/',
+        icon: 'FaHome',
+        label: 'Strona główna',
+        ariaLabel: 'Przejdź do strony głównej',
     },
     {
-        to: "/kawy",
-        icon: "HiShoppingBag",
-        label: "Sklep",
-        ariaLabel: "Przejdź do sklepu"
+        to: '/kawy',
+        icon: 'HiShoppingBag',
+        label: 'Sklep',
+        ariaLabel: 'Przejdź do sklepu',
     },
 ];
 

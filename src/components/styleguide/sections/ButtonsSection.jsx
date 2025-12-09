@@ -11,11 +11,21 @@ export function ButtonsSection({ showSuccess, onSuccessDemo }) {
                 <div>
                     <h3 className="text-xl text-accent mb-4">Variants:</h3>
                     <div className="flex flex-wrap gap-4">
-                        <Button variant="primary" leftIcon={FaCoffee}>Primary</Button>
-                        <Button variant="secondary" leftIcon={FaHeart}>Secondary</Button>
-                        <Button variant="ghost" leftIcon={FaSearch}>Ghost</Button>
-                        <Button variant="success" leftIcon={FaCheck}>Success</Button>
-                        <Button variant="danger" leftIcon={FaTimes}>Danger</Button>
+                        <Button variant="primary" leftIcon={FaCoffee}>
+                            Primary
+                        </Button>
+                        <Button variant="secondary" leftIcon={FaHeart}>
+                            Secondary
+                        </Button>
+                        <Button variant="ghost" leftIcon={FaSearch}>
+                            Ghost
+                        </Button>
+                        <Button variant="success" leftIcon={FaCheck}>
+                            Success
+                        </Button>
+                        <Button variant="danger" leftIcon={FaTimes}>
+                            Danger
+                        </Button>
                     </div>
                 </div>
                 <div>
@@ -49,7 +59,9 @@ export function ButtonsSection({ showSuccess, onSuccessDemo }) {
                     >
                         {showSuccess ? 'Dodano!' : 'Kliknij aby dodac'}
                     </Button>
-                    <p className="text-muted text-sm mt-2">Animacja trwa {FEEDBACK_DURATION.SUCCESS}ms</p>
+                    <p className="text-muted text-sm mt-2">
+                        Animacja trwa {FEEDBACK_DURATION.SUCCESS}ms
+                    </p>
                 </div>
             </div>
         </Section>

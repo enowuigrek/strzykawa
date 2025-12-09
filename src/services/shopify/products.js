@@ -82,14 +82,16 @@ export async function fetchProducts(client, mapProduct, limit = 20) {
     try {
         const response = await client.graphqlFetch(query, { first: limit });
 
-        const products = response.data.products.edges.map(edge => {
-            try {
-                return mapProduct(edge.node);
-            } catch (error) {
-                logger.error('❌ Error mapping product:', edge.node.title, error);
-                return null;
-            }
-        }).filter(Boolean);
+        const products = response.data.products.edges
+            .map(edge => {
+                try {
+                    return mapProduct(edge.node);
+                } catch (error) {
+                    logger.error('❌ Error mapping product:', edge.node.title, error);
+                    return null;
+                }
+            })
+            .filter(Boolean);
 
         return products;
     } catch (error) {

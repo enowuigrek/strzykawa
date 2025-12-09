@@ -1,25 +1,24 @@
 import React from 'react';
 import { Chip } from '../atoms/Chip.jsx';
 
-
 export function FilterSection({
-                                  title,
-                                  options = [],
-                                  activeFilters = [],
-                                  onFilterToggle,
-                                  showCounts = true,
-                                  layout = 'row',
-                                  collapsible = false,
-                                  defaultOpen = true,
-                                  className = '',
-                              }) {
+    title,
+    options = [],
+    activeFilters = [],
+    onFilterToggle,
+    showCounts = true,
+    layout = 'row',
+    collapsible = false,
+    defaultOpen = true,
+    className = '',
+}) {
     const [isOpen, setIsOpen] = React.useState(defaultOpen);
 
     // Check if filter is active
-    const isActive = (filterId) => activeFilters.includes(filterId);
+    const isActive = filterId => activeFilters.includes(filterId);
 
     // Handle filter click
-    const handleFilterClick = (filterId) => {
+    const handleFilterClick = filterId => {
         if (onFilterToggle) {
             onFilterToggle(filterId);
         }
@@ -36,13 +35,10 @@ export function FilterSection({
 
     return (
         <div className={`filter-section ${className}`}>
-
             {/* Section Header */}
             <div className="flex items-center justify-between mb-3">
                 <div className="flex items-center gap-2">
-                    <h3 className="text-white text-sm uppercase tracking-wide">
-                        {title}
-                    </h3>
+                    <h3 className="text-white text-sm uppercase tracking-wide">{title}</h3>
 
                     {/* Active count badge */}
                     {activeCount > 0 && (
@@ -65,7 +61,12 @@ export function FilterSection({
                             viewBox="0 0 24 24"
                             stroke="currentColor"
                         >
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                            <path
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                strokeWidth={2}
+                                d="M19 9l-7 7-7-7"
+                            />
                         </svg>
                     </button>
                 )}
@@ -77,7 +78,7 @@ export function FilterSection({
                     {options.length === 0 ? (
                         <p className="text-muted text-sm italic">Brak opcji</p>
                     ) : (
-                        options.map((option) => (
+                        options.map(option => (
                             <Chip
                                 key={option.id}
                                 label={option.label}
@@ -91,7 +92,6 @@ export function FilterSection({
                     )}
                 </div>
             )}
-
         </div>
     );
 }

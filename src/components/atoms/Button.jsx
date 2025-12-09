@@ -2,39 +2,34 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 export function Button({
-                           children,
-                           leftIcon: LeftIcon,
-                           rightIcon: RightIcon,
-                           variant = 'primary',
-                           size = 'md',
-                           fullWidth = false,
-                           disabled = false,
-                           loading = false,
-                           type = 'button',
-                           onClick,
-                           href,
-                           className = '',
-                           ...props
-                       }) {
+    children,
+    leftIcon: LeftIcon,
+    rightIcon: RightIcon,
+    variant = 'primary',
+    size = 'md',
+    fullWidth = false,
+    disabled = false,
+    loading = false,
+    type = 'button',
+    onClick,
+    href,
+    className = '',
+    ...props
+}) {
     // Variant styles
     const variants = {
-        primary:
-            'bg-cta text-white hover:bg-cta-hover shadow-md hover:shadow-lg',
-        secondary:
-            'bg-white/5 border border-white/15 hover:bg-white/10 text-white',
-        ghost:
-            'bg-transparent text-accent hover:bg-accent/10 border border-accent/30',
-        success:
-            'bg-success text-white hover:bg-success-dark shadow-md hover:shadow-lg',
-        danger:
-            'bg-danger text-white hover:bg-danger-dark shadow-md hover:shadow-lg',
+        primary: 'bg-cta text-white hover:bg-cta-hover shadow-md hover:shadow-lg',
+        secondary: 'bg-white/5 border border-white/15 hover:bg-white/10 text-white',
+        ghost: 'bg-transparent text-accent hover:bg-accent/10 border border-accent/30',
+        success: 'bg-success text-white hover:bg-success-dark shadow-md hover:shadow-lg',
+        danger: 'bg-danger text-white hover:bg-danger-dark shadow-md hover:shadow-lg',
     };
 
     // Size variants
     const sizes = {
         sm: 'px-4 py-2 text-sm',
         md: 'px-6 py-3 text-base',
-        lg: 'px-8 py-4 text-lg'
+        lg: 'px-8 py-4 text-lg',
     };
 
     // Width class
@@ -85,11 +80,7 @@ export function Button({
     // Render as link if href provided
     if (href) {
         return (
-            <a
-                href={href}
-                className={baseClasses}
-                {...props}
-            >
+            <a href={href} className={baseClasses} {...props}>
                 {content}
             </a>
         );

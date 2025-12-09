@@ -15,7 +15,7 @@ export function HeroReviews() {
             rating: '5.0',
             stars: 5,
             count: 7,
-            url: 'https://www.tripadvisor.com/Restaurant_Review-g274761-d21349569-Reviews-Strzykawa_Coffee_Shop-Czestochowa_Silesia_Province_Southern_Poland.html'
+            url: 'https://www.tripadvisor.com/Restaurant_Review-g274761-d21349569-Reviews-Strzykawa_Coffee_Shop-Czestochowa_Silesia_Province_Southern_Poland.html',
         },
         {
             platform: 'Google',
@@ -24,7 +24,7 @@ export function HeroReviews() {
             rating: '4.8',
             stars: 5,
             count: '100+',
-            url: 'https://www.google.com/maps/place/Strzykawa+-+coffee+shop/@50.8107678,19.1189851,17z/data=!4m8!3m7!1s0x4710b53c8e8c8c8f:0x8c8c8c8c8c8c8c8c!8m2!3d50.8107678!4d19.1211738!9m1!1b1!16s%2Fg%2F11g9v7v7v7'
+            url: 'https://www.google.com/maps/place/Strzykawa+-+coffee+shop/@50.8107678,19.1189851,17z/data=!4m8!3m7!1s0x4710b53c8e8c8c8f:0x8c8c8c8c8c8c8c8c!8m2!3d50.8107678!4d19.1211738!9m1!1b1!16s%2Fg%2F11g9v7v7v7',
         },
         {
             platform: 'Facebook',
@@ -33,7 +33,7 @@ export function HeroReviews() {
             rating: '94%',
             count: 14,
             label: 'poleca',
-            url: 'https://www.facebook.com/StrzykawaCoffeeShop/reviews'
+            url: 'https://www.facebook.com/StrzykawaCoffeeShop/reviews',
         },
         {
             platform: 'Ranking 2025',
@@ -41,8 +41,8 @@ export function HeroReviews() {
             iconColor: 'text-yellow-400',
             badge: '#1',
             subtitle: 'Palarnia w Czestochowie',
-            url: 'https://panoramaczestochowy.pl/firmy/palarnia-kawy-czestochowa'
-        }
+            url: 'https://panoramaczestochowy.pl/firmy/palarnia-kawy-czestochowa',
+        },
     ];
 
     return (
@@ -54,15 +54,13 @@ export function HeroReviews() {
             <div
                 ref={headerRef}
                 className={`text-center mb-16 transition-all duration-700 ease-out ${
-                    headerVisible ? scrollAnimations.pourDown.visible : scrollAnimations.pourDown.hidden
+                    headerVisible
+                        ? scrollAnimations.pourDown.visible
+                        : scrollAnimations.pourDown.hidden
                 }`}
             >
-                <h3 className="text-2xl sm:text-3xl font-bold text-white mb-2">
-                    Co mowia o nas
-                </h3>
-                <p className="text-white/60 text-sm sm:text-base">
-                    Opinie naszych gosci
-                </p>
+                <h3 className="text-2xl sm:text-3xl font-bold text-white mb-2">Co mowia o nas</h3>
+                <p className="text-white/60 text-sm sm:text-base">Opinie naszych gosci</p>
             </div>
 
             {/* Reviews Grid - 4 cards */}
@@ -95,21 +93,29 @@ export function HeroReviews() {
                                             <FaStar key={i} />
                                         ))}
                                     </div>
-                                    <span className="text-white font-bold text-xl">{review.rating}</span>
+                                    <span className="text-white font-bold text-xl">
+                                        {review.rating}
+                                    </span>
                                 </div>
                             ) : review.badge ? (
                                 <div className="mb-2">
-                                    <span className="text-yellow-400 font-bold text-3xl">{review.badge}</span>
+                                    <span className="text-yellow-400 font-bold text-3xl">
+                                        {review.badge}
+                                    </span>
                                 </div>
                             ) : (
                                 <div className="flex items-center gap-2 mb-2">
-                                    <span className="text-white font-bold text-2xl">{review.rating}</span>
+                                    <span className="text-white font-bold text-2xl">
+                                        {review.rating}
+                                    </span>
                                 </div>
                             )}
 
                             {/* Count / Subtitle */}
                             <p className="text-white/70 text-sm mb-3">
-                                {review.count ? `${review.count} ${review.label || 'opinii'}` : review.subtitle}
+                                {review.count
+                                    ? `${review.count} ${review.label || 'opinii'}`
+                                    : review.subtitle}
                             </p>
 
                             {/* Platform with icon */}
@@ -132,12 +138,10 @@ export function HeroReviews() {
                 }`}
             >
                 <blockquote className="text-white/70 text-base sm:text-lg italic text-center leading-relaxed">
-                    &quot;The best coffee in Czestochowa. Great quality coffee.
-                    The flat white was amazing.&quot;
+                    &quot;The best coffee in Czestochowa. Great quality coffee. The flat white was
+                    amazing.&quot;
                 </blockquote>
-                <p className="text-white/50 text-sm text-center mt-3">
-                    — TripAdvisor Review
-                </p>
+                <p className="text-white/50 text-sm text-center mt-3">— TripAdvisor Review</p>
             </div>
         </div>
     );

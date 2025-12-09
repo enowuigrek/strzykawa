@@ -4,13 +4,13 @@ import { RegisterModal } from '../modals/RegisterModal.jsx';
 import { CartModal } from '../cart/CartModal.jsx';
 
 export function HeaderModals({
-                                 loginModal,
-                                 registerModal,
-                                 cartModal,
-                                 onCloseCart,
-                                 onCloseLogin,
-                                 onCloseAll
-                             }) {
+    loginModal,
+    registerModal,
+    cartModal,
+    onCloseCart,
+    onCloseLogin,
+    onCloseAll,
+}) {
     return (
         <>
             <LoginModal
@@ -23,10 +23,7 @@ export function HeaderModals({
                 onClose={onCloseAll}
                 onSwitchToLogin={registerModal.onSwitchToLogin}
             />
-            <CartModal
-                isOpen={cartModal.isOpen}
-                onClose={onCloseCart || onCloseAll}
-            />
+            <CartModal isOpen={cartModal.isOpen} onClose={onCloseCart || onCloseAll} />
         </>
     );
 }

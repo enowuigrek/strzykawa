@@ -5,19 +5,20 @@ import { IoClose } from 'react-icons/io5';
  * Chip Component - Używany do filtrów, tagów, badges
  */
 export function Chip({
-                         label,
-                         active = false,
-                         onClick,
-                         removable = false,
-                         onRemove,
-                         variant = 'filter',
-                         size = 'md',
-                         disabled = false,
-                         count = null,
-                         className = '',
-                     }) {
+    label,
+    active = false,
+    onClick,
+    removable = false,
+    onRemove,
+    variant = 'filter',
+    size = 'md',
+    disabled = false,
+    count = null,
+    className = '',
+}) {
     // Base classes
-    const baseClasses = 'inline-flex items-center gap-2 rounded-full font-medium transition-all duration-200';
+    const baseClasses =
+        'inline-flex items-center gap-2 rounded-full font-medium transition-all duration-200';
 
     // Size variants
     const sizeClasses = {
@@ -42,12 +43,12 @@ export function Chip({
         ? 'opacity-50 cursor-not-allowed'
         : 'cursor-pointer hover:scale-105 active:scale-95';
 
-    const handleClick = (e) => {
+    const handleClick = e => {
         if (disabled) return;
         if (onClick) onClick(e);
     };
 
-    const handleRemove = (e) => {
+    const handleRemove = e => {
         e.stopPropagation(); // Prevent triggering onClick
         if (disabled) return;
         if (onRemove) onRemove(e);
@@ -68,18 +69,18 @@ export function Chip({
             aria-pressed={active}
             aria-label={`${label}${count ? ` (${count})` : ''}`}
         >
-      <span className="select-none">
-        {label}
-      </span>
+            <span className="select-none">{label}</span>
 
             {/* Optional count badge */}
             {count !== null && (
-                <span className={`
+                <span
+                    className={`
           px-1.5 py-0.5 rounded-full text-xs font-bold
           ${active ? 'bg-white/20' : 'bg-accent/20'}
-        `}>
-          {count}
-        </span>
+        `}
+                >
+                    {count}
+                </span>
             )}
 
             {/* Optional remove button */}

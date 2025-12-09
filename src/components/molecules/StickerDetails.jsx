@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 
 /**
  * StickerDetails — okrągła „naklejka” z tytułem po łuku i lewym wyrównaniem treści
@@ -11,29 +11,31 @@ import React from "react";
  * - rotate (opc.): kąt obrotu (string), np. 'rotate-[45deg]'
  */
 export function StickerDetails({
-                                   title = "",
-                                   subtitle = "",
-                                   items = [],
-                                   accent = "amber-400",
-                                   rotate = "",
-                                   className = "",
-                               }) {
+    title = '',
+    subtitle = '',
+    items = [],
+    accent = 'amber-400',
+    rotate = '',
+    className = '',
+}) {
     // rozmiar i geometria sticker’a
     // viewBox 160x160, promień ~68, łuk tytułu y≈40
-    const pathId = "sticker-arc";
+    const pathId = 'sticker-arc';
     return (
         <div
             className={[
-                "relative mx-auto",
-                "w-56 h-56 md:w-64 md:h-64",
-                "flex items-center justify-center",
+                'relative mx-auto',
+                'w-56 h-56 md:w-64 md:h-64',
+                'flex items-center justify-center',
                 rotate,
                 className,
-            ].join(" ")}
+            ].join(' ')}
             aria-label={`${title} ${subtitle}`}
         >
             {/* Koło naklejki */}
-            <div className={`absolute inset-0 rounded-full bg-${accent} shadow-[0_12px_24px_rgba(0,0,0,0.35)]`} />
+            <div
+                className={`absolute inset-0 rounded-full bg-${accent} shadow-[0_12px_24px_rgba(0,0,0,0.35)]`}
+            />
 
             {/* Połysk */}
             <div className="absolute -top-2 left-2 w-28 h-14 md:w-32 md:h-16 bg-white/25 rounded-full blur-md rotate-[-20deg] pointer-events-none" />
@@ -50,11 +52,13 @@ export function StickerDetails({
                 <defs>
                     <path id={pathId} d="M 20 80 A 60 60 0 0 1 140 80" />
                 </defs>
-                <text
-                    className="fill-black"
-                    style={{ fontWeight: 800, letterSpacing: "0.06em" }}
-                >
-                    <textPath href={`#${pathId}`} startOffset="50%" textAnchor="middle" fontSize="20">
+                <text className="fill-black" style={{ fontWeight: 800, letterSpacing: '0.06em' }}>
+                    <textPath
+                        href={`#${pathId}`}
+                        startOffset="50%"
+                        textAnchor="middle"
+                        fontSize="20"
+                    >
                         {title}
                     </textPath>
                 </text>

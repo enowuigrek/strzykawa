@@ -7,7 +7,14 @@ import { MobileMenuToggle } from '../../atoms/MobileMenuToggle';
 import { Chip } from '../../atoms/Chip';
 import { Spinner } from '../../atoms/Spinner';
 
-export function ComponentsSection({ quantity, setQuantity, menuOpen, setMenuOpen, activeChips, toggleChip }) {
+export function ComponentsSection({
+    quantity,
+    setQuantity,
+    menuOpen,
+    setMenuOpen,
+    activeChips,
+    toggleChip,
+}) {
     return (
         <Section id="components" title="Komponenty">
             <div className="space-y-8">
@@ -16,15 +23,27 @@ export function ComponentsSection({ quantity, setQuantity, menuOpen, setMenuOpen
                     <div className="space-y-4">
                         <div className="flex items-center gap-4">
                             <span className="text-muted w-24">Small:</span>
-                            <QuantitySelector quantity={quantity} onQuantityChange={setQuantity} size="sm" />
+                            <QuantitySelector
+                                quantity={quantity}
+                                onQuantityChange={setQuantity}
+                                size="sm"
+                            />
                         </div>
                         <div className="flex items-center gap-4">
                             <span className="text-muted w-24">Medium:</span>
-                            <QuantitySelector quantity={quantity} onQuantityChange={setQuantity} size="md" />
+                            <QuantitySelector
+                                quantity={quantity}
+                                onQuantityChange={setQuantity}
+                                size="md"
+                            />
                         </div>
                         <div className="flex items-center gap-4">
                             <span className="text-muted w-24">Large:</span>
-                            <QuantitySelector quantity={quantity} onQuantityChange={setQuantity} size="lg" />
+                            <QuantitySelector
+                                quantity={quantity}
+                                onQuantityChange={setQuantity}
+                                size="lg"
+                            />
                         </div>
                     </div>
                 </div>
@@ -53,7 +72,10 @@ export function ComponentsSection({ quantity, setQuantity, menuOpen, setMenuOpen
                 <div>
                     <h3 className="text-xl text-accent mb-4">MobileMenuToggle:</h3>
                     <div className="flex items-center gap-4">
-                        <MobileMenuToggle isOpen={menuOpen} onToggle={() => setMenuOpen(!menuOpen)} />
+                        <MobileMenuToggle
+                            isOpen={menuOpen}
+                            onToggle={() => setMenuOpen(!menuOpen)}
+                        />
                         <span className="text-muted text-sm">Kliknij aby przelaczac</span>
                     </div>
                 </div>
@@ -76,7 +98,9 @@ export function ComponentsSection({ quantity, setQuantity, menuOpen, setMenuOpen
                 </div>
                 <div>
                     <h3 className="text-xl text-accent mb-4">Gallery Navigation Arrows:</h3>
-                    <p className="text-muted text-sm mb-4">Strzalki nawigacji w galeriach - pojawiaja sie na hover</p>
+                    <p className="text-muted text-sm mb-4">
+                        Strzalki nawigacji w galeriach - pojawiaja sie na hover
+                    </p>
                     <div className="flex items-center gap-4">
                         <button className="w-10 h-10 bg-primary/80 backdrop-blur-sm border border-white/10 flex items-center justify-center text-white transition-all duration-300 hover:bg-accent hover:border-accent">
                             <FaChevronLeft className="w-4 h-4" />
@@ -89,7 +113,8 @@ export function ComponentsSection({ quantity, setQuantity, menuOpen, setMenuOpen
                     </div>
                     <div className="mt-4 p-4 bg-primary-light">
                         <code className="text-xs text-muted block">
-                            bg-primary/80 backdrop-blur-sm border border-white/10 → hover:bg-accent hover:border-accent
+                            bg-primary/80 backdrop-blur-sm border border-white/10 → hover:bg-accent
+                            hover:border-accent
                         </code>
                     </div>
                 </div>
@@ -100,7 +125,9 @@ export function ComponentsSection({ quantity, setQuantity, menuOpen, setMenuOpen
                         <div className="px-2 py-1 bg-primary/80 backdrop-blur-sm border border-white/10 text-white text-sm font-medium">
                             1/5
                         </div>
-                        <span className="text-muted text-sm">bg-primary/80 backdrop-blur-sm border border-white/10</span>
+                        <span className="text-muted text-sm">
+                            bg-primary/80 backdrop-blur-sm border border-white/10
+                        </span>
                     </div>
                 </div>
             </div>

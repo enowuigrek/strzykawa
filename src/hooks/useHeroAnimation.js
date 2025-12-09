@@ -17,6 +17,6 @@ export function useHeroAnimation(trigger = false, delay = 2500) {
 
     return {
         showContent,
-        dimVideo
+        dimVideo,
     };
 }

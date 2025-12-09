@@ -10,7 +10,7 @@
  * <div onClick={handleBackdropClick}>...</div>
  */
 export function useBackdropClick(onClose) {
-    return (e) => {
+    return e => {
         if (e.target === e.currentTarget) {
             onClose();
         }

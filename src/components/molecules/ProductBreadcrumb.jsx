@@ -29,10 +29,7 @@ export function ProductBreadcrumb({ coffeeName }) {
 
                 <FaChevronRight className="w-3 h-3" />
 
-                <Link
-                    to="/kawy"
-                    className="hover:text-accent transition-colors"
-                >
+                <Link to="/kawy" className="hover:text-accent transition-colors">
                     Nasze kawy
                 </Link>
 

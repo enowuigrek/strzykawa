@@ -12,14 +12,14 @@ export function SocialLinks() {
             name: 'Facebook',
             icon: FaFacebook,
             url: 'https://www.facebook.com/StrzykawaCoffeeShop',
-            color: 'hover:bg-blue-600/20 hover:border-blue-500/50'
+            color: 'hover:bg-blue-600/20 hover:border-blue-500/50',
         },
         {
             name: 'Instagram',
             icon: FaInstagram,
             url: 'https://www.instagram.com/strzykawa_coffee_shop',
-            color: 'hover:bg-pink-600/20 hover:border-pink-500/50'
-        }
+            color: 'hover:bg-pink-600/20 hover:border-pink-500/50',
+        },
     ];
 
     return (
@@ -28,12 +28,12 @@ export function SocialLinks() {
             <div
                 ref={headerRef}
                 className={`mb-10 transition-all duration-700 ease-out ${
-                    headerVisible ? scrollAnimations.pourDown.visible : scrollAnimations.pourDown.hidden
+                    headerVisible
+                        ? scrollAnimations.pourDown.visible
+                        : scrollAnimations.pourDown.hidden
                 }`}
             >
-                <h3 className="text-xl sm:text-2xl font-bold text-white mb-2">
-                    Śledź nas
-                </h3>
+                <h3 className="text-xl sm:text-2xl font-bold text-white mb-2">Śledź nas</h3>
                 <p className="text-white/60 text-sm sm:text-base">
                     Bądź na bieżąco z nowościami i akcjami
                 </p>
@@ -59,9 +59,7 @@ export function SocialLinks() {
                             aria-label={`Odwiedź nasz ${social.name}`}
                         >
                             <Icon className="text-white text-xl" />
-                            <span className="text-white font-medium sm:inline">
-                                {social.name}
-                            </span>
+                            <span className="text-white font-medium sm:inline">{social.name}</span>
                         </a>
                     );
                 })}

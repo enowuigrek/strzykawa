@@ -2,18 +2,17 @@ import React from 'react';
 import { PageHeader } from './PageHeader';
 
 export function PageLayout({
-                               children,
-                               title,
-                               subtitle,
-                               description,
-                               icon,
-                               showHeader = true,
-                               className = '',
-                               contentClassName = '',
-                           }) {
+    children,
+    title,
+    subtitle,
+    description,
+    icon,
+    showHeader = true,
+    className = '',
+    contentClassName = '',
+}) {
     return (
         <div className={` min-h-screen bg-primary pt-36 pb-20 ${className}`}>
-
             {/* Page Header Section */}
             {showHeader && (title || subtitle || description) && (
                 <div className="container mx-auto px-6 py-16">
@@ -27,10 +26,7 @@ export function PageLayout({
             )}
 
             {/* Page Content */}
-            <div className={contentClassName}>
-                {children}
-            </div>
-
+            <div className={contentClassName}>{children}</div>
         </div>
     );
 }

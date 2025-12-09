@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { logger } from '../utils/logger';
-import { PageLayout } from "../components/layout/PageLayout.jsx";
+import { PageLayout } from '../components/layout/PageLayout.jsx';
 import { ProductBreadcrumb } from '../components/molecules/ProductBreadcrumb';
 import { ProductGallery } from '../components/molecules/ProductGallery';
 import { ProductMeta } from '../components/molecules/ProductMeta';
@@ -47,9 +47,12 @@ export function CoffeeDetail() {
                 // Set default variant - prioritize "Ziarna" (whole beans)
                 if (product.variants && product.variants.length > 0) {
                     // First try to find available "Ziarna" variant
-                    const ziarnaVariant = product.variants.find(v =>
-                        v.availableForSale &&
-                        v.selectedOptions?.some(opt => opt.name === 'Typ' && opt.value === 'Ziarna')
+                    const ziarnaVariant = product.variants.find(
+                        v =>
+                            v.availableForSale &&
+                            v.selectedOptions?.some(
+                                opt => opt.name === 'Typ' && opt.value === 'Ziarna'
+                            )
                     );
 
                     // If no "Ziarna" available, fall back to any available variant
@@ -88,10 +91,10 @@ export function CoffeeDetail() {
     };
 
     // Get roast type display
-    const getRoastTypeDisplay = (roastType) => {
+    const getRoastTypeDisplay = roastType => {
         const mapping = {
-            'Filter': 'Przelew',
-            'Espresso': 'Espresso'
+            Filter: 'Przelew',
+            Espresso: 'Espresso',
         };
         return mapping[roastType] || roastType;
     };
@@ -117,11 +120,10 @@ export function CoffeeDetail() {
             <PageLayout title="Błąd" description="">
                 <div className="container mx-auto max-w-7xl px-4 py-12">
                     <div className="text-center">
-                        <p className="text-red-400 text-lg mb-4">{error || 'Produkt nie został znaleziony'}</p>
-                        <Button
-                            onClick={() => window.history.back()}
-                            variant="secondary"
-                        >
+                        <p className="text-red-400 text-lg mb-4">
+                            {error || 'Produkt nie został znaleziony'}
+                        </p>
+                        <Button onClick={() => window.history.back()} variant="secondary">
                             Wróć
                         </Button>
                     </div>
@@ -146,25 +148,24 @@ export function CoffeeDetail() {
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 mb-12">
                     {/* Left Column - Gallery */}
                     <div>
-                        <ProductGallery
-                            images={coffee.images}
-                            coffeeName={coffee.name}
-                        />
+                        <ProductGallery images={coffee.images} coffeeName={coffee.name} />
                     </div>
 
                     {/* Right Column - Product Info */}
                     <div className="space-y-6">
                         {/* Title & Roast Type Badge */}
                         <div className="relative">
-                            <h1 className="text-3xl lg:text-4xl text-white pr-16">
-                                {coffee.name}
-                            </h1>
+                            <h1 className="text-3xl lg:text-4xl text-white pr-16">{coffee.name}</h1>
 
                             {/* Roast Type Badge */}
                             {coffee.roastType && (
                                 <div
                                     className="absolute -top-2 right-0 w-16 h-16 rounded-full flex items-center justify-center text-xs uppercase tracking-wider text-white shadow-lg transform"
-                                    style={{ backgroundColor: ROAST_TYPE_COLORS[coffee.roastType] || ROAST_TYPE_COLORS.Espresso }}
+                                    style={{
+                                        backgroundColor:
+                                            ROAST_TYPE_COLORS[coffee.roastType] ||
+                                            ROAST_TYPE_COLORS.Espresso,
+                                    }}
                                 >
                                     {getRoastTypeDisplay(coffee.roastType)}
                                 </div>
@@ -207,9 +208,7 @@ export function CoffeeDetail() {
                             >
                                 {/* Liczba - renderowana w lewej kolumnie pod Gramaturą */}
                                 <div>
-                                    <label className="block text-sm text-white mb-2">
-                                        Liczba
-                                    </label>
+                                    <label className="block text-sm text-white mb-2">Liczba</label>
                                     <QuantitySelector
                                         quantity={quantity}
                                         onQuantityChange={setQuantity}
@@ -229,7 +228,9 @@ export function CoffeeDetail() {
                         <div className="flex justify-between items-center py-2">
                             <span className="text-white">Razem:</span>
                             <span className="text-xl text-white">
-                                {isAvailable ? `${(price * quantity).toFixed(2)} zł` : 'Niedostępne'}
+                                {isAvailable
+                                    ? `${(price * quantity).toFixed(2)} zł`
+                                    : 'Niedostępne'}
                             </span>
                         </div>
 
@@ -244,14 +245,18 @@ export function CoffeeDetail() {
                             fullWidth
                         >
                             <span className="hidden sm:inline">
-                                {addingToCart ? 'Dodawanie...' :
-                                    !isAvailable ? 'Niedostępne' :
-                                        'Dodaj do koszyka'}
+                                {addingToCart
+                                    ? 'Dodawanie...'
+                                    : !isAvailable
+                                      ? 'Niedostępne'
+                                      : 'Dodaj do koszyka'}
                             </span>
                             <span className="sm:hidden">
-                                {addingToCart ? 'Dodawanie...' :
-                                    !isAvailable ? 'Niedostępne' :
-                                        'Dodaj'}
+                                {addingToCart
+                                    ? 'Dodawanie...'
+                                    : !isAvailable
+                                      ? 'Niedostępne'
+                                      : 'Dodaj'}
                             </span>
                         </Button>
                     </div>
@@ -261,9 +266,7 @@ export function CoffeeDetail() {
                 {coffee.description && (
                     <div className="mx-auto">
                         <div className="p-6 lg:p-8 bg-primary-light border border-white/10">
-                            <h2 className="text-2xl text-white mb-4">
-                                Opis:
-                            </h2>
+                            <h2 className="text-2xl text-white mb-4">Opis:</h2>
                             <div className="prose prose-invert max-w-none">
                                 <p className="text-white/90 leading-relaxed whitespace-pre-line">
                                     {coffee.description}

@@ -1,9 +1,34 @@
 import React from 'react';
 import {
-    FaShoppingCart, FaHeart, FaSearch, FaUser, FaCoffee, FaLeaf, FaCheck, FaTimes,
-    FaFacebook, FaInstagram, FaArrowLeft, FaHome, FaChevronRight, FaChevronLeft, FaMapMarkerAlt,
-    FaShoppingBag, FaEye, FaEyeSlash, FaLock, FaSignInAlt, FaSignOutAlt, FaStar,
-    FaPhone, FaEnvelope, FaClock, FaExternalLinkAlt, FaFire, FaRoute, FaUserPlus
+    FaShoppingCart,
+    FaHeart,
+    FaSearch,
+    FaUser,
+    FaCoffee,
+    FaLeaf,
+    FaCheck,
+    FaTimes,
+    FaFacebook,
+    FaInstagram,
+    FaArrowLeft,
+    FaHome,
+    FaChevronRight,
+    FaChevronLeft,
+    FaMapMarkerAlt,
+    FaShoppingBag,
+    FaEye,
+    FaEyeSlash,
+    FaLock,
+    FaSignInAlt,
+    FaSignOutAlt,
+    FaStar,
+    FaPhone,
+    FaEnvelope,
+    FaClock,
+    FaExternalLinkAlt,
+    FaFire,
+    FaRoute,
+    FaUserPlus,
 } from 'react-icons/fa';
 import { FiMinus, FiPlus, FiFilter } from 'react-icons/fi';
 import { IoClose } from 'react-icons/io5';

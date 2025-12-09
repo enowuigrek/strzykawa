@@ -13,23 +13,23 @@ export function PhotoGallery() {
     const images = [
         {
             src: strzykawaImg01,
-            alt: "Janek musiał się pojawić"
+            alt: 'Janek musiał się pojawić',
         },
         {
             src: strzykawaImg02,
-            alt: "Jakiś opis"
+            alt: 'Jakiś opis',
         },
         {
             src: strzykawaImg07,
-            alt: "Jakiś opis"
+            alt: 'Jakiś opis',
         },
         {
             src: strzykawaImg06,
-            alt: "Jakiś opis"
-        }
+            alt: 'Jakiś opis',
+        },
     ];
 
-    const openModal = (index) => {
+    const openModal = index => {
         setCurrentImageIndex(index);
         setModalOpen(true);
     };
@@ -39,15 +39,11 @@ export function PhotoGallery() {
     };
 
     const goToPrevious = () => {
-        setCurrentImageIndex((prev) =>
-            prev === 0 ? images.length - 1 : prev - 1
-        );
+        setCurrentImageIndex(prev => (prev === 0 ? images.length - 1 : prev - 1));
     };
 
     const goToNext = () => {
-        setCurrentImageIndex((prev) =>
-            prev === images.length - 1 ? 0 : prev + 1
-        );
+        setCurrentImageIndex(prev => (prev === images.length - 1 ? 0 : prev + 1));
     };
 
     return (
@@ -59,11 +55,7 @@ export function PhotoGallery() {
 
                 {/* Mobile version - Carousel */}
                 <div className="md:hidden mb-8">
-                    <MobileCarousel
-                        images={images}
-                        aspectRatio="16/9"
-                        showCounter={true}
-                    />
+                    <MobileCarousel images={images} aspectRatio="16/9" showCounter={true} />
                 </div>
 
                 {/* Desktop version - Grid with modal */}

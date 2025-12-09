@@ -15,9 +15,13 @@ export function CartFooter({ items, isLoading, totalPrice, onCheckout }) {
         <div className="flex-shrink-0 border-t border-white/10 bg-gradient-to-r from-primary-light/30 to-primary/30 z-[110]">
             <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-6">
                 {/* Free Shipping Info */}
-                <div className={`mb-4 p-4 border ${hasFreeShipping ? 'bg-success/10 border-success/40' : 'bg-primary-light border-accent/30'}`}>
+                <div
+                    className={`mb-4 p-4 border ${hasFreeShipping ? 'bg-success/10 border-success/40' : 'bg-primary-light border-accent/30'}`}
+                >
                     <div className="flex items-center gap-3">
-                        <FaTruck className={`text-lg ${hasFreeShipping ? 'text-success' : 'text-accent'}`} />
+                        <FaTruck
+                            className={`text-lg ${hasFreeShipping ? 'text-success' : 'text-accent'}`}
+                        />
                         {hasFreeShipping ? (
                             <span className="text-success font-semibold text-base">
                                 Gratulacje! Masz darmową wysyłkę
@@ -38,9 +42,7 @@ export function CartFooter({ items, isLoading, totalPrice, onCheckout }) {
                 {/* Total */}
                 <div className="flex justify-between items-center mb-4">
                     <span className="text-lg text-white">Suma:</span>
-                    <span className="text-xl text-white">
-                        {totalPrice} zł
-                    </span>
+                    <span className="text-xl text-white">{totalPrice} zł</span>
                 </div>
 
                 {/* Checkout Button */}

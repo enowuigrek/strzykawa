@@ -1,13 +1,6 @@
 import React from 'react';
 
-export function PageHeader({
-                               icon: Icon,
-                               title,
-                               subtitle,
-                               description,
-                               children,
-                               className = ""
-                           }) {
+export function PageHeader({ icon: Icon, title, subtitle, description, children, className = '' }) {
     return (
         <div className={`relative mb-12 ${className}`}>
             <div className="relative text-center max-w-3xl mx-auto">
@@ -19,9 +12,7 @@ export function PageHeader({
                                 <Icon className="w-8 h-8 text-accent" />
                             </div>
                         )}
-                        <h1 className="text-4xl md:text-5xl text-white text-shadow-lg">
-                            {title}
-                        </h1>
+                        <h1 className="text-4xl md:text-5xl text-white text-shadow-lg">{title}</h1>
                     </div>
                     {subtitle && (
                         <p className="text-xl md:text-2xl text-accent font-medium">{subtitle}</p>

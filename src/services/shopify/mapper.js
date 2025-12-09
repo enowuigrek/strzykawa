@@ -8,7 +8,10 @@
  */
 function parseList(value) {
     if (!value) return [];
-    return value.split(',').map(item => item.trim()).filter(Boolean);
+    return value
+        .split(',')
+        .map(item => item.trim())
+        .filter(Boolean);
 }
 
 /**
@@ -66,21 +69,24 @@ export function mapProduct(shopifyProduct) {
             variety: parseList(variety),
             altitudeMasl: altitude ? parseInt(altitude) : null,
             processing: processing,
-            fermentation: ''
+            fermentation: '',
         });
     }
 
     // Map and sort variants by price (ascending)
-    const variants = (shopifyProduct.variants?.edges?.map(edge => ({
-        id: edge.node.id,
-        title: edge.node.title || 'Default',
-        price: parseFloat(edge.node.price.amount) || 0,
-        compareAtPrice: edge.node.compareAtPrice ?
-            parseFloat(edge.node.compareAtPrice.amount) : null,
-        currencyCode: edge.node.price.currencyCode || 'PLN',
-        availableForSale: edge.node.availableForSale || false,
-        selectedOptions: edge.node.selectedOptions || []
-    })) || []).sort((a, b) => a.price - b.price);
+    const variants = (
+        shopifyProduct.variants?.edges?.map(edge => ({
+            id: edge.node.id,
+            title: edge.node.title || 'Default',
+            price: parseFloat(edge.node.price.amount) || 0,
+            compareAtPrice: edge.node.compareAtPrice
+                ? parseFloat(edge.node.compareAtPrice.amount)
+                : null,
+            currencyCode: edge.node.price.currencyCode || 'PLN',
+            availableForSale: edge.node.availableForSale || false,
+            selectedOptions: edge.node.selectedOptions || [],
+        })) || []
+    ).sort((a, b) => a.price - b.price);
 
     // Map to internal format
     const mappedProduct = {
@@ -119,7 +125,7 @@ export function mapProduct(shopifyProduct) {
             quickFilter: shopifyProduct.tags?.includes('quick-filter') || false,
             brewBar: shopifyProduct.tags?.includes('brew-bar') || false,
             retailShelf: shopifyProduct.tags?.includes('retail-shelf') || false,
-        }
+        },
     };
 
     return mappedProduct;

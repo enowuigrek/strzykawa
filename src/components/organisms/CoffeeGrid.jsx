@@ -12,10 +12,7 @@ export function CoffeeGrid({ coffees, onClearFilters }) {
                 <p className="text-muted text-lg mb-4">
                     Nie znaleziono kaw spełniających wybrane kryteria
                 </p>
-                <Button
-                    variant="ghost"
-                    onClick={onClearFilters}
-                >
+                <Button variant="ghost" onClick={onClearFilters}>
                     Wyczyść wszystkie filtry
                 </Button>
             </div>
@@ -24,7 +21,7 @@ export function CoffeeGrid({ coffees, onClearFilters }) {
 
     return (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-            {coffees.map((coffee) => (
+            {coffees.map(coffee => (
                 <CoffeeCard key={coffee.id} coffee={coffee} />
             ))}
         </div>

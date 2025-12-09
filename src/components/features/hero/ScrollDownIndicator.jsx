@@ -21,7 +21,7 @@ export function ScrollDownIndicator() {
     const scrollToContent = () => {
         window.scrollTo({
             top: window.innerHeight,
-            behavior: 'smooth'
+            behavior: 'smooth',
         });
     };
 
@@ -36,9 +36,7 @@ export function ScrollDownIndicator() {
                        ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4 pointer-events-none'}`}
             aria-label="Scroll down"
         >
-            <HiChevronDown
-                className="w-12 h-12 animate-bounce group-hover:text-white group-hover:scale-110 transition-all"
-            />
+            <HiChevronDown className="w-12 h-12 animate-bounce group-hover:text-white group-hover:scale-110 transition-all" />
         </button>
     );
 }

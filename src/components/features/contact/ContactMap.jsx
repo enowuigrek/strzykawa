@@ -16,15 +16,15 @@ export function ContactMap() {
 
     return (
         <div className="relative h-96 lg:h-full min-h-[400px] flex flex-col items-center justify-start px-4 sm:px-6 lg:px-8 py-8 text-center">
-
             {/* Content */}
             <div
                 ref={contentRef}
                 className={`space-y-6 transition-all duration-700 ease-out ${
-                    contentVisible ? scrollAnimations.spread.visible : scrollAnimations.spread.hidden
+                    contentVisible
+                        ? scrollAnimations.spread.visible
+                        : scrollAnimations.spread.hidden
                 }`}
             >
-
                 {/* Icon */}
                 <div className="inline-flex items-center justify-center w-16 h-16">
                     <FaMapMarkerAlt className="w-8 h-8 text-accent" />

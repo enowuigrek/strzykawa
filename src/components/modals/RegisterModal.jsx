@@ -15,7 +15,7 @@ const RegisterModal = ({ isOpen, onClose, onSwitchToLogin }) => {
         lastName: '',
         email: '',
         password: '',
-        confirmPassword: ''
+        confirmPassword: '',
     });
     const [showPassword, setShowPassword] = useState(false);
     const [showConfirmPassword, setShowConfirmPassword] = useState(false);
@@ -35,14 +35,14 @@ const RegisterModal = ({ isOpen, onClose, onSwitchToLogin }) => {
 
     if (!isOpen) return null;
 
-    const handleChange = (e) => {
+    const handleChange = e => {
         setFormData(prev => ({
             ...prev,
-            [e.target.name]: e.target.value
+            [e.target.name]: e.target.value,
         }));
     };
 
-    const handleSubmit = async (e) => {
+    const handleSubmit = async e => {
         e.preventDefault();
         setError('');
 
@@ -76,7 +76,7 @@ const RegisterModal = ({ isOpen, onClose, onSwitchToLogin }) => {
                 lastName: '',
                 email: '',
                 password: '',
-                confirmPassword: ''
+                confirmPassword: '',
             });
         } else {
             setError(result.error);
@@ -106,9 +106,10 @@ const RegisterModal = ({ isOpen, onClose, onSwitchToLogin }) => {
 
                     md:left-1/2 md:top-1/2 md:-translate-x-1/2
 
-                    ${isAnimating
-                        ? 'bottom-0 translate-y-0 md:-translate-y-1/2 opacity-100'
-                        : 'bottom-0 translate-y-full md:translate-y-0 md:-translate-y-1/2 opacity-0'
+                    ${
+                        isAnimating
+                            ? 'bottom-0 translate-y-0 md:-translate-y-1/2 opacity-100'
+                            : 'bottom-0 translate-y-full md:translate-y-0 md:-translate-y-1/2 opacity-0'
                     }
                 `}
             >
@@ -121,10 +122,12 @@ const RegisterModal = ({ isOpen, onClose, onSwitchToLogin }) => {
                         <h2 className="text-xl text-white">Utwórz konto</h2>
                     </div>
                     {/* Close button - pojawia się PO animacji */}
-                    <div className={`
+                    <div
+                        className={`
                         transition-opacity duration-300 delay-300
                         ${isAnimating ? 'opacity-100' : 'opacity-0'}
-                    `}>
+                    `}
+                    >
                         <CloseButton onClick={onClose} />
                     </div>
                 </div>
@@ -132,7 +135,6 @@ const RegisterModal = ({ isOpen, onClose, onSwitchToLogin }) => {
                 {/* Form - scrollable content */}
                 <div className="flex-1 overflow-y-auto">
                     <form onSubmit={handleSubmit} className="p-6">
-
                         {/* Error Message */}
                         {error && (
                             <div className="mb-4 p-3 bg-red-500/20 border border-red-500/30 text-red-300 text-sm">
@@ -143,7 +145,10 @@ const RegisterModal = ({ isOpen, onClose, onSwitchToLogin }) => {
                         {/* Name Fields */}
                         <div className="grid grid-cols-2 gap-4 mb-4">
                             <div>
-                                <label htmlFor="firstName" className="block text-sm font-semibold text-muted mb-2">
+                                <label
+                                    htmlFor="firstName"
+                                    className="block text-sm font-semibold text-muted mb-2"
+                                >
                                     Imię
                                 </label>
                                 <input
@@ -158,7 +163,10 @@ const RegisterModal = ({ isOpen, onClose, onSwitchToLogin }) => {
                                 />
                             </div>
                             <div>
-                                <label htmlFor="lastName" className="block text-sm font-semibold text-muted mb-2">
+                                <label
+                                    htmlFor="lastName"
+                                    className="block text-sm font-semibold text-muted mb-2"
+                                >
                                     Nazwisko
                                 </label>
                                 <input
@@ -176,7 +184,10 @@ const RegisterModal = ({ isOpen, onClose, onSwitchToLogin }) => {
 
                         {/* Email Field */}
                         <div className="mb-4">
-                            <label htmlFor="registerEmail" className="block text-sm font-semibold text-muted mb-2">
+                            <label
+                                htmlFor="registerEmail"
+                                className="block text-sm font-semibold text-muted mb-2"
+                            >
                                 E-mail
                             </label>
                             <div className="relative">
@@ -198,7 +209,10 @@ const RegisterModal = ({ isOpen, onClose, onSwitchToLogin }) => {
 
                         {/* Password Field */}
                         <div className="mb-4">
-                            <label htmlFor="registerPassword" className="block text-sm font-semibold text-muted mb-2">
+                            <label
+                                htmlFor="registerPassword"
+                                className="block text-sm font-semibold text-muted mb-2"
+                            >
                                 Hasło
                             </label>
                             <div className="relative">
@@ -220,14 +234,21 @@ const RegisterModal = ({ isOpen, onClose, onSwitchToLogin }) => {
                                     onClick={() => setShowPassword(!showPassword)}
                                     className="absolute right-3 top-1/2 transform -translate-y-1/2 text-muted hover:text-white transition-colors duration-300"
                                 >
-                                    {showPassword ? <FaEyeSlash className="w-4 h-4" /> : <FaEye className="w-4 h-4" />}
+                                    {showPassword ? (
+                                        <FaEyeSlash className="w-4 h-4" />
+                                    ) : (
+                                        <FaEye className="w-4 h-4" />
+                                    )}
                                 </button>
                             </div>
                         </div>
 
                         {/* Confirm Password Field */}
                         <div className="mb-6">
-                            <label htmlFor="confirmPassword" className="block text-sm font-semibold text-muted mb-2">
+                            <label
+                                htmlFor="confirmPassword"
+                                className="block text-sm font-semibold text-muted mb-2"
+                            >
                                 Powtórz hasło
                             </label>
                             <div className="relative">
@@ -249,7 +270,11 @@ const RegisterModal = ({ isOpen, onClose, onSwitchToLogin }) => {
                                     onClick={() => setShowConfirmPassword(!showConfirmPassword)}
                                     className="absolute right-3 top-1/2 transform -translate-y-1/2 text-muted hover:text-white transition-colors duration-300"
                                 >
-                                    {showConfirmPassword ? <FaEyeSlash className="w-4 h-4" /> : <FaEye className="w-4 h-4" />}
+                                    {showConfirmPassword ? (
+                                        <FaEyeSlash className="w-4 h-4" />
+                                    ) : (
+                                        <FaEye className="w-4 h-4" />
+                                    )}
                                 </button>
                             </div>
                         </div>
