@@ -43,9 +43,56 @@
 
 ---
 
+## 🛒 SHOPIFY & CHECKOUT - Priorytet KRYTYCZNY
+
+### 5. **Dokończyć strony Checkout Success i Checkout Canceled**
+**Status:** Obecnie są tylko wstępne wersje - trzeba je rozbudować!
+
+#### **CheckoutSuccess** (`src/pages/CheckoutSuccess.jsx`):
+- [ ] Dodać ikonę sukcesu (✓) / ilustrację
+- [ ] Podsumowanie zamówienia:
+  - Co kupiono (lista produktów)
+  - Łączna cena
+  - Adres dostawy (jeśli dostępny z Shopify)
+- [ ] Informacje o następnych krokach:
+  - "Zamówienie zostało przyjęte ✓"
+  - "Potwierdzenie wysłane na e-mail: [email]"
+  - "Przesyłka zostanie wysłana w ciągu 2-3 dni roboczych"
+- [ ] Numer zamówienia (jeśli dostępny z Shopify)
+- [ ] Przyciski akcji:
+  - **Główny CTA:** "Wróć do sklepu" (rounded-full, bg-cta)
+  - "Zobacz moje zamówienia" (gdy będzie account system)
+  - "Kontakt z obsługą" (link do /kontakt)
+
+#### **CheckoutCanceled** (`src/pages/CheckoutCanceled.jsx`):
+- [ ] Dodać ikonę anulowania (⚠️ lub ❌)
+- [ ] Wyjaśnienie sytuacji:
+  - "Płatność została anulowana lub nie powiodła się"
+  - "Nie martw się - produkty nadal są w koszyku"
+- [ ] Informacje pomocnicze:
+  - Możliwe przyczyny (wycofanie się, błąd połączenia, brak środków)
+  - Link do FAQ o płatnościach
+- [ ] Przyciski akcji:
+  - **Główny CTA:** "Wróć do koszyka" (rounded-full, bg-cta)
+  - "Kontynuuj zakupy" (secondary button)
+  - "Potrzebujesz pomocy?" → /kontakt
+
+#### **Design:**
+- Minimalistyczny, zgodny z Strzykawa branding
+- Ikony z react-icons:
+  - Success: `FaCheckCircle` (text-success)
+  - Canceled: `FaExclamationTriangle` lub `FaTimesCircle` (text-danger)
+- Używać kolorów z tailwind.config.js:
+  - Success: `text-success`, `bg-success/10`
+  - Danger: `text-danger`, `bg-danger/10`
+- Layout: wyśrodkowany, max-width, dużo breathing room
+- Buttony: `rounded-full` (pastylki!)
+
+---
+
 ## 🖥️ DESKTOP - Priorytet wysoki
 
-### 5. **Poprawić wysokość wyskakujących okien (modals)**
+### 6. **Poprawić wysokość wyskakujących okien (modals)**
 - [ ] Login Modal - dostosować wysokość
 - [ ] Quick Add Modal - dostosować wysokość
 - [ ] Register Modal - dostosować wysokość
@@ -59,13 +106,13 @@
 
 ## 🎨 DESIGN & LAYOUT
 
-### 6. **Footer uporządkować**
+### 7. **Footer uporządkować**
 - [ ] Przejrzeć layout footera
 - [ ] Uporządkować sekcje (szczegóły do ustalenia)
 - [ ] Plik do edycji:
   - `src/components/layout/Footer.jsx`
 
-### 7. **Dodać sekcję z teamem Strzykawy**
+### 8. **Dodać sekcję z teamem Strzykawy**
 - [ ] Utworzyć nową sekcję "Nasz zespół" / "Team"
 - [ ] Dodać zdjęcia i opisy:
   - Damian (właściciel/barista?)
@@ -123,19 +170,22 @@
 
 ## 🎯 PRIORYTETYZACJA
 
-**Najpilniejsze (dzisiaj/jutro):**
-1. Mobile: Karuzela (UX critical)
-2. Desktop: Wysokość modals (UX ważne)
-3. Mobile: Timeline - ukryć lub poprawić
+**🔥 KRYTYCZNE (dzisiaj!):**
+1. 🛒 **Checkout Success/Canceled** - KLIENCI TO ZOBACZĄ PO ZAKUPIE!
+
+**Najpilniejsze (jutro):**
+2. 📱 Mobile: Karuzela (UX critical)
+3. 🖥️ Desktop: Wysokość modals (UX ważne)
+4. 📱 Mobile: Timeline - ukryć lub poprawić
 
 **Ważne (ten tydzień):**
-4. Mobile: Wyszukiwarka keyboard issue
-5. Mobile: Nawigator - pomniejszenie
-6. Footer uporządkowanie
+5. 📱 Mobile: Wyszukiwarka keyboard issue
+6. 📱 Mobile: Nawigator - pomniejszenie
+7. 🎨 Footer uporządkowanie
 
 **Średni priorytet:**
-7. Team section
-8. Nawigator - animacje slide
+8. 👥 Team section
+9. 📱 Nawigator - animacje slide
 
 ---
 
