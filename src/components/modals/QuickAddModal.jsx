@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { FaShoppingCart, FaExclamationCircle } from 'react-icons/fa';
 import { QuantitySelector } from '../atoms/QuantitySelector.jsx';
 import { Button } from '../atoms/Button.jsx';
-import { CloseButton } from '../atoms/CloseButton.jsx';
+import { ModalHeader } from '../layout/ModalHeader.jsx';
 import { useBackdropClick } from '../../hooks/useBackdropClick.js';
 
 export function QuickAddModal({ coffee, isOpen, onClose, onAddToCart }) {
@@ -153,21 +153,11 @@ export function QuickAddModal({ coffee, isOpen, onClose, onAddToCart }) {
                 onClick={(e) => e.stopPropagation()}
             >
                 {/* Header */}
-                <div className="px-4">
-                    <div className="relative flex items-center justify-between h-[100px] border-b border-white/10">
-                        <h3 className="text-xl font-semibold text-white">
-                            {coffee.name}
-                        </h3>
-                        {/* Close button - pojawia się PO animacji */}
-                        <div className={`
-                            absolute right-0 top-1/2 -translate-y-1/2
-                            transition-opacity duration-300 delay-300
-                            ${isAnimating ? 'opacity-100' : 'opacity-0'}
-                        `}>
-                            <CloseButton onClick={onClose} />
-                        </div>
-                    </div>
-                </div>
+                <ModalHeader
+                    title={coffee.name}
+                    onClose={onClose}
+                    isAnimating={isAnimating}
+                />
 
                 {/* Content - scrollable */}
                 <div className="flex-1 overflow-y-auto">

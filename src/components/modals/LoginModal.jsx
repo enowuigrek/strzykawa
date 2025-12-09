@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { FaUser, FaLock, FaEye, FaEyeSlash, FaSignInAlt } from 'react-icons/fa';
 import { useAuthStore } from '../../store/authStore.js';
 import { Button } from '../atoms/Button.jsx';
-import { CloseButton } from '../atoms/CloseButton.jsx';
+import { ModalHeader } from '../layout/ModalHeader.jsx';
 
 /**
  * LoginModal - Modal logowania
@@ -79,24 +79,12 @@ const LoginModal = ({ isOpen, onClose, onSwitchToRegister }) => {
                 `}
             >
                 {/* Header */}
-                <div className="px-6">
-                    <div className="relative flex items-center justify-between h-[100px] border-b border-white/10">
-                        <div className="flex items-center gap-3">
-                            <div className="p-2 bg-accent/20 border border-accent/30">
-                                <FaUser className="w-5 h-5 text-accent" />
-                            </div>
-                            <h2 className="text-xl text-white">Zaloguj się</h2>
-                        </div>
-                        {/* Close button - pojawia się PO animacji */}
-                        <div className={`
-                            absolute right-0 top-1/2 -translate-y-1/2
-                            transition-opacity duration-300 delay-300
-                            ${isAnimating ? 'opacity-100' : 'opacity-0'}
-                        `}>
-                            <CloseButton onClick={onClose} />
-                        </div>
-                    </div>
-                </div>
+                <ModalHeader
+                    title="Zaloguj się"
+                    icon={<FaUser className="w-5 h-5 text-accent" />}
+                    onClose={onClose}
+                    isAnimating={isAnimating}
+                />
 
                 {/* Form - scrollable content */}
                 <div className="flex-1 overflow-y-auto">

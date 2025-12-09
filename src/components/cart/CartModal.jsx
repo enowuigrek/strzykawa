@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useCartStore } from '../../store/cartStore';
-import { CartHeader } from './CartHeader';
+import { ModalHeader } from '../layout/ModalHeader';
 import { CartContent } from './CartContent';
 import { CartFooter } from './CartFooter';
 
@@ -60,8 +60,13 @@ export function CartModal({ isOpen, onClose }) {
                     }
                 `}
             >
-                <CartHeader
-                    totalItems={getTotalItems()}
+                <ModalHeader
+                    title="Koszyk"
+                    badge={getTotalItems() > 0 && (
+                        <span className="px-3 py-1 bg-success text-white text-sm font-bold rounded-full">
+                            {getTotalItems()}
+                        </span>
+                    )}
                     onClose={onClose}
                     isAnimating={isAnimating}
                 />
