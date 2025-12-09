@@ -69,6 +69,7 @@ export function TimelineBar({ years = [], isSticky = false, hide = false }) {
 
     return (
         <div className={`
+            hidden md:block
             sticky
             top-0
             z-50

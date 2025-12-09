@@ -62,13 +62,14 @@ const LoginModal = ({ isOpen, onClose, onSwitchToRegister }) => {
                 onClick={onClose}
             />
 
-            {/* Modal - Dynamiczna wysokość na mobile i desktop */}
+            {/* Modal - Wysokość dopasowana do zawartości */}
             <div
                 className={`
-                    fixed h-auto max-h-[90vh] w-full md:max-w-md
+                    fixed w-full md:max-w-md md:w-auto
                     bg-primary-dark border-white/20 md:border
-                    z-[200] shadow-2xl flex flex-col
+                    z-[200] shadow-2xl
                     transition-all duration-300 ease-out
+                    md:max-h-[85vh]
 
                     left-0 md:left-1/2 md:top-1/2 md:-translate-x-1/2
 
