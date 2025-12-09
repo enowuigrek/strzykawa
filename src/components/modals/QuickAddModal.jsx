@@ -161,7 +161,7 @@ export function QuickAddModal({ coffee, isOpen, onClose, onAddToCart }) {
 
                 {/* Content - scrollable */}
                 <div className="flex-1 overflow-y-auto">
-                    <div className="p-3 pb-2">
+                    <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-4">
                         <div className="space-y-3">
                             {/* Gramatura */}
                             {gramaturaOptions.length > 0 && (
@@ -290,9 +290,11 @@ export function QuickAddModal({ coffee, isOpen, onClose, onAddToCart }) {
                             )}
                         </div>
                     </div>
+                </div>
 
-                    {/* Total price */}
-                    <div className="px-3 py-2 border-t border-accent/20">
+                {/* Total price */}
+                <div className="border-t border-accent/20">
+                    <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-3">
                         <div className="flex justify-between items-center">
                             <span className="text-white font-medium">Razem:</span>
                             <span className="text-xl font-bold text-white">
@@ -303,7 +305,8 @@ export function QuickAddModal({ coffee, isOpen, onClose, onAddToCart }) {
                 </div>
 
                 {/* Footer - sticky na dole */}
-                <div className="p-3 border-t border-white/10">
+                <div className="border-t border-white/10">
+                    <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-4">
                         <Button
                             onClick={handleAdd}
                             disabled={!selectedVariant || !isAvailable || adding}
@@ -318,6 +321,7 @@ export function QuickAddModal({ coffee, isOpen, onClose, onAddToCart }) {
                                     `Dodaj - ${totalPrice} zł`}
                         </Button>
                     </div>
+                </div>
                 </div>
         </>
     );
