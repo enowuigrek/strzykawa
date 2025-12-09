@@ -335,7 +335,6 @@ export function QuickAddModal({ coffee, isOpen, onClose, onAddToCart }) {
                         </Button>
                     </div>
                 </div>
-            </div>
         </>
     );
 }
