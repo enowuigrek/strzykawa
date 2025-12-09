@@ -14,33 +14,28 @@ export function CartFooter({ items, isLoading, totalPrice, onCheckout }) {
     return (
         <div className="flex-shrink-0 border-t border-white/10 bg-gradient-to-r from-primary-light/30 to-primary/30 z-[110]">
             <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-6">
-                {/* Free Shipping Info */}
-                <div className={`mb-4 p-4 border ${hasFreeShipping ? 'bg-success/10 border-success/40' : 'bg-primary-light border-accent/30'}`}>
-                    <div className="flex items-center gap-3">
-                        <FaTruck className={`text-lg ${hasFreeShipping ? 'text-success' : 'text-accent'}`} />
+                {/* Total + Free Shipping Info (jedna linia, bardziej minimalistycznie) */}
+                <div className="mb-4">
+                    <div className="flex justify-between items-center mb-2">
+                        <span className="text-lg text-white">Suma:</span>
+                        <span className="text-xl font-semibold text-white">
+                            {totalPrice} zł
+                        </span>
+                    </div>
+
+                    {/* Minimalistyczna info o darmowej wysyłce - jedna linia z ikoną */}
+                    <div className="flex items-center justify-center gap-2 text-sm">
+                        <FaTruck className={`${hasFreeShipping ? 'text-success' : 'text-muted'}`} />
                         {hasFreeShipping ? (
-                            <span className="text-success font-semibold text-base">
-                                Gratulacje! Masz darmową wysyłkę
+                            <span className="text-success font-medium">
+                                Darmowa wysyłka
                             </span>
                         ) : (
-                            <div className="flex-1">
-                                <span className="text-white text-base">
-                                    Do darmowej wysyłki brakuje:{' '}
-                                    <span className="font-bold text-accent text-lg">
-                                        {remaining.toFixed(2)} zł
-                                    </span>
-                                </span>
-                            </div>
+                            <span className="text-muted">
+                                Darmowa wysyłka od {FREE_SHIPPING_THRESHOLD} zł
+                            </span>
                         )}
                     </div>
-                </div>
-
-                {/* Total */}
-                <div className="flex justify-between items-center mb-4">
-                    <span className="text-lg text-white">Suma:</span>
-                    <span className="text-xl text-white">
-                        {totalPrice} zł
-                    </span>
                 </div>
 
                 {/* Checkout Button */}
