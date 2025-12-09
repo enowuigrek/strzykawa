@@ -118,8 +118,11 @@ export function Header() {
     };
 
     // ========== STYLING ==========
-    const headerBg = mobileMenuOpen
-        ? 'bg-primary-dark/95 backdrop-blur-md shadow-2xl shadow-black/50'
+    // Sprawdź czy JAKIKOLWIEK modal jest otwarty
+    const anyModalOpen = showCartModal || showLoginModal || showRegisterModal;
+
+    const headerBg = mobileMenuOpen || anyModalOpen
+        ? 'bg-primary-dark backdrop-blur-md shadow-2xl shadow-black/50'
         : scrolled
             ? 'bg-primary-dark backdrop-blur-md shadow-2xl shadow-black/50'
             : 'bg-transparent';
@@ -148,11 +151,15 @@ export function Header() {
                         <div /> {/* Spacer dla justify-between */}
                         <div className="absolute right-0 top-1/2 -translate-y-1/2 pointer-events-auto">
                             <MobileMenuToggle
-                                isOpen={mobileMenuOpen || showCartModal}
+                                isOpen={mobileMenuOpen || showCartModal || showLoginModal || showRegisterModal}
                                 onToggle={() => {
-                                    // Jeśli koszyk otwarty, zamknij koszyk zamiast otwierać hamburger
+                                    // Jeśli jakikolwiek modal otwarty, zamknij go zamiast otwierać hamburger
                                     if (showCartModal) {
                                         modalActions.closeCart();
+                                    } else if (showLoginModal) {
+                                        modalActions.closeLogin();
+                                    } else if (showRegisterModal) {
+                                        modalActions.closeAll();
                                     } else {
                                         setMobileMenuOpen(!mobileMenuOpen);
                                     }
