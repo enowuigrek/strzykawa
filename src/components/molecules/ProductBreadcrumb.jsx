@@ -8,10 +8,10 @@ import { FaArrowLeft, FaHome, FaChevronRight } from 'react-icons/fa';
 export function ProductBreadcrumb({ coffeeName }) {
     return (
         <nav className="flex items-center gap-2 mb-6 text-sm" aria-label="Breadcrumb">
-            {/* Back button - mobile */}
+            {/* Back button - UKRYTY (niepotrzebny na mobile) */}
             <Link
                 to="/kawy"
-                className="lg:hidden inline-flex items-center gap-2 px-5 py-2.5 bg-primary-light border border-accent/30 text-muted hover:bg-accent/20 hover:text-white rounded-full transition-all"
+                className="hidden inline-flex items-center gap-2 px-5 py-2.5 bg-primary-light border border-accent/30 text-muted hover:bg-accent/20 hover:text-white rounded-full transition-all"
             >
                 <FaArrowLeft className="w-4 h-4" />
                 <span>Powrót</span>

@@ -1,6 +1,6 @@
 import { Button } from '../atoms/Button';
 import { Chip } from '../atoms/Chip';
-import { FaSearch } from 'react-icons/fa';
+import { FaSearch, FaTimes } from 'react-icons/fa';
 import { useState, useEffect, useRef } from 'react';
 
 export function CoffeeFilterBar({
@@ -74,7 +74,7 @@ export function CoffeeFilterBar({
                             className="
                                 w-full
                                 pl-7
-                                pr-4
+                                pr-10
                                 py-2
                                 bg-transparent
                                 border-none
@@ -86,6 +86,19 @@ export function CoffeeFilterBar({
                                 transition-all
                             "
                         />
+                        {/* Clear button - pokazuje się gdy jest tekst */}
+                        {searchQuery && (
+                            <button
+                                onClick={() => {
+                                    setSearchQuery('');
+                                    onSearchChange?.('');
+                                }}
+                                className="absolute right-0 top-1/2 -translate-y-1/2 text-white/70 hover:text-white transition-colors p-1"
+                                aria-label="Wyczyść wyszukiwanie"
+                            >
+                                <FaTimes className="w-4 h-4" />
+                            </button>
+                        )}
                     </div>
                 </div>
 

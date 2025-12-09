@@ -2,6 +2,7 @@ import { NavLink } from 'react-router-dom';
 import { FaShoppingCart, FaUser, FaSignOutAlt } from 'react-icons/fa';
 import { useAuthStore } from '../../store/authStore.js';
 import { NAV_ITEMS } from '../../constants/navigation.js';
+import { useEffect } from 'react';
 
 export function MobileNavigation({
                                      isOpen,
@@ -14,6 +15,21 @@ export function MobileNavigation({
                                      onLogout
                                  }) {
     const { user, isAuthenticated } = useAuthStore();
+
+    // Zamknij menu przy scrollowaniu
+    useEffect(() => {
+        if (!isOpen) return;
+
+        const handleScroll = () => {
+            onClose();
+        };
+
+        window.addEventListener('scroll', handleScroll, { passive: true });
+
+        return () => {
+            window.removeEventListener('scroll', handleScroll);
+        };
+    }, [isOpen, onClose]);
 
     return (
         <div
