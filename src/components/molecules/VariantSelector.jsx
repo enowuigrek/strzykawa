@@ -103,7 +103,7 @@ export function VariantSelector({
                                         onClick={() => available && handleGramaturaChange(value)}
                                         disabled={!available}
                                         className={`
-                                            px-5 py-2.5 font-medium transition-all rounded-full
+                                            min-w-[100px] px-5 py-2.5 font-medium transition-all rounded-full
                                             ${!available
                                             ? 'bg-red-900/20 text-red-400/70 opacity-60 cursor-not-allowed border border-red-800/30'
                                             : selectedGramatura === value
@@ -144,7 +144,7 @@ export function VariantSelector({
                                         onClick={() => available && handleTypChange(value)}
                                         disabled={!available}
                                         className={`
-                                            px-5 py-2.5 font-medium transition-all rounded-full
+                                            min-w-[100px] px-5 py-2.5 font-medium transition-all rounded-full
                                             ${!available
                                             ? 'bg-red-900/20 text-red-400/70 opacity-60 cursor-not-allowed border border-red-800/30'
                                             : selectedTyp === value
@@ -170,7 +170,7 @@ export function VariantSelector({
                         </label>
                         {/* Przyciski zawsze grid 2 kolumny - obok siebie */}
                         <div className="grid grid-cols-2 gap-2">
-                            {['Pod ekspres', 'Pod drip'].map(value => (
+                            {['Ekspres', 'Drip'].map(value => (
                                 <button
                                     key={value}
                                     onClick={() => onGrindMethodChange(value)}
