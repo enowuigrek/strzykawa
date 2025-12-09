@@ -9,7 +9,7 @@ export function QuickAddModal({ coffee, isOpen, onClose, onAddToCart }) {
     const [selectedVariant, setSelectedVariant] = useState(null);
     const [quantity, setQuantity] = useState(1);
     const [adding, setAdding] = useState(false);
-    const [grindMethod, setGrindMethod] = useState(null); // Pod ekspres / Pod drip
+    const [grindMethod, setGrindMethod] = useState(null); // Ekspres / Drip
     const [isAnimating, setIsAnimating] = useState(false);
 
     // Animation trigger
@@ -242,7 +242,7 @@ export function QuickAddModal({ coffee, isOpen, onClose, onAddToCart }) {
                                         Sposób mielenia
                                     </label>
                                     <div className="flex gap-2">
-                                        {['Pod ekspres', 'Pod drip'].map(value => (
+                                        {['Ekspres', 'Drip'].map(value => (
                                             <button
                                                 key={value}
                                                 onClick={() => setGrindMethod(value)}

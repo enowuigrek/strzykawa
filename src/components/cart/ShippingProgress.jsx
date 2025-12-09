@@ -22,7 +22,7 @@ export function ShippingProgress({ totalPrice }) {
                     <div className="flex items-center gap-2">
                         <FaTruck className={`${hasFreeShipping ? 'text-success' : 'text-muted'}`} />
                         <span className="text-sm text-white">
-                            {hasFreeShipping ? 'Gratulacje!' : 'Darmowa wysyłka'}
+                            Darmowa wysyłka
                         </span>
                     </div>
 
