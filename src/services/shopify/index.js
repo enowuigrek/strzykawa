@@ -2,6 +2,14 @@ import ShopifyClient from './client.js';
 import { fetchProducts, fetchProduct } from './products.js';
 import { createCart, addToCart, updateCartLines, removeFromCart, getCart } from './cart.js';
 import { mapProduct } from './mapper.js';
+import {
+    registerCustomer,
+    loginCustomer,
+    logoutCustomer,
+    getCustomer,
+    getCustomerOrders,
+    validateAccessToken
+} from './customer.js';
 
 class ShopifyService {
     constructor() {
@@ -72,3 +80,11 @@ export { ShopifyClient } from './client.js';
 export { fetchProducts, fetchProduct } from './products.js';
 export { createCart, addToCart, updateCartLines, removeFromCart, getCart } from './cart.js';
 export { mapProduct } from './mapper.js';
+export {
+    registerCustomer,
+    loginCustomer,
+    logoutCustomer,
+    getCustomer,
+    getCustomerOrders,
+    validateAccessToken
+} from './customer.js';

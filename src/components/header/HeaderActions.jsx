@@ -1,5 +1,6 @@
 import React from 'react';
-import { FaUser, FaShoppingCart, FaSignOutAlt } from 'react-icons/fa';
+import { useNavigate } from 'react-router-dom';
+import { FaUser, FaShoppingCart, FaSignOutAlt, FaBox } from 'react-icons/fa';
 import { useAuthStore } from '../../store/authStore.js';
 
 export function HeaderActions({ cartItemsCount, onOpenCart, onOpenLogin, onLogout }) {
@@ -37,6 +38,8 @@ export function HeaderActions({ cartItemsCount, onOpenCart, onOpenLogin, onLogou
 }
 
 function AuthenticatedUser({ user, onLogout }) {
+    const navigate = useNavigate();
+
     return (
         <div className="flex items-center">
             <div className="flex items-center space-x-2 px-4 py-2">
@@ -45,6 +48,23 @@ function AuthenticatedUser({ user, onLogout }) {
                     {user?.firstName}
                 </span>
             </div>
+
+            {/* Divider */}
+            <div className="w-px h-6 bg-white/30"></div>
+
+            {/* Moje zamówienia */}
+            <button
+                onClick={() => navigate('/zamowienia')}
+                className="px-3 py-2 text-white hover:text-accent transition-all duration-300 hover:scale-105"
+                title="Moje zamówienia"
+            >
+                <FaBox className="w-4 h-4" />
+            </button>
+
+            {/* Divider */}
+            <div className="w-px h-6 bg-white/30"></div>
+
+            {/* Wyloguj */}
             <button
                 onClick={onLogout}
                 className="px-3 py-2 text-white hover:text-red-400 transition-all duration-300 hover:scale-105"

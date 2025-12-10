@@ -6,6 +6,7 @@ import { Footer } from './components/layout/Footer.jsx';
 import { Home } from './pages/Home.jsx';
 import { Coffees }from './pages/Coffees.jsx';
 import { CoffeeDetail } from './pages/CoffeeDetail.jsx';
+import { Orders } from './pages/Orders.jsx';
 import { About } from "./pages/About.jsx";
 import { Contact } from "./pages/Contact.jsx";
 import { B2B } from './pages/B2B.jsx';
@@ -20,6 +21,7 @@ import {CheckoutSuccess} from "./pages/CheckoutSuccess.jsx";
 import {CheckoutCanceled} from "./pages/CheckoutCanceled.jsx";
 import { NotFound } from './pages/NotFound.jsx';
 import { PREVIEW_PASSWORD, PREVIEW_STORAGE_KEY } from './constants/preview.js';
+import { useAuthStore } from './store/authStore.js';
 
 // 🚨 COMING SOON MODE - Kontrolowane przez zmienną środowiskową
 // Lokalne: .env.development (false) | Produkcja: .env.production (true)
@@ -71,6 +73,12 @@ function App() {
     const { pathname } = useLocation();
     const isStyleGuide = pathname === '/style-guide';
     const isPreviewMode = usePreviewMode();
+    const checkAuth = useAuthStore((state) => state.checkAuth);
+
+    // Sprawdź autentykację przy starcie aplikacji
+    useEffect(() => {
+        checkAuth();
+    }, [checkAuth]);
 
     // 🚨 Jeśli COMING_SOON_MODE = true I NIE MA preview mode, pokazuj tylko Coming Soon
     if (COMING_SOON_MODE && !isPreviewMode) {
@@ -91,6 +99,7 @@ function App() {
                     <Route path="/" element={<Home />} />
                     <Route path="/kawy" element={<Coffees />} />
                     <Route path="/kawy/:handle" element={<CoffeeDetail />} />
+                    <Route path="/zamowienia" element={<Orders />} />
                     <Route path="/o-nas" element={<About />} />
                     <Route path="/b2b" element={<B2B />} />
                     <Route path="/kontakt" element={<Contact />} />

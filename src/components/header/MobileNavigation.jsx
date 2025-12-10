@@ -1,5 +1,5 @@
-import { NavLink } from 'react-router-dom';
-import { FaShoppingCart, FaUser, FaSignOutAlt } from 'react-icons/fa';
+import { NavLink, useNavigate } from 'react-router-dom';
+import { FaShoppingCart, FaUser, FaSignOutAlt, FaBox } from 'react-icons/fa';
 import { useAuthStore } from '../../store/authStore.js';
 import { NAV_ITEMS } from '../../constants/navigation.js';
 import { useEffect } from 'react';
@@ -158,12 +158,26 @@ function MobileActionsSection({
  * MobileAuthenticatedUser - Sekcja zalogowanego użytkownika
  */
 function MobileAuthenticatedUser({ user, onLogout }) {
+    const navigate = useNavigate();
+
     return (
         <div className="space-y-2">
             <div className="flex items-center space-x-3 px-4 py-3 bg-white/5 rounded-lg">
                 <FaUser className="w-4 h-4 text-accent" />
                 <span className="text-white">{user?.firstName} {user?.lastName}</span>
             </div>
+
+            {/* Moje zamówienia */}
+            <button
+                onClick={() => navigate('/zamowienia')}
+                className="flex items-center space-x-3 px-4 py-3 text-white hover:bg-white/5 rounded-full w-full text-left transition-all duration-300"
+                aria-label="Moje zamówienia"
+            >
+                <FaBox className="w-4 h-4" />
+                <span>Moje zamówienia</span>
+            </button>
+
+            {/* Wyloguj się */}
             <button
                 onClick={onLogout}
                 className="flex items-center space-x-3 px-4 py-3 text-red-300 hover:bg-red-500/10 rounded-full w-full text-left transition-all duration-300"

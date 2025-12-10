@@ -52,5 +52,9 @@ class ShopifyClient {
     }
 }
 
+// Export class for direct instantiation
 export { ShopifyClient };
 export default ShopifyClient;
+
+// Export singleton instance for convenience
+export const shopifyClient = new ShopifyClient();
