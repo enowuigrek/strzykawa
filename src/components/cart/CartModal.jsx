@@ -18,12 +18,34 @@ export function CartModal({ isOpen, onClose }) {
 
     const [isAnimating, setIsAnimating] = useState(false);
 
+    // Animation trigger
     useEffect(() => {
         if (isOpen) {
             // Trigger animation after mount
             setTimeout(() => setIsAnimating(true), 10);
         } else {
             setIsAnimating(false);
+        }
+    }, [isOpen]);
+
+    // Blokuj scroll body gdy koszyk otwarty (mobile fix)
+    useEffect(() => {
+        if (isOpen) {
+            // Zapisz obecny scroll position
+            const scrollY = window.scrollY;
+
+            // Zablokuj scroll
+            document.body.style.position = 'fixed';
+            document.body.style.top = `-${scrollY}px`;
+            document.body.style.width = '100%';
+
+            return () => {
+                // Przywróć scroll
+                document.body.style.position = '';
+                document.body.style.top = '';
+                document.body.style.width = '';
+                window.scrollTo(0, scrollY);
+            };
         }
     }, [isOpen]);
 
