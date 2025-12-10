@@ -40,15 +40,15 @@ export async function registerCustomer(email, password, firstName, lastName) {
     try {
         const response = await shopifyClient.graphqlFetch(mutation, variables);
 
-        if (response.customerCreate.customerUserErrors.length > 0) {
-            const error = response.customerCreate.customerUserErrors[0];
+        if (response.data.customerCreate.customerUserErrors.length > 0) {
+            const error = response.data.customerCreate.customerUserErrors[0];
             return {
                 success: false,
                 error: translateError(error.message)
             };
         }
 
-        const customer = response.customerCreate.customer;
+        const customer = response.data.customerCreate.customer;
 
         return {
             success: true,
@@ -98,15 +98,15 @@ export async function loginCustomer(email, password) {
     try {
         const response = await shopifyClient.graphqlFetch(mutation, variables);
 
-        if (response.customerAccessTokenCreate.customerUserErrors.length > 0) {
-            const error = response.customerAccessTokenCreate.customerUserErrors[0];
+        if (response.data.customerAccessTokenCreate.customerUserErrors.length > 0) {
+            const error = response.data.customerAccessTokenCreate.customerUserErrors[0];
             return {
                 success: false,
                 error: translateError(error.message)
             };
         }
 
-        const { accessToken, expiresAt } = response.customerAccessTokenCreate.customerAccessToken;
+        const { accessToken, expiresAt } = response.data.customerAccessTokenCreate.customerAccessToken;
 
         // Pobierz dane klienta używając access token
         const customerData = await getCustomer(accessToken);
@@ -164,7 +164,7 @@ export async function getCustomer(accessToken) {
     try {
         const response = await shopifyClient.graphqlFetch(query, variables);
 
-        if (!response.customer) {
+        if (!response.data.customer) {
             return {
                 success: false,
                 error: 'Nie znaleziono klienta'
@@ -174,12 +174,12 @@ export async function getCustomer(accessToken) {
         return {
             success: true,
             customer: {
-                id: response.customer.id,
-                email: response.customer.email,
-                firstName: response.customer.firstName,
-                lastName: response.customer.lastName,
-                phone: response.customer.phone,
-                defaultAddress: response.customer.defaultAddress
+                id: response.data.customer.id,
+                email: response.data.customer.email,
+                firstName: response.data.customer.firstName,
+                lastName: response.data.customer.lastName,
+                phone: response.data.customer.phone,
+                defaultAddress: response.data.customer.defaultAddress
             }
         };
     } catch (error) {
@@ -247,14 +247,14 @@ export async function getCustomerOrders(accessToken, first = 10) {
     try {
         const response = await shopifyClient.graphqlFetch(query, variables);
 
-        if (!response.customer) {
+        if (!response.data.customer) {
             return {
                 success: false,
                 error: 'Nie znaleziono klienta'
             };
         }
 
-        const orders = response.customer.orders.edges.map(edge => {
+        const orders = response.data.customer.orders.edges.map(edge => {
             const order = edge.node;
             return {
                 id: order.id,
