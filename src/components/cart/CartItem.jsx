@@ -49,9 +49,9 @@ export function CartItem({ item, onUpdateQuantity, onRemove, isLoading }) {
                     <h4 className="font-semibold text-white truncate">{product.name}</h4>
 
                     {/* Variant pills - ciemny zielony jak na przykładzie */}
-                    {item.selectedOptions?.length > 0 && (
+                    {(item.selectedOptions?.length > 0 || item.grindMethod) && (
                         <div className="flex flex-wrap gap-1.5 mt-1.5">
-                            {item.selectedOptions.map((option) => (
+                            {item.selectedOptions?.map((option) => (
                                 <span
                                     key={option.name}
                                     className="inline-flex items-center px-3 py-1 bg-[#3A5F55] text-white text-xs font-medium rounded-full"
@@ -59,6 +59,13 @@ export function CartItem({ item, onUpdateQuantity, onRemove, isLoading }) {
                                     {option.value}
                                 </span>
                             ))}
+                            {item.grindMethod && (
+                                <span
+                                    className="inline-flex items-center px-3 py-1 bg-[#3A5F55] text-white text-xs font-medium rounded-full"
+                                >
+                                    Mielenie: {item.grindMethod}
+                                </span>
+                            )}
                         </div>
                     )}
 

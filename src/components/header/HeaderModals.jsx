@@ -17,8 +17,8 @@ export function HeaderModals({
                              }) {
     const { addItem } = useCartStore();
 
-    const handleQuickAddToCart = async (coffee, variant, quantity) => {
-        await addItem(coffee, variant.id, quantity);
+    const handleQuickAddToCart = async (coffee, variant, quantity, grindMethod = null) => {
+        await addItem(coffee, variant.id, quantity, grindMethod);
         // Po dodaniu do koszyka, możemy otworzyć koszyk (opcjonalnie)
         // window.dispatchEvent(new CustomEvent('openCart'));
     };

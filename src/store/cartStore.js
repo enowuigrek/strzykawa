@@ -43,6 +43,7 @@ export const useCartStore = create(
                     const variant = line.merchandise;
 
                     const selectedOptions = variant.selectedOptions || [];
+                    const grindMethod = line.attributes?.find(attr => attr.key === 'grind_method')?.value || null;
 
                     return {
                         lineItemId: line.id,
@@ -58,13 +59,14 @@ export const useCartStore = create(
                         variantId: variant.id,
                         variantTitle: variant.title,
                         selectedOptions: selectedOptions,
+                        grindMethod: grindMethod,
                         quantity: line.quantity
                     };
                 });
             },
 
             // Add item to cart
-            addItem: async (product, variantId, quantity = 1) => {
+            addItem: async (product, variantId, quantity = 1, grindMethod = null) => {
                 set({ isLoading: true, error: null });
 
                 try {
@@ -75,13 +77,20 @@ export const useCartStore = create(
                         throw new Error('Brak koszyka');
                     }
 
+                    const attributes = [
+                        { key: 'product_name', value: product.name },
+                        { key: 'roast_level', value: product.roastLevel || '' },
+                    ];
+
+                    // Dodaj grind_method tylko jeśli został wybrany
+                    if (grindMethod) {
+                        attributes.push({ key: 'grind_method', value: grindMethod });
+                    }
+
                     const lines = [{
                         merchandiseId: variantId,
                         quantity: quantity,
-                        attributes: [
-                            { key: 'product_name', value: product.name },
-                            { key: 'roast_level', value: product.roastLevel || '' },
-                        ]
+                        attributes: attributes
                     }];
 
                     const updatedCart = await shopify.addToCart(cart.id, lines);

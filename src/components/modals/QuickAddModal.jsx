@@ -106,7 +106,7 @@ export function QuickAddModal({ coffee, isOpen, onClose, onAddToCart }) {
         if (!selectedVariant || !selectedVariant.availableForSale) return;
 
         setAdding(true);
-        await onAddToCart(coffee, selectedVariant, quantity);
+        await onAddToCart(coffee, selectedVariant, quantity, grindMethod);
 
         setTimeout(() => {
             setAdding(false);
