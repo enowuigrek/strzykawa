@@ -44,7 +44,7 @@ export function CheckoutCanceled() {
                 {/* Info boxes */}
                 <div className="space-y-4 mb-8">
                     {/* Cart preserved */}
-                    <div className="bg-primary-light border border-white/10 rounded-lg p-4 flex items-start gap-4">
+                    <div className="bg-primary-light border border-white/10 p-4 flex items-start gap-4">
                         <div className="w-10 h-10 rounded-full bg-accent/20 flex items-center justify-center flex-shrink-0">
                             <FaShoppingCart className="w-5 h-5 text-accent" />
                         </div>
@@ -59,7 +59,7 @@ export function CheckoutCanceled() {
                     </div>
 
                     {/* Possible reasons */}
-                    <div className="bg-primary-light border border-white/10 rounded-lg p-4 flex items-start gap-4">
+                    <div className="bg-primary-light border border-white/10 p-4 flex items-start gap-4">
                         <div className="w-10 h-10 rounded-full bg-accent/20 flex items-center justify-center flex-shrink-0">
                             <FaQuestionCircle className="w-5 h-5 text-accent" />
                         </div>
@@ -106,7 +106,7 @@ export function CheckoutCanceled() {
                 {/* Additional info */}
                 <div className="mt-8 text-center">
                     <p className="text-muted text-sm">
-                        Potrzebujesz pomocy? <Link to="/contact" className="text-accent hover:text-accent/80 underline">Skontaktuj się z nami</Link>
+                        Potrzebujesz pomocy? <a href="mailto:kontakt@strzykawa.pl" className="text-accent hover:text-accent/80 underline">Skontaktuj się z nami</a>
                     </p>
                 </div>
             </div>

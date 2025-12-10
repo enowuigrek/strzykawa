@@ -25,7 +25,7 @@ export function CheckoutSuccess() {
     return (
         <PageLayout
             title="Zamówienie złożone pomyślnie!"
-            description="Dziękujemy za zakupy w Strzykawa Coffee Roastery"
+            description="w Strzykawa Coffee Roastery"
         >
             <div className="container mx-auto max-w-2xl px-4 py-12">
                 {/* Success Icon */}
@@ -42,7 +42,7 @@ export function CheckoutSuccess() {
 
                 {/* Order ID */}
                 {orderId && (
-                    <div className="bg-primary-light border border-accent/20 rounded-lg p-4 mb-6">
+                    <div className="bg-primary-light border border-accent/20 p-4 mb-6">
                         <p className="text-muted text-sm text-center mb-1">
                             Numer zamówienia:
                         </p>
@@ -55,7 +55,7 @@ export function CheckoutSuccess() {
                 {/* Info boxes */}
                 <div className="space-y-4 mb-8">
                     {/* Email confirmation */}
-                    <div className="bg-primary-light border border-white/10 rounded-lg p-4 flex items-start gap-4">
+                    <div className="bg-primary-light border border-white/10 p-4 flex items-start gap-4">
                         <div className="w-10 h-10 rounded-full bg-accent/20 flex items-center justify-center flex-shrink-0">
                             <FaEnvelope className="w-5 h-5 text-accent" />
                         </div>
@@ -70,7 +70,7 @@ export function CheckoutSuccess() {
                     </div>
 
                     {/* Shipping info */}
-                    <div className="bg-primary-light border border-white/10 rounded-lg p-4 flex items-start gap-4">
+                    <div className="bg-primary-light border border-white/10 p-4 flex items-start gap-4">
                         <div className="w-10 h-10 rounded-full bg-accent/20 flex items-center justify-center flex-shrink-0">
                             <FaTruck className="w-5 h-5 text-accent" />
                         </div>
@@ -85,9 +85,9 @@ export function CheckoutSuccess() {
                     </div>
                 </div>
 
-                {/* CTA Buttons */}
-                <div className="flex flex-col sm:flex-row gap-4">
-                    <Link to="/" className="flex-1">
+                {/* CTA Button */}
+                <div className="mb-6">
+                    <Link to="/coffees">
                         <Button
                             variant="primary"
                             size="lg"
@@ -96,21 +96,12 @@ export function CheckoutSuccess() {
                             Wróć do sklepu
                         </Button>
                     </Link>
-                    <Link to="/contact" className="flex-1">
-                        <Button
-                            variant="secondary"
-                            size="lg"
-                            fullWidth
-                        >
-                            Kontakt
-                        </Button>
-                    </Link>
                 </div>
 
                 {/* Additional info */}
                 <div className="mt-8 text-center">
                     <p className="text-muted text-sm">
-                        Masz pytania? <Link to="/contact" className="text-accent hover:text-accent/80 underline">Skontaktuj się z nami</Link>
+                        Masz pytania? <a href="mailto:kontakt@strzykawa.pl" className="text-accent hover:text-accent/80 underline">Skontaktuj się z nami</a>
                     </p>
                 </div>
             </div>
