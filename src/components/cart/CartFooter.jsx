@@ -7,11 +7,11 @@ export function CartFooter({ items, isLoading, totalPrice, onCheckout }) {
 
     return (
         <div className="flex-shrink-0 border-t border-white/10 bg-gradient-to-r from-primary-light/30 to-primary/30 z-[110]">
-            <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-6">
+            <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-3 sm:py-6">
                 {/* Total */}
-                <div className="flex justify-between items-center mb-4">
-                    <span className="text-lg text-white">Suma:</span>
-                    <span className="text-xl font-semibold text-white">
+                <div className="flex justify-between items-center mb-3">
+                    <span className="text-base sm:text-lg text-white">Suma:</span>
+                    <span className="text-lg sm:text-xl font-semibold text-white">
                         {totalPrice} zł
                     </span>
                 </div>
@@ -26,10 +26,11 @@ export function CartFooter({ items, isLoading, totalPrice, onCheckout }) {
                     leftIcon={FaCreditCard}
                     loading={isLoading}
                 >
-                    Przejdź do płatności
+                    <span className="hidden sm:inline">Przejdź do płatności</span>
+                    <span className="sm:hidden">Płatność</span>
                 </Button>
 
-                <p className="text-xs text-muted text-center mt-3">
+                <p className="text-xs text-muted text-center mt-2">
                     Zostaniesz przekierowany do bezpiecznej płatności Shopify
                 </p>
             </div>

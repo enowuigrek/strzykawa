@@ -15,28 +15,28 @@ export function ShippingProgress({ totalPrice }) {
     const progress = Math.min((totalAmount / FREE_SHIPPING_THRESHOLD) * 100, 100);
 
     return (
-        <div className="flex-shrink-0 border-t border-white/5 bg-primary-dark/40 px-4 sm:px-6 lg:px-8 py-4">
+        <div className="flex-shrink-0 border-t border-white/5 bg-primary-dark/40 px-4 sm:px-6 lg:px-8 py-2.5 sm:py-4">
             <div className="container mx-auto">
                 {/* Tekst + kwota */}
                 <div className="flex items-center justify-between mb-2">
                     <div className="flex items-center gap-2">
-                        <FaTruck className={`${hasFreeShipping ? 'text-success' : 'text-muted'}`} />
-                        <span className="text-sm text-white">
-                            Darmowa wysyłka
+                        <FaTruck className={`text-xs sm:text-sm ${hasFreeShipping ? 'text-success' : 'text-muted'}`} />
+                        <span className="text-xs sm:text-sm text-white">
+                            {hasFreeShipping ? 'Darmowa wysyłka' : 'Do darmowej wysyłki brakuje:'}
                         </span>
                     </div>
 
-                    <span className={`text-sm font-semibold ${hasFreeShipping ? 'text-success' : 'text-accent'}`}>
+                    <span className={`text-xs sm:text-sm font-semibold ${hasFreeShipping ? 'text-success' : 'text-accent'}`}>
                         {hasFreeShipping ? (
-                            '✓ Osiągnięto'
+                            '✓'
                         ) : (
-                            `Brakuje ${remaining.toFixed(2)} zł`
+                            `${remaining.toFixed(2)} zł`
                         )}
                     </span>
                 </div>
 
                 {/* Progress bar */}
-                <div className="w-full h-2 bg-primary-light/50 rounded-full overflow-hidden">
+                <div className="w-full h-1.5 sm:h-2 bg-primary-light/50 rounded-full overflow-hidden">
                     <div
                         className={`h-full transition-all duration-500 ease-out ${
                             hasFreeShipping ? 'bg-success' : 'bg-accent'
