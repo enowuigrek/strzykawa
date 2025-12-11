@@ -444,22 +444,26 @@ export async function recoverPassword(email) {
     };
 
     try {
+        console.log('🔑 Sending password recovery email to:', email);
         const response = await shopifyClient.graphqlFetch(mutation, variables);
+        console.log('🔑 Password Recovery Response:', response);
 
         if (response.data.customerRecover.customerUserErrors.length > 0) {
             const error = response.data.customerRecover.customerUserErrors[0];
+            console.error('❌ Password recovery error:', error);
             return {
                 success: false,
                 error: translateError(error.message)
             };
         }
 
+        console.log('✅ Password recovery email sent successfully to:', email);
         return {
             success: true,
             message: 'Link do resetu hasła został wysłany na podany adres e-mail'
         };
     } catch (error) {
-        console.error('Error recovering password:', error);
+        console.error('❌ Error recovering password:', error);
         return {
             success: false,
             error: 'Błąd podczas wysyłania emaila. Spróbuj ponownie.'
