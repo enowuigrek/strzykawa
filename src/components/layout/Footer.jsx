@@ -64,10 +64,10 @@ export function Footer() {
             {/* Main content */}
             <div className="relative z-10 container mx-auto px-4 py-4 md:py-12">
                 {/* Mobile: Logo pełna szerokość, potem 2 kolumny */}
-                {/* Desktop: 4 kolumny równo */}
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-10">
-                    {/* Logo + opis - mobile pełna szerokość */}
-                    <div className="col-span-2 md:col-span-1 flex flex-col items-center md:items-start md:space-y-4">
+                {/* Desktop: 3 kolumny */}
+                <div className="grid grid-cols-2 md:grid-cols-3 gap-8 md:gap-10">
+                    {/* Logo + Social Media - mobile pełna szerokość */}
+                    <div className="col-span-2 md:col-span-1 flex flex-col items-center md:items-start space-y-4">
                         <div className="footer-logo">
                             {/* Mobile: poziome logo */}
                             <img
@@ -81,6 +81,24 @@ export function Footer() {
                                 alt="Strzykawa Coffee Shop & Roastery"
                                 className="hidden md:block w-auto h-20"
                             />
+                        </div>
+                        {/* Social Media - tylko ikony */}
+                        <div className="flex gap-3">
+                            {socialLinks.map((social, index) => {
+                                const Icon = social.icon;
+                                return (
+                                    <a
+                                        key={index}
+                                        href={social.href}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        aria-label={social.label}
+                                        className={`text-white/70 transition-all duration-300 hover:scale-110 ${social.hoverColor}`}
+                                    >
+                                        <Icon className="w-6 h-6" />
+                                    </a>
+                                );
+                            })}
                         </div>
                     </div>
 
@@ -101,7 +119,7 @@ export function Footer() {
                         </ul>
                     </div>
 
-                    {/* Kontakt + Adres */}
+                    {/* Kontakt + Adres + Godziny */}
                     <div className="space-y-4">
                         <h4 className="text-lg text-white">Kontakt</h4>
                         <div className="space-y-3">
@@ -129,42 +147,14 @@ export function Footer() {
                                     <div>{locationInfo.city}</div>
                                 </div>
                             </div>
-                        </div>
-                    </div>
 
-                    {/* Social Media + Godziny */}
-                    <div className="col-span-2 md:col-span-1 flex flex-col md:flex-row gap-6 md:gap-8">
-                        <div className="flex-1">
-                            <h4 className="text-lg text-white mb-4">Odwiedź nas</h4>
-                            {/* Godziny */}
-                            <div className="text-sm text-white/70 space-y-1">
-                                <div className="text-white/90">Godziny otwarcia:</div>
+                            {/* Godziny otwarcia */}
+                            <div className="text-sm text-white/70 pt-2 border-t border-white/10 mt-3">
+                                <div className="text-white/90 mb-1">Godziny otwarcia:</div>
                                 <div className="text-xs leading-relaxed">
                                     Pn-Pt: 8:00 - 18:00<br />
                                     Sb-Nd: 10:00 - 16:00
                                 </div>
-                            </div>
-                        </div>
-
-                        {/* Social Media */}
-                        <div className="flex-1">
-                            <h4 className="text-lg text-white mb-4">Śledź nas</h4>
-                            <div className="flex gap-3 md:justify-end">
-                                {socialLinks.map((social, index) => {
-                                    const Icon = social.icon;
-                                    return (
-                                        <a
-                                            key={index}
-                                            href={social.href}
-                                            target="_blank"
-                                            rel="noopener noreferrer"
-                                            aria-label={social.label}
-                                            className={`text-white/70 transition-all duration-300 hover:scale-110 ${social.hoverColor}`}
-                                        >
-                                            <Icon className="w-7 h-7" />
-                                        </a>
-                                    );
-                                })}
                             </div>
                         </div>
                     </div>
