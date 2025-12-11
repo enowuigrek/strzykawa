@@ -116,16 +116,19 @@ export function EditAddressForm({ initialAddress = null, initialPhone = '' }) {
                                 Adres dostawy
                             </label>
                             <div className="text-white space-y-1">
-                                {formData.address1 && <p>{formData.address1}</p>}
-                                {formData.address2 && <p>{formData.address2}</p>}
+                                {(formData.address1 || formData.address2) && (
+                                    <p>
+                                        {formData.address1}
+                                        {formData.address1 && formData.address2 && ' '}
+                                        {formData.address2}
+                                    </p>
+                                )}
                                 {(formData.zip || formData.city) && (
                                     <p>
                                         {formData.zip && `${formData.zip} `}
                                         {formData.city}
                                     </p>
                                 )}
-                                {formData.province && <p>{formData.province}</p>}
-                                {formData.country && <p>{formData.country}</p>}
                             </div>
                         </div>
                     )}
@@ -244,22 +247,6 @@ export function EditAddressForm({ initialAddress = null, initialPhone = '' }) {
                             placeholder="Warszawa"
                         />
                     </div>
-                </div>
-
-                {/* Województwo */}
-                <div>
-                    <label htmlFor="province" className="block text-sm font-semibold text-muted mb-2">
-                        Województwo <span className="text-xs text-muted/70">(opcjonalnie)</span>
-                    </label>
-                    <input
-                        type="text"
-                        id="province"
-                        name="province"
-                        value={formData.province}
-                        onChange={handleChange}
-                        className="w-full px-4 py-3 bg-primary/50 border border-white/20 text-white placeholder-muted/70 focus:border-accent focus:ring-2 focus:ring-accent/20 transition-all duration-300"
-                        placeholder="Mazowieckie"
-                    />
                 </div>
 
                 {/* Buttons */}

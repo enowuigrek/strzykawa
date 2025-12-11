@@ -34,7 +34,6 @@ export function Profile() {
     return (
         <PageLayout
             title="Mój profil"
-            subtitle="Twoje dane i historia zakupów"
         >
             <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-8">
                 <div className="max-w-2xl mx-auto space-y-6">
@@ -118,17 +117,15 @@ export function Profile() {
                     </div>
 
                     {/* Wyloguj */}
-                    <div className="bg-primary-light border border-white/10 p-6">
-                        <Button
-                            onClick={handleLogout}
-                            icon={FaSignOutAlt}
-                            variant="secondary"
-                            size="md"
-                            className="w-full"
-                        >
-                            Wyloguj się
-                        </Button>
-                    </div>
+                    <Button
+                        onClick={handleLogout}
+                        icon={FaSignOutAlt}
+                        variant="primary"
+                        size="md"
+                        className="w-full"
+                    >
+                        Wyloguj się
+                    </Button>
                 </div>
             </div>
         </PageLayout>

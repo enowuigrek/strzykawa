@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { FaBox, FaCheckCircle, FaClock, FaExclamationTriangle } from 'react-icons/fa';
+import { FaBox, FaCheckCircle, FaClock, FaExclamationTriangle, FaChevronDown } from 'react-icons/fa';
 import { useAuthStore } from '../store/authStore.js';
 import { getCustomerOrders } from '../services/shopify/customer.js';
 import { PageLayout } from '../components/layout/PageLayout.jsx';
@@ -15,6 +15,7 @@ export function Orders() {
     const [orders, setOrders] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState(null);
+    const [expandedOrders, setExpandedOrders] = useState(new Set());
 
     useEffect(() => {
         // Jeśli niezalogowany, przekieruj do strony głównej
@@ -41,6 +42,19 @@ export function Orders() {
         }
 
         setIsLoading(false);
+    };
+
+    // Toggle expanded state for an order
+    const toggleOrder = (orderId) => {
+        setExpandedOrders(prev => {
+            const newSet = new Set(prev);
+            if (newSet.has(orderId)) {
+                newSet.delete(orderId);
+            } else {
+                newSet.add(orderId);
+            }
+            return newSet;
+        });
     };
 
     // Format daty
@@ -80,7 +94,7 @@ export function Orders() {
     return (
         <PageLayout
             title="Moje zamówienia"
-            subtitle="Historia Twoich zakupów w Strzykawa Coffee Roastery"
+            subtitle="Historia Twoich zakupów"
         >
             <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-8">
                 {/* Loading State */}
@@ -128,85 +142,112 @@ export function Orders() {
 
                 {/* Orders List */}
                 {!isLoading && !error && orders.length > 0 && (
-                    <div className="space-y-6">
+                    <div className="space-y-4">
                         {orders.map((order) => {
                             const financialStatus = getFinancialStatusLabel(order.financialStatus);
                             const fulfillmentStatus = getFulfillmentStatusLabel(order.fulfillmentStatus);
                             const FinancialIcon = financialStatus.icon;
+                            const isExpanded = expandedOrders.has(order.id);
 
                             return (
                                 <div
                                     key={order.id}
-                                    className="bg-primary-light border border-white/10 p-6 hover:border-accent/30 transition-colors duration-300"
+                                    className="bg-primary-light border border-white/10 hover:border-accent/30 transition-colors duration-300"
                                 >
-                                    {/* Header */}
-                                    <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-4 pb-4 border-b border-white/10">
-                                        <div className="mb-2 sm:mb-0">
-                                            <h3 className="text-lg font-semibold text-white mb-1">
-                                                Zamówienie #{order.orderNumber}
-                                            </h3>
-                                            <p className="text-sm text-muted">
-                                                {formatDate(order.date)}
-                                            </p>
-                                        </div>
-                                        <div className="flex flex-col sm:items-end gap-1">
-                                            <div className="flex items-center gap-2">
-                                                <FinancialIcon className={`w-4 h-4 ${financialStatus.color}`} />
-                                                <span className={`text-sm font-semibold ${financialStatus.color}`}>
-                                                    {financialStatus.text}
+                                    {/* Clickable Header */}
+                                    <button
+                                        onClick={() => toggleOrder(order.id)}
+                                        className="w-full p-4 sm:p-6 flex items-center justify-between text-left"
+                                    >
+                                        <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-6 flex-1">
+                                            {/* Order number and date */}
+                                            <div className="flex-1 min-w-0">
+                                                <h3 className="text-base sm:text-lg font-semibold text-white">
+                                                    Zamówienie #{order.orderNumber}
+                                                </h3>
+                                                <p className="text-sm text-muted">
+                                                    {formatDate(order.date)}
+                                                </p>
+                                            </div>
+
+                                            {/* Status badges */}
+                                            <div className="flex items-center gap-3 sm:gap-4">
+                                                <div className="flex items-center gap-1.5">
+                                                    <FinancialIcon className={`w-4 h-4 ${financialStatus.color}`} />
+                                                    <span className={`text-sm font-medium ${financialStatus.color}`}>
+                                                        {financialStatus.text}
+                                                    </span>
+                                                </div>
+                                                <span className={`text-sm ${fulfillmentStatus.color}`}>
+                                                    {fulfillmentStatus.text}
                                                 </span>
                                             </div>
-                                            <span className={`text-sm ${fulfillmentStatus.color}`}>
-                                                {fulfillmentStatus.text}
-                                            </span>
+
+                                            {/* Total price */}
+                                            <div className="text-right">
+                                                <p className="text-lg font-bold text-white">
+                                                    {order.totalPrice.toFixed(2)} {order.currency}
+                                                </p>
+                                            </div>
                                         </div>
-                                    </div>
 
-                                    {/* Items */}
-                                    <div className="mb-4 space-y-3">
-                                        {order.items.map((item, index) => (
-                                            <div key={index} className="flex items-start gap-4">
-                                                {/* Image */}
-                                                {item.image && (
-                                                    <img
-                                                        src={item.image}
-                                                        alt={item.title}
-                                                        className="w-16 h-16 object-cover bg-primary"
-                                                    />
-                                                )}
+                                        {/* Expand arrow */}
+                                        <FaChevronDown
+                                            className={`
+                                                w-5 h-5 text-muted ml-4 flex-shrink-0
+                                                transition-transform duration-300
+                                                ${isExpanded ? 'rotate-180' : ''}
+                                            `}
+                                        />
+                                    </button>
 
-                                                {/* Details */}
-                                                <div className="flex-1">
-                                                    <h4 className="text-white font-medium mb-1">
-                                                        {item.title}
-                                                    </h4>
-                                                    {item.variant && (
-                                                        <p className="text-sm text-muted">
-                                                            {item.variant}
-                                                        </p>
-                                                    )}
+                                    {/* Expandable Content */}
+                                    <div
+                                        className={`
+                                            overflow-hidden transition-all duration-300 ease-in-out
+                                            ${isExpanded ? 'max-h-[1000px] opacity-100' : 'max-h-0 opacity-0'}
+                                        `}
+                                    >
+                                        <div className="px-4 sm:px-6 pb-4 sm:pb-6 pt-0 border-t border-white/10">
+                                            {/* Items */}
+                                            <div className="py-4 space-y-3">
+                                                {order.items.map((item, index) => (
+                                                    <div key={index} className="flex items-start gap-4">
+                                                        {/* Image */}
+                                                        {item.image && (
+                                                            <img
+                                                                src={item.image}
+                                                                alt={item.title}
+                                                                className="w-16 h-16 object-cover bg-primary"
+                                                            />
+                                                        )}
+
+                                                        {/* Details */}
+                                                        <div className="flex-1">
+                                                            <h4 className="text-white font-medium mb-1">
+                                                                {item.title}
+                                                            </h4>
+                                                            {item.variant && (
+                                                                <p className="text-sm text-muted">
+                                                                    {item.variant}
+                                                                </p>
+                                                            )}
+                                                            <p className="text-sm text-muted">
+                                                                Ilość: {item.quantity}
+                                                            </p>
+                                                        </div>
+                                                    </div>
+                                                ))}
+                                            </div>
+
+                                            {/* Shipping info */}
+                                            {order.shippingAddress && (
+                                                <div className="pt-4 border-t border-white/10">
                                                     <p className="text-sm text-muted">
-                                                        Ilość: {item.quantity}
+                                                        Dostawa: {order.shippingAddress.city}, {order.shippingAddress.zip}
                                                     </p>
                                                 </div>
-                                            </div>
-                                        ))}
-                                    </div>
-
-                                    {/* Footer */}
-                                    <div className="pt-4 border-t border-white/10 flex items-center justify-between">
-                                        <div>
-                                            {order.shippingAddress && (
-                                                <p className="text-sm text-muted">
-                                                    Dostawa: {order.shippingAddress.city}, {order.shippingAddress.zip}
-                                                </p>
                                             )}
-                                        </div>
-                                        <div className="text-right">
-                                            <p className="text-sm text-muted mb-1">Razem</p>
-                                            <p className="text-xl font-bold text-white">
-                                                {order.totalPrice.toFixed(2)} {order.currency}
-                                            </p>
                                         </div>
                                     </div>
                                 </div>

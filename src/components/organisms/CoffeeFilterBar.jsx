@@ -57,53 +57,13 @@ export function CoffeeFilterBar({
                 ${isSticky ? 'bg-primary-dark backdrop-blur-md shadow-2xl shadow-black/50' : 'bg-primary-light'}
                 transition-all
                 duration-500
-                h-[100px]
-                lg:h-[120px]
+                h-[60px]
+                lg:h-[70px]
             `}
         >
-            <div className="container mx-auto px-4 sm:px-6 lg:px-8 h-full flex flex-col justify-center">
-                {/* Górna połowa - Wyszukiwarka */}
-                <div className="flex items-center h-[50px]">
-                    <div className="relative w-full max-w-xs">
-                        <FaSearch className="absolute left-0 top-1/2 -translate-y-1/2 text-white text-sm" />
-                        <input
-                            type="text"
-                            placeholder="Szukaj"
-                            value={searchQuery}
-                            onChange={handleSearchChange}
-                            className="
-                                w-full
-                                pl-7
-                                pr-10
-                                py-2
-                                bg-transparent
-                                border-none
-                                border-b
-                                border-white/5
-                                text-white
-                                placeholder-white
-                                focus:outline-none
-                                transition-all
-                            "
-                        />
-                        {/* Clear button - pokazuje się gdy jest tekst */}
-                        {searchQuery && (
-                            <button
-                                onClick={() => {
-                                    setSearchQuery('');
-                                    onSearchChange?.('');
-                                }}
-                                className="absolute right-0 top-1/2 -translate-y-1/2 text-white/70 hover:text-white transition-colors p-1"
-                                aria-label="Wyczyść wyszukiwanie"
-                            >
-                                <FaTimes className="w-4 h-4" />
-                            </button>
-                        )}
-                    </div>
-                </div>
-
-                {/* Dolna połowa - Filtry (50px) */}
-                <div className="flex items-center gap-3 h-[50px]">
+            <div className="container mx-auto px-4 sm:px-6 lg:px-8 h-full flex items-center">
+                {/* Filtry */}
+                <div className="flex items-center gap-3">
                     <MainFilterButton
                         label="Espresso"
                         count={espressoCount}
