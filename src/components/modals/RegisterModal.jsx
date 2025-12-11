@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { FaUser, FaLock, FaEye, FaEyeSlash, FaEnvelope, FaUserPlus } from 'react-icons/fa';
+import { FaUser, FaLock, FaEye, FaEyeSlash, FaEnvelope, FaUserPlus, FaExclamationTriangle, FaCheckCircle } from 'react-icons/fa';
 import { useAuthStore } from '../../store/authStore.js';
 import { Button } from '../atoms/Button.jsx';
 import { ModalHeader } from '../layout/ModalHeader.jsx';
@@ -20,6 +20,7 @@ const RegisterModal = ({ isOpen, onClose, onSwitchToLogin }) => {
     const [showPassword, setShowPassword] = useState(false);
     const [showConfirmPassword, setShowConfirmPassword] = useState(false);
     const [error, setError] = useState('');
+    const [success, setSuccess] = useState('');
     const [isAnimating, setIsAnimating] = useState(false);
 
     const { register, isLoading } = useAuthStore();
@@ -45,23 +46,30 @@ const RegisterModal = ({ isOpen, onClose, onSwitchToLogin }) => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         setError('');
+        setSuccess('');
 
-        // Validation
-        if (!formData.firstName || !formData.lastName || !formData.email || !formData.password) {
-            setError('Wypełnij wszystkie pola');
+        // Walidacja po stronie klienta
+        if (!formData.firstName || !formData.lastName || !formData.email || !formData.password || !formData.confirmPassword) {
+            setError('❌ Wypełnij wszystkie pola');
             return;
         }
 
-        if (formData.password !== formData.confirmPassword) {
-            setError('Hasła nie są identyczne');
+        if (!formData.email.includes('@')) {
+            setError('❌ Podaj prawidłowy adres e-mail');
             return;
         }
 
         if (formData.password.length < 6) {
-            setError('Hasło musi mieć minimum 6 znaków');
+            setError('❌ Hasło musi mieć minimum 6 znaków');
             return;
         }
 
+        if (formData.password !== formData.confirmPassword) {
+            setError('❌ Hasła nie są identyczne. Sprawdź ponownie.');
+            return;
+        }
+
+        // Rejestracja
         const result = await register(
             formData.email,
             formData.password,
@@ -70,16 +78,32 @@ const RegisterModal = ({ isOpen, onClose, onSwitchToLogin }) => {
         );
 
         if (result.success) {
-            onClose();
-            setFormData({
-                firstName: '',
-                lastName: '',
-                email: '',
-                password: '',
-                confirmPassword: ''
-            });
+            setSuccess('✓ Konto utworzone! Logowanie...');
+            setTimeout(() => {
+                onClose();
+                setFormData({
+                    firstName: '',
+                    lastName: '',
+                    email: '',
+                    password: '',
+                    confirmPassword: ''
+                });
+                setSuccess('');
+            }, 2000);
         } else {
-            setError(result.error);
+            // Dodaj emoji i lepszy opis błędu
+            const errorMessage = result.error || 'Nieznany błąd';
+            if (errorMessage.includes('już zarejestrowany')) {
+                setError('📧 Ten adres e-mail jest już zarejestrowany. Spróbuj się zalogować.');
+            } else if (errorMessage.includes('za krótkie')) {
+                setError('🔑 Hasło jest za krótkie - minimum 6 znaków.');
+            } else if (errorMessage.includes('nieprawidłowy')) {
+                setError('❌ Nieprawidłowy adres e-mail. Sprawdź format.');
+            } else if (errorMessage.includes('limit')) {
+                setError('⏱️ Przekroczono limit tworzenia kont. Spróbuj ponownie za kilka minut.');
+            } else {
+                setError(`❌ ${errorMessage}`);
+            }
         }
     };
 
@@ -126,10 +150,19 @@ const RegisterModal = ({ isOpen, onClose, onSwitchToLogin }) => {
                     <div className="container mx-auto px-4 sm:px-6 lg:px-8 pt-6 pb-2">
                         <form onSubmit={handleSubmit}>
 
+                        {/* Success Message */}
+                        {success && (
+                            <div className="mb-4 p-3 bg-success/20 border border-success/30 text-green-300 text-sm flex items-center gap-2 animate-fadeIn">
+                                <FaCheckCircle className="w-4 h-4 flex-shrink-0" />
+                                <span>{success}</span>
+                            </div>
+                        )}
+
                         {/* Error Message */}
                         {error && (
-                            <div className="mb-4 p-3 bg-red-500/20 border border-red-500/30 text-red-300 text-sm">
-                                {error}
+                            <div className="mb-4 p-3 bg-red-500/20 border border-red-500/30 text-red-300 text-sm flex items-center gap-2 animate-fadeIn">
+                                <FaExclamationTriangle className="w-4 h-4 flex-shrink-0" />
+                                <span>{error}</span>
                             </div>
                         )}
 

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { FaUser, FaLock, FaEye, FaEyeSlash, FaSignInAlt } from 'react-icons/fa';
+import { FaUser, FaLock, FaEye, FaEyeSlash, FaSignInAlt, FaExclamationTriangle, FaCheckCircle } from 'react-icons/fa';
 import { useAuthStore } from '../../store/authStore.js';
 import { Button } from '../atoms/Button.jsx';
 import { ModalHeader } from '../layout/ModalHeader.jsx';
@@ -14,6 +14,7 @@ const LoginModal = ({ isOpen, onClose, onSwitchToRegister }) => {
     const [password, setPassword] = useState('');
     const [showPassword, setShowPassword] = useState(false);
     const [error, setError] = useState('');
+    const [success, setSuccess] = useState('');
     const [isAnimating, setIsAnimating] = useState(false);
 
     const { login, isLoading } = useAuthStore();
@@ -32,20 +33,40 @@ const LoginModal = ({ isOpen, onClose, onSwitchToRegister }) => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         setError('');
+        setSuccess('');
 
+        // Walidacja po stronie klienta
         if (!email || !password) {
-            setError('Wypełnij wszystkie pola');
+            setError('❌ Wypełnij wszystkie pola');
             return;
         }
 
+        if (!email.includes('@')) {
+            setError('❌ Podaj prawidłowy adres e-mail');
+            return;
+        }
+
+        // Logowanie
         const result = await login(email, password);
 
         if (result.success) {
-            onClose();
-            setEmail('');
-            setPassword('');
+            setSuccess('✓ Zalogowano pomyślnie! Witaj z powrotem.');
+            setTimeout(() => {
+                onClose();
+                setEmail('');
+                setPassword('');
+                setSuccess('');
+            }, 1500);
         } else {
-            setError(result.error);
+            // Dodaj emoji i lepszy opis błędu
+            const errorMessage = result.error || 'Nieznany błąd';
+            if (errorMessage.includes('Nieprawidłowy email lub hasło')) {
+                setError('❌ Nieprawidłowy e-mail lub hasło. Sprawdź dane i spróbuj ponownie.');
+            } else if (errorMessage.includes('dezaktywowane')) {
+                setError('🔒 Konto zostało dezaktywowane. Skontaktuj się z obsługą.');
+            } else {
+                setError(`❌ ${errorMessage}`);
+            }
         }
     };
 
@@ -92,10 +113,19 @@ const LoginModal = ({ isOpen, onClose, onSwitchToRegister }) => {
                     <div className="container mx-auto px-4 sm:px-6 lg:px-8 pt-6 pb-2">
                         <form onSubmit={handleSubmit}>
 
+                        {/* Success Message */}
+                        {success && (
+                            <div className="mb-4 p-3 bg-success/20 border border-success/30 text-green-300 text-sm flex items-center gap-2 animate-fadeIn">
+                                <FaCheckCircle className="w-4 h-4 flex-shrink-0" />
+                                <span>{success}</span>
+                            </div>
+                        )}
+
                         {/* Error Message */}
                         {error && (
-                            <div className="mb-4 p-3 bg-red-500/20 border border-red-500/30 text-red-300 text-sm">
-                                {error}
+                            <div className="mb-4 p-3 bg-red-500/20 border border-red-500/30 text-red-300 text-sm flex items-center gap-2 animate-fadeIn">
+                                <FaExclamationTriangle className="w-4 h-4 flex-shrink-0" />
+                                <span>{error}</span>
                             </div>
                         )}
 
