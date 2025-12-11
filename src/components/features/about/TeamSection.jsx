@@ -23,16 +23,16 @@ export function TeamSection({ founderImage, teamImage }) {
             </div>
 
             {/* Team Grid */}
-            <div className="grid md:grid-cols-2 gap-8 md:gap-12">
+            <div className="grid md:grid-cols-2 gap-8 md:gap-12 items-stretch">
                 {/* Founder Card - Damian */}
-                <div className={`transition-all duration-700 ease-out delay-100 ${
+                <div className={`h-full transition-all duration-700 ease-out delay-100 ${
                     isVisible
                         ? scrollAnimations.flowLeft.visible
                         : scrollAnimations.flowLeft.hidden
                 }`}>
-                    <div className="bg-gradient-to-br from-primary-light/30 to-primary/20 border border-white/10 overflow-hidden group">
+                    <div className="h-full bg-gradient-to-br from-primary-light/30 to-primary/20 border border-white/10 overflow-hidden group flex flex-col">
                         {/* Image */}
-                        <div className="aspect-[4/5] overflow-hidden">
+                        <div className="aspect-[4/3] overflow-hidden flex-shrink-0">
                             <img
                                 src={founderImage}
                                 alt="Damian - Założyciel i Head Roaster Strzykawa"
@@ -41,14 +41,14 @@ export function TeamSection({ founderImage, teamImage }) {
                         </div>
 
                         {/* Info */}
-                        <div className="p-6 md:p-8">
+                        <div className="p-6 md:p-8 flex-1 flex flex-col">
                             <h3 className="text-2xl md:text-3xl text-white mb-2">
                                 Damian
                             </h3>
                             <p className="text-accent font-medium mb-4">
                                 Założyciel & Head Roaster
                             </p>
-                            <p className="text-white/70 leading-relaxed">
+                            <p className="text-white/70 leading-relaxed flex-1">
                                 Od pierwszego dnia odpowiada za każdy profil palenia.
                                 Nieustannie eksperymentuje, szuka nowych smaków i dba o to,
                                 by każda partia kawy była wyjątkowa.
@@ -58,14 +58,14 @@ export function TeamSection({ founderImage, teamImage }) {
                 </div>
 
                 {/* Team Card */}
-                <div className={`transition-all duration-700 ease-out delay-200 ${
+                <div className={`h-full transition-all duration-700 ease-out delay-200 ${
                     isVisible
                         ? scrollAnimations.flowRight.visible
                         : scrollAnimations.flowRight.hidden
                 }`}>
-                    <div className="bg-gradient-to-br from-primary-light/30 to-primary/20 border border-white/10 overflow-hidden group">
+                    <div className="h-full bg-gradient-to-br from-primary-light/30 to-primary/20 border border-white/10 overflow-hidden group flex flex-col">
                         {/* Image */}
-                        <div className="aspect-[4/5] overflow-hidden">
+                        <div className="aspect-[4/3] overflow-hidden flex-shrink-0">
                             <img
                                 src={teamImage}
                                 alt="Zespół Strzykawa"
@@ -74,14 +74,14 @@ export function TeamSection({ founderImage, teamImage }) {
                         </div>
 
                         {/* Info */}
-                        <div className="p-6 md:p-8">
+                        <div className="p-6 md:p-8 flex-1 flex flex-col">
                             <h3 className="text-2xl md:text-3xl text-white mb-2">
                                 Nasz zespół
                             </h3>
                             <p className="text-accent font-medium mb-4">
                                 Kawiarnia & Palarnia
                             </p>
-                            <p className="text-white/70 leading-relaxed">
+                            <p className="text-white/70 leading-relaxed flex-1">
                                 Razem tworzymy miejsce, gdzie kawa łączy ludzi.
                                 Każdego dnia dbamy o to, byś mógł poczuć się u nas jak w domu
                                 i odkrywać świat specialty coffee.
