@@ -66,8 +66,8 @@ export function Footer() {
                 {/* Mobile: Logo pełna szerokość, potem 2 kolumny */}
                 {/* Desktop: 3 kolumny */}
                 <div className="grid grid-cols-2 md:grid-cols-3 gap-8 md:gap-10">
-                    {/* Logo + Social Media - mobile pełna szerokość */}
-                    <div className="col-span-2 md:col-span-1 flex flex-col items-center md:items-start space-y-4">
+                    {/* Logo - mobile pełna szerokość */}
+                    <div className="col-span-2 md:col-span-1 flex flex-col items-center md:items-start">
                         <div className="footer-logo">
                             {/* Mobile: poziome logo */}
                             <img
@@ -81,24 +81,6 @@ export function Footer() {
                                 alt="Strzykawa Coffee Shop & Roastery"
                                 className="hidden md:block w-auto h-20"
                             />
-                        </div>
-                        {/* Social Media - tylko ikony */}
-                        <div className="flex gap-3">
-                            {socialLinks.map((social, index) => {
-                                const Icon = social.icon;
-                                return (
-                                    <a
-                                        key={index}
-                                        href={social.href}
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                        aria-label={social.label}
-                                        className={`text-white/70 transition-all duration-300 hover:scale-110 ${social.hoverColor}`}
-                                    >
-                                        <Icon className="w-6 h-6" />
-                                    </a>
-                                );
-                            })}
                         </div>
                     </div>
 
@@ -149,12 +131,31 @@ export function Footer() {
                             </div>
 
                             {/* Godziny otwarcia */}
-                            <div className="text-sm text-white/70 pt-2 border-t border-white/10 mt-3">
+                            <div className="text-sm text-white/70 pt-3">
                                 <div className="text-white/90 mb-1">Godziny otwarcia:</div>
                                 <div className="text-xs leading-relaxed">
                                     Pn-Pt: 8:00 - 18:00<br />
                                     Sb-Nd: 10:00 - 16:00
                                 </div>
+                            </div>
+
+                            {/* Social Media */}
+                            <div className="flex gap-3 pt-4">
+                                {socialLinks.map((social, index) => {
+                                    const Icon = social.icon;
+                                    return (
+                                        <a
+                                            key={index}
+                                            href={social.href}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            aria-label={social.label}
+                                            className={`text-white/70 transition-all duration-300 hover:scale-110 ${social.hoverColor}`}
+                                        >
+                                            <Icon className="w-6 h-6" />
+                                        </a>
+                                    );
+                                })}
                             </div>
                         </div>
                     </div>
