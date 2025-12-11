@@ -1,5 +1,5 @@
 import { NavLink, useNavigate } from 'react-router-dom';
-import { FaShoppingCart, FaUser, FaSignOutAlt, FaBox } from 'react-icons/fa';
+import { FaShoppingCart, FaUser, FaSignOutAlt } from 'react-icons/fa';
 import { useAuthStore } from '../../store/authStore.js';
 import { NAV_ITEMS } from '../../constants/navigation.js';
 import { useEffect } from 'react';
@@ -162,19 +162,14 @@ function MobileAuthenticatedUser({ user, onLogout }) {
 
     return (
         <div className="space-y-2">
-            <div className="flex items-center space-x-3 px-4 py-3 bg-white/5 rounded-lg">
-                <FaUser className="w-4 h-4 text-accent" />
-                <span className="text-white">{user?.firstName} {user?.lastName}</span>
-            </div>
-
-            {/* Moje zamówienia */}
+            {/* Mój profil */}
             <button
-                onClick={() => navigate('/zamowienia')}
+                onClick={() => navigate('/profil')}
                 className="flex items-center space-x-3 px-4 py-3 text-white hover:bg-white/5 rounded-full w-full text-left transition-all duration-300"
-                aria-label="Moje zamówienia"
+                aria-label="Mój profil"
             >
-                <FaBox className="w-4 h-4" />
-                <span>Moje zamówienia</span>
+                <FaUser className="w-4 h-4 text-accent" />
+                <span>{user?.firstName}</span>
             </button>
 
             {/* Wyloguj się */}

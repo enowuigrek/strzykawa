@@ -230,7 +230,6 @@ export function Header() {
                                 cartItemsCount={getTotalItems()}
                                 onOpenCart={modalActions.openCart}
                                 onOpenLogin={modalActions.openLogin}
-                                onLogout={handleLogout}
                             />
                         </div>
                     </div>

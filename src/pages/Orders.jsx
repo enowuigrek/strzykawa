@@ -71,7 +71,9 @@ export function Orders() {
             FULFILLED: { text: 'Wysłane', color: 'text-success' },
             UNFULFILLED: { text: 'W realizacji', color: 'text-yellow-500' },
             PARTIALLY_FULFILLED: { text: 'Częściowo wysłane', color: 'text-yellow-500' },
-            SCHEDULED: { text: 'Zaplanowane', color: 'text-muted' }
+            SCHEDULED: { text: 'Zaplanowane', color: 'text-muted' },
+            READY_FOR_PICKUP: { text: 'Gotowe do odbioru', color: 'text-success' },
+            ON_HOLD: { text: 'Wstrzymane', color: 'text-muted' }
         };
         return labels[status] || { text: status, color: 'text-muted' };
     };

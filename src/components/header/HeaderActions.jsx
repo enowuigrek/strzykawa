@@ -1,9 +1,9 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { FaUser, FaShoppingCart, FaSignOutAlt, FaBox } from 'react-icons/fa';
+import { FaUser, FaShoppingCart } from 'react-icons/fa';
 import { useAuthStore } from '../../store/authStore.js';
 
-export function HeaderActions({ cartItemsCount, onOpenCart, onOpenLogin, onLogout }) {
+export function HeaderActions({ cartItemsCount, onOpenCart, onOpenLogin }) {
     const { user, isAuthenticated } = useAuthStore();
 
     return (
@@ -28,7 +28,7 @@ export function HeaderActions({ cartItemsCount, onOpenCart, onOpenLogin, onLogou
 
                 {/* Auth Section */}
                 {isAuthenticated ? (
-                    <AuthenticatedUser user={user} onLogout={onLogout} />
+                    <AuthenticatedUser user={user} />
                 ) : (
                     <LoginButton onOpenLogin={onOpenLogin} />
                 )}
@@ -37,42 +37,20 @@ export function HeaderActions({ cartItemsCount, onOpenCart, onOpenLogin, onLogou
     );
 }
 
-function AuthenticatedUser({ user, onLogout }) {
+function AuthenticatedUser({ user }) {
     const navigate = useNavigate();
 
     return (
-        <div className="flex items-center">
-            <div className="flex items-center space-x-2 px-4 py-2">
-                <FaUser className="w-4 h-4 text-accent" />
-                <span className="text-white text-sm font-medium">
-                    {user?.firstName}
-                </span>
-            </div>
-
-            {/* Divider */}
-            <div className="w-px h-6 bg-white/30"></div>
-
-            {/* Moje zamówienia */}
-            <button
-                onClick={() => navigate('/zamowienia')}
-                className="px-3 py-2 text-white hover:text-accent transition-all duration-300 hover:scale-105"
-                title="Moje zamówienia"
-            >
-                <FaBox className="w-4 h-4" />
-            </button>
-
-            {/* Divider */}
-            <div className="w-px h-6 bg-white/30"></div>
-
-            {/* Wyloguj */}
-            <button
-                onClick={onLogout}
-                className="px-3 py-2 text-white hover:text-red-400 transition-all duration-300 hover:scale-105"
-                title="Wyloguj się"
-            >
-                <FaSignOutAlt className="w-4 h-4" />
-            </button>
-        </div>
+        <button
+            onClick={() => navigate('/profil')}
+            className="flex items-center space-x-2 px-4 py-2 text-white hover:text-accent transition-all duration-300 hover:scale-105"
+            title="Mój profil"
+        >
+            <FaUser className="w-4 h-4" />
+            <span className="text-sm font-medium">
+                {user?.firstName}
+            </span>
+        </button>
     );
 }
 

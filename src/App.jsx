@@ -7,6 +7,7 @@ import { Home } from './pages/Home.jsx';
 import { Coffees }from './pages/Coffees.jsx';
 import { CoffeeDetail } from './pages/CoffeeDetail.jsx';
 import { Orders } from './pages/Orders.jsx';
+import { Profile } from './pages/Profile.jsx';
 import { About } from "./pages/About.jsx";
 import { Contact } from "./pages/Contact.jsx";
 import { B2B } from './pages/B2B.jsx';
@@ -99,6 +100,7 @@ function App() {
                     <Route path="/" element={<Home />} />
                     <Route path="/kawy" element={<Coffees />} />
                     <Route path="/kawy/:handle" element={<CoffeeDetail />} />
+                    <Route path="/profil" element={<Profile />} />
                     <Route path="/zamowienia" element={<Orders />} />
                     <Route path="/o-nas" element={<About />} />
                     <Route path="/b2b" element={<B2B />} />
