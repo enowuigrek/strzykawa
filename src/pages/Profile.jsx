@@ -3,7 +3,6 @@ import { useNavigate } from 'react-router-dom';
 import { FaUser, FaEnvelope, FaBox, FaSignOutAlt } from 'react-icons/fa';
 import { useAuthStore } from '../store/authStore.js';
 import { PageLayout } from '../components/layout/PageLayout.jsx';
-import { PageHeader } from '../components/layout/PageHeader.jsx';
 import { Button } from '../components/atoms/Button.jsx';
 import { EditAddressForm } from '../components/profile/EditAddressForm.jsx';
 import { ChangePasswordForm } from '../components/profile/ChangePasswordForm.jsx';
@@ -33,12 +32,10 @@ export function Profile() {
     };
 
     return (
-        <PageLayout>
-            <PageHeader
-                title="Mój profil"
-                subtitle="Twoje dane i historia zakupów"
-            />
-
+        <PageLayout
+            title="Mój profil"
+            subtitle="Twoje dane i historia zakupów"
+        >
             <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-8">
                 <div className="max-w-2xl mx-auto space-y-6">
                     {/* Dane osobowe */}

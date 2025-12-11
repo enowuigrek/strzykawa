@@ -123,14 +123,14 @@ const RegisterModal = ({ isOpen, onClose, onSwitchToLogin }) => {
                 onClick={onClose}
             />
 
-            {/* Modal - Wysokość dopasowana do zawartości */}
+            {/* Modal - Wysokość dopasowana do zawartości, scroll tylko na małych ekranach gdy potrzebny */}
             <div
                 className={`
                     fixed w-full md:max-w-md
                     bg-primary-dark border-white/20 md:border
                     z-[200] shadow-2xl flex flex-col
                     transition-all duration-300 ease-out
-                    max-h-[85vh] overflow-y-auto
+                    max-h-[90vh] overflow-y-auto md:max-h-none md:overflow-visible
 
                     left-0 md:left-1/2 md:top-1/2 md:-translate-x-1/2
 

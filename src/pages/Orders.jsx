@@ -4,7 +4,6 @@ import { FaBox, FaCheckCircle, FaClock, FaExclamationTriangle } from 'react-icon
 import { useAuthStore } from '../store/authStore.js';
 import { getCustomerOrders } from '../services/shopify/customer.js';
 import { PageLayout } from '../components/layout/PageLayout.jsx';
-import { PageHeader } from '../components/layout/PageHeader.jsx';
 import { Spinner } from '../components/atoms/Spinner.jsx';
 
 /**
@@ -79,12 +78,10 @@ export function Orders() {
     };
 
     return (
-        <PageLayout>
-            <PageHeader
-                title="Moje zamówienia"
-                subtitle="Historia Twoich zakupów w Strzykawa Coffee Roastery"
-            />
-
+        <PageLayout
+            title="Moje zamówienia"
+            subtitle="Historia Twoich zakupów w Strzykawa Coffee Roastery"
+        >
             <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-8">
                 {/* Loading State */}
                 {isLoading && (

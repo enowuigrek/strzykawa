@@ -5,7 +5,7 @@ export function TermsAndConditions() {
         <div className=" flex items-center justify-center min-h-screen bg-primary py-16 px-4">
             <div className="container mx-auto max-w-4xl">
                 <div className="bg-primary-light border border-white/10 p-8">
-                    <h1 className="text-3xl font-bold text-white mb-8">
+                    <h1 className="text-3xl font-normal text-white mb-8">
                         Regulamin sklepu internetowego
                     </h1>
 

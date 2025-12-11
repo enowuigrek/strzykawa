@@ -21,7 +21,7 @@ function ScrollAnimationDemo({ name, animation, description }) {
             </div>
             <button
                 onClick={reset}
-                className="px-3 py-1 bg-primary-light text-white text-xs rounded hover:bg-accent/50 transition-colors"
+                className="px-3 py-1 bg-primary-light text-white text-xs rounded-full hover:bg-accent/50 transition-colors"
             >
                 {isVisible ? 'Powtorz' : 'Uruchom'}
             </button>
@@ -54,7 +54,7 @@ function StaggeredDemo() {
             <div className="text-center">
                 <button
                     onClick={reset}
-                    className="px-4 py-2 bg-primary-light text-white text-sm rounded hover:bg-accent/50 transition-colors"
+                    className="px-4 py-2 bg-primary-light text-white text-sm rounded-full hover:bg-accent/50 transition-colors"
                 >
                     {isVisible ? 'Powtorz stagger' : 'Uruchom stagger'}
                 </button>
@@ -71,7 +71,7 @@ export function AnimationsSection() {
                 <div>
                     <h3 className="text-xl text-accent mb-2">Scroll Animations (kawowe nazwy):</h3>
                     <p className="text-muted text-sm mb-6">
-                        Hook: <code className="bg-primary-light px-2 py-1 rounded">useScrollAnimation()</code> -
+                        Hook: <code className="bg-primary-light px-2 py-1 rounded-lg">useScrollAnimation()</code> -
                         animacje przy scrollowaniu z tematycznymi nazwami
                     </p>
                     <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">

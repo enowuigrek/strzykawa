@@ -33,7 +33,7 @@ export function CheckoutCanceled() {
                 </div>
 
                 {/* Heading */}
-                <h1 className="text-3xl md:text-4xl font-bold text-white text-center mb-4">
+                <h1 className="text-3xl md:text-4xl font-normal text-white text-center mb-4">
                     Płatność nie została zakończona
                 </h1>
 

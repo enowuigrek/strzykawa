@@ -90,7 +90,6 @@ const LoginModal = ({ isOpen, onClose, onSwitchToRegister }) => {
                     bg-primary-dark border-white/20 md:border
                     z-[200] shadow-2xl flex flex-col
                     transition-all duration-300 ease-out
-                    max-h-[85vh] overflow-y-auto
 
                     left-0 md:left-1/2 md:top-1/2 md:-translate-x-1/2
 

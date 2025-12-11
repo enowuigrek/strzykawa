@@ -69,7 +69,7 @@ export default function StyleGuide() {
             {/* SIDEBAR NAVIGATION */}
             <aside className="w-64 bg-primary border-r border-accent/20 fixed h-full overflow-y-auto">
                 <div className="p-6 border-b border-accent/20">
-                    <h1 className="text-2xl font-bold">Style Guide</h1>
+                    <h1 className="text-2xl font-normal">Style Guide</h1>
                     <p className="text-muted text-sm mt-1">Strzykawa Design System</p>
                 </div>
                 <nav className="p-4">
@@ -77,7 +77,7 @@ export default function StyleGuide() {
                         <button
                             key={section.id}
                             onClick={() => scrollToSection(section.id)}
-                            className={`w-full text-left px-4 py-2 mb-1 transition-all rounded ${
+                            className={`w-full text-left px-4 py-2 mb-1 transition-all rounded-full ${
                                 activeSection === section.id
                                     ? 'bg-accent text-white'
                                     : 'text-muted hover:bg-primary-light hover:text-white'
