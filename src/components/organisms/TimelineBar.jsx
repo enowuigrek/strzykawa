@@ -51,7 +51,7 @@ export function TimelineBar({ years = [], isSticky = false, hide = false }) {
     const handleYearClick = (year) => {
         const element = document.getElementById(`year-${year}`);
         if (element) {
-            const offset = 80; // Offset for sticky bar
+            const offset = 140; // Offset for sticky bar (bar height ~120px + padding)
             const elementPosition = element.getBoundingClientRect().top + window.pageYOffset;
             const offsetPosition = elementPosition - offset;
 
