@@ -182,10 +182,10 @@ const LoginModal = ({ isOpen, onClose, onSwitchToRegister }) => {
                                 <p className="text-xs text-muted">
                                     Problem z logowaniem?{' '}
                                     <a
-                                        href="/kontakt"
+                                        href="mailto:kontakt@strzykawa.pl?subject=Problem%20z%20logowaniem&body=Witam,%0D%0A%0D%0AMam%20problem%20z%20logowaniem%20do%20konta.%0D%0A%0D%0AMój%20adres%20e-mail:%20"
                                         className="text-accent hover:text-white transition-colors duration-300 underline"
                                     >
-                                        Skontaktuj się z nami
+                                        Napisz do nas
                                     </a>
                                 </p>
                             </div>
