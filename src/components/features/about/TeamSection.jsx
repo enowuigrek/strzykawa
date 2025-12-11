@@ -32,7 +32,7 @@ export function TeamSection({ founderImage, teamImage }) {
                 }`}>
                     <div className="h-full bg-gradient-to-br from-primary-light/30 to-primary/20 border border-white/10 overflow-hidden group flex flex-col">
                         {/* Image */}
-                        <div className="aspect-[4/3] overflow-hidden flex-shrink-0">
+                        <div className="aspect-[4/5] overflow-hidden flex-shrink-0">
                             <img
                                 src={founderImage}
                                 alt="Damian - Założyciel i Head Roaster Strzykawa"
@@ -65,7 +65,7 @@ export function TeamSection({ founderImage, teamImage }) {
                 }`}>
                     <div className="h-full bg-gradient-to-br from-primary-light/30 to-primary/20 border border-white/10 overflow-hidden group flex flex-col">
                         {/* Image */}
-                        <div className="aspect-[4/3] overflow-hidden flex-shrink-0">
+                        <div className="aspect-[4/5] overflow-hidden flex-shrink-0">
                             <img
                                 src={teamImage}
                                 alt="Zespół Strzykawa"
