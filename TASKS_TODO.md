@@ -1,7 +1,67 @@
 # 🔧 ZADANIA DO WYKONANIA - Strzykawa
 
 > **Data utworzenia:** 9 Grudnia 2025
-> **Status:** Do wykonania
+> **Ostatnia aktualizacja:** 11 Grudnia 2025
+> **Status:** W trakcie realizacji
+
+---
+
+## ✅ UKOŃCZONE - AUTHENTICATION & USER ACCOUNT (11 Grudnia 2025)
+
+### **Shopify Customer Account API Integration - GOTOWE! 🎉**
+
+- [x] **Rejestracja użytkownika:**
+  - Email, hasło, imię, nazwisko
+  - Opcjonalne pole telefonu
+  - Walidacja min. 5 znaków hasła (wymóg Shopify)
+  - Komunikaty błędów po polsku
+
+- [x] **Logowanie użytkownika:**
+  - Email i hasło
+  - Access token (90 dni ważności)
+  - Persistencja sesji (localStorage)
+  - Naprawiono: pole `customer.phone` usunięte z query (używamy `defaultAddress.phone`)
+
+- [x] **Strona profilu** (`/profil`):
+  - Wyświetlanie danych: imię, nazwisko, email
+  - Edytowalny formularz adresu i telefonu
+  - Zapisywanie telefonu w `defaultAddress.phone`
+  - Ustawianie adresu jako domyślny
+  - Link do historii zamówień
+  - Przycisk wylogowania
+
+- [x] **Historia zamówień** (`/zamowienia`):
+  - Lista wszystkich zamówień użytkownika
+  - Statusy po polsku (w tym "Gotowe do odbioru", "Wstrzymane")
+  - Szczegóły: produkty, ceny, łączna kwota
+
+- [x] **Nawigacja:**
+  - Ikona użytkownika w headerze prowadzi do `/profil`
+  - Usunięto osobny przycisk "Zamówienia"
+  - Mobile bottom navigation zaktualizowana
+
+- [x] **Auto-fill checkoutu:**
+  - Dane użytkownika przekazywane jako URL parameters
+  - Imię, nazwisko, email, adres, telefon
+  - Shopify automatycznie wypełnia formularz
+
+- [x] **Komunikaty błędów i sukcesów:**
+  - Polskie tłumaczenia błędów Shopify
+  - Ikony FaCheckCircle i FaExclamationTriangle
+  - Bez duplikatów emoji
+  - Auto-close modali po sukcesie
+
+**Pliki stworzone/zmodyfikowane:**
+- `src/services/shopify/customer.js` - API functions
+- `src/store/authStore.js` - Zustand auth store
+- `src/pages/Profile.jsx` - Strona profilu
+- `src/pages/Orders.jsx` - Historia zamówień
+- `src/components/profile/EditAddressForm.jsx` - Formularz edycji
+- `src/components/modals/LoginModal.jsx` - Modal logowania
+- `src/components/modals/RegisterModal.jsx` - Modal rejestracji
+- `src/components/header/HeaderActions.jsx` - Nawigacja desktop
+- `src/components/header/MobileNavigation.jsx` - Nawigacja mobile
+- `src/store/cartStore.js` - Checkout pre-fill
 
 ---
 
