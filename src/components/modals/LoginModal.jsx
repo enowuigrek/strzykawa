@@ -37,12 +37,12 @@ const LoginModal = ({ isOpen, onClose, onSwitchToRegister }) => {
 
         // Walidacja po stronie klienta
         if (!email || !password) {
-            setError('❌ Wypełnij wszystkie pola');
+            setError('Wypełnij wszystkie pola');
             return;
         }
 
         if (!email.includes('@')) {
-            setError('❌ Podaj prawidłowy adres e-mail');
+            setError('Podaj prawidłowy adres e-mail');
             return;
         }
 
@@ -58,14 +58,14 @@ const LoginModal = ({ isOpen, onClose, onSwitchToRegister }) => {
                 setSuccess('');
             }, 1500);
         } else {
-            // Dodaj emoji i lepszy opis błędu
+            // Lepszy opis błędu
             const errorMessage = result.error || 'Nieznany błąd';
             if (errorMessage.includes('Nieprawidłowy email lub hasło')) {
-                setError('❌ Nieprawidłowy e-mail lub hasło. Sprawdź dane i spróbuj ponownie.');
+                setError('Nieprawidłowy e-mail lub hasło. Sprawdź dane i spróbuj ponownie.');
             } else if (errorMessage.includes('dezaktywowane')) {
-                setError('🔒 Konto zostało dezaktywowane. Skontaktuj się z obsługą.');
+                setError('Konto zostało dezaktywowane. Skontaktuj się z obsługą.');
             } else {
-                setError(`❌ ${errorMessage}`);
+                setError(errorMessage);
             }
         }
     };

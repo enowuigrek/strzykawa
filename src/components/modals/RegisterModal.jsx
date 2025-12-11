@@ -50,22 +50,22 @@ const RegisterModal = ({ isOpen, onClose, onSwitchToLogin }) => {
 
         // Walidacja po stronie klienta
         if (!formData.firstName || !formData.lastName || !formData.email || !formData.password || !formData.confirmPassword) {
-            setError('❌ Wypełnij wszystkie pola');
+            setError('Wypełnij wszystkie pola');
             return;
         }
 
         if (!formData.email.includes('@')) {
-            setError('❌ Podaj prawidłowy adres e-mail');
+            setError('Podaj prawidłowy adres e-mail');
             return;
         }
 
         if (formData.password.length < 6) {
-            setError('❌ Hasło musi mieć minimum 6 znaków');
+            setError('Hasło musi mieć minimum 6 znaków');
             return;
         }
 
         if (formData.password !== formData.confirmPassword) {
-            setError('❌ Hasła nie są identyczne. Sprawdź ponownie.');
+            setError('Hasła nie są identyczne. Sprawdź ponownie.');
             return;
         }
 
@@ -91,18 +91,18 @@ const RegisterModal = ({ isOpen, onClose, onSwitchToLogin }) => {
                 setSuccess('');
             }, 2000);
         } else {
-            // Dodaj emoji i lepszy opis błędu
+            // Lepszy opis błędu
             const errorMessage = result.error || 'Nieznany błąd';
             if (errorMessage.includes('już zarejestrowany')) {
-                setError('📧 Ten adres e-mail jest już zarejestrowany. Spróbuj się zalogować.');
+                setError('Konto z tym adresem e-mail już istnieje. Zaloguj się.');
             } else if (errorMessage.includes('za krótkie')) {
-                setError('🔑 Hasło jest za krótkie - minimum 6 znaków.');
+                setError('Hasło jest za krótkie (minimum 6 znaków)');
             } else if (errorMessage.includes('nieprawidłowy')) {
-                setError('❌ Nieprawidłowy adres e-mail. Sprawdź format.');
+                setError('Nieprawidłowy adres e-mail. Sprawdź format.');
             } else if (errorMessage.includes('limit')) {
-                setError('⏱️ Przekroczono limit tworzenia kont. Spróbuj ponownie za kilka minut.');
+                setError('Przekroczono limit tworzenia kont. Spróbuj ponownie za kilka minut.');
             } else {
-                setError(`❌ ${errorMessage}`);
+                setError(errorMessage);
             }
         }
     };
