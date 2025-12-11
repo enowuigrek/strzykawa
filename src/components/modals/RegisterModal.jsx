@@ -59,8 +59,8 @@ const RegisterModal = ({ isOpen, onClose, onSwitchToLogin }) => {
             return;
         }
 
-        if (formData.password.length < 6) {
-            setError('Hasło musi mieć minimum 6 znaków');
+        if (formData.password.length < 5) {
+            setError('Hasło musi mieć minimum 5 znaków');
             return;
         }
 
@@ -96,7 +96,7 @@ const RegisterModal = ({ isOpen, onClose, onSwitchToLogin }) => {
             if (errorMessage.includes('już zarejestrowany')) {
                 setError('Konto z tym adresem e-mail już istnieje. Zaloguj się.');
             } else if (errorMessage.includes('za krótkie')) {
-                setError('Hasło jest za krótkie (minimum 6 znaków)');
+                setError('Hasło jest za krótkie (minimum 5 znaków)');
             } else if (errorMessage.includes('nieprawidłowy')) {
                 setError('Nieprawidłowy adres e-mail. Sprawdź format.');
             } else if (errorMessage.includes('limit')) {
@@ -238,7 +238,7 @@ const RegisterModal = ({ isOpen, onClose, onSwitchToLogin }) => {
                                     value={formData.password}
                                     onChange={handleChange}
                                     className="w-full pl-10 pr-12 py-3 bg-primary/50 border border-white/20 text-white placeholder-muted/70 focus:border-accent focus:ring-2 focus:ring-accent/20 transition-all duration-300"
-                                    placeholder="Minimum 6 znaków"
+                                    placeholder="Minimum 5 znaków"
                                     required
                                 />
                                 <button

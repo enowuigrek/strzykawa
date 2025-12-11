@@ -330,13 +330,13 @@ export async function validateAccessToken(accessToken) {
  */
 function translateError(errorMessage) {
     const translations = {
-        'Email has already been taken': 'Ten adres email jest już zarejestrowany',
-        'Unidentified customer': 'Nieprawidłowy email lub hasło',
+        'Email has already been taken': 'Ten adres e-mail jest już zarejestrowany',
+        'Unidentified customer': 'Nieprawidłowy e-mail lub hasło',
         'Customer is disabled': 'Konto zostało dezaktywowane',
         'Password is too short': 'Hasło jest za krótkie (minimum 5 znaków)',
-        'Email is invalid': 'Nieprawidłowy adres email',
+        'Email is invalid': 'Nieprawidłowy adres e-mail',
         'Password cannot be blank': 'Hasło nie może być puste',
-        'Email cannot be blank': 'Email nie może być pusty'
+        'Email cannot be blank': 'E-mail nie może być pusty'
     };
 
     return translations[errorMessage] || errorMessage;
