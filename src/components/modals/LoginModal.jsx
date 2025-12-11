@@ -149,7 +149,7 @@ const LoginModal = ({ isOpen, onClose, onSwitchToRegister }) => {
 
                         {/* Success Message */}
                         {success && (
-                            <div className="mb-4 p-3 bg-success/20 border border-success/30 text-green-300 text-sm flex items-center gap-2 animate-fadeIn">
+                            <div className="mb-4 p-3 bg-success/20 border border-success/30 rounded-lg text-green-300 text-sm flex items-center gap-2 animate-fadeIn">
                                 <FaCheckCircle className="w-4 h-4 flex-shrink-0" />
                                 <span>{success}</span>
                             </div>
@@ -157,7 +157,7 @@ const LoginModal = ({ isOpen, onClose, onSwitchToRegister }) => {
 
                         {/* Error Message */}
                         {error && (
-                            <div className="mb-4 p-3 bg-red-500/20 border border-red-500/30 text-red-300 text-sm flex items-center gap-2 animate-fadeIn">
+                            <div className="mb-4 p-3 bg-red-500/20 border border-red-500/30 rounded-lg text-red-300 text-sm flex items-center gap-2 animate-fadeIn">
                                 <FaExclamationTriangle className="w-4 h-4 flex-shrink-0" />
                                 <span>{error}</span>
                             </div>
@@ -233,7 +233,7 @@ const LoginModal = ({ isOpen, onClose, onSwitchToRegister }) => {
 
                                 {/* Reset Success Message */}
                                 {resetSuccess && (
-                                    <div className="mb-3 p-3 bg-success/20 border border-success/30 text-green-300 text-sm flex items-center gap-2">
+                                    <div className="mb-3 p-3 bg-success/20 border border-success/30 rounded-lg text-green-300 text-sm flex items-center gap-2">
                                         <FaCheckCircle className="w-4 h-4 flex-shrink-0" />
                                         <span>{resetSuccess}</span>
                                     </div>
@@ -241,7 +241,7 @@ const LoginModal = ({ isOpen, onClose, onSwitchToRegister }) => {
 
                                 {/* Reset Error Message */}
                                 {resetError && (
-                                    <div className="mb-3 p-3 bg-red-500/20 border border-red-500/30 text-red-300 text-sm flex items-center gap-2">
+                                    <div className="mb-3 p-3 bg-red-500/20 border border-red-500/30 rounded-lg text-red-300 text-sm flex items-center gap-2">
                                         <FaExclamationTriangle className="w-4 h-4 flex-shrink-0" />
                                         <span>{resetError}</span>
                                     </div>
