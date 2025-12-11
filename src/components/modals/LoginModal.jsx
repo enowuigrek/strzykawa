@@ -247,7 +247,7 @@ const LoginModal = ({ isOpen, onClose, onSwitchToRegister }) => {
                                     </div>
                                 )}
 
-                                <form onSubmit={handlePasswordReset}>
+                                <div>
                                     <div className="relative mb-3">
                                         <div className="absolute left-3 top-1/2 transform -translate-y-1/2">
                                             <FaEnvelope className="w-4 h-4 text-muted" />
@@ -259,10 +259,17 @@ const LoginModal = ({ isOpen, onClose, onSwitchToRegister }) => {
                                             className="w-full pl-10 pr-4 py-2 bg-primary/50 border border-white/20 text-white placeholder-muted/70 focus:border-accent focus:ring-2 focus:ring-accent/20 transition-all duration-300 text-sm"
                                             placeholder="twoj@email.com"
                                             required
+                                            onKeyDown={(e) => {
+                                                if (e.key === 'Enter') {
+                                                    e.preventDefault();
+                                                    handlePasswordReset(e);
+                                                }
+                                            }}
                                         />
                                     </div>
                                     <Button
-                                        type="submit"
+                                        type="button"
+                                        onClick={handlePasswordReset}
                                         disabled={isResetting}
                                         loading={isResetting}
                                         variant="secondary"
@@ -271,7 +278,7 @@ const LoginModal = ({ isOpen, onClose, onSwitchToRegister }) => {
                                     >
                                         {isResetting ? 'Wysyłanie...' : 'Wyślij link do resetu'}
                                     </Button>
-                                </form>
+                                </div>
                             </div>
                         )}
 
