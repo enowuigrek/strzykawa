@@ -334,46 +334,78 @@ export async function validateAccessToken(accessToken) {
 }
 
 /**
- * Aktualizuj adres klienta
+ * Aktualizuj adres klienta (tworzy nowy adres i ustawia jako domyślny)
  */
 export async function updateCustomerAddress(accessToken, address) {
-    const mutation = `
-        mutation customerAddressCreate($customerAccessToken: String!, $address: MailingAddressInput!) {
-            customerAddressCreate(customerAccessToken: $customerAccessToken, address: $address) {
-                customerAddress {
-                    id
-                }
-                customerUserErrors {
-                    code
-                    field
-                    message
+    try {
+        // KROK 1: Utwórz nowy adres
+        const createMutation = `
+            mutation customerAddressCreate($customerAccessToken: String!, $address: MailingAddressInput!) {
+                customerAddressCreate(customerAccessToken: $customerAccessToken, address: $address) {
+                    customerAddress {
+                        id
+                    }
+                    customerUserErrors {
+                        code
+                        field
+                        message
+                    }
                 }
             }
-        }
-    `;
+        `;
 
-    const variables = {
-        customerAccessToken: accessToken,
-        address: {
-            address1: address.address1 || '',
-            address2: address.address2 || '',
-            city: address.city || '',
-            province: address.province || '',
-            zip: address.zip || '',
-            country: address.country || 'PL',
-            phone: address.phone || ''
-        }
-    };
+        const createVariables = {
+            customerAccessToken: accessToken,
+            address: {
+                address1: address.address1 || '',
+                address2: address.address2 || '',
+                city: address.city || '',
+                province: address.province || '',
+                zip: address.zip || '',
+                country: address.country || 'PL',
+                phone: address.phone || ''
+            }
+        };
 
-    try {
-        const response = await shopifyClient.graphqlFetch(mutation, variables);
+        const createResponse = await shopifyClient.graphqlFetch(createMutation, createVariables);
 
-        if (response.data.customerAddressCreate.customerUserErrors.length > 0) {
-            const error = response.data.customerAddressCreate.customerUserErrors[0];
+        if (createResponse.data.customerAddressCreate.customerUserErrors.length > 0) {
+            const error = createResponse.data.customerAddressCreate.customerUserErrors[0];
             return {
                 success: false,
                 error: translateError(error.message)
             };
+        }
+
+        const newAddressId = createResponse.data.customerAddressCreate.customerAddress.id;
+
+        // KROK 2: Ustaw nowy adres jako domyślny
+        const updateDefaultMutation = `
+            mutation customerDefaultAddressUpdate($customerAccessToken: String!, $addressId: ID!) {
+                customerDefaultAddressUpdate(customerAccessToken: $customerAccessToken, addressId: $addressId) {
+                    customer {
+                        id
+                    }
+                    customerUserErrors {
+                        code
+                        field
+                        message
+                    }
+                }
+            }
+        `;
+
+        const updateDefaultVariables = {
+            customerAccessToken: accessToken,
+            addressId: newAddressId
+        };
+
+        const updateResponse = await shopifyClient.graphqlFetch(updateDefaultMutation, updateDefaultVariables);
+
+        if (updateResponse.data.customerDefaultAddressUpdate.customerUserErrors.length > 0) {
+            const error = updateResponse.data.customerDefaultAddressUpdate.customerUserErrors[0];
+            console.warn('Failed to set as default address:', error.message);
+            // Nie zwracamy błędu - adres został utworzony, tylko nie jest domyślny
         }
 
         return { success: true };

@@ -50,7 +50,7 @@ const LoginModal = ({ isOpen, onClose, onSwitchToRegister }) => {
         const result = await login(email, password);
 
         if (result.success) {
-            setSuccess('✓ Zalogowano pomyślnie! Witaj z powrotem.');
+            setSuccess('Zalogowano pomyślnie! Witaj z powrotem.');
             setTimeout(() => {
                 onClose();
                 setEmail('');
