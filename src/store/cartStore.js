@@ -174,16 +174,75 @@ export const useCartStore = create(
                 set({ error: null });
             },
 
-            // Go to checkout
-            goToCheckout: () => {
+            // Go to checkout (with optional user data for pre-fill)
+            goToCheckout: (user = null) => {
                 const { cart } = get();
-                if (cart?.checkoutUrl) {
-                    // ✅ oznaczamy, że jesteśmy w trakcie checkoutu
-                    set({ status: 'pending' });
-                    window.location.href = cart.checkoutUrl;
-                } else {
+                if (!cart?.checkoutUrl) {
                     logger.error('No checkout URL available');
+                    return;
                 }
+
+                let checkoutUrl = cart.checkoutUrl;
+
+                // Pre-fill checkout with user data if logged in
+                if (user) {
+                    const params = new URLSearchParams();
+
+                    // Email
+                    if (user.email) {
+                        params.append('checkout[email]', user.email);
+                    }
+
+                    // Shipping address - first name and last name
+                    if (user.firstName) {
+                        params.append('checkout[shipping_address][first_name]', user.firstName);
+                    }
+                    if (user.lastName) {
+                        params.append('checkout[shipping_address][last_name]', user.lastName);
+                    }
+
+                    // Default address (if exists)
+                    if (user.defaultAddress) {
+                        const addr = user.defaultAddress;
+                        if (addr.address1) {
+                            params.append('checkout[shipping_address][address1]', addr.address1);
+                        }
+                        if (addr.address2) {
+                            params.append('checkout[shipping_address][address2]', addr.address2);
+                        }
+                        if (addr.city) {
+                            params.append('checkout[shipping_address][city]', addr.city);
+                        }
+                        if (addr.province) {
+                            params.append('checkout[shipping_address][province]', addr.province);
+                        }
+                        if (addr.zip) {
+                            params.append('checkout[shipping_address][zip]', addr.zip);
+                        }
+                        if (addr.country) {
+                            params.append('checkout[shipping_address][country]', addr.country);
+                        }
+                    }
+
+                    // Phone (if exists)
+                    if (user.phone) {
+                        params.append('checkout[shipping_address][phone]', user.phone);
+                    }
+
+                    // Append params to checkout URL
+                    const separator = checkoutUrl.includes('?') ? '&' : '?';
+                    checkoutUrl = `${checkoutUrl}${separator}${params.toString()}`;
+
+                    logger.log('Pre-filling checkout with user data:', {
+                        email: user.email,
+                        name: `${user.firstName} ${user.lastName}`,
+                        hasAddress: !!user.defaultAddress
+                    });
+                }
+
+                // Mark checkout as pending and redirect
+                set({ status: 'pending' });
+                window.location.href = checkoutUrl;
             },
 
             // ✅ Wywołasz to na stronie /checkout/success

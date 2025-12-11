@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useCartStore } from '../../store/cartStore';
+import { useAuthStore } from '../../store/authStore';
 import { ModalHeader } from '../layout/ModalHeader';
 import { CartContent } from './CartContent';
 import { ShippingProgress } from './ShippingProgress';
@@ -15,6 +16,8 @@ export function CartModal({ isOpen, onClose }) {
         getTotalItems,
         getTotalPrice
     } = useCartStore();
+
+    const { user } = useAuthStore();
 
     const [isAnimating, setIsAnimating] = useState(false);
 
@@ -52,7 +55,8 @@ export function CartModal({ isOpen, onClose }) {
     if (!isOpen) return null;
 
     const handleCheckout = () => {
-        goToCheckout();
+        // Pass user data for pre-fill if logged in
+        goToCheckout(user);
         onClose();
     };
 
