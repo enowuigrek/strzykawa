@@ -239,8 +239,9 @@ export const useCartStore = create(
                     });
                 }
 
+                // Clear cart BEFORE redirect to prevent "zombie cart" on return
                 // Mark checkout as pending and redirect
-                set({ status: 'pending' });
+                set({ cart: null, items: [], status: 'pending' });
                 window.location.href = checkoutUrl;
             },
 

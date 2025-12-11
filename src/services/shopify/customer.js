@@ -424,6 +424,50 @@ export async function updateCustomerAddress(accessToken, address) {
 }
 
 /**
+ * Wyślij email z linkiem do resetu hasła
+ */
+export async function recoverPassword(email) {
+    const mutation = `
+        mutation customerRecover($email: String!) {
+            customerRecover(email: $email) {
+                customerUserErrors {
+                    code
+                    field
+                    message
+                }
+            }
+        }
+    `;
+
+    const variables = {
+        email
+    };
+
+    try {
+        const response = await shopifyClient.graphqlFetch(mutation, variables);
+
+        if (response.data.customerRecover.customerUserErrors.length > 0) {
+            const error = response.data.customerRecover.customerUserErrors[0];
+            return {
+                success: false,
+                error: translateError(error.message)
+            };
+        }
+
+        return {
+            success: true,
+            message: 'Link do resetu hasła został wysłany na podany adres e-mail'
+        };
+    } catch (error) {
+        console.error('Error recovering password:', error);
+        return {
+            success: false,
+            error: 'Błąd podczas wysyłania emaila. Spróbuj ponownie.'
+        };
+    }
+}
+
+/**
  * Tłumaczenie błędów Shopify na polski
  */
 function translateError(errorMessage) {

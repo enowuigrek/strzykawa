@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { FaUser, FaLock, FaEye, FaEyeSlash, FaSignInAlt, FaExclamationTriangle, FaCheckCircle } from 'react-icons/fa';
+import { FaUser, FaLock, FaEye, FaEyeSlash, FaSignInAlt, FaExclamationTriangle, FaCheckCircle, FaEnvelope } from 'react-icons/fa';
 import { useAuthStore } from '../../store/authStore.js';
+import { recoverPassword } from '../../services/shopify/customer.js';
 import { Button } from '../atoms/Button.jsx';
 import { ModalHeader } from '../layout/ModalHeader.jsx';
 
@@ -16,6 +17,13 @@ const LoginModal = ({ isOpen, onClose, onSwitchToRegister }) => {
     const [error, setError] = useState('');
     const [success, setSuccess] = useState('');
     const [isAnimating, setIsAnimating] = useState(false);
+
+    // Password recovery
+    const [showForgotPassword, setShowForgotPassword] = useState(false);
+    const [resetEmail, setResetEmail] = useState('');
+    const [resetError, setResetError] = useState('');
+    const [resetSuccess, setResetSuccess] = useState('');
+    const [isResetting, setIsResetting] = useState(false);
 
     const { login, isLoading } = useAuthStore();
 
@@ -67,6 +75,32 @@ const LoginModal = ({ isOpen, onClose, onSwitchToRegister }) => {
             } else {
                 setError(errorMessage);
             }
+        }
+    };
+
+    const handlePasswordReset = async (e) => {
+        e.preventDefault();
+        setResetError('');
+        setResetSuccess('');
+
+        if (!resetEmail || !resetEmail.includes('@')) {
+            setResetError('Podaj prawidłowy adres e-mail');
+            return;
+        }
+
+        setIsResetting(true);
+        const result = await recoverPassword(resetEmail);
+        setIsResetting(false);
+
+        if (result.success) {
+            setResetSuccess(result.message);
+            setTimeout(() => {
+                setShowForgotPassword(false);
+                setResetEmail('');
+                setResetSuccess('');
+            }, 4000);
+        } else {
+            setResetError(result.error);
         }
     };
 
@@ -176,7 +210,70 @@ const LoginModal = ({ isOpen, onClose, onSwitchToRegister }) => {
                                     {showPassword ? <FaEyeSlash className="w-4 h-4" /> : <FaEye className="w-4 h-4" />}
                                 </button>
                             </div>
+
+                            {/* Forgot Password Link */}
+                            <div className="text-right mt-2">
+                                <button
+                                    type="button"
+                                    onClick={() => setShowForgotPassword(!showForgotPassword)}
+                                    className="text-xs text-accent hover:text-white transition-colors duration-300 underline"
+                                >
+                                    Zapomniałeś hasła?
+                                </button>
+                            </div>
                         </div>
+
+                        {/* Password Recovery Form - rozwija się gdy showForgotPassword = true */}
+                        {showForgotPassword && (
+                            <div className="mb-6 p-4 bg-primary/30 border border-accent/30 rounded-lg animate-fadeIn">
+                                <h3 className="text-sm font-semibold text-white mb-3">Reset hasła</h3>
+                                <p className="text-xs text-muted mb-4">
+                                    Podaj adres e-mail, a Shopify wyśle Ci link do resetu hasła.
+                                </p>
+
+                                {/* Reset Success Message */}
+                                {resetSuccess && (
+                                    <div className="mb-3 p-3 bg-success/20 border border-success/30 text-green-300 text-sm flex items-center gap-2">
+                                        <FaCheckCircle className="w-4 h-4 flex-shrink-0" />
+                                        <span>{resetSuccess}</span>
+                                    </div>
+                                )}
+
+                                {/* Reset Error Message */}
+                                {resetError && (
+                                    <div className="mb-3 p-3 bg-red-500/20 border border-red-500/30 text-red-300 text-sm flex items-center gap-2">
+                                        <FaExclamationTriangle className="w-4 h-4 flex-shrink-0" />
+                                        <span>{resetError}</span>
+                                    </div>
+                                )}
+
+                                <form onSubmit={handlePasswordReset}>
+                                    <div className="relative mb-3">
+                                        <div className="absolute left-3 top-1/2 transform -translate-y-1/2">
+                                            <FaEnvelope className="w-4 h-4 text-muted" />
+                                        </div>
+                                        <input
+                                            type="email"
+                                            value={resetEmail}
+                                            onChange={(e) => setResetEmail(e.target.value)}
+                                            className="w-full pl-10 pr-4 py-2 bg-primary/50 border border-white/20 text-white placeholder-muted/70 focus:border-accent focus:ring-2 focus:ring-accent/20 transition-all duration-300 text-sm"
+                                            placeholder="twoj@email.com"
+                                            required
+                                        />
+                                    </div>
+                                    <Button
+                                        type="submit"
+                                        disabled={isResetting}
+                                        loading={isResetting}
+                                        variant="secondary"
+                                        size="sm"
+                                        className="w-full"
+                                    >
+                                        {isResetting ? 'Wysyłanie...' : 'Wyślij link do resetu'}
+                                    </Button>
+                                </form>
+                            </div>
+                        )}
 
                         {/* Submit Button */}
                         <Button
