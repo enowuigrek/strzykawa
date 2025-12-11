@@ -141,6 +141,11 @@ export const useAuthStore = create(
             // Pobierz aktualny access token (helper dla innych komponentów)
             getAccessToken: () => {
                 return get().accessToken;
+            },
+
+            // Zaktualizuj dane użytkownika (np. po edycji adresu)
+            updateUser: (updatedUser) => {
+                set({ user: updatedUser });
             }
         }),
         {

@@ -1,10 +1,11 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { FaUser, FaEnvelope, FaMapMarkerAlt, FaBox, FaSignOutAlt } from 'react-icons/fa';
+import { FaUser, FaEnvelope, FaBox, FaSignOutAlt } from 'react-icons/fa';
 import { useAuthStore } from '../store/authStore.js';
 import { PageLayout } from '../components/layout/PageLayout.jsx';
 import { PageHeader } from '../components/layout/PageHeader.jsx';
 import { Button } from '../components/atoms/Button.jsx';
+import { EditAddressForm } from '../components/profile/EditAddressForm.jsx';
 
 /**
  * Profile - Strona profilu użytkownika
@@ -86,31 +87,11 @@ export function Profile() {
                         </div>
                     </div>
 
-                    {/* Adres domyślny */}
-                    {user.defaultAddress && (
-                        <div className="bg-primary-light border border-white/10 p-6">
-                            <div className="flex items-center gap-3 mb-6 pb-4 border-b border-white/10">
-                                <FaMapMarkerAlt className="w-5 h-5 text-accent" />
-                                <h2 className="text-xl font-semibold text-white">
-                                    Adres dostawy
-                                </h2>
-                            </div>
-
-                            <div className="space-y-1 text-white">
-                                <p>{user.defaultAddress.address1}</p>
-                                {user.defaultAddress.address2 && (
-                                    <p>{user.defaultAddress.address2}</p>
-                                )}
-                                <p>
-                                    {user.defaultAddress.zip} {user.defaultAddress.city}
-                                </p>
-                                {user.defaultAddress.province && (
-                                    <p>{user.defaultAddress.province}</p>
-                                )}
-                                <p>{user.defaultAddress.country}</p>
-                            </div>
-                        </div>
-                    )}
+                    {/* Adres i kontakt - edytowalny formularz */}
+                    <EditAddressForm
+                        initialAddress={user.defaultAddress}
+                        initialPhone={user.phone}
+                    />
 
                     {/* Historia zamówień */}
                     <div className="bg-primary-light border border-white/10 p-6">
