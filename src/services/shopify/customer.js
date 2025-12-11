@@ -8,7 +8,7 @@ import { shopifyClient } from './client.js';
 /**
  * Rejestracja nowego klienta
  */
-export async function registerCustomer(email, password, firstName, lastName) {
+export async function registerCustomer(email, password, firstName, lastName, phone = null) {
     const mutation = `
         mutation customerCreate($input: CustomerCreateInput!) {
             customerCreate(input: $input) {
@@ -17,6 +17,7 @@ export async function registerCustomer(email, password, firstName, lastName) {
                     email
                     firstName
                     lastName
+                    phone
                 }
                 customerUserErrors {
                     code
@@ -27,14 +28,21 @@ export async function registerCustomer(email, password, firstName, lastName) {
         }
     `;
 
+    const input = {
+        email,
+        password,
+        firstName,
+        lastName,
+        acceptsMarketing: false
+    };
+
+    // Dodaj telefon jeśli podany
+    if (phone) {
+        input.phone = phone;
+    }
+
     const variables = {
-        input: {
-            email,
-            password,
-            firstName,
-            lastName,
-            acceptsMarketing: false
-        }
+        input
     };
 
     try {
@@ -323,6 +331,59 @@ export async function logoutCustomer(accessToken) {
 export async function validateAccessToken(accessToken) {
     const result = await getCustomer(accessToken);
     return result.success;
+}
+
+/**
+ * Aktualizuj adres klienta
+ */
+export async function updateCustomerAddress(accessToken, address) {
+    const mutation = `
+        mutation customerAddressCreate($customerAccessToken: String!, $address: MailingAddressInput!) {
+            customerAddressCreate(customerAccessToken: $customerAccessToken, address: $address) {
+                customerAddress {
+                    id
+                }
+                customerUserErrors {
+                    code
+                    field
+                    message
+                }
+            }
+        }
+    `;
+
+    const variables = {
+        customerAccessToken: accessToken,
+        address: {
+            address1: address.address1 || '',
+            address2: address.address2 || '',
+            city: address.city || '',
+            province: address.province || '',
+            zip: address.zip || '',
+            country: address.country || 'PL',
+            phone: address.phone || ''
+        }
+    };
+
+    try {
+        const response = await shopifyClient.graphqlFetch(mutation, variables);
+
+        if (response.data.customerAddressCreate.customerUserErrors.length > 0) {
+            const error = response.data.customerAddressCreate.customerUserErrors[0];
+            return {
+                success: false,
+                error: translateError(error.message)
+            };
+        }
+
+        return { success: true };
+    } catch (error) {
+        console.error('Error updating customer address:', error);
+        return {
+            success: false,
+            error: 'Błąd podczas aktualizacji adresu'
+        };
+    }
 }
 
 /**

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { FaUser, FaLock, FaEye, FaEyeSlash, FaEnvelope, FaUserPlus, FaExclamationTriangle, FaCheckCircle } from 'react-icons/fa';
+import { FaUser, FaLock, FaEye, FaEyeSlash, FaEnvelope, FaUserPlus, FaExclamationTriangle, FaCheckCircle, FaPhone } from 'react-icons/fa';
 import { useAuthStore } from '../../store/authStore.js';
 import { Button } from '../atoms/Button.jsx';
 import { ModalHeader } from '../layout/ModalHeader.jsx';
@@ -14,6 +14,7 @@ const RegisterModal = ({ isOpen, onClose, onSwitchToLogin }) => {
         firstName: '',
         lastName: '',
         email: '',
+        phone: '',
         password: '',
         confirmPassword: ''
     });
@@ -74,7 +75,8 @@ const RegisterModal = ({ isOpen, onClose, onSwitchToLogin }) => {
             formData.email,
             formData.password,
             formData.firstName,
-            formData.lastName
+            formData.lastName,
+            formData.phone || null
         );
 
         if (result.success) {
@@ -85,6 +87,7 @@ const RegisterModal = ({ isOpen, onClose, onSwitchToLogin }) => {
                     firstName: '',
                     lastName: '',
                     email: '',
+                    phone: '',
                     password: '',
                     confirmPassword: ''
                 });
@@ -218,6 +221,27 @@ const RegisterModal = ({ isOpen, onClose, onSwitchToLogin }) => {
                                     className="w-full pl-10 pr-4 py-3 bg-primary/50 border border-white/20 text-white placeholder-muted/70 focus:border-accent focus:ring-2 focus:ring-accent/20 transition-all duration-300"
                                     placeholder="twoj@email.com"
                                     required
+                                />
+                            </div>
+                        </div>
+
+                        {/* Phone Field */}
+                        <div className="mb-4">
+                            <label htmlFor="registerPhone" className="block text-sm font-semibold text-muted mb-2">
+                                Telefon <span className="text-xs text-muted/70">(opcjonalnie)</span>
+                            </label>
+                            <div className="relative">
+                                <div className="absolute left-3 top-1/2 transform -translate-y-1/2">
+                                    <FaPhone className="w-4 h-4 text-muted" />
+                                </div>
+                                <input
+                                    type="tel"
+                                    id="registerPhone"
+                                    name="phone"
+                                    value={formData.phone}
+                                    onChange={handleChange}
+                                    className="w-full pl-10 pr-4 py-3 bg-primary/50 border border-white/20 text-white placeholder-muted/70 focus:border-accent focus:ring-2 focus:ring-accent/20 transition-all duration-300"
+                                    placeholder="+48 123 456 789"
                                 />
                             </div>
                         </div>

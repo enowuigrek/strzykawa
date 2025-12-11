@@ -44,12 +44,12 @@ export const useAuthStore = create(
                 }
             },
 
-            register: async (email, password, firstName, lastName) => {
+            register: async (email, password, firstName, lastName, phone = null) => {
                 set({ isLoading: true });
 
                 try {
                     // 1. Najpierw utwórz konto
-                    const registerResult = await registerCustomer(email, password, firstName, lastName);
+                    const registerResult = await registerCustomer(email, password, firstName, lastName, phone);
 
                     if (!registerResult.success) {
                         set({ isLoading: false });
