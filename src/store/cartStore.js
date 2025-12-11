@@ -222,11 +222,10 @@ export const useCartStore = create(
                         if (addr.country) {
                             params.append('checkout[shipping_address][country]', addr.country);
                         }
-                    }
-
-                    // Phone (if exists)
-                    if (user.phone) {
-                        params.append('checkout[shipping_address][phone]', user.phone);
+                        // Phone from address (not from user.phone)
+                        if (addr.phone) {
+                            params.append('checkout[shipping_address][phone]', addr.phone);
+                        }
                     }
 
                     // Append params to checkout URL

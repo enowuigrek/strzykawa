@@ -73,14 +73,14 @@ export function Profile() {
                                 </div>
                             </div>
 
-                            {/* Telefon (jeśli istnieje) */}
-                            {user.phone && (
+                            {/* Telefon z adresu (jeśli istnieje) */}
+                            {user.defaultAddress?.phone && (
                                 <div>
                                     <label className="block text-sm text-muted mb-1">
                                         Telefon
                                     </label>
                                     <p className="text-white font-medium">
-                                        {user.phone}
+                                        {user.defaultAddress.phone}
                                     </p>
                                 </div>
                             )}
@@ -90,7 +90,7 @@ export function Profile() {
                     {/* Adres i kontakt - edytowalny formularz */}
                     <EditAddressForm
                         initialAddress={user.defaultAddress}
-                        initialPhone={user.phone}
+                        initialPhone={user.defaultAddress?.phone || ''}
                     />
 
                     {/* Historia zamówień */}

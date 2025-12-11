@@ -59,13 +59,13 @@ export function EditAddressForm({ initialAddress = null, initialPhone = '' }) {
                 if (customerData.success) {
                     // Zaktualizuj dane w authStore
                     updateUser(customerData.customer);
-                    setSuccess('✓ Dane zapisane pomyślnie!');
+                    setSuccess('Dane zapisane pomyślnie!');
                     setTimeout(() => {
                         setIsEditing(false);
                         setSuccess('');
                     }, 2000);
                 } else {
-                    setSuccess('✓ Dane zapisane! Odśwież stronę aby zobaczyć zmiany.');
+                    setSuccess('Dane zapisane! Odśwież stronę aby zobaczyć zmiany.');
                 }
             } else {
                 setError(result.error || 'Błąd podczas zapisywania danych');
