@@ -6,12 +6,15 @@ import Branding from '../assets/history/branding.jpg';
 import Branding2 from '../assets/history/branding-2.jpg';
 import Branding5 from '../assets/history/branding-5.jpg';
 import TeamPhoto from '../assets/history/damian_karolina.jpg';
+import DamianRoaster from '../assets/team/damian_roaster.jpg';
+import TeamEkipa from '../assets/team/team_ekipa.jpg';
 import { useScrollToTop } from '../hooks/useScrollToTop';
 import { FaMapMarkerAlt, FaShoppingBag } from 'react-icons/fa';
 import { Button } from '../components/atoms/Button';
 import { PageLayout } from "../components/layout/PageLayout.jsx";
 import { TimelineSection } from '../components/molecules/TimelineSection';
 import { TimelineBar } from '../components/organisms/TimelineBar';
+import { TeamSection } from '../components/features/about/TeamSection';
 import { SCROLL_THRESHOLDS } from '../constants/timings.js';
 
 export function About() {
@@ -99,8 +102,14 @@ export function About() {
                     ))}
                 </div>
 
+                {/* Team Section */}
+                <TeamSection
+                    founderImage={DamianRoaster}
+                    teamImage={TeamEkipa}
+                />
+
                 {/* Call to Action */}
-                <div ref={ctaRef} className="mt-32">
+                <div ref={ctaRef} className="mt-16">
                     <div className="bg-gradient-to-r from-primary-light/20 to-primary/30 border border-white/10 p-12 md:p-16 text-center">
                         <h2 className="text-3xl md:text-4xl text-white mb-6">
                             Zapraszamy do Strzykawy!
