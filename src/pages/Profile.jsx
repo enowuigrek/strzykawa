@@ -6,6 +6,7 @@ import { PageLayout } from '../components/layout/PageLayout.jsx';
 import { PageHeader } from '../components/layout/PageHeader.jsx';
 import { Button } from '../components/atoms/Button.jsx';
 import { EditAddressForm } from '../components/profile/EditAddressForm.jsx';
+import { ChangePasswordForm } from '../components/profile/ChangePasswordForm.jsx';
 
 /**
  * Profile - Strona profilu użytkownika
@@ -92,6 +93,9 @@ export function Profile() {
                         initialAddress={user.defaultAddress}
                         initialPhone={user.defaultAddress?.phone || ''}
                     />
+
+                    {/* Zmiana hasła */}
+                    <ChangePasswordForm />
 
                     {/* Historia zamówień */}
                     <div className="bg-primary-light border border-white/10 p-6">

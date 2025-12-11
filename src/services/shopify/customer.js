@@ -472,6 +472,60 @@ export async function recoverPassword(email) {
 }
 
 /**
+ * Zmień hasło dla zalogowanego użytkownika
+ */
+export async function changePassword(accessToken, currentPassword, newPassword) {
+    const mutation = `
+        mutation customerUpdate($customerAccessToken: String!, $customer: CustomerUpdateInput!) {
+            customerUpdate(customerAccessToken: $customerAccessToken, customer: $customer) {
+                customer {
+                    id
+                }
+                customerUserErrors {
+                    code
+                    field
+                    message
+                }
+            }
+        }
+    `;
+
+    const variables = {
+        customerAccessToken: accessToken,
+        customer: {
+            password: newPassword
+        }
+    };
+
+    try {
+        console.log('🔑 Changing password for user');
+        const response = await shopifyClient.graphqlFetch(mutation, variables);
+        console.log('🔑 Change password response:', response);
+
+        if (response.data.customerUpdate.customerUserErrors.length > 0) {
+            const error = response.data.customerUpdate.customerUserErrors[0];
+            console.error('❌ Password change error:', error);
+            return {
+                success: false,
+                error: translateError(error.message)
+            };
+        }
+
+        console.log('✅ Password changed successfully');
+        return {
+            success: true,
+            message: 'Hasło zostało zmienione pomyślnie'
+        };
+    } catch (error) {
+        console.error('❌ Error changing password:', error);
+        return {
+            success: false,
+            error: 'Błąd podczas zmiany hasła. Spróbuj ponownie.'
+        };
+    }
+}
+
+/**
  * Tłumaczenie błędów Shopify na polski
  */
 function translateError(errorMessage) {

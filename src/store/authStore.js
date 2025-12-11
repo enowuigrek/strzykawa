@@ -5,7 +5,8 @@ import {
     registerCustomer,
     logoutCustomer,
     validateAccessToken,
-    getCustomer
+    getCustomer,
+    changePassword
 } from '../services/shopify/customer.js';
 
 export const useAuthStore = create(
@@ -141,6 +142,26 @@ export const useAuthStore = create(
             // Pobierz aktualny access token (helper dla innych komponentów)
             getAccessToken: () => {
                 return get().accessToken;
+            },
+
+            // Zmień hasło
+            changePassword: async (currentPassword, newPassword) => {
+                const { accessToken } = get();
+
+                if (!accessToken) {
+                    return { success: false, error: 'Nie jesteś zalogowany' };
+                }
+
+                set({ isLoading: true });
+
+                try {
+                    const result = await changePassword(accessToken, currentPassword, newPassword);
+                    set({ isLoading: false });
+                    return result;
+                } catch (error) {
+                    set({ isLoading: false });
+                    return { success: false, error: 'Błąd podczas zmiany hasła' };
+                }
             },
 
             // Zaktualizuj dane użytkownika (np. po edycji adresu)
