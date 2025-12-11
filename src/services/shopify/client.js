@@ -44,7 +44,8 @@ class ShopifyClient {
                 throw new Error(data.errors[0]?.message || 'GraphQL error');
             }
 
-            return data;
+            // Return the GraphQL data object (not the full response)
+            return data.data ? { data: data.data } : data;
         } catch (error) {
             logger.error('Shopify API error:', error);
             throw error;
