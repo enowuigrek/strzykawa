@@ -105,9 +105,11 @@ export async function loginCustomer(email, password) {
 
     try {
         const response = await shopifyClient.graphqlFetch(mutation, variables);
+        console.log('✅ Login response:', response);
 
         if (response.data.customerAccessTokenCreate.customerUserErrors.length > 0) {
             const error = response.data.customerAccessTokenCreate.customerUserErrors[0];
+            console.log('❌ Login error:', error);
             return {
                 success: false,
                 error: translateError(error.message)
@@ -115,17 +117,21 @@ export async function loginCustomer(email, password) {
         }
 
         const { accessToken, expiresAt } = response.data.customerAccessTokenCreate.customerAccessToken;
+        console.log('✅ Access token received:', accessToken.substring(0, 20) + '...');
 
         // Pobierz dane klienta używając access token
         const customerData = await getCustomer(accessToken);
+        console.log('✅ Customer data received:', customerData);
 
         if (!customerData.success) {
+            console.error('❌ Failed to fetch customer data');
             return {
                 success: false,
                 error: 'Nie udało się pobrać danych użytkownika'
             };
         }
 
+        console.log('✅ Login SUCCESS, returning customer:', customerData.customer);
         return {
             success: true,
             accessToken,
@@ -133,7 +139,7 @@ export async function loginCustomer(email, password) {
             customer: customerData.customer
         };
     } catch (error) {
-        console.error('Error logging in customer:', error);
+        console.error('❌ Error logging in customer:', error);
         return {
             success: false,
             error: 'Błąd podczas logowania. Spróbuj ponownie.'
