@@ -51,17 +51,34 @@
   - Bez duplikatów emoji
   - Auto-close modali po sukcesie
 
+- [x] **Zmiana hasła w profilu:**
+  - Komponent ChangePasswordForm w `/profil`
+  - Pola: Obecne hasło, Nowe hasło, Potwierdź hasło
+  - Walidacja: min. 5 znaków, hasła muszą się zgadzać
+  - Używa `customerUpdate` mutation z Shopify API
+
+- [x] **Czyszczenie koszyka przed checkout:**
+  - Koszyk jest czyszczony z localStorage przed przekierowaniem do Shopify
+  - Zapobiega "zombie cart" - klient nie widzi starego koszyka po powrocie
+
+- [x] **Obsługa zapomnianych haseł:**
+  - Usunięto "Zapomniałeś hasła?" (nie działa poprawnie z Shopify Basic)
+  - Dodano mailto link: "Problem z logowaniem? Napisz do nas"
+  - Link otwiera program email z szablonem wiadomości do kontakt@strzykawa.pl
+  - Zalogowani użytkownicy mogą zmienić hasło proaktywnie w profilu
+
 **Pliki stworzone/zmodyfikowane:**
-- `src/services/shopify/customer.js` - API functions
-- `src/store/authStore.js` - Zustand auth store
-- `src/pages/Profile.jsx` - Strona profilu
+- `src/services/shopify/customer.js` - API functions (+ changePassword)
+- `src/store/authStore.js` - Zustand auth store (+ changePassword action)
+- `src/pages/Profile.jsx` - Strona profilu (+ ChangePasswordForm)
 - `src/pages/Orders.jsx` - Historia zamówień
-- `src/components/profile/EditAddressForm.jsx` - Formularz edycji
-- `src/components/modals/LoginModal.jsx` - Modal logowania
+- `src/components/profile/EditAddressForm.jsx` - Formularz edycji adresu
+- `src/components/profile/ChangePasswordForm.jsx` - Formularz zmiany hasła (NEW)
+- `src/components/modals/LoginModal.jsx` - Modal logowania (+ mailto link)
 - `src/components/modals/RegisterModal.jsx` - Modal rejestracji
 - `src/components/header/HeaderActions.jsx` - Nawigacja desktop
 - `src/components/header/MobileNavigation.jsx` - Nawigacja mobile
-- `src/store/cartStore.js` - Checkout pre-fill
+- `src/store/cartStore.js` - Checkout pre-fill + czyszczenie koszyka
 
 ---
 
@@ -250,4 +267,4 @@
 ---
 
 **Maintainer:** @enowuigrek
-**Last Updated:** 9 Grudnia 2025
+**Last Updated:** 11 Grudnia 2025
