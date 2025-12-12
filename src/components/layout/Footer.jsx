@@ -86,25 +86,23 @@ export function Footer() {
                     </div>
 
                     {/* Linki szybkie + Social Media */}
-                    <div className="flex flex-col justify-between h-full">
-                        <div className="space-y-4">
-                            <h4 className="text-lg text-white">Menu</h4>
-                            <ul className="space-y-2">
-                                {quickLinks.map((link, index) => (
-                                    <li key={index}>
-                                        <a
-                                            href={link.href}
-                                            className="text-white/70 hover:text-white text-sm transition-colors duration-300"
-                                        >
-                                            {link.label}
-                                        </a>
-                                    </li>
-                                ))}
-                            </ul>
-                        </div>
+                    <div className="space-y-4">
+                        <h4 className="text-lg text-white">Menu</h4>
+                        <ul className="space-y-2">
+                            {quickLinks.map((link, index) => (
+                                <li key={index}>
+                                    <a
+                                        href={link.href}
+                                        className="text-white/70 hover:text-white text-sm transition-colors duration-300"
+                                    >
+                                        {link.label}
+                                    </a>
+                                </li>
+                            ))}
+                        </ul>
 
-                        {/* Social Media - na dole */}
-                        <div className="flex gap-4 mt-4">
+                        {/* Social Media */}
+                        <div className="flex gap-4 pt-2">
                             {socialLinks.map((social, index) => {
                                 const Icon = social.icon;
                                 return (
@@ -153,10 +151,12 @@ export function Footer() {
                             </div>
 
                             {/* Godziny otwarcia */}
-                            <div className="flex items-start gap-2 text-xs pt-3">
-                                <FaClock className="w-3.5 h-3.5 mt-0.5 flex-shrink-0 text-muted" />
-                                <div className="text-white/60">
-                                    <span className="text-white/80">Pn-Pt:</span> 9:00-17:00 · <span className="text-white/80">Sb:</span> 10:00-15:00 · <span className="text-white/80">Nd:</span> zamknięte
+                            <div className="flex items-start gap-2 text-sm pt-3">
+                                <FaClock className="w-4 h-4 mt-0.5 flex-shrink-0 text-muted" />
+                                <div className="text-white/70 text-sm leading-relaxed">
+                                    <div>Pn-Pt: 9:00 - 17:00</div>
+                                    <div>Sb: 10:00 - 15:00</div>
+                                    <div>Nd: zamknięte</div>
                                 </div>
                             </div>
                         </div>
