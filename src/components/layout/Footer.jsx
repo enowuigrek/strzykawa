@@ -64,9 +64,7 @@ export function Footer() {
         <footer className="relative bg-primary-dark/95 border-white/10 overflow-hidden">
             {/* Main content */}
             <div className="relative z-10 container mx-auto px-4 py-4 md:py-5">
-                {/* Mobile: Logo pełna szerokość, potem 2 kolumny */}
-                {/* Desktop: 3 kolumny */}
-                <div className="grid grid-cols-2 md:grid-cols-3 gap-8 md:gap-10">
+                <div className="grid grid-cols-2 md:grid-cols-3 gap-8 md:gap-10 items-start">
                     {/* Logo - mobile pełna szerokość */}
                     <div className="col-span-2 md:col-span-1 flex flex-col items-center md:items-start">
                         <div className="footer-logo">
@@ -104,7 +102,7 @@ export function Footer() {
                         </div>
 
                         {/* Social Media - pb-X to adjust alignment with logo */}
-                        <div className="flex gap-4 lg:pb-4">
+                        <div className="flex gap-4 pb-1 md:pb-4">
                             {socialLinks.map((social, index) => {
                                 const Icon = social.icon;
                                 return (
@@ -196,9 +194,9 @@ export function Footer() {
                         <div className="grid grid-cols-2 md:flex md:flex-row md:items-center md:justify-between gap-4 md:gap-3">
                             {/* Left: project credit */}
                             <div className="flex flex-col md:flex-row md:items-center items-start text-left text-white/70">
-                                <span className="text-white/60 text-xs md:text-sm mb-1 md:mb-0">
-                                    Projekt i wykonanie:{' '}
-                                </span>
+          <span className="text-white/60 text-xs md:text-sm mb-1 md:mb-0">
+            Projekt i wykonanie:{' '}
+          </span>
                                 <a
                                     href="https://lukasznowak.dev"
                                     target="_blank"
@@ -227,32 +225,32 @@ export function Footer() {
                             </div>
 
                             {/* Right: technologies */}
-                            <div className="flex flex-col md:flex-row md:items-center items-start md:items-end text-left md:text-right text-white/70">
-                                <span className="text-white/60 text-xs md:text-sm mb-1 md:mb-0 md:mr-2">
-                                    Użyte technologie:
-                                </span>
-                                <div className="flex items-center justify-start gap-1">
+                            <div className="flex flex-col md:flex-row items-end md:items-end text-right text-white/70">
+          <span className="text-white/60 text-xs md:text-sm mb-1 md:mb-0 md:mr-2">
+            Użyte technologie:
+          </span>
+                                <div className="flex items-center justify-end md:justify-start gap-1">
                                     {/* React */}
                                     <div className="flex items-center group">
-                                        <span className="hidden md:block mr-2 text-xs text-white/60 overflow-hidden max-w-0 group-hover:max-w-[80px] opacity-0 group-hover:opacity-100 transition-all duration-300">
-                                            React
-                                        </span>
+              <span className="hidden md:block mr-2 text-xs text-white/60 overflow-hidden max-w-0 group-hover:max-w-[80px] opacity-0 group-hover:opacity-100 transition-all duration-300">
+                React
+              </span>
                                         <SiReact className="w-5 h-5 transition-colors duration-300 group-hover:text-[#61DAFB]" />
                                     </div>
 
                                     {/* Shopify */}
                                     <div className="flex items-center group">
-                                        <span className="hidden md:block mr-2 text-xs text-white/60 overflow-hidden max-w-0 group-hover:max-w-[80px] opacity-0 group-hover:opacity-100 transition-all duration-300">
-                                            Shopify
-                                        </span>
+              <span className="hidden md:block mr-2 text-xs text-white/60 overflow-hidden max-w-0 group-hover:max-w-[80px] opacity-0 group-hover:opacity-100 transition-all duration-300">
+                Shopify
+              </span>
                                         <SiShopify className="w-5 h-5 transition-colors duration-300 group-hover:text-[#95BF47]" />
                                     </div>
 
                                     {/* Coffee */}
                                     <div className="flex items-center group">
-                                        <span className="hidden md:block mr-2 text-xs text-white/60 overflow-hidden max-w-0 group-hover:max-w-[80px] opacity-0 group-hover:opacity-100 transition-all duration-300">
-                                            Kawa
-                                        </span>
+              <span className="hidden md:block mr-2 text-xs text-white/60 overflow-hidden max-w-0 group-hover:max-w-[80px] opacity-0 group-hover:opacity-100 transition-all duration-300">
+                Kawa
+              </span>
                                         <BiCoffeeTogo className="w-5 h-5 transition-colors duration-300 group-hover:text-[#7B4B2A]" />
                                     </div>
                                 </div>
