@@ -86,23 +86,25 @@ export function Footer() {
                     </div>
 
                     {/* Linki szybkie + Social Media */}
-                    <div className="space-y-4">
-                        <h4 className="text-lg text-white">Menu</h4>
-                        <ul className="space-y-2">
-                            {quickLinks.map((link, index) => (
-                                <li key={index}>
-                                    <a
-                                        href={link.href}
-                                        className="text-white/70 hover:text-white text-sm transition-colors duration-300"
-                                    >
-                                        {link.label}
-                                    </a>
-                                </li>
-                            ))}
-                        </ul>
+                    <div className="flex flex-col justify-between h-full">
+                        <div className="space-y-4">
+                            <h4 className="text-lg text-white">Menu</h4>
+                            <ul className="space-y-2">
+                                {quickLinks.map((link, index) => (
+                                    <li key={index}>
+                                        <a
+                                            href={link.href}
+                                            className="text-white/70 hover:text-white text-sm transition-colors duration-300"
+                                        >
+                                            {link.label}
+                                        </a>
+                                    </li>
+                                ))}
+                            </ul>
+                        </div>
 
-                        {/* Social Media */}
-                        <div className="flex gap-4 pt-2">
+                        {/* Social Media - pb-X to adjust alignment with logo */}
+                        <div className="flex gap-4 pb-1">
                             {socialLinks.map((social, index) => {
                                 const Icon = social.icon;
                                 return (
