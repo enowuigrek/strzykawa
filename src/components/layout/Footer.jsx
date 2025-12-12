@@ -63,7 +63,7 @@ export function Footer() {
     return (
         <footer className="relative bg-primary-dark/95 border-white/10 overflow-hidden">
             {/* Main content */}
-            <div className="relative z-10 container mx-auto px-4 py-4 md:py-12">
+            <div className="relative z-10 container mx-auto px-4 py-4 md:py-5">
                 {/* Mobile: Logo pełna szerokość, potem 2 kolumny */}
                 {/* Desktop: 3 kolumny */}
                 <div className="grid grid-cols-2 md:grid-cols-3 gap-8 md:gap-10">
@@ -104,7 +104,7 @@ export function Footer() {
                         </div>
 
                         {/* Social Media - pb-X to adjust alignment with logo */}
-                        <div className="flex gap-4 pb-1">
+                        <div className="flex gap-4 pb-4">
                             {socialLinks.map((social, index) => {
                                 const Icon = social.icon;
                                 return (
@@ -116,7 +116,7 @@ export function Footer() {
                                         aria-label={social.label}
                                         className={`text-white/70 transition-all duration-300 hover:scale-110 ${social.hoverColor}`}
                                     >
-                                        <Icon className="w-7 h-7" />
+                                        <Icon className="w-8 h-8" />
                                     </a>
                                 );
                             })}
