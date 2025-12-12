@@ -3,8 +3,9 @@ import { FaMapMarkerAlt, FaClock, FaCoffee, FaExternalLinkAlt } from 'react-icon
 
 export function CafeLocation() {
     const cafeHours = [
-        { days: 'Poniedziałek - Piątek', hours: '8:00 - 17:00' },
-        { days: 'Sobota - Niedziela', hours: '9:00 - 16:00' },
+        { days: 'Poniedziałek - Piątek', hours: '9:00 - 17:00' },
+        { days: 'Sobota', hours: '10:00 - 15:00' },
+        { days: 'Niedziela', hours: 'zamknięte' },
     ];
 
     const openGoogleMaps = () => {
