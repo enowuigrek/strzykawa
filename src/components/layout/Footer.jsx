@@ -74,7 +74,7 @@ export function Footer() {
                             <img
                                 src="/logo/horizontal-logo.png"
                                 alt="Strzykawa Coffee Shop & Roastery"
-                                className="md:hidden h-6 object-contain"
+                                className="md:hidden h-4 object-contain"
                             />
                             {/* Desktop: pionowe logo */}
                             <img
@@ -104,7 +104,7 @@ export function Footer() {
                         </div>
 
                         {/* Social Media - pb-X to adjust alignment with logo */}
-                        <div className="flex gap-4 pb-4">
+                        <div className="flex gap-4 lg:pb-4">
                             {socialLinks.map((social, index) => {
                                 const Icon = social.icon;
                                 return (
