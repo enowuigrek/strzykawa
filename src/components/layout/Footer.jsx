@@ -4,7 +4,8 @@ import {
     FaInstagram,
     FaMapMarkerAlt,
     FaPhone,
-    FaEnvelope
+    FaEnvelope,
+    FaClock
 } from 'react-icons/fa';
 import { SiShopify, SiReact } from 'react-icons/si';
 import { BiCoffeeTogo } from 'react-icons/bi';
@@ -131,11 +132,14 @@ export function Footer() {
                             </div>
 
                             {/* Godziny otwarcia */}
-                            <div className="text-sm text-white/70 pt-3">
-                                <div className="text-white/90 mb-1">Godziny otwarcia:</div>
-                                <div className="text-xs leading-relaxed">
-                                    Pn-Pt: 8:00 - 18:00<br />
-                                    Sb-Nd: 10:00 - 16:00
+                            <div className="flex items-start gap-2 text-sm pt-3">
+                                <FaClock className="w-4 h-4 mt-0.5 flex-shrink-0 text-muted" />
+                                <div className="text-white/70">
+                                    <div className="text-white/90 mb-1">Godziny otwarcia:</div>
+                                    <div className="text-xs leading-relaxed">
+                                        Pn-Pt: 8:00 - 18:00<br />
+                                        Sb-Nd: 10:00 - 16:00
+                                    </div>
                                 </div>
                             </div>
 
