@@ -36,12 +36,13 @@ export function CookieConsent() {
                             <FaCookieBite className="w-6 h-6 text-accent flex-shrink-0 mt-0.5" />
                             <div className="text-sm text-white/80">
                                 <p>
-                                    Używamy plików cookies, aby zapewnić najlepsze wrażenia na naszej stronie.{' '}
+                                    Używamy plików cookies niezbędnych do działania strony oraz w celach
+                                    poprawy wygody korzystania z serwisu.{' '}
                                     <Link
-                                        to="/polityka-cookies"
+                                        to="/polityka-prywatnosci"
                                         className="text-accent hover:text-white underline transition-colors"
                                     >
-                                        Dowiedz się więcej
+                                        Zobacz Politykę prywatności i plików cookies
                                     </Link>
                                 </p>
                             </div>

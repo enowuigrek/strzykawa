@@ -102,7 +102,7 @@ export function Footer() {
                         </div>
 
                         {/* Social Media - pb-X to adjust alignment with logo */}
-                        <div className="flex gap-4 pb-1 md:pb-4">
+                        <div className="flex gap-4 pb-1.5 md:pb-4">
                             {socialLinks.map((social, index) => {
                                 const Icon = social.icon;
                                 return (
