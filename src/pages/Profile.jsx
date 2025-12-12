@@ -37,6 +37,29 @@ export function Profile() {
         >
             <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-8">
                 <div className="max-w-2xl mx-auto space-y-6">
+                    {/* Historia zamówień - na górze */}
+                    <div className="bg-primary-light border border-white/10 p-6">
+                        <div className="flex items-center gap-3 mb-4">
+                            <FaBox className="w-5 h-5 text-accent" />
+                            <h2 className="text-xl font-semibold text-white">
+                                Historia zamówień
+                            </h2>
+                        </div>
+
+                        <p className="text-muted mb-6">
+                            Zobacz historię swoich zakupów i śledź status zamówień
+                        </p>
+
+                        <Button
+                            onClick={() => navigate('/zamowienia')}
+                            icon={FaBox}
+                            variant="primary"
+                            size="md"
+                        >
+                            Moje zamówienia
+                        </Button>
+                    </div>
+
                     {/* Dane osobowe */}
                     <div className="bg-primary-light border border-white/10 p-6">
                         <div className="flex items-center gap-3 mb-6 pb-4 border-b border-white/10">
@@ -92,29 +115,6 @@ export function Profile() {
 
                     {/* Zmiana hasła */}
                     <ChangePasswordForm />
-
-                    {/* Historia zamówień */}
-                    <div className="bg-primary-light border border-white/10 p-6">
-                        <div className="flex items-center gap-3 mb-4">
-                            <FaBox className="w-5 h-5 text-accent" />
-                            <h2 className="text-xl font-semibold text-white">
-                                Historia zamówień
-                            </h2>
-                        </div>
-
-                        <p className="text-muted mb-6">
-                            Zobacz historię swoich zakupów i śledź status zamówień
-                        </p>
-
-                        <Button
-                            onClick={() => navigate('/zamowienia')}
-                            icon={FaBox}
-                            variant="primary"
-                            size="md"
-                        >
-                            Moje zamówienia
-                        </Button>
-                    </div>
 
                     {/* Wyloguj */}
                     <Button

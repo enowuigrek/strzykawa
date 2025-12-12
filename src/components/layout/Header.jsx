@@ -145,6 +145,13 @@ export function Header() {
         modalActions.closeAll();
     };
 
+    // ========== FORCE SHOW HEADER WHEN MENU/MODAL OPEN ==========
+    useEffect(() => {
+        if (mobileMenuOpen || showCartModal || showLoginModal || showRegisterModal || showQuickAddModal) {
+            setHideHeader(false);
+        }
+    }, [mobileMenuOpen, showCartModal, showLoginModal, showRegisterModal, showQuickAddModal]);
+
     // ========== STYLING ==========
     // Sprawdź czy JAKIKOLWIEK modal jest otwarty
     const anyModalOpen = showCartModal || showLoginModal || showRegisterModal || showQuickAddModal;

@@ -53,12 +53,12 @@ export function CoffeeFilterBar({
             className={`
                 sticky
                 top-0
-                z-50
+                z-40
                 ${isSticky ? 'bg-primary-dark backdrop-blur-md shadow-2xl shadow-black/50' : 'bg-primary-light'}
                 transition-all
                 duration-500
-                h-[60px]
-                lg:h-[70px]
+                h-[100px]
+                lg:h-[120px]
             `}
         >
             <div className="container mx-auto px-4 sm:px-6 lg:px-8 h-full flex items-center">
