@@ -69,6 +69,7 @@ export function MobileNavigation({
                     onOpenCart={() => { onOpenCart(); onClose(); }}
                     onOpenLogin={() => { onOpenLogin(); onClose(); }}
                     onLogout={onLogout}
+                    onClose={onClose}
                     user={user}
                     isAuthenticated={isAuthenticated}
                 />
@@ -103,6 +104,7 @@ function MobileActionsSection({
                                   onOpenCart,
                                   onOpenLogin,
                                   onLogout,
+                                  onClose,
                                   user,
                                   isAuthenticated
                               }) {
