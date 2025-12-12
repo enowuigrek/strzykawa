@@ -115,6 +115,7 @@ export function CartModal({ isOpen, onClose }) {
                     isLoading={isLoading}
                     totalPrice={getTotalPrice()}
                     onCheckout={handleCheckout}
+                    onClose={onClose}
                 />
             </div>
         </>

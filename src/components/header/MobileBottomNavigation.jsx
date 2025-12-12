@@ -111,7 +111,7 @@ export function MobileBottomNavigation({
     const isAnyModalOpen = isCartOpen || isLoginOpen;
 
     return (
-        <div className={`md:hidden fixed bottom-4 left-4 right-4 z-[100] mobile-bottom-nav transition-transform duration-300 ease-out ${isVisible ? 'visible' : 'translate-y-28'}`}>
+        <div className={`md:hidden fixed bottom-2 left-4 right-4 z-[100] mobile-bottom-nav transition-transform duration-300 ease-out ${isVisible ? 'visible' : 'translate-y-28'}`}>
             {/* Safe area padding - większy padding od dołu */}
             <div style={{ paddingBottom: 'env(safe-area-inset-bottom)' }} className="relative z-10">
                 <div className="pointer-events-auto flex items-center justify-between rounded-full bg-primary-dark/95 shadow-lg backdrop-blur-md px-3 py-1.5">
