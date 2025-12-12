@@ -101,6 +101,9 @@ export const useCartStore = create(
                         isLoading: false
                     });
 
+                    // Auto-otwórz koszyk po dodaniu produktu
+                    window.dispatchEvent(new CustomEvent('openCart'));
+
                 } catch (error) {
                     logger.error('Error adding to cart:', error);
                     set({

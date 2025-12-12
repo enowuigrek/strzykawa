@@ -21,6 +21,7 @@ import StyleGuide from "./pages/StyleGuide.jsx";
 import {CheckoutSuccess} from "./pages/CheckoutSuccess.jsx";
 import {CheckoutCanceled} from "./pages/CheckoutCanceled.jsx";
 import { NotFound } from './pages/NotFound.jsx';
+import { CookieConsent } from './components/atoms/CookieConsent.jsx';
 import { PREVIEW_PASSWORD, PREVIEW_STORAGE_KEY } from './constants/preview.js';
 import { useAuthStore } from './store/authStore.js';
 
@@ -116,6 +117,7 @@ function App() {
                 </Routes>
             </main>
             {!isStyleGuide && <Footer />}
+            <CookieConsent />
         </div>
     );
 }
