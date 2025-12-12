@@ -122,9 +122,10 @@ export function Footer() {
                     </div>
 
                     {/* Kontakt + Adres + Godziny */}
-                    <div className="space-y-4">
+                    <div className="space-y-4 md:self-stretch md:flex md:flex-col">
                         <h4 className="text-lg text-white">Kontakt</h4>
-                        <div className="space-y-3">
+
+                        <div className="flex flex-col gap-3 md:gap-0 md:flex-1 md:justify-between pb-2">
                             {contactInfo.map((contact, index) => {
                                 const Icon = contact.icon;
                                 return (
@@ -142,7 +143,7 @@ export function Footer() {
                             })}
 
                             {/* Adres */}
-                            <div className="flex items-start gap-2 text-sm pt-2">
+                            <div className="flex items-start gap-2 text-sm pt-1 md:pt-0">
                                 <FaMapMarkerAlt className="w-4 h-4 mt-0.5 flex-shrink-0 text-muted" />
                                 <div className="text-white/70">
                                     <div>{locationInfo.address}</div>
@@ -151,11 +152,11 @@ export function Footer() {
                             </div>
 
                             {/* Godziny otwarcia */}
-                            <div className="flex items-start gap-2 text-sm pt-3">
+                            <div className="flex items-start gap-2 text-sm pt-1 md:pt-0">
                                 <FaClock className="w-4 h-4 mt-0.5 flex-shrink-0 text-muted" />
                                 <div className="text-white/70 text-sm leading-relaxed">
-                                    <div>Pn-Pt: 9:00 - 17:00</div>
-                                    <div>Sb: 10:00 - 15:00</div>
+                                    <div>Pn–Pt: 9:00 – 17:00</div>
+                                    <div>Sb: 10:00 – 15:00</div>
                                     <div>Nd: zamknięte</div>
                                 </div>
                             </div>
