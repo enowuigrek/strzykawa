@@ -147,8 +147,8 @@ export function QuickAddModal({ coffee, isOpen, onClose, onAddToCart }) {
                     left-0 md:left-1/2 md:top-1/2 md:-translate-x-1/2
 
                     ${isAnimating
-                        ? 'bottom-0 translate-y-0 md:-translate-y-1/2 opacity-100'
-                        : 'bottom-0 translate-y-full md:translate-y-0 md:-translate-y-1/2 opacity-0'
+                        ? 'bottom-0 md:bottom-auto translate-y-0 md:-translate-y-1/2 opacity-100'
+                        : 'bottom-0 md:bottom-auto translate-y-full md:translate-y-0 md:-translate-y-1/2 opacity-0'
                     }
                 `}
                 onClick={(e) => e.stopPropagation()}
@@ -294,20 +294,22 @@ export function QuickAddModal({ coffee, isOpen, onClose, onAddToCart }) {
                 </div>
 
                 {/* Total price */}
-                <div className="border-t border-accent/20">
+                <div>
                     <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-3">
-                        <div className="flex justify-between items-center">
-                            <span className="text-white font-medium">Razem:</span>
-                            <span className="text-xl font-bold text-white">
-                                {isAvailable ? `${totalPrice} zł` : 'Niedostępne'}
-                            </span>
+                        <div className="border-t border-accent/20 pt-3">
+                            <div className="flex justify-between items-center">
+                                <span className="text-white font-medium">Razem:</span>
+                                <span className="text-xl font-bold text-white">
+                                    {isAvailable ? `${totalPrice} zł` : 'Niedostępne'}
+                                </span>
+                            </div>
                         </div>
                     </div>
                 </div>
 
                 {/* Footer - sticky na dole */}
-                <div className="border-t border-white/10">
-                    <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-4">
+                <div>
+                    <div className="container mx-auto pt-4 pb-8 sm:px-6 lg:px-8 py-4">
                         <Button
                             onClick={handleAdd}
                             disabled={!selectedVariant || !isAvailable || adding}
