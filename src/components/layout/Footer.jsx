@@ -63,7 +63,7 @@ export function Footer() {
     return (
         <footer className="relative bg-primary-dark/95 border-white/10 overflow-hidden">
             {/* Main content */}
-            <div className="relative z-10 container mx-auto px-4 py-4 md:py-5">
+            <div className="relative z-10 container mx-auto px-4 pb-14 md:py-5">
                 <div className="grid grid-cols-2 md:grid-cols-3 gap-8 md:gap-10 items-start">
                     {/* Logo - mobile pełna szerokość */}
                     <div className="col-span-2 md:col-span-1 flex flex-col items-center md:items-start">
