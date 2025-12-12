@@ -48,10 +48,10 @@ export function Footer() {
     ];
 
     const quickLinks = [
-        { label: 'Kawy', href: '/kawy' },
         { label: 'O Strzykawie', href: '/o-nas' },
-        { label: 'Kontakt', href: '/kontakt' },
-        { label: 'Współpraca B2B', href: '/b2b' }
+        { label: 'Sklep on-line', href: '/kawy' },
+        { label: 'B2B', href: '/b2b' },
+        { label: 'Kontakt', href: '/kontakt' }
     ];
 
     const locationInfo = {
@@ -85,7 +85,7 @@ export function Footer() {
                         </div>
                     </div>
 
-                    {/* Linki szybkie */}
+                    {/* Linki szybkie + Social Media */}
                     <div className="space-y-4">
                         <h4 className="text-lg text-white">Menu</h4>
                         <ul className="space-y-2">
@@ -100,6 +100,25 @@ export function Footer() {
                                 </li>
                             ))}
                         </ul>
+
+                        {/* Social Media */}
+                        <div className="flex gap-3 pt-2">
+                            {socialLinks.map((social, index) => {
+                                const Icon = social.icon;
+                                return (
+                                    <a
+                                        key={index}
+                                        href={social.href}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        aria-label={social.label}
+                                        className={`text-white/70 transition-all duration-300 hover:scale-110 ${social.hoverColor}`}
+                                    >
+                                        <Icon className="w-6 h-6" />
+                                    </a>
+                                );
+                            })}
+                        </div>
                     </div>
 
                     {/* Kontakt + Adres + Godziny */}
@@ -141,25 +160,6 @@ export function Footer() {
                                         Sb-Nd: 10:00 - 16:00
                                     </div>
                                 </div>
-                            </div>
-
-                            {/* Social Media */}
-                            <div className="flex gap-3 pt-4">
-                                {socialLinks.map((social, index) => {
-                                    const Icon = social.icon;
-                                    return (
-                                        <a
-                                            key={index}
-                                            href={social.href}
-                                            target="_blank"
-                                            rel="noopener noreferrer"
-                                            aria-label={social.label}
-                                            className={`text-white/70 transition-all duration-300 hover:scale-110 ${social.hoverColor}`}
-                                        >
-                                            <Icon className="w-6 h-6" />
-                                        </a>
-                                    );
-                                })}
                             </div>
                         </div>
                     </div>
