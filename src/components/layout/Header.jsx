@@ -265,10 +265,12 @@ export function Header() {
             <MobileBottomNavigation
                 isCartOpen={showCartModal}
                 isLoginOpen={showLoginModal}
+                isMobileMenuOpen={mobileMenuOpen}
                 onOpenCart={modalActions.openCart}
                 onCloseCart={modalActions.closeCart}
                 onOpenLogin={modalActions.openLogin}
                 onCloseLogin={modalActions.closeLogin}
+                onCloseMobileMenu={closeMobileMenu}
                 onLogout={handleLogout}
             />
 

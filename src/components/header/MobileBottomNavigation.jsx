@@ -8,10 +8,12 @@ import { useCartStore } from '../../store/cartStore.js';
 export function MobileBottomNavigation({
                                            isCartOpen,
                                            isLoginOpen,
+                                           isMobileMenuOpen,
                                            onOpenCart,
                                            onCloseCart,
                                            onOpenLogin,
                                            onCloseLogin,
+                                           onCloseMobileMenu,
                                            onLogout
                                        }) {
     const [isVisible, setIsVisible] = useState(false);
@@ -50,7 +52,8 @@ export function MobileBottomNavigation({
     const handleHomeClick = (e) => {
         e.preventDefault();
 
-        // Zamknij wszystkie modale
+        // Zamknij wszystkie modale i menu hamburgerowe
+        if (isMobileMenuOpen) onCloseMobileMenu();
         if (isCartOpen) onCloseCart();
         if (isLoginOpen) onCloseLogin();
 
@@ -66,13 +69,15 @@ export function MobileBottomNavigation({
     };
 
     const handleShopClick = () => {
-        // Zamknij wszystkie modale
+        // Zamknij wszystkie modale i menu hamburgerowe
+        if (isMobileMenuOpen) onCloseMobileMenu();
         if (isCartOpen) onCloseCart();
         if (isLoginOpen) onCloseLogin();
     };
 
     const handleCartClick = () => {
-        // Zamknij login jeśli otwarty
+        // Zamknij menu hamburgerowe i login jeśli otwarty
+        if (isMobileMenuOpen) onCloseMobileMenu();
         if (isLoginOpen) onCloseLogin();
 
         // Toggle koszyka
@@ -84,7 +89,8 @@ export function MobileBottomNavigation({
     };
 
     const handleAuthClick = () => {
-        // Zamknij koszyk jeśli otwarty
+        // Zamknij menu hamburgerowe i koszyk jeśli otwarty
+        if (isMobileMenuOpen) onCloseMobileMenu();
         if (isCartOpen) onCloseCart();
 
         if (isAuthenticated) {
