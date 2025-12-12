@@ -133,7 +133,7 @@ function MobileActionsSection({
 
             {/* Auth */}
             {isAuthenticated ? (
-                <MobileAuthenticatedUser user={user} onLogout={onLogout} />
+                <MobileAuthenticatedUser user={user} onLogout={onLogout} onClose={onClose} />
             ) : (
                 <button
                     onClick={onOpenLogin}
@@ -157,14 +157,24 @@ function MobileActionsSection({
 /**
  * MobileAuthenticatedUser - Sekcja zalogowanego użytkownika
  */
-function MobileAuthenticatedUser({ user, onLogout }) {
+function MobileAuthenticatedUser({ user, onLogout, onClose }) {
     const navigate = useNavigate();
+
+    const handleProfileClick = () => {
+        onClose();
+        navigate('/profil');
+    };
+
+    const handleLogout = () => {
+        onClose();
+        onLogout();
+    };
 
     return (
         <div className="space-y-2">
             {/* Mój profil */}
             <button
-                onClick={() => navigate('/profil')}
+                onClick={handleProfileClick}
                 className="flex items-center space-x-3 px-4 py-3 text-white hover:bg-white/5 rounded-full w-full text-left transition-all duration-300"
                 aria-label="Mój profil"
             >
@@ -174,7 +184,7 @@ function MobileAuthenticatedUser({ user, onLogout }) {
 
             {/* Wyloguj się */}
             <button
-                onClick={onLogout}
+                onClick={handleLogout}
                 className="flex items-center space-x-3 px-4 py-3 text-red-300 hover:bg-red-500/10 rounded-full w-full text-left transition-all duration-300"
                 aria-label="Wyloguj się"
             >

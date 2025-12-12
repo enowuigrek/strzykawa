@@ -181,6 +181,12 @@ export function Header() {
                             <MobileMenuToggle
                                 isOpen={mobileMenuOpen || showCartModal || showLoginModal || showRegisterModal || showQuickAddModal}
                                 onToggle={() => {
+                                    // Jeśli header jest ukryty, pokaż go
+                                    if (hideHeader) {
+                                        setHideHeader(false);
+                                        setMobileMenuOpen(true);
+                                        return;
+                                    }
                                     // Jeśli jakikolwiek modal otwarty, zamknij go zamiast otwierać hamburger
                                     if (showCartModal) {
                                         modalActions.closeCart();

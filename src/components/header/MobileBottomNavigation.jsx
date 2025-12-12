@@ -88,7 +88,9 @@ export function MobileBottomNavigation({
         if (isCartOpen) onCloseCart();
 
         if (isAuthenticated) {
-            onLogout();
+            // Nawiguj do profilu zamiast wylogowania
+            if (isLoginOpen) onCloseLogin();
+            navigate('/profil');
         } else {
             // Toggle login
             if (isLoginOpen) {

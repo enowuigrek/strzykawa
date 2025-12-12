@@ -93,8 +93,7 @@ export function Orders() {
 
     return (
         <PageLayout
-            title="Moje zamówienia"
-            subtitle="Historia Twoich zakupów"
+            title="Historia zamówień"
         >
             <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-8">
                 {/* Loading State */}
