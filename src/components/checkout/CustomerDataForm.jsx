@@ -7,8 +7,9 @@ import PropTypes from 'prop-types';
  * @param {Object} errors - Błędy walidacji
  * @param {Function} onChange - Callback do aktualizacji danych
  * @param {Boolean} isAuthenticated - Czy użytkownik jest zalogowany
+ * @param {Function} onOpenLogin - Callback do otwarcia modala logowania
  */
-export function CustomerDataForm({ customerData, errors, onChange, isAuthenticated }) {
+export function CustomerDataForm({ customerData, errors, onChange, isAuthenticated, onOpenLogin }) {
     const handleChange = (field, value) => {
         onChange({ [field]: value });
     };
