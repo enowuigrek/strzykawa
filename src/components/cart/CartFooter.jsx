@@ -79,12 +79,12 @@ export function CartFooter({ items, isLoading, totalPrice, onCheckout, onClose }
                     loading={isLoading}
                     className="sm:!py-3"
                 >
-                    <span className="hidden sm:inline">Przejdź do płatności</span>
-                    <span className="sm:hidden">Płatność</span>
+                    <span className="hidden sm:inline">Przejdź do zamówienia</span>
+                    <span className="sm:hidden">Zamawiam</span>
                 </Button>
 
                 <p className="text-xs text-muted text-center mt-2">
-                    Zostaniesz przekierowany do bezpiecznej płatności Shopify
+                    Podaj dane do wysyłki i przejdź do płatności
                 </p>
             </div>
         </div>

@@ -1,6 +1,6 @@
 import ShopifyClient from './client.js';
 import { fetchProducts, fetchProduct } from './products.js';
-import { createCart, addToCart, updateCartLines, removeFromCart, getCart } from './cart.js';
+import { createCart, addToCart, updateCartLines, removeFromCart, getCart, updateCartAttributes } from './cart.js';
 import { mapProduct } from './mapper.js';
 import {
     registerCustomer,
@@ -58,6 +58,10 @@ class ShopifyService {
         return getCart(this.client, cartId);
     }
 
+    async updateCartAttributes(cartId, attributes) {
+        return updateCartAttributes(this.client, cartId, attributes);
+    }
+
     // ========== MAPPER ==========
 
     mapProduct(product) {
@@ -78,7 +82,7 @@ export const shopify = new ShopifyService();
 // Export modules for direct access (future use)
 export { ShopifyClient } from './client.js';
 export { fetchProducts, fetchProduct } from './products.js';
-export { createCart, addToCart, updateCartLines, removeFromCart, getCart } from './cart.js';
+export { createCart, addToCart, updateCartLines, removeFromCart, getCart, updateCartAttributes } from './cart.js';
 export { mapProduct } from './mapper.js';
 export {
     registerCustomer,

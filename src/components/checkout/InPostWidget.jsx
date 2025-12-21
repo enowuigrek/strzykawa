@@ -1,0 +1,124 @@
+import React, { useEffect, useRef } from 'react';
+import PropTypes from 'prop-types';
+import { FaMapMarkerAlt } from 'react-icons/fa';
+
+/**
+ * InPostWidget - Widget wyboru paczkomatu InPost
+ * @param {Object} selectedPaczkomat - Wybrany paczkomat
+ * @param {Function} onSelect - Callback po wyborze paczkomatu
+ * @param {String} error - Błąd walidacji
+ */
+export function InPostWidget({ selectedPaczkomat, onSelect, error }) {
+    const widgetRef = useRef(null);
+
+    // ===== OPEN INPOST GEOWIDGET =====
+    const openWidget = () => {
+        // Sprawdź czy InPost Geowidget został załadowany
+        if (typeof window.easyPack === 'undefined') {
+            console.error('InPost Geowidget SDK not loaded');
+            alert('Nie udało się załadować widgetu paczkomatów. Spróbuj odświeżyć stronę.');
+            return;
+        }
+
+        // Otwórz widget
+        window.easyPack.modalMap(
+            (point, modal) => {
+                // Callback po wyborze paczkomatu
+                console.log('InPost paczkomat selected:', point);
+                onSelect(point);
+                modal.closeModal();
+            },
+            {
+                width: 900,
+                height: 600,
+                locale: 'pl',
+                points: {
+                    types: ['parcel_locker'], // Tylko paczkomaty
+                },
+            }
+        );
+    };
+
+    // ===== RENDER =====
+    return (
+        <div ref={widgetRef} className="space-y-4">
+            {/* SELECTED PACZKOMAT (jeśli wybrano) */}
+            {selectedPaczkomat && (
+                <div className="p-4 bg-success/10 border border-success rounded-lg">
+                    <div className="flex items-start gap-3">
+                        <FaMapMarkerAlt className="text-success text-xl mt-1" />
+                        <div className="flex-1">
+                            <h3 className="text-white font-semibold mb-1">
+                                {selectedPaczkomat.name}
+                            </h3>
+                            <p className="text-sm text-muted">
+                                {selectedPaczkomat.address_details?.city},{' '}
+                                {selectedPaczkomat.address_details?.street}{' '}
+                                {selectedPaczkomat.address_details?.building_number}
+                            </p>
+                        </div>
+                        <button
+                            type="button"
+                            onClick={openWidget}
+                            className="
+                                px-4 py-2
+                                rounded-full
+                                bg-accent
+                                text-white text-sm font-medium
+                                hover:bg-accent/90
+                                transition-all duration-200
+                            "
+                        >
+                            Zmień
+                        </button>
+                    </div>
+                </div>
+            )}
+
+            {/* WYBIERZ PACZKOMAT BUTTON (jeśli nie wybrano) */}
+            {!selectedPaczkomat && (
+                <button
+                    type="button"
+                    onClick={openWidget}
+                    className={`
+                        w-full p-6
+                        rounded-lg border-2 border-dashed
+                        transition-all duration-200
+                        hover:scale-[1.02]
+                        ${error ? 'border-danger bg-danger/5' : 'border-accent/30 hover:border-accent/50'}
+                    `}
+                >
+                    <div className="flex flex-col items-center gap-3">
+                        <FaMapMarkerAlt className={`text-3xl ${error ? 'text-danger' : 'text-accent'}`} />
+                        <span className="text-white font-medium">Wybierz paczkomat InPost</span>
+                        <span className="text-sm text-muted">
+                            Kliknij, aby otworzyć mapę paczkomatów
+                        </span>
+                    </div>
+                </button>
+            )}
+
+            {/* ERROR MESSAGE */}
+            {error && <p className="text-danger text-sm mt-2">{error}</p>}
+
+            {/* INFO */}
+            <div className="mt-4 p-4 bg-accent/10 border border-accent/30 rounded-lg">
+                <p className="text-sm text-muted">
+                    💡 Wybierz paczkomat InPost najbliżej Ciebie. Otrzymasz SMS i email z kodem
+                    odbioru, gdy paczka będzie gotowa.
+                </p>
+            </div>
+        </div>
+    );
+}
+
+InPostWidget.propTypes = {
+    selectedPaczkomat: PropTypes.object,
+    onSelect: PropTypes.func.isRequired,
+    error: PropTypes.string,
+};
+
+InPostWidget.defaultProps = {
+    selectedPaczkomat: null,
+    error: null,
+};

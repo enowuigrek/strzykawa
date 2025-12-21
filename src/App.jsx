@@ -18,6 +18,7 @@ import {
     ShippingAndReturns
 } from './pages/LegalPages';
 import StyleGuide from "./pages/StyleGuide.jsx";
+import { CheckoutPage } from "./pages/CheckoutPage.jsx";
 import {CheckoutSuccess} from "./pages/CheckoutSuccess.jsx";
 import {CheckoutCanceled} from "./pages/CheckoutCanceled.jsx";
 import { NotFound } from './pages/NotFound.jsx';
@@ -111,6 +112,7 @@ function App() {
                     <Route path="/polityka-cookies" element={<CookiePolicy />} />
                     <Route path="/dostawa-zwroty" element={<ShippingAndReturns />} />
                     <Route path="/style-guide" element={<StyleGuide />} />
+                    <Route path="/checkout" element={<CheckoutPage />} />
                     <Route path="/checkout/success" element={<CheckoutSuccess />} />
                     <Route path="/checkout/canceled" element={<CheckoutCanceled />} />
                     <Route path="*" element={<NotFound />} />

@@ -10,6 +10,14 @@
 export const FREE_SHIPPING_THRESHOLD = 250;
 
 /**
+ * Koszty wysyłki (w PLN)
+ */
+export const SHIPPING_COSTS = {
+    KURIER: 15,      // Kurier - dostawa pod adres
+    PACZKOMAT: 12,   // Paczkomat InPost
+};
+
+/**
  * Waluta
  */
 export const CURRENCY = 'PLN';

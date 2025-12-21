@@ -215,3 +215,38 @@ export async function getCart(client, cartId) {
     const response = await client.graphqlFetch(query, { cartId });
     return response.data.cart;
 }
+
+/**
+ * Update cart attributes (for delivery method, paczkomat data, etc.)
+ * @param {ShopifyClient} client - Shopify client instance
+ * @param {string} cartId - Cart ID
+ * @param {Array} attributes - Array of {key, value} objects
+ * @returns {Promise<object>} Updated cart
+ */
+export async function updateCartAttributes(client, cartId, attributes) {
+    const query = `
+        mutation cartAttributesUpdate($cartId: ID!, $attributes: [AttributeInput!]!) {
+            cartAttributesUpdate(cartId: $cartId, attributes: $attributes) {
+                cart {
+                    ${CART_FRAGMENT}
+                    attributes {
+                        key
+                        value
+                    }
+                }
+                userErrors {
+                    field
+                    message
+                }
+            }
+        }
+    `;
+
+    const response = await client.graphqlFetch(query, { cartId, attributes });
+
+    if (response.data.cartAttributesUpdate.userErrors.length > 0) {
+        throw new Error(response.data.cartAttributesUpdate.userErrors[0].message);
+    }
+
+    return response.data.cartAttributesUpdate.cart;
+}
