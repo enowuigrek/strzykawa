@@ -117,19 +117,46 @@ export function CustomerDataForm({ customerData, errors, onChange, isAuthenticat
                 )}
             </div>
 
-            {/* LOGIN HINT (jeśli nie zalogowany) */}
+            {/* LOGIN OPTIONS (jeśli nie zalogowany) */}
             {!isAuthenticated && (
-                <div className="mt-4 p-4 bg-accent/10 border border-accent/30 rounded-lg">
-                    <p className="text-sm text-muted">
-                        Masz konto?{' '}
-                        <button
-                            type="button"
-                            onClick={() => window.dispatchEvent(new CustomEvent('openLoginModal'))}
-                            className="text-accent hover:text-accent/80 font-medium underline"
-                        >
-                            Zaloguj się
-                        </button>
-                        {' '}aby szybciej wypełnić dane.
+                <div className="mt-6 space-y-3">
+                    {/* Separator */}
+                    <div className="relative">
+                        <div className="absolute inset-0 flex items-center">
+                            <div className="w-full border-t border-accent/20"></div>
+                        </div>
+                        <div className="relative flex justify-center text-sm">
+                            <span className="px-2 bg-primary-light text-muted">lub</span>
+                        </div>
+                    </div>
+
+                    {/* Login button */}
+                    <button
+                        type="button"
+                        onClick={onOpenLogin}
+                        className="
+                            w-full py-3 px-4
+                            border-2 border-accent/30
+                            text-white
+                            rounded-full
+                            hover:border-accent hover:bg-accent/10
+                            transition-all duration-200
+                        "
+                    >
+                        Zaloguj się aby auto-wypełnić dane
+                    </button>
+
+                    <p className="text-xs text-muted text-center">
+                        Zalogowanie pozwoli zaciągnąć dane z konta (imię, email, adres)
+                    </p>
+                </div>
+            )}
+
+            {/* LOGGED IN INFO */}
+            {isAuthenticated && (
+                <div className="mt-4 p-4 bg-success/10 border border-success rounded-lg">
+                    <p className="text-sm text-success">
+                        ✓ Zalogowany - dane zostały automatycznie wypełnione
                     </p>
                 </div>
             )}
@@ -147,6 +174,7 @@ CustomerDataForm.propTypes = {
     errors: PropTypes.object,
     onChange: PropTypes.func.isRequired,
     isAuthenticated: PropTypes.bool,
+    onOpenLogin: PropTypes.func.isRequired,
 };
 
 CustomerDataForm.defaultProps = {

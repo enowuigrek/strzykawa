@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { PageLayout } from '../components/layout/PageLayout';
 import { useCartStore } from '../store/cartStore';
@@ -7,15 +7,19 @@ import { useAuthStore } from '../store/authStore';
 import { shopify } from '../services/shopify';
 import { logger } from '../utils/logger';
 
-// Import checkout components (będą utworzone później)
+// Import checkout components
 import { CustomerDataForm } from '../components/checkout/CustomerDataForm';
 import { DeliveryMethodSelector } from '../components/checkout/DeliveryMethodSelector';
 import { AddressForm } from '../components/checkout/AddressForm';
 import { InPostWidget } from '../components/checkout/InPostWidget';
 import { CheckoutOrderSummary } from '../components/checkout/CheckoutOrderSummary';
+import { LoginModal } from '../components/modals/LoginModal';
 
 export function CheckoutPage() {
     const navigate = useNavigate();
+
+    // Login modal state
+    const [showLoginModal, setShowLoginModal] = useState(false);
 
     // Cart store
     const { items, getTotalItems, cart } = useCartStore();
@@ -47,18 +51,36 @@ export function CheckoutPage() {
         }
     }, [getTotalItems, navigate]);
 
-    // ===== AUTO-FILL CUSTOMER DATA IF LOGGED IN =====
+    // ===== AUTO-FILL CUSTOMER DATA & ADDRESS IF LOGGED IN =====
     useEffect(() => {
         if (isAuthenticated && user) {
+            // Fill customer data
             setCustomerData({
                 email: user.email || '',
                 firstName: user.firstName || '',
                 lastName: user.lastName || '',
                 phone: user.phone || '',
             });
-            logger.log('Auto-filled customer data from logged-in user');
+
+            // Fill delivery address if exists
+            if (user.defaultAddress) {
+                const addr = user.defaultAddress;
+                setDeliveryAddress({
+                    street: addr.address1 || '',
+                    buildingNumber: addr.address2 || '',
+                    apartmentNumber: '',
+                    city: addr.city || '',
+                    postalCode: addr.zip || '',
+                    country: addr.country || 'Polska',
+                });
+            }
+
+            logger.log('Auto-filled customer data and address from logged-in user');
+
+            // Close login modal if open
+            setShowLoginModal(false);
         }
-    }, [isAuthenticated, user, setCustomerData]);
+    }, [isAuthenticated, user, setCustomerData, setDeliveryAddress]);
 
     // ===== HANDLE PAYMENT REDIRECT =====
     const handleGoToPayment = async () => {
@@ -138,6 +160,7 @@ export function CheckoutPage() {
                                 errors={errors}
                                 onChange={setCustomerData}
                                 isAuthenticated={isAuthenticated}
+                                onOpenLogin={() => setShowLoginModal(true)}
                             />
                         </div>
 
@@ -190,6 +213,12 @@ export function CheckoutPage() {
                     </div>
                 </div>
             </div>
+
+            {/* LOGIN MODAL */}
+            <LoginModal
+                isOpen={showLoginModal}
+                onClose={() => setShowLoginModal(false)}
+            />
         </PageLayout>
     );
 }

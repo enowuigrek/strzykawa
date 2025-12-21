@@ -12,14 +12,14 @@ export function DeliveryMethodSelector({ selectedMethod, onChange }) {
     const methods = [
         {
             id: 'kurier',
-            name: 'Kurier',
-            description: 'Dostawa kurierem pod wskazany adres',
+            name: 'InPost Kurier',
+            description: 'Dostawa kurierem InPost pod wskazany adres',
             price: SHIPPING_COST,
             icon: FaTruck,
         },
         {
             id: 'paczkomat',
-            name: 'Paczkomat InPost',
+            name: 'InPost Paczkomat',
             description: 'Odbiór z paczkomatu InPost',
             price: SHIPPING_COST,
             icon: FaBox,
