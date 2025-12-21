@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FaTruck, FaBox } from 'react-icons/fa';
-import { SHIPPING_COSTS } from '../../constants/shipping';
+import { SHIPPING_COST } from '../../constants/shipping';
 
 /**
  * DeliveryMethodSelector - Wybór metody dostawy (Kurier / Paczkomat)
@@ -14,14 +14,14 @@ export function DeliveryMethodSelector({ selectedMethod, onChange }) {
             id: 'kurier',
             name: 'Kurier',
             description: 'Dostawa kurierem pod wskazany adres',
-            price: SHIPPING_COSTS.KURIER,
+            price: SHIPPING_COST,
             icon: FaTruck,
         },
         {
             id: 'paczkomat',
             name: 'Paczkomat InPost',
             description: 'Odbiór z paczkomatu InPost',
-            price: SHIPPING_COSTS.PACZKOMAT,
+            price: SHIPPING_COST,
             icon: FaBox,
         },
     ];
@@ -38,7 +38,7 @@ export function DeliveryMethodSelector({ selectedMethod, onChange }) {
                         type="button"
                         onClick={() => onChange(method.id)}
                         className={`
-                            p-6 rounded-lg border-2 transition-all duration-200
+                            p-6 border-2 transition-all duration-200
                             text-left hover:scale-[1.02]
                             ${
                                 isSelected
@@ -51,7 +51,7 @@ export function DeliveryMethodSelector({ selectedMethod, onChange }) {
                             {/* ICON */}
                             <div
                                 className={`
-                                p-3 rounded-lg
+                                p-3
                                 ${isSelected ? 'bg-success text-white' : 'bg-accent/20 text-accent'}
                             `}
                             >
@@ -61,14 +61,14 @@ export function DeliveryMethodSelector({ selectedMethod, onChange }) {
                             {/* CONTENT */}
                             <div className="flex-1">
                                 <div className="flex items-center justify-between mb-1">
-                                    <h3 className="text-lg font-semibold text-white">{method.name}</h3>
+                                    <h3 className="text-lg text-white">{method.name}</h3>
                                     <span
                                         className={`
-                                        text-sm font-bold
+                                        text-sm
                                         ${isSelected ? 'text-success' : 'text-muted'}
                                     `}
                                     >
-                                        {method.price} zł
+                                        {method.price.toFixed(2)} zł
                                     </span>
                                 </div>
                                 <p className="text-sm text-muted">{method.description}</p>

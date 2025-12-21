@@ -48,7 +48,7 @@ export function InPostWidget({ selectedPaczkomat, onSelect, error }) {
                     <div className="flex items-start gap-3">
                         <FaMapMarkerAlt className="text-success text-xl mt-1" />
                         <div className="flex-1">
-                            <h3 className="text-white font-semibold mb-1">
+                            <h3 className="text-white mb-1">
                                 {selectedPaczkomat.name}
                             </h3>
                             <p className="text-sm text-muted">
@@ -82,7 +82,7 @@ export function InPostWidget({ selectedPaczkomat, onSelect, error }) {
                     onClick={openWidget}
                     className={`
                         w-full p-6
-                        rounded-lg border-2 border-dashed
+                        border-2 border-dashed
                         transition-all duration-200
                         hover:scale-[1.02]
                         ${error ? 'border-danger bg-danger/5' : 'border-accent/30 hover:border-accent/50'}

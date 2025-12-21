@@ -125,14 +125,14 @@ export function CheckoutPage() {
     return (
         <PageLayout>
             <div className="container mx-auto px-4 py-8 md:py-12">
-                <h1 className="text-3xl md:text-4xl font-bold text-white mb-8">Finalizacja zamówienia</h1>
+                <h1 className="text-3xl md:text-4xl  text-white mb-8">Finalizacja zamówienia</h1>
 
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
                     {/* LEFT COLUMN - FORMS */}
                     <div className="lg:col-span-2 space-y-6">
                         {/* 1. CUSTOMER DATA */}
-                        <div className="bg-primary-light p-6 rounded-lg">
-                            <h2 className="text-xl font-semibold text-white mb-4">Dane kontaktowe</h2>
+                        <div className="bg-primary-light p-6">
+                            <h2 className="text-xl  text-white mb-4">Dane kontaktowe</h2>
                             <CustomerDataForm
                                 customerData={customerData}
                                 errors={errors}
@@ -142,8 +142,8 @@ export function CheckoutPage() {
                         </div>
 
                         {/* 2. DELIVERY METHOD */}
-                        <div className="bg-primary-light p-6 rounded-lg">
-                            <h2 className="text-xl font-semibold text-white mb-4">Metoda dostawy</h2>
+                        <div className="bg-primary-light p-6">
+                            <h2 className="text-xl  text-white mb-4">Metoda dostawy</h2>
                             <DeliveryMethodSelector
                                 selectedMethod={deliveryMethod}
                                 onChange={setDeliveryMethod}
@@ -152,8 +152,8 @@ export function CheckoutPage() {
 
                         {/* 3. ADDRESS FORM (KURIER) */}
                         {deliveryMethod === 'kurier' && (
-                            <div className="bg-primary-light p-6 rounded-lg">
-                                <h2 className="text-xl font-semibold text-white mb-4">Adres dostawy</h2>
+                            <div className="bg-primary-light p-6">
+                                <h2 className="text-xl  text-white mb-4">Adres dostawy</h2>
                                 <AddressForm
                                     address={deliveryAddress}
                                     errors={errors}
@@ -164,8 +164,8 @@ export function CheckoutPage() {
 
                         {/* 4. INPOST WIDGET (PACZKOMAT) */}
                         {deliveryMethod === 'paczkomat' && (
-                            <div className="bg-primary-light p-6 rounded-lg">
-                                <h2 className="text-xl font-semibold text-white mb-4">Wybierz paczkomat</h2>
+                            <div className="bg-primary-light p-6">
+                                <h2 className="text-xl  text-white mb-4">Wybierz paczkomat</h2>
                                 <InPostWidget
                                     selectedPaczkomat={paczkomatData}
                                     onSelect={setPaczkomatData}
@@ -177,8 +177,8 @@ export function CheckoutPage() {
 
                     {/* RIGHT COLUMN - ORDER SUMMARY */}
                     <div className="lg:col-span-1">
-                        <div className="bg-primary-light p-6 rounded-lg sticky top-24">
-                            <h2 className="text-xl font-semibold text-white mb-4">Podsumowanie</h2>
+                        <div className="bg-primary-light p-6 sticky top-24">
+                            <h2 className="text-xl  text-white mb-4">Podsumowanie</h2>
                             <CheckoutOrderSummary
                                 items={items}
                                 deliveryMethod={deliveryMethod}

@@ -26,7 +26,7 @@ export function AddressForm({ address, errors, onChange }) {
                     onChange={(e) => handleChange('street', e.target.value)}
                     className={`
                         w-full px-4 py-3
-                        bg-primary border rounded-lg
+                        bg-primary border
                         text-white placeholder-muted
                         focus:outline-none focus:ring-2 focus:ring-accent
                         ${errors.street ? 'border-danger' : 'border-accent/30'}
@@ -49,7 +49,7 @@ export function AddressForm({ address, errors, onChange }) {
                         onChange={(e) => handleChange('buildingNumber', e.target.value)}
                         className={`
                             w-full px-4 py-3
-                            bg-primary border rounded-lg
+                            bg-primary border
                             text-white placeholder-muted
                             focus:outline-none focus:ring-2 focus:ring-accent
                             ${errors.buildingNumber ? 'border-danger' : 'border-accent/30'}
@@ -94,7 +94,7 @@ export function AddressForm({ address, errors, onChange }) {
                         onChange={(e) => handleChange('postalCode', e.target.value)}
                         className={`
                             w-full px-4 py-3
-                            bg-primary border rounded-lg
+                            bg-primary border
                             text-white placeholder-muted
                             focus:outline-none focus:ring-2 focus:ring-accent
                             ${errors.postalCode ? 'border-danger' : 'border-accent/30'}
@@ -117,7 +117,7 @@ export function AddressForm({ address, errors, onChange }) {
                         onChange={(e) => handleChange('city', e.target.value)}
                         className={`
                             w-full px-4 py-3
-                            bg-primary border rounded-lg
+                            bg-primary border
                             text-white placeholder-muted
                             focus:outline-none focus:ring-2 focus:ring-accent
                             ${errors.city ? 'border-danger' : 'border-accent/30'}

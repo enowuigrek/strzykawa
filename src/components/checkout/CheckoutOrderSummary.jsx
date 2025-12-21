@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { FREE_SHIPPING_THRESHOLD, SHIPPING_COSTS, CURRENCY_SYMBOL } from '../../constants/shipping';
+import { FREE_SHIPPING_THRESHOLD, SHIPPING_COST, CURRENCY_SYMBOL } from '../../constants/shipping';
 import { Spinner } from '../atoms/Spinner';
 
 /**
@@ -21,13 +21,8 @@ export function CheckoutOrderSummary({
     // ===== CALCULATE PRICES =====
     const subtotal = items.reduce((sum, item) => sum + item.product.price * item.quantity, 0);
 
-    // Koszt wysyłki
-    const shippingCost =
-        subtotal >= FREE_SHIPPING_THRESHOLD
-            ? 0
-            : deliveryMethod === 'paczkomat'
-            ? SHIPPING_COSTS.PACZKOMAT
-            : SHIPPING_COSTS.KURIER;
+    // Koszt wysyłki (jedna cena dla obu metod)
+    const shippingCost = subtotal >= FREE_SHIPPING_THRESHOLD ? 0 : SHIPPING_COST;
 
     const total = subtotal + shippingCost;
 
@@ -51,14 +46,14 @@ export function CheckoutOrderSummary({
 
                         {/* Details */}
                         <div className="flex-1 min-w-0">
-                            <h3 className="text-white text-sm font-medium truncate">
+                            <h3 className="text-white text-sm  truncate">
                                 {item.product.name}
                             </h3>
                             <p className="text-xs text-muted">{item.variantTitle}</p>
                             {item.grindMethod && (
                                 <p className="text-xs text-muted">Mielenie: {item.grindMethod}</p>
                             )}
-                            <p className="text-sm text-white font-medium mt-1">
+                            <p className="text-sm text-white  mt-1">
                                 {item.quantity} × {item.product.price.toFixed(2)} {CURRENCY_SYMBOL}
                             </p>
                         </div>
@@ -84,7 +79,7 @@ export function CheckoutOrderSummary({
                     <span className="text-muted">Dostawa ({deliveryMethod}):</span>
                     <span className="text-white">
                         {shippingCost === 0 ? (
-                            <span className="text-success font-medium">Gratis!</span>
+                            <span className="text-success ">Gratis!</span>
                         ) : (
                             `${shippingCost.toFixed(2)} ${CURRENCY_SYMBOL}`
                         )}
@@ -96,7 +91,7 @@ export function CheckoutOrderSummary({
                     <div className="p-3 bg-accent/10 border border-accent/30 rounded-lg">
                         <p className="text-xs text-muted">
                             Do darmowej wysyłki brakuje:{' '}
-                            <span className="text-white font-medium">
+                            <span className="text-white ">
                                 {(FREE_SHIPPING_THRESHOLD - subtotal).toFixed(2)} {CURRENCY_SYMBOL}
                             </span>
                         </p>
@@ -106,7 +101,7 @@ export function CheckoutOrderSummary({
                 {/* Free shipping achieved */}
                 {subtotal >= FREE_SHIPPING_THRESHOLD && (
                     <div className="p-3 bg-success/10 border border-success rounded-lg">
-                        <p className="text-xs text-success font-medium">
+                        <p className="text-xs text-success ">
                             🎉 Gratulacje! Masz darmową wysyłkę!
                         </p>
                     </div>
@@ -118,8 +113,8 @@ export function CheckoutOrderSummary({
 
             {/* TOTAL */}
             <div className="flex justify-between items-center">
-                <span className="text-lg font-semibold text-white">Razem:</span>
-                <span className="text-2xl font-bold text-white">
+                <span className="text-lg  text-white">Razem:</span>
+                <span className="text-2xl  text-white">
                     {total.toFixed(2)} {CURRENCY_SYMBOL}
                 </span>
             </div>
@@ -132,7 +127,7 @@ export function CheckoutOrderSummary({
                 className={`
                     w-full py-4
                     rounded-full
-                    font-bold text-lg
+                     text-lg
                     transition-all duration-200
                     ${
                         isReady && !isProcessing

@@ -28,7 +28,7 @@ export function CustomerDataForm({ customerData, errors, onChange, isAuthenticat
                     disabled={isAuthenticated}
                     className={`
                         w-full px-4 py-3
-                        bg-primary border rounded-lg
+                        bg-primary border
                         text-white placeholder-muted
                         focus:outline-none focus:ring-2 focus:ring-accent
                         disabled:opacity-50 disabled:cursor-not-allowed
@@ -53,7 +53,7 @@ export function CustomerDataForm({ customerData, errors, onChange, isAuthenticat
                     onChange={(e) => handleChange('phone', e.target.value)}
                     className={`
                         w-full px-4 py-3
-                        bg-primary border rounded-lg
+                        bg-primary border
                         text-white placeholder-muted
                         focus:outline-none focus:ring-2 focus:ring-accent
                         ${errors.phone ? 'border-danger' : 'border-accent/30'}
@@ -78,7 +78,7 @@ export function CustomerDataForm({ customerData, errors, onChange, isAuthenticat
                     disabled={isAuthenticated}
                     className={`
                         w-full px-4 py-3
-                        bg-primary border rounded-lg
+                        bg-primary border
                         text-white placeholder-muted
                         focus:outline-none focus:ring-2 focus:ring-accent
                         disabled:opacity-50 disabled:cursor-not-allowed
@@ -104,7 +104,7 @@ export function CustomerDataForm({ customerData, errors, onChange, isAuthenticat
                     disabled={isAuthenticated}
                     className={`
                         w-full px-4 py-3
-                        bg-primary border rounded-lg
+                        bg-primary border
                         text-white placeholder-muted
                         focus:outline-none focus:ring-2 focus:ring-accent
                         disabled:opacity-50 disabled:cursor-not-allowed
