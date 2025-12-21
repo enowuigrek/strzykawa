@@ -1,5 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
+import { FaCreditCard } from 'react-icons/fa';
 import { FREE_SHIPPING_THRESHOLD, SHIPPING_COST, CURRENCY_SYMBOL } from '../../constants/shipping';
 import { Spinner } from '../atoms/Spinner';
 
@@ -18,6 +20,10 @@ export function CheckoutOrderSummary({
     isProcessing,
     isReady,
 }) {
+    // ===== STATE =====
+    const [regulationsAccepted, setRegulationsAccepted] = useState(false);
+    const [showRegulationsError, setShowRegulationsError] = useState(false);
+
     // ===== CALCULATE PRICES =====
     const subtotal = items.reduce((sum, item) => sum + item.product.price * item.quantity, 0);
 
@@ -119,16 +125,57 @@ export function CheckoutOrderSummary({
                 </span>
             </div>
 
+            {/* REGULATIONS CHECKBOX */}
+            <label className="flex flex-col items-start gap-1 cursor-pointer group">
+                <div className="flex items-start gap-2">
+                    <input
+                        type="checkbox"
+                        checked={regulationsAccepted}
+                        onChange={(e) => {
+                            const checked = e.target.checked;
+                            setRegulationsAccepted(checked);
+                            if (checked) {
+                                setShowRegulationsError(false);
+                            }
+                        }}
+                        className="mt-0.5 w-4 h-4 rounded-sm border border-white/40 bg-primary accent-accent focus:ring-2 focus:ring-accent/60 focus:outline-none cursor-pointer"
+                    />
+                    <span className="text-xs text-white/70 group-hover:text-white/90 transition-colors">
+                        Akceptuję{' '}
+                        <Link
+                            to="/regulamin"
+                            className="text-accent hover:text-white underline"
+                            target="_blank"
+                        >
+                            regulamin sklepu
+                        </Link>
+                    </span>
+                </div>
+                {showRegulationsError && (
+                    <p className="text-xs text-danger">
+                        Aby kontynuować, zaznacz akceptację regulaminu sklepu.
+                    </p>
+                )}
+            </label>
+
             {/* GO TO PAYMENT BUTTON */}
             <button
                 type="button"
-                onClick={onGoToPayment}
+                onClick={() => {
+                    if (!regulationsAccepted) {
+                        setShowRegulationsError(true);
+                        return;
+                    }
+                    setShowRegulationsError(false);
+                    onGoToPayment();
+                }}
                 disabled={!isReady || isProcessing}
                 className={`
                     w-full py-4
                     rounded-full
-                     text-lg
+                    text-lg
                     transition-all duration-200
+                    flex items-center justify-center gap-2
                     ${
                         isReady && !isProcessing
                             ? 'bg-cta text-white hover:bg-cta-hover hover:scale-[1.02]'
@@ -137,18 +184,26 @@ export function CheckoutOrderSummary({
                 `}
             >
                 {isProcessing ? (
-                    <span className="flex items-center justify-center gap-2">
+                    <>
                         <Spinner size="sm" />
-                        Przetwarzanie...
-                    </span>
+                        <span>Przetwarzanie...</span>
+                    </>
                 ) : (
-                    'Przejdź do płatności'
+                    <>
+                        <FaCreditCard size={20} />
+                        <span>Przejdź do płatności</span>
+                    </>
                 )}
             </button>
 
+            {/* SHOPIFY INFO */}
+            <p className="text-xs text-muted text-center">
+                Zostaniesz przekierowany do bezpiecznej płatności Shopify
+            </p>
+
             {/* HINT */}
             {!isReady && (
-                <p className="text-xs text-muted text-center">
+                <p className="text-xs text-danger text-center">
                     Wypełnij wszystkie wymagane pola, aby przejść do płatności
                 </p>
             )}
