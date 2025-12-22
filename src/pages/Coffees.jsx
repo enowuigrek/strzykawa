@@ -166,9 +166,7 @@ export function Coffees() {
 
     // ========== MAIN RENDER ==========
     return (
-        <PageLayout
-            title="Nasze Kawy"
-        >
+        <PageLayout>
             {/* Filter Bar - Sticky */}
             <CoffeeFilterBar
                 selectedRoastType={selectedRoastType}

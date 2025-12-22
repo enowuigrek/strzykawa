@@ -5,6 +5,7 @@ import { Tagline } from '../components/features/hero/Tagline.jsx';
 import { ActionButtons } from '../components/features/hero/ActionButtons.jsx';
 import { ScrollDownIndicator } from '../components/features/hero/ScrollDownIndicator.jsx';
 import { Logo } from "../components/atoms/Logo.jsx";
+import { HeroReviews } from '../components/features/hero/HeroReviews.jsx';
 import { SocialLinks } from '../components/molecules/SocialLinks.jsx';
 import { useScrollAnimation, scrollAnimations } from '../hooks/useScrollAnimation';
 import heroVideoDesktop from '../assets/hero-desktop.mp4';
@@ -91,6 +92,9 @@ export function Home() {
                                 Poznaj naszą historię
                             </a>
                         </div>
+
+                        {/* REVIEWS */}
+                        <HeroReviews />
 
                         {/* SOCIAL LINKS */}
                         <SocialLinks />

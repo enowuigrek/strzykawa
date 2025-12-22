@@ -6,16 +6,12 @@ import Branding from '../assets/history/branding.jpg';
 import Branding2 from '../assets/history/branding-2.jpg';
 import Branding5 from '../assets/history/branding-5.jpg';
 import TeamPhoto from '../assets/history/damian_karolina.jpg';
-import DamianRoaster from '../assets/team/damian_roaster.jpg';
-import TeamEkipa from '../assets/team/team_ekipa.jpg';
 import { useScrollToTop } from '../hooks/useScrollToTop';
 import { FaMapMarkerAlt, FaShoppingBag } from 'react-icons/fa';
 import { Button } from '../components/atoms/Button';
 import { PageLayout } from "../components/layout/PageLayout.jsx";
 import { TimelineSection } from '../components/molecules/TimelineSection';
 import { TimelineBar } from '../components/organisms/TimelineBar';
-import { TeamSection } from '../components/features/about/TeamSection';
-import { SCROLL_THRESHOLDS } from '../constants/timings.js';
 
 export function About() {
     useScrollToTop();
@@ -101,12 +97,6 @@ export function About() {
                         />
                     ))}
                 </div>
-
-                {/* Team Section */}
-                <TeamSection
-                    founderImage={DamianRoaster}
-                    teamImage={TeamEkipa}
-                />
 
                 {/* Call to Action */}
                 <div ref={ctaRef} className="mt-16">
