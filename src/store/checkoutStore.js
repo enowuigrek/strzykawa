@@ -78,8 +78,10 @@ export const useCheckoutStore = create(
                     errors.email = 'Podaj poprawny adres email';
                 }
 
-                if (!customerData.phone || customerData.phone.length < 9) {
-                    errors.phone = 'Podaj poprawny numer telefonu';
+                // Walidacja telefonu - usuń spacje i sprawdź długość
+                const phoneDigits = customerData.phone ? customerData.phone.replace(/\s+/g, '') : '';
+                if (!phoneDigits || phoneDigits.length < 9) {
+                    errors.phone = 'Podaj poprawny numer telefonu (min. 9 cyfr)';
                 }
 
                 if (!customerData.firstName || customerData.firstName.trim() === '') {

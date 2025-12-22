@@ -189,43 +189,11 @@ export function CheckoutPage() {
         }
     };
 
-    // ===== DEBUG =====
-    // Temporary debug to see validation state
-    useEffect(() => {
-        const checkoutState = {
-            customerData,
-            deliveryMethod,
-            deliveryAddress,
-            paczkomatData,
-            isReady: isCheckoutReady(),
-        };
-        console.log('🔍 Checkout State:', checkoutState);
-    }, [customerData, deliveryMethod, deliveryAddress, paczkomatData, isCheckoutReady]);
-
     // ===== RENDER =====
     return (
         <PageLayout>
             <div className="container mx-auto px-4 py-8 md:py-12">
                 <h1 className="text-3xl md:text-4xl  text-white mb-8">Finalizacja zamówienia</h1>
-
-                {/* TEMPORARY DEBUG PANEL */}
-                <div className="mb-4 p-4 bg-yellow-500/20 border border-yellow-500 rounded-lg text-xs">
-                    <p className="text-white mb-2">🔍 DEBUG - Walidacja:</p>
-                    <p className="text-white">Email: {customerData.email || '❌ BRAK'}</p>
-                    <p className="text-white">Phone: {customerData.phone || '❌ BRAK'} (długość: {customerData.phone?.length || 0})</p>
-                    <p className="text-white">First Name: {customerData.firstName || '❌ BRAK'}</p>
-                    <p className="text-white">Last Name: {customerData.lastName || '❌ BRAK'}</p>
-                    <p className="text-white">Delivery Method: {deliveryMethod}</p>
-                    {deliveryMethod === 'kurier' && (
-                        <>
-                            <p className="text-white">Street: {deliveryAddress.street || '❌ BRAK'}</p>
-                            <p className="text-white">Building: {deliveryAddress.buildingNumber || '❌ BRAK'}</p>
-                            <p className="text-white">City: {deliveryAddress.city || '❌ BRAK'}</p>
-                            <p className="text-white">Postal Code: {deliveryAddress.postalCode || '❌ BRAK'}</p>
-                        </>
-                    )}
-                    <p className="text-white mt-2">✅ isCheckoutReady(): {isCheckoutReady() ? 'TAK' : 'NIE'}</p>
-                </div>
 
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
                     {/* LEFT COLUMN - FORMS */}

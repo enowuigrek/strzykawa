@@ -155,7 +155,7 @@ export function CustomerDataForm({ customerData, errors, onChange, isAuthenticat
 
             {/* LOGGED IN INFO */}
             {isAuthenticated && (
-                <div className="mt-4 p-4 bg-success/10 border border-success rounded-lg">
+                <div className="mt-4 p-4 bg-success/10 border border-success">
                     <p className="text-sm text-success">
                         ✓ Zalogowany - dane zostały automatycznie wypełnione
                     </p>
