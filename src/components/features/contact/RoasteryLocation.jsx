@@ -31,7 +31,7 @@ export function RoasteryLocation() {
                 {/* Info o palarni */}
                 <div className="space-y-3">
                     <p className="text-sm text-white/80">
-                        W palarni organizujemy eventy i spotkania. Śledź nasze media społecznościowe, aby być na bieżąco z nadchodzącymi wydarzeniami.
+                        W palarni organizujemy wydarzenia i spotkania. Śledź nasze media społecznościowe, aby być na bieżąco.
                     </p>
 
                     {/* Social media links */}
