@@ -158,6 +158,7 @@ export async function getCustomer(accessToken) {
                 email
                 firstName
                 lastName
+                phone
                 defaultAddress {
                     address1
                     address2
@@ -192,6 +193,7 @@ export async function getCustomer(accessToken) {
                 email: response.data.customer.email,
                 firstName: response.data.customer.firstName,
                 lastName: response.data.customer.lastName,
+                phone: response.data.customer.phone,
                 defaultAddress: response.data.customer.defaultAddress
             }
         };
