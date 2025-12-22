@@ -98,7 +98,7 @@ export function CheckoutPage() {
         });
 
         try {
-            // Przygotuj attributes do wysłania do Shopify
+            // 1. PRZYGOTUJ CART ATTRIBUTES (dla Damiana w panelu admina)
             const attributes = [
                 { key: 'customer_email', value: customerData.email },
                 { key: 'customer_phone', value: customerData.phone },
@@ -127,18 +127,64 @@ export function CheckoutPage() {
                 );
             }
 
-            // Wyślij attributes do Shopify
-            logger.log('Sending delivery data to Shopify...', attributes);
+            // 2. PRZYGOTUJ BUYER IDENTITY (do auto-wypełnienia Shopify checkout)
+            const buyerIdentity = {
+                email: customerData.email,
+                phone: customerData.phone,
+            };
+
+            // Dodaj adres dostawy w formacie Shopify MailingAddress
+            if (deliveryMethod === 'kurier') {
+                // Dla kuriera - normalny adres
+                buyerIdentity.deliveryAddressPreferences = [
+                    {
+                        deliveryAddress: {
+                            firstName: customerData.firstName,
+                            lastName: customerData.lastName,
+                            address1: deliveryAddress.street,
+                            address2: `${deliveryAddress.buildingNumber}${deliveryAddress.apartmentNumber ? '/' + deliveryAddress.apartmentNumber : ''}`,
+                            city: deliveryAddress.city,
+                            zip: deliveryAddress.postalCode,
+                            country: 'PL',
+                            phone: customerData.phone,
+                        },
+                    },
+                ];
+            } else if (deliveryMethod === 'paczkomat' && paczkomatData) {
+                // Dla paczkomatu - formatujemy dane paczkomatu jako adres
+                const paczkomatAddress = paczkomatData.address_details || {};
+                buyerIdentity.deliveryAddressPreferences = [
+                    {
+                        deliveryAddress: {
+                            firstName: customerData.firstName,
+                            lastName: customerData.lastName,
+                            address1: `InPost Paczkomat ${paczkomatData.name}`,
+                            address2: `${paczkomatAddress.street || ''} ${paczkomatAddress.building_number || ''}`.trim(),
+                            city: paczkomatAddress.city || '',
+                            zip: paczkomatAddress.post_code || '',
+                            country: 'PL',
+                            phone: customerData.phone,
+                        },
+                    },
+                ];
+            }
+
+            // 3. WYŚLIJ DANE DO SHOPIFY
+            logger.log('Sending cart attributes...', attributes);
             await shopify.updateCartAttributes(cart.id, attributes);
 
-            // Przekierowanie do Shopify checkout
+            logger.log('Updating buyer identity to pre-fill checkout...', buyerIdentity);
+            await shopify.updateCartBuyerIdentity(cart.id, buyerIdentity);
+
+            // 4. PRZEKIEROWANIE DO SHOPIFY CHECKOUT
             if (cart?.checkoutUrl) {
+                logger.log('Redirecting to Shopify checkout...');
                 window.location.href = cart.checkoutUrl;
             } else {
                 logger.error('No checkout URL available');
             }
         } catch (error) {
-            logger.error('Error updating cart attributes:', error);
+            logger.error('Error updating cart:', error);
             alert('Wystąpił błąd podczas przetwarzania zamówienia. Spróbuj ponownie.');
         }
     };

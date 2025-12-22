@@ -250,3 +250,55 @@ export async function updateCartAttributes(client, cartId, attributes) {
 
     return response.data.cartAttributesUpdate.cart;
 }
+
+/**
+ * Update cart buyer identity (email, phone, delivery address)
+ * This pre-fills Shopify checkout with customer and shipping data
+ * @param {ShopifyClient} client - Shopify client instance
+ * @param {string} cartId - Cart ID
+ * @param {Object} buyerIdentity - Buyer identity data
+ * @param {string} buyerIdentity.email - Customer email
+ * @param {string} buyerIdentity.phone - Customer phone
+ * @param {Object} buyerIdentity.deliveryAddress - Delivery address
+ * @returns {Promise<object>} Updated cart
+ */
+export async function updateCartBuyerIdentity(client, cartId, buyerIdentity) {
+    const query = `
+        mutation cartBuyerIdentityUpdate($cartId: ID!, $buyerIdentity: CartBuyerIdentityInput!) {
+            cartBuyerIdentityUpdate(cartId: $cartId, buyerIdentity: $buyerIdentity) {
+                cart {
+                    ${CART_FRAGMENT}
+                    buyerIdentity {
+                        email
+                        phone
+                        deliveryAddressPreferences {
+                            ... on MailingAddress {
+                                address1
+                                address2
+                                city
+                                province
+                                country
+                                zip
+                                firstName
+                                lastName
+                                phone
+                            }
+                        }
+                    }
+                }
+                userErrors {
+                    field
+                    message
+                }
+            }
+        }
+    `;
+
+    const response = await client.graphqlFetch(query, { cartId, buyerIdentity });
+
+    if (response.data.cartBuyerIdentityUpdate.userErrors.length > 0) {
+        throw new Error(response.data.cartBuyerIdentityUpdate.userErrors[0].message);
+    }
+
+    return response.data.cartBuyerIdentityUpdate.cart;
+}
