@@ -248,6 +248,7 @@ export function CheckoutPage() {
                             <DeliveryMethodSelector
                                 selectedMethod={deliveryMethod}
                                 onChange={setDeliveryMethod}
+                                subtotal={items.reduce((sum, item) => sum + item.product.price * item.quantity, 0)}
                             />
                         </div>
 

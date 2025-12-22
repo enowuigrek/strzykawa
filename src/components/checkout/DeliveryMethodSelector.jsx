@@ -1,14 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FaTruck, FaBox } from 'react-icons/fa';
-import { SHIPPING_COST } from '../../constants/shipping';
+import { SHIPPING_COST, FREE_SHIPPING_THRESHOLD } from '../../constants/shipping';
 
 /**
  * DeliveryMethodSelector - Wybór metody dostawy (Kurier / Paczkomat)
  * @param {String} selectedMethod - Aktualna metoda ('kurier' | 'paczkomat')
  * @param {Function} onChange - Callback do zmiany metody
+ * @param {Number} subtotal - Suma produktów (do wyliczenia czy wysyłka gratis)
  */
-export function DeliveryMethodSelector({ selectedMethod, onChange }) {
+export function DeliveryMethodSelector({ selectedMethod, onChange, subtotal = 0 }) {
     const methods = [
         {
             id: 'kurier',
@@ -68,7 +69,11 @@ export function DeliveryMethodSelector({ selectedMethod, onChange }) {
                                         ${isSelected ? 'text-success' : 'text-muted'}
                                     `}
                                     >
-                                        {method.price.toFixed(2)} zł
+                                        {subtotal >= FREE_SHIPPING_THRESHOLD ? (
+                                            <span className="text-success">Gratis!</span>
+                                        ) : (
+                                            `${method.price.toFixed(2)} zł`
+                                        )}
                                     </span>
                                 </div>
                                 <p className="text-sm text-muted">{method.description}</p>
@@ -105,4 +110,9 @@ export function DeliveryMethodSelector({ selectedMethod, onChange }) {
 DeliveryMethodSelector.propTypes = {
     selectedMethod: PropTypes.oneOf(['kurier', 'paczkomat']).isRequired,
     onChange: PropTypes.func.isRequired,
+    subtotal: PropTypes.number,
+};
+
+DeliveryMethodSelector.defaultProps = {
+    subtotal: 0,
 };
