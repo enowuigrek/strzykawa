@@ -170,7 +170,10 @@ export function VariantSelector({
                         </label>
                         {/* Przyciski zawsze grid 2 kolumny - obok siebie */}
                         <div className="grid grid-cols-2 gap-2">
-                            {['Ekspres', 'Drip'].map(value => (
+                            {[
+                                { value: 'Ekspres', label: 'ekspres, kawiarka' },
+                                { value: 'Drip', label: 'drip, ekspres przelewowy' }
+                            ].map(({ value, label }) => (
                                 <button
                                     key={value}
                                     onClick={() => onGrindMethodChange(value)}
@@ -182,7 +185,7 @@ export function VariantSelector({
                                     }
                                     `}
                                 >
-                                    {value}
+                                    {label}
                                 </button>
                             ))}
                         </div>

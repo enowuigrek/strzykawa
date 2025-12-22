@@ -59,7 +59,7 @@ export function About() {
         },
         {
             year: "2023",
-            title: "Pierwszy krok w roasting",
+            title: "Zaczynamy wypalać",
             content: "Kupujemy mały elektryczny piec do wypalania kawy z maksymalnym zasypem 1 kg i jednocześnie wkraczamy w nowy świat. Szkolimy się w zakresie roastingu, następnie zaczynamy paczkować i sprzedawać własną kawę.",
             images: [FirstRoaster]
         },

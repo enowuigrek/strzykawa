@@ -4,9 +4,7 @@ import {PageLayout} from "../components/layout/PageLayout.jsx";
 import { Tagline } from '../components/features/hero/Tagline.jsx';
 import { ActionButtons } from '../components/features/hero/ActionButtons.jsx';
 import { ScrollDownIndicator } from '../components/features/hero/ScrollDownIndicator.jsx';
-import {FaCoffee, FaHeart, FaFire} from 'react-icons/fa';
 import { Logo } from "../components/atoms/Logo.jsx";
-import { HeroReviews } from '../components/features/hero/HeroReviews.jsx';
 import { SocialLinks } from '../components/molecules/SocialLinks.jsx';
 import { useScrollAnimation, scrollAnimations } from '../hooks/useScrollAnimation';
 import heroVideoDesktop from '../assets/hero-desktop.mp4';
@@ -18,7 +16,6 @@ export function Home() {
     // Scroll animations
     const [logoRef, logoVisible] = useScrollAnimation({ threshold: 0.3 });
     const [descRef, descVisible] = useScrollAnimation({ threshold: 0.2 });
-    const [featuresRef, featuresVisible] = useScrollAnimation({ threshold: 0.1 });
     const [ctaRef, ctaVisible] = useScrollAnimation({ threshold: 0.3 });
 
     return (
@@ -80,60 +77,6 @@ export function Home() {
                             </p>
                         </div>
 
-                        {/* Feature cards */}
-                        <div
-                            ref={featuresRef}
-                            className="grid md:grid-cols-3 gap-6 mt-16 pt-8 border-t border-white/10"
-                        >
-                            {/* Palarnia */}
-                            <div
-                                className={`p-6 text-center transition-all duration-500 ease-out ${
-                                    featuresVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-[20px]'
-                                }`}
-                                style={{ transitionDelay: featuresVisible ? '0ms' : '0ms' }}
-                            >
-                                <div className="inline-flex items-center justify-center w-16 h-16 mb-4">
-                                    <FaFire className="w-8 h-8 text-muted" />
-                                </div>
-                                <h3 className="text-xl text-white mb-3">Własna palarnia</h3>
-                                <p className="text-muted leading-relaxed">
-                                    Palimy ziarna w małych partiach, dbając o każdy szczegół procesu dla idealnego smaku.
-                                </p>
-                            </div>
-
-                            {/* Kawiarnia */}
-                            <div
-                                className={`p-6 text-center transition-all duration-500 ease-out ${
-                                    featuresVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-[20px]'
-                                }`}
-                                style={{ transitionDelay: featuresVisible ? '100ms' : '0ms' }}
-                            >
-                                <div className="inline-flex items-center justify-center w-16 h-16 mb-4">
-                                    <FaCoffee className="w-8 h-8 text-muted" />
-                                </div>
-                                <h3 className="text-xl text-white mb-3">Kawiarnia</h3>
-                                <p className="text-muted leading-relaxed">
-                                    Miejsce spotkań i rozmów. Tu kawa to nie tylko napój, ale doświadczenie i społeczność.
-                                </p>
-                            </div>
-
-                            {/* Społeczność */}
-                            <div
-                                className={`p-6 text-center transition-all duration-500 ease-out ${
-                                    featuresVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-[20px]'
-                                }`}
-                                style={{ transitionDelay: featuresVisible ? '200ms' : '0ms' }}
-                            >
-                                <div className="inline-flex items-center justify-center w-16 h-16 mb-4">
-                                    <FaHeart className="w-8 h-8 text-red-400" />
-                                </div>
-                                <h3 className="text-xl text-white mb-3">Pasja</h3>
-                                <p className="text-muted leading-relaxed">
-                                    Dzielimy się miłością do najlepszych ziaren z całego świata i tradycji parzenia kawy.
-                                </p>
-                            </div>
-                        </div>
-
                         {/* CTA */}
                         <div
                             ref={ctaRef}
@@ -148,9 +91,6 @@ export function Home() {
                                 Poznaj naszą historię
                             </a>
                         </div>
-
-                        {/* REVIEWS */}
-                        <HeroReviews />
 
                         {/* SOCIAL LINKS */}
                         <SocialLinks />

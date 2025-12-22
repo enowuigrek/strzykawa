@@ -76,12 +76,12 @@ export function CoffeeFilterBar({
                         isActive={localActiveType === 'Filter'}
                         onClick={() => handleFilterClick('Filter')}
                     />
-                    {/*<MainFilterButton*/}
-                    {/*    label="Akcesoria"*/}
-                    {/*    count={0}*/}
-                    {/*    isActive={localActiveType === 'Accessories'}*/}
-                    {/*    onClick={() => handleFilterClick('Accessories')}*/}
-                    {/*/>*/}
+                    <MainFilterButton
+                        label="Akcesoria"
+                        count={0}
+                        isActive={localActiveType === 'Accessories'}
+                        onClick={() => handleFilterClick('Accessories')}
+                    />
                     <MainFilterButton
                         label="Wszystkie"
                         count={allCount}

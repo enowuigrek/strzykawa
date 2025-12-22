@@ -168,7 +168,6 @@ export function Coffees() {
     return (
         <PageLayout
             title="Nasze Kawy"
-            description="Odkryj naszą kolekcję kaw speciality z całego świata"
         >
             {/* Filter Bar - Sticky */}
             <CoffeeFilterBar
