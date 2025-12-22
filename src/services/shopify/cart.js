@@ -54,6 +54,10 @@ const CART_FRAGMENT = `
     checkoutUrl
     totalQuantity
     cost {
+        subtotalAmount {
+            amount
+            currencyCode
+        }
         totalAmount {
             amount
             currencyCode

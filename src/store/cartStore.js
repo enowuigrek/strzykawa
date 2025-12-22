@@ -266,10 +266,12 @@ export const useCartStore = create(
 
             getTotalPrice: () => {
                 const { cart } = get();
-                if (cart?.cost?.totalAmount) {
-                    return parseFloat(cart.cost.totalAmount.amount);
+                // Use subtotalAmount (products only, no shipping) instead of totalAmount
+                if (cart?.cost?.subtotalAmount) {
+                    return parseFloat(cart.cost.subtotalAmount.amount);
                 }
 
+                // Fallback: calculate from items
                 const { items } = get();
                 return items.reduce((total, item) => {
                     return total + (item.product.price * item.quantity);
@@ -278,7 +280,7 @@ export const useCartStore = create(
 
             getCurrencyCode: () => {
                 const { cart } = get();
-                return cart?.cost?.totalAmount?.currencyCode || 'PLN';
+                return cart?.cost?.subtotalAmount?.currencyCode || 'PLN';
             },
 
             addCoffeeToCart: async (coffeeId, quantity = 1) => {
