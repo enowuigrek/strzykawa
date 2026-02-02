@@ -87,7 +87,7 @@ const LoginModal = ({ isOpen, onClose, onSwitchToRegister }) => {
             <div
                 className={`
                     fixed w-full md:max-w-md
-                    bg-primary-dark border-white/20 md:border
+                    bg-primary-dark
                     z-[200] shadow-2xl flex flex-col
                     transition-all duration-300 ease-out
 
@@ -107,10 +107,9 @@ const LoginModal = ({ isOpen, onClose, onSwitchToRegister }) => {
                     isAnimating={isAnimating}
                 />
 
-                {/* Form - scrollable content */}
-                <div className="flex-shrink-0">
-                    <div className="container mx-auto px-4 sm:px-6 lg:px-8 pt-6 pb-2">
-                        <form onSubmit={handleSubmit}>
+                {/* Form content */}
+                <div className="px-4 sm:px-6 pt-6 pb-6">
+                    <form onSubmit={handleSubmit}>
 
                         {/* Success Message */}
                         {success && (
@@ -216,8 +215,7 @@ const LoginModal = ({ isOpen, onClose, onSwitchToRegister }) => {
                                 </button>
                             </p>
                         </div>
-                        </form>
-                    </div>
+                    </form>
                 </div>
             </div>
         </>

@@ -22,7 +22,7 @@ export function CoffeeCardMedia({ coffee, overlayOpen, onToggleOverlay }) {
                 <img
                     src={coffee.image || coffeePlaceholder}
                     alt={`Opakowanie kawy ${coffee.name}`}
-                    className={`w-full h-full object-cover transition-all duration-500 hover:scale-105 ${
+                    className={`w-full h-full object-cover transition-all duration-500 hover:scale-[1.15] ${
                         isUnavailable ? 'opacity-40 grayscale' : ''
                     }`}
                     loading="lazy"
@@ -68,19 +68,19 @@ export function CoffeeCardMedia({ coffee, overlayOpen, onToggleOverlay }) {
                 className={`
                     absolute bottom-3 right-3 w-8 h-8 rounded-full
                     flex items-center justify-center z-30
-                    bg-muted/15 backdrop-blur-md text-white
-                    ring-1 ring-white/10 shadow-lg
+                    bg-black/40 backdrop-blur-md text-white
+                    shadow-lg
                     transition-all duration-300
-                    hover:bg-white/25 hover:ring-white/20
-                    ${overlayOpen ? 'bg-white/20 ring-white/25' : ''}
+                    hover:bg-black/60
+                    ${overlayOpen ? 'bg-black/60' : ''}
                 `}
                 aria-pressed={overlayOpen}
                 aria-label={`${overlayOpen ? 'Ukryj' : 'Pokaż'} szczegóły kawy ${coffee.name}`}
             >
                 {overlayOpen ? (
-                    <FaEyeSlash className="w-3.5 h-3.5" />
+                    <FaEyeSlash className="w-3.5 h-3.5 text-white" />
                 ) : (
-                    <FaEye className="w-3.5 h-3.5 text-muted" />
+                    <FaEye className="w-3.5 h-3.5 text-white" />
                 )}
             </button>
 

@@ -22,7 +22,7 @@ export function CoffeeCard({ coffee }) {
 
     return (
         <>
-            <article className="relative bg-primary-dark/80 shadow-lg transition-all duration-300 hover:shadow-xl hover:shadow-accent/20 flex flex-col overflow-visible">
+            <article className="relative bg-primary-dark/80 shadow-lg transition-all duration-300 flex flex-col overflow-visible">
 
                 <div className="overflow-hidden">
                     <CoffeeCardMedia
