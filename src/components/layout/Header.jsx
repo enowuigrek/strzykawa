@@ -247,19 +247,20 @@ export function Header() {
                         </div>
                     </div>
 
-                    {/* Mobile Navigation Dropdown */}
-                    <MobileNavigation
-                        isOpen={mobileMenuOpen}
-                        onClose={closeMobileMenu}
-                        cartItemsCount={getTotalItems()}
-                        isCartOpen={showCartModal}
-                        isLoginOpen={showLoginModal}
-                        onOpenCart={modalActions.openCart}
-                        onOpenLogin={modalActions.openLogin}
-                        onLogout={handleLogout}
-                    />
                 </div>
             </header>
+
+            {/* Mobile Navigation Fullscreen - OUTSIDE header */}
+            <MobileNavigation
+                isOpen={mobileMenuOpen}
+                onClose={closeMobileMenu}
+                cartItemsCount={getTotalItems()}
+                isCartOpen={showCartModal}
+                isLoginOpen={showLoginModal}
+                onOpenCart={modalActions.openCart}
+                onOpenLogin={modalActions.openLogin}
+                onLogout={handleLogout}
+            />
 
             {/* Mobile Bottom Navigation */}
             <MobileBottomNavigation

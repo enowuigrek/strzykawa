@@ -2,10 +2,8 @@ import React from 'react';
 import {
     FaFacebookF,
     FaInstagram,
-    FaMapMarkerAlt,
     FaPhone,
-    FaEnvelope,
-    FaClock
+    FaEnvelope
 } from 'react-icons/fa';
 import { SiShopify, SiReact } from 'react-icons/si';
 import { BiCoffeeTogo } from 'react-icons/bi';
@@ -47,32 +45,19 @@ export function Footer() {
         { label: 'Polityka cookies', href: '/polityka-cookies' }
     ];
 
-    const quickLinks = [
-        { label: 'O Strzykawie', href: '/o-nas' },
-        { label: 'Sklep on-line', href: '/kawy' },
-        { label: 'B2B', href: '/b2b' },
-        { label: 'Kontakt', href: '/kontakt' }
-    ];
-
-    const locationInfo = {
-        address: 'ul. Dąbrowskiego 4',
-        city: '42-200 Częstochowa',
-        hours: 'Pn-Pt: 8:00 - 18:00, Sb-Nd: 10:00 - 16:00'
-    };
-
     return (
         <footer className="relative bg-primary-dark/95 border-white/10 overflow-hidden">
             {/* Main content */}
-            <div className="relative z-10 container mx-auto px-4 pb-14 md:py-5">
-                <div className="grid grid-cols-2 md:grid-cols-3 gap-8 md:gap-10 items-start">
-                    {/* Logo - mobile pełna szerokość */}
-                    <div className="col-span-2 md:col-span-1 flex flex-col items-center md:items-start">
+            <div className="relative z-10 container mx-auto px-4 py-8 md:py-6">
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-10 items-start">
+                    {/* Logo */}
+                    <div className="flex flex-col items-start">
                         <div className="footer-logo">
                             {/* Mobile: poziome logo */}
                             <img
                                 src="/logo/horizontal-logo.png"
                                 alt="Strzykawa Coffee Shop & Roastery"
-                                className="md:hidden h-4 object-contain"
+                                className="md:hidden h-5 object-contain"
                             />
                             {/* Desktop: pionowe logo */}
                             <img
@@ -83,16 +68,16 @@ export function Footer() {
                         </div>
                     </div>
 
-                    {/* Linki szybkie + Social Media */}
-                    <div className="flex flex-col justify-between h-full">
+                    {/* Linki prawne + Social Media (desktop) */}
+                    <div className="hidden md:flex flex-col justify-between h-full">
                         <div className="space-y-4">
-                            <h4 className="text-lg text-white">Menu</h4>
-                            <ul className="space-y-2">
-                                {quickLinks.map((link, index) => (
+                            <h4 className="text-xl text-white">Informacje</h4>
+                            <ul className="space-y-3">
+                                {legalLinks.map((link, index) => (
                                     <li key={index}>
                                         <a
                                             href={link.href}
-                                            className="text-white/70 hover:text-white text-sm transition-colors duration-300"
+                                            className="text-white/70 hover:text-white text-base transition-colors duration-300"
                                         >
                                             {link.label}
                                         </a>
@@ -101,8 +86,8 @@ export function Footer() {
                             </ul>
                         </div>
 
-                        {/* Social Media - pb-X to adjust alignment with logo */}
-                        <div className="flex gap-3 pb-1.5 md:pb-4">
+                        {/* Social Media */}
+                        <div className="flex gap-3 pb-4">
                             {socialLinks.map((social, index) => {
                                 const Icon = social.icon;
                                 return (
@@ -112,29 +97,29 @@ export function Footer() {
                                         target="_blank"
                                         rel="noopener noreferrer"
                                         aria-label={social.label}
-                                        className={`w-10 h-10 flex items-center justify-center bg-white/5 rounded-lg text-muted hover:bg-white/10 transition-all ${social.hoverColor}`}
+                                        className={`w-12 h-12 flex items-center justify-center bg-white/5 text-muted hover:bg-white/10 transition-all ${social.hoverColor}`}
                                     >
-                                        <Icon className="w-5 h-5" />
+                                        <Icon className="w-6 h-6" />
                                     </a>
                                 );
                             })}
                         </div>
                     </div>
 
-                    {/* Kontakt + Adres + Godziny */}
-                    <div className="space-y-4 md:self-stretch md:flex md:flex-col">
-                        <h4 className="text-lg text-white">Kontakt</h4>
+                    {/* Kontakt */}
+                    <div className="space-y-6 md:space-y-4">
+                        <h4 className="text-xl text-white">Kontakt</h4>
 
-                        <div className="flex flex-col gap-3 md:gap-0 md:flex-1 md:justify-between pb-1">
+                        <div className="flex flex-col gap-4 md:gap-3">
                             {contactInfo.map((contact, index) => {
                                 const Icon = contact.icon;
                                 return (
                                     <a
                                         key={index}
                                         href={contact.href}
-                                        className="flex items-start gap-2 text-sm transition-colors duration-300 group"
+                                        className="flex items-center gap-3 text-base transition-colors duration-300 group"
                                     >
-                                        <Icon className="w-4 h-4 mt-0.5 flex-shrink-0 text-muted group-hover:text-accent transition-colors" />
+                                        <Icon className="w-5 h-5 flex-shrink-0 text-muted group-hover:text-accent transition-colors" />
                                         <span className="text-white/70 group-hover:text-white transition-colors break-words">
                                             {contact.text}
                                         </span>
@@ -142,24 +127,41 @@ export function Footer() {
                                 );
                             })}
 
-                            {/* Adres */}
-                            <div className="flex items-start gap-2 text-sm pt-1 md:pt-0">
-                                <FaMapMarkerAlt className="w-4 h-4 mt-0.5 flex-shrink-0 text-muted" />
-                                <div className="text-white/70">
-                                    <div>{locationInfo.address}</div>
-                                    <div>{locationInfo.city}</div>
-                                </div>
-                            </div>
+                        </div>
 
-                            {/* Godziny otwarcia */}
-                            <div className="flex items-start gap-2 text-sm pt-1 md:pt-0">
-                                <FaClock className="w-4 h-4 mt-0.5 flex-shrink-0 text-muted" />
-                                <div className="text-white/70 text-sm leading-relaxed">
-                                    <div>Pn–Pt: 9:00 – 17:00</div>
-                                    <div>Sb: 10:00 – 15:00</div>
-                                    <div>Nd: zamknięte</div>
-                                </div>
-                            </div>
+                        {/* Linki prawne (mobile only) */}
+                        <div className="md:hidden pt-6 border-t border-white/10">
+                            <ul className="flex flex-col gap-3">
+                                {legalLinks.map((link, index) => (
+                                    <li key={index}>
+                                        <a
+                                            href={link.href}
+                                            className="text-white/70 hover:text-white text-base transition-colors duration-300"
+                                        >
+                                            {link.label}
+                                        </a>
+                                    </li>
+                                ))}
+                            </ul>
+                        </div>
+
+                        {/* Social Media (mobile only) */}
+                        <div className="md:hidden flex gap-3 pt-4">
+                            {socialLinks.map((social, index) => {
+                                const Icon = social.icon;
+                                return (
+                                    <a
+                                        key={index}
+                                        href={social.href}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        aria-label={social.label}
+                                        className={`w-12 h-12 flex items-center justify-center bg-white/5 text-muted hover:bg-white/10 transition-all ${social.hoverColor}`}
+                                    >
+                                        <Icon className="w-6 h-6" />
+                                    </a>
+                                );
+                            })}
                         </div>
                     </div>
                 </div>
@@ -168,36 +170,16 @@ export function Footer() {
             {/* Bottom bar */}
             <div className="relative z-10 border-t border-white/10 bg-black/95">
                 <div className="container mx-auto px-4 py-6">
-                    <div className="flex flex-col gap-3 text-sm text-white/70">
-                        {/* Row 1: Copyright */}
-                        <div className="text-accent text-center md:text-left">
+                    <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-3 md:gap-4 text-sm text-white/70">
+                        {/* Copyright */}
+                        <div className="text-accent text-left">
                             © {currentYear} Strzykawa. Wszystkie prawa zastrzeżone.
                         </div>
 
-                        {/* Row 2 (mobile only): Legal links */}
-                        <div className="md:hidden flex flex-wrap justify-center gap-x-2 gap-y-1 text-center text-white/70">
-                            {legalLinks.map((link, index) => (
-                                <React.Fragment key={index}>
-                                    <a
-                                        href={link.href}
-                                        className="hover:text-white transition-colors"
-                                    >
-                                        {link.label}
-                                    </a>
-                                    {index < legalLinks.length - 1 && (
-                                        <span className="text-white/40">|</span>
-                                    )}
-                                </React.Fragment>
-                            ))}
-                        </div>
-
-                        {/* Row 3 (mobile: 2 columns) / Row 2 (desktop: 3 columns) */}
-                        <div className="grid grid-cols-2 md:flex md:flex-row md:items-center md:justify-between gap-4 md:gap-3">
-                            {/* Left: project credit */}
-                            <div className="flex flex-col md:flex-row md:items-center items-start text-left text-white/70">
-          <span className="text-white/60 text-xs md:text-sm mb-1 md:mb-0">
-            Projekt i wykonanie:{' '}
-          </span>
+                        {/* Project credit + Technologies (inline on mobile) */}
+                        <div className="flex items-center justify-between md:justify-end gap-4 md:gap-6">
+                            <div className="flex items-center gap-1 text-white/70">
+                                <span className="text-white/60">Projekt:</span>
                                 <a
                                     href="https://lukasznowak.dev"
                                     target="_blank"
@@ -208,52 +190,12 @@ export function Footer() {
                                 </a>
                             </div>
 
-                            {/* Center: legal links (desktop only) */}
-                            <div className="hidden md:flex flex-wrap justify-center gap-x-2 gap-y-1 text-center text-white/70">
-                                {legalLinks.map((link, index) => (
-                                    <React.Fragment key={index}>
-                                        <a
-                                            href={link.href}
-                                            className="hover:text-white transition-colors"
-                                        >
-                                            {link.label}
-                                        </a>
-                                        {index < legalLinks.length - 1 && (
-                                            <span className="text-white/40">|</span>
-                                        )}
-                                    </React.Fragment>
-                                ))}
-                            </div>
-
-                            {/* Right: technologies */}
-                            <div className="flex flex-col md:flex-row items-end md:items-end text-right text-white/70">
-          <span className="text-white/60 text-xs md:text-sm mb-1 md:mb-0 md:mr-2">
-            Użyte technologie:
-          </span>
-                                <div className="flex items-center justify-end md:justify-start gap-1">
-                                    {/* React */}
-                                    <div className="flex items-center group">
-              <span className="hidden md:block mr-2 text-xs text-white/60 overflow-hidden max-w-0 group-hover:max-w-[80px] opacity-0 group-hover:opacity-100 transition-all duration-300">
-                React
-              </span>
-                                        <SiReact className="w-5 h-5 transition-colors duration-300 group-hover:text-[#61DAFB]" />
-                                    </div>
-
-                                    {/* Shopify */}
-                                    <div className="flex items-center group">
-              <span className="hidden md:block mr-2 text-xs text-white/60 overflow-hidden max-w-0 group-hover:max-w-[80px] opacity-0 group-hover:opacity-100 transition-all duration-300">
-                Shopify
-              </span>
-                                        <SiShopify className="w-5 h-5 transition-colors duration-300 group-hover:text-[#95BF47]" />
-                                    </div>
-
-                                    {/* Coffee */}
-                                    <div className="flex items-center group">
-              <span className="hidden md:block mr-2 text-xs text-white/60 overflow-hidden max-w-0 group-hover:max-w-[80px] opacity-0 group-hover:opacity-100 transition-all duration-300">
-                Kawa
-              </span>
-                                        <BiCoffeeTogo className="w-5 h-5 transition-colors duration-300 group-hover:text-[#7B4B2A]" />
-                                    </div>
+                            <div className="flex items-center gap-2 text-white/70">
+                                <span className="text-white/60 text-xs hidden md:inline">Technologie:</span>
+                                <div className="flex items-center gap-1">
+                                    <SiReact className="w-4 h-4 hover:text-[#61DAFB] transition-colors duration-300" />
+                                    <SiShopify className="w-4 h-4 hover:text-[#95BF47] transition-colors duration-300" />
+                                    <BiCoffeeTogo className="w-4 h-4 hover:text-[#7B4B2A] transition-colors duration-300" />
                                 </div>
                             </div>
                         </div>

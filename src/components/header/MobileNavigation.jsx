@@ -34,45 +34,56 @@ export function MobileNavigation({
     return (
         <div
             className={`
-                md:hidden 
-                overflow-hidden 
-                transition-all 
-                duration-500 
+                md:hidden
+                fixed
+                left-0
+                right-0
+                top-[100px]
+                bottom-0
+                z-[110]
+                bg-[#141C18]
+                transition-all
+                duration-300
                 ease-out
-                ${isOpen ? 'max-h-screen opacity-100 pb-6' : 'max-h-0 opacity-0 pb-0'}
+                ${isOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}
             `}
             id="mobile-menu"
             aria-hidden={!isOpen}
         >
             <nav
-                className="flex flex-col space-y-4 pt-4 border-t border-white/10"
+                className="flex flex-col h-full px-6 py-8 pb-safe"
                 aria-label="Menu mobilne"
             >
-                {/* Navigation Links */}
-                {NAV_ITEMS.map((item) => (
-                    <NavLink
-                        key={item.to}
-                        to={item.to}
-                        onClick={onClose}
-                        className={getMobileNavLinkClasses}
-                        aria-label={item.ariaLabel}
-                    >
-                        {item.label}
-                    </NavLink>
-                ))}
+                {/* Navigation Links - równomiernie rozłożone */}
+                <div className="flex flex-col flex-1">
+                    {NAV_ITEMS.map((item) => (
+                        <NavLink
+                            key={item.to}
+                            to={item.to}
+                            onClick={onClose}
+                            className={getMobileNavLinkClasses}
+                            aria-label={item.ariaLabel}
+                        >
+                            {item.label}
+                        </NavLink>
+                    ))}
 
-                {/* Mobile Auth & Cart Section */}
-                <MobileActionsSection
-                    cartItemsCount={cartItemsCount}
-                    isCartOpen={isCartOpen}
-                    isLoginOpen={isLoginOpen}
-                    onOpenCart={() => { onOpenCart(); onClose(); }}
-                    onOpenLogin={() => { onOpenLogin(); onClose(); }}
-                    onLogout={onLogout}
-                    onClose={onClose}
-                    user={user}
-                    isAuthenticated={isAuthenticated}
-                />
+                    {/* Separator */}
+                    <div className="border-t border-white/10 my-2" />
+
+                    {/* Mobile Auth & Cart Section */}
+                    <MobileActionsSection
+                        cartItemsCount={cartItemsCount}
+                        isCartOpen={isCartOpen}
+                        isLoginOpen={isLoginOpen}
+                        onOpenCart={() => { onOpenCart(); onClose(); }}
+                        onOpenLogin={() => { onOpenLogin(); onClose(); }}
+                        onLogout={onLogout}
+                        onClose={onClose}
+                        user={user}
+                        isAuthenticated={isAuthenticated}
+                    />
+                </div>
             </nav>
         </div>
     );
@@ -83,17 +94,18 @@ export function MobileNavigation({
  */
 function getMobileNavLinkClasses({ isActive }) {
     return `
-        block 
-        px-4 
-        py-3 
-        text-white 
-        font-medium 
-        transition-all 
+        flex-1
+        flex
+        items-center
+        px-4
+        text-xl
+        text-white
+        font-medium
+        transition-all
         duration-300
-        hover:text-muted 
-        hover:bg-white/5 
-        hover:translate-x-2
-        ${isActive ? 'text-muted bg-white/5 translate-x-2' : ''}
+        hover:text-muted
+        hover:bg-white/5
+        ${isActive ? 'text-muted bg-white/5' : ''}
     `;
 }
 
@@ -109,12 +121,12 @@ function MobileActionsSection({
                                   isAuthenticated
                               }) {
     return (
-        <div className="pt-4 border-t border-white/10 space-y-3">
+        <>
             {/* Cart - podświetlony gdy otwarty */}
             <button
                 onClick={onOpenCart}
                 className={`
-                    flex items-center space-x-3 px-4 py-3 rounded-full w-full text-left transition-all duration-300
+                    flex-1 flex items-center space-x-3 px-4 text-xl w-full text-left transition-all duration-300
                     ${isCartOpen
                     ? 'bg-cta/20 text-white'
                     : 'text-white hover:bg-white/5'
@@ -122,11 +134,11 @@ function MobileActionsSection({
                 `}
                 aria-label={`Otwórz koszyk (${cartItemsCount} produktów)`}
             >
-                <FaShoppingCart className="w-4 h-4" />
+                <FaShoppingCart className="w-5 h-5" />
                 <span className="flex items-center gap-2">
                     Koszyk
                     {cartItemsCount > 0 && !isCartOpen && (
-                        <span className="px-2 py-0.5 bg-success text-white text-xs font-bold rounded-full">
+                        <span className="px-2 py-0.5 bg-success text-white text-sm font-bold rounded-full">
                             {cartItemsCount}
                         </span>
                     )}
@@ -140,19 +152,19 @@ function MobileActionsSection({
                 <button
                     onClick={onOpenLogin}
                     className={`
-                        flex items-center space-x-3 px-4 py-3 rounded-full w-full text-left transition-all duration-300
+                        flex-1 flex items-center space-x-3 px-4 text-xl w-full text-left transition-all duration-300
                         ${isLoginOpen
                         ? 'bg-cta/20 text-white'
-                        : 'text-white hover:bg-accent/20'
+                        : 'text-white hover:bg-white/5'
                     }
                     `}
                     aria-label="Zaloguj się"
                 >
-                    <FaUser className="w-4 h-4" />
+                    <FaUser className="w-5 h-5" />
                     <span>Zaloguj się</span>
                 </button>
             )}
-        </div>
+        </>
     );
 }
 
@@ -173,26 +185,26 @@ function MobileAuthenticatedUser({ user, onLogout, onClose }) {
     };
 
     return (
-        <div className="space-y-2">
+        <>
             {/* Mój profil */}
             <button
                 onClick={handleProfileClick}
-                className="flex items-center space-x-3 px-4 py-3 text-white hover:bg-white/5 rounded-full w-full text-left transition-all duration-300"
+                className="flex-1 flex items-center space-x-3 px-4 text-xl text-white hover:bg-white/5 w-full text-left transition-all duration-300"
                 aria-label="Mój profil"
             >
-                <FaUser className="w-4 h-4 text-accent" />
+                <FaUser className="w-5 h-5 text-accent" />
                 <span>{user?.firstName}</span>
             </button>
 
             {/* Wyloguj się */}
             <button
                 onClick={handleLogout}
-                className="flex items-center space-x-3 px-4 py-3 text-red-300 hover:bg-red-500/10 rounded-full w-full text-left transition-all duration-300"
+                className="flex-1 flex items-center space-x-3 px-4 text-xl text-red-300 hover:bg-red-500/10 w-full text-left transition-all duration-300"
                 aria-label="Wyloguj się"
             >
-                <FaSignOutAlt className="w-4 h-4" />
+                <FaSignOutAlt className="w-5 h-5" />
                 <span>Wyloguj się</span>
             </button>
-        </div>
+        </>
     );
 }

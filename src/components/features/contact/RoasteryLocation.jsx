@@ -40,19 +40,19 @@ export function RoasteryLocation() {
                             href="https://www.facebook.com/StrzykawaCoffeeShop/"
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="w-10 h-10 flex items-center justify-center bg-white/5 rounded-lg text-muted hover:text-[#1877F2] hover:bg-white/10 transition-all"
+                            className="w-12 h-12 flex items-center justify-center bg-white/5 text-muted hover:text-[#1877F2] hover:bg-white/10 transition-all"
                             aria-label="Facebook"
                         >
-                            <FaFacebookF className="w-5 h-5" />
+                            <FaFacebookF className="w-6 h-6" />
                         </a>
                         <a
                             href="https://www.instagram.com/strzykawa_coffee_shop/"
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="w-10 h-10 flex items-center justify-center bg-white/5 rounded-lg text-muted hover:text-[#E4405F] hover:bg-white/10 transition-all"
+                            className="w-12 h-12 flex items-center justify-center bg-white/5 text-muted hover:text-[#E4405F] hover:bg-white/10 transition-all"
                             aria-label="Instagram"
                         >
-                            <FaInstagram className="w-5 h-5" />
+                            <FaInstagram className="w-6 h-6" />
                         </a>
                     </div>
                 </div>
