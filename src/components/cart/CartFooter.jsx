@@ -9,8 +9,8 @@ export function CartFooter({ items, isLoading, totalPrice, onCheckout }) {
             <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-3 sm:py-6">
                 {/* Total */}
                 <div className="flex justify-between items-center mb-4">
-                    <span className="text-base sm:text-lg text-white">Suma:</span>
-                    <span className="text-lg sm:text-xl text-white">
+                    <span className="text-lg sm:text-xl text-white">Suma:</span>
+                    <span className="text-xl sm:text-2xl font-semibold text-white">
                         {totalPrice} zł
                     </span>
                 </div>

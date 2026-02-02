@@ -40,7 +40,7 @@ export function HeroReviews() {
             icon: FaTrophy,
             iconColor: 'text-yellow-400',
             badge: '#1',
-            subtitle: 'Palarnia w Czestochowie',
+            subtitle: 'Palarnia w Częstochowie',
             url: 'https://panoramaczestochowy.pl/firmy/palarnia-kawy-czestochowa'
         }
     ];
@@ -58,10 +58,10 @@ export function HeroReviews() {
                 }`}
             >
                 <h3 className="text-2xl sm:text-3xl font-bold text-white mb-2">
-                    Co mowia o nas
+                    Co mówią o nas
                 </h3>
                 <p className="text-white/60 text-sm sm:text-base">
-                    Opinie naszych gosci
+                    Opinie naszych gości
                 </p>
             </div>
 
@@ -80,7 +80,7 @@ export function HeroReviews() {
                             href={review.url}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className={`group bg-white/10 backdrop-blur-sm border border-white/20 p-5 hover:bg-white/15 hover:scale-105 transition-all duration-500 ease-out ${
+                            className={`group bg-white/10 backdrop-blur-sm p-5 hover:bg-white/15 hover:scale-105 transition-all duration-500 ease-out ${
                                 cardsVisible
                                     ? 'opacity-100 translate-y-0'
                                     : 'opacity-0 translate-y-[30px]'

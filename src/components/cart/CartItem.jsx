@@ -35,7 +35,7 @@ export function CartItem({ item, onUpdateQuantity, onRemove, isLoading }) {
     const handleRemove = () => onRemove(lineItemId);
 
     return (
-        <div className="bg-primary-light/40 border border-white/5 px-4 py-3 lg:px-5 lg:py-4 mt-6">
+        <div className="bg-primary-light/40 px-4 py-3 lg:px-5 lg:py-4 mt-6">
             {/* Product row */}
             <div className="flex gap-4">
                 {/* Image (sharp, no rounding) */}

@@ -48,8 +48,8 @@ export function Footer() {
     return (
         <footer className="relative bg-primary-dark/95 border-white/10 overflow-hidden">
             {/* Main content */}
-            <div className="relative z-10 container mx-auto px-4 py-8 md:py-6">
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-10 items-start">
+            <div className="relative z-10 container mx-auto px-4 pt-4 pb-6 md:py-6">
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-5 md:gap-10 items-start">
                     {/* Logo */}
                     <div className="flex flex-col items-start">
                         <div className="footer-logo">
@@ -107,7 +107,7 @@ export function Footer() {
                     </div>
 
                     {/* Kontakt */}
-                    <div className="space-y-6 md:space-y-4">
+                    <div className="space-y-4 md:space-y-4">
                         <h4 className="text-xl text-white">Kontakt</h4>
 
                         <div className="flex flex-col gap-4 md:gap-3">
@@ -130,7 +130,7 @@ export function Footer() {
                         </div>
 
                         {/* Linki prawne (mobile only) */}
-                        <div className="md:hidden pt-6 border-t border-white/10">
+                        <div className="md:hidden pt-4 border-t border-white/10">
                             <ul className="flex flex-col gap-3">
                                 {legalLinks.map((link, index) => (
                                     <li key={index}>
@@ -146,7 +146,7 @@ export function Footer() {
                         </div>
 
                         {/* Social Media (mobile only) */}
-                        <div className="md:hidden flex gap-3 pt-4">
+                        <div className="md:hidden flex gap-3 pt-3">
                             {socialLinks.map((social, index) => {
                                 const Icon = social.icon;
                                 return (

@@ -20,13 +20,13 @@ export function ShippingProgress({ totalPrice }) {
                 {/* Tekst + kwota */}
                 <div className="flex items-center justify-between mb-2">
                     <div className="flex items-center gap-2">
-                        <FaTruck className={`text-xs sm:text-sm ${hasFreeShipping ? 'text-success' : 'text-muted'}`} />
-                        <span className="text-xs sm:text-sm text-white">
+                        <FaTruck className={`text-sm sm:text-base ${hasFreeShipping ? 'text-success' : 'text-muted'}`} />
+                        <span className="text-sm sm:text-base text-white">
                             {hasFreeShipping ? 'Darmowa wysyłka' : 'Do darmowej wysyłki brakuje:'}
                         </span>
                     </div>
 
-                    <span className={`text-xs sm:text-sm font-semibold ${hasFreeShipping ? 'text-success' : 'text-accent'}`}>
+                    <span className={`text-sm sm:text-base font-semibold ${hasFreeShipping ? 'text-success' : 'text-accent'}`}>
                         {hasFreeShipping ? (
                             '✓'
                         ) : (

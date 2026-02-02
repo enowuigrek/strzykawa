@@ -12,13 +12,13 @@ export function SocialLinks() {
             name: 'Facebook',
             icon: FaFacebook,
             url: 'https://www.facebook.com/StrzykawaCoffeeShop',
-            color: 'hover:bg-blue-600/20 hover:border-blue-500/50'
+            color: 'hover:bg-blue-600/20'
         },
         {
             name: 'Instagram',
             icon: FaInstagram,
             url: 'https://www.instagram.com/strzykawa_coffee_shop',
-            color: 'hover:bg-pink-600/20 hover:border-pink-500/50'
+            color: 'hover:bg-pink-600/20'
         }
     ];
 
@@ -50,7 +50,7 @@ export function SocialLinks() {
                             href={social.url}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className={`group flex items-center gap-3 bg-white/10 backdrop-blur-sm border border-white/20 rounded-full px-6 py-3 transition-all duration-500 ease-out hover:scale-105 ${social.color} ${
+                            className={`group flex items-center gap-3 bg-white/10 backdrop-blur-sm rounded-full px-6 py-3 transition-all duration-500 ease-out hover:scale-105 ${social.color} ${
                                 iconsVisible
                                     ? 'opacity-100 translate-y-0'
                                     : 'opacity-0 translate-y-[20px]'

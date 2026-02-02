@@ -11,11 +11,11 @@ import { Profile } from './pages/Profile.jsx';
 import { About } from "./pages/About.jsx";
 import { Contact } from "./pages/Contact.jsx";
 import { B2B } from './pages/B2B.jsx';
-import { TermsAndConditions } from "./pages/TermsAndConditions.jsx";
 import {
     PrivacyPolicy,
     CookiePolicy,
-    ShippingAndReturns
+    ShippingAndReturns,
+    TermsAndConditions
 } from './pages/LegalPages';
 import StyleGuide from "./pages/StyleGuide.jsx";
 import { CheckoutPage } from "./pages/CheckoutPage.jsx";

@@ -315,3 +315,54 @@ export function ShippingAndReturns() {
         </PageLayout>
     );
 }
+
+// Regulamin sklepu
+export function TermsAndConditions() {
+    return (
+        <PageLayout title="Regulamin sklepu">
+            <div className="container mx-auto max-w-4xl px-4 py-8">
+                <div className="bg-primary-light border border-white/10 p-6 sm:p-8">
+                    <div className="prose prose-invert max-w-none">
+                        <p className="text-white/60 mb-6">
+                            <strong>Data ostatniej aktualizacji:</strong> 12 grudnia 2025
+                        </p>
+
+                        <p className="text-white/80 mb-8">
+                            Niniejszy Regulamin określa zasady korzystania ze sklepu internetowego dostępnego pod adresem{' '}
+                            <strong className="text-white">https://strzykawa.com</strong>, prowadzonego przez:
+                        </p>
+
+                        <ul className="text-white/80 mb-6 space-y-1">
+                            <li><strong className="text-white">STRZYKAWA DAMIAN DZIK</strong></li>
+                            <li>adres siedziby: ul. Warszawska 241, 42-209 Częstochowa</li>
+                            <li>adres kawiarni: ul. Dąbrowskiego 4, 42-200 Częstochowa</li>
+                            <li>NIP: 7441726899</li>
+                            <li>e-mail: <a href="mailto:kontakt@strzykawa.com" className="text-accent hover:text-white">kontakt@strzykawa.com</a></li>
+                            <li>telefon: +48 668 011 806</li>
+                        </ul>
+
+                        <h2 className="text-xl font-semibold text-white mt-8 mb-4">§1 Postanowienia ogólne</h2>
+                        <p className="text-white/80 mb-6">
+                            Treść w przygotowaniu...
+                        </p>
+
+                        <h2 className="text-xl font-semibold text-white mt-8 mb-4">§2 Składanie zamówień</h2>
+                        <p className="text-white/80 mb-6">
+                            Treść w przygotowaniu...
+                        </p>
+
+                        <h2 className="text-xl font-semibold text-white mt-8 mb-4">§3 Płatności i dostawa</h2>
+                        <p className="text-white/80 mb-6">
+                            Treść w przygotowaniu...
+                        </p>
+
+                        <h2 className="text-xl font-semibold text-white mt-8 mb-4">§4 Prawo odstąpienia od umowy</h2>
+                        <p className="text-white/80">
+                            Treść w przygotowaniu...
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </PageLayout>
+    );
+}
