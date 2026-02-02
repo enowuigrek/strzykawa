@@ -125,7 +125,7 @@ export function Footer() {
                     <div className="space-y-4 md:self-stretch md:flex md:flex-col">
                         <h4 className="text-lg text-white">Kontakt</h4>
 
-                        <div className="flex flex-col gap-3 md:gap-0 md:flex-1 md:justify-between pb-2">
+                        <div className="flex flex-col gap-3 md:gap-0 md:flex-1 md:justify-between pb-1">
                             {contactInfo.map((contact, index) => {
                                 const Icon = contact.icon;
                                 return (
