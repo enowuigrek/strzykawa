@@ -128,14 +128,9 @@ export function Coffees() {
     // ========== LOADING STATE ==========
     if (loading) {
         return (
-            <PageLayout
-                title="Nasze Kawy"
-                description="Odkryj naszą kolekcję kaw speciality z całego świata"
-            >
-                <div className="container mx-auto px-4 py-16">
-                    <div className="flex flex-col items-center justify-center min-h-[400px]">
-                        <Spinner size="md" className="mb-6" />
-                    </div>
+            <PageLayout>
+                <div className="flex items-center justify-center min-h-[60vh]">
+                    <Spinner size="md" />
                 </div>
             </PageLayout>
         );

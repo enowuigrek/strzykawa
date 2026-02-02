@@ -9,12 +9,12 @@ export function ContactInfo() {
     const [detailsRef, detailsVisible] = useScrollAnimation({ threshold: 0.3 });
 
     return (
-        <div className="px-4 sm:px-6 lg:px-8 py-6">
+        <div className="px-4 sm:px-6 lg:px-8 py-8 lg:py-10">
 
             {/* Locations */}
             <div
                 ref={locationsRef}
-                className={`grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 mb-10 transition-all duration-700 ease-out ${
+                className={`grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-14 mb-12 lg:mb-14 transition-all duration-700 ease-out ${
                     locationsVisible ? scrollAnimations.pourDown.visible : scrollAnimations.pourDown.hidden
                 }`}
             >

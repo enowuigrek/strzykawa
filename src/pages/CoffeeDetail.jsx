@@ -99,13 +99,9 @@ export function CoffeeDetail() {
     // Loading state
     if (loading) {
         return (
-            <PageLayout title="Ładowanie..." description="">
-                <div className="container mx-auto max-w-7xl px-4 py-12">
-                    <div className="flex items-center justify-center min-h-[400px]">
-                        <div className="text-center">
-                            <Spinner size="md" className="mx-auto mb-4" />
-                        </div>
-                    </div>
+            <PageLayout>
+                <div className="flex items-center justify-center min-h-[60vh]">
+                    <Spinner size="md" />
                 </div>
             </PageLayout>
         );

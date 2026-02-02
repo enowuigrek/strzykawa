@@ -8,8 +8,8 @@ export function RoasteryLocation() {
     };
 
     return (
-        <div className="space-y-6">
-            <div className="flex items-center gap-3 mb-4">
+        <div className="space-y-7">
+            <div className="flex items-center gap-3 mb-5">
                 {/*<div className="p-3 bg-accent/20">*/}
                 {/*    /!*<FaFire className="w-6 h-6 text-muted" />*!/*/}
                 {/*</div>*/}
@@ -18,7 +18,7 @@ export function RoasteryLocation() {
                 </div>
             </div>
 
-            <div className="space-y-4">
+            <div className="space-y-5">
                 {/* Adres palarni */}
                 <div className="flex items-start gap-3">
                     <FaMapMarkerAlt className="w-4 h-4 text-muted mt-1 flex-shrink-0" />
@@ -40,21 +40,19 @@ export function RoasteryLocation() {
                             href="https://www.facebook.com/StrzykawaCoffeeShop/"
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="flex items-center gap-2 text-white/70 hover:text-blue-500 transition-colors text-sm"
+                            className="w-10 h-10 flex items-center justify-center bg-white/5 rounded-lg text-muted hover:text-[#1877F2] hover:bg-white/10 transition-all"
                             aria-label="Facebook"
                         >
-                            <FaFacebookF className="w-4 h-4" />
-                            <span>Facebook</span>
+                            <FaFacebookF className="w-5 h-5" />
                         </a>
                         <a
                             href="https://www.instagram.com/strzykawa_coffee_shop/"
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="flex items-center gap-2 text-white/70 hover:text-pink-500 transition-colors text-sm"
+                            className="w-10 h-10 flex items-center justify-center bg-white/5 rounded-lg text-muted hover:text-[#E4405F] hover:bg-white/10 transition-all"
                             aria-label="Instagram"
                         >
-                            <FaInstagram className="w-4 h-4" />
-                            <span>Instagram</span>
+                            <FaInstagram className="w-5 h-5" />
                         </a>
                     </div>
                 </div>

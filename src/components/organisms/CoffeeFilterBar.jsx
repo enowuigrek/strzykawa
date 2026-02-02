@@ -64,18 +64,24 @@ export function CoffeeFilterBar({
             <div className="container mx-auto px-4 sm:px-6 lg:px-8 h-full flex items-center">
                 {/* Filtry */}
                 <div className="flex items-center gap-3">
-                    <MainFilterButton
-                        label="Espresso"
-                        count={espressoCount}
-                        isActive={localActiveType === 'Espresso'}
-                        onClick={() => handleFilterClick('Espresso')}
-                    />
-                    <MainFilterButton
-                        label="Przelew"
-                        count={filterCount}
-                        isActive={localActiveType === 'Filter'}
-                        onClick={() => handleFilterClick('Filter')}
-                    />
+                    {/* Grupa: Kawy (Espresso + Przelew) */}
+                    <div className="flex items-center gap-1 bg-white/5 rounded-full p-1">
+                        <MainFilterButton
+                            label="Espresso"
+                            count={espressoCount}
+                            isActive={localActiveType === 'Espresso'}
+                            onClick={() => handleFilterClick('Espresso')}
+                            isGrouped
+                        />
+                        <MainFilterButton
+                            label="Przelew"
+                            count={filterCount}
+                            isActive={localActiveType === 'Filter'}
+                            onClick={() => handleFilterClick('Filter')}
+                            isGrouped
+                        />
+                    </div>
+
                     <MainFilterButton
                         label="Akcesoria"
                         count={0}
@@ -83,7 +89,7 @@ export function CoffeeFilterBar({
                         onClick={() => handleFilterClick('Accessories')}
                     />
                     <MainFilterButton
-                        label="Wszystkie"
+                        label="Wszystko"
                         count={allCount}
                         isActive={!localActiveType}
                         onClick={() => handleFilterClick('')}
@@ -104,7 +110,7 @@ export function CoffeeFilterBar({
  * Mobile: tylko kółko z liczbą
  * Desktop: nazwa + kółko z liczbą
  */
-function MainFilterButton({ label, count, isActive, onClick }) {
+function MainFilterButton({ label, count, isActive, onClick, isGrouped = false }) {
     const lowerLabel = (label || '').toLowerCase();
     let colorClass = 'bg-success';
 
@@ -112,7 +118,7 @@ function MainFilterButton({ label, count, isActive, onClick }) {
         colorClass = 'bg-badge-orange';
     } else if (lowerLabel.includes('przelew') || lowerLabel.includes('filter')) {
         colorClass = 'bg-badge-blue';
-    } else if (lowerLabel.includes('wszystkie') || lowerLabel.includes('all')) {
+    } else if (lowerLabel.includes('wszystko') || lowerLabel.includes('wszystkie') || lowerLabel.includes('all')) {
         colorClass = 'bg-success';
     }
 
@@ -162,6 +168,7 @@ function MainFilterButton({ label, count, isActive, onClick }) {
     }
 
     // Inactive: text pill
+    // Jeśli w grupie - bez własnego tła (grupa ma tło)
     return (
         <button
             onClick={onClick}
@@ -173,9 +180,9 @@ function MainFilterButton({ label, count, isActive, onClick }) {
                 text-sm
                 transition-all
                 duration-150
-                bg-white/5
+                ${isGrouped ? 'bg-transparent' : 'bg-white/5'}
                 text-white/70
-                hover:bg-white/10
+                ${isGrouped ? 'hover:bg-white/5' : 'hover:bg-white/10'}
                 hover:text-white
             `}
         >

@@ -18,13 +18,13 @@ export function Footer() {
             icon: FaFacebookF,
             href: 'https://www.facebook.com/StrzykawaCoffeeShop/',
             label: 'Facebook',
-            hoverColor: 'hover:text-blue-500'
+            hoverColor: 'hover:text-[#1877F2]'
         },
         {
             icon: FaInstagram,
             href: 'https://www.instagram.com/strzykawa_coffee_shop/',
             label: 'Instagram',
-            hoverColor: 'hover:text-pink-500'
+            hoverColor: 'hover:text-[#E4405F]'
         }
     ];
 
@@ -102,7 +102,7 @@ export function Footer() {
                         </div>
 
                         {/* Social Media - pb-X to adjust alignment with logo */}
-                        <div className="flex gap-4 pb-1.5 md:pb-4">
+                        <div className="flex gap-3 pb-1.5 md:pb-4">
                             {socialLinks.map((social, index) => {
                                 const Icon = social.icon;
                                 return (
@@ -112,9 +112,9 @@ export function Footer() {
                                         target="_blank"
                                         rel="noopener noreferrer"
                                         aria-label={social.label}
-                                        className={`text-white/70 transition-all duration-300 hover:scale-110 ${social.hoverColor}`}
+                                        className={`w-10 h-10 flex items-center justify-center bg-white/5 rounded-lg text-muted hover:bg-white/10 transition-all ${social.hoverColor}`}
                                     >
-                                        <Icon className="w-8 h-8" />
+                                        <Icon className="w-5 h-5" />
                                     </a>
                                 );
                             })}
