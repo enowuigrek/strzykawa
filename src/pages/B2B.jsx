@@ -107,9 +107,10 @@ export function B2B() {
 
     const inputClasses = (field) => `
         w-full px-4 py-3
-        bg-primary
-        text-white placeholder-muted
-        focus:outline-none focus:ring-2 focus:ring-accent
+        bg-primary-dark/50
+        text-white placeholder-muted/70
+        focus:border-accent focus:ring-2 focus:ring-accent/20
+        transition-all duration-300
         ${errors[field] ? 'border border-danger' : ''}
     `;
 
@@ -119,23 +120,24 @@ export function B2B() {
             description="Szukasz sprawdzonego dostawcy kawy specialty dla swojego biznesu? Wypełnij formularz, a my skontaktujemy się z Tobą."
         >
             <div className="max-w-2xl mx-auto">
-                {/* Success message */}
-                {success && (
-                    <div className="mb-6 p-4 bg-success/20 flex items-center gap-3 text-success">
-                        <FaCheckCircle className="w-5 h-5 flex-shrink-0" />
-                        <span>Dziękujemy za wiadomość! Skontaktujemy się wkrótce.</span>
-                    </div>
-                )}
+                <div className="bg-primary-light p-6 md:p-8">
+                    {/* Success message */}
+                    {success && (
+                        <div className="mb-6 p-4 bg-success/20 flex items-center gap-3 text-success">
+                            <FaCheckCircle className="w-5 h-5 flex-shrink-0" />
+                            <span>Dziękujemy za wiadomość! Skontaktujemy się wkrótce.</span>
+                        </div>
+                    )}
 
-                {/* Error message */}
-                {submitError && (
-                    <div className="mb-6 p-4 bg-danger/20 flex items-center gap-3 text-danger">
-                        <FaExclamationTriangle className="w-5 h-5 flex-shrink-0" />
-                        <span>{submitError}</span>
-                    </div>
-                )}
+                    {/* Error message */}
+                    {submitError && (
+                        <div className="mb-6 p-4 bg-danger/20 flex items-center gap-3 text-danger">
+                            <FaExclamationTriangle className="w-5 h-5 flex-shrink-0" />
+                            <span>{submitError}</span>
+                        </div>
+                    )}
 
-                <form onSubmit={handleSubmit} className="space-y-5">
+                    <form onSubmit={handleSubmit} className="space-y-5">
                     {/* Imię */}
                     <div>
                         <label htmlFor="b2b-name" className="block text-sm font-medium text-muted mb-2">
@@ -252,7 +254,8 @@ export function B2B() {
                             {isLoading ? 'Wysyłanie...' : 'Wyślij wiadomość'}
                         </Button>
                     </div>
-                </form>
+                    </form>
+                </div>
 
                 {/* Fallback contact */}
                 <p className="text-center text-muted text-sm mt-8">
