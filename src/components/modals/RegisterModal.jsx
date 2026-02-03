@@ -131,7 +131,7 @@ const RegisterModal = ({ isOpen, onClose, onSwitchToLogin }) => {
                             name="firstName"
                             value={formData.firstName}
                             onChange={handleChange}
-                            className="w-full px-4 py-3 bg-primary-dark/50 text-white placeholder-muted/70 focus:border-accent focus:ring-2 focus:ring-accent/20 transition-all duration-300"
+                            className="w-full px-4 py-3 bg-primary-dark/50 text-white placeholder-muted/70 transition-all duration-300"
                             placeholder="Jan"
                             required
                         />
@@ -146,7 +146,7 @@ const RegisterModal = ({ isOpen, onClose, onSwitchToLogin }) => {
                             name="lastName"
                             value={formData.lastName}
                             onChange={handleChange}
-                            className="w-full px-4 py-3 bg-primary-dark/50 text-white placeholder-muted/70 focus:border-accent focus:ring-2 focus:ring-accent/20 transition-all duration-300"
+                            className="w-full px-4 py-3 bg-primary-dark/50 text-white placeholder-muted/70 transition-all duration-300"
                             placeholder="Kowalski"
                             required
                         />
@@ -168,7 +168,7 @@ const RegisterModal = ({ isOpen, onClose, onSwitchToLogin }) => {
                             name="email"
                             value={formData.email}
                             onChange={handleChange}
-                            className="w-full pl-10 pr-4 py-3 bg-primary-dark/50 text-white placeholder-muted/70 focus:border-accent focus:ring-2 focus:ring-accent/20 transition-all duration-300"
+                            className="w-full pl-10 pr-4 py-3 bg-primary-dark/50 text-white placeholder-muted/70 transition-all duration-300"
                             placeholder="twoj@email.com"
                             required
                         />
@@ -190,7 +190,7 @@ const RegisterModal = ({ isOpen, onClose, onSwitchToLogin }) => {
                             name="phone"
                             value={formData.phone}
                             onChange={handleChange}
-                            className="w-full pl-10 pr-4 py-3 bg-primary-dark/50 text-white placeholder-muted/70 focus:border-accent focus:ring-2 focus:ring-accent/20 transition-all duration-300"
+                            className="w-full pl-10 pr-4 py-3 bg-primary-dark/50 text-white placeholder-muted/70 transition-all duration-300"
                             placeholder="+48 123 456 789"
                         />
                     </div>
@@ -211,7 +211,7 @@ const RegisterModal = ({ isOpen, onClose, onSwitchToLogin }) => {
                             name="password"
                             value={formData.password}
                             onChange={handleChange}
-                            className="w-full pl-10 pr-12 py-3 bg-primary-dark/50 text-white placeholder-muted/70 focus:border-accent focus:ring-2 focus:ring-accent/20 transition-all duration-300"
+                            className="w-full pl-10 pr-12 py-3 bg-primary-dark/50 text-white placeholder-muted/70 transition-all duration-300"
                             placeholder="Minimum 5 znaków"
                             required
                         />
@@ -240,7 +240,7 @@ const RegisterModal = ({ isOpen, onClose, onSwitchToLogin }) => {
                             name="confirmPassword"
                             value={formData.confirmPassword}
                             onChange={handleChange}
-                            className="w-full pl-10 pr-12 py-3 bg-primary-dark/50 text-white placeholder-muted/70 focus:border-accent focus:ring-2 focus:ring-accent/20 transition-all duration-300"
+                            className="w-full pl-10 pr-12 py-3 bg-primary-dark/50 text-white placeholder-muted/70 transition-all duration-300"
                             placeholder="Powtórz hasło"
                             required
                         />

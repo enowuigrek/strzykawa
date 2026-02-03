@@ -180,7 +180,7 @@ export function EditAddressForm({ initialAddress = null, initialPhone = '' }) {
                         name="phone"
                         value={formData.phone}
                         onChange={handleChange}
-                        className="w-full px-4 py-3 bg-primary/50 text-white placeholder-muted/70 focus:border-accent focus:ring-2 focus:ring-accent/20 transition-all duration-300"
+                        className="w-full px-4 py-3 bg-primary/50 text-white placeholder-muted/70 transition-all duration-300"
                         placeholder="+48 123 456 789"
                     />
                 </div>
@@ -196,7 +196,7 @@ export function EditAddressForm({ initialAddress = null, initialPhone = '' }) {
                         name="address1"
                         value={formData.address1}
                         onChange={handleChange}
-                        className="w-full px-4 py-3 bg-primary/50 text-white placeholder-muted/70 focus:border-accent focus:ring-2 focus:ring-accent/20 transition-all duration-300"
+                        className="w-full px-4 py-3 bg-primary/50 text-white placeholder-muted/70 transition-all duration-300"
                         placeholder="ul. Przykładowa 123"
                     />
                 </div>
@@ -212,7 +212,7 @@ export function EditAddressForm({ initialAddress = null, initialPhone = '' }) {
                         name="address2"
                         value={formData.address2}
                         onChange={handleChange}
-                        className="w-full px-4 py-3 bg-primary/50 text-white placeholder-muted/70 focus:border-accent focus:ring-2 focus:ring-accent/20 transition-all duration-300"
+                        className="w-full px-4 py-3 bg-primary/50 text-white placeholder-muted/70 transition-all duration-300"
                         placeholder="m. 45"
                     />
                 </div>
@@ -229,7 +229,7 @@ export function EditAddressForm({ initialAddress = null, initialPhone = '' }) {
                             name="zip"
                             value={formData.zip}
                             onChange={handleChange}
-                            className="w-full px-4 py-3 bg-primary/50 text-white placeholder-muted/70 focus:border-accent focus:ring-2 focus:ring-accent/20 transition-all duration-300"
+                            className="w-full px-4 py-3 bg-primary/50 text-white placeholder-muted/70 transition-all duration-300"
                             placeholder="00-000"
                         />
                     </div>
@@ -243,7 +243,7 @@ export function EditAddressForm({ initialAddress = null, initialPhone = '' }) {
                             name="city"
                             value={formData.city}
                             onChange={handleChange}
-                            className="w-full px-4 py-3 bg-primary/50 text-white placeholder-muted/70 focus:border-accent focus:ring-2 focus:ring-accent/20 transition-all duration-300"
+                            className="w-full px-4 py-3 bg-primary/50 text-white placeholder-muted/70 transition-all duration-300"
                             placeholder="Warszawa"
                         />
                     </div>

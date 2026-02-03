@@ -31,7 +31,6 @@ export function CustomerDataForm({ customerData, errors, onChange, isAuthenticat
                         w-full px-4 py-3
                         bg-primary
                         text-white placeholder-muted
-                        focus:outline-none focus:ring-2 focus:ring-accent
                         disabled:opacity-50 disabled:cursor-not-allowed
                         ${errors.email ? 'border border-danger' : ''}
                     `}
@@ -56,7 +55,6 @@ export function CustomerDataForm({ customerData, errors, onChange, isAuthenticat
                         w-full px-4 py-3
                         bg-primary
                         text-white placeholder-muted
-                        focus:outline-none focus:ring-2 focus:ring-accent
                         ${errors.phone ? 'border border-danger' : ''}
                     `}
                     placeholder="123 456 789"
@@ -81,7 +79,6 @@ export function CustomerDataForm({ customerData, errors, onChange, isAuthenticat
                         w-full px-4 py-3
                         bg-primary
                         text-white placeholder-muted
-                        focus:outline-none focus:ring-2 focus:ring-accent
                         disabled:opacity-50 disabled:cursor-not-allowed
                         ${errors.firstName ? 'border border-danger' : ''}
                     `}
@@ -107,7 +104,6 @@ export function CustomerDataForm({ customerData, errors, onChange, isAuthenticat
                         w-full px-4 py-3
                         bg-primary
                         text-white placeholder-muted
-                        focus:outline-none focus:ring-2 focus:ring-accent
                         disabled:opacity-50 disabled:cursor-not-allowed
                         ${errors.lastName ? 'border border-danger' : ''}
                     `}

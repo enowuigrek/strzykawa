@@ -138,6 +138,17 @@ button:focus-visible {
     outline-offset: 2px;
 }
 
+/* Input focus - sharp accent border, no rounded ring */
+input:focus,
+textarea:focus,
+select:focus {
+    outline: none;
+    box-shadow: none;
+    border-color: #6B7F73;
+    border-width: 1px;
+    border-style: solid;
+}
+
 /* Smooth transitions for all interactive elements */
 button,
 select,

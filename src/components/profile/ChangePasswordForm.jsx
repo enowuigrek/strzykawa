@@ -94,7 +94,7 @@ export function ChangePasswordForm() {
                         id="currentPassword"
                         value={currentPassword}
                         onChange={(e) => setCurrentPassword(e.target.value)}
-                        className="w-full px-4 py-2 bg-primary/50 text-white placeholder-muted/70 focus:border-accent focus:ring-2 focus:ring-accent/20 transition-all duration-300"
+                        className="w-full px-4 py-2 bg-primary/50 text-white placeholder-muted/70 transition-all duration-300"
                         placeholder="Wpisz obecne hasło"
                         disabled={isChanging}
                     />
@@ -110,7 +110,7 @@ export function ChangePasswordForm() {
                         id="newPassword"
                         value={newPassword}
                         onChange={(e) => setNewPassword(e.target.value)}
-                        className="w-full px-4 py-2 bg-primary/50 text-white placeholder-muted/70 focus:border-accent focus:ring-2 focus:ring-accent/20 transition-all duration-300"
+                        className="w-full px-4 py-2 bg-primary/50 text-white placeholder-muted/70 transition-all duration-300"
                         placeholder="Min. 5 znaków"
                         disabled={isChanging}
                     />
@@ -126,7 +126,7 @@ export function ChangePasswordForm() {
                         id="confirmPassword"
                         value={confirmPassword}
                         onChange={(e) => setConfirmPassword(e.target.value)}
-                        className="w-full px-4 py-2 bg-primary/50 text-white placeholder-muted/70 focus:border-accent focus:ring-2 focus:ring-accent/20 transition-all duration-300"
+                        className="w-full px-4 py-2 bg-primary/50 text-white placeholder-muted/70 transition-all duration-300"
                         placeholder="Powtórz nowe hasło"
                         disabled={isChanging}
                     />

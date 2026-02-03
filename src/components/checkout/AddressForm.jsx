@@ -28,7 +28,6 @@ export function AddressForm({ address, errors, onChange }) {
                         w-full px-4 py-3
                         bg-primary
                         text-white placeholder-muted
-                        focus:outline-none focus:ring-2 focus:ring-accent
                         ${errors.street ? 'border border-danger' : ''}
                     `}
                     placeholder="Krakowska"
@@ -51,8 +50,7 @@ export function AddressForm({ address, errors, onChange }) {
                             w-full px-4 py-3
                             bg-primary
                             text-white placeholder-muted
-                            focus:outline-none focus:ring-2 focus:ring-accent
-                            ${errors.buildingNumber ? 'border border-danger' : ''}
+                                ${errors.buildingNumber ? 'border border-danger' : ''}
                         `}
                         placeholder="12"
                     />
@@ -74,8 +72,7 @@ export function AddressForm({ address, errors, onChange }) {
                             w-full px-4 py-3
                             bg-primary
                             text-white placeholder-muted
-                            focus:outline-none focus:ring-2 focus:ring-accent
-                        "
+                            "
                         placeholder="5"
                     />
                 </div>
@@ -96,8 +93,7 @@ export function AddressForm({ address, errors, onChange }) {
                             w-full px-4 py-3
                             bg-primary
                             text-white placeholder-muted
-                            focus:outline-none focus:ring-2 focus:ring-accent
-                            ${errors.postalCode ? 'border border-danger' : ''}
+                                ${errors.postalCode ? 'border border-danger' : ''}
                         `}
                         placeholder="00-000"
                     />
@@ -119,8 +115,7 @@ export function AddressForm({ address, errors, onChange }) {
                             w-full px-4 py-3
                             bg-primary
                             text-white placeholder-muted
-                            focus:outline-none focus:ring-2 focus:ring-accent
-                            ${errors.city ? 'border border-danger' : ''}
+                                ${errors.city ? 'border border-danger' : ''}
                         `}
                         placeholder="Częstochowa"
                     />

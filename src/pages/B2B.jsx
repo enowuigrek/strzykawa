@@ -109,7 +109,6 @@ export function B2B() {
         w-full px-4 py-3
         bg-primary-dark/50
         text-white placeholder-muted/70
-        focus:border-accent focus:ring-2 focus:ring-accent/20
         transition-all duration-300
         ${errors[field] ? 'border border-danger' : ''}
     `;

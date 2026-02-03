@@ -138,7 +138,7 @@ export function CheckoutOrderSummary({
                                 setShowRegulationsError(false);
                             }
                         }}
-                        className="mt-0.5 w-4 h-4 rounded-sm border border-white/40 bg-primary accent-accent focus:ring-2 focus:ring-accent/60 focus:outline-none cursor-pointer"
+                        className="mt-0.5 w-4 h-4 rounded-sm border border-white/40 bg-primary accent-accent focus:outline-none cursor-pointer"
                     />
                     <span className="text-xs text-white/70 group-hover:text-white/90 transition-colors">
                         Akceptuję{' '}

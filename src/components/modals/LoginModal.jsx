@@ -92,7 +92,7 @@ const LoginModal = ({ isOpen, onClose, onSwitchToRegister }) => {
                             id="email"
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
-                            className="w-full pl-10 pr-4 py-3 bg-primary-dark/50 text-white placeholder-muted/70 focus:border-accent focus:ring-2 focus:ring-accent/20 transition-all duration-300"
+                            className="w-full pl-10 pr-4 py-3 bg-primary-dark/50 text-white placeholder-muted/70 transition-all duration-300"
                             placeholder="twoj@email.com"
                             required
                         />
@@ -113,7 +113,7 @@ const LoginModal = ({ isOpen, onClose, onSwitchToRegister }) => {
                             id="password"
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
-                            className="w-full pl-10 pr-12 py-3 bg-primary-dark/50 text-white placeholder-muted/70 focus:border-accent focus:ring-2 focus:ring-accent/20 transition-all duration-300"
+                            className="w-full pl-10 pr-12 py-3 bg-primary-dark/50 text-white placeholder-muted/70 transition-all duration-300"
                             placeholder="Twoje hasło"
                             required
                         />
