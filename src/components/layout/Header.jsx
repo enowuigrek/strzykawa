@@ -91,7 +91,7 @@ export function Header() {
     useEffect(() => {
         const handleCartBounce = () => {
             setCartBouncing(true);
-            setTimeout(() => setCartBouncing(false), 800);
+            setTimeout(() => setCartBouncing(false), 1100);
         };
 
         window.addEventListener('cartBounce', handleCartBounce);

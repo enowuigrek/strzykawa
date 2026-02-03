@@ -114,8 +114,10 @@ export const useCartStore = create(
                         isLoading: false
                     });
 
-                    // Animacja bounce na ikonce koszyka (nie otwieramy koszyka)
-                    window.dispatchEvent(new CustomEvent('cartBounce'));
+                    // Animacja bounce na ikonce koszyka (opóźniona żeby modal QuickAdd zdążył się zamknąć)
+                    setTimeout(() => {
+                        window.dispatchEvent(new CustomEvent('cartBounce'));
+                    }, 700);
 
                 } catch (error) {
                     logger.error('Error adding to cart:', error);
