@@ -97,9 +97,9 @@ export function Footer() {
                                         target="_blank"
                                         rel="noopener noreferrer"
                                         aria-label={social.label}
-                                        className={`w-12 h-12 flex items-center justify-center bg-white/5 text-muted hover:bg-white/10 hover:scale-110 transition-all duration-300 ${social.hoverColor}`}
+                                        className={`group w-12 h-12 flex items-center justify-center bg-white/5 text-muted hover:bg-white/10 transition-all duration-300 ${social.hoverColor}`}
                                     >
-                                        <Icon className="w-6 h-6" />
+                                        <Icon className="w-6 h-6 transition-transform duration-300 group-hover:scale-125" />
                                     </a>
                                 );
                             })}
@@ -156,9 +156,9 @@ export function Footer() {
                                         target="_blank"
                                         rel="noopener noreferrer"
                                         aria-label={social.label}
-                                        className={`w-12 h-12 flex items-center justify-center bg-white/5 text-muted hover:bg-white/10 hover:scale-110 transition-all duration-300 ${social.hoverColor}`}
+                                        className={`group w-12 h-12 flex items-center justify-center bg-white/5 text-muted hover:bg-white/10 transition-all duration-300 ${social.hoverColor}`}
                                     >
-                                        <Icon className="w-6 h-6" />
+                                        <Icon className="w-6 h-6 transition-transform duration-300 group-hover:scale-125" />
                                     </a>
                                 );
                             })}
