@@ -86,6 +86,9 @@ export function mapProduct(shopifyProduct) {
 
     const roastLevel = getMetafield(shopifyProduct, 'stopien_palenia') || '';
 
+    // Custom color - nadpisuje kolor z kraju (hex lub rgb)
+    const customColor = getMetafield(shopifyProduct, 'kolor') || null;
+
     // Build origin array
     const origin = [];
     if (country || region) {
@@ -142,6 +145,10 @@ export function mapProduct(shopifyProduct) {
         tastingNotes: parseList(tastingNotes),
         processing: processing,
         altitude: altitude,
+
+        // Custom color override (hex lub rgb, np. "#FF5500" lub "rgb(255, 85, 0)")
+        // Nadpisuje kolor z kraju - używane w CoffeeOverlay
+        themeColor: customColor,
 
         // Availability flags
         availability: {

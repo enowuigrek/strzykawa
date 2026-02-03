@@ -55,6 +55,7 @@ const PRODUCT_FRAGMENT = `
         {namespace: "custom", key: "producent"}
         {namespace: "custom", key: "forma_kawy"}
         {namespace: "custom", key: "rozmiar_mielenia"}
+        {namespace: "custom", key: "kolor"}
     ]) {
         key
         value
