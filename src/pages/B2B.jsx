@@ -118,7 +118,7 @@ export function B2B() {
             title="Współpraca B2B"
             description="Szukasz sprawdzonego dostawcy kawy specialty dla swojego biznesu? Wypełnij formularz, a my skontaktujemy się z Tobą."
         >
-            <div className="max-w-2xl mx-auto">
+            <div className="max-w-2xl mx-auto px-4 sm:px-6">
                 <div className="bg-primary-light p-6 md:p-8">
                     {/* Success message */}
                     {success && (
