@@ -31,10 +31,10 @@ export function SocialLinks() {
                     headerVisible ? scrollAnimations.pourDown.visible : scrollAnimations.pourDown.hidden
                 }`}
             >
-                <h3 className="text-xl sm:text-2xl font-bold text-white mb-2">
+                <h3 className="text-xl sm:text-2xl text-white mb-2">
                     Śledź nas
                 </h3>
-                <p className="text-white/60 text-sm sm:text-base">
+                <p className="text-white/60 text-base">
                     Bądź na bieżąco z nowościami i akcjami
                 </p>
             </div>
@@ -70,15 +70,15 @@ export function SocialLinks() {
             {/* Followers Count */}
             <div
                 ref={statsRef}
-                className={`mt-6 flex items-center justify-center gap-8 text-white/50 text-sm transition-all duration-700 ease-out delay-200 ${
+                className={`mt-6 flex items-center justify-center gap-8 text-white/50 text-base transition-all duration-700 ease-out delay-200 ${
                     statsVisible ? scrollAnimations.fade.visible : scrollAnimations.fade.hidden
                 }`}
             >
                 <div>
-                    <span className="font-bold text-white">1,430+</span> na Facebooku
+                    <span className="font-medium text-white">1,430+</span> na Facebooku
                 </div>
                 <div>
-                    <span className="font-bold text-white">1,559+</span> na Instagramie
+                    <span className="font-medium text-white">1,559+</span> na Instagramie
                 </div>
             </div>
         </div>

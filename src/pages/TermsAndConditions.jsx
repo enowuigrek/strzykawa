@@ -19,22 +19,22 @@ export function TermsAndConditions() {
                         </p>
 
                         <section className="mt-8">
-                            <h2 className="text-2xl font-semibold text-white mb-4">§1 Postanowienia ogólne</h2>
+                            <h2 className="text-2xl font-medium text-white mb-4">§1 Postanowienia ogólne</h2>
                             <p>Treść w przygotowaniu...</p>
                         </section>
 
                         <section className="mt-8">
-                            <h2 className="text-2xl font-semibold text-white mb-4">§2 Składanie zamówień</h2>
+                            <h2 className="text-2xl font-medium text-white mb-4">§2 Składanie zamówień</h2>
                             <p>Treść w przygotowaniu...</p>
                         </section>
 
                         <section className="mt-8">
-                            <h2 className="text-2xl font-semibold text-white mb-4">§3 Płatności i dostawa</h2>
+                            <h2 className="text-2xl font-medium text-white mb-4">§3 Płatności i dostawa</h2>
                             <p>Treść w przygotowaniu...</p>
                         </section>
 
                         <section className="mt-8">
-                            <h2 className="text-2xl font-semibold text-white mb-4">§4 Prawo odstąpienia od umowy</h2>
+                            <h2 className="text-2xl font-medium text-white mb-4">§4 Prawo odstąpienia od umowy</h2>
                             <p>Treść w przygotowaniu...</p>
                         </section>
                     </div>

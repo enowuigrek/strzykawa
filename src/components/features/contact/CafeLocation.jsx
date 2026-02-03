@@ -18,7 +18,7 @@ export function CafeLocation() {
                 {/*<div className="p-3 bg-accent/20">*/}
                 {/*    /!*<FaCoffee className="w-6 h-6 text-muted" />*!/*/}
                 {/*</div>*/}
-                <h3 className="text-2xl font-bold text-white">Kawiarnia</h3>
+                <h3 className="text-2xl text-white">Kawiarnia</h3>
             </div>
 
             <div className="space-y-5">
@@ -26,7 +26,7 @@ export function CafeLocation() {
                 <div className="flex items-start gap-3">
                     <FaMapMarkerAlt className="w-4 h-4 text-muted mt-1 flex-shrink-0" />
                     <div className="flex-1">
-                        <div className="font-semibold text-white">ul. Dąbrowskiego 4</div>
+                        <div className="font-medium text-white">ul. Dąbrowskiego 4</div>
                         <div className="text-muted">42-200 Częstochowa</div>
                     </div>
                 </div>
@@ -35,9 +35,9 @@ export function CafeLocation() {
                 <div className="flex items-start gap-3">
                     <FaClock className="w-4 h-4 text-muted mt-1 flex-shrink-0" />
                     <div>
-                        <div className="font-semibold text-white mb-2">Godziny otwarcia</div>
+                        <div className="font-medium text-white mb-2">Godziny otwarcia</div>
                         {cafeHours.map((schedule, index) => (
-                            <div key={index} className="flex justify-between items-center text-sm">
+                            <div key={index} className="flex justify-between items-center text-base">
                                 <span className="text-muted">{schedule.days}</span>
                                 <span className="text-white font-medium ml-4">{schedule.hours}</span>
                             </div>

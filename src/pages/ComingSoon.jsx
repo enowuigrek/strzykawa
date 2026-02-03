@@ -46,7 +46,7 @@ export function ComingSoon() {
                             <span>Kawiarnia w Częstochowie</span>
                         </a>
                     </div>
-                    <p className="text-sm text-muted mt-4">
+                    <p className="text-base text-muted mt-4">
                         ul. Dąbrowskiego 4, 42-200 Częstochowa
                     </p>
                 </div>
@@ -81,7 +81,7 @@ export function ComingSoon() {
                 </div>
 
                 {/* Footer info */}
-                <div className="mt-16 text-center text-white/50 text-sm">
+                <div className="mt-16 text-center text-white/50 text-base">
                     <p>© 2025 Strzykawa Coffee Shop & Roastery</p>
                 </div>
             </div>

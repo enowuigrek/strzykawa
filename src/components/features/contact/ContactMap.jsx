@@ -32,7 +32,7 @@ export function ContactMap() {
 
                 {/* Header */}
                 <div>
-                    <h4 className="text-2xl font-bold text-white mb-2">Znajdź nas</h4>
+                    <h4 className="text-2xl text-white mb-2">Znajdź nas</h4>
                     <p className="text-muted text-lg">ul. Dąbrowskiego 4</p>
                     <p className="text-muted">42-200 Częstochowa</p>
                 </div>

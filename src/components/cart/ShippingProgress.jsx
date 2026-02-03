@@ -26,7 +26,7 @@ export function ShippingProgress({ totalPrice }) {
                         </span>
                     </div>
 
-                    <span className={`text-sm sm:text-base font-semibold ${hasFreeShipping ? 'text-success' : 'text-accent'}`}>
+                    <span className={`text-sm sm:text-base ${hasFreeShipping ? 'text-success' : 'text-accent'}`}>
                         {hasFreeShipping ? (
                             '✓'
                         ) : (

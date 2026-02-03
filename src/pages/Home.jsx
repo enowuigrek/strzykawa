@@ -87,7 +87,7 @@ export function Home() {
                         >
                             <a
                                 href="/o-nas"
-                                className="inline-flex items-center bg-white/10 backdrop-blur-sm border border-white/30 rounded-full px-8 py-4 text-white text-lg transition-all duration-300 hover:scale-105 hover:bg-white/20"
+                                className="inline-flex items-center bg-white/10 backdrop-blur-sm rounded-full px-8 py-4 text-white text-lg transition-all duration-300 hover:scale-105 hover:bg-white/20"
                             >
                                 Poznaj naszą historię
                             </a>

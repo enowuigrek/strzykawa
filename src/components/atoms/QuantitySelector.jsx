@@ -85,7 +85,7 @@ export function QuantitySelector({
                 className={`
                     ${inputSizeClasses[size]} ${sizeClasses[size]}
                     bg-transparent
-                    text-white text-center font-semibold
+                    text-white text-center
                     focus:outline-none
                     [-moz-appearance:textfield]
                     [&::-webkit-outer-spin-button]:appearance-none

@@ -105,7 +105,7 @@ const RegisterModal = ({ isOpen, onClose, onSwitchToLogin }) => {
             <form onSubmit={handleSubmit}>
                 {/* Success Message */}
                 {success && (
-                    <div className="mb-4 p-3 bg-success/20 border border-success/30 rounded-lg text-green-300 text-sm flex items-center gap-2 animate-fadeIn">
+                    <div className="mb-4 p-3 bg-success/20 border border-success/30 rounded-lg text-green-300 text-base flex items-center gap-2 animate-fadeIn">
                         <FaCheckCircle className="w-4 h-4 flex-shrink-0" />
                         <span>{success}</span>
                     </div>
@@ -113,7 +113,7 @@ const RegisterModal = ({ isOpen, onClose, onSwitchToLogin }) => {
 
                 {/* Error Message */}
                 {error && (
-                    <div className="mb-4 p-3 bg-red-500/20 border border-red-500/30 rounded-lg text-red-300 text-sm flex items-center gap-2 animate-fadeIn">
+                    <div className="mb-4 p-3 bg-red-500/20 border border-red-500/30 rounded-lg text-red-300 text-base flex items-center gap-2 animate-fadeIn">
                         <FaExclamationTriangle className="w-4 h-4 flex-shrink-0" />
                         <span>{error}</span>
                     </div>
@@ -122,7 +122,7 @@ const RegisterModal = ({ isOpen, onClose, onSwitchToLogin }) => {
                 {/* Name Fields */}
                 <div className="grid grid-cols-2 gap-4 mb-4">
                     <div>
-                        <label htmlFor="firstName" className="block text-sm font-semibold text-muted mb-2">
+                        <label htmlFor="firstName" className="block text-base font-medium text-muted mb-2">
                             Imię
                         </label>
                         <input
@@ -137,7 +137,7 @@ const RegisterModal = ({ isOpen, onClose, onSwitchToLogin }) => {
                         />
                     </div>
                     <div>
-                        <label htmlFor="lastName" className="block text-sm font-semibold text-muted mb-2">
+                        <label htmlFor="lastName" className="block text-base font-medium text-muted mb-2">
                             Nazwisko
                         </label>
                         <input
@@ -155,7 +155,7 @@ const RegisterModal = ({ isOpen, onClose, onSwitchToLogin }) => {
 
                 {/* Email Field */}
                 <div className="mb-4">
-                    <label htmlFor="registerEmail" className="block text-sm font-semibold text-muted mb-2">
+                    <label htmlFor="registerEmail" className="block text-base font-medium text-muted mb-2">
                         E-mail
                     </label>
                     <div className="relative">
@@ -177,8 +177,8 @@ const RegisterModal = ({ isOpen, onClose, onSwitchToLogin }) => {
 
                 {/* Phone Field */}
                 <div className="mb-4">
-                    <label htmlFor="registerPhone" className="block text-sm font-semibold text-muted mb-2">
-                        Telefon <span className="text-xs text-muted/70">(opcjonalnie)</span>
+                    <label htmlFor="registerPhone" className="block text-base font-medium text-muted mb-2">
+                        Telefon <span className="text-sm text-muted/70">(opcjonalnie)</span>
                     </label>
                     <div className="relative">
                         <div className="absolute left-3 top-1/2 transform -translate-y-1/2">
@@ -198,7 +198,7 @@ const RegisterModal = ({ isOpen, onClose, onSwitchToLogin }) => {
 
                 {/* Password Field */}
                 <div className="mb-4">
-                    <label htmlFor="registerPassword" className="block text-sm font-semibold text-muted mb-2">
+                    <label htmlFor="registerPassword" className="block text-base font-medium text-muted mb-2">
                         Hasło
                     </label>
                     <div className="relative">
@@ -227,7 +227,7 @@ const RegisterModal = ({ isOpen, onClose, onSwitchToLogin }) => {
 
                 {/* Confirm Password Field */}
                 <div className="mb-6">
-                    <label htmlFor="confirmPassword" className="block text-sm font-semibold text-muted mb-2">
+                    <label htmlFor="confirmPassword" className="block text-base font-medium text-muted mb-2">
                         Powtórz hasło
                     </label>
                     <div className="relative">
@@ -269,12 +269,12 @@ const RegisterModal = ({ isOpen, onClose, onSwitchToLogin }) => {
 
                 {/* Switch to Login */}
                 <div className="text-center">
-                    <p className="text-muted text-sm">
+                    <p className="text-muted text-base">
                         Masz już konto?{' '}
                         <button
                             type="button"
                             onClick={onSwitchToLogin}
-                            className="text-accent hover:text-white transition-colors duration-300 font-semibold underline"
+                            className="text-accent hover:text-white transition-colors duration-300 font-medium underline"
                         >
                             Zaloguj się
                         </button>

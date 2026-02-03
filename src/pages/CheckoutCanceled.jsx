@@ -49,10 +49,10 @@ export function CheckoutCanceled() {
                             <FaShoppingCart className="w-5 h-5 text-accent" />
                         </div>
                         <div className="flex-1">
-                            <h3 className="text-white font-semibold mb-1">
+                            <h3 className="text-white font-medium mb-1">
                                 Koszyk zachowany
                             </h3>
-                            <p className="text-muted text-sm">
+                            <p className="text-muted text-base">
                                 Wszystkie produkty pozostały w Twoim koszyku. Możesz dokończyć zakupy w dowolnym momencie.
                             </p>
                         </div>
@@ -64,10 +64,10 @@ export function CheckoutCanceled() {
                             <FaQuestionCircle className="w-5 h-5 text-accent" />
                         </div>
                         <div className="flex-1">
-                            <h3 className="text-white font-semibold mb-2">
+                            <h3 className="text-white font-medium mb-2">
                                 Możliwe przyczyny:
                             </h3>
-                            <ul className="text-muted text-sm space-y-1 list-disc list-inside">
+                            <ul className="text-muted text-base space-y-1 list-disc list-inside">
                                 <li>Anulowanie płatności przez użytkownika</li>
                                 <li>Problem z połączeniem internetowym</li>
                                 <li>Niewystarczające środki na koncie</li>
@@ -105,7 +105,7 @@ export function CheckoutCanceled() {
 
                 {/* Additional info */}
                 <div className="mt-8 text-center">
-                    <p className="text-muted text-sm">
+                    <p className="text-muted text-base">
                         Potrzebujesz pomocy? <a href="mailto:kontakt@strzykawa.pl" className="text-accent hover:text-accent/80 underline">Skontaktuj się z nami</a>
                     </p>
                 </div>

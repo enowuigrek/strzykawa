@@ -97,7 +97,7 @@ export function VariantSelector({
             <div className="space-y-4">
                 {gramatura.length > 0 && (
                     <div>
-                        <label className="block text-sm text-white mb-2">
+                        <label className="block text-base text-white mb-2">
                             Gramatura
                         </label>
                         <div className="flex flex-wrap gap-2">
@@ -137,7 +137,7 @@ export function VariantSelector({
                 {typ.length > 1 && (
                     <div>
                         {/* Nagłówek zawsze na lewo */}
-                        <label className="block text-sm text-white mb-2">
+                        <label className="block text-base text-white mb-2">
                             Forma kawy
                         </label>
                         {/* Przyciski zawsze grid 2 kolumny - obok siebie */}
@@ -172,7 +172,7 @@ export function VariantSelector({
                 {selectedTyp === 'Mielona' && onGrindMethodChange && (
                     <div>
                         {/* Nagłówek zawsze na lewo */}
-                        <label className="block text-sm text-white mb-2">
+                        <label className="block text-base text-white mb-2">
                             Sposób mielenia
                         </label>
                         {/* Opcje zależne od typu palenia */}

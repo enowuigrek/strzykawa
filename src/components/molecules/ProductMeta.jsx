@@ -115,10 +115,10 @@ export function ProductMeta({ coffee }) {
                 {metaItems.map((item, index) => (
                     <div key={index} className="relative">
                         <div className="flex px-4 py-3">
-                            <div className="text-muted text-base font-medium w-32">
+                            <div className="text-muted text-lg font-medium w-32">
                                 {item.label}:
                             </div>
-                            <div className="text-white text-base flex-1">
+                            <div className="text-white text-lg flex-1">
                                 {item.value}
                             </div>
                         </div>

@@ -182,7 +182,7 @@ export function CoffeeDetail() {
                             {hasDiscount && (
                                 <div className="mt-2 flex items-center gap-2">
                                     <FaTag className="text-red-400" />
-                                    <span className="text-sm text-red-400">
+                                    <span className="text-base text-red-400">
                                         Oszczędzasz {(compareAtPrice - price).toFixed(2)} zł
                                     </span>
                                 </div>
@@ -204,7 +204,7 @@ export function CoffeeDetail() {
                             >
                                 {/* Liczba - renderowana w lewej kolumnie pod Gramaturą */}
                                 <div>
-                                    <label className="block text-sm text-white mb-2">
+                                    <label className="block text-base text-white mb-2">
                                         Liczba
                                     </label>
                                     <QuantitySelector
@@ -262,7 +262,7 @@ export function CoffeeDetail() {
                                 Opis:
                             </h2>
                             <div className="prose prose-invert max-w-none">
-                                <p className="text-white/90 leading-relaxed whitespace-pre-line">
+                                <p className="text-white/90 text-lg leading-relaxed whitespace-pre-line">
                                     {coffee.description}
                                 </p>
                             </div>

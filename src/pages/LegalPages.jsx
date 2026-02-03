@@ -34,13 +34,13 @@ export function PrivacyPolicy() {
                             <Link to="/polityka-cookies" className="text-accent hover:text-white">Polityka plików cookies</Link>.
                         </p>
 
-                        <h2 className="text-xl font-semibold text-white mt-8 mb-4">1. Administrator danych osobowych</h2>
+                        <h2 className="text-xl font-medium text-white mt-8 mb-4">1. Administrator danych osobowych</h2>
                         <p className="text-white/80 mb-6">
                             Administratorem danych osobowych jest <strong className="text-white">STRZYKAWA DAMIAN DZIK</strong>, prowadzący
                             działalność gospodarczą pod wskazanymi wyżej danymi kontaktowymi (dalej: „Administrator").
                         </p>
 
-                        <h2 className="text-xl font-semibold text-white mt-8 mb-4">2. Zakres przetwarzanych danych</h2>
+                        <h2 className="text-xl font-medium text-white mt-8 mb-4">2. Zakres przetwarzanych danych</h2>
                         <p className="text-white/80 mb-4">
                             W zależności od tego, w jaki sposób korzystasz z serwisu, możemy przetwarzać w szczególności:
                         </p>
@@ -60,7 +60,7 @@ export function PrivacyPolicy() {
                             Polityka prywatności oraz Polityka plików cookies zostaną odpowiednio zaktualizowane.
                         </p>
 
-                        <h2 className="text-xl font-semibold text-white mt-8 mb-4">3. Cele i podstawy prawne przetwarzania danych</h2>
+                        <h2 className="text-xl font-medium text-white mt-8 mb-4">3. Cele i podstawy prawne przetwarzania danych</h2>
                         <p className="text-white/80 mb-4">Dane osobowe mogą być przetwarzane w następujących celach:</p>
                         <ul className="text-white/80 mb-6 space-y-3 list-disc list-inside">
                             <li>
@@ -94,7 +94,7 @@ export function PrivacyPolicy() {
                             </li>
                         </ul>
 
-                        <h2 className="text-xl font-semibold text-white mt-8 mb-4">4. Odbiorcy danych</h2>
+                        <h2 className="text-xl font-medium text-white mt-8 mb-4">4. Odbiorcy danych</h2>
                         <p className="text-white/80 mb-4">Dane osobowe mogą być przekazywane:</p>
                         <ul className="text-white/80 mb-6 space-y-1 list-disc list-inside">
                             <li>podmiotom obsługującym płatności online (jeśli korzystasz z takiej formy płatności),</li>
@@ -110,7 +110,7 @@ export function PrivacyPolicy() {
                             (np. standardowe klauzule umowne).
                         </p>
 
-                        <h2 className="text-xl font-semibold text-white mt-8 mb-4">5. Okres przechowywania danych</h2>
+                        <h2 className="text-xl font-medium text-white mt-8 mb-4">5. Okres przechowywania danych</h2>
                         <p className="text-white/80 mb-4">Dane osobowe będą przechowywane przez okres:</p>
                         <ul className="text-white/80 mb-6 space-y-1 list-disc list-inside">
                             <li>niezbędny do realizacji umowy i zamówienia – a po jego zakończeniu, przez czas wymagany przepisami prawa (np. podatkowymi i rachunkowymi),</li>
@@ -119,7 +119,7 @@ export function PrivacyPolicy() {
                             <li>w przypadku przetwarzania na podstawie prawnie uzasadnionego interesu Administratora – do czasu wniesienia skutecznego sprzeciwu.</li>
                         </ul>
 
-                        <h2 className="text-xl font-semibold text-white mt-8 mb-4">6. Prawa osoby, której dane dotyczą</h2>
+                        <h2 className="text-xl font-medium text-white mt-8 mb-4">6. Prawa osoby, której dane dotyczą</h2>
                         <p className="text-white/80 mb-4">Osobie, której dane dotyczą, przysługuje prawo do:</p>
                         <ul className="text-white/80 mb-6 space-y-1 list-disc list-inside">
                             <li>dostępu do swoich danych oraz uzyskania ich kopii,</li>
@@ -136,7 +136,7 @@ export function PrivacyPolicy() {
                             poprzez e-mail: <a href="mailto:kontakt@strzykawa.com" className="text-accent hover:text-white">kontakt@strzykawa.com</a>.
                         </p>
 
-                        <h2 className="text-xl font-semibold text-white mt-8 mb-4">7. Pliki cookies i podobne technologie</h2>
+                        <h2 className="text-xl font-medium text-white mt-8 mb-4">7. Pliki cookies i podobne technologie</h2>
                         <p className="text-white/80 mb-4">
                             Serwis korzysta z plików cookies niezbędnych do jego prawidłowego funkcjonowania oraz
                             w celu zapewnienia podstawowej wygody korzystania (np. zapamiętanie zawartości koszyka).
@@ -147,7 +147,7 @@ export function PrivacyPolicy() {
                             <Link to="/polityka-cookies" className="text-accent hover:text-white">Polityka plików cookies</Link>.
                         </p>
 
-                        <h2 className="text-xl font-semibold text-white mt-8 mb-4">8. Zmiany Polityki prywatności</h2>
+                        <h2 className="text-xl font-medium text-white mt-8 mb-4">8. Zmiany Polityki prywatności</h2>
                         <p className="text-white/80 mb-4">
                             Administrator zastrzega sobie prawo do wprowadzania zmian w niniejszej Polityce prywatności,
                             w szczególności w przypadku zmian przepisów prawa, wprowadzenia nowych funkcjonalności
@@ -180,7 +180,7 @@ export function CookiePolicy() {
                             <strong className="text-white">https://strzykawa.com</strong> korzysta z plików cookies oraz podobnych technologii.
                         </p>
 
-                        <h2 className="text-xl font-semibold text-white mt-8 mb-4">1. Administrator serwisu</h2>
+                        <h2 className="text-xl font-medium text-white mt-8 mb-4">1. Administrator serwisu</h2>
                         <p className="text-white/80 mb-4">
                             Administratorem serwisu i podmiotem, który umieszcza pliki cookies na Twoim urządzeniu, jest:
                         </p>
@@ -193,17 +193,17 @@ export function CookiePolicy() {
                             <li>telefon: +48 668 011 806</li>
                         </ul>
 
-                        <h2 className="text-xl font-semibold text-white mt-8 mb-4">2. Czym są pliki cookies?</h2>
+                        <h2 className="text-xl font-medium text-white mt-8 mb-4">2. Czym są pliki cookies?</h2>
                         <p className="text-white/80 mb-6">
                             Pliki cookies (tzw. „ciasteczka") to niewielkie pliki tekstowe zapisywane na urządzeniu
                             użytkownika (komputerze, smartfonie, tablecie) podczas odwiedzania stron internetowych.
                             Cookies mogą być odczytywane przez serwis przy kolejnych odwiedzinach.
                         </p>
 
-                        <h2 className="text-xl font-semibold text-white mt-8 mb-4">3. Jakie cookies wykorzystujemy?</h2>
+                        <h2 className="text-xl font-medium text-white mt-8 mb-4">3. Jakie cookies wykorzystujemy?</h2>
                         <p className="text-white/80 mb-4">W naszym serwisie wykorzystujemy przede wszystkim:</p>
 
-                        <h3 className="text-lg font-semibold text-white mt-6 mb-3">3.1. Cookies niezbędne</h3>
+                        <h3 className="text-lg font-medium text-white mt-6 mb-3">3.1. Cookies niezbędne</h3>
                         <p className="text-white/80 mb-4">
                             Są to pliki cookies konieczne do prawidłowego działania serwisu. Umożliwiają one m.in.:
                         </p>
@@ -220,7 +220,7 @@ export function CookiePolicy() {
                             naszego serwisu (możesz natomiast zablokować cookies w przeglądarce – patrz punkt 5).
                         </p>
 
-                        <h3 className="text-lg font-semibold text-white mt-6 mb-3">3.2. Cookies funkcjonalne, analityczne i marketingowe</h3>
+                        <h3 className="text-lg font-medium text-white mt-6 mb-3">3.2. Cookies funkcjonalne, analityczne i marketingowe</h3>
                         <p className="text-white/80 mb-4">
                             Na moment uruchomienia serwisu nie wykorzystujemy dodatkowych cookies analitycznych
                             (np. Google Analytics) ani marketingowych (np. piksel Meta).
@@ -231,7 +231,7 @@ export function CookiePolicy() {
                             Ci wybrać, jakie kategorie cookies chcesz zaakceptować.
                         </p>
 
-                        <h2 className="text-xl font-semibold text-white mt-8 mb-4">4. Cookies podmiotów trzecich</h2>
+                        <h2 className="text-xl font-medium text-white mt-8 mb-4">4. Cookies podmiotów trzecich</h2>
                         <p className="text-white/80 mb-4">
                             W trakcie składania zamówienia możesz zostać przekierowany do systemu{' '}
                             <strong className="text-white">Shopify</strong> (checkout). W takim przypadku Shopify może wykorzystywać
@@ -242,7 +242,7 @@ export function CookiePolicy() {
                             tego dostawcy. Zachęcamy do zapoznania się z dokumentacją Shopify w tym zakresie.
                         </p>
 
-                        <h2 className="text-xl font-semibold text-white mt-8 mb-4">5. Jak zarządzać plikami cookies?</h2>
+                        <h2 className="text-xl font-medium text-white mt-8 mb-4">5. Jak zarządzać plikami cookies?</h2>
                         <p className="text-white/80 mb-4">
                             Większość przeglądarek internetowych pozwala na zarządzanie plikami cookies, w tym:
                         </p>
@@ -260,14 +260,14 @@ export function CookiePolicy() {
                             niektórych funkcji serwisu – np. koszyka, logowania czy zapamiętywania ustawień.
                         </p>
 
-                        <h2 className="text-xl font-semibold text-white mt-8 mb-4">6. Okres przechowywania cookies</h2>
+                        <h2 className="text-xl font-medium text-white mt-8 mb-4">6. Okres przechowywania cookies</h2>
                         <p className="text-white/80 mb-6">
                             Czas przechowywania plików cookies na Twoim urządzeniu może być różny – część z nich
                             to cookies sesyjne (działają do czasu zamknięcia przeglądarki), a część to cookies stałe,
                             które pozostają przez określony czas lub do momentu ręcznego usunięcia.
                         </p>
 
-                        <h2 className="text-xl font-semibold text-white mt-8 mb-4">7. Logi serwera</h2>
+                        <h2 className="text-xl font-medium text-white mt-8 mb-4">7. Logi serwera</h2>
                         <p className="text-white/80 mb-4">
                             Korzystanie z serwisu wiąże się z przesyłaniem zapytań do serwera, na którym
                             przechowywana jest strona. Każde takie zapytanie jest zapisywane w logach serwera
@@ -280,7 +280,7 @@ export function CookiePolicy() {
                             z bezpieczeństwem serwisu.
                         </p>
 
-                        <h2 className="text-xl font-semibold text-white mt-8 mb-4">8. Zmiany Polityki plików cookies</h2>
+                        <h2 className="text-xl font-medium text-white mt-8 mb-4">8. Zmiany Polityki plików cookies</h2>
                         <p className="text-white/80 mb-4">
                             Administrator zastrzega sobie prawo do wprowadzania zmian w niniejszej Polityce plików cookies,
                             w szczególności w przypadku:
@@ -341,22 +341,22 @@ export function TermsAndConditions() {
                             <li>telefon: +48 668 011 806</li>
                         </ul>
 
-                        <h2 className="text-xl font-semibold text-white mt-8 mb-4">§1 Postanowienia ogólne</h2>
+                        <h2 className="text-xl font-medium text-white mt-8 mb-4">§1 Postanowienia ogólne</h2>
                         <p className="text-white/80 mb-6">
                             Treść w przygotowaniu...
                         </p>
 
-                        <h2 className="text-xl font-semibold text-white mt-8 mb-4">§2 Składanie zamówień</h2>
+                        <h2 className="text-xl font-medium text-white mt-8 mb-4">§2 Składanie zamówień</h2>
                         <p className="text-white/80 mb-6">
                             Treść w przygotowaniu...
                         </p>
 
-                        <h2 className="text-xl font-semibold text-white mt-8 mb-4">§3 Płatności i dostawa</h2>
+                        <h2 className="text-xl font-medium text-white mt-8 mb-4">§3 Płatności i dostawa</h2>
                         <p className="text-white/80 mb-6">
                             Treść w przygotowaniu...
                         </p>
 
-                        <h2 className="text-xl font-semibold text-white mt-8 mb-4">§4 Prawo odstąpienia od umowy</h2>
+                        <h2 className="text-xl font-medium text-white mt-8 mb-4">§4 Prawo odstąpienia od umowy</h2>
                         <p className="text-white/80">
                             Treść w przygotowaniu...
                         </p>

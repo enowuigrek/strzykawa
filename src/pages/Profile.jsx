@@ -41,7 +41,7 @@ export function Profile() {
                     <div className="bg-primary-light  p-6">
                         <div className="flex items-center gap-3 mb-4">
                             <FaBox className="w-5 h-5 text-accent" />
-                            <h2 className="text-xl font-semibold text-white">
+                            <h2 className="text-xl text-white">
                                 Historia zamówień
                             </h2>
                         </div>
@@ -64,7 +64,7 @@ export function Profile() {
                     <div className="bg-primary-light  p-6">
                         <div className="flex items-center gap-3 mb-6 pb-4 border-b border-white/10">
                             <FaUser className="w-5 h-5 text-accent" />
-                            <h2 className="text-xl font-semibold text-white">
+                            <h2 className="text-xl text-white">
                                 Dane osobowe
                             </h2>
                         </div>

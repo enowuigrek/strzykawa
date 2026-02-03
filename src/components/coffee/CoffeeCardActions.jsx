@@ -25,7 +25,7 @@ export function CoffeeCardActions({
                 to={`/kawy/${coffee.shopifyHandle || coffee.id}`}
                 className="
                     flex-1 relative inline-flex items-center justify-center
-                    px-4 py-2.5 text-sm font-medium text-white
+                    px-4 py-2.5 text-base font-medium text-white
                     transition-all duration-200
                     rounded-l-full
                     hover:bg-white/15

@@ -115,10 +115,26 @@ fontFamily: {
 
 | Weight | Użycie |
 |--------|--------|
-| 400 (Regular) | Tekst body, **nagłówki H1-H2** |
-| 500 (Medium) | Przyciski, linki |
-| 600 (SemiBold) | Nagłówki H3-H6, labels |
-| 700 (Bold) | **Badges**, niektóre CTA |
+| 400 (Regular) | Tekst body, nagłówki, ceny, opisy - **domyślny weight** |
+| 500 (Medium) | Przyciski, form labels, linki, akcentowane elementy |
+| 700 (Bold) | **TYLKO count badges** (koszyk, filtry) |
+
+**ZASADY:**
+- **NIE używamy font-semibold (600)** - zastąpiony przez font-medium (500)
+- **font-bold (700)** zarezerwowany WYŁĄCZNIE dla badge'y count
+- Nagłówki sekcji, ceny, tytuły kart - zawsze font-normal (400)
+- Form labels, buttony, podkreślone elementy - font-medium (500)
+
+### **Kolory Tekstu**
+
+| Kolor | Użycie |
+|-------|--------|
+| `text-white` | Nazwy produktów, nagłówki, główny tekst |
+| `text-muted` | Ceny, prefix "od", tekst secondary |
+| `text-white/70` | Opisy, tekst trzeciorzędny |
+| `text-accent` | Linki, aktywne stany |
+
+**ZASADA:** Ceny zawsze `text-muted` (zarówno na kartach jak i na stronie produktu).
 
 ### **Rozmiary Tekstu**
 

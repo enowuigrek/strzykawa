@@ -71,7 +71,7 @@ export function StickerDetails({
                 <dl className="grid grid-cols-[auto_1fr] gap-x-2 gap-y-1 text-[13px] leading-5">
                     {items.map(({ label, value }, i) => (
                         <React.Fragment key={i}>
-                            <dt className="font-semibold text-black/80">{label}:</dt>
+                            <dt className="font-medium text-black/80">{label}:</dt>
                             <dd className="text-black">{value}</dd>
                         </React.Fragment>
                     ))}

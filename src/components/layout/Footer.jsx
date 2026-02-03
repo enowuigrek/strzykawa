@@ -48,8 +48,8 @@ export function Footer() {
     return (
         <footer className="relative bg-primary-dark/95 border-white/10 overflow-hidden">
             {/* Main content */}
-            <div className="relative z-10 container mx-auto px-4 pt-4 pb-6 md:py-6">
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-5 md:gap-10 items-start">
+            <div className="relative z-10 container mx-auto px-4 pt-6 pb-8 md:py-10">
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12 items-start">
                     {/* Logo */}
                     <div className="flex flex-col items-start">
                         <div className="footer-logo">
@@ -70,14 +70,14 @@ export function Footer() {
 
                     {/* Linki prawne + Social Media (desktop) */}
                     <div className="hidden md:flex flex-col justify-between h-full">
-                        <div className="space-y-4">
-                            <h4 className="text-xl text-white">Informacje</h4>
-                            <ul className="space-y-3">
+                        <div className="space-y-5">
+                            <h4 className="text-2xl text-white">Informacje</h4>
+                            <ul className="space-y-4">
                                 {legalLinks.map((link, index) => (
                                     <li key={index}>
                                         <a
                                             href={link.href}
-                                            className="text-white/70 hover:text-white text-base transition-colors duration-300"
+                                            className="text-white/70 hover:text-white text-lg transition-colors duration-300"
                                         >
                                             {link.label}
                                         </a>
@@ -87,7 +87,7 @@ export function Footer() {
                         </div>
 
                         {/* Social Media */}
-                        <div className="flex gap-3 pb-4">
+                        <div className="flex gap-4 pb-4">
                             {socialLinks.map((social, index) => {
                                 const Icon = social.icon;
                                 return (
@@ -107,17 +107,17 @@ export function Footer() {
                     </div>
 
                     {/* Kontakt */}
-                    <div className="space-y-4 md:space-y-4">
-                        <h4 className="text-xl text-white">Kontakt</h4>
+                    <div className="space-y-5 md:space-y-5">
+                        <h4 className="text-2xl text-white">Kontakt</h4>
 
-                        <div className="flex flex-col gap-4 md:gap-3">
+                        <div className="flex flex-col gap-5 md:gap-4">
                             {contactInfo.map((contact, index) => {
                                 const Icon = contact.icon;
                                 return (
                                     <a
                                         key={index}
                                         href={contact.href}
-                                        className="flex items-center gap-3 text-base transition-colors duration-300 group"
+                                        className="flex items-center gap-3 text-lg transition-colors duration-300 group"
                                     >
                                         <Icon className="w-5 h-5 flex-shrink-0 text-muted group-hover:text-accent transition-colors" />
                                         <span className="text-white/70 group-hover:text-white transition-colors break-words">
@@ -130,13 +130,13 @@ export function Footer() {
                         </div>
 
                         {/* Linki prawne (mobile only) */}
-                        <div className="md:hidden pt-4 border-t border-white/10">
-                            <ul className="flex flex-col gap-3">
+                        <div className="md:hidden pt-5 border-t border-white/10">
+                            <ul className="flex flex-col gap-4">
                                 {legalLinks.map((link, index) => (
                                     <li key={index}>
                                         <a
                                             href={link.href}
-                                            className="text-white/70 hover:text-white text-base transition-colors duration-300"
+                                            className="text-white/70 hover:text-white text-lg transition-colors duration-300"
                                         >
                                             {link.label}
                                         </a>
@@ -146,7 +146,7 @@ export function Footer() {
                         </div>
 
                         {/* Social Media (mobile only) */}
-                        <div className="md:hidden flex gap-3 pt-3">
+                        <div className="md:hidden flex gap-4 pt-4">
                             {socialLinks.map((social, index) => {
                                 const Icon = social.icon;
                                 return (
@@ -170,7 +170,7 @@ export function Footer() {
             {/* Bottom bar */}
             <div className="relative z-10 border-t border-white/10 bg-black/95">
                 <div className="container mx-auto px-4 py-6">
-                    <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-3 md:gap-4 text-sm text-white/70">
+                    <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 md:gap-6 text-lg text-white/70">
                         {/* Copyright */}
                         <div className="text-accent text-left">
                             © {currentYear} Strzykawa. Wszystkie prawa zastrzeżone.
@@ -191,11 +191,11 @@ export function Footer() {
                             </div>
 
                             <div className="flex items-center gap-2 text-white/70">
-                                <span className="text-white/60 text-xs hidden md:inline">Technologie:</span>
-                                <div className="flex items-center gap-1">
-                                    <SiReact className="w-4 h-4 hover:text-[#61DAFB] transition-colors duration-300" />
-                                    <SiShopify className="w-4 h-4 hover:text-[#95BF47] transition-colors duration-300" />
-                                    <BiCoffeeTogo className="w-4 h-4 hover:text-[#7B4B2A] transition-colors duration-300" />
+                                <span className="text-white/60 hidden md:inline">Technologie:</span>
+                                <div className="flex items-center gap-1.5">
+                                    <SiReact className="w-5 h-5 hover:text-[#61DAFB] transition-colors duration-300" />
+                                    <SiShopify className="w-5 h-5 hover:text-[#95BF47] transition-colors duration-300" />
+                                    <BiCoffeeTogo className="w-5 h-5 hover:text-[#7B4B2A] transition-colors duration-300" />
                                 </div>
                             </div>
                         </div>

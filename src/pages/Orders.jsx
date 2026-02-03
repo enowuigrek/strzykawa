@@ -106,8 +106,8 @@ export function Orders() {
                 {/* Error State */}
                 {error && (
                     <div className="bg-danger/20 border border-danger/30 text-danger p-4 mb-6">
-                        <p className="font-semibold mb-1">Błąd podczas ładowania zamówień</p>
-                        <p className="text-sm">{error}</p>
+                        <p className="font-medium mb-1">Błąd podczas ładowania zamówień</p>
+                        <p className="text-base">{error}</p>
                     </div>
                 )}
 
@@ -115,7 +115,7 @@ export function Orders() {
                 {!isLoading && !error && orders.length === 0 && (
                     <div className="text-center py-20">
                         <FaBox className="w-16 h-16 text-muted mx-auto mb-4" />
-                        <h3 className="text-xl font-semibold text-white mb-2">
+                        <h3 className="text-xl font-medium text-white mb-2">
                             Nie masz jeszcze żadnych zamówień
                         </h3>
                         <p className="text-muted mb-6">
@@ -161,10 +161,10 @@ export function Orders() {
                                         <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-6 flex-1">
                                             {/* Order number and date */}
                                             <div className="flex-1 min-w-0">
-                                                <h3 className="text-base sm:text-lg font-semibold text-white">
+                                                <h3 className="text-base sm:text-lg font-medium text-white">
                                                     Zamówienie #{order.orderNumber}
                                                 </h3>
-                                                <p className="text-sm text-muted">
+                                                <p className="text-base text-muted">
                                                     {formatDate(order.date)}
                                                 </p>
                                             </div>
@@ -184,7 +184,7 @@ export function Orders() {
 
                                             {/* Total price */}
                                             <div className="text-right">
-                                                <p className="text-lg font-bold text-white">
+                                                <p className="text-lg text-white">
                                                     {order.totalPrice.toFixed(2)} {order.currency}
                                                 </p>
                                             </div>
@@ -227,11 +227,11 @@ export function Orders() {
                                                                 {item.title}
                                                             </h4>
                                                             {item.variant && (
-                                                                <p className="text-sm text-muted">
+                                                                <p className="text-base text-muted">
                                                                     {item.variant}
                                                                 </p>
                                                             )}
-                                                            <p className="text-sm text-muted">
+                                                            <p className="text-base text-muted">
                                                                 Ilość: {item.quantity}
                                                             </p>
                                                         </div>
@@ -242,7 +242,7 @@ export function Orders() {
                                             {/* Shipping info */}
                                             {order.shippingAddress && (
                                                 <div className="pt-4 border-t border-white/10">
-                                                    <p className="text-sm text-muted">
+                                                    <p className="text-base text-muted">
                                                         Dostawa: {order.shippingAddress.city}, {order.shippingAddress.zip}
                                                     </p>
                                                 </div>

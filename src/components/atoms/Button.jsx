@@ -21,7 +21,7 @@ export function Button({
         primary:
             'bg-cta text-white hover:bg-cta-hover shadow-md hover:shadow-lg',
         secondary:
-            'bg-white/5 border border-white/15 hover:bg-white/10 text-white',
+            'bg-white/5 hover:bg-white/10 text-white',
         ghost:
             'bg-transparent text-accent hover:bg-accent/10 border border-accent/30',
         success:

@@ -57,10 +57,10 @@ export function HeroReviews() {
                     headerVisible ? scrollAnimations.pourDown.visible : scrollAnimations.pourDown.hidden
                 }`}
             >
-                <h3 className="text-2xl sm:text-3xl font-bold text-white mb-2">
+                <h3 className="text-2xl sm:text-3xl text-white mb-2">
                     Co mówią o nas
                 </h3>
-                <p className="text-white/60 text-sm sm:text-base">
+                <p className="text-white/60 text-base">
                     Opinie naszych gości
                 </p>
             </div>
@@ -95,27 +95,27 @@ export function HeroReviews() {
                                             <FaStar key={i} />
                                         ))}
                                     </div>
-                                    <span className="text-white font-bold text-xl">{review.rating}</span>
+                                    <span className="text-white text-xl">{review.rating}</span>
                                 </div>
                             ) : review.badge ? (
                                 <div className="mb-2">
-                                    <span className="text-yellow-400 font-bold text-3xl">{review.badge}</span>
+                                    <span className="text-yellow-400 text-3xl">{review.badge}</span>
                                 </div>
                             ) : (
                                 <div className="flex items-center gap-2 mb-2">
-                                    <span className="text-white font-bold text-2xl">{review.rating}</span>
+                                    <span className="text-white text-2xl">{review.rating}</span>
                                 </div>
                             )}
 
                             {/* Count / Subtitle */}
-                            <p className="text-white/70 text-sm mb-3">
+                            <p className="text-white/70 text-base mb-3">
                                 {review.count ? `${review.count} ${review.label || 'opinii'}` : review.subtitle}
                             </p>
 
                             {/* Platform with icon */}
                             <div className="flex items-center gap-2 pt-2 border-t border-white/10">
                                 <Icon className={`${review.iconColor} text-lg`} />
-                                <p className="text-white/50 text-xs font-medium">
+                                <p className="text-white/50 text-sm font-medium">
                                     {review.platform}
                                 </p>
                             </div>
@@ -135,7 +135,7 @@ export function HeroReviews() {
                     &quot;The best coffee in Czestochowa. Great quality coffee.
                     The flat white was amazing.&quot;
                 </blockquote>
-                <p className="text-white/50 text-sm text-center mt-3">
+                <p className="text-white/50 text-base text-center mt-3">
                     — TripAdvisor Review
                 </p>
             </div>

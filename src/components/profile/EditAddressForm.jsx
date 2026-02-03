@@ -83,7 +83,7 @@ export function EditAddressForm({ initialAddress = null, initialPhone = '' }) {
                 <div className="flex items-center justify-between mb-6 pb-4 border-b border-white/10">
                     <div className="flex items-center gap-3">
                         <FaMapMarkerAlt className="w-5 h-5 text-accent" />
-                        <h2 className="text-xl font-semibold text-white">
+                        <h2 className="text-xl text-white">
                             Adres i kontakt
                         </h2>
                     </div>
@@ -147,7 +147,7 @@ export function EditAddressForm({ initialAddress = null, initialPhone = '' }) {
         <div className="bg-primary-light  p-6">
             <div className="flex items-center gap-3 mb-6 pb-4 border-b border-white/10">
                 <FaMapMarkerAlt className="w-5 h-5 text-accent" />
-                <h2 className="text-xl font-semibold text-white">
+                <h2 className="text-xl text-white">
                     Edytuj adres i kontakt
                 </h2>
             </div>
@@ -171,7 +171,7 @@ export function EditAddressForm({ initialAddress = null, initialPhone = '' }) {
 
                 {/* Telefon */}
                 <div>
-                    <label htmlFor="phone" className="block text-sm font-semibold text-muted mb-2">
+                    <label htmlFor="phone" className="block text-sm font-medium text-muted mb-2">
                         Telefon
                     </label>
                     <input
@@ -187,7 +187,7 @@ export function EditAddressForm({ initialAddress = null, initialPhone = '' }) {
 
                 {/* Ulica */}
                 <div>
-                    <label htmlFor="address1" className="block text-sm font-semibold text-muted mb-2">
+                    <label htmlFor="address1" className="block text-sm font-medium text-muted mb-2">
                         Ulica i numer
                     </label>
                     <input
@@ -203,7 +203,7 @@ export function EditAddressForm({ initialAddress = null, initialPhone = '' }) {
 
                 {/* Mieszkanie (opcjonalne) */}
                 <div>
-                    <label htmlFor="address2" className="block text-sm font-semibold text-muted mb-2">
+                    <label htmlFor="address2" className="block text-sm font-medium text-muted mb-2">
                         Mieszkanie <span className="text-xs text-muted/70">(opcjonalnie)</span>
                     </label>
                     <input
@@ -220,7 +220,7 @@ export function EditAddressForm({ initialAddress = null, initialPhone = '' }) {
                 {/* Miasto i Kod pocztowy */}
                 <div className="grid grid-cols-2 gap-4">
                     <div>
-                        <label htmlFor="zip" className="block text-sm font-semibold text-muted mb-2">
+                        <label htmlFor="zip" className="block text-sm font-medium text-muted mb-2">
                             Kod pocztowy
                         </label>
                         <input
@@ -234,7 +234,7 @@ export function EditAddressForm({ initialAddress = null, initialPhone = '' }) {
                         />
                     </div>
                     <div>
-                        <label htmlFor="city" className="block text-sm font-semibold text-muted mb-2">
+                        <label htmlFor="city" className="block text-sm font-medium text-muted mb-2">
                             Miasto
                         </label>
                         <input

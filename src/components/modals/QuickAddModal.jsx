@@ -167,7 +167,7 @@ export function QuickAddModal({ coffee, isOpen, onClose, onAddToCart }) {
                             {/* Gramatura */}
                             {gramaturaOptions.length > 0 && (
                                 <div>
-                                    <label className="block text-sm font-semibold text-white mb-2">
+                                    <label className="block text-base font-medium text-white mb-2">
                                         Gramatura
                                     </label>
                                     <div className="flex gap-2">
@@ -181,7 +181,7 @@ export function QuickAddModal({ coffee, isOpen, onClose, onAddToCart }) {
                                                     disabled={!available}
                                                     className={`
                                                         ${gramaturaOptions.length === 1 ? 'inline-flex' : 'flex-1'}
-                                                        px-5 py-2.5 text-sm font-medium
+                                                        px-5 py-2.5 text-base font-medium
                                                         transition-all duration-200
                                                         rounded-full
                                                         ${!available
@@ -203,7 +203,7 @@ export function QuickAddModal({ coffee, isOpen, onClose, onAddToCart }) {
                             {/* Sposób przygotowania */}
                             {typOptions.length > 1 && (
                                 <div>
-                                    <label className="block text-sm font-semibold text-white mb-2">
+                                    <label className="block text-base font-medium text-white mb-2">
                                         Sposób przygotowania
                                     </label>
                                     <div className="flex gap-2">
@@ -217,7 +217,7 @@ export function QuickAddModal({ coffee, isOpen, onClose, onAddToCart }) {
                                                     disabled={!available}
                                                     className={`
                                                         flex-1
-                                                        px-5 py-2.5 text-sm font-medium
+                                                        px-5 py-2.5 text-base font-medium
                                                         transition-all duration-200
                                                         rounded-full
                                                         ${!available
@@ -239,7 +239,7 @@ export function QuickAddModal({ coffee, isOpen, onClose, onAddToCart }) {
                             {/* Sposób mielenia - tylko gdy wybrana "Mielona" */}
                             {selectedTyp === 'Mielona' && (
                                 <div>
-                                    <label className="block text-sm font-semibold text-white mb-2">
+                                    <label className="block text-base font-medium text-white mb-2">
                                         Sposób mielenia
                                     </label>
                                     <div className="flex gap-2">
@@ -249,7 +249,7 @@ export function QuickAddModal({ coffee, isOpen, onClose, onAddToCart }) {
                                                 onClick={() => setGrindMethod(value)}
                                                 className={`
                                                     flex-1
-                                                    px-5 py-2.5 text-sm font-medium
+                                                    px-5 py-2.5 text-base font-medium
                                                     transition-all duration-200
                                                     rounded-full
                                                     ${grindMethod === value
@@ -267,7 +267,7 @@ export function QuickAddModal({ coffee, isOpen, onClose, onAddToCart }) {
 
                             {/* Liczba */}
                             <div>
-                                <label className="block text-sm font-semibold text-white mb-2">
+                                <label className="block text-base font-medium text-white mb-2">
                                     Liczba
                                 </label>
                                 <QuantitySelector
@@ -284,7 +284,7 @@ export function QuickAddModal({ coffee, isOpen, onClose, onAddToCart }) {
                             {!isAvailable && (
                                 <div className="flex items-center gap-2 p-3 bg-red-500/10 border border-red-500/30 text-red-300 rounded-lg">
                                     <FaExclamationCircle className="w-4 h-4 flex-shrink-0" />
-                                    <p className="text-sm">
+                                    <p className="text-base">
                                         Ten wariant jest obecnie niedostępny
                                     </p>
                                 </div>
@@ -299,7 +299,7 @@ export function QuickAddModal({ coffee, isOpen, onClose, onAddToCart }) {
                         <div className="border-t border-accent/20 pt-3">
                             <div className="flex justify-between items-center">
                                 <span className="text-white font-medium">Razem:</span>
-                                <span className="text-xl font-bold text-white">
+                                <span className="text-xl text-white">
                                     {isAvailable ? `${totalPrice} zł` : 'Niedostępne'}
                                 </span>
                             </div>

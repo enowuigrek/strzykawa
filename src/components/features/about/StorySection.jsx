@@ -75,7 +75,7 @@ export function StorySection() {
 
                     <div className="bg-gradient-to-r from-primary-light/20 to-primary/30 border border-white/10 p-8">
                         <p className="text-xl text-white font-medium leading-relaxed">
-                            Tu nie chodziło tylko o kawę – <span className="text-accent font-bold">to miejsce, w którym ludzie się poznawali,
+                            Tu nie chodziło tylko o kawę – <span className="text-accent font-medium">to miejsce, w którym ludzie się poznawali,
                             rodziły się znajomości i powstawała społeczność</span>. Strzykawa stała się czymś więcej niż kawiarnią –
                             miejscem spotkań i wymiany myśli.
                         </p>
@@ -115,7 +115,7 @@ export function StorySection() {
                     </div>
 
                     <div className="bg-gradient-to-r from-muted/10 to-accent/10 border border-white/10 p-8">
-                        <h3 className="text-xl font-bold text-white mb-4">Nasza filozofia</h3>
+                        <h3 className="text-xl text-white mb-4">Nasza filozofia</h3>
                         <p className="text-white/90 leading-relaxed">
                             Każde ziarno ma swoją historię. Od farmy przez palarnię aż do Twojej filiżanki.
                             Dbamy o każdy etap tej podróży, żeby kawa nie była tylko napojem, ale doświadczeniem.

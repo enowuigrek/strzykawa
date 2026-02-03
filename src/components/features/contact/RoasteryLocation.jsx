@@ -14,7 +14,7 @@ export function RoasteryLocation() {
                 {/*    /!*<FaFire className="w-6 h-6 text-muted" />*!/*/}
                 {/*</div>*/}
                 <div>
-                    <h3 className="text-2xl font-bold text-white">Palarnia</h3>
+                    <h3 className="text-2xl text-white">Palarnia</h3>
                 </div>
             </div>
 
@@ -23,14 +23,14 @@ export function RoasteryLocation() {
                 <div className="flex items-start gap-3">
                     <FaMapMarkerAlt className="w-4 h-4 text-muted mt-1 flex-shrink-0" />
                     <div className="flex-1">
-                        <div className="font-semibold text-white">ul. Mstowska 1C</div>
+                        <div className="font-medium text-white">ul. Mstowska 1C</div>
                         <div className="text-muted">42-242 Rędziny</div>
                     </div>
                 </div>
 
                 {/* Info o palarni */}
                 <div className="space-y-3">
-                    <p className="text-sm text-white/80">
+                    <p className="text-base text-white/80">
                         W palarni organizujemy wydarzenia i spotkania. Śledź nasze media społecznościowe, aby być na bieżąco.
                     </p>
 

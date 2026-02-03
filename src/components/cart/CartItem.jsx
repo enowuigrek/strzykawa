@@ -46,7 +46,7 @@ export function CartItem({ item, onUpdateQuantity, onRemove, isLoading }) {
                 />
 
                 <div className="flex-1 min-w-0">
-                    <h4 className="font-semibold text-white truncate">{product.name}</h4>
+                    <h4 className="text-white truncate">{product.name}</h4>
 
                     {/* Variant pills - ciemny zielony jak na przykładzie */}
                     {(item.selectedOptions?.length > 0 || item.grindMethod) && (
@@ -59,7 +59,7 @@ export function CartItem({ item, onUpdateQuantity, onRemove, isLoading }) {
                                 return (
                                     <span
                                         key={option.name}
-                                        className="inline-flex items-center px-3 py-1 bg-[#3A5F55] text-white text-xs font-medium rounded-full"
+                                        className="inline-flex items-center px-3 py-1 bg-[#3A5F55] text-white text-sm font-medium rounded-full"
                                     >
                                         {option.value}
                                     </span>
@@ -67,7 +67,7 @@ export function CartItem({ item, onUpdateQuantity, onRemove, isLoading }) {
                             })}
                             {item.grindMethod && (
                                 <span
-                                    className="inline-flex items-center px-3 py-1 bg-[#3A5F55] text-white text-xs font-medium rounded-full"
+                                    className="inline-flex items-center px-3 py-1 bg-[#3A5F55] text-white text-sm font-medium rounded-full"
                                 >
                                     Mielenie: {item.grindMethod}
                                 </span>
@@ -77,7 +77,7 @@ export function CartItem({ item, onUpdateQuantity, onRemove, isLoading }) {
 
                     {/* Tasting notes - z wielką literą na początku */}
                     {product.tastingNotes?.length > 0 && (
-                        <p className="text-xs text-muted/80 truncate mt-1">
+                        <p className="text-sm text-muted/80 truncate mt-1">
                             {capitalizeFirst(product.tastingNotes)}
                         </p>
                     )}
@@ -97,7 +97,7 @@ export function CartItem({ item, onUpdateQuantity, onRemove, isLoading }) {
 
                 {/* Price + Remove */}
                 <div className="flex items-center gap-3">
-                    <span className="font-semibold text-white">
+                    <span className="text-white">
                         {(parseFloat(product.price) * quantity).toFixed(2)} zł
                     </span>
 

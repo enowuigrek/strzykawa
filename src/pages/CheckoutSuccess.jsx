@@ -43,10 +43,10 @@ export function CheckoutSuccess() {
                 {/* Order ID */}
                 {orderId && (
                     <div className="bg-primary-light border border-accent/20 p-4 mb-6">
-                        <p className="text-muted text-sm text-center mb-1">
+                        <p className="text-muted text-base text-center mb-1">
                             Numer zamówienia:
                         </p>
-                        <p className="text-white text-xl font-semibold text-center">
+                        <p className="text-white text-xl font-medium text-center">
                             #{orderId}
                         </p>
                     </div>
@@ -60,10 +60,10 @@ export function CheckoutSuccess() {
                             <FaEnvelope className="w-5 h-5 text-accent" />
                         </div>
                         <div className="flex-1">
-                            <h3 className="text-white font-semibold mb-1">
+                            <h3 className="text-white font-medium mb-1">
                                 Potwierdzenie wysłane
                             </h3>
-                            <p className="text-muted text-sm">
+                            <p className="text-muted text-base">
                                 Potwierdzenie zamówienia zostało wysłane na Twój adres e-mail. Sprawdź skrzynkę odbiorczą (i folder spam).
                             </p>
                         </div>
@@ -75,10 +75,10 @@ export function CheckoutSuccess() {
                             <FaTruck className="w-5 h-5 text-accent" />
                         </div>
                         <div className="flex-1">
-                            <h3 className="text-white font-semibold mb-1">
+                            <h3 className="text-white font-medium mb-1">
                                 Wysyłka zamówienia
                             </h3>
-                            <p className="text-muted text-sm">
+                            <p className="text-muted text-base">
                                 Twoje zamówienie zostanie wysłane w ciągu 1-2 dni roboczych. Numer przesyłki otrzymasz w osobnej wiadomości e-mail.
                             </p>
                         </div>
@@ -100,7 +100,7 @@ export function CheckoutSuccess() {
 
                 {/* Additional info */}
                 <div className="mt-8 text-center">
-                    <p className="text-muted text-sm">
+                    <p className="text-muted text-base">
                         Masz pytania? <a href="mailto:kontakt@strzykawa.pl" className="text-accent hover:text-accent/80 underline">Skontaktuj się z nami</a>
                     </p>
                 </div>

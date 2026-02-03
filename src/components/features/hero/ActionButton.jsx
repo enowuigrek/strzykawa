@@ -8,7 +8,7 @@ export function ActionButton({ href, icon: Icon, text }) {
         >
             <div className="flex items-center space-x-3">
                 <Icon className="w-5 h-5 text-white" />
-                <span className="text-white font-semibold text-lg">
+                <span className="text-white font-medium text-lg">
                     {text}
                 </span>
             </div>

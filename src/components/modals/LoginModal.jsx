@@ -64,7 +64,7 @@ const LoginModal = ({ isOpen, onClose, onSwitchToRegister }) => {
             <form onSubmit={handleSubmit}>
                 {/* Success Message */}
                 {success && (
-                    <div className="mb-4 p-3 bg-success/20 border border-success/30 rounded-lg text-green-300 text-sm flex items-center gap-2 animate-fadeIn">
+                    <div className="mb-4 p-3 bg-success/20 border border-success/30 rounded-lg text-green-300 text-base flex items-center gap-2 animate-fadeIn">
                         <FaCheckCircle className="w-4 h-4 flex-shrink-0" />
                         <span>{success}</span>
                     </div>
@@ -72,7 +72,7 @@ const LoginModal = ({ isOpen, onClose, onSwitchToRegister }) => {
 
                 {/* Error Message */}
                 {error && (
-                    <div className="mb-4 p-3 bg-red-500/20 border border-red-500/30 rounded-lg text-red-300 text-sm flex items-center gap-2 animate-fadeIn">
+                    <div className="mb-4 p-3 bg-red-500/20 border border-red-500/30 rounded-lg text-red-300 text-base flex items-center gap-2 animate-fadeIn">
                         <FaExclamationTriangle className="w-4 h-4 flex-shrink-0" />
                         <span>{error}</span>
                     </div>
@@ -80,7 +80,7 @@ const LoginModal = ({ isOpen, onClose, onSwitchToRegister }) => {
 
                 {/* Email Field */}
                 <div className="mb-4">
-                    <label htmlFor="email" className="block text-sm font-semibold text-muted mb-2">
+                    <label htmlFor="email" className="block text-base font-medium text-muted mb-2">
                         E-mail
                     </label>
                     <div className="relative">
@@ -101,7 +101,7 @@ const LoginModal = ({ isOpen, onClose, onSwitchToRegister }) => {
 
                 {/* Password Field */}
                 <div className="mb-6">
-                    <label htmlFor="password" className="block text-sm font-semibold text-muted mb-2">
+                    <label htmlFor="password" className="block text-base font-medium text-muted mb-2">
                         Hasło
                     </label>
                     <div className="relative">
@@ -128,7 +128,7 @@ const LoginModal = ({ isOpen, onClose, onSwitchToRegister }) => {
 
                     {/* Password Help Info */}
                     <div className="text-right mt-2">
-                        <p className="text-xs text-muted">
+                        <p className="text-sm text-muted">
                             Problem z logowaniem?{' '}
                             <a
                                 href="mailto:kontakt@strzykawa.pl?subject=Problem%20z%20logowaniem&body=Witam,%0D%0A%0D%0AMam%20problem%20z%20logowaniem%20do%20konta.%0D%0A%0D%0AMój%20adres%20e-mail:%20"
@@ -155,12 +155,12 @@ const LoginModal = ({ isOpen, onClose, onSwitchToRegister }) => {
 
                 {/* Switch to Register */}
                 <div className="text-center">
-                    <p className="text-muted text-sm">
+                    <p className="text-muted text-base">
                         Nie masz konta?{' '}
                         <button
                             type="button"
                             onClick={onSwitchToRegister}
-                            className="text-accent hover:text-white transition-colors duration-300 font-semibold underline"
+                            className="text-accent hover:text-white transition-colors duration-300 font-medium underline"
                         >
                             Zarejestruj się
                         </button>

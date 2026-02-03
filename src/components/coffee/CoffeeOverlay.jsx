@@ -76,7 +76,7 @@ export function CoffeeOverlay({ coffee, isOpen }) {
     }
 
     if (coffee.tastingNotes && coffee.tastingNotes.length > 0) {
-        details.push({ label: 'Profil', value: capitalizeFirst(coffee.tastingNotes) });
+        details.push({ label: 'Profil smakowy', value: capitalizeFirst(coffee.tastingNotes), highlight: true });
     }
 
     return (
@@ -114,19 +114,17 @@ export function CoffeeOverlay({ coffee, isOpen }) {
                                 key={index}
                                 className="flex items-start gap-2"
                             >
-                                {/* Label - normalny font */}
-                                <dt className="text-base text-black font-bold shrink-0">
+                                <dt className={`text-base text-black font-bold shrink-0`}>
                                     {detail.label}:
                                 </dt>
-                                {/* Value - bold */}
-                                <dd className="text-base text-black">
+                                <dd className={`text-base text-black ${detail.highlight ? 'font-bold' : ''}`}>
                                     {detail.value}
                                 </dd>
                             </div>
                         ))}
                     </div>
                 ) : (
-                    <p className="text-sm text-black/70 text-center mt-4">
+                    <p className="text-base text-black/70 text-center mt-4">
                         Brak dodatkowych szczegółów
                     </p>
                 )}

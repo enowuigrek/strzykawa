@@ -21,7 +21,7 @@ export function ParametrSelector({
     const h = size === 'md' ? 'h-[32px]' : 'h-[26px]';
     const pxForm  = size === 'md' ? 'px-3'   : 'px-2.5';
     const pxWeight= size === 'md' ? 'px-3.5' : 'px-3';
-    const textSm  = size === 'md' ? 'text-xs' : 'text-[11px]';
+    const textSm  = size === 'md' ? 'text-sm' : 'text-xs';
 
     const handleWeightChange = (weight) => {
         setSelectedWeight(weight);

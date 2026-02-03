@@ -10,7 +10,7 @@ export function CartFooter({ items, isLoading, totalPrice, onCheckout }) {
                 {/* Total */}
                 <div className="flex justify-between items-center mb-4">
                     <span className="text-lg sm:text-xl text-white">Suma:</span>
-                    <span className="text-xl sm:text-2xl font-semibold text-white">
+                    <span className="text-xl sm:text-2xl text-white">
                         {totalPrice} zł
                     </span>
                 </div>

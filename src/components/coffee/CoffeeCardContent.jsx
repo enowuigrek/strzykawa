@@ -49,11 +49,11 @@ export function CoffeeCardContent({ coffee }) {
                             return (
                                 <>
                                     {price.prefix && (
-                                        <span className="text-sm text-muted uppercase tracking-wide">
+                                        <span className="text-base text-muted">
                                             {price.prefix}
                                         </span>
                                     )}
-                                    <span className="text-xl md:text-2xl text-accent font-semibold">
+                                    <span className="text-xl md:text-2xl text-muted">
                                         {price.value} zł
                                     </span>
                                 </>

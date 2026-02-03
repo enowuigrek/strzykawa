@@ -40,13 +40,13 @@ export function FilterSection({
             {/* Section Header */}
             <div className="flex items-center justify-between mb-3">
                 <div className="flex items-center gap-2">
-                    <h3 className="text-white text-sm uppercase tracking-wide">
+                    <h3 className="text-white text-base uppercase tracking-wide">
                         {title}
                     </h3>
 
                     {/* Active count badge */}
                     {activeCount > 0 && (
-                        <span className="bg-accent/20 text-accent px-2 py-0.5 rounded-full text-xs">
+                        <span className="bg-accent/20 text-accent px-2 py-0.5 rounded-full text-sm">
                             {activeCount}
                         </span>
                     )}
@@ -75,7 +75,7 @@ export function FilterSection({
             {(!collapsible || isOpen) && (
                 <div className={layoutClasses[layout]}>
                     {options.length === 0 ? (
-                        <p className="text-muted text-sm italic">Brak opcji</p>
+                        <p className="text-muted text-base italic">Brak opcji</p>
                     ) : (
                         options.map((option) => (
                             <Chip
