@@ -6,7 +6,7 @@ import { useScrollZoom } from '../../hooks/useScrollZoom';
 import coffeePlaceholder from '../../assets/coffee-placeholder.jpg';
 
 export function CoffeeCardMedia({ coffee, overlayOpen, onToggleOverlay }) {
-    const { ref: zoomRef, scale } = useScrollZoom({ maxScale: 1.15, minScale: 1.0 });
+    const { ref: zoomRef, scale } = useScrollZoom({ maxScale: 1.10, minScale: 1.0 });
 
     const getRoastTypeDisplay = (roastType) => {
         const mapping = { Filter: 'Przelew', Espresso: 'Espresso' };
