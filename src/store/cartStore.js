@@ -66,9 +66,26 @@ export const useCartStore = create(
                 });
             },
 
-            // Add item to cart
+            // Add item to cart (with auto-recovery for expired carts)
             addItem: async (product, variantId, quantity = 1, grindMethod = null) => {
                 set({ isLoading: true, error: null });
+
+                const buildLines = () => {
+                    const attributes = [
+                        { key: 'product_name', value: product.name },
+                        { key: 'roast_level', value: product.roastLevel || '' },
+                    ];
+
+                    if (grindMethod) {
+                        attributes.push({ key: 'grind_method', value: grindMethod });
+                    }
+
+                    return [{
+                        merchandiseId: variantId,
+                        quantity: quantity,
+                        attributes: attributes
+                    }];
+                };
 
                 try {
                     await get().initializeCart();
@@ -78,23 +95,18 @@ export const useCartStore = create(
                         throw new Error('Brak koszyka');
                     }
 
-                    const attributes = [
-                        { key: 'product_name', value: product.name },
-                        { key: 'roast_level', value: product.roastLevel || '' },
-                    ];
+                    const lines = buildLines();
 
-                    // Dodaj grind_method tylko jeśli został wybrany
-                    if (grindMethod) {
-                        attributes.push({ key: 'grind_method', value: grindMethod });
+                    let updatedCart;
+                    try {
+                        updatedCart = await shopify.addToCart(cart.id, lines);
+                    } catch (cartError) {
+                        // Koszyk wygasł na Shopify - tworzymy nowy i próbujemy ponownie
+                        logger.warn('Cart expired, creating new cart...', cartError);
+                        const newCart = await shopify.createCart();
+                        set({ cart: newCart, status: 'idle' });
+                        updatedCart = await shopify.addToCart(newCart.id, lines);
                     }
-
-                    const lines = [{
-                        merchandiseId: variantId,
-                        quantity: quantity,
-                        attributes: attributes
-                    }];
-
-                    const updatedCart = await shopify.addToCart(cart.id, lines);
 
                     set({
                         cart: updatedCart,
