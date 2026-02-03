@@ -134,7 +134,7 @@ export function MobileCarousel({ images, className = "", showCounter = true, asp
             {/* Carousel container */}
             <div
                 ref={containerRef}
-                className="relative w-full overflow-hidden bg-primary-light border border-white/10 select-none"
+                className="relative w-full overflow-hidden bg-primary-light select-none"
                 style={{ aspectRatio, touchAction: 'pan-y' }}
                 onTouchStart={handleDragStart}
                 onTouchMove={handleDragMove}

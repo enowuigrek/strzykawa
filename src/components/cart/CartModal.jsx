@@ -105,6 +105,7 @@ export function CartModal({ isOpen, onClose }) {
                     isLoading={isLoading}
                     onUpdateQuantity={updateQuantity}
                     onRemove={removeItem}
+                    onCloseCart={onClose}
                 />
 
                 {/* Shipping Progress - na dole zawartości, przed footrem */}

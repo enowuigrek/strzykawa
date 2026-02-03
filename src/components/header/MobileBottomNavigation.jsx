@@ -14,7 +14,8 @@ export function MobileBottomNavigation({
                                            onOpenLogin,
                                            onCloseLogin,
                                            onCloseMobileMenu,
-                                           onLogout
+                                           onLogout,
+                                           cartBouncing
                                        }) {
     const [isVisible, setIsVisible] = useState(false);
     const [hasScrolled, setHasScrolled] = useState(false);
@@ -163,6 +164,7 @@ export function MobileBottomNavigation({
                         <div
                             className={`
                                 relative flex items-center justify-center w-11 h-11 rounded-full border border-white/15 transition-all duration-300
+                                ${cartBouncing ? 'animate-cart-bounce' : ''}
                                 ${isCartOpen
                                 ? 'bg-cta shadow-md'
                                 : cartItemsCount > 0
@@ -173,7 +175,7 @@ export function MobileBottomNavigation({
                         >
                             <FaShoppingCart className="w-6 h-6" />
                             {cartItemsCount > 0 && !isCartOpen && (
-                                <span className="absolute -top-1.5 -right-1.5 bg-success text-white text-[9px] w-4 h-4 rounded-full flex items-center justify-center font-bold shadow-md">
+                                <span className={`absolute -top-1.5 -right-1.5 bg-success text-white text-[9px] w-4 h-4 rounded-full flex items-center justify-center font-bold shadow-md ${cartBouncing ? 'animate-cart-bounce' : ''}`}>
                                     {cartItemsCount}
                                 </span>
                             )}

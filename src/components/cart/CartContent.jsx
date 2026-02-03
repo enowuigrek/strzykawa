@@ -2,7 +2,7 @@ import React from 'react';
 import { FaShoppingCart } from 'react-icons/fa';
 import { CartItem } from './CartItem';
 
-export function CartContent({ items, isLoading, onUpdateQuantity, onRemove }) {
+export function CartContent({ items, isLoading, onUpdateQuantity, onRemove, onCloseCart }) {
     return (
         <div className="flex-1 overflow-y-auto min-h-0">
             <div className="container mx-auto px-4 sm:px-6 lg:px-8 pb-6">
@@ -24,6 +24,7 @@ export function CartContent({ items, isLoading, onUpdateQuantity, onRemove }) {
                                 onUpdateQuantity={onUpdateQuantity}
                                 onRemove={onRemove}
                                 isLoading={isLoading}
+                                onCloseCart={onCloseCart}
                             />
                         ))}
                     </div>

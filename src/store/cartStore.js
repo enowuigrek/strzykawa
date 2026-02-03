@@ -49,6 +49,7 @@ export const useCartStore = create(
                         lineItemId: line.id,
                         product: {
                             id: variant.product.id,
+                            handle: variant.product.handle,
                             name: variant.product.title,
                             roastLevel: line.attributes?.find(attr => attr.key === 'roast_level')?.value || '',
                             tastingNotes: [],
@@ -101,8 +102,8 @@ export const useCartStore = create(
                         isLoading: false
                     });
 
-                    // Auto-otwórz koszyk po dodaniu produktu
-                    window.dispatchEvent(new CustomEvent('openCart'));
+                    // Animacja bounce na ikonce koszyka (nie otwieramy koszyka)
+                    window.dispatchEvent(new CustomEvent('cartBounce'));
 
                 } catch (error) {
                     logger.error('Error adding to cart:', error);

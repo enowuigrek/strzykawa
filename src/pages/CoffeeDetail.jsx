@@ -77,8 +77,7 @@ export function CoffeeDetail() {
         try {
             setAddingToCart(true);
             await addItem(coffee, selectedVariant.id, quantity, grindMethod);
-            // Otwórz koszyk po dodaniu produktu
-            window.dispatchEvent(new CustomEvent('openCart'));
+            // cartStore dispatches 'cartBounce' event automatically
         } catch (err) {
             logger.error('Error adding to cart:', err);
             alert('Nie udało się dodać do koszyka');

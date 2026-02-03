@@ -104,7 +104,7 @@ export function ProductGallery({
                         showCounter={true}
                     />
                 ) : (
-                    <div className="aspect-square bg-primary-light border border-white/10 overflow-hidden">
+                    <div className="aspect-square bg-primary-light overflow-hidden">
                         <img
                             src={images[0]}
                             alt={coffeeName}
@@ -117,7 +117,7 @@ export function ProductGallery({
             {/* Desktop - Gallery with arrows */}
             <div className="hidden md:block space-y-4">
                 {/* Main Image with arrows */}
-                <div className="relative aspect-square bg-primary-light border border-white/10 overflow-hidden group">
+                <div className="relative aspect-square bg-primary-light overflow-hidden group">
                     <img
                         key={selectedImageIndex}
                         src={currentImage}

@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { useNavigate } from 'react-router-dom';
 import { FaTrash } from 'react-icons/fa';
 import { QuantitySelector } from '../atoms/QuantitySelector';
 
@@ -20,9 +21,11 @@ const capitalizeFirst = (items) => {
  * - Zmniejszony QuantitySelector (size="sm")
  * - Ciemniejsze zielone pastylki (jak na przykładzie)
  * - Biały tekst na ciemnym tle
+ * - Klikalne zdjęcie i nazwa (przejście do produktu)
  */
-export function CartItem({ item, onUpdateQuantity, onRemove, isLoading }) {
+export function CartItem({ item, onUpdateQuantity, onRemove, isLoading, onCloseCart }) {
     const { product, quantity, lineItemId } = item;
+    const navigate = useNavigate();
 
     const handleQuantityChange = (newQuantity) => {
         if (newQuantity === 0) {
@@ -34,19 +37,34 @@ export function CartItem({ item, onUpdateQuantity, onRemove, isLoading }) {
 
     const handleRemove = () => onRemove(lineItemId);
 
+    const handleNavigateToProduct = () => {
+        if (product.handle) {
+            if (onCloseCart) onCloseCart();
+            navigate(`/kawy/${product.handle}`);
+        }
+    };
+
+    const isClickable = !!product.handle;
+
     return (
         <div className="bg-primary-light/40 px-4 py-3 lg:px-5 lg:py-4 mt-6">
             {/* Product row */}
             <div className="flex gap-4">
-                {/* Image (sharp, no rounding) */}
+                {/* Image (sharp, no rounding) - clickable */}
                 <img
                     src={product.image}
                     alt={product.name}
-                    className="w-16 h-16 object-cover bg-primary-dark/70 border border-white/10"
+                    onClick={handleNavigateToProduct}
+                    className={`w-16 h-16 object-cover bg-primary-dark/70 border border-white/10 ${isClickable ? 'cursor-pointer hover:opacity-80 transition-opacity duration-200' : ''}`}
                 />
 
                 <div className="flex-1 min-w-0">
-                    <h4 className="text-white truncate">{product.name}</h4>
+                    <h4
+                        onClick={handleNavigateToProduct}
+                        className={`text-white truncate ${isClickable ? 'cursor-pointer hover:text-accent transition-colors duration-200' : ''}`}
+                    >
+                        {product.name}
+                    </h4>
 
                     {/* Variant pills - ciemny zielony jak na przykładzie */}
                     {(item.selectedOptions?.length > 0 || item.grindMethod) && (
@@ -121,6 +139,7 @@ CartItem.propTypes = {
         lineItemId: PropTypes.string.isRequired,
         product: PropTypes.shape({
             name: PropTypes.string.isRequired,
+            handle: PropTypes.string,
             image: PropTypes.string,
             price: PropTypes.number.isRequired,
             tastingNotes: PropTypes.arrayOf(PropTypes.string),
@@ -136,4 +155,5 @@ CartItem.propTypes = {
     onUpdateQuantity: PropTypes.func.isRequired,
     onRemove: PropTypes.func.isRequired,
     isLoading: PropTypes.bool,
+    onCloseCart: PropTypes.func,
 };

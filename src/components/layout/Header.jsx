@@ -21,6 +21,7 @@ export function Header() {
     const [showCartModal, setShowCartModal] = useState(false);
     const [showQuickAddModal, setShowQuickAddModal] = useState(false);
     const [quickAddCoffee, setQuickAddCoffee] = useState(null);
+    const [cartBouncing, setCartBouncing] = useState(false);
 
     // ========== STORES ==========
     const { logout } = useAuthStore();
@@ -84,6 +85,17 @@ export function Header() {
 
         window.addEventListener('openCart', handleOpenCart);
         return () => window.removeEventListener('openCart', handleOpenCart);
+    }, []);
+
+    // ========== CART BOUNCE ANIMATION EVENT ==========
+    useEffect(() => {
+        const handleCartBounce = () => {
+            setCartBouncing(true);
+            setTimeout(() => setCartBouncing(false), 800);
+        };
+
+        window.addEventListener('cartBounce', handleCartBounce);
+        return () => window.removeEventListener('cartBounce', handleCartBounce);
     }, []);
 
     // ========== GLOBAL QUICK ADD OPEN EVENT ==========
@@ -243,6 +255,7 @@ export function Header() {
                                 cartItemsCount={getTotalItems()}
                                 onOpenCart={modalActions.openCart}
                                 onOpenLogin={modalActions.openLogin}
+                                cartBouncing={cartBouncing}
                             />
                         </div>
                     </div>
@@ -273,6 +286,7 @@ export function Header() {
                 onCloseLogin={modalActions.closeLogin}
                 onCloseMobileMenu={closeMobileMenu}
                 onLogout={handleLogout}
+                cartBouncing={cartBouncing}
             />
 
             {/* Modals */}
