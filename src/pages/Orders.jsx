@@ -119,7 +119,7 @@ export function Orders() {
                             Nie masz jeszcze żadnych zamówień
                         </h3>
                         <p className="text-muted mb-6">
-                            Czas na pierwszą kawę ze Strzykawa!
+                            Czas na pierwsze zamówienie ze Strzykawy!
                         </p>
                         <button
                             onClick={() => navigate('/kawy')}

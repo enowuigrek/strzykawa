@@ -29,11 +29,11 @@ export function CustomerDataForm({ customerData, errors, onChange, isAuthenticat
                     disabled={isAuthenticated}
                     className={`
                         w-full px-4 py-3
-                        bg-primary border
+                        bg-primary
                         text-white placeholder-muted
                         focus:outline-none focus:ring-2 focus:ring-accent
                         disabled:opacity-50 disabled:cursor-not-allowed
-                        ${errors.email ? 'border-danger' : 'border-accent/30'}
+                        ${errors.email ? 'border border-danger' : ''}
                     `}
                     placeholder="twoj@email.pl"
                 />
@@ -54,10 +54,10 @@ export function CustomerDataForm({ customerData, errors, onChange, isAuthenticat
                     onChange={(e) => handleChange('phone', e.target.value)}
                     className={`
                         w-full px-4 py-3
-                        bg-primary border
+                        bg-primary
                         text-white placeholder-muted
                         focus:outline-none focus:ring-2 focus:ring-accent
-                        ${errors.phone ? 'border-danger' : 'border-accent/30'}
+                        ${errors.phone ? 'border border-danger' : ''}
                     `}
                     placeholder="123 456 789"
                 />
@@ -79,11 +79,11 @@ export function CustomerDataForm({ customerData, errors, onChange, isAuthenticat
                     disabled={isAuthenticated}
                     className={`
                         w-full px-4 py-3
-                        bg-primary border
+                        bg-primary
                         text-white placeholder-muted
                         focus:outline-none focus:ring-2 focus:ring-accent
                         disabled:opacity-50 disabled:cursor-not-allowed
-                        ${errors.firstName ? 'border-danger' : 'border-accent/30'}
+                        ${errors.firstName ? 'border border-danger' : ''}
                     `}
                     placeholder="Jan"
                 />
@@ -105,11 +105,11 @@ export function CustomerDataForm({ customerData, errors, onChange, isAuthenticat
                     disabled={isAuthenticated}
                     className={`
                         w-full px-4 py-3
-                        bg-primary border
+                        bg-primary
                         text-white placeholder-muted
                         focus:outline-none focus:ring-2 focus:ring-accent
                         disabled:opacity-50 disabled:cursor-not-allowed
-                        ${errors.lastName ? 'border-danger' : 'border-accent/30'}
+                        ${errors.lastName ? 'border border-danger' : ''}
                     `}
                     placeholder="Kowalski"
                 />

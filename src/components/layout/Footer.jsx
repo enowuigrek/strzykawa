@@ -170,7 +170,7 @@ export function Footer() {
             {/* Bottom bar */}
             <div className="relative z-10 border-t border-white/10 bg-black/95">
                 <div className="container mx-auto px-4 py-6">
-                    <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 md:gap-6 text-lg text-white/70">
+                    <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-3 md:gap-4 text-sm text-white/70">
                         {/* Copyright */}
                         <div className="text-accent text-left">
                             © {currentYear} Strzykawa. Wszystkie prawa zastrzeżone.
@@ -192,10 +192,10 @@ export function Footer() {
 
                             <div className="flex items-center gap-2 text-white/70">
                                 <span className="text-white/60 hidden md:inline">Technologie:</span>
-                                <div className="flex items-center gap-1.5">
-                                    <SiReact className="w-5 h-5 hover:text-[#61DAFB] transition-colors duration-300" />
-                                    <SiShopify className="w-5 h-5 hover:text-[#95BF47] transition-colors duration-300" />
-                                    <BiCoffeeTogo className="w-5 h-5 hover:text-[#7B4B2A] transition-colors duration-300" />
+                                <div className="flex items-center gap-1">
+                                    <SiReact className="w-4 h-4 hover:text-[#61DAFB] transition-colors duration-300" />
+                                    <SiShopify className="w-4 h-4 hover:text-[#95BF47] transition-colors duration-300" />
+                                    <BiCoffeeTogo className="w-4 h-4 hover:text-[#7B4B2A] transition-colors duration-300" />
                                 </div>
                             </div>
                         </div>

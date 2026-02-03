@@ -26,10 +26,10 @@ export function AddressForm({ address, errors, onChange }) {
                     onChange={(e) => handleChange('street', e.target.value)}
                     className={`
                         w-full px-4 py-3
-                        bg-primary border
+                        bg-primary
                         text-white placeholder-muted
                         focus:outline-none focus:ring-2 focus:ring-accent
-                        ${errors.street ? 'border-danger' : 'border-accent/30'}
+                        ${errors.street ? 'border border-danger' : ''}
                     `}
                     placeholder="Krakowska"
                 />
@@ -49,10 +49,10 @@ export function AddressForm({ address, errors, onChange }) {
                         onChange={(e) => handleChange('buildingNumber', e.target.value)}
                         className={`
                             w-full px-4 py-3
-                            bg-primary border
+                            bg-primary
                             text-white placeholder-muted
                             focus:outline-none focus:ring-2 focus:ring-accent
-                            ${errors.buildingNumber ? 'border-danger' : 'border-accent/30'}
+                            ${errors.buildingNumber ? 'border border-danger' : ''}
                         `}
                         placeholder="12"
                     />
@@ -72,7 +72,7 @@ export function AddressForm({ address, errors, onChange }) {
                         onChange={(e) => handleChange('apartmentNumber', e.target.value)}
                         className="
                             w-full px-4 py-3
-                            bg-primary border border-accent/30 rounded-lg
+                            bg-primary
                             text-white placeholder-muted
                             focus:outline-none focus:ring-2 focus:ring-accent
                         "
@@ -94,10 +94,10 @@ export function AddressForm({ address, errors, onChange }) {
                         onChange={(e) => handleChange('postalCode', e.target.value)}
                         className={`
                             w-full px-4 py-3
-                            bg-primary border
+                            bg-primary
                             text-white placeholder-muted
                             focus:outline-none focus:ring-2 focus:ring-accent
-                            ${errors.postalCode ? 'border-danger' : 'border-accent/30'}
+                            ${errors.postalCode ? 'border border-danger' : ''}
                         `}
                         placeholder="00-000"
                     />
@@ -117,10 +117,10 @@ export function AddressForm({ address, errors, onChange }) {
                         onChange={(e) => handleChange('city', e.target.value)}
                         className={`
                             w-full px-4 py-3
-                            bg-primary border
+                            bg-primary
                             text-white placeholder-muted
                             focus:outline-none focus:ring-2 focus:ring-accent
-                            ${errors.city ? 'border-danger' : 'border-accent/30'}
+                            ${errors.city ? 'border border-danger' : ''}
                         `}
                         placeholder="Częstochowa"
                     />
@@ -140,7 +140,7 @@ export function AddressForm({ address, errors, onChange }) {
                     disabled
                     className="
                         w-full px-4 py-3
-                        bg-primary border border-accent/30 rounded-lg
+                        bg-primary
                         text-white placeholder-muted
                         opacity-50 cursor-not-allowed
                     "
