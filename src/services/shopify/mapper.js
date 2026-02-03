@@ -79,10 +79,14 @@ export function mapProduct(shopifyProduct) {
     const altitude = getMetafield(shopifyProduct, 'wysokosc') || '';
     const farm = getMetafield(shopifyProduct, 'farma') || '';
     const species = getMetafield(shopifyProduct, 'gatunek') || 'Arabica';
+    const producer = getMetafield(shopifyProduct, 'producent') || '';
 
-    // Map palenie: "Przelew" → "Filter", "Espresso" → "Espresso"
-    const roastTypeRaw = getMetafield(shopifyProduct, 'palenie') || 'Filter';
-    const roastType = roastTypeRaw === 'Przelew' ? 'Filter' : roastTypeRaw;
+    // Map przeznaczenie (custom metafield): "Przelew" → "Filter", "Espresso" → "Espresso"
+    // Może być lista (JSON array)
+    const roastTypeRaw = parseValue(getMetafield(shopifyProduct, 'przeznaczenie'));
+    const roastType = roastTypeRaw
+        ? (roastTypeRaw === 'Przelew' ? 'Filter' : roastTypeRaw)
+        : null;
 
     const roastLevel = getMetafield(shopifyProduct, 'stopien_palenia') || '';
 
@@ -96,6 +100,7 @@ export function mapProduct(shopifyProduct) {
             country: country,
             region: region,
             farm: farm,
+            producer: producer,
             variety: parseList(variety),
             altitudeMasl: altitude ? parseInt(altitude) : null,
             processing: processing,

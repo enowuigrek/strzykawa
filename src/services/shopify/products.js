@@ -47,7 +47,7 @@ const PRODUCT_FRAGMENT = `
         {namespace: "custom", key: "odmiana"}
         {namespace: "custom", key: "obrobka"}
         {namespace: "custom", key: "profil_smakowy"}
-        {namespace: "custom", key: "palenie"}
+        {namespace: "custom", key: "przeznaczenie"}
         {namespace: "custom", key: "stopien_palenia"}
         {namespace: "custom", key: "wysokosc"}
         {namespace: "custom", key: "farma"}

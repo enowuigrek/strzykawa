@@ -80,6 +80,14 @@ export function ProductMeta({ coffee }) {
         });
     }
 
+    // Producent
+    if (origin.producer) {
+        metaItems.push({
+            label: 'Producent',
+            value: origin.producer
+        });
+    }
+
     // Profil smakowy - z wielką literą na początku
     if (coffee.tastingNotes && coffee.tastingNotes.length > 0) {
         metaItems.push({

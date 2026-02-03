@@ -11,6 +11,7 @@ export function VariantSelector({
                                     onVariantChange,
                                     grindMethod = null,
                                     onGrindMethodChange = null,
+                                    roastType = null, // "Filter" (przelew) lub "Espresso"
                                     children = null // Slot dla dodatkowej zawartości w lewej kolumnie (np. Liczba)
                                 }) {
     if (!variants || variants.length === 0) {
@@ -29,19 +30,25 @@ export function VariantSelector({
         return Array.from(options);
     };
 
-    // Check if specific option is available
-    const isOptionAvailable = (optionName, optionValue) => {
-        return variants.some(v =>
-            v.availableForSale &&
-            v.selectedOptions?.find(opt => opt.name === optionName)?.value === optionValue
-        );
+    // Check if specific option is available (for current gramatura selection)
+    const isOptionAvailable = (optionName, optionValue, currentGramatura = null) => {
+        return variants.some(v => {
+            const matchesOption = v.selectedOptions?.find(opt => opt.name === optionName)?.value === optionValue;
+            // Jeśli sprawdzamy Forma kawy, musi pasować do aktualnej gramatury
+            if (optionName === 'Forma kawy' && currentGramatura) {
+                const matchesGramatura = v.selectedOptions?.find(opt => opt.name === 'Gramatura')?.value === currentGramatura;
+                return v.availableForSale && matchesOption && matchesGramatura;
+            }
+            return v.availableForSale && matchesOption;
+        });
     };
 
     const gramatura = extractOptions('Gramatura');
-    const typ = extractOptions('Typ').sort((a, b) => {
-        // Ziarna zawsze pierwsze, potem Mielona
-        if (a === 'Ziarna') return -1;
-        if (b === 'Ziarna') return 1;
+    // Shopify używa "Forma kawy" z wartościami "Całe ziarna" / "Mielona"
+    const typ = extractOptions('Forma kawy').sort((a, b) => {
+        // Całe ziarna zawsze pierwsze, potem Mielona
+        if (a === 'Całe ziarna') return -1;
+        if (b === 'Całe ziarna') return 1;
         return 0;
     });
 
@@ -51,14 +58,14 @@ export function VariantSelector({
     )?.value;
 
     const selectedTyp = selectedVariant?.selectedOptions?.find(
-        opt => opt.name === 'Typ'
+        opt => opt.name === 'Forma kawy'
     )?.value;
 
     // Find variant by selected options
     const findVariant = (gram, type) => {
         return variants.find(variant => {
             const variantGram = variant.selectedOptions?.find(opt => opt.name === 'Gramatura')?.value;
-            const variantType = variant.selectedOptions?.find(opt => opt.name === 'Typ')?.value;
+            const variantType = variant.selectedOptions?.find(opt => opt.name === 'Forma kawy')?.value;
 
             if (!type && typ.length === 0) {
                 return variantGram === gram;
@@ -126,17 +133,17 @@ export function VariantSelector({
 
             {/* PRAWA KOLUMNA: Sposób przygotowania + Sposób mielenia */}
             <div className="space-y-4">
-                {/* Sposób przygotowania */}
+                {/* Forma kawy */}
                 {typ.length > 1 && (
                     <div>
                         {/* Nagłówek zawsze na lewo */}
                         <label className="block text-sm text-white mb-2">
-                            Sposób przygotowania
+                            Forma kawy
                         </label>
                         {/* Przyciski zawsze grid 2 kolumny - obok siebie */}
                         <div className="grid grid-cols-2 gap-2">
                             {typ.map(value => {
-                                const available = isOptionAvailable('Typ', value);
+                                const available = isOptionAvailable('Forma kawy', value, selectedGramatura);
 
                                 return (
                                     <button
@@ -168,12 +175,20 @@ export function VariantSelector({
                         <label className="block text-sm text-white mb-2">
                             Sposób mielenia
                         </label>
-                        {/* Przyciski zawsze grid 2 kolumny - obok siebie */}
+                        {/* Opcje zależne od typu palenia */}
+                        {/* Espresso → ekspres, kawiarka */}
+                        {/* Filter/Przelew → drip, ekspres przelewowy */}
                         <div className="grid grid-cols-2 gap-2">
-                            {[
-                                { value: 'Ekspres', label: 'ekspres, kawiarka' },
-                                { value: 'Drip', label: 'drip, ekspres przelewowy' }
-                            ].map(({ value, label }) => (
+                            {(roastType === 'Espresso'
+                                ? [
+                                    { value: 'Ekspres', label: 'ekspres' },
+                                    { value: 'Kawiarka', label: 'kawiarka' }
+                                ]
+                                : [
+                                    { value: 'Drip', label: 'drip' },
+                                    { value: 'EkspresPrzelewowy', label: 'ekspres przelewowy' }
+                                ]
+                            ).map(({ value, label }) => (
                                 <button
                                     key={value}
                                     onClick={() => onGrindMethodChange(value)}

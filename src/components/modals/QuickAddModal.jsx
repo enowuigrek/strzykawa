@@ -22,13 +22,13 @@ export function QuickAddModal({ coffee, isOpen, onClose, onAddToCart }) {
         }
     }, [isOpen]);
 
-    // Set default variant when modal opens - prioritize "Ziarna" (whole beans)
+    // Set default variant when modal opens - prioritize "Całe ziarna" (whole beans)
     useEffect(() => {
         if (isOpen && coffee?.variants?.length > 0) {
-            // First try to find available "Ziarna" variant
+            // First try to find available "Całe ziarna" variant
             const ziarnaVariant = coffee.variants.find(v =>
                 v.availableForSale &&
-                v.selectedOptions?.some(opt => opt.name === 'Typ' && opt.value === 'Ziarna')
+                v.selectedOptions?.some(opt => opt.name === 'Forma kawy' && opt.value === 'Całe ziarna')
             );
 
             // If no "Ziarna" available, fall back to any available variant
@@ -60,10 +60,10 @@ export function QuickAddModal({ coffee, isOpen, onClose, onAddToCart }) {
     };
 
     const gramaturaOptions = extractAllOptions('Gramatura');
-    const typOptions = extractAllOptions('Typ').sort((a, b) => {
+    const typOptions = extractAllOptions('Forma kawy').sort((a, b) => {
         // Ziarna zawsze pierwsze, potem Mielona
-        if (a === 'Ziarna') return -1;
-        if (b === 'Ziarna') return 1;
+        if (a === 'Całe ziarna') return -1;
+        if (b === 'Całe ziarna') return 1;
         return 0;
     });
 
@@ -73,14 +73,14 @@ export function QuickAddModal({ coffee, isOpen, onClose, onAddToCart }) {
     )?.value;
 
     const selectedTyp = selectedVariant?.selectedOptions?.find(
-        opt => opt.name === 'Typ'
+        opt => opt.name === 'Forma kawy'
     )?.value;
 
     // Find variant by options
     const findVariant = (gram, type) => {
         return coffee.variants.find(variant => {
             const variantGram = variant.selectedOptions?.find(opt => opt.name === 'Gramatura')?.value;
-            const variantType = variant.selectedOptions?.find(opt => opt.name === 'Typ')?.value;
+            const variantType = variant.selectedOptions?.find(opt => opt.name === 'Forma kawy')?.value;
 
             if (!type && typOptions.length === 0) {
                 return variantGram === gram;

@@ -44,12 +44,12 @@ export function CoffeeDetail() {
                 }
 
                 setCoffee(product);
-                // Set default variant - prioritize "Ziarna" (whole beans)
+                // Set default variant - prioritize "Całe ziarna" (whole beans)
                 if (product.variants && product.variants.length > 0) {
-                    // First try to find available "Ziarna" variant
+                    // First try to find available "Całe ziarna" variant
                     const ziarnaVariant = product.variants.find(v =>
                         v.availableForSale &&
-                        v.selectedOptions?.some(opt => opt.name === 'Typ' && opt.value === 'Ziarna')
+                        v.selectedOptions?.some(opt => opt.name === 'Forma kawy' && opt.value === 'Całe ziarna')
                     );
 
                     // If no "Ziarna" available, fall back to any available variant
@@ -200,6 +200,7 @@ export function CoffeeDetail() {
                                 onVariantChange={setSelectedVariant}
                                 grindMethod={grindMethod}
                                 onGrindMethodChange={setGrindMethod}
+                                roastType={coffee.roastType}
                             >
                                 {/* Liczba - renderowana w lewej kolumnie pod Gramaturą */}
                                 <div>
