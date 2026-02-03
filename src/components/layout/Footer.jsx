@@ -97,7 +97,7 @@ export function Footer() {
                                         target="_blank"
                                         rel="noopener noreferrer"
                                         aria-label={social.label}
-                                        className={`w-12 h-12 flex items-center justify-center bg-white/5 text-muted hover:bg-white/10 transition-all ${social.hoverColor}`}
+                                        className={`w-12 h-12 flex items-center justify-center bg-white/5 text-muted hover:bg-white/10 hover:scale-110 transition-all duration-300 ${social.hoverColor}`}
                                     >
                                         <Icon className="w-6 h-6" />
                                     </a>
@@ -156,7 +156,7 @@ export function Footer() {
                                         target="_blank"
                                         rel="noopener noreferrer"
                                         aria-label={social.label}
-                                        className={`w-12 h-12 flex items-center justify-center bg-white/5 text-muted hover:bg-white/10 transition-all ${social.hoverColor}`}
+                                        className={`w-12 h-12 flex items-center justify-center bg-white/5 text-muted hover:bg-white/10 hover:scale-110 transition-all duration-300 ${social.hoverColor}`}
                                     >
                                         <Icon className="w-6 h-6" />
                                     </a>
@@ -193,9 +193,9 @@ export function Footer() {
                             <div className="flex items-center gap-2 text-white/70">
                                 <span className="text-white/60 hidden md:inline">Technologie:</span>
                                 <div className="flex items-center gap-1">
-                                    <SiReact className="w-4 h-4 hover:text-[#61DAFB] transition-colors duration-300" />
-                                    <SiShopify className="w-4 h-4 hover:text-[#95BF47] transition-colors duration-300" />
-                                    <BiCoffeeTogo className="w-4 h-4 hover:text-[#7B4B2A] transition-colors duration-300" />
+                                    <SiReact className="w-4 h-4 hover:text-[#61DAFB] hover:scale-125 transition-all duration-300" />
+                                    <SiShopify className="w-4 h-4 hover:text-[#95BF47] hover:scale-125 transition-all duration-300" />
+                                    <BiCoffeeTogo className="w-4 h-4 hover:text-[#7B4B2A] hover:scale-125 transition-all duration-300" />
                                 </div>
                             </div>
                         </div>
