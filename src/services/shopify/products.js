@@ -42,20 +42,24 @@ const PRODUCT_FRAGMENT = `
         }
     }
     metafields(identifiers: [
-        {namespace: "custom", key: "country"}
+        {namespace: "custom", key: "kraj"}
         {namespace: "custom", key: "region"}
-        {namespace: "custom", key: "variety"}
-        {namespace: "custom", key: "processing"}
-        {namespace: "custom", key: "tasting_notes"}
-        {namespace: "custom", key: "roast_type"}
-        {namespace: "custom", key: "roast_level"}
-        {namespace: "custom", key: "altitude"}
-        {namespace: "custom", key: "farm"}
-        {namespace: "custom", key: "species"}
+        {namespace: "custom", key: "odmiana"}
+        {namespace: "custom", key: "obrobka"}
+        {namespace: "custom", key: "profil_smakowy"}
+        {namespace: "custom", key: "palenie"}
+        {namespace: "custom", key: "stopien_palenia"}
+        {namespace: "custom", key: "wysokosc"}
+        {namespace: "custom", key: "farma"}
+        {namespace: "custom", key: "gatunek"}
+        {namespace: "custom", key: "producent"}
+        {namespace: "custom", key: "forma_kawy"}
+        {namespace: "custom", key: "rozmiar_mielenia"}
     ]) {
         key
         value
         type
+        namespace
     }
 `;
 
@@ -90,13 +94,13 @@ export async function fetchProducts(client, mapProduct, limit = 20) {
                 return null;
             }
         }).filter(Boolean);
-
         return products;
     } catch (error) {
         logger.error('❌ Error fetching products:', error);
         throw error;
     }
 }
+
 
 /**
  * Fetch single product by handle

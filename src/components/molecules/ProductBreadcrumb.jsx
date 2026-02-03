@@ -1,13 +1,13 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { FaArrowLeft, FaHome, FaChevronRight } from 'react-icons/fa';
+import { FaArrowLeft, FaChevronRight } from 'react-icons/fa';
 
 /**
  * ProductBreadcrumb - Breadcrumb navigation dla strony produktu
  */
 export function ProductBreadcrumb({ coffeeName }) {
     return (
-        <nav className="flex items-center gap-2 mb-6 text-sm" aria-label="Breadcrumb">
+        <nav className="flex items-center gap-2 mb-6 text-base" aria-label="Breadcrumb">
             {/* Back button - UKRYTY (niepotrzebny na mobile) */}
             <Link
                 to="/kawy"
@@ -21,10 +21,9 @@ export function ProductBreadcrumb({ coffeeName }) {
             <div className="hidden lg:flex items-center gap-2 text-muted">
                 <Link
                     to="/"
-                    className="hover:text-accent transition-colors flex items-center gap-1"
+                    className="hover:text-accent transition-colors"
                 >
-                    <FaHome className="w-4 h-4" />
-                    <span>Start</span>
+                    Start
                 </Link>
 
                 <FaChevronRight className="w-3 h-3" />

@@ -256,7 +256,7 @@ export function CoffeeDetail() {
                 {/* Description Section */}
                 {coffee.description && (
                     <div className="mx-auto">
-                        <div className="p-6 lg:p-8 bg-primary-light border border-white/10">
+                        <div className="p-6 lg:p-8 bg-primary-light">
                             <h2 className="text-2xl text-white mb-4">
                                 Opis:
                             </h2>

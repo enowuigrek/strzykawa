@@ -8,7 +8,33 @@
  */
 function parseList(value) {
     if (!value) return [];
+    // Jeśli wartość jest JSON arrayem (z Shopify list metafield)
+    if (value.startsWith('[')) {
+        try {
+            return JSON.parse(value);
+        } catch {
+            // Jeśli nie da się sparsować, traktuj jako string
+        }
+    }
     return value.split(',').map(item => item.trim()).filter(Boolean);
+}
+
+/**
+ * Parse value that might be JSON array or single value
+ * Returns first value or joined string
+ */
+function parseValue(value) {
+    if (!value) return '';
+    // Jeśli wartość jest JSON arrayem
+    if (value.startsWith('[')) {
+        try {
+            const arr = JSON.parse(value);
+            return arr.join(', ');
+        } catch {
+            // Jeśli nie da się sparsować, zwróć as-is
+        }
+    }
+    return value;
 }
 
 /**
@@ -40,21 +66,25 @@ function getMetafield(product, key) {
  * @returns {object} Mapped product
  */
 export function mapProduct(shopifyProduct) {
-    // Extract metafields
-    const country = getMetafield(shopifyProduct, 'country') || '';
-    const region = getMetafield(shopifyProduct, 'region') || '';
-    const variety = getMetafield(shopifyProduct, 'variety') || '';
-    const processing = getMetafield(shopifyProduct, 'processing') || '';
-    const tastingNotes = getMetafield(shopifyProduct, 'tasting_notes') || '';
-    const altitude = getMetafield(shopifyProduct, 'altitude') || '';
-    const farm = getMetafield(shopifyProduct, 'farm') || '';
-    const species = getMetafield(shopifyProduct, 'species') || 'Arabica';
+    // DEBUG: Zobacz surowe metafields z Shopify
+    console.log('🔍 Raw metafields for:', shopifyProduct.title, shopifyProduct.metafields);
 
-    // Map roast_type: "Przelew" → "Filter"
-    const roastTypeRaw = getMetafield(shopifyProduct, 'roast_type') || 'Filter';
+    // Extract metafields - używamy polskich kluczy z Shopify
+    // Kraj: custom pole (może zawierać wiele krajów dla blendów)
+    const country = parseValue(getMetafield(shopifyProduct, 'kraj'));
+    const region = getMetafield(shopifyProduct, 'region') || '';
+    const variety = getMetafield(shopifyProduct, 'odmiana') || '';
+    const processing = parseValue(getMetafield(shopifyProduct, 'obrobka'));
+    const tastingNotes = getMetafield(shopifyProduct, 'profil_smakowy') || '';
+    const altitude = getMetafield(shopifyProduct, 'wysokosc') || '';
+    const farm = getMetafield(shopifyProduct, 'farma') || '';
+    const species = getMetafield(shopifyProduct, 'gatunek') || 'Arabica';
+
+    // Map palenie: "Przelew" → "Filter", "Espresso" → "Espresso"
+    const roastTypeRaw = getMetafield(shopifyProduct, 'palenie') || 'Filter';
     const roastType = roastTypeRaw === 'Przelew' ? 'Filter' : roastTypeRaw;
 
-    const roastLevel = getMetafield(shopifyProduct, 'roast_level') || '';
+    const roastLevel = getMetafield(shopifyProduct, 'stopien_palenia') || '';
 
     // Build origin array
     const origin = [];

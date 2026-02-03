@@ -61,7 +61,7 @@ export function ChangePasswordForm() {
     };
 
     return (
-        <div className="bg-primary-light p-6 border border-white/10">
+        <div className="bg-primary-light p-6">
             <h2 className="text-xl font-semibold text-white mb-4 flex items-center gap-2">
                 <FaLock className="text-accent" />
                 Zmień hasło
