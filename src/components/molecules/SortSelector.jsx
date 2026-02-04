@@ -40,7 +40,7 @@ export function SortSelector({ value = 'newest', onChange }) {
                 onClick={() => setIsOpen(!isOpen)}
                 className={`
                     flex items-center justify-center
-                    w-8 h-8
+                    w-9 h-9
                     md:w-auto md:h-auto
                     md:px-4 md:py-2 md:gap-2
                     rounded-full

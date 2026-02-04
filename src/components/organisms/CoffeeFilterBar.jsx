@@ -146,7 +146,7 @@ function MainFilterButton({ label, count, isActive, onClick, isGrouped = false }
                     md:px-4
                     ${paddingY}
                     md:gap-2
-                    w-8 h-8
+                    w-9 h-9
                     md:w-auto md:h-auto
                     text-xs md:text-sm
                     font-bold md:font-medium

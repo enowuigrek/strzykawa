@@ -37,7 +37,7 @@ export function MobileBottomNavigation({
                 setHasScrolled(true);
             }
 
-            const shouldShow = hasScrolled && distanceFromBottom > 200;
+            const shouldShow = hasScrolled && distanceFromBottom > 400;
 
             setIsVisible(shouldShow);
         };
@@ -115,7 +115,7 @@ export function MobileBottomNavigation({
         <div className={`md:hidden fixed bottom-2 left-4 right-4 z-[100] mobile-bottom-nav transition-transform duration-300 ease-out ${isVisible ? 'visible' : 'translate-y-28'}`}>
             {/* Safe area padding - większy padding od dołu */}
             <div style={{ paddingBottom: 'env(safe-area-inset-bottom)' }} className="relative z-10">
-                <div className="pointer-events-auto flex items-center justify-between rounded-full bg-primary-dark/95 shadow-lg backdrop-blur-md px-4 py-2.5">
+                <div className="pointer-events-auto flex items-center justify-between rounded-full bg-primary-dark/95 shadow-lg backdrop-blur-md px-4 py-1.5">
 
                     {/* Home - NIE podświetlony gdy JAKIKOLWIEK modal otwarty */}
                     <button

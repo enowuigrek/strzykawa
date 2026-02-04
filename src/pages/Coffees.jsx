@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useEffect } from 'react';
+import React, { useState, useMemo, useEffect, useRef, useCallback } from 'react';
 import { shopify } from '../services/shopify';
 import { logger } from '../utils/logger';
 import { PageLayout } from "../components/layout/PageLayout.jsx";
@@ -15,6 +15,14 @@ export function Coffees() {
     const [searchQuery, setSearchQuery] = useState('');
     const [sortBy, setSortBy] = useState('newest');
     const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+    const gridRef = useRef(null);
+
+    // Scroll do góry gridu po zmianie filtra
+    const scrollToGrid = useCallback(() => {
+        if (gridRef.current) {
+            gridRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+    }, []);
 
     // ========== SHOPIFY STATE ==========
     const [products, setProducts] = useState([]);
@@ -175,9 +183,10 @@ export function Coffees() {
             {/* Filter Bar - Sticky */}
             <CoffeeFilterBar
                 selectedRoastType={selectedRoastType}
-                onRoastTypeChange={(type) =>
-                    setSelectedRoastType((prev) => (prev === type ? '' : type))
-                }
+                onRoastTypeChange={(type) => {
+                    setSelectedRoastType((prev) => (prev === type ? '' : type));
+                    scrollToGrid();
+                }}
                 onSearchChange={setSearchQuery}
                 selectedCountry={selectedCountry}
                 onCountryRemove={() => setSelectedCountry('')}
@@ -197,7 +206,7 @@ export function Coffees() {
             />
 
             {/* ✅ FIX #3: Coffee Grid z CONTAINER WRAPPEREM */}
-            <div className="container mx-auto max-w-7xl px-4 mt-8">
+            <div ref={gridRef} className="container mx-auto max-w-7xl px-4 mt-8 scroll-mt-[100px] lg:scroll-mt-[120px]">
                 <CoffeeGrid
                     coffees={filteredCoffees}
                     onClearFilters={handleClearFilters}
