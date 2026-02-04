@@ -6,16 +6,15 @@ import { CoffeeFilterBar } from '../components/organisms/CoffeeFilterBar';
 import { CoffeeGrid } from '../components/organisms/CoffeeGrid';
 import { FilterDrawer } from '../components/organisms/FilterDrawer';
 import { Spinner } from '../components/atoms/Spinner';
-import { SCROLL_THRESHOLDS } from '../constants/timings.js';
 
 export function Coffees() {
     // ========== STATE ==========
     const [selectedRoastType, setSelectedRoastType] = useState('');
     const [selectedCountry, setSelectedCountry] = useState('');
     const [selectedProcessing, setSelectedProcessing] = useState('');
-    const [searchQuery, setSearchQuery] = useState(''); // NOWE: search query
+    const [searchQuery, setSearchQuery] = useState('');
+    const [sortBy, setSortBy] = useState('newest');
     const [isDrawerOpen, setIsDrawerOpen] = useState(false);
-    const [isSticky, setIsSticky] = useState(false);
 
     // ========== SHOPIFY STATE ==========
     const [products, setProducts] = useState([]);
@@ -41,16 +40,9 @@ export function Coffees() {
         loadProducts();
     }, []); // Run once on mount
 
-    // ========== SCROLL DETECTION ==========
-    useEffect(() => {
-        const handleScroll = () => setIsSticky(window.scrollY > SCROLL_THRESHOLDS.STICKY_FILTERS);
-        window.addEventListener('scroll', handleScroll);
-        return () => window.removeEventListener('scroll', handleScroll);
-    }, []);
-
     // ========== FILTERING (+ SEARCH) ==========
     const filteredCoffees = useMemo(() => {
-        return products.filter((coffee) => {
+        const filtered = products.filter((coffee) => {
             // Roast type filter
             const matchesRoastType = !selectedRoastType || coffee.roastType === selectedRoastType;
 
@@ -62,9 +54,8 @@ export function Coffees() {
             const matchesProcessing = !selectedProcessing ||
                 coffee.origin.some(o => o.processing === selectedProcessing);
 
-            // Search filter - comprehensive (title, roast type, country, processing, variety, tasting notes)
+            // Search filter
             const searchLower = searchQuery.toLowerCase();
-            // Alias: przelew → filter
             const normalizedSearch = searchLower === 'przelew' ? 'filter' : searchLower;
 
             const matchesSearch = !searchQuery ||
@@ -80,7 +71,25 @@ export function Coffees() {
 
             return matchesRoastType && matchesCountry && matchesProcessing && matchesSearch;
         });
-    }, [products, selectedRoastType, selectedCountry, selectedProcessing, searchQuery]);
+
+        // Sortowanie
+        const getLowestPrice = (coffee) => coffee.variants?.[0]?.price ?? 0;
+
+        return [...filtered].sort((a, b) => {
+            switch (sortBy) {
+                case 'price-asc':
+                    return getLowestPrice(a) - getLowestPrice(b);
+                case 'price-desc':
+                    return getLowestPrice(b) - getLowestPrice(a);
+                case 'name-asc':
+                    return (a.name || '').localeCompare(b.name || '', 'pl');
+                case 'newest':
+                default:
+                    // Shopify GID: wyższy numer = nowszy produkt
+                    return (b.id || '').localeCompare(a.id || '');
+            }
+        });
+    }, [products, selectedRoastType, selectedCountry, selectedProcessing, searchQuery, sortBy]);
 
     // ========== FILTER DATA (DYNAMIC) ==========
     const filterData = useMemo(() => {
@@ -117,7 +126,8 @@ export function Coffees() {
         setSelectedRoastType('');
         setSelectedCountry('');
         setSelectedProcessing('');
-        setSearchQuery(''); // Clear search too
+        setSearchQuery('');
+        setSortBy('newest');
     };
 
     // ========== COUNTS FOR FILTER BAR ==========
@@ -168,7 +178,7 @@ export function Coffees() {
                 onRoastTypeChange={(type) =>
                     setSelectedRoastType((prev) => (prev === type ? '' : type))
                 }
-                onSearchChange={setSearchQuery} // NOWE: search handler
+                onSearchChange={setSearchQuery}
                 selectedCountry={selectedCountry}
                 onCountryRemove={() => setSelectedCountry('')}
                 selectedProcessing={selectedProcessing}
@@ -182,7 +192,8 @@ export function Coffees() {
                 espressoCount={espressoCount}
                 filterCount={filterCount}
                 resultCount={filteredCoffees.length}
-                isSticky={isSticky}
+                sortValue={sortBy}
+                onSortChange={setSortBy}
             />
 
             {/* ✅ FIX #3: Coffee Grid z CONTAINER WRAPPEREM */}

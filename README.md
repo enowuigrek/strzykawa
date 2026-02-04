@@ -1,93 +1,156 @@
 # ☕ Strzykawa - Coffee Shop & Roastery
 
-> Nowoczesna strona e-commerce dla kawiarni i palarni kawy specialty w Częstochowie
+<p align="center">
+  <img src="public/logo/horizontal-logo.png" alt="Strzykawa Coffee Roastery" width="400" />
+</p>
 
-**Live:** https://strzykawa.netlify.app
-**Status:** 🚧 W aktywnym rozwoju (Coming Soon mode: ON)
+<p align="center">
+  <strong>Nowoczesna strona e-commerce dla kawiarni i palarni kawy specialty w Częstochowie</strong>
+</p>
+
+<p align="center">
+  <a href="https://strzykawa.netlify.app">🌐 Live</a> &nbsp;·&nbsp;
+  <a href="https://www.instagram.com/strzykawa_coffee_shop">📸 Instagram</a> &nbsp;·&nbsp;
+  <a href="https://www.facebook.com/StrzykawaCoffeeShop">📘 Facebook</a>
+</p>
 
 ---
 
 ## 📋 O Projekcie
 
-Strzykawa to pełnoprawny sklep internetowy z integracją Shopify, prezentujący kawy specialty z całego świata. Projekt łączy w sobie:
+Strzykawa to pełnoprawny sklep internetowy z integracją **Shopify Storefront API**, prezentujący kawy specialty z całego świata. Projekt łączy minimalistyczny design z pełną funkcjonalnością e-commerce.
 
-- 🛒 **E-commerce** - pełna integracja z Shopify Storefront API
-- 🎨 **Design System** - spójny, minimalistyczny design (sharp corners + pastylki)
-- 📱 **Mobile-first** - responsywny design z dedykowaną mobilną nawigacją
-- ⚡ **Performance** - Vite + React z optymalizacją obrazów
-- 🎬 **Rich Media** - video hero, galerie produktów, interactive timeline
+### Kluczowe cechy
+
+- 🛒 **E-commerce** — pełna integracja z Shopify (produkty, koszyk, checkout, zamówienia)
+- 🔐 **Konta klientów** — rejestracja, logowanie, profil, historia zamówień
+- 🎨 **Design System** — spójny, minimalistyczny design (sharp corners + pastylki)
+- 📱 **Mobile-first** — responsywny design z dedykowaną dolną nawigacją
+- ⚡ **Performance** — Vite + React z code-splitting i lazy loading
+- 🎬 **Rich Media** — video hero, galerie produktów, animowana oś czasu
+- 🍪 **GDPR** — cookie consent, polityka prywatności, regulamin
+- 📦 **InPost** — integracja z paczkomatami w formularzu checkout
 
 ---
 
 ## 🚀 Quick Start
 
 ### Wymagania
+
 - Node.js 18+
-- npm/yarn
-- Konto Shopify (Storefront API)
+- npm
+- Konto Shopify z Storefront API
 
 ### Instalacja
+
 ```bash
-# Clone repo
 git clone <repo-url>
 cd strzykawa-site
-
-# Install dependencies
 npm install
-
-# Setup environment variables
-cp .env.example .env.local
-# Wypełnij VITE_SHOPIFY_DOMAIN i VITE_SHOPIFY_STOREFRONT_TOKEN
-
-# Run dev server
-npm run dev
 ```
 
-Strona będzie dostępna pod: `http://localhost:5173`
+### Zmienne środowiskowe
+
+Projekt używa plików `.env.development` i `.env.production` (w repo).
+Dla lokalnych nadpisań stwórz `.env.local` (gitignored):
+
+```env
+VITE_SHOPIFY_DOMAIN=twoj-sklep.myshopify.com
+VITE_SHOPIFY_STOREFRONT_TOKEN=twoj-token
+VITE_COMING_SOON=false
+```
+
+### Uruchomienie
+
+```bash
+npm run dev        # Dev server → http://localhost:5173
+npm run build      # Production build → dist/
+npm run preview    # Podgląd production build
+npm run lint       # ESLint
+npm run format     # Prettier
+```
 
 ---
 
 ## 🛠 Tech Stack
 
-### Core
-- **Framework:** React 18 + Vite
-- **Routing:** React Router v6
-- **Styling:** Tailwind CSS 3
-- **State:** Zustand (cart, auth)
-- **Icons:** React Icons
-
-### E-commerce
-- **Platform:** Shopify Storefront API (GraphQL)
-- **Cart:** Shopify Cart API
-- **Checkout:** Redirect do Shopify Checkout
-
-### Deployment
-- **Hosting:** Netlify (auto-deploy z GitHub)
-- **Env Variables:** Netlify dashboard
+| Kategoria | Technologia |
+|-----------|------------|
+| **Framework** | React 18 + Vite 7 |
+| **Routing** | React Router v6 |
+| **Styling** | Tailwind CSS 3 |
+| **State** | Zustand (cart, auth, checkout) |
+| **Icons** | React Icons |
+| **E-commerce** | Shopify Storefront API (GraphQL) |
+| **Hosting** | Netlify (auto-deploy z GitHub) |
 
 ---
 
 ## 📁 Struktura Projektu
+
 ```
 src/
 ├── assets/              # Obrazy, video, logo
 ├── components/
-│   ├── atoms/          # Podstawowe komponenty (Button, Logo, Chip)
-│   ├── molecules/      # Złożone komponenty (FilterSection, ProductGallery)
-│   ├── organisms/      # Kompleksowe sekcje (CoffeeGrid, FilterDrawer)
-│   ├── layout/         # Layout components (Header, Footer)
-│   ├── features/       # Feature-specific (hero, about, contact)
-│   ├── coffee/         # Coffee card components
-│   ├── cart/           # Cart modal & components
-│   └── header/         # Header navigation components
-├── pages/              # Route pages (Home, Coffees, CoffeeDetail)
-├── services/
-│   └── shopify/        # Shopify API client & helpers
-├── store/              # Zustand stores (cart, auth)
-├── hooks/              # Custom React hooks
-├── constants/          # App constants (navigation, layout)
-└── App.jsx             # Main app component
+│   ├── atoms/           # Button, Chip, Logo, Spinner, QuantitySelector...
+│   ├── molecules/       # FilterSection, ProductGallery, VariantSelector...
+│   ├── organisms/       # CoffeeGrid, FilterDrawer, CoffeeFilterBar...
+│   ├── layout/          # Header, Footer, PageLayout, ModalWrapper...
+│   ├── features/        # hero/, about/, contact/ (sekcje stron)
+│   ├── coffee/          # CoffeeCard, CoffeeOverlay, ParametrSelector...
+│   ├── cart/            # CartModal, CartItem, ShippingProgress...
+│   ├── checkout/        # AddressForm, InPostWidget, DeliveryMethodSelector...
+│   ├── header/          # DesktopNav, MobileNav, MobileBottomNavigation...
+│   ├── modals/          # LoginModal, RegisterModal, QuickAddModal
+│   └── profile/         # ChangePasswordForm, EditAddressForm
+├── pages/               # 16 stron (Home, Coffees, CoffeeDetail, About...)
+├── services/shopify/    # GraphQL client, product queries, cart, customer API
+├── store/               # Zustand: cartStore, authStore, checkoutStore
+├── hooks/               # useScrollAnimation, useHeroAnimation, useScrollZoom...
+├── constants/           # navigation, layout, colors, shipping, timings, preview
+├── utils/               # logger (dev-only console wrapper)
+└── App.jsx              # Routing, Coming Soon mode, preview mode
 ```
+
+---
+
+## ✅ Zaimplementowane funkcje
+
+### E-commerce
+- Katalog produktów z Shopify (GraphQL) z filtrami (palenie, kraj, obróbka)
+- Dynamiczne warianty (250g/1kg, ziarna/mielona) z dostępnością
+- Koszyk z Shopify Cart API (add/remove/update, persystencja)
+- Quick Add Modal — szybkie dodawanie z gridu produktów
+- Formularz checkout z wyborem dostawy (kurier/paczkomat InPost)
+- Pasek postępu darmowej wysyłki (próg: 250 zł)
+- Redirect do Shopify Checkout
+
+### Konta klientów
+- Rejestracja i logowanie (Shopify Customer API)
+- Profil użytkownika z edycją adresu
+- Zmiana hasła i odzyskiwanie hasła
+- Historia zamówień z detalami
+- Walidacja tokenu i auto-logout
+
+### UI/UX
+- Video hero (desktop + mobile)
+- Mobilna dolna nawigacja z animacjami
+- Auto-hide header przy scrollu
+- Cart bounce animation po dodaniu produktu
+- Animowana oś czasu na stronie O nas
+- Cookie consent z GDPR compliance
+- Coming Soon mode z preview (tajny link)
+- Style Guide (/style-guide) — showcase design systemu
+
+### Strony
+- Strona główna z hero i featured coffees
+- Katalog kaw z filtrami i wyszukiwaniem
+- Strona produktu ze szczegółami i galerią
+- O nas — historia z animowaną osią czasu
+- Kontakt — mapa, dane kontaktowe
+- B2B — formularz współpracy
+- Strony prawne (regulamin, prywatność, cookies, dostawa)
+- 404 Not Found
 
 ---
 
@@ -95,98 +158,64 @@ src/
 
 Pełna dokumentacja: [`DESIGN_SYSTEM.md`](./DESIGN_SYSTEM.md)
 
-### Kluczowe zasady:
-- ❌ **NO rounded corners** (poza buttonami i badges)
-- ✅ **Rounded-full** dla buttonów i badges
-- ✅ **Count badges ZAWSZE zielone** (`bg-success`)
-- ✅ **Sharp corners** dla kart i modalów
-- ✅ **Font:** Dosis (400, 500, 600, 700)
+| Element | Styl |
+|---------|------|
+| **Buttony** | `rounded-full` (pastylki) |
+| **Badges count** | `rounded-full` + `bg-success` (zielone) |
+| **Karty/Modale** | Sharp corners (brak zaokrągleń) |
+| **Info boxes** | `rounded-lg` |
+| **Font** | Dosis (400, 500, 700) |
 
-### Paleta kolorów:
-- **Primary:** `#1E2A25` (tło)
-- **Accent:** `#6B7F73` (linki, secondary)
-- **Success:** `#0E8C6F` (cart badges, success states)
-- **CTA:** `#3A5F55` (przyciski płatności)
+### Paleta kolorów
 
----
-
-## 🛒 Funkcje E-commerce
-
-### ✅ Zaimplementowane:
-- Pobieranie produktów z Shopify (GraphQL)
-- Dynamiczne ceny i warianty (250g, 1kg, ziarna/mielona)
-- Filtrowanie (roast type, kraj, obróbka, search)
-- Strony produktów (`/kawy/:handle`)
-- Koszyk (Shopify Cart API)
-- Dodawanie/usuwanie/aktualizacja ilości w koszyku
-- Blokada niedostępnych wariantów (`availableForSale: false`)
-
-### 🔄 W trakcie:
-- Checkout flow (redirect do Shopify) - PRIORITY
-- Success/Canceled pages
-- Integracja z płatnościami (Przelewy24)
-
-### 📋 Planowane:
-- Auth system (logowanie/rejestracja)
-- Historia zamówień
-- Wishlist
-- Blog & brewing guides
+| Kolor | Hex | Użycie |
+|-------|-----|--------|
+| Primary | `#1E2A25` | Tło strony |
+| Accent | `#6B7F73` | Linki, secondary buttons |
+| Success | `#0E8C6F` | Badges, success states |
+| CTA | `#3A5F55` | Przyciski checkout |
+| Muted | `#9CA8A1` | Tekst pomocniczy |
 
 ---
 
-## 🗺️ Roadmap
+## 🔧 Konfiguracja
 
-Szczegółowy roadmap: [`roadmap.md`](./roadmap.md)
+### Coming Soon Mode
 
-### Obecny sprint (Listopad 2025):
-- ✅ Integracja Shopify - DONE
-- ✅ Cart redesign - DONE
-- ✅ Availability system - DONE
-- 🔥 **Checkout flow** - IN PROGRESS
-- 🔥 **Shopify admin config** - IN PROGRESS
+Kontrolowane przez zmienną `VITE_COMING_SOON`:
+- `false` w `.env.development` — pełna strona
+- `true` w `.env.production` — strona Coming Soon
 
-### Następne kroki:
-1. Test purchase flow (end-to-end)
-2. Shipping zones + payment setup
-3. 10-15 produktów + fotografia
-4. Pre-production testing
-5. Transfer na konto produkcyjne Shopify
-6. **LAUNCH! 🚀**
+### Preview Mode
 
----
-
-## 🔧 Development
-
-### Skrypty:
-```bash
-npm run dev        # Dev server (localhost:5173)
-npm run build      # Production build
-npm run preview    # Preview production build
+Tajny dostęp do pełnej strony mimo Coming Soon:
 ```
-
-### Environment Variables:
-```env
-VITE_SHOPIFY_DOMAIN=your-store.myshopify.com
-VITE_SHOPIFY_STOREFRONT_TOKEN=your-storefront-token
+https://strzykawa.netlify.app/?preview=strzykawa2025
 ```
+Hasło zapisuje się w localStorage. Zmiana w `src/constants/preview.js`.
 
-### Coming Soon Mode:
+### Darmowa wysyłka
+
+Próg w `src/constants/shipping.js`:
 ```javascript
-// src/App.jsx
-const COMING_SOON_MODE = true; // Zmień na false gdy gotowy do launch
+FREE_SHIPPING_THRESHOLD = 250  // PLN
+SHIPPING_COST = 11.99          // PLN
 ```
 
 ---
 
 ## 📖 Dokumentacja
 
-- [`DESIGN_SYSTEM.md`](./DESIGN_SYSTEM.md) - Design guidelines ⭐
+| Plik | Opis |
+|------|------|
+| [`DESIGN_SYSTEM.md`](./DESIGN_SYSTEM.md) | Zasady designu, kolory, komponenty |
+| [`CLAUDE.md`](./CLAUDE.md) | Przewodnik dla AI assistantów |
 
 ---
 
 ## 🤝 Contributing
 
-Projekt prywatny - development by [@enowuigrek](https://github.com/enowuigrek)
+Projekt prywatny — development by [@enowuigrek](https://github.com/enowuigrek)
 
 ---
 
@@ -198,8 +227,7 @@ Projekt prywatny - development by [@enowuigrek](https://github.com/enowuigrek)
 ☎️ +48 668 011 806
 
 **Social Media:**
-- [Facebook](https://www.facebook.com/StrzykawaCoffeeShop)
-- [Instagram](https://www.instagram.com/strzykawa_coffee_shop)
+[Facebook](https://www.facebook.com/StrzykawaCoffeeShop) · [Instagram](https://www.instagram.com/strzykawa_coffee_shop)
 
 ---
 

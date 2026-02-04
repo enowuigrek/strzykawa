@@ -1,7 +1,7 @@
 # 🤖 CLAUDE.md - AI Assistant Guide
 
-> **Version:** 1.0
-> **Last Updated:** 27 November 2025
+> **Version:** 1.1
+> **Last Updated:** 4 February 2026
 > **Purpose:** Comprehensive guide for AI assistants working on the Strzykawa codebase
 
 ---
@@ -37,7 +37,7 @@ Strzykawa is a **coffee shop and roastery e-commerce website** built for a speci
 
 ### Current Status
 
-- **Status:** 🚧 Active development
+- **Status:** 🟢 Near-production ready
 - **Coming Soon Mode:** Controlled via `VITE_COMING_SOON` env variable
 - **Live URL:** https://strzykawa.netlify.app
 - **Deployment:** Auto-deploy from GitHub to Netlify
@@ -49,19 +49,22 @@ Strzykawa is a **coffee shop and roastery e-commerce website** built for a speci
 - Product catalog with filtering (roast type, country, processing)
 - Dynamic pricing and variants (250g/1kg, whole beans/ground)
 - Shopping cart with Shopify Cart API
-- Product detail pages with variant selection
+- Product detail pages with variant selection and image gallery
 - Availability system (blocks unavailable variants)
-- Checkout redirect to Shopify
-- Mobile navigation with bottom bar
-
-🔄 **In Progress:**
-- Checkout success/canceled pages
-- Payment integration (Przelewy24)
-- Product photography and content
+- Custom checkout form with InPost paczkomat integration
+- Checkout redirect to Shopify + success/canceled pages
+- Mobile navigation with animated bottom bar
+- Authentication system (login, register, password recovery)
+- User profile with address editing and password change
+- Order history with details
+- Cookie consent (GDPR)
+- Coming Soon mode with preview access (secret link)
+- Style Guide page (/style-guide)
+- Free shipping progress bar (threshold: 250 PLN)
+- Quick Add Modal for fast product addition from grid
+- Cart bounce animation feedback
 
 📋 **Planned:**
-- Authentication system
-- Order history
 - Wishlist
 - Blog & brewing guides
 
@@ -74,10 +77,10 @@ Strzykawa is a **coffee shop and roastery e-commerce website** built for a speci
 ```javascript
 {
   "framework": "React 18.2.0",
-  "bundler": "Vite 4.4.9",
+  "bundler": "Vite 7.3.1",
   "routing": "React Router v6.15.0",
   "styling": "Tailwind CSS 3.4.0",
-  "stateManagement": "Zustand 5.0.8",
+  "stateManagement": "Zustand 5.0.8 (cart, auth, checkout stores)",
   "icons": "React Icons 4.10.1",
   "ecommerce": "Shopify Storefront API (GraphQL)"
 }
@@ -117,126 +120,78 @@ Strzykawa is a **coffee shop and roastery e-commerce website** built for a speci
 
 ```
 strzykawa-site/
-├── public/                    # Static assets (favicon, etc.)
+├── public/
+│   ├── logo/                  # Logo files (horizontal, vertical, icon)
+│   ├── icons/                 # PWA icons
+│   └── favicon.ico
 ├── src/
-│   ├── assets/               # Images, videos, logos
-│   │   ├── logo-icon.jpg
-│   │   ├── logo-full.jpg
-│   │   ├── horizontal-logo.png
-│   │   └── vertical-logo.png
+│   ├── assets/               # Images, videos
+│   │   ├── hero-desktop.mp4  # Hero video (desktop)
+│   │   ├── hero-mobile.mp4   # Hero video (mobile)
+│   │   ├── history/          # Timeline images (About page)
+│   │   └── team/             # Team photos
 │   │
 │   ├── components/           # React components (Atomic Design)
-│   │   ├── atoms/           # Basic building blocks
-│   │   │   ├── Button.jsx
-│   │   │   ├── Logo.jsx
-│   │   │   ├── CloseButton.jsx
-│   │   │   ├── MobileMenuToggle.jsx
-│   │   │   ├── QuantitySelector.jsx
-│   │   │   └── Spinner.jsx
-│   │   │
-│   │   ├── molecules/       # Composite components
-│   │   │   ├── FilterSection.jsx
-│   │   │   ├── ProductGallery.jsx
-│   │   │   └── SearchBar.jsx
-│   │   │
-│   │   ├── organisms/       # Complex sections
-│   │   │   ├── CoffeeGrid.jsx
-│   │   │   ├── FilterDrawer.jsx
-│   │   │   └── MobileBottomNavigation.jsx
-│   │   │
-│   │   ├── layout/          # Layout components
-│   │   │   ├── Header.jsx
-│   │   │   ├── Footer.jsx
-│   │   │   ├── PageHeader.jsx
-│   │   │   └── PageLayout.jsx
-│   │   │
-│   │   ├── features/        # Feature-specific components
-│   │   │   ├── hero/        # Hero section components
-│   │   │   ├── about/       # About page components
-│   │   │   └── contact/     # Contact page components
-│   │   │
-│   │   ├── coffee/          # Coffee product components
-│   │   │   ├── CoffeeCard.jsx
-│   │   │   ├── CoffeeCardActions.jsx
-│   │   │   ├── CoffeeCardContent.jsx
-│   │   │   ├── CoffeeCardMedia.jsx
-│   │   │   ├── CoffeeOverlay.jsx
-│   │   │   └── ParametrSelector.jsx
-│   │   │
-│   │   ├── cart/            # Cart components
-│   │   │   ├── CartModal.jsx
-│   │   │   ├── CartHeader.jsx
-│   │   │   ├── CartContent.jsx
-│   │   │   ├── CartFooter.jsx
-│   │   │   └── CartItem.jsx
-│   │   │
-│   │   ├── header/          # Header navigation components
-│   │   │   ├── DesktopNavigation.jsx
-│   │   │   ├── MobileNavigation.jsx
-│   │   │   └── HeaderActions.jsx
-│   │   │
-│   │   └── modals/          # Modal components
-│   │       ├── LoginModal.jsx
-│   │       └── RegisterModal.jsx
+│   │   ├── atoms/            # Button, Chip, Logo, CloseButton, Spinner...
+│   │   ├── molecules/        # FilterSection, ProductGallery, VariantSelector...
+│   │   ├── organisms/        # CoffeeGrid, FilterDrawer, CoffeeFilterBar...
+│   │   ├── layout/           # Header, Footer, PageLayout, ModalWrapper...
+│   │   ├── features/         # hero/, about/, contact/ (page sections)
+│   │   ├── coffee/           # CoffeeCard, CoffeeOverlay, ParametrSelector...
+│   │   ├── cart/             # CartModal, CartItem, ShippingProgress...
+│   │   ├── checkout/         # AddressForm, InPostWidget, DeliveryMethodSelector...
+│   │   ├── header/           # DesktopNav, MobileNav, MobileBottomNavigation...
+│   │   ├── modals/           # LoginModal, RegisterModal, QuickAddModal
+│   │   ├── profile/          # ChangePasswordForm, EditAddressForm
+│   │   └── styleguide/       # Design system showcase components
 │   │
-│   ├── pages/               # Route pages
-│   │   ├── Home.jsx
-│   │   ├── Coffees.jsx
-│   │   ├── CoffeeDetail.jsx
-│   │   ├── About.jsx
-│   │   ├── Contact.jsx
-│   │   ├── B2B.jsx
-│   │   ├── ComingSoon.jsx
-│   │   ├── CheckoutSuccess.jsx
-│   │   ├── CheckoutCanceled.jsx
-│   │   ├── NotFound.jsx
-│   │   └── LegalPages.jsx
+│   ├── pages/                # Route pages (16 total)
+│   │   ├── Home.jsx, Coffees.jsx, CoffeeDetail.jsx
+│   │   ├── About.jsx, Contact.jsx, B2B.jsx
+│   │   ├── Profile.jsx, Orders.jsx
+│   │   ├── CheckoutPage.jsx, CheckoutSuccess.jsx, CheckoutCanceled.jsx
+│   │   ├── LegalPages.jsx, TermsAndConditions.jsx
+│   │   ├── ComingSoon.jsx, StyleGuide.jsx, NotFound.jsx
 │   │
-│   ├── services/            # External services
-│   │   └── shopify/         # Shopify integration
-│   │       ├── client.js    # GraphQL client
-│   │       ├── products.js  # Product queries
-│   │       ├── cart.js      # Cart mutations
-│   │       ├── mapper.js    # Data mappers
-│   │       └── index.js     # Service aggregator
+│   ├── services/shopify/     # Shopify integration
+│   │   ├── client.js         # GraphQL client
+│   │   ├── products.js       # Product queries
+│   │   ├── cart.js           # Cart mutations
+│   │   ├── customer.js       # Auth & customer API
+│   │   ├── mapper.js         # Data transformation
+│   │   └── index.js          # Service facade
 │   │
-│   ├── store/               # Zustand stores
-│   │   ├── cartStore.js     # Cart state management
-│   │   └── authStore.js     # Auth state management
+│   ├── store/                # Zustand stores
+│   │   ├── cartStore.js      # Cart state (Shopify Cart API)
+│   │   ├── authStore.js      # Auth state (Shopify Customer API)
+│   │   └── checkoutStore.js  # Checkout form state
 │   │
-│   ├── hooks/               # Custom React hooks
-│   │   ├── useScrollAnimation.js
-│   │   ├── useHeroAnimation.js
-│   │   ├── useToggleSet.js
-│   │   ├── useBackdropClick.js
-│   │   ├── useScrollToTop.js
-│   │   └── useVideoLoop.js
+│   ├── hooks/                # Custom React hooks
+│   │   ├── useScrollAnimation.js, useHeroAnimation.js
+│   │   ├── useScrollZoom.js, useBackdropClick.js
+│   │   ├── useScrollToTop.js, useVideoLoop.js
 │   │
-│   ├── constants/           # App constants
-│   │   ├── navigation.js    # Navigation links
-│   │   ├── layout.js        # Layout constants
-│   │   ├── colors.js        # Color constants
-│   │   ├── shipping.js      # Shipping config (FREE_SHIPPING_THRESHOLD)
-│   │   └── timings.js       # Animation timings
+│   ├── constants/            # App constants
+│   │   ├── navigation.js     # Nav items + mobile bottom nav
+│   │   ├── layout.js         # Header, modal, spacing constants
+│   │   ├── colors.js         # Country & roast type colors
+│   │   ├── shipping.js       # FREE_SHIPPING_THRESHOLD, SHIPPING_COST
+│   │   ├── timings.js        # Animation & feedback timings
+│   │   └── preview.js        # Preview mode password
 │   │
-│   ├── utils/               # Utility functions
-│   │   └── logger.js        # Logging utility
-│   │
-│   ├── App.jsx              # Main app component
-│   ├── main.jsx             # React entry point
-│   └── index.css            # Global styles
+│   ├── utils/logger.js       # Dev-only console wrapper
+│   ├── App.jsx               # Routing, Coming Soon, preview mode
+│   ├── main.jsx              # React entry point
+│   └── index.css             # Global styles & animations
 │
-├── .env                     # Environment variables (local)
-├── .env.development         # Development config
-├── .env.production          # Production config
-├── .eslintrc.cjs            # ESLint configuration
-├── .prettierrc              # Prettier configuration
-├── tailwind.config.js       # Tailwind CSS configuration
-├── vite.config.js           # Vite configuration
-├── package.json             # Dependencies & scripts
-├── README.md                # Project documentation
-├── DESIGN_SYSTEM.md         # Design guidelines
-└── CLAUDE.md                # This file
+├── .env.development          # Dev config (COMING_SOON=false)
+├── .env.production           # Prod config (COMING_SOON=true)
+├── tailwind.config.js        # Tailwind CSS configuration
+├── vite.config.js            # Vite configuration + path aliases
+├── package.json              # Dependencies & scripts
+├── README.md                 # Project documentation
+├── DESIGN_SYSTEM.md          # Design guidelines
+└── CLAUDE.md                 # This file
 ```
 
 ---
@@ -688,15 +643,50 @@ getItemQuantity(productId)
 // State
 {
   user: null,
+  accessToken: null,
+  tokenExpiresAt: null,
   isAuthenticated: false,
   isLoading: false
 }
 
 // Actions
 login(email, password)
-register(email, password)
+register(email, password, firstName, lastName)
 logout()
+checkAuth()                // Validate token on app load
+getAccessToken()           // Get valid token or null
+changePassword(current, new)
+updateUser(address)
 ```
+
+**Persistence:**
+- Stored in `localStorage` as `strzykawa-auth`
+- Persists: `user`, `accessToken`, `tokenExpiresAt`, `isAuthenticated`
+
+#### Checkout Store (`store/checkoutStore.js`)
+
+```javascript
+// State
+{
+  customerData: { firstName, lastName, email, phone },
+  deliveryMethod: 'inpost' | 'courier',
+  deliveryAddress: { address1, city, zip, ... },
+  paczkomatData: null,     // InPost paczkomat selection
+  errors: {}               // Validation errors
+}
+
+// Actions
+setCustomerData(data)
+setDeliveryMethod(method)
+setDeliveryAddress(address)
+setPaczkomatData(point)
+validateAll()              // Full form validation
+reset()
+```
+
+**Persistence:**
+- Stored in `localStorage` as `strzykawa-checkout`
+- Persists: `customerData`, `deliveryMethod`, `deliveryAddress`, `paczkomatData`
 
 ### Using Stores in Components
 
@@ -726,40 +716,42 @@ function MyComponent() {
 
 #### `src/App.jsx`
 - Main application component
-- Handles routing with React Router
-- Controls Coming Soon mode
-- Includes `ScrollToTop` hook for route changes
+- Handles routing with React Router (18 routes)
+- Controls Coming Soon mode + preview mode
+- Auth check on app load
+- Includes `ScrollToTop` and `CookieConsent`
 
 #### `src/components/layout/Header.jsx`
 - Desktop & mobile navigation
-- Cart icon with badge
-- Sticky header on scroll
-- Integrates `DesktopNavigation`, `MobileNavigation`, `HeaderActions`
+- Cart icon with badge + bounce animation
+- Auto-hide on scroll, show when footer not visible
+- Manages all modals (cart, login, register, quick add)
+- Custom events: `openCart`, `openQuickAdd`, `cartBounce`
 
 #### `src/components/layout/Footer.jsx`
-- Company info, social links
-- Legal links (privacy, terms)
-- Newsletter signup (placeholder)
-- Mobile & desktop layouts
+- Company info, social links, legal links
+- Vertical logo display
 
 #### `src/components/cart/CartModal.jsx`
-- Full cart modal overlay
-- Displays cart items, total, checkout button
+- Full cart modal with ShippingProgress bar
+- Cart items, total, checkout button
 - Handles empty cart state
-- Integrates with `cartStore`
 
 #### `src/pages/Coffees.jsx`
-- Product catalog page
-- Filtering by roast, country, process
-- Search functionality
-- Grid layout with `CoffeeCard` components
+- Product catalog with CoffeeFilterBar
+- Filtering by roast, country, process + search
+- Grid layout with CoffeeCard + QuickAddModal
 
 #### `src/pages/CoffeeDetail.jsx`
-- Individual product page
+- Individual product page with image gallery
 - Variant selection (weight, grind type)
-- Add to cart functionality
-- Image gallery
 - Product details (origin, roast, tasting notes)
+
+#### `src/pages/CheckoutPage.jsx`
+- Custom checkout form
+- Customer data + delivery method (courier/InPost)
+- InPost paczkomat widget integration
+- Order summary with shipping progress
 
 ### Component Hierarchy
 
@@ -768,38 +760,26 @@ App
 ├── Header
 │   ├── Logo
 │   ├── DesktopNavigation
-│   ├── MobileNavigation
-│   │   └── MobileMenuToggle
-│   └── HeaderActions
-│       └── CartIcon (with badge)
+│   ├── MobileMenuToggle (mobile hamburger)
+│   ├── HeaderActions (cart icon + auth)
+│   ├── MobileNavigation (fullscreen menu)
+│   ├── MobileBottomNavigation (fixed bottom bar)
+│   └── HeaderModals
+│       ├── CartModal
+│       ├── LoginModal / RegisterModal
+│       └── QuickAddModal
 │
-├── Pages (Routes)│   ├── Home
-│   │   ├── HeroSection
-│   │   ├── FeaturedCoffees
-│   │   └── CallToAction
-│   │
-│   ├── Coffees
-│   │   ├── FilterDrawer
-│   │   ├── SearchBar
-│   │   └── CoffeeGrid
-│   │       └── CoffeeCard[]
-│   │
-│   └── CoffeeDetail
-│       ├── CoffeeCardMedia
-│       ├── CoffeeCardContent
-│       ├── ParametrSelector
-│       └── CoffeeCardActions
+├── Pages (Routes)
+│   ├── Home → HeroSection, FeaturedCoffees
+│   ├── Coffees → CoffeeFilterBar, CoffeeGrid → CoffeeCard[]
+│   ├── CoffeeDetail → ProductGallery, VariantSelector
+│   ├── CheckoutPage → CustomerDataForm, DeliveryMethodSelector, InPostWidget
+│   ├── Profile → EditAddressForm, ChangePasswordForm
+│   ├── Orders → Order history list
+│   └── About, Contact, B2B, Legal pages...
 │
-├── CartModal
-│   ├── CartHeader (with CloseButton)
-│   ├── CartContent
-│   │   └── CartItem[]
-│   └── CartFooter
-│
+├── CookieConsent
 └── Footer
-    ├── CompanyInfo
-    ├── SocialLinks
-    └── LegalLinks
 ```
 
 ---
@@ -1238,6 +1218,16 @@ When working on tasks:
 
 ## 🔄 CHANGELOG
 
+### Version 1.1 (4 February 2026)
+- Updated feature status (auth, checkout, orders, profile all implemented)
+- Updated project structure (new directories: checkout, profile, styleguide)
+- Added checkoutStore documentation
+- Updated authStore with full API (changePassword, updateUser, checkAuth)
+- Updated component hierarchy with current architecture
+- Updated tech stack versions (Vite 7.3.1)
+- Removed references to deleted files (useToggleSet.js, TimelineAnimations.jsx)
+- Added preview.js to constants listing
+
 ### Version 1.0 (27 November 2025)
 - Initial CLAUDE.md creation
 - Comprehensive codebase documentation
@@ -1251,10 +1241,3 @@ When working on tasks:
 **Project:** Strzykawa Coffee Shop & Roastery
 **Framework:** React + Vite + Shopify
 **License:** © 2025 Strzykawa. All rights reserved.
-
----
-
-**For questions or clarifications, refer to:**
-- `README.md` - Project overview
-- `DESIGN_SYSTEM.md` - Design rules
-- Repository issues - Bug reports and feature requests

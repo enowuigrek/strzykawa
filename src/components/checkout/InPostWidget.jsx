@@ -1,6 +1,7 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useRef } from 'react';
 import PropTypes from 'prop-types';
 import { FaMapMarkerAlt } from 'react-icons/fa';
+import { logger } from '../../utils/logger.js';
 
 /**
  * InPostWidget - Widget wyboru paczkomatu InPost
@@ -15,7 +16,7 @@ export function InPostWidget({ selectedPaczkomat, onSelect, error }) {
     const openWidget = () => {
         // Sprawdź czy InPost Geowidget został załadowany
         if (typeof window.easyPack === 'undefined') {
-            console.error('InPost Geowidget SDK not loaded');
+            logger.error('InPost Geowidget SDK not loaded');
             alert('Nie udało się załadować widgetu paczkomatów. Spróbuj odświeżyć stronę.');
             return;
         }
@@ -24,7 +25,7 @@ export function InPostWidget({ selectedPaczkomat, onSelect, error }) {
         window.easyPack.modalMap(
             (point, modal) => {
                 // Callback po wyborze paczkomatu
-                console.log('InPost paczkomat selected:', point);
+                logger.log('InPost paczkomat selected:', point.name);
                 onSelect(point);
                 modal.closeModal();
             },

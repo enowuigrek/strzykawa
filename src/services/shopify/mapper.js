@@ -1,38 +1,28 @@
+import { logger } from '../../utils/logger.js';
+
 /**
  * Shopify Product Mapper
  * Maps Shopify product data to our internal format
  */
 
 /**
- * Parse comma-separated values to array
+ * Parse value that might be a JSON array or comma-separated string.
+ * @param {string} value - Raw value from Shopify metafield
+ * @param {boolean} asArray - If true returns array, if false returns joined string
+ * @returns {string|Array} Parsed result
  */
-function parseList(value) {
-    if (!value) return [];
-    // Jeśli wartość jest JSON arrayem (z Shopify list metafield)
-    if (value.startsWith('[')) {
-        try {
-            return JSON.parse(value);
-        } catch {
-            // Jeśli nie da się sparsować, traktuj jako string
-        }
-    }
-    return value.split(',').map(item => item.trim()).filter(Boolean);
-}
-
-/**
- * Parse value that might be JSON array or single value
- * Returns first value or joined string
- */
-function parseValue(value) {
-    if (!value) return '';
-    // Jeśli wartość jest JSON arrayem
+function parseField(value, asArray = false) {
+    if (!value) return asArray ? [] : '';
     if (value.startsWith('[')) {
         try {
             const arr = JSON.parse(value);
-            return arr.join(', ');
+            return asArray ? arr : arr.join(', ');
         } catch {
-            // Jeśli nie da się sparsować, zwróć as-is
+            // Fallback to CSV parsing
         }
+    }
+    if (asArray) {
+        return value.split(',').map(item => item.trim()).filter(Boolean);
     }
     return value;
 }
@@ -66,24 +56,21 @@ function getMetafield(product, key) {
  * @returns {object} Mapped product
  */
 export function mapProduct(shopifyProduct) {
-    // DEBUG: Zobacz surowe metafields z Shopify
-    console.log('🔍 Raw metafields for:', shopifyProduct.title, shopifyProduct.metafields);
+    logger.log('Mapping product:', shopifyProduct.title);
 
     // Extract metafields - używamy polskich kluczy z Shopify
-    // Kraj: custom pole (może zawierać wiele krajów dla blendów)
-    const country = parseValue(getMetafield(shopifyProduct, 'kraj'));
+    const country = parseField(getMetafield(shopifyProduct, 'kraj'));
     const region = getMetafield(shopifyProduct, 'region') || '';
     const variety = getMetafield(shopifyProduct, 'odmiana') || '';
-    const processing = parseValue(getMetafield(shopifyProduct, 'obrobka'));
+    const processing = parseField(getMetafield(shopifyProduct, 'obrobka'));
     const tastingNotes = getMetafield(shopifyProduct, 'profil_smakowy') || '';
     const altitude = getMetafield(shopifyProduct, 'wysokosc') || '';
     const farm = getMetafield(shopifyProduct, 'farma') || '';
     const species = getMetafield(shopifyProduct, 'gatunek') || 'Arabica';
     const producer = getMetafield(shopifyProduct, 'producent') || '';
 
-    // Map przeznaczenie (custom metafield): "Przelew" → "Filter", "Espresso" → "Espresso"
-    // Może być lista (JSON array)
-    const roastTypeRaw = parseValue(getMetafield(shopifyProduct, 'przeznaczenie'));
+    // Map przeznaczenie: "Przelew" → "Filter", "Espresso" → "Espresso"
+    const roastTypeRaw = parseField(getMetafield(shopifyProduct, 'przeznaczenie'));
     const roastType = roastTypeRaw
         ? (roastTypeRaw === 'Przelew' ? 'Filter' : roastTypeRaw)
         : null;
@@ -101,7 +88,7 @@ export function mapProduct(shopifyProduct) {
             region: region,
             farm: farm,
             producer: producer,
-            variety: parseList(variety),
+            variety: parseField(variety, true),
             altitudeMasl: altitude ? parseInt(altitude) : null,
             processing: processing,
             fermentation: ''
@@ -143,11 +130,11 @@ export function mapProduct(shopifyProduct) {
 
         // Coffee-specific fields
         origin: origin,
-        species: parseList(species),
+        species: parseField(species, true),
         roastLevel: roastLevel,
         roastType: roastType, // "Filter" or "Espresso"
         roastDate: null,
-        tastingNotes: parseList(tastingNotes),
+        tastingNotes: parseField(tastingNotes, true),
         processing: processing,
         altitude: altitude,
 

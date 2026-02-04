@@ -1,6 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { CoffeeCard } from '../coffee/CoffeeCard';
-import { Button } from '../atoms/Button';
 
 /**
  * CoffeeGrid - Grid of coffee cards with empty state and staggered animations
@@ -25,14 +24,23 @@ export function CoffeeGrid({ coffees, onClearFilters }) {
         return (
             <div className="text-center py-12">
                 <p className="text-muted text-lg mb-4">
-                    Nie znaleziono kaw spełniających wybrane kryteria
+                    Nie znaleziono produktów spełniających wybrane kryteria
                 </p>
-                <Button
-                    variant="ghost"
+                <button
                     onClick={onClearFilters}
+                    className="
+                        px-6 py-2.5
+                        rounded-full
+                        text-sm font-medium
+                        bg-white/5
+                        text-white/70
+                        hover:bg-white/10
+                        hover:text-white
+                        transition-all duration-150
+                    "
                 >
                     Wyczyść wszystkie filtry
-                </Button>
+                </button>
             </div>
         );
     }

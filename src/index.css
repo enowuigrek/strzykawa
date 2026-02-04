@@ -4,20 +4,18 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Base styles */
+/* ===== BASE STYLES ===== */
+
 html, body {
     background-color: #1f2a25;
     color: white;
     font-family: 'Dosis', Arial, sans-serif;
     height: 100%;
     margin: 0;
-
-    /* Safe area paddings for iOS */
     padding-top: env(safe-area-inset-top);
     padding-bottom: env(safe-area-inset-bottom);
     padding-left: env(safe-area-inset-left);
     padding-right: env(safe-area-inset-right);
-
 }
 
 #root {
@@ -28,16 +26,17 @@ html, body {
     box-sizing: border-box;
 }
 
-/* Zmniejszony dodatkowy padding dla głównej treści na mobile */
 @media (max-width: 767px) {
     main {
-        margin-bottom: 10px; /* Zmniejszone z 20px */
+        margin-bottom: 10px;
     }
 }
 
-/* Custom scrollbar for overlay content */
+/* ===== SCROLLBAR ===== */
+
 .scrollbar-thin {
     scrollbar-width: thin;
+    scrollbar-color: rgba(255, 255, 255, 0.3) transparent;
 }
 
 .scrollbar-thin::-webkit-scrollbar {
@@ -53,15 +52,8 @@ html, body {
     border-radius: 2px;
 }
 
-.scrollbar-thumb-white\/30 {
-    scrollbar-color: rgba(255, 255, 255, 0.3) transparent;
-}
+/* ===== ANIMATIONS ===== */
 
-.scrollbar-track-transparent {
-    /* Already handled in scrollbar-thin */
-}
-
-/* Cart bounce animation - wyrazista, żeby była widoczna po zamknięciu QuickAdd */
 @keyframes cart-bounce {
     0% { transform: scale(1); }
     10% { transform: scale(1.45); }
@@ -77,39 +69,26 @@ html, body {
     animation: cart-bounce 1s ease-out;
 }
 
-/* Custom animations */
 @keyframes fade-in {
-    from {
-        opacity: 0;
-        transform: translateY(20px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
 }
 
 .animate-fade-in {
     animation: fade-in 1s ease-out forwards;
 }
 
-/* Animacja dla dolnego paska */
 @keyframes slide-up {
-    from {
-        transform: translateY(100%);
-        opacity: 0;
-    }
-    to {
-        transform: translateY(0);
-        opacity: 1;
-    }
+    from { transform: translateY(100%); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
 }
 
 .animate-slide-up {
     animation: slide-up 0.5s ease-out forwards;
 }
 
-/* Utilities for better text rendering */
+/* ===== TEXT UTILITIES ===== */
+
 .text-shadow-sm {
     text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
 }
@@ -122,18 +101,19 @@ html, body {
     text-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
 }
 
-/* Better backdrop blur support for older browsers */
+/* ===== BACKDROP BLUR FALLBACK ===== */
+
 @supports not (backdrop-filter: blur(12px)) {
     .backdrop-blur-sm {
         background-color: rgba(31, 42, 37, 0.8);
     }
-
     .backdrop-blur-md {
         background-color: rgba(31, 42, 37, 0.9);
     }
 }
 
-/* Container utility enhancement */
+/* ===== CONTAINER ===== */
+
 .container {
     width: 90%;
     max-width: 1200px;
@@ -147,14 +127,14 @@ html, body {
     }
 }
 
-/* Focus styles for accessibility */
+/* ===== FORM & INTERACTIVE ELEMENTS ===== */
+
 select:focus-visible,
 button:focus-visible {
     outline: 2px solid #6B7F73;
     outline-offset: 2px;
 }
 
-/* Input focus - sharp accent border, no rounded ring */
 input:focus,
 textarea:focus,
 select:focus {
@@ -165,93 +145,31 @@ select:focus {
     border-style: solid;
 }
 
-/* Smooth transitions for all interactive elements */
 button,
 select,
 .group {
     transition: all 0.3s ease;
 }
 
-/* Enhanced gradient utilities */
-.bg-gradient-glow {
-    background: radial-gradient(circle at 50% 50%, rgba(81, 104, 95, 0.3), transparent 70%);
-}
-
-/* Print styles */
-@media print {
-    .no-print {
-        display: none !important;
-    }
-
-    .coffee-card {
-        break-inside: avoid;
-        page-break-inside: avoid;
-    }
-}
-
 /* ===== LOGO STYLES ===== */
 
-/* Logo poziome w headerze - zmiana koloru na biały */
-.header-logo img {
-    /* Zmiana koloru PNG na biały */
-    filter: brightness(0) saturate(100%) invert(100%) sepia(0%) saturate(7500%) hue-rotate(0deg) brightness(100%) contrast(100%);
-    height: 80px;
-    width: auto;
-    transition: none; /* Usunięte animacje */
-}
-
-/* Logo pionowe w footerze - zmiana koloru na biały */
-.footer-logo img {
-    filter: brightness(0) saturate(100%) invert(100%) sepia(0%) saturate(7500%) hue-rotate(0deg) brightness(100%) contrast(100%);
-    height: 260px; /* Wysokość dostosowana do footera - 2x większa */
-    width: auto;
-    transition: filter 0.3s ease;
-}
-
-/* Logo w hero - zmiana koloru na biały */
+/* Shared white filter for all logo variants */
+.header-logo img,
+.footer-logo img,
 .hero-logo img {
     filter: brightness(0) saturate(100%) invert(100%) sepia(0%) saturate(7500%) hue-rotate(0deg) brightness(100%) contrast(100%);
-    transition: all 0.3s ease;
+    width: auto;
 }
 
-/* Responsywne wysokości logo w hero */
-@media (max-width: 640px) {
-    .hero-logo img {
-        height: 115px; /* 40% mniej z 192px */
-    }
-}
-
-@media (min-width: 641px) and (max-width: 1024px) {
-    .hero-logo img {
-        height: 240px; /* 3x większe - było 80px */
-    }
-}
-
-@media (min-width: 1025px) {
-    .hero-logo img {
-        height: 288px; /* 3x większe - było 96px */
-    }
-}
-
-/* Zwiększenie wysokości i paddingu headera dla więcej miejsca */
-@media (min-width: 1024px) {
-    .header-container {
-        padding-top: 2rem;
-        padding-bottom: 2rem;
-    }
-}
-
-/* Zwiększony padding dla całego headera */
-.header-wrapper {
-    padding-top: 1.5rem;
-    padding-bottom: 1.5rem;
-}
-
-/* Dodatkowe style dla lepszego wyświetlania */
 .header-logo {
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+.header-logo img {
+    height: 80px;
+    transition: none;
 }
 
 .footer-logo {
@@ -260,8 +178,36 @@ select,
     justify-content: center;
 }
 
+.footer-logo img {
+    height: 260px;
+    transition: filter 0.3s ease;
+}
+
 .hero-logo {
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+.hero-logo img {
+    transition: all 0.3s ease;
+}
+
+/* Hero logo responsive sizes */
+@media (max-width: 640px) {
+    .hero-logo img {
+        height: 115px;
+    }
+}
+
+@media (min-width: 641px) and (max-width: 1024px) {
+    .hero-logo img {
+        height: 240px;
+    }
+}
+
+@media (min-width: 1025px) {
+    .hero-logo img {
+        height: 288px;
+    }
 }

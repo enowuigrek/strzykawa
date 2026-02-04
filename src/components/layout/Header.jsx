@@ -35,34 +35,32 @@ export function Header() {
             // Kolorowanie po 100px
             setScrolled(currentScrollY > 100);
 
-            // ✨ Sprawdź czy footer jest widoczny na ekranie
+            // Blisko góry strony — ZAWSZE pokazuj header
+            if (currentScrollY <= 300 || mobileMenuOpen) {
+                setHideHeader(false);
+                setLastScrollY(currentScrollY);
+                return;
+            }
+
+            // Sprawdź czy footer jest widoczny na ekranie
             const footer = document.querySelector('footer');
             if (footer) {
                 const footerRect = footer.getBoundingClientRect();
-                // Jeśli górna krawędź footera jest widoczna (mniej niż wysokość okna)
                 const isFooterVisible = footerRect.top < window.innerHeight;
 
                 if (isFooterVisible) {
-                    // Footer widoczny - ZAWSZE ukryj header (bo footer ma te same opcje + logo)
                     setHideHeader(true);
                     setLastScrollY(currentScrollY);
                     return;
                 }
             }
 
-            // Auto-hide po 300px (jak scroll w dół)
-            // ALE: NIE chowaj headera gdy hamburger jest otwarty
-            if (currentScrollY > 300 && !mobileMenuOpen) {
+            // Auto-hide po 300px
+            if (currentScrollY > lastScrollY) {
                 // Scrollujemy w dół - ukryj header
-                if (currentScrollY > lastScrollY) {
-                    setHideHeader(true);
-                }
+                setHideHeader(true);
+            } else if (currentScrollY < lastScrollY) {
                 // Scrollujemy w górę - pokaż header
-                else if (currentScrollY < lastScrollY) {
-                    setHideHeader(false);
-                }
-            } else {
-                // Poniżej 300px LUB hamburger otwarty - zawsze pokazuj
                 setHideHeader(false);
             }
 

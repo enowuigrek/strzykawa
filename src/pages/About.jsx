@@ -15,17 +15,12 @@ import { TimelineBar } from '../components/organisms/TimelineBar';
 
 export function About() {
     useScrollToTop();
-    const [isSticky, setIsSticky] = useState(false);
     const [hideBar, setHideBar] = useState(false);
     const ctaRef = React.useRef(null);
 
-    // Scroll detection dla TimelineBar i ukrywanie przy CTA
+    // Ukrywanie paska gdy dojedziemy do sekcji CTA
     useEffect(() => {
         const handleScroll = () => {
-            // TimelineBar jest przypięty gdy scroll > 200px (po PageHeader)
-            setIsSticky(window.scrollY > 200);
-
-            // Chowaj pasek gdy dojedziemy do sekcji CTA
             if (ctaRef.current) {
                 const ctaTop = ctaRef.current.offsetTop;
                 const scrollPosition = window.scrollY + window.innerHeight / 2;
@@ -81,7 +76,7 @@ export function About() {
             description="Nasza historia. Poznaj drogę od małej kawiarni do palarni kawy."
         >
             {/* Timeline Bar */}
-            <TimelineBar years={years} isSticky={isSticky} hide={hideBar} />
+            <TimelineBar years={years} hide={hideBar} />
 
             {/* Timeline Content */}
             <div className="max-w-6xl mx-auto px-4 py-16">

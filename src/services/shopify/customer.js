@@ -1,4 +1,5 @@
 import { shopifyClient } from './client.js';
+import { logger } from '../../utils/logger.js';
 
 /**
  * Shopify Customer Account API Service
@@ -68,7 +69,7 @@ export async function registerCustomer(email, password, firstName, lastName, pho
             }
         };
     } catch (error) {
-        console.error('Error registering customer:', error);
+        logger.error('Error registering customer:', error);
         return {
             success: false,
             error: 'Błąd podczas tworzenia konta. Spróbuj ponownie.'
@@ -105,11 +106,11 @@ export async function loginCustomer(email, password) {
 
     try {
         const response = await shopifyClient.graphqlFetch(mutation, variables);
-        console.log('✅ Login response:', response);
+        logger.log('Login response:', response);
 
         if (response.data.customerAccessTokenCreate.customerUserErrors.length > 0) {
             const error = response.data.customerAccessTokenCreate.customerUserErrors[0];
-            console.log('❌ Login error:', error);
+            logger.log('Login error:', error);
             return {
                 success: false,
                 error: translateError(error.message)
@@ -117,21 +118,21 @@ export async function loginCustomer(email, password) {
         }
 
         const { accessToken, expiresAt } = response.data.customerAccessTokenCreate.customerAccessToken;
-        console.log('✅ Access token received:', accessToken.substring(0, 20) + '...');
+        logger.log('Access token received');
 
         // Pobierz dane klienta używając access token
         const customerData = await getCustomer(accessToken);
-        console.log('✅ Customer data received:', customerData);
+        logger.log('Customer data received');
 
         if (!customerData.success) {
-            console.error('❌ Failed to fetch customer data');
+            logger.error('Failed to fetch customer data');
             return {
                 success: false,
                 error: 'Nie udało się pobrać danych użytkownika'
             };
         }
 
-        console.log('✅ Login SUCCESS, returning customer:', customerData.customer);
+        logger.log('Login success');
         return {
             success: true,
             accessToken,
@@ -139,7 +140,7 @@ export async function loginCustomer(email, password) {
             customer: customerData.customer
         };
     } catch (error) {
-        console.error('❌ Error logging in customer:', error);
+        logger.error('Error logging in customer:', error);
         return {
             success: false,
             error: 'Błąd podczas logowania. Spróbuj ponownie.'
@@ -198,7 +199,7 @@ export async function getCustomer(accessToken) {
             }
         };
     } catch (error) {
-        console.error('Error fetching customer:', error);
+        logger.error('Error fetching customer:', error);
         return {
             success: false,
             error: 'Błąd podczas pobierania danych klienta'
@@ -294,7 +295,7 @@ export async function getCustomerOrders(accessToken, first = 10) {
             orders
         };
     } catch (error) {
-        console.error('Error fetching customer orders:', error);
+        logger.error('Error fetching customer orders:', error);
         return {
             success: false,
             error: 'Błąd podczas pobierania zamówień'
@@ -327,7 +328,7 @@ export async function logoutCustomer(accessToken) {
         await shopifyClient.graphqlFetch(mutation, variables);
         return { success: true };
     } catch (error) {
-        console.error('Error logging out customer:', error);
+        logger.error('Error logging out customer:', error);
         return { success: false };
     }
 }
@@ -411,13 +412,13 @@ export async function updateCustomerAddress(accessToken, address) {
 
         if (updateResponse.data.customerDefaultAddressUpdate.customerUserErrors.length > 0) {
             const error = updateResponse.data.customerDefaultAddressUpdate.customerUserErrors[0];
-            console.warn('Failed to set as default address:', error.message);
+            logger.warn('Failed to set as default address:', error.message);
             // Nie zwracamy błędu - adres został utworzony, tylko nie jest domyślny
         }
 
         return { success: true };
     } catch (error) {
-        console.error('Error updating customer address:', error);
+        logger.error('Error updating customer address:', error);
         return {
             success: false,
             error: 'Błąd podczas aktualizacji adresu'
@@ -446,26 +447,25 @@ export async function recoverPassword(email) {
     };
 
     try {
-        console.log('🔑 Sending password recovery email to:', email);
+        logger.log('Sending password recovery email to:', email);
         const response = await shopifyClient.graphqlFetch(mutation, variables);
-        console.log('🔑 Password Recovery Response:', response);
 
         if (response.data.customerRecover.customerUserErrors.length > 0) {
             const error = response.data.customerRecover.customerUserErrors[0];
-            console.error('❌ Password recovery error:', error);
+            logger.error('Password recovery error:', error);
             return {
                 success: false,
                 error: translateError(error.message)
             };
         }
 
-        console.log('✅ Password recovery email sent successfully to:', email);
+        logger.log('Password recovery email sent to:', email);
         return {
             success: true,
             message: 'Link do resetu hasła został wysłany na podany adres e-mail'
         };
     } catch (error) {
-        console.error('❌ Error recovering password:', error);
+        logger.error('Error recovering password:', error);
         return {
             success: false,
             error: 'Błąd podczas wysyłania emaila. Spróbuj ponownie.'
@@ -500,26 +500,24 @@ export async function changePassword(accessToken, currentPassword, newPassword) 
     };
 
     try {
-        console.log('🔑 Changing password for user');
         const response = await shopifyClient.graphqlFetch(mutation, variables);
-        console.log('🔑 Change password response:', response);
 
         if (response.data.customerUpdate.customerUserErrors.length > 0) {
             const error = response.data.customerUpdate.customerUserErrors[0];
-            console.error('❌ Password change error:', error);
+            logger.error('Password change error:', error);
             return {
                 success: false,
                 error: translateError(error.message)
             };
         }
 
-        console.log('✅ Password changed successfully');
+        logger.log('Password changed successfully');
         return {
             success: true,
             message: 'Hasło zostało zmienione pomyślnie'
         };
     } catch (error) {
-        console.error('❌ Error changing password:', error);
+        logger.error('Error changing password:', error);
         return {
             success: false,
             error: 'Błąd podczas zmiany hasła. Spróbuj ponownie.'

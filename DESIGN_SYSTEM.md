@@ -1,8 +1,8 @@
 # 🎨 STRZYKAWA - DESIGN SYSTEM
 
-> **Wersja:** 1.1  
-> **Ostatnia aktualizacja:** 14 Listopada 2025 - Evening  
-> **Status:** Aktualne - Count Badges ZIELONE
+> **Wersja:** 1.2
+> **Ostatnia aktualizacja:** 4 Lutego 2026
+> **Status:** Aktualne
 
 ---
 
@@ -598,7 +598,8 @@ z-20     // Dropdowns, tooltips
 z-30     // Sticky elements (filters)
 z-40     // Fixed header (scrolled)
 z-50     // Media elements (coffee card image)
-z-[100]  // Modals, cart drawer (highest)
+z-[100]  // Modals, cart drawer, mobile bottom nav
+z-[150]  // Mobile hamburger toggle (nad modalami)
 ```
 
 ---
@@ -607,20 +608,25 @@ z-[100]  // Modals, cart drawer (highest)
 
 ### **Logo Files**
 ```
+public/logo/
+  ├── icon-logo.png            # Favicon, ikona
+  ├── horizontal-logo.png      # Header, footer (panorama)
+  └── vertical-logo.png        # Mobile, hero (pionowe)
+
 src/assets/
-  ├── logo-icon.jpg          # Favicon, icon only
-  ├── logo-full.jpg          # Full logo (dark bg)
-  ├── horizontal-logo.png    # Header/footer
-  └── vertical-logo.png      # Mobile, splash
+  ├── logo-icon.jpg            # Logo kwadratowe (starsze)
+  └── logo-full.jpg            # Pełne logo (ciemne tło)
 ```
 
-### **Images**
+### **Media & Assets**
 ```
 src/assets/
-  ├── hero/              # Hero section backgrounds
-  ├── products/          # Coffee product photos
-  ├── cafe/              # Interior photos
-  └── placeholders/      # Temporary placeholders
+  ├── hero-desktop.mp4         # Video hero (desktop)
+  ├── hero-mobile.mp4          # Video hero (mobile)
+  ├── coffee-placeholder.jpg   # Placeholder produktu
+  ├── footer.jpg               # Tło footera
+  ├── history/                 # Zdjęcia do osi czasu (O nas)
+  └── team/                    # Zdjęcia zespołu
 ```
 
 ### **Icons**
@@ -692,13 +698,19 @@ screens: {
 ## 🔗 RELATED DOCS
 
 - `README.md` - Project overview
-- `DEVELOPMENT.md` - Full development plan
-- `roadmap.md` - Current priorities
+- `CLAUDE.md` - AI assistant guide
 - `tailwind.config.js` - Tailwind configuration
 
 ---
 
 ## 📝 CHANGELOG
+
+### **4 Lutego 2026 - Cleanup & Aktualizacja**
+- Zaktualizowano ścieżki logo (public/logo/ zamiast src/assets/)
+- Zaktualizowano sekcję assets z faktyczną strukturą plików
+- Dodano z-[150] do z-index hierarchy (mobile hamburger)
+- Usunięto odniesienia do nieistniejących plików (DEVELOPMENT.md, roadmap.md)
+- Zaktualizowano listę powiązanych dokumentów
 
 ### **25 Listopada 2025 - Synchronizacja Design System**
 - **UPDATED:** Zsynchronizowano kolory z tailwind.config.js
@@ -731,6 +743,5 @@ screens: {
 
 ---
 
-**Maintainer:** @enowuigrek  
-**Last Review:** 14 Listopada 2025  
-**Next Review:** Po zakończeniu integracji Shopify
+**Maintainer:** @enowuigrek
+**Last Review:** 4 Lutego 2026

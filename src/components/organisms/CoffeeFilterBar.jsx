@@ -1,12 +1,10 @@
-import { Button } from '../atoms/Button';
-import { Chip } from '../atoms/Chip';
-import { FaSearch, FaTimes } from 'react-icons/fa';
 import { useState, useEffect, useRef } from 'react';
+import { SortSelector } from '../molecules/SortSelector';
 
 export function CoffeeFilterBar({
                                     selectedRoastType,
                                     onRoastTypeChange,
-                                    onSearchChange, // NOWE: callback dla search
+                                    onSearchChange,
                                     selectedCountry,
                                     onCountryRemove,
                                     selectedProcessing,
@@ -17,11 +15,12 @@ export function CoffeeFilterBar({
                                     espressoCount,
                                     filterCount,
                                     resultCount,
-                                    isSticky
+                                    sortValue,
+                                    onSortChange,
                                 }) {
     // Lokalny state dla instant UI feedback
     const [localActiveType, setLocalActiveType] = useState(selectedRoastType);
-    const [searchQuery, setSearchQuery] = useState(''); // NOWE: search state
+    const [searchQuery, setSearchQuery] = useState('');
     const isLocalChange = useRef(false);
 
     // Sync z props tylko gdy NIE jest to lokalna zmiana
@@ -33,18 +32,14 @@ export function CoffeeFilterBar({
     }, [selectedRoastType]);
 
     const handleFilterClick = (type) => {
-        // Oznacz że to lokalna zmiana
         isLocalChange.current = true;
-        // Instant UI update
         setLocalActiveType(type);
-        // Async data update
         onRoastTypeChange(type);
     };
 
     const handleSearchChange = (e) => {
         const value = e.target.value;
         setSearchQuery(value);
-        // Przekaż do parent (jeśli handler istnieje)
         onSearchChange?.(value);
     };
 
@@ -54,18 +49,17 @@ export function CoffeeFilterBar({
                 sticky
                 top-0
                 z-40
-                ${isSticky ? 'bg-primary-dark backdrop-blur-md shadow-2xl shadow-black/50' : 'bg-primary-light'}
-                transition-all
-                duration-500
+                bg-primary
                 h-[100px]
                 lg:h-[120px]
             `}
         >
-            <div className="container mx-auto px-4 sm:px-6 lg:px-8 h-full flex items-center">
-                {/* Filtry */}
-                <div className="flex items-center gap-3">
+            {/* Kontener dopasowany do siatki kart (max-w-7xl px-4) */}
+            <div className="container mx-auto max-w-7xl px-4 h-full flex items-center justify-between">
+                {/* Filtry - lewa strona */}
+                <div className="flex items-center gap-2 md:gap-3">
                     {/* Grupa: Kawy (Espresso + Przelew) */}
-                    <div className="flex items-center gap-1 bg-white/5 rounded-full p-1">
+                    <div className="flex items-center gap-1 bg-white/5 rounded-full p-0.5">
                         <MainFilterButton
                             label="Espresso"
                             count={espressoCount}
@@ -95,6 +89,12 @@ export function CoffeeFilterBar({
                         onClick={() => handleFilterClick('')}
                     />
                 </div>
+
+                {/* Sortowanie - prawa strona */}
+                <SortSelector
+                    value={sortValue}
+                    onChange={onSortChange}
+                />
             </div>
         </div>
     );
@@ -109,6 +109,9 @@ export function CoffeeFilterBar({
  *
  * Mobile: tylko kółko z liczbą
  * Desktop: nazwa + kółko z liczbą
+ *
+ * Standalone buttons (Akcesoria, Wszystko) mają taką samą wysokość
+ * jak grupa Espresso/Przelew dzięki dopasowanym padding/height.
  */
 function MainFilterButton({ label, count, isActive, onClick, isGrouped = false }) {
     const lowerLabel = (label || '').toLowerCase();
@@ -122,10 +125,11 @@ function MainFilterButton({ label, count, isActive, onClick, isGrouped = false }
         colorClass = 'bg-success';
     }
 
+    // Standalone buttons: py-2 = ta sama wysokość co grupa (p-0.5 + py-1.5)
+    // Grouped buttons: py-1.5 (wewnątrz wrappera z p-0.5)
+    const paddingY = isGrouped ? 'py-1.5' : 'py-2';
+
     if (isActive) {
-        // Active:
-        // Desktop: kolorowy pill z nazwą i liczbą wewnątrz
-        // Mobile: tylko kolorowe kółko z liczbą
         return (
             <button
                 onClick={onClick}
@@ -140,24 +144,19 @@ function MainFilterButton({ label, count, isActive, onClick, isGrouped = false }
                     items-center
                     justify-center
                     md:px-4
-                    md:py-2
+                    ${paddingY}
                     md:gap-2
-                    w-8
-                    h-8
-                    md:w-auto
-                    md:h-auto
-                    text-xs
-                    md:text-sm
-                    font-bold
-                    md:font-medium
+                    w-8 h-8
+                    md:w-auto md:h-auto
+                    text-xs md:text-sm
+                    font-bold md:font-medium
                     shadow-md
                     hover:scale-105
                 `}
                 aria-label={`${label}${count > 0 ? ` – ${count} kaw` : ''}`}
             >
                 {/* Mobile: tylko liczba */}
-                <span className="md:hidden">{count > 0 ? count : ''}</span>
-
+                <span className="md:hidden">{count}</span>
                 {/* Desktop: nazwa + liczba */}
                 <span className="hidden md:inline">{label}</span>
                 {count > 0 && (
@@ -167,22 +166,20 @@ function MainFilterButton({ label, count, isActive, onClick, isGrouped = false }
         );
     }
 
-    // Inactive: text pill
-    // Jeśli w grupie - bez własnego tła (grupa ma tło)
+    // Inactive
     return (
         <button
             onClick={onClick}
             className={`
                 px-4
-                py-2
+                ${paddingY}
                 rounded-full
                 font-medium
                 text-sm
                 transition-all
                 duration-150
-                ${isGrouped ? 'bg-transparent' : 'bg-white/5'}
+                ${isGrouped ? 'bg-transparent hover:bg-white/5' : 'bg-white/5 hover:bg-white/10'}
                 text-white/70
-                ${isGrouped ? 'hover:bg-white/5' : 'hover:bg-white/10'}
                 hover:text-white
             `}
         >

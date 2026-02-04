@@ -44,7 +44,7 @@ function useTimelineScroll(years) {
  *
  * @param {Array} years - Array of years/dates to display
  */
-export function TimelineBar({ years = [], isSticky = false, hide = false }) {
+export function TimelineBar({ years = [], hide = false }) {
     const activeYear = useTimelineScroll(years);
     const activeIndex = years.indexOf(activeYear);
 
@@ -73,7 +73,7 @@ export function TimelineBar({ years = [], isSticky = false, hide = false }) {
             sticky
             top-0
             z-50
-            ${isSticky ? 'bg-primary-dark backdrop-blur-md shadow-2xl shadow-black/50' : 'bg-primary-light'}
+            bg-primary
             transition-all
             duration-500
             h-[100px]

@@ -5,6 +5,7 @@ export { ProductBreadcrumb } from './ProductBreadcrumb';
 export { ProductGallery } from './ProductGallery';
 export { ProductMeta } from './ProductMeta';
 export { SocialLinks } from './SocialLinks';
+export { SortSelector } from './SortSelector';
 export { StickerDetails } from './StickerDetails';
 export { TimelineSection } from './TimelineSection';
 export { VariantSelector } from './VariantSelector';
