@@ -20,7 +20,13 @@ export function Coffees() {
     // Scroll do góry gridu po zmianie filtra (tylko mobile)
     const scrollToGrid = useCallback(() => {
         if (gridRef.current && window.innerWidth < 768) {
-            gridRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            const rect = gridRef.current.getBoundingClientRect();
+            const scrollMt = parseInt(getComputedStyle(gridRef.current).scrollMarginTop) || 0;
+            const targetY = window.scrollY + rect.top - scrollMt;
+            // Tylko jeśli grid jest poniżej widoku
+            if (rect.top > 0) {
+                window.scrollTo({ top: targetY, behavior: 'instant' });
+            }
         }
     }, []);
 
