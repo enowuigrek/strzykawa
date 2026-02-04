@@ -17,9 +17,9 @@ export function Coffees() {
     const [isDrawerOpen, setIsDrawerOpen] = useState(false);
     const gridRef = useRef(null);
 
-    // Scroll do góry gridu po zmianie filtra
+    // Scroll do góry gridu po zmianie filtra (tylko mobile)
     const scrollToGrid = useCallback(() => {
-        if (gridRef.current) {
+        if (gridRef.current && window.innerWidth < 768) {
             gridRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
     }, []);
