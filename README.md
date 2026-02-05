@@ -9,7 +9,7 @@
   </a>
   <img src="https://img.shields.io/badge/React-blue" />
   <img src="https://img.shields.io/badge/Vite-purple" />
-  <img src="https://img.shields.io/badge/SCSS-pink" />
+  <img src="https://img.shields.io/badge/Tailwind_CSS-38B2AC" />
   <img src="https://img.shields.io/badge/Shopify-Headless-green" />
 </p>
 
@@ -47,7 +47,7 @@ This is a real commercial project delivered for a paying client.
 
 - React
 - Vite
-- SCSS
+- tailwind
 - Shopify (Headless)
 
 ---
