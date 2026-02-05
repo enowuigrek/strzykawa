@@ -10,29 +10,32 @@
   <img src="https://img.shields.io/badge/React-blue" />
   <img src="https://img.shields.io/badge/Vite-purple" />
   <img src="https://img.shields.io/badge/SCSS-pink" />
+  <img src="https://img.shields.io/badge/Shopify-Headless-green" />
 </p>
 
 # Strzykawa
 
-**A small promotional website for a local specialty coffee shop.**
+**A headless Shopify website built for a real commercial specialty coffee business.**
 
-Strzykawa is a lightweight web project created to present a local coffee place, share basic information, and build a simple online presence around specialty coffee culture.
+Strzykawa is a production web project built as a **custom headless frontend connected to Shopify**, created for a local specialty coffee shop to present the brand and enable product browsing.
 
-Built as a clean, minimal website and portfolio project.
+Shopify is used as the backend (products / content), while the frontend is fully custom-built in React.
+
+This is a real commercial project delivered for a paying client.
 
 ---
 
 ## 🚀 Status & Demo
 
-**Status:** Live  
+**Status:** Live (production)  
 **Demo:** https://strzykawa.com
-
-Visit the site to explore the coffee shop presentation and learn more about offerings.
 
 ---
 
 ## ✨ Core Features
 
+- Headless Shopify integration
+- Custom React storefront frontend
 - Clean landing page layout
 - Responsive design for all screen sizes
 - Fast loading static content
@@ -45,25 +48,27 @@ Visit the site to explore the coffee shop presentation and learn more about offe
 - React
 - Vite
 - SCSS
+- Shopify (Headless)
 
 ---
 
 ## 🎯 Project Highlights
 
-- Minimal promotional website
-- Local business showcase
-- Built as a real‑world portfolio project
+- Production headless commerce architecture
+- Real client delivery
+- Custom frontend + Shopify backend
+- Local business digital presence
 - Designed for simplicity and performance
 
 ---
 
 ## 👤 Author
 
-Created by Łukasz Nowak  
+Built by Łukasz Nowak  
 GitHub: https://github.com/enowuigrek
 
 ---
 
 ## 📄 License
 
-Personal project
+Commercial project – source shared for portfolio purposes only
