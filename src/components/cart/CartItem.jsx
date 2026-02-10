@@ -67,33 +67,27 @@ export function CartItem({ item, onUpdateQuantity, onRemove, isLoading, onCloseC
                     </h4>
 
                     {/* Variant pills - ciemny zielony jak na przykładzie */}
-                    {(item.selectedOptions?.length > 0 || item.coffeeForm) && (
-                        <div className="flex flex-wrap gap-1.5 mt-1.5">
-                            {/* Gramatura z Shopify */}
-                            {item.selectedOptions?.map((option) => {
-                                // Pokazuj tylko Gramaturę
-                                if (option.name !== 'Gramatura') return null;
-                                return (
-                                    <span
-                                        key={option.name}
-                                        className="inline-flex items-center px-3 py-1 bg-[#3A5F55] text-white text-sm font-medium rounded-full"
-                                    >
-                                        {option.value}
-                                    </span>
-                                );
-                            })}
-                            {/* Forma kawy: "ziarna" lub nazwa mielenia (bez słowa "mielona") */}
-                            {item.coffeeForm === 'ziarna' ? (
+                    <div className="flex flex-wrap gap-1.5 mt-1.5">
+                        {/* Gramatura - zawsze pokazuj (z Shopify lub domyślna 250g) */}
+                        {(() => {
+                            const gramatura = item.selectedOptions?.find(opt => opt.name === 'Gramatura')?.value || '250g';
+                            return (
                                 <span className="inline-flex items-center px-3 py-1 bg-[#3A5F55] text-white text-sm font-medium rounded-full">
-                                    ziarna
+                                    {gramatura}
                                 </span>
-                            ) : item.grindMethod ? (
-                                <span className="inline-flex items-center px-3 py-1 bg-[#3A5F55] text-white text-sm font-medium rounded-full">
-                                    {item.grindMethod}
-                                </span>
-                            ) : null}
-                        </div>
-                    )}
+                            );
+                        })()}
+                        {/* Forma kawy: "Ziarna" lub "mielona: Drip" */}
+                        {item.coffeeForm === 'ziarna' ? (
+                            <span className="inline-flex items-center px-3 py-1 bg-[#3A5F55] text-white text-sm font-medium rounded-full">
+                                Ziarna
+                            </span>
+                        ) : item.grindMethod ? (
+                            <span className="inline-flex items-center px-3 py-1 bg-[#3A5F55] text-white text-sm font-medium rounded-full">
+                                mielona: {item.grindMethod}
+                            </span>
+                        ) : null}
+                    </div>
 
                     {/* Tasting notes - z wielką literą na początku */}
                     {product.tastingNotes?.length > 0 && (

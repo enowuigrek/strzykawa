@@ -8,12 +8,12 @@ import { useBackdropClick } from '../../hooks/useBackdropClick.js';
 // Opcje mielenia w zależności od typu palenia
 const GRIND_OPTIONS = {
     Espresso: [
-        { value: 'ekspres', label: 'ekspres' },
-        { value: 'kawiarka', label: 'kawiarka' }
+        { value: 'Ekspres', label: 'Ekspres' },
+        { value: 'Kawiarka', label: 'Kawiarka' }
     ],
     Filter: [
-        { value: 'drip', label: 'drip' },
-        { value: 'ekspres przelewowy', label: 'ekspres przelewowy' }
+        { value: 'Drip', label: 'Drip' },
+        { value: 'Ekspres Przelewowy', label: 'Ekspres Przelewowy' }
     ]
 };
 
@@ -250,14 +250,13 @@ export function QuickAddModal({ coffee, isOpen, onClose, onAddToCart }) {
                                     <label className="block text-base font-medium text-white mb-2">
                                         Sposób mielenia
                                     </label>
-                                    <div className="flex gap-2">
+                                    <div className="flex flex-col gap-2">
                                         {grindOptions.map(({ value, label }) => (
                                             <button
                                                 key={value}
                                                 onClick={() => setGrindMethod(value)}
                                                 className={`
-                                                    flex-1
-                                                    px-5 py-2.5 text-base font-medium
+                                                    px-5 py-2.5 text-base font-medium text-left
                                                     transition-all duration-200
                                                     rounded-full
                                                     ${grindMethod === value

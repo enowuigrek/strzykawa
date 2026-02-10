@@ -12,12 +12,12 @@ import React, { useState, useEffect } from 'react';
 // Opcje mielenia w zależności od typu palenia
 const GRIND_OPTIONS = {
     Espresso: [
-        { value: 'ekspres', label: 'ekspres' },
-        { value: 'kawiarka', label: 'kawiarka' }
+        { value: 'Ekspres', label: 'Ekspres' },
+        { value: 'Kawiarka', label: 'Kawiarka' }
     ],
     Filter: [
-        { value: 'drip', label: 'drip' },
-        { value: 'ekspres przelewowy', label: 'ekspres przelewowy' }
+        { value: 'Drip', label: 'Drip' },
+        { value: 'Ekspres Przelewowy', label: 'Ekspres Przelewowy' }
     ]
 };
 
@@ -177,13 +177,13 @@ export function VariantSelector({
                         <label className="block text-base text-white mb-2">
                             Sposób mielenia
                         </label>
-                        <div className="grid grid-cols-2 gap-2">
+                        <div className="flex flex-col gap-2">
                             {grindOptions.map(({ value, label }) => (
                                 <button
                                     key={value}
                                     onClick={() => onGrindMethodChange(value)}
                                     className={`
-                                        px-5 py-2.5 font-medium transition-all rounded-full
+                                        px-5 py-2.5 font-medium transition-all rounded-full text-left
                                         ${grindMethod === value
                                             ? 'bg-accent text-white shadow-md ring-2 ring-accent/30'
                                             : 'bg-primary-light text-muted border border-accent/30 hover:bg-accent/20 hover:text-white'
