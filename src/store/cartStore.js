@@ -42,8 +42,10 @@ export const useCartStore = create(
                     const variant = line.merchandise;
 
                     const selectedOptions = variant.selectedOptions || [];
-                    const coffeeForm = line.attributes?.find(attr => attr.key === 'coffee_form')?.value || 'ziarna';
-                    const grindMethod = line.attributes?.find(attr => attr.key === 'grind_method')?.value || null;
+                    // Odczytujemy polskie klucze atrybutów (patrz komentarz w addItem)
+                    const formaKawyAttr = line.attributes?.find(attr => attr.key === 'Forma kawy')?.value;
+                    const coffeeForm = formaKawyAttr === 'Mielona' ? 'mielona' : 'ziarna';
+                    const grindMethod = line.attributes?.find(attr => attr.key === 'Mielenie')?.value || null;
 
                     return {
                         lineItemId: line.id,
@@ -69,19 +71,20 @@ export const useCartStore = create(
 
             // Add item to cart (with auto-recovery for expired carts)
             // coffeeForm: 'ziarna' | 'mielona'
-            // grindMethod: 'ekspres' | 'kawiarka' | 'drip' | 'ekspres przelewowy' | null
+            // grindMethod: 'Ekspres' | 'Kawiarka' | 'Drip' | 'Ekspres Przelewowy' | null
             addItem: async (product, variantId, quantity = 1, coffeeForm = 'ziarna', grindMethod = null) => {
                 set({ isLoading: true, error: null });
 
                 const buildLines = () => {
+                    // UWAGA: Klucze atrybutów są po polsku, bo Shopify checkout wyświetla je
+                    // bezpośrednio klientowi. Dzięki temu zamiast "coffee_form: mielona"
+                    // klient widzi "Forma kawy: Mielona" — czytelniej i profesjonalniej.
                     const attributes = [
-                        { key: 'product_name', value: product.name },
-                        { key: 'roast_level', value: product.roastLevel || '' },
-                        { key: 'coffee_form', value: coffeeForm },
+                        { key: 'Forma kawy', value: coffeeForm === 'ziarna' ? 'Ziarna' : 'Mielona' },
                     ];
 
                     if (coffeeForm === 'mielona' && grindMethod) {
-                        attributes.push({ key: 'grind_method', value: grindMethod });
+                        attributes.push({ key: 'Mielenie', value: grindMethod });
                     }
 
                     return [{
