@@ -264,9 +264,10 @@ export const useCartStore = create(
                     });
                 }
 
-                // Clear cart BEFORE redirect to prevent "zombie cart" on return
-                // Mark checkout as pending and redirect
-                set({ cart: null, items: [], status: 'pending' });
+                // Ustawiamy tylko status na 'pending' i przekierowujemy
+                // Koszyk NIE jest czyszczony tutaj, żeby użytkownik nie widział pustego koszyka
+                // Koszyk wyczyści się na /checkout/success (markCheckoutCompleted)
+                set({ status: 'pending' });
                 window.location.href = checkoutUrl;
             },
 
