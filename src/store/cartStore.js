@@ -35,7 +35,6 @@ export const useCartStore = create(
             },
 
             // Map Shopify cart to our items format
-            // 🔥 FIXED: Używa variant.selectedOptions z GraphQL (nie z attributes!)
             mapCartToItems: (cart) => {
                 if (!cart?.lines?.edges) return [];
 
@@ -43,6 +42,7 @@ export const useCartStore = create(
                     const variant = line.merchandise;
 
                     const selectedOptions = variant.selectedOptions || [];
+                    const coffeeForm = line.attributes?.find(attr => attr.key === 'coffee_form')?.value || 'ziarna';
                     const grindMethod = line.attributes?.find(attr => attr.key === 'grind_method')?.value || null;
 
                     return {
@@ -60,6 +60,7 @@ export const useCartStore = create(
                         variantId: variant.id,
                         variantTitle: variant.title,
                         selectedOptions: selectedOptions,
+                        coffeeForm: coffeeForm,
                         grindMethod: grindMethod,
                         quantity: line.quantity
                     };
@@ -67,16 +68,19 @@ export const useCartStore = create(
             },
 
             // Add item to cart (with auto-recovery for expired carts)
-            addItem: async (product, variantId, quantity = 1, grindMethod = null) => {
+            // coffeeForm: 'ziarna' | 'mielona'
+            // grindMethod: 'ekspres' | 'kawiarka' | 'drip' | 'ekspres przelewowy' | null
+            addItem: async (product, variantId, quantity = 1, coffeeForm = 'ziarna', grindMethod = null) => {
                 set({ isLoading: true, error: null });
 
                 const buildLines = () => {
                     const attributes = [
                         { key: 'product_name', value: product.name },
                         { key: 'roast_level', value: product.roastLevel || '' },
+                        { key: 'coffee_form', value: coffeeForm },
                     ];
 
-                    if (grindMethod) {
+                    if (coffeeForm === 'mielona' && grindMethod) {
                         attributes.push({ key: 'grind_method', value: grindMethod });
                     }
 

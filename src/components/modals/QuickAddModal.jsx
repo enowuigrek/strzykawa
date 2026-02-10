@@ -5,108 +5,125 @@ import { Button } from '../atoms/Button.jsx';
 import { ModalHeader } from '../layout/ModalHeader.jsx';
 import { useBackdropClick } from '../../hooks/useBackdropClick.js';
 
+// Opcje mielenia w zależności od typu palenia
+const GRIND_OPTIONS = {
+    Espresso: [
+        { value: 'ekspres', label: 'ekspres' },
+        { value: 'kawiarka', label: 'kawiarka' }
+    ],
+    Filter: [
+        { value: 'drip', label: 'drip' },
+        { value: 'ekspres przelewowy', label: 'ekspres przelewowy' }
+    ]
+};
+
 export function QuickAddModal({ coffee, isOpen, onClose, onAddToCart }) {
     const [selectedVariant, setSelectedVariant] = useState(null);
     const [quantity, setQuantity] = useState(1);
     const [adding, setAdding] = useState(false);
-    const [grindMethod, setGrindMethod] = useState(null); // Ekspres / Drip
     const [isAnimating, setIsAnimating] = useState(false);
+
+    // Nowa logika - forma kawy i mielenie z aplikacji
+    const [coffeeForm, setCoffeeForm] = useState('ziarna'); // 'ziarna' | 'mielona'
+    const [grindMethod, setGrindMethod] = useState(null);
 
     // Animation trigger
     useEffect(() => {
         if (isOpen) {
-            // Trigger animation after mount
             setTimeout(() => setIsAnimating(true), 10);
         } else {
             setIsAnimating(false);
         }
     }, [isOpen]);
 
-    // Set default variant when modal opens - prioritize "Całe ziarna" (whole beans)
+    // Set default variant when modal opens
     useEffect(() => {
         if (isOpen && coffee?.variants?.length > 0) {
-            // First try to find available "Całe ziarna" variant
-            const ziarnaVariant = coffee.variants.find(v =>
-                v.availableForSale &&
-                v.selectedOptions?.some(opt => opt.name === 'Forma kawy' && opt.value === 'Całe ziarna')
-            );
-
-            // If no "Ziarna" available, fall back to any available variant
-            const fallbackVariant = coffee.variants.find(v => v.availableForSale);
-
-            setSelectedVariant(ziarnaVariant || fallbackVariant || coffee.variants[0]);
+            const availableVariant = coffee.variants.find(v => v.availableForSale);
+            setSelectedVariant(availableVariant || coffee.variants[0]);
             setQuantity(1);
-            setGrindMethod(null); // Reset grind method
+            setCoffeeForm('ziarna');
+            setGrindMethod(null);
         }
     }, [isOpen, coffee]);
 
-    // Extract ALL unique options
-    const extractAllOptions = (optionName) => {
-        if (!coffee?.variants) return [];
-        const options = new Set();
+    // Wyciągnij gramatury z wariantów Shopify
+    const extractGramatury = () => {
+        if (!coffee?.variants) return ['250g'];
+        const gramatury = new Set();
         coffee.variants.forEach(variant => {
-            const option = variant.selectedOptions?.find(opt => opt.name === optionName);
-            if (option) options.add(option.value);
+            const gramOption = variant.selectedOptions?.find(opt => opt.name === 'Gramatura');
+            if (gramOption) {
+                gramatury.add(gramOption.value);
+            }
         });
-        return Array.from(options);
+        if (gramatury.size === 0) {
+            gramatury.add('250g');
+        }
+        return Array.from(gramatury);
     };
 
-    // Check if specific option value is available
-    const isOptionAvailable = (optionName, optionValue) => {
+    const gramatury = extractGramatury();
+
+    // Pobierz aktualną gramaturę
+    const selectedGramatura = selectedVariant?.selectedOptions?.find(
+        opt => opt.name === 'Gramatura'
+    )?.value || gramatury[0];
+
+    // Sprawdź dostępność gramatury
+    const isGramaturaAvailable = (value) => {
+        if (!coffee?.variants || coffee.variants.length === 0) return true;
+        const hasGramVariants = coffee.variants.some(v =>
+            v.selectedOptions?.some(opt => opt.name === 'Gramatura')
+        );
+        if (!hasGramVariants) return true;
+
         return coffee.variants.some(v =>
             v.availableForSale &&
-            v.selectedOptions?.find(opt => opt.name === optionName)?.value === optionValue
+            v.selectedOptions?.find(opt => opt.name === 'Gramatura')?.value === value
         );
     };
 
-    const gramaturaOptions = extractAllOptions('Gramatura');
-    const typOptions = extractAllOptions('Forma kawy').sort((a, b) => {
-        // Ziarna zawsze pierwsze, potem Mielona
-        if (a === 'Całe ziarna') return -1;
-        if (b === 'Całe ziarna') return 1;
-        return 0;
-    });
-
-    // Get selected options
-    const selectedGramatura = selectedVariant?.selectedOptions?.find(
-        opt => opt.name === 'Gramatura'
-    )?.value;
-
-    const selectedTyp = selectedVariant?.selectedOptions?.find(
-        opt => opt.name === 'Forma kawy'
-    )?.value;
-
-    // Find variant by options
-    const findVariant = (gram, type) => {
-        return coffee.variants.find(variant => {
-            const variantGram = variant.selectedOptions?.find(opt => opt.name === 'Gramatura')?.value;
-            const variantType = variant.selectedOptions?.find(opt => opt.name === 'Forma kawy')?.value;
-
-            if (!type && typOptions.length === 0) {
-                return variantGram === gram;
-            }
-
-            return variantGram === gram && variantType === type;
-        });
+    // Znajdź wariant po gramaturze
+    const findVariantByGramatura = (gram) => {
+        if (!coffee?.variants) return null;
+        return coffee.variants.find(v =>
+            v.selectedOptions?.find(opt => opt.name === 'Gramatura')?.value === gram
+        ) || coffee.variants[0];
     };
 
-    // Handle variant change
+    // Handle gramatura change
     const handleGramaturaChange = (value) => {
-        const newVariant = findVariant(value, selectedTyp || typOptions[0]);
+        const newVariant = findVariantByGramatura(value);
         if (newVariant) setSelectedVariant(newVariant);
     };
 
-    const handleTypChange = (value) => {
-        const newVariant = findVariant(selectedGramatura, value);
-        if (newVariant) setSelectedVariant(newVariant);
+    // Handle coffee form change
+    const handleCoffeeFormChange = (form) => {
+        setCoffeeForm(form);
+        if (form === 'ziarna') {
+            setGrindMethod(null);
+        } else if (!grindMethod) {
+            // Auto-select first grind option
+            const options = GRIND_OPTIONS[coffee?.roastType] || GRIND_OPTIONS.Filter;
+            setGrindMethod(options[0].value);
+        }
     };
+
+    // Opcje mielenia dla aktualnego roastType
+    const grindOptions = GRIND_OPTIONS[coffee?.roastType] || GRIND_OPTIONS.Filter;
 
     // Handle add to cart
     const handleAdd = async () => {
         if (!selectedVariant || !selectedVariant.availableForSale) return;
 
+        // Walidacja: jeśli mielona, musi być wybrane mielenie
+        if (coffeeForm === 'mielona' && !grindMethod) {
+            return;
+        }
+
         setAdding(true);
-        await onAddToCart(coffee, selectedVariant, quantity, grindMethod);
+        await onAddToCart(coffee, selectedVariant, quantity, coffeeForm, grindMethod);
 
         setTimeout(() => {
             setAdding(false);
@@ -124,7 +141,7 @@ export function QuickAddModal({ coffee, isOpen, onClose, onAddToCart }) {
 
     return (
         <>
-            {/* Backdrop - z animacją fade-in i blur + przyciemnienie */}
+            {/* Backdrop */}
             <div
                 className={`
                     fixed inset-0 bg-black/70 z-[190]
@@ -135,7 +152,7 @@ export function QuickAddModal({ coffee, isOpen, onClose, onAddToCart }) {
                 onClick={handleBackdropClick}
             />
 
-            {/* Modal - Wysokość dopasowana do zawartości */}
+            {/* Modal */}
             <div
                 className={`
                     fixed w-full md:max-w-md
@@ -155,24 +172,24 @@ export function QuickAddModal({ coffee, isOpen, onClose, onAddToCart }) {
             >
                 {/* Header */}
                 <ModalHeader
-                    title={coffee.name}
+                    title={coffee?.name || 'Kawa'}
                     onClose={onClose}
                     isAnimating={isAnimating}
                 />
 
-                {/* Content - scrollable */}
+                {/* Content */}
                 <div className="flex-shrink-0">
                     <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-4">
                         <div className="space-y-3">
                             {/* Gramatura */}
-                            {gramaturaOptions.length > 0 && (
+                            {gramatury.length > 0 && (
                                 <div>
                                     <label className="block text-base font-medium text-white mb-2">
                                         Gramatura
                                     </label>
                                     <div className="flex gap-2">
-                                        {gramaturaOptions.map((value) => {
-                                            const available = isOptionAvailable('Gramatura', value);
+                                        {gramatury.map((value) => {
+                                            const available = isGramaturaAvailable(value);
 
                                             return (
                                                 <button
@@ -180,7 +197,7 @@ export function QuickAddModal({ coffee, isOpen, onClose, onAddToCart }) {
                                                     onClick={() => available && handleGramaturaChange(value)}
                                                     disabled={!available}
                                                     className={`
-                                                        ${gramaturaOptions.length === 1 ? 'inline-flex' : 'flex-1'}
+                                                        ${gramatury.length === 1 ? 'inline-flex' : 'flex-1'}
                                                         px-5 py-2.5 text-base font-medium
                                                         transition-all duration-200
                                                         rounded-full
@@ -200,50 +217,41 @@ export function QuickAddModal({ coffee, isOpen, onClose, onAddToCart }) {
                                 </div>
                             )}
 
-                            {/* Sposób przygotowania */}
-                            {typOptions.length > 1 && (
-                                <div>
-                                    <label className="block text-base font-medium text-white mb-2">
-                                        Sposób przygotowania
-                                    </label>
-                                    <div className="flex gap-2">
-                                        {typOptions.map((value) => {
-                                            const available = isOptionAvailable('Typ', value);
-
-                                            return (
-                                                <button
-                                                    key={value}
-                                                    onClick={() => available && handleTypChange(value)}
-                                                    disabled={!available}
-                                                    className={`
-                                                        flex-1
-                                                        px-5 py-2.5 text-base font-medium
-                                                        transition-all duration-200
-                                                        rounded-full
-                                                        ${!available
-                                                            ? 'bg-red-900/20 text-red-400/70 opacity-60 cursor-not-allowed border border-red-800/30'
-                                                            : selectedTyp === value
-                                                                ? 'bg-accent text-white shadow-md'
-                                                                : 'bg-primary-light text-muted border border-accent/30 hover:bg-accent/20 hover:text-white'
-                                                        }
-                                                    `}
-                                                >
-                                                    <span className={!available ? 'line-through' : ''}>{value}</span>
-                                                </button>
-                                            );
-                                        })}
-                                    </div>
+                            {/* Forma kawy - ZAWSZE pokazuj */}
+                            <div>
+                                <label className="block text-base font-medium text-white mb-2">
+                                    Forma kawy
+                                </label>
+                                <div className="flex gap-2">
+                                    {['ziarna', 'mielona'].map(form => (
+                                        <button
+                                            key={form}
+                                            onClick={() => handleCoffeeFormChange(form)}
+                                            className={`
+                                                flex-1
+                                                px-5 py-2.5 text-base font-medium
+                                                transition-all duration-200
+                                                rounded-full capitalize
+                                                ${coffeeForm === form
+                                                    ? 'bg-accent text-white shadow-md'
+                                                    : 'bg-primary-light text-muted border border-accent/30 hover:bg-accent/20 hover:text-white'
+                                                }
+                                            `}
+                                        >
+                                            {form}
+                                        </button>
+                                    ))}
                                 </div>
-                            )}
+                            </div>
 
-                            {/* Sposób mielenia - tylko gdy wybrana "Mielona" */}
-                            {selectedTyp === 'Mielona' && (
+                            {/* Sposób mielenia - tylko gdy wybrana "mielona" */}
+                            {coffeeForm === 'mielona' && (
                                 <div>
                                     <label className="block text-base font-medium text-white mb-2">
                                         Sposób mielenia
                                     </label>
                                     <div className="flex gap-2">
-                                        {['Ekspres', 'Drip'].map(value => (
+                                        {grindOptions.map(({ value, label }) => (
                                             <button
                                                 key={value}
                                                 onClick={() => setGrindMethod(value)}
@@ -258,7 +266,7 @@ export function QuickAddModal({ coffee, isOpen, onClose, onAddToCart }) {
                                                     }
                                                 `}
                                             >
-                                                {value}
+                                                {label}
                                             </button>
                                         ))}
                                     </div>
@@ -307,7 +315,7 @@ export function QuickAddModal({ coffee, isOpen, onClose, onAddToCart }) {
                     </div>
                 </div>
 
-                {/* Footer - sticky na dole */}
+                {/* Footer */}
                 <div>
                     <div className="container mx-auto pt-4 pb-8 sm:px-6 lg:px-8 py-4">
                         <Button
@@ -325,7 +333,7 @@ export function QuickAddModal({ coffee, isOpen, onClose, onAddToCart }) {
                         </Button>
                     </div>
                 </div>
-                </div>
+            </div>
         </>
     );
 }

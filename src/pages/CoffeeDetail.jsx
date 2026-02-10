@@ -16,7 +16,11 @@ import { FaShoppingCart, FaTag } from 'react-icons/fa';
 
 /**
  * CoffeeDetail - Strona szczegółów produktu kawy
- * FIXED: Blokada dodawania niedostępnych wariantów
+ *
+ * NOWA LOGIKA:
+ * - Gramatura: z Shopify (warianty), jeśli brak → domyślnie 250g
+ * - Forma kawy (ziarna/mielona): ZAWSZE z aplikacji
+ * - Mielenie: zależne od roastType, zapisywane do koszyka
  */
 export function CoffeeDetail() {
     const { handle } = useParams();
@@ -26,7 +30,10 @@ export function CoffeeDetail() {
     const [quantity, setQuantity] = useState(1);
     const [selectedVariant, setSelectedVariant] = useState(null);
     const [addingToCart, setAddingToCart] = useState(false);
-    const [grindMethod, setGrindMethod] = useState(null); // Pod ekspres / Pod drip
+
+    // Nowa logika - forma kawy i mielenie z aplikacji
+    const [coffeeForm, setCoffeeForm] = useState('ziarna'); // 'ziarna' | 'mielona'
+    const [grindMethod, setGrindMethod] = useState(null);
 
     const { addItem } = useCartStore();
 
@@ -44,19 +51,16 @@ export function CoffeeDetail() {
                 }
 
                 setCoffee(product);
-                // Set default variant - prioritize "Całe ziarna" (whole beans)
+
+                // Set default variant - first available or first one
                 if (product.variants && product.variants.length > 0) {
-                    // First try to find available "Całe ziarna" variant
-                    const ziarnaVariant = product.variants.find(v =>
-                        v.availableForSale &&
-                        v.selectedOptions?.some(opt => opt.name === 'Forma kawy' && opt.value === 'Całe ziarna')
-                    );
-
-                    // If no "Ziarna" available, fall back to any available variant
-                    const fallbackVariant = product.variants.find(v => v.availableForSale);
-
-                    setSelectedVariant(ziarnaVariant || fallbackVariant || product.variants[0]);
+                    const availableVariant = product.variants.find(v => v.availableForSale);
+                    setSelectedVariant(availableVariant || product.variants[0]);
                 }
+
+                // Reset form state
+                setCoffeeForm('ziarna');
+                setGrindMethod(null);
             } catch (err) {
                 logger.error('Error loading product:', err);
                 setError('Nie udało się załadować produktu');
@@ -70,13 +74,19 @@ export function CoffeeDetail() {
         }
     }, [handle]);
 
-    // Handle add to cart - CHECK availableForSale
+    // Handle add to cart
     const handleAddToCart = async () => {
-        if (!selectedVariant || !coffee || !selectedVariant.availableForSale) return;
+        if (!selectedVariant || !coffee) return;
+
+        // Walidacja: jeśli mielona, musi być wybrane mielenie
+        if (coffeeForm === 'mielona' && !grindMethod) {
+            alert('Wybierz sposób mielenia');
+            return;
+        }
 
         try {
             setAddingToCart(true);
-            await addItem(coffee, selectedVariant.id, quantity, grindMethod);
+            await addItem(coffee, selectedVariant.id, quantity, coffeeForm, grindMethod);
             // cartStore dispatches 'cartBounce' event automatically
         } catch (err) {
             logger.error('Error adding to cart:', err);
@@ -191,12 +201,14 @@ export function CoffeeDetail() {
                         {/* Product Meta */}
                         <ProductMeta coffee={coffee} />
 
-                        {/* Variant Selector - Gramatura + Liczba (lewa) | Sposób przygotowania + Sposób mielenia (prawa) */}
+                        {/* Variant Selector */}
                         <div>
                             <VariantSelector
                                 variants={coffee.variants}
                                 selectedVariant={selectedVariant}
                                 onVariantChange={setSelectedVariant}
+                                coffeeForm={coffeeForm}
+                                onCoffeeFormChange={setCoffeeForm}
                                 grindMethod={grindMethod}
                                 onGrindMethodChange={setGrindMethod}
                                 roastType={coffee.roastType}

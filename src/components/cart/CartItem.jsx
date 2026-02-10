@@ -67,13 +67,12 @@ export function CartItem({ item, onUpdateQuantity, onRemove, isLoading, onCloseC
                     </h4>
 
                     {/* Variant pills - ciemny zielony jak na przykładzie */}
-                    {(item.selectedOptions?.length > 0 || item.grindMethod) && (
+                    {(item.selectedOptions?.length > 0 || item.coffeeForm) && (
                         <div className="flex flex-wrap gap-1.5 mt-1.5">
+                            {/* Gramatura z Shopify */}
                             {item.selectedOptions?.map((option) => {
-                                // Ukryj "Typ" (Mielona) jeśli jest grindMethod (oczywiste że mielona)
-                                if (item.grindMethod && option.name === 'Typ') {
-                                    return null;
-                                }
+                                // Pokazuj tylko Gramaturę
+                                if (option.name !== 'Gramatura') return null;
                                 return (
                                     <span
                                         key={option.name}
@@ -83,13 +82,16 @@ export function CartItem({ item, onUpdateQuantity, onRemove, isLoading, onCloseC
                                     </span>
                                 );
                             })}
-                            {item.grindMethod && (
-                                <span
-                                    className="inline-flex items-center px-3 py-1 bg-[#3A5F55] text-white text-sm font-medium rounded-full"
-                                >
-                                    Mielenie: {item.grindMethod}
+                            {/* Forma kawy: "ziarna" lub nazwa mielenia (bez słowa "mielona") */}
+                            {item.coffeeForm === 'ziarna' ? (
+                                <span className="inline-flex items-center px-3 py-1 bg-[#3A5F55] text-white text-sm font-medium rounded-full">
+                                    ziarna
                                 </span>
-                            )}
+                            ) : item.grindMethod ? (
+                                <span className="inline-flex items-center px-3 py-1 bg-[#3A5F55] text-white text-sm font-medium rounded-full">
+                                    {item.grindMethod}
+                                </span>
+                            ) : null}
                         </div>
                     )}
 
