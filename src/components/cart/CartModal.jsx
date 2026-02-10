@@ -1,15 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { useCartStore } from '../../store/cartStore';
-import { useAuthStore } from '../../store/authStore';
 import { ModalHeader } from '../layout/ModalHeader';
 import { CartContent } from './CartContent';
 import { ShippingProgress } from './ShippingProgress';
 import { CartFooter } from './CartFooter';
 
 export function CartModal({ isOpen, onClose }) {
-    const navigate = useNavigate();
-
     const {
         items,
         isLoading,
@@ -18,8 +14,6 @@ export function CartModal({ isOpen, onClose }) {
         getTotalItems,
         getTotalPrice
     } = useCartStore();
-
-    const { user } = useAuthStore();
 
     const [isAnimating, setIsAnimating] = useState(false);
 
@@ -55,12 +49,6 @@ export function CartModal({ isOpen, onClose }) {
     }, [isOpen]);
 
     if (!isOpen) return null;
-
-    const handleCheckout = () => {
-        // Zamknij modal i przekieruj do /checkout
-        onClose();
-        navigate('/checkout');
-    };
 
     return (
         <>
@@ -117,8 +105,6 @@ export function CartModal({ isOpen, onClose }) {
                     items={items}
                     isLoading={isLoading}
                     totalPrice={getTotalPrice()}
-                    onCheckout={handleCheckout}
-                    onClose={onClose}
                 />
             </div>
         </>
