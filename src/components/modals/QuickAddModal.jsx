@@ -256,7 +256,7 @@ export function QuickAddModal({ coffee, isOpen, onClose, onAddToCart }) {
                                                 key={value}
                                                 onClick={() => setGrindMethod(value)}
                                                 className={`
-                                                    px-5 py-2.5 text-base font-medium text-left
+                                                    px-5 py-2.5 text-base font-medium text-center
                                                     transition-all duration-200
                                                     rounded-full
                                                     ${grindMethod === value

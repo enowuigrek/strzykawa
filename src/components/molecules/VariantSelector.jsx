@@ -183,7 +183,7 @@ export function VariantSelector({
                                     key={value}
                                     onClick={() => onGrindMethodChange(value)}
                                     className={`
-                                        px-5 py-2.5 font-medium transition-all rounded-full text-left
+                                        px-5 py-2.5 font-medium transition-all rounded-full text-center
                                         ${grindMethod === value
                                             ? 'bg-accent text-white shadow-md ring-2 ring-accent/30'
                                             : 'bg-primary-light text-muted border border-accent/30 hover:bg-accent/20 hover:text-white'
