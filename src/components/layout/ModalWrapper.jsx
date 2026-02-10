@@ -47,7 +47,6 @@ export function ModalWrapper({
                     bg-primary
                     z-[200] shadow-2xl flex flex-col
                     transition-all duration-300 ease-out
-                    overflow-y-auto
 
                     left-0 md:left-1/2 md:top-1/2 md:-translate-x-1/2
 
@@ -59,18 +58,22 @@ export function ModalWrapper({
                 style={{ maxHeight }}
                 onClick={(e) => e.stopPropagation()}
             >
-                {/* Header */}
-                <ModalHeader
-                    title={title}
-                    icon={icon}
-                    badge={badge}
-                    onClose={onClose}
-                    isAnimating={isAnimating}
-                />
+                {/* Header - sticky */}
+                <div className="flex-shrink-0 sticky top-0 bg-primary z-10">
+                    <ModalHeader
+                        title={title}
+                        icon={icon}
+                        badge={badge}
+                        onClose={onClose}
+                        isAnimating={isAnimating}
+                    />
+                </div>
 
-                {/* Content */}
-                <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-6">
-                    {children}
+                {/* Content - scrollable */}
+                <div className="flex-1 overflow-y-auto">
+                    <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-6">
+                        {children}
+                    </div>
                 </div>
             </div>
         </>

@@ -145,6 +145,18 @@ select:focus {
     border-style: solid;
 }
 
+/* Autofill styles - ikona ludka i tło w kolorze strony */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: white;
+    transition: background-color 5000s ease-in-out 0s;
+    box-shadow: inset 0 0 20px 20px rgba(20, 28, 24, 0.5);
+    caret-color: white;
+}
+
 button,
 select,
 .group {

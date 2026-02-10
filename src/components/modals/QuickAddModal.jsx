@@ -159,7 +159,7 @@ export function QuickAddModal({ coffee, isOpen, onClose, onAddToCart }) {
                     bg-primary border-white/20 md:border
                     z-[200] shadow-2xl flex flex-col
                     transition-all duration-300 ease-out
-                    max-h-[85vh] overflow-y-auto
+                    max-h-[85vh]
 
                     left-0 md:left-1/2 md:top-1/2 md:-translate-x-1/2
 
@@ -170,14 +170,17 @@ export function QuickAddModal({ coffee, isOpen, onClose, onAddToCart }) {
                 `}
                 onClick={(e) => e.stopPropagation()}
             >
-                {/* Header */}
-                <ModalHeader
-                    title={coffee?.name || 'Kawa'}
-                    onClose={onClose}
-                    isAnimating={isAnimating}
-                />
+                {/* Header - sticky */}
+                <div className="flex-shrink-0 sticky top-0 bg-primary z-10">
+                    <ModalHeader
+                        title={coffee?.name || 'Kawa'}
+                        onClose={onClose}
+                        isAnimating={isAnimating}
+                    />
+                </div>
 
-                {/* Content */}
+                {/* Content - scrollable */}
+                <div className="flex-1 overflow-y-auto">
                 <div className="flex-shrink-0">
                     <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-4">
                         <div className="space-y-3">
@@ -299,9 +302,10 @@ export function QuickAddModal({ coffee, isOpen, onClose, onAddToCart }) {
                         </div>
                     </div>
                 </div>
+                </div>
 
-                {/* Total price */}
-                <div>
+                {/* Total price - sticky bottom */}
+                <div className="flex-shrink-0 bg-primary">
                     <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-3">
                         <div className="border-t border-accent/20 pt-3">
                             <div className="flex justify-between items-center">
@@ -314,8 +318,8 @@ export function QuickAddModal({ coffee, isOpen, onClose, onAddToCart }) {
                     </div>
                 </div>
 
-                {/* Footer */}
-                <div>
+                {/* Footer - sticky bottom */}
+                <div className="flex-shrink-0 bg-primary">
                     <div className="container mx-auto pt-4 pb-8 sm:px-6 lg:px-8 py-4">
                         <Button
                             onClick={handleAdd}
