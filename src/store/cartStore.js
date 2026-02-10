@@ -17,17 +17,36 @@ export const useCartStore = create(
             // ✅ status checkoutu: 'idle' | 'pending' | 'completed'
             status: 'idle',
 
-            // Initialize cart
+            // Initialize cart - sprawdza stan koszyka w Shopify
             initializeCart: async () => {
-                const { cart, status } = get();
+                const { cart } = get();
 
-                // ✅ jeśli mamy koszyk i nie jest oznaczony jako zakończony – używamy go dalej
-                if (cart && status !== 'completed') return;
+                // Jeśli mamy zapisany koszyk, sprawdzamy czy nadal istnieje w Shopify
+                if (cart?.id) {
+                    set({ isLoading: true });
+                    try {
+                        const shopifyCart = await shopify.getCart(cart.id);
+                        if (shopifyCart && shopifyCart.lines?.edges?.length > 0) {
+                            // Koszyk istnieje i ma produkty - synchronizujemy
+                            set({
+                                cart: shopifyCart,
+                                items: get().mapCartToItems(shopifyCart),
+                                isLoading: false,
+                                status: 'idle'
+                            });
+                            return;
+                        }
+                        // Koszyk nie istnieje lub jest pusty → tworzymy nowy poniżej
+                    } catch (error) {
+                        logger.warn('Cart expired or invalid, creating new:', error);
+                    }
+                }
 
+                // Tworzymy nowy koszyk
                 set({ isLoading: true });
                 try {
                     const newCart = await shopify.createCart();
-                    set({ cart: newCart, isLoading: false, status: 'idle' });
+                    set({ cart: newCart, items: [], isLoading: false, status: 'idle' });
                 } catch (error) {
                     logger.error('Error initializing cart:', error);
                     set({ error: 'Nie udało się utworzyć koszyka', isLoading: false });
