@@ -55,7 +55,7 @@ export function CartFooter({ items, isLoading, totalPrice }) {
                     disabled={isLoading || items.length === 0 || !termsAccepted}
                     fullWidth
                     size="md"
-                    variant="cta"
+                    variant="primary"
                     loading={isLoading}
                     leftIcon={FaCreditCard}
                     className="sm:!py-3"
