@@ -4,6 +4,7 @@ import { useHeroAnimation } from '../../../hooks/useHeroAnimation.js';
 
 export function HeroBackground({ videoDesktop, videoMobile, onReadyToShow }) {
     const [videoReady, setVideoReady] = useState(false);
+    const [parallaxY, setParallaxY] = useState(0);
 
     const videoRef = useVideoLoop(2); // zapętlenie od 2 sekundy
     const { dimVideo } = useHeroAnimation(videoReady, 2000); // przyciemnienie po 2s
@@ -22,11 +23,24 @@ export function HeroBackground({ videoDesktop, videoMobile, onReadyToShow }) {
         }
     }, [videoReady, onReadyToShow]);
 
+    // ⬇️ Parallax effect - wideo scrolluje 3x wolniej
+    useEffect(() => {
+        const handleScroll = () => {
+            const scrollY = window.scrollY;
+            // Wideo przesuwa się do góry 3x wolniej niż scroll
+            setParallaxY(scrollY / 3);
+        };
+
+        window.addEventListener('scroll', handleScroll, { passive: true });
+        return () => window.removeEventListener('scroll', handleScroll);
+    }, []);
+
     return (
-        <>
+        <div className="absolute inset-0 overflow-hidden">
             <video
                 ref={videoRef}
-                className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ease-out 
+                style={{ transform: `translateY(-${parallaxY}px)` }}
+                className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ease-out
                  ${dimVideo ? 'opacity-60' : 'opacity-100'}
                 `}
                 autoPlay
@@ -40,13 +54,14 @@ export function HeroBackground({ videoDesktop, videoMobile, onReadyToShow }) {
                 Twoja przeglądarka nie obsługuje elementu video.
             </video>
 
-            {/* Nakładka */}
+            {/* Nakładka - też z parallaxem */}
             <div
-                className={`absolute inset-0 bg-gradient-to-b from-black/30 via-black/20 to-black/40 
-          transition-opacity duration-1000 ease-out 
+                style={{ transform: `translateY(-${parallaxY}px)` }}
+                className={`absolute inset-0 bg-gradient-to-b from-black/30 via-black/20 to-black/40
+          transition-opacity duration-1000 ease-out
           ${dimVideo ? 'opacity-100' : 'opacity-0'}
         `}
             ></div>
-        </>
+        </div>
     );
 }
