@@ -21,6 +21,9 @@ export function CheckoutPage() {
     // Login modal state
     const [showLoginModal, setShowLoginModal] = useState(false);
 
+    // Dane firmy (z profilu klienta — company zawiera "Nazwa | NIP: 123")
+    const [companyValue, setCompanyValue] = useState('');
+
     // Cart store
     const { items, getTotalItems, cart } = useCartStore();
 
@@ -73,6 +76,8 @@ export function CheckoutPage() {
                     postalCode: addr.zip || '',
                     country: addr.country || 'Polska',
                 });
+                // Ustaw company (nazwa firmy + NIP) jeśli wypełnione w profilu
+                setCompanyValue(addr.company || '');
             }
 
             logger.log('Auto-filled customer data and address from logged-in user');
@@ -105,6 +110,7 @@ export function CheckoutPage() {
                 { key: 'customer_first_name', value: customerData.firstName },
                 { key: 'customer_last_name', value: customerData.lastName },
                 { key: 'delivery_method', value: deliveryMethod },
+                { key: 'company', value: companyValue || '' },
             ];
 
             // Dodaj dane w zależności od metody dostawy
@@ -145,6 +151,7 @@ export function CheckoutPage() {
                         deliveryAddress: {
                             firstName: customerData.firstName,
                             lastName: customerData.lastName,
+                            company: companyValue || '',
                             address1: deliveryAddress.street,
                             address2: `${deliveryAddress.buildingNumber}${deliveryAddress.apartmentNumber ? '/' + deliveryAddress.apartmentNumber : ''}`,
                             city: deliveryAddress.city,
@@ -162,6 +169,7 @@ export function CheckoutPage() {
                         deliveryAddress: {
                             firstName: customerData.firstName,
                             lastName: customerData.lastName,
+                            company: companyValue || '',
                             address1: `InPost Paczkomat ${paczkomatData.name}`,
                             address2: `${paczkomatAddress.street || ''} ${paczkomatAddress.building_number || ''}`.trim(),
                             city: paczkomatAddress.city || '',
