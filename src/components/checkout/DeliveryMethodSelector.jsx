@@ -1,11 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { FaTruck, FaBox } from 'react-icons/fa';
+import { FaTruck, FaBox, FaStore } from 'react-icons/fa';
 import { SHIPPING_COST, FREE_SHIPPING_THRESHOLD } from '../../constants/shipping';
 
 /**
- * DeliveryMethodSelector - Wybór metody dostawy (Kurier / Paczkomat)
- * @param {String} selectedMethod - Aktualna metoda ('kurier' | 'paczkomat')
+ * DeliveryMethodSelector - Wybór metody dostawy (Kurier / Paczkomat / Odbiór osobisty)
+ * @param {String} selectedMethod - Aktualna metoda ('kurier' | 'paczkomat' | 'odbior')
  * @param {Function} onChange - Callback do zmiany metody
  * @param {Number} subtotal - Suma produktów (do wyliczenia czy wysyłka gratis)
  */
@@ -16,6 +16,7 @@ export function DeliveryMethodSelector({ selectedMethod, onChange, subtotal = 0 
             name: 'InPost Kurier',
             description: 'Dostawa kurierem InPost pod wskazany adres',
             price: SHIPPING_COST,
+            alwaysFree: false,
             icon: FaTruck,
         },
         {
@@ -23,12 +24,21 @@ export function DeliveryMethodSelector({ selectedMethod, onChange, subtotal = 0 
             name: 'InPost Paczkomat',
             description: 'Odbiór z paczkomatu InPost',
             price: SHIPPING_COST,
+            alwaysFree: false,
             icon: FaBox,
+        },
+        {
+            id: 'odbior',
+            name: 'Odbiór osobisty',
+            description: 'Kawiarnia Strzykawa · ul. Dąbrowskiego 4, Częstochowa · Pon–Pt 9–17, Sob 10–15',
+            price: 0,
+            alwaysFree: true,
+            icon: FaStore,
         },
     ];
 
     return (
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             {methods.map((method) => {
                 const Icon = method.icon;
                 const isSelected = selectedMethod === method.id;
@@ -69,7 +79,7 @@ export function DeliveryMethodSelector({ selectedMethod, onChange, subtotal = 0 
                                         ${isSelected ? 'text-success' : 'text-muted'}
                                     `}
                                     >
-                                        {subtotal >= FREE_SHIPPING_THRESHOLD ? (
+                                        {method.alwaysFree || subtotal >= FREE_SHIPPING_THRESHOLD ? (
                                             <span className="text-success">Gratis!</span>
                                         ) : (
                                             `${method.price.toFixed(2)} zł`
@@ -108,7 +118,7 @@ export function DeliveryMethodSelector({ selectedMethod, onChange, subtotal = 0 
 }
 
 DeliveryMethodSelector.propTypes = {
-    selectedMethod: PropTypes.oneOf(['kurier', 'paczkomat']).isRequired,
+    selectedMethod: PropTypes.oneOf(['kurier', 'paczkomat', 'odbior']).isRequired,
     onChange: PropTypes.func.isRequired,
     subtotal: PropTypes.number,
 };

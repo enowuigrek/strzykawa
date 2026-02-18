@@ -125,6 +125,10 @@ export function CheckoutPage() {
                     { key: 'paczkomat_building', value: paczkomatData.address_details?.building_number || '' },
                     { key: 'paczkomat_postal_code', value: paczkomatData.address_details?.post_code || '' }
                 );
+            } else if (deliveryMethod === 'odbior') {
+                attributes.push(
+                    { key: 'pickup_address', value: 'ul. Dąbrowskiego 4, 42-200 Częstochowa' }
+                );
             }
 
             // 2. PRZYGOTUJ BUYER IDENTITY (do auto-wypełnienia Shopify checkout)
@@ -241,6 +245,25 @@ export function CheckoutPage() {
                                     onSelect={setPaczkomatData}
                                     error={errors.paczkomat}
                                 />
+                            </div>
+                        )}
+
+                        {/* 5. ODBIÓR OSOBISTY - info o kawiarni */}
+                        {deliveryMethod === 'odbior' && (
+                            <div className="bg-primary-light p-6">
+                                <h2 className="text-xl text-white mb-4">Dane do odbioru</h2>
+                                <div className="space-y-2 text-muted text-sm">
+                                    <p className="text-white font-medium">Kawiarnia Strzykawa</p>
+                                    <p>ul. Dąbrowskiego 4, 42-200 Częstochowa</p>
+                                    <div className="pt-2 border-t border-white/10 mt-3 space-y-1">
+                                        <p>Pon – Pt: 9:00 – 17:00</p>
+                                        <p>Sobota: 10:00 – 15:00</p>
+                                        <p>Niedziela: zamknięte</p>
+                                    </div>
+                                    <p className="pt-2 text-accent">
+                                        Po złożeniu zamówienia skontaktujemy się z Tobą, gdy kawa będzie gotowa do odbioru.
+                                    </p>
+                                </div>
                             </div>
                         )}
                     </div>

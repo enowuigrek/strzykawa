@@ -17,7 +17,7 @@ export const useCheckoutStore = create(
                 lastName: '',
             },
 
-            // Metoda dostawy: 'kurier' | 'paczkomat'
+            // Metoda dostawy: 'kurier' | 'paczkomat' | 'odbior'
             deliveryMethod: 'kurier',
 
             // Adres dostawy (dla kuriera)
@@ -51,8 +51,8 @@ export const useCheckoutStore = create(
                 set({ deliveryMethod: method });
                 logger.log('Delivery method set to:', method);
 
-                // Wyczyść dane paczkomatu jeśli zmieniono na kuriera
-                if (method === 'kurier') {
+                // Wyczyść dane paczkomatu jeśli zmieniono na kuriera lub odbiór osobisty
+                if (method === 'kurier' || method === 'odbior') {
                     set({ paczkomatData: null });
                 }
             },
@@ -236,6 +236,9 @@ export const useCheckoutStore = create(
                     );
                 } else if (deliveryMethod === 'paczkomat') {
                     return !!(paczkomatData && paczkomatData.name);
+                } else if (deliveryMethod === 'odbior') {
+                    // Odbiór osobisty — wystarczą dane klienta (adres kawiarni jest znany)
+                    return true;
                 }
 
                 return false;
@@ -252,6 +255,8 @@ export const useCheckoutStore = create(
                     return `${street} ${buildingNumber}${apt}, ${postalCode} ${city}`;
                 } else if (deliveryMethod === 'paczkomat' && paczkomatData) {
                     return `Paczkomat InPost ${paczkomatData.name}: ${paczkomatData.address_details?.city || ''}`;
+                } else if (deliveryMethod === 'odbior') {
+                    return 'Odbiór osobisty · ul. Dąbrowskiego 4, 42-200 Częstochowa';
                 }
 
                 return '';
