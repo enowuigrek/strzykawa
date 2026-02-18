@@ -483,6 +483,52 @@ export async function recoverPassword(email) {
 }
 
 /**
+ * Zaktualizuj numer telefonu klienta
+ */
+export async function updateCustomerPhone(accessToken, phone) {
+    const mutation = `
+        mutation customerUpdate($customerAccessToken: String!, $customer: CustomerUpdateInput!) {
+            customerUpdate(customerAccessToken: $customerAccessToken, customer: $customer) {
+                customer {
+                    id
+                    phone
+                }
+                customerUserErrors {
+                    code
+                    field
+                    message
+                }
+            }
+        }
+    `;
+
+    const variables = {
+        customerAccessToken: accessToken,
+        customer: { phone: phone || null }
+    };
+
+    try {
+        const response = await shopifyClient.graphqlFetch(mutation, variables);
+
+        if (response.data.customerUpdate.customerUserErrors.length > 0) {
+            const error = response.data.customerUpdate.customerUserErrors[0];
+            return {
+                success: false,
+                error: translateError(error.message)
+            };
+        }
+
+        return { success: true };
+    } catch (error) {
+        logger.error('Error updating customer phone:', error);
+        return {
+            success: false,
+            error: 'Błąd podczas zapisywania numeru telefonu'
+        };
+    }
+}
+
+/**
  * Zmień hasło dla zalogowanego użytkownika
  */
 export async function changePassword(accessToken, currentPassword, newPassword) {

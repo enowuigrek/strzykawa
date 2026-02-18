@@ -216,7 +216,7 @@ export function Orders() {
                                                         {/* Image */}
                                                         {item.image && (
                                                             item.handle ? (
-                                                                <Link to={`/kawa/${item.handle}`}>
+                                                                <Link to={`/kawy/${item.handle}`}>
                                                                     <img
                                                                         src={item.image}
                                                                         alt={item.title}
@@ -236,7 +236,7 @@ export function Orders() {
                                                         <div className="flex-1">
                                                             {item.handle ? (
                                                                 <Link
-                                                                    to={`/kawa/${item.handle}`}
+                                                                    to={`/kawy/${item.handle}`}
                                                                     className="text-white font-medium mb-1 hover:text-accent transition-colors duration-200 block"
                                                                 >
                                                                     {item.title}

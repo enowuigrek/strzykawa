@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { FaPhone, FaMapMarkerAlt, FaCheckCircle, FaExclamationTriangle, FaSave } from 'react-icons/fa';
+import { FaMapMarkerAlt, FaCheckCircle, FaExclamationTriangle, FaSave } from 'react-icons/fa';
 import { useAuthStore } from '../../store/authStore.js';
 import { updateCustomerAddress, getCustomer } from '../../services/shopify/customer.js';
 import { Button } from '../atoms/Button.jsx';
@@ -7,15 +7,15 @@ import { Button } from '../atoms/Button.jsx';
 /**
  * EditAddressForm - Formularz edycji adresu i telefonu
  */
-export function EditAddressForm({ initialAddress = null, initialPhone = '' }) {
-    const { getAccessToken, user, updateUser } = useAuthStore();
+export function EditAddressForm({ initialAddress = null }) {
+    const { getAccessToken, updateUser } = useAuthStore();
     const [isEditing, setIsEditing] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
     const [success, setSuccess] = useState('');
     const [error, setError] = useState('');
 
     const [formData, setFormData] = useState({
-        phone: initialPhone || '',
+        phone: initialAddress?.phone || '',
         address1: initialAddress?.address1 || '',
         address2: initialAddress?.address2 || '',
         city: initialAddress?.city || '',
@@ -84,7 +84,7 @@ export function EditAddressForm({ initialAddress = null, initialPhone = '' }) {
                     <div className="flex items-center gap-3">
                         <FaMapMarkerAlt className="w-5 h-5 text-accent" />
                         <h2 className="text-xl text-white">
-                            Adres i kontakt
+                            Adres dostawy
                         </h2>
                     </div>
                     <button
@@ -96,19 +96,6 @@ export function EditAddressForm({ initialAddress = null, initialPhone = '' }) {
                 </div>
 
                 <div className="space-y-4">
-                    {/* Telefon */}
-                    <div>
-                        <label className="block text-sm text-muted mb-1">
-                            Telefon
-                        </label>
-                        <div className="flex items-center gap-2">
-                            <FaPhone className="w-4 h-4 text-muted" />
-                            <p className="text-white font-medium">
-                                {formData.phone || <span className="text-muted">Nie podano</span>}
-                            </p>
-                        </div>
-                    </div>
-
                     {/* Adres */}
                     {(formData.address1 || formData.city) && (
                         <div>
@@ -148,7 +135,7 @@ export function EditAddressForm({ initialAddress = null, initialPhone = '' }) {
             <div className="flex items-center gap-3 mb-6 pb-4 border-b border-white/10">
                 <FaMapMarkerAlt className="w-5 h-5 text-accent" />
                 <h2 className="text-xl text-white">
-                    Edytuj adres i kontakt
+                    Edytuj adres dostawy
                 </h2>
             </div>
 
@@ -168,22 +155,6 @@ export function EditAddressForm({ initialAddress = null, initialPhone = '' }) {
                         <span>{error}</span>
                     </div>
                 )}
-
-                {/* Telefon */}
-                <div>
-                    <label htmlFor="phone" className="block text-sm font-medium text-muted mb-2">
-                        Telefon
-                    </label>
-                    <input
-                        type="tel"
-                        id="phone"
-                        name="phone"
-                        value={formData.phone}
-                        onChange={handleChange}
-                        className="w-full px-4 py-3 bg-primary/50 text-white placeholder-muted/70 transition-all duration-300"
-                        placeholder="+48 123 456 789"
-                    />
-                </div>
 
                 {/* Ulica */}
                 <div>
