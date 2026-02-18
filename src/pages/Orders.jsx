@@ -226,7 +226,7 @@ export function Orders() {
                                                             <h4 className="text-white font-medium mb-1">
                                                                 {item.title}
                                                             </h4>
-                                                            {item.variant && (
+                                                            {item.variant && item.variant !== 'Default Title' && (
                                                                 <p className="text-base text-muted">
                                                                     {item.variant}
                                                                 </p>
@@ -243,7 +243,7 @@ export function Orders() {
                                             {order.shippingAddress && (
                                                 <div className="pt-4 border-t border-white/10">
                                                     <p className="text-base text-muted">
-                                                        Dostawa: {order.shippingAddress.city}, {order.shippingAddress.zip}
+                                                        Dostawa: {order.shippingAddress.address1}{order.shippingAddress.address2 ? ` ${order.shippingAddress.address2}` : ''}, {order.shippingAddress.city}, {order.shippingAddress.zip}
                                                     </p>
                                                 </div>
                                             )}
