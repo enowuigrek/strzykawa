@@ -21,16 +21,16 @@ export function HeroReviews() {
             platform: 'Google',
             icon: FaGoogle,
             iconColor: 'text-blue-400',
-            rating: '4.8',
+            rating: '4.9',
             stars: 5,
             count: '100+',
-            url: 'https://www.google.com/maps/place/Strzykawa+-+coffee+shop/@50.8107678,19.1189851,17z/data=!4m8!3m7!1s0x4710b53c8e8c8c8f:0x8c8c8c8c8c8c8c8c!8m2!3d50.8107678!4d19.1211738!9m1!1b1!16s%2Fg%2F11g9v7v7v7'
+            url: 'https://www.google.com/maps/place/STRZYKAWA+-+Kawiarnia%2FPalarnia+kawy/@50.8136977,19.1100635,611m/data=!3m2!1e3!4b1!4m6!3m5!1s0x4710b5f273df9a9f:0xf1f0770eede360d8!8m2!3d50.8136977!4d19.1126384!16s%2Fg%2F11l8t66h36?hl=pl-pl&entry=ttu&g_ep=EgoyMDI2MDIxMS4wIKXMDSoASAFQAw%3D%3D'
         },
         {
             platform: 'Facebook',
             icon: FaFacebookF,
             iconColor: 'text-blue-500',
-            rating: '94%',
+            rating: '100%',
             count: 14,
             label: 'poleca',
             url: 'https://www.facebook.com/StrzykawaCoffeeShop/reviews'
