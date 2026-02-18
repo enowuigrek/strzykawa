@@ -287,6 +287,7 @@ export const useCartStore = create(
                 // Koszyk NIE jest czyszczony tutaj, żeby użytkownik nie widział pustego koszyka
                 // Koszyk wyczyści się na /checkout/success (markCheckoutCompleted)
                 set({ status: 'pending' });
+                logger.log('Redirecting to checkout:', checkoutUrl);
                 window.location.href = checkoutUrl;
             },
 

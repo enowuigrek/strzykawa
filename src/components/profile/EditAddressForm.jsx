@@ -241,7 +241,7 @@ export function EditAddressForm({ initialAddress = null }) {
                             setSuccess('');
                             // Reset form to initial values
                             setFormData({
-                                phone: initialPhone || '',
+                                phone: initialAddress?.phone || '',
                                 address1: initialAddress?.address1 || '',
                                 address2: initialAddress?.address2 || '',
                                 city: initialAddress?.city || '',
