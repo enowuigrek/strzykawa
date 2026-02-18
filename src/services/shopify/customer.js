@@ -240,6 +240,9 @@ export async function getCustomerOrders(accessToken, first = 10) {
                                             image {
                                                 url
                                             }
+                                            product {
+                                                handle
+                                            }
                                         }
                                     }
                                 }
@@ -289,7 +292,8 @@ export async function getCustomerOrders(accessToken, first = 10) {
                     quantity: lineEdge.node.quantity,
                     variant: lineEdge.node.variant?.title || '',
                     selectedOptions: lineEdge.node.variant?.selectedOptions || [],
-                    image: lineEdge.node.variant?.image?.url || null
+                    image: lineEdge.node.variant?.image?.url || null,
+                    handle: lineEdge.node.variant?.product?.handle || null
                 })),
                 shippingAddress: order.shippingAddress
             };

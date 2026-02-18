@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { FaBox, FaCheckCircle, FaClock, FaExclamationTriangle, FaChevronDown } from 'react-icons/fa';
 import { useAuthStore } from '../store/authStore.js';
 import { getCustomerOrders } from '../services/shopify/customer.js';
@@ -152,7 +152,7 @@ export function Orders() {
                             return (
                                 <div
                                     key={order.id}
-                                    className="bg-primary-light border border-white/10 hover:border-accent/30 transition-colors duration-300"
+                                    className="bg-primary-light transition-colors duration-300"
                                 >
                                     {/* Clickable Header */}
                                     <button
@@ -215,18 +215,37 @@ export function Orders() {
                                                     <div key={index} className="flex items-start gap-4">
                                                         {/* Image */}
                                                         {item.image && (
-                                                            <img
-                                                                src={item.image}
-                                                                alt={item.title}
-                                                                className="w-16 h-16 object-cover bg-primary"
-                                                            />
+                                                            item.handle ? (
+                                                                <Link to={`/kawa/${item.handle}`}>
+                                                                    <img
+                                                                        src={item.image}
+                                                                        alt={item.title}
+                                                                        className="w-16 h-16 object-cover bg-primary hover:opacity-80 transition-opacity duration-200"
+                                                                    />
+                                                                </Link>
+                                                            ) : (
+                                                                <img
+                                                                    src={item.image}
+                                                                    alt={item.title}
+                                                                    className="w-16 h-16 object-cover bg-primary"
+                                                                />
+                                                            )
                                                         )}
 
                                                         {/* Details */}
                                                         <div className="flex-1">
-                                                            <h4 className="text-white font-medium mb-1">
-                                                                {item.title}
-                                                            </h4>
+                                                            {item.handle ? (
+                                                                <Link
+                                                                    to={`/kawa/${item.handle}`}
+                                                                    className="text-white font-medium mb-1 hover:text-accent transition-colors duration-200 block"
+                                                                >
+                                                                    {item.title}
+                                                                </Link>
+                                                            ) : (
+                                                                <h4 className="text-white font-medium mb-1">
+                                                                    {item.title}
+                                                                </h4>
+                                                            )}
                                                             {item.selectedOptions && item.selectedOptions.filter(opt => opt.value !== 'Default Title').length > 0 && (
                                                                 <p className="text-base text-muted">
                                                                     {item.selectedOptions.filter(opt => opt.value !== 'Default Title').map(opt => opt.value).join(' / ')}
