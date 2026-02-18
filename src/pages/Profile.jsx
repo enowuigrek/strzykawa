@@ -2,8 +2,6 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
     FaUser,
-    FaEnvelope,
-    FaPhone,
     FaBox,
     FaSignOutAlt,
     FaCheckCircle,
@@ -15,7 +13,7 @@ import { PageLayout } from '../components/layout/PageLayout.jsx';
 import { Button } from '../components/atoms/Button.jsx';
 import { EditAddressForm } from '../components/profile/EditAddressForm.jsx';
 import { ChangePasswordForm } from '../components/profile/ChangePasswordForm.jsx';
-import { updateCustomerPhone, getCustomer } from '../services/shopify/customer.js';
+import { updateCustomerPersonalData, getCustomer } from '../services/shopify/customer.js';
 
 /**
  * Profile - Strona profilu użytkownika
@@ -24,11 +22,11 @@ export function Profile() {
     const navigate = useNavigate();
     const { user, isAuthenticated, logout, updateUser, getAccessToken } = useAuthStore();
 
-    const [isEditingPhone, setIsEditingPhone] = useState(false);
-    const [phoneValue, setPhoneValue] = useState('');
-    const [phoneLoading, setPhoneLoading] = useState(false);
-    const [phoneSuccess, setPhoneSuccess] = useState('');
-    const [phoneError, setPhoneError] = useState('');
+    const [isEditing, setIsEditing] = useState(false);
+    const [formData, setFormData] = useState({});
+    const [isLoading, setIsLoading] = useState(false);
+    const [success, setSuccess] = useState('');
+    const [error, setError] = useState('');
 
     React.useEffect(() => {
         if (!isAuthenticated) {
@@ -45,39 +43,61 @@ export function Profile() {
         navigate('/');
     };
 
-    const handleEditPhone = () => {
-        setPhoneValue(user.phone || '');
-        setPhoneError('');
-        setPhoneSuccess('');
-        setIsEditingPhone(true);
+    const handleStartEdit = () => {
+        setFormData({
+            firstName: user.firstName || '',
+            lastName: user.lastName || '',
+            email: user.email || '',
+            phone: user.phone || '',
+        });
+        setError('');
+        setSuccess('');
+        setIsEditing(true);
     };
 
-    const handleSavePhone = async () => {
-        setPhoneLoading(true);
-        setPhoneError('');
-        setPhoneSuccess('');
+    const handleCancel = () => {
+        setIsEditing(false);
+        setError('');
+        setSuccess('');
+    };
+
+    const handleChange = (e) => {
+        setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+        setError('');
+        setSuccess('');
+    };
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        if (!formData.firstName || !formData.lastName || !formData.email) {
+            setError('Imię, nazwisko i e-mail są wymagane');
+            return;
+        }
+        setIsLoading(true);
+        setError('');
+        setSuccess('');
 
         try {
             const accessToken = getAccessToken();
-            const result = await updateCustomerPhone(accessToken, phoneValue);
+            const result = await updateCustomerPersonalData(accessToken, formData);
 
             if (result.success) {
                 const customerData = await getCustomer(accessToken);
                 if (customerData.success) {
                     updateUser(customerData.customer);
                 }
-                setPhoneSuccess('Telefon zapisany!');
+                setSuccess('Dane zapisane pomyślnie!');
                 setTimeout(() => {
-                    setIsEditingPhone(false);
-                    setPhoneSuccess('');
+                    setIsEditing(false);
+                    setSuccess('');
                 }, 2000);
             } else {
-                setPhoneError(result.error || 'Błąd podczas zapisywania telefonu');
+                setError(result.error || 'Błąd podczas zapisywania danych');
             }
         } catch {
-            setPhoneError('Błąd podczas zapisywania telefonu');
+            setError('Błąd podczas zapisywania danych');
         } finally {
-            setPhoneLoading(false);
+            setIsLoading(false);
         }
     };
 
@@ -85,6 +105,7 @@ export function Profile() {
         <PageLayout title="Mój profil">
             <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-8">
                 <div className="max-w-2xl mx-auto space-y-6">
+
                     {/* Historia zamówień */}
                     <div className="bg-primary-light p-6">
                         <div className="flex items-center gap-3 mb-4">
@@ -106,106 +127,146 @@ export function Profile() {
 
                     {/* Dane osobowe */}
                     <div className="bg-primary-light p-6">
-                        <div className="flex items-center gap-3 mb-6 pb-4 border-b border-white/10">
-                            <FaUser className="w-5 h-5 text-accent" />
-                            <h2 className="text-xl text-white">Dane osobowe</h2>
+                        <div className="flex items-center justify-between mb-6 pb-4 border-b border-white/10">
+                            <div className="flex items-center gap-3">
+                                <FaUser className="w-5 h-5 text-accent" />
+                                <h2 className="text-xl text-white">Dane osobowe</h2>
+                            </div>
+                            {!isEditing && (
+                                <button
+                                    onClick={handleStartEdit}
+                                    className="px-4 py-2 bg-accent text-white text-sm font-medium rounded-full hover:bg-accent/90 transition-all duration-200"
+                                >
+                                    Edytuj
+                                </button>
+                            )}
                         </div>
 
-                        <div className="space-y-4">
-                            {/* Imię i nazwisko */}
-                            <div>
-                                <label className="block text-sm text-muted mb-1">
-                                    Imię i nazwisko
-                                </label>
-                                <p className="text-white font-medium">
-                                    {user.firstName} {user.lastName}
-                                </p>
-                            </div>
-
-                            {/* Email */}
-                            <div>
-                                <label className="block text-sm text-muted mb-1">E-mail</label>
-                                <div className="flex items-center gap-2">
-                                    <FaEnvelope className="w-4 h-4 text-muted" />
+                        {!isEditing ? (
+                            <div className="space-y-4">
+                                <div>
+                                    <label className="block text-sm text-muted mb-1">Imię i nazwisko</label>
+                                    <p className="text-white font-medium">
+                                        {user.firstName} {user.lastName}
+                                    </p>
+                                </div>
+                                <div>
+                                    <label className="block text-sm text-muted mb-1">E-mail</label>
                                     <p className="text-white font-medium">{user.email}</p>
                                 </div>
+                                <div>
+                                    <label className="block text-sm text-muted mb-1">Telefon</label>
+                                    <p className="text-white font-medium">
+                                        {user.phone || <span className="text-muted">Nie podano</span>}
+                                    </p>
+                                </div>
                             </div>
-
-                            {/* Telefon — edytowalny */}
-                            <div>
-                                <label className="block text-sm text-muted mb-1">Telefon</label>
-
-                                {!isEditingPhone ? (
-                                    <div className="flex items-center gap-3">
-                                        <div className="flex items-center gap-2 flex-1">
-                                            <FaPhone className="w-4 h-4 text-muted" />
-                                            <p className="text-white font-medium">
-                                                {user.phone || (
-                                                    <span className="text-muted">Nie podano</span>
-                                                )}
-                                            </p>
-                                        </div>
-                                        <button
-                                            onClick={handleEditPhone}
-                                            className="px-3 py-1 bg-accent text-white text-sm font-medium rounded-full hover:bg-accent/90 transition-all duration-200"
-                                        >
-                                            Edytuj
-                                        </button>
-                                    </div>
-                                ) : (
-                                    <div className="space-y-2">
-                                        {phoneSuccess && (
-                                            <div className="p-3 bg-success/20 border border-success/30 text-green-300 text-sm flex items-center gap-2">
-                                                <FaCheckCircle className="w-4 h-4 flex-shrink-0" />
-                                                <span>{phoneSuccess}</span>
-                                            </div>
-                                        )}
-                                        {phoneError && (
-                                            <div className="p-3 bg-red-500/20 border border-red-500/30 text-red-300 text-sm flex items-center gap-2">
-                                                <FaExclamationTriangle className="w-4 h-4 flex-shrink-0" />
-                                                <span>{phoneError}</span>
-                                            </div>
-                                        )}
-                                        <div className="flex items-center gap-3">
-                                            <input
-                                                type="tel"
-                                                value={phoneValue}
-                                                onChange={(e) => setPhoneValue(e.target.value)}
-                                                className="flex-1 px-4 py-2 bg-primary/50 text-white placeholder-muted/70 transition-all duration-300"
-                                                placeholder="+48 123 456 789"
-                                                disabled={phoneLoading}
-                                            />
-                                            <Button
-                                                onClick={handleSavePhone}
-                                                disabled={phoneLoading}
-                                                loading={phoneLoading}
-                                                icon={FaSave}
-                                                variant="primary"
-                                                size="sm"
-                                            >
-                                                Zapisz
-                                            </Button>
-                                            <button
-                                                onClick={() => {
-                                                    setIsEditingPhone(false);
-                                                    setPhoneError('');
-                                                    setPhoneSuccess('');
-                                                }}
-                                                className="px-4 py-2 bg-white/5 text-white text-sm font-medium rounded-full hover:bg-white/10 transition-all duration-200"
-                                            >
-                                                Anuluj
-                                            </button>
-                                        </div>
+                        ) : (
+                            <form onSubmit={handleSubmit} className="space-y-4">
+                                {success && (
+                                    <div className="p-3 bg-success/20 border border-success/30 text-green-300 text-sm flex items-center gap-2">
+                                        <FaCheckCircle className="w-4 h-4 flex-shrink-0" />
+                                        <span>{success}</span>
                                     </div>
                                 )}
-                            </div>
-                        </div>
+                                {error && (
+                                    <div className="p-3 bg-red-500/20 border border-red-500/30 text-red-300 text-sm flex items-center gap-2">
+                                        <FaExclamationTriangle className="w-4 h-4 flex-shrink-0" />
+                                        <span>{error}</span>
+                                    </div>
+                                )}
+
+                                <div className="grid grid-cols-2 gap-4">
+                                    <div>
+                                        <label htmlFor="firstName" className="block text-sm font-medium text-muted mb-2">
+                                            Imię
+                                        </label>
+                                        <input
+                                            type="text"
+                                            id="firstName"
+                                            name="firstName"
+                                            value={formData.firstName}
+                                            onChange={handleChange}
+                                            disabled={isLoading}
+                                            className="w-full px-4 py-3 bg-primary/50 text-white placeholder-muted/70 transition-all duration-300"
+                                            placeholder="Jan"
+                                        />
+                                    </div>
+                                    <div>
+                                        <label htmlFor="lastName" className="block text-sm font-medium text-muted mb-2">
+                                            Nazwisko
+                                        </label>
+                                        <input
+                                            type="text"
+                                            id="lastName"
+                                            name="lastName"
+                                            value={formData.lastName}
+                                            onChange={handleChange}
+                                            disabled={isLoading}
+                                            className="w-full px-4 py-3 bg-primary/50 text-white placeholder-muted/70 transition-all duration-300"
+                                            placeholder="Kowalski"
+                                        />
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <label htmlFor="email" className="block text-sm font-medium text-muted mb-2">
+                                        E-mail
+                                    </label>
+                                    <input
+                                        type="email"
+                                        id="email"
+                                        name="email"
+                                        value={formData.email}
+                                        onChange={handleChange}
+                                        disabled={isLoading}
+                                        className="w-full px-4 py-3 bg-primary/50 text-white placeholder-muted/70 transition-all duration-300"
+                                        placeholder="jan@przykład.pl"
+                                    />
+                                </div>
+
+                                <div>
+                                    <label htmlFor="phone" className="block text-sm font-medium text-muted mb-2">
+                                        Telefon
+                                    </label>
+                                    <input
+                                        type="tel"
+                                        id="phone"
+                                        name="phone"
+                                        value={formData.phone}
+                                        onChange={handleChange}
+                                        disabled={isLoading}
+                                        className="w-full px-4 py-3 bg-primary/50 text-white placeholder-muted/70 transition-all duration-300"
+                                        placeholder="+48 123 456 789"
+                                    />
+                                </div>
+
+                                <div className="flex gap-3 pt-2">
+                                    <Button
+                                        type="submit"
+                                        disabled={isLoading}
+                                        loading={isLoading}
+                                        icon={FaSave}
+                                        variant="primary"
+                                        size="md"
+                                        className="flex-1"
+                                    >
+                                        {isLoading ? 'Zapisywanie...' : 'Zapisz'}
+                                    </Button>
+                                    <button
+                                        type="button"
+                                        onClick={handleCancel}
+                                        className="px-6 py-3 bg-white/5 text-white font-medium rounded-full hover:bg-white/10 transition-all duration-200"
+                                    >
+                                        Anuluj
+                                    </button>
+                                </div>
+                            </form>
+                        )}
                     </div>
 
                     {/* Adres dostawy */}
-                    <EditAddressForm
-                        initialAddress={user.defaultAddress}
-                    />
+                    <EditAddressForm initialAddress={user.defaultAddress} />
 
                     {/* Zmiana hasła */}
                     <ChangePasswordForm />

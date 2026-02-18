@@ -483,6 +483,60 @@ export async function recoverPassword(email) {
 }
 
 /**
+ * Zaktualizuj dane osobowe klienta (imię, nazwisko, email, telefon)
+ */
+export async function updateCustomerPersonalData(accessToken, { firstName, lastName, email, phone }) {
+    const mutation = `
+        mutation customerUpdate($customerAccessToken: String!, $customer: CustomerUpdateInput!) {
+            customerUpdate(customerAccessToken: $customerAccessToken, customer: $customer) {
+                customer {
+                    id
+                    firstName
+                    lastName
+                    email
+                    phone
+                }
+                customerUserErrors {
+                    code
+                    field
+                    message
+                }
+            }
+        }
+    `;
+
+    const variables = {
+        customerAccessToken: accessToken,
+        customer: {
+            firstName,
+            lastName,
+            email,
+            phone: phone || null,
+        }
+    };
+
+    try {
+        const response = await shopifyClient.graphqlFetch(mutation, variables);
+
+        if (response.data.customerUpdate.customerUserErrors.length > 0) {
+            const error = response.data.customerUpdate.customerUserErrors[0];
+            return {
+                success: false,
+                error: translateError(error.message)
+            };
+        }
+
+        return { success: true };
+    } catch (error) {
+        logger.error('Error updating customer personal data:', error);
+        return {
+            success: false,
+            error: 'Błąd podczas zapisywania danych'
+        };
+    }
+}
+
+/**
  * Zaktualizuj numer telefonu klienta
  */
 export async function updateCustomerPhone(accessToken, phone) {
