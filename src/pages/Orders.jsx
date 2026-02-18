@@ -226,9 +226,9 @@ export function Orders() {
                                                             <h4 className="text-white font-medium mb-1">
                                                                 {item.title}
                                                             </h4>
-                                                            {item.variant && item.variant !== 'Default Title' && (
+                                                            {item.selectedOptions && item.selectedOptions.filter(opt => opt.value !== 'Default Title').length > 0 && (
                                                                 <p className="text-base text-muted">
-                                                                    {item.variant}
+                                                                    {item.selectedOptions.filter(opt => opt.value !== 'Default Title').map(opt => opt.value).join(' / ')}
                                                                 </p>
                                                             )}
                                                             <p className="text-base text-muted">

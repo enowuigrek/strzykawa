@@ -233,6 +233,10 @@ export async function getCustomerOrders(accessToken, first = 10) {
                                         quantity
                                         variant {
                                             title
+                                            selectedOptions {
+                                                name
+                                                value
+                                            }
                                             image {
                                                 url
                                             }
@@ -284,6 +288,7 @@ export async function getCustomerOrders(accessToken, first = 10) {
                     title: lineEdge.node.title,
                     quantity: lineEdge.node.quantity,
                     variant: lineEdge.node.variant?.title || '',
+                    selectedOptions: lineEdge.node.variant?.selectedOptions || [],
                     image: lineEdge.node.variant?.image?.url || null
                 })),
                 shippingAddress: order.shippingAddress
