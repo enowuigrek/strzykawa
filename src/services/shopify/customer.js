@@ -168,6 +168,7 @@ export async function getCustomer(accessToken) {
                     zip
                     country
                     phone
+                    company
                 }
             }
         }
@@ -380,7 +381,8 @@ export async function updateCustomerAddress(accessToken, address) {
                 province: address.province || '',
                 zip: address.zip || '',
                 country: address.country || 'PL',
-                phone: address.phone || ''
+                phone: address.phone || '',
+                company: address.company || ''
             }
         };
 
