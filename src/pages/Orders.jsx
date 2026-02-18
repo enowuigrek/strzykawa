@@ -82,6 +82,7 @@ export function Orders() {
     const getFulfillmentStatusLabel = (status) => {
         const labels = {
             FULFILLED: { text: 'Wysłane', color: 'text-success' },
+            IN_PROGRESS: { text: 'W toku', color: 'text-yellow-500' },
             UNFULFILLED: { text: 'W realizacji', color: 'text-yellow-500' },
             PARTIALLY_FULFILLED: { text: 'Częściowo wysłane', color: 'text-yellow-500' },
             SCHEDULED: { text: 'Zaplanowane', color: 'text-muted' },
