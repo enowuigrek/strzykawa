@@ -15,7 +15,7 @@ export function ShippingProgress({ totalPrice }) {
     const progress = Math.min((totalAmount / FREE_SHIPPING_THRESHOLD) * 100, 100);
 
     return (
-        <div className="flex-shrink-0 border-t border-white/5 bg-primary-dark/40 px-4 sm:px-6 lg:px-8 py-2.5 sm:py-4">
+        <div className="flex-shrink-0 px-4 sm:px-6 lg:px-8 py-2.5 sm:py-4">
             <div className="container mx-auto">
                 {/* Tekst + kwota */}
                 <div className="flex items-center justify-between mb-2">

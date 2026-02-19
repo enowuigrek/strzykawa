@@ -5,8 +5,6 @@ import {
     FaPhone,
     FaEnvelope
 } from 'react-icons/fa';
-import { SiShopify, SiReact } from 'react-icons/si';
-import { BiCoffeeTogo } from 'react-icons/bi';
 
 export function Footer() {
     const currentYear = new Date().getFullYear();
@@ -58,16 +56,15 @@ export function Footer() {
             {/* Main content */}
             <div className="relative z-10 container mx-auto px-4 pt-6 pb-8 md:py-10">
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12 items-stretch">
-                    {/* Logo */}
+
+                    {/* Kolumna 1: Logo */}
                     <div className="flex flex-col items-start">
                         <div className="footer-logo">
-                            {/* Mobile: poziome logo */}
                             <img
                                 src="/logo/horizontal-logo.png"
                                 alt="Strzykawa Coffee Shop & Roastery"
                                 className="md:hidden h-5 object-contain"
                             />
-                            {/* Desktop: pionowe logo */}
                             <img
                                 src="/logo/vertical-logo.png"
                                 alt="Strzykawa Coffee Shop & Roastery"
@@ -76,8 +73,8 @@ export function Footer() {
                         </div>
                     </div>
 
-                    {/* Informacje: linki prawne (góra) + social media (dół) — desktop only */}
-                    <div className="hidden md:flex flex-col justify-between">
+                    {/* Kolumna 2: Informacje — tylko linki prawne (desktop) */}
+                    <div className="hidden md:flex flex-col">
                         <div className="space-y-5">
                             <h4 className="text-2xl text-white">Informacje</h4>
                             <ul className="space-y-4">
@@ -93,33 +90,14 @@ export function Footer() {
                                 ))}
                             </ul>
                         </div>
-
-                        {/* Social Media — na dole kolumny */}
-                        <div className="flex gap-4 pb-4">
-                            {socialLinks.map((social, index) => {
-                                const Icon = social.icon;
-                                return (
-                                    <a
-                                        key={index}
-                                        href={social.href}
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                        aria-label={social.label}
-                                        className={`group w-12 h-12 flex items-center justify-center bg-white/5 text-muted hover:bg-white/10 transition-all duration-300 ${social.hoverColor}`}
-                                    >
-                                        <Icon className="w-6 h-6 transition-transform duration-300 group-hover:scale-125" />
-                                    </a>
-                                );
-                            })}
-                        </div>
                     </div>
 
-                    {/* Kontakt: dane kontaktowe (góra) + loga płatności (dół) — desktop */}
-                    {/* Mobile: dane kontaktowe + linki prawne + social+loga razem */}
+                    {/* Kolumna 3: Kontakt + social + loga */}
                     <div className="flex flex-col md:justify-between">
-                        <div className="space-y-5 md:space-y-5">
+                        <div className="space-y-5">
                             <h4 className="text-2xl text-white">Kontakt</h4>
 
+                            {/* Dane kontaktowe */}
                             <div className="flex flex-col gap-5 md:gap-4">
                                 {contactInfo.map((contact, index) => {
                                     const Icon = contact.icon;
@@ -133,6 +111,25 @@ export function Footer() {
                                             <span className="text-white/70 group-hover:text-white transition-colors break-words">
                                                 {contact.text}
                                             </span>
+                                        </a>
+                                    );
+                                })}
+                            </div>
+
+                            {/* Social media — desktop: pod kontaktem */}
+                            <div className="hidden md:flex gap-3">
+                                {socialLinks.map((social, index) => {
+                                    const Icon = social.icon;
+                                    return (
+                                        <a
+                                            key={index}
+                                            href={social.href}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            aria-label={social.label}
+                                            className={`group w-10 h-10 flex items-center justify-center bg-white/5 text-muted hover:bg-white/10 transition-all duration-300 ${social.hoverColor}`}
+                                        >
+                                            <Icon className="w-5 h-5 transition-transform duration-300 group-hover:scale-125" />
                                         </a>
                                     );
                                 })}
@@ -154,9 +151,8 @@ export function Footer() {
                                 </ul>
                             </div>
 
-                            {/* Social + Loga (mobile only): social po lewej, loga po prawej */}
+                            {/* Social + Loga (mobile only) */}
                             <div className="md:hidden flex items-end justify-between gap-3 pt-4">
-                                {/* Social ikony */}
                                 <div className="flex gap-3">
                                     {socialLinks.map((social, index) => {
                                         const Icon = social.icon;
@@ -174,7 +170,6 @@ export function Footer() {
                                         );
                                     })}
                                 </div>
-                                {/* Loga płatności i dostawy */}
                                 <div className="flex flex-wrap justify-end gap-2 items-center">
                                     {brandLogos.map((brand) => (
                                         <img
@@ -188,7 +183,7 @@ export function Footer() {
                             </div>
                         </div>
 
-                        {/* Loga płatności i dostawy (desktop only) — na dole kolumny, wyrównane z social */}
+                        {/* Loga płatności (desktop only) — na dole kolumny */}
                         <div className="hidden md:flex flex-wrap gap-3 items-center pb-4">
                             {brandLogos.map((brand) => (
                                 <img
@@ -200,41 +195,26 @@ export function Footer() {
                             ))}
                         </div>
                     </div>
+
                 </div>
             </div>
 
-            {/* Bottom bar */}
-            <div className="relative z-10 border-t border-white/10 bg-black/95">
-                <div className="container mx-auto px-4 py-6">
-                    <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-3 md:gap-4 text-sm text-white/70">
-                        {/* Copyright */}
-                        <div className="text-accent text-left">
-                            © {currentYear} Strzykawa. Wszystkie prawa zastrzeżone.
-                        </div>
-
-                        {/* Project credit + Technologies (inline on mobile) */}
-                        <div className="flex items-center justify-between md:justify-end gap-4 md:gap-6">
-                            <div className="flex items-center gap-1 text-white/70">
-                                <span className="text-white/60">Projekt:</span>
-                                <a
-                                    href="https://lukasznowak.dev"
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    className="text-white hover:text-accent transition-colors"
-                                >
-                                    lukasznowak.dev
-                                </a>
-                            </div>
-
-                            <div className="flex items-center gap-2 text-white/70">
-                                <span className="text-white/60 hidden md:inline">Technologie:</span>
-                                <div className="flex items-center gap-1">
-                                    <SiReact className="w-4 h-4 hover:text-[#61DAFB] hover:scale-125 transition-all duration-300" />
-                                    <SiShopify className="w-4 h-4 hover:text-[#95BF47] hover:scale-125 transition-all duration-300" />
-                                    <BiCoffeeTogo className="w-4 h-4 hover:text-[#7B4B2A] hover:scale-125 transition-all duration-300" />
-                                </div>
-                            </div>
-                        </div>
+            {/* Socket — minimalny */}
+            <div className="relative z-10 border-t border-white/10">
+                <div className="container mx-auto px-4 py-4">
+                    <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-1 md:gap-0 text-xs text-white/40">
+                        <span>© {currentYear} Strzykawa. Wszystkie prawa zastrzeżone.</span>
+                        <span>
+                            Realizacja:{' '}
+                            <a
+                                href="https://lukasznowak.dev"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="hover:underline transition-all duration-200"
+                            >
+                                lukasznowak.dev
+                            </a>
+                        </span>
                     </div>
                 </div>
             </div>

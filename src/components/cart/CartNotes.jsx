@@ -37,7 +37,7 @@ export function CartNotes({ note, onSave, isLoading }) {
     const charsLeft = MAX_CHARS - draft.length;
 
     return (
-        <div className="flex-shrink-0 flex flex-col-reverse border-t border-white/5 px-4 sm:px-6 lg:px-8">
+        <div className="flex-shrink-0 flex flex-col-reverse bg-primary-light/20 px-4 sm:px-6 lg:px-8">
 
             {/* Trigger — zawsze na dole */}
             <div className="py-2.5">
@@ -48,7 +48,7 @@ export function CartNotes({ note, onSave, isLoading }) {
                         flex items-center gap-2 text-sm transition-all duration-200
                         ${hasNote && !isOpen
                             ? 'pl-4 px-3 py-1 rounded-full bg-success/20 text-success font-medium hover:bg-success/30'
-                            : 'pl-4 text-muted/70 hover:text-white'
+                            : 'pl-4 text-white/60 hover:text-white'
                         }
                     `}
                 >
@@ -91,7 +91,7 @@ export function CartNotes({ note, onSave, isLoading }) {
                         rows={3}
                         className="
                             w-full px-3 py-2
-                            bg-primary-dark/50 text-white text-base
+                            bg-primary-dark text-white text-base
                             placeholder-muted/50
                             border border-white/10 focus:border-accent/50
                             outline-none resize-none
