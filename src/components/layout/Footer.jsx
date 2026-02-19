@@ -45,11 +45,19 @@ export function Footer() {
         { label: 'Polityka cookies', href: '/polityka-cookies' }
     ];
 
+    const brandLogos = [
+        { src: '/brands/przelewy24.svg', alt: 'Przelewy24' },
+        { src: '/brands/blik.svg',       alt: 'BLIK'       },
+        { src: '/brands/visa.svg',       alt: 'Visa'       },
+        { src: '/brands/mastercard.svg', alt: 'Mastercard' },
+        { src: '/brands/inpost.svg',     alt: 'InPost'     },
+    ];
+
     return (
-        <footer className="relative bg-primary-dark/95 border-white/10 overflow-hidden">
+        <footer className="relative bg-primary-dark/95 border-white/10">
             {/* Main content */}
             <div className="relative z-10 container mx-auto px-4 pt-6 pb-8 md:py-10">
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12 items-start">
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12 items-stretch">
                     {/* Logo */}
                     <div className="flex flex-col items-start">
                         <div className="footer-logo">
@@ -68,8 +76,8 @@ export function Footer() {
                         </div>
                     </div>
 
-                    {/* Linki prawne + Social Media (desktop) */}
-                    <div className="hidden md:flex flex-col justify-between h-full">
+                    {/* Informacje: linki prawne (góra) + social media (dół) — desktop only */}
+                    <div className="hidden md:flex flex-col justify-between">
                         <div className="space-y-5">
                             <h4 className="text-2xl text-white">Informacje</h4>
                             <ul className="space-y-4">
@@ -86,87 +94,8 @@ export function Footer() {
                             </ul>
                         </div>
 
-                        {/* Loga płatności i dostawy (desktop) + Social Media */}
-                        <div className="flex flex-col gap-3 pb-4">
-                            {/* Loga */}
-                            <div className="flex flex-wrap gap-3 items-center">
-                                {[
-                                    { src: '/brands/przelewy24.svg', alt: 'Przelewy24', h: 'h-6' },
-                                    { src: '/brands/blik.svg',       alt: 'BLIK',       h: 'h-6' },
-                                    { src: '/brands/visa.svg',       alt: 'Visa',       h: 'h-5' },
-                                    { src: '/brands/mastercard.svg', alt: 'Mastercard', h: 'h-6' },
-                                    { src: '/brands/inpost.svg',     alt: 'InPost',     h: 'h-5' },
-                                ].map((brand) => (
-                                    <img
-                                        key={brand.alt}
-                                        src={brand.src}
-                                        alt={brand.alt}
-                                        className={`${brand.h} w-auto opacity-60 hover:opacity-100 transition-opacity duration-200`}
-                                    />
-                                ))}
-                            </div>
-                            {/* Social Media */}
-                            <div className="flex gap-4">
-                                {socialLinks.map((social, index) => {
-                                    const Icon = social.icon;
-                                    return (
-                                        <a
-                                            key={index}
-                                            href={social.href}
-                                            target="_blank"
-                                            rel="noopener noreferrer"
-                                            aria-label={social.label}
-                                            className={`group w-12 h-12 flex items-center justify-center bg-white/5 text-muted hover:bg-white/10 transition-all duration-300 ${social.hoverColor}`}
-                                        >
-                                            <Icon className="w-6 h-6 transition-transform duration-300 group-hover:scale-125" />
-                                        </a>
-                                    );
-                                })}
-                            </div>
-                        </div>
-                    </div>
-
-                    {/* Kontakt */}
-                    <div className="space-y-5 md:space-y-5">
-                        <h4 className="text-2xl text-white">Kontakt</h4>
-
-                        <div className="flex flex-col gap-5 md:gap-4">
-                            {contactInfo.map((contact, index) => {
-                                const Icon = contact.icon;
-                                return (
-                                    <a
-                                        key={index}
-                                        href={contact.href}
-                                        className="flex items-center gap-3 text-lg transition-colors duration-300 group"
-                                    >
-                                        <Icon className="w-5 h-5 flex-shrink-0 text-muted group-hover:text-accent transition-colors" />
-                                        <span className="text-white/70 group-hover:text-white transition-colors break-words">
-                                            {contact.text}
-                                        </span>
-                                    </a>
-                                );
-                            })}
-
-                        </div>
-
-                        {/* Linki prawne (mobile only) */}
-                        <div className="md:hidden pt-5 border-t border-white/10">
-                            <ul className="flex flex-col gap-4">
-                                {legalLinks.map((link, index) => (
-                                    <li key={index}>
-                                        <a
-                                            href={link.href}
-                                            className="text-white/70 hover:text-white text-lg transition-colors duration-300"
-                                        >
-                                            {link.label}
-                                        </a>
-                                    </li>
-                                ))}
-                            </ul>
-                        </div>
-
-                        {/* Social Media + Loga płatności (mobile only) */}
-                        <div className="md:hidden flex flex-wrap items-center gap-3 pt-4">
+                        {/* Social Media — na dole kolumny */}
+                        <div className="flex gap-4 pb-4">
                             {socialLinks.map((social, index) => {
                                 const Icon = social.icon;
                                 return (
@@ -182,19 +111,91 @@ export function Footer() {
                                     </a>
                                 );
                             })}
-                            {/* Loga płatności i dostawy */}
-                            {[
-                                { src: '/brands/przelewy24.svg', alt: 'Przelewy24', h: 'h-6' },
-                                { src: '/brands/blik.svg',       alt: 'BLIK',       h: 'h-6' },
-                                { src: '/brands/visa.svg',       alt: 'Visa',       h: 'h-5' },
-                                { src: '/brands/mastercard.svg', alt: 'Mastercard', h: 'h-6' },
-                                { src: '/brands/inpost.svg',     alt: 'InPost',     h: 'h-5' },
-                            ].map((brand) => (
+                        </div>
+                    </div>
+
+                    {/* Kontakt: dane kontaktowe (góra) + loga płatności (dół) — desktop */}
+                    {/* Mobile: dane kontaktowe + linki prawne + social+loga razem */}
+                    <div className="flex flex-col md:justify-between">
+                        <div className="space-y-5 md:space-y-5">
+                            <h4 className="text-2xl text-white">Kontakt</h4>
+
+                            <div className="flex flex-col gap-5 md:gap-4">
+                                {contactInfo.map((contact, index) => {
+                                    const Icon = contact.icon;
+                                    return (
+                                        <a
+                                            key={index}
+                                            href={contact.href}
+                                            className="flex items-center gap-3 text-lg transition-colors duration-300 group"
+                                        >
+                                            <Icon className="w-5 h-5 flex-shrink-0 text-muted group-hover:text-accent transition-colors" />
+                                            <span className="text-white/70 group-hover:text-white transition-colors break-words">
+                                                {contact.text}
+                                            </span>
+                                        </a>
+                                    );
+                                })}
+                            </div>
+
+                            {/* Linki prawne (mobile only) */}
+                            <div className="md:hidden pt-5 border-t border-white/10">
+                                <ul className="flex flex-col gap-4">
+                                    {legalLinks.map((link, index) => (
+                                        <li key={index}>
+                                            <a
+                                                href={link.href}
+                                                className="text-white/70 hover:text-white text-lg transition-colors duration-300"
+                                            >
+                                                {link.label}
+                                            </a>
+                                        </li>
+                                    ))}
+                                </ul>
+                            </div>
+
+                            {/* Social + Loga (mobile only): social po lewej, loga po prawej */}
+                            <div className="md:hidden flex items-end justify-between gap-3 pt-4">
+                                {/* Social ikony */}
+                                <div className="flex gap-3">
+                                    {socialLinks.map((social, index) => {
+                                        const Icon = social.icon;
+                                        return (
+                                            <a
+                                                key={index}
+                                                href={social.href}
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                aria-label={social.label}
+                                                className={`group w-12 h-12 flex items-center justify-center bg-white/5 text-muted hover:bg-white/10 transition-all duration-300 ${social.hoverColor}`}
+                                            >
+                                                <Icon className="w-6 h-6 transition-transform duration-300 group-hover:scale-125" />
+                                            </a>
+                                        );
+                                    })}
+                                </div>
+                                {/* Loga płatności i dostawy */}
+                                <div className="flex flex-wrap justify-end gap-2 items-center">
+                                    {brandLogos.map((brand) => (
+                                        <img
+                                            key={brand.alt}
+                                            src={brand.src}
+                                            alt={brand.alt}
+                                            className="h-7 w-auto object-contain opacity-60 hover:opacity-100 transition-opacity duration-200"
+                                        />
+                                    ))}
+                                </div>
+                            </div>
+                        </div>
+
+                        {/* Loga płatności i dostawy (desktop only) — na dole kolumny, wyrównane z social */}
+                        <div className="hidden md:flex flex-wrap gap-3 items-center pb-4">
+                            {brandLogos.map((brand) => (
                                 <img
                                     key={brand.alt}
                                     src={brand.src}
                                     alt={brand.alt}
-                                    className={`${brand.h} w-auto opacity-60 hover:opacity-100 transition-opacity duration-200`}
+                                    className="h-7 w-auto object-contain opacity-60 hover:opacity-100 transition-opacity duration-200"
                                 />
                             ))}
                         </div>
