@@ -77,14 +77,14 @@ export function CartItem({ item, onUpdateQuantity, onRemove, isLoading, onCloseC
                                 </span>
                             );
                         })()}
-                        {/* Forma kawy: "Ziarna" lub "mielona: Drip" */}
+                        {/* Forma kawy: "Ziarna" lub sam sposób mielenia */}
                         {item.coffeeForm === 'ziarna' ? (
                             <span className="inline-flex items-center px-3 py-1 bg-[#3A5F55] text-white text-sm font-medium rounded-full">
                                 Ziarna
                             </span>
                         ) : item.grindMethod ? (
                             <span className="inline-flex items-center px-3 py-1 bg-[#3A5F55] text-white text-sm font-medium rounded-full">
-                                Mielona: {item.grindMethod}
+                                {item.grindMethod}
                             </span>
                         ) : null}
                     </div>
