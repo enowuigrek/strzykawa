@@ -53,7 +53,7 @@ export function QuantitySelector({
     };
 
     return (
-        <div className={`inline-flex items-center bg-primary-light border border-accent/30 rounded-full overflow-hidden ${sizeClasses[size]}`}>
+        <div className={`inline-flex items-center bg-primary-light rounded-full overflow-hidden ${sizeClasses[size]}`}>
             {/* Decrease Button - Left semicircle */}
             <button
                 type="button"

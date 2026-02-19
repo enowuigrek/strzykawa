@@ -129,7 +129,7 @@ export function VariantSelector({
                                             ? 'bg-red-900/20 text-red-400/70 opacity-60 cursor-not-allowed border border-red-800/30'
                                             : selectedGramatura === value
                                                 ? 'bg-accent text-white shadow-md ring-2 ring-accent/30'
-                                                : 'bg-primary-light text-muted border border-accent/30 hover:bg-accent/20 hover:text-white'
+                                                : 'bg-primary-light text-muted hover:bg-accent/20 hover:text-white'
                                         }
                                         `}
                                     >
@@ -161,7 +161,7 @@ export function VariantSelector({
                                     min-w-[100px] px-5 py-2.5 font-medium transition-all rounded-full capitalize
                                     ${coffeeForm === form
                                         ? 'bg-accent text-white shadow-md ring-2 ring-accent/30'
-                                        : 'bg-primary-light text-muted border border-accent/30 hover:bg-accent/20 hover:text-white'
+                                        : 'bg-primary-light text-muted hover:bg-accent/20 hover:text-white'
                                 }
                                 `}
                             >
@@ -186,7 +186,7 @@ export function VariantSelector({
                                         px-5 py-2.5 font-medium transition-all rounded-full text-center
                                         ${grindMethod === value
                                             ? 'bg-accent text-white shadow-md ring-2 ring-accent/30'
-                                            : 'bg-primary-light text-muted border border-accent/30 hover:bg-accent/20 hover:text-white'
+                                            : 'bg-primary-light text-muted hover:bg-accent/20 hover:text-white'
                                     }
                                     `}
                                 >

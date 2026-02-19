@@ -208,7 +208,7 @@ export function QuickAddModal({ coffee, isOpen, onClose, onAddToCart }) {
                                                             ? 'bg-red-900/20 text-red-400/70 opacity-60 cursor-not-allowed border border-red-800/30'
                                                             : selectedGramatura === value
                                                                 ? 'bg-accent text-white shadow-md'
-                                                                : 'bg-primary-light text-muted border border-accent/30 hover:bg-accent/20 hover:text-white'
+                                                                : 'bg-primary-light text-muted hover:bg-accent/20 hover:text-white'
                                                         }
                                                     `}
                                                 >
@@ -237,7 +237,7 @@ export function QuickAddModal({ coffee, isOpen, onClose, onAddToCart }) {
                                                 rounded-full capitalize
                                                 ${coffeeForm === form
                                                     ? 'bg-accent text-white shadow-md'
-                                                    : 'bg-primary-light text-muted border border-accent/30 hover:bg-accent/20 hover:text-white'
+                                                    : 'bg-primary-light text-muted hover:bg-accent/20 hover:text-white'
                                                 }
                                             `}
                                         >
@@ -264,7 +264,7 @@ export function QuickAddModal({ coffee, isOpen, onClose, onAddToCart }) {
                                                     rounded-full
                                                     ${grindMethod === value
                                                         ? 'bg-accent text-white shadow-md'
-                                                        : 'bg-primary-light text-muted border border-accent/30 hover:bg-accent/20 hover:text-white'
+                                                        : 'bg-primary-light text-muted hover:bg-accent/20 hover:text-white'
                                                     }
                                                 `}
                                             >
