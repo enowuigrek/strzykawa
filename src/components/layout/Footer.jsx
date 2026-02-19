@@ -181,7 +181,7 @@ export function Footer() {
                                             key={brand.alt}
                                             src={brand.src}
                                             alt={brand.alt}
-                                            className="h-7 w-auto object-contain opacity-60 hover:opacity-100 transition-opacity duration-200"
+                                            className="h-7 w-auto object-contain"
                                         />
                                     ))}
                                 </div>
@@ -195,7 +195,7 @@ export function Footer() {
                                     key={brand.alt}
                                     src={brand.src}
                                     alt={brand.alt}
-                                    className="h-7 w-auto object-contain opacity-60 hover:opacity-100 transition-opacity duration-200"
+                                    className="h-7 w-auto object-contain"
                                 />
                             ))}
                         </div>
