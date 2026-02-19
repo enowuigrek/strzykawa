@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useCartStore } from '../../store/cartStore';
+import { useAuthStore } from '../../store/authStore';
 import { ModalHeader } from '../layout/ModalHeader';
 import { CartContent } from './CartContent';
 import { ShippingProgress } from './ShippingProgress';
@@ -8,12 +9,16 @@ import { CartFooter } from './CartFooter';
 export function CartModal({ isOpen, onClose }) {
     const {
         items,
+        note,
         isLoading,
         removeItem,
         updateQuantity,
+        updateNote,
         getTotalItems,
         getTotalPrice
     } = useCartStore();
+
+    const { user } = useAuthStore();
 
     const [isAnimating, setIsAnimating] = useState(false);
 
@@ -94,6 +99,8 @@ export function CartModal({ isOpen, onClose }) {
                     onUpdateQuantity={updateQuantity}
                     onRemove={removeItem}
                     onCloseCart={onClose}
+                    note={note}
+                    onSaveNote={(text) => updateNote(text, user)}
                 />
 
                 {/* Shipping Progress - na dole zawartości, przed footrem */}

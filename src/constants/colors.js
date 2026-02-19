@@ -10,7 +10,6 @@ export const COUNTRY_COLORS = {
   Gwatemala:'#87aade',
   Etiopia: '#ff5555',
   Kenia: '#a02c2c',
-
 };
 
 export const DEFAULT_COUNTRY_COLOR = '#FFD200';

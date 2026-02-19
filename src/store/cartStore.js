@@ -4,6 +4,19 @@ import { shopify } from '../services/shopify';
 import { logger } from '../utils/logger';
 
 /**
+ * Parsuje pole company z formatu "Nazwa | NIP: 1234567890"
+ * Taki sam wzorzec jak w Profile.jsx
+ */
+function parseCompany(companyRaw) {
+    if (!companyRaw) return null;
+    if (companyRaw.includes('| NIP:')) {
+        const [name, nipPart] = companyRaw.split('| NIP:');
+        return { companyName: name.trim(), nip: nipPart.trim() };
+    }
+    return { companyName: companyRaw.trim(), nip: '' };
+}
+
+/**
  * Cart Store - Zustand store dla koszyka
  * FIXED: Używa variant.selectedOptions z GraphQL (dodane w cart.js)
  */
@@ -12,6 +25,7 @@ export const useCartStore = create(
         (set, get) => ({
             cart: null,
             items: [],
+            note: '',
             isLoading: false,
             error: null,
             // ✅ status checkoutu: 'idle' | 'pending' | 'completed'
@@ -31,6 +45,7 @@ export const useCartStore = create(
                             set({
                                 cart: shopifyCart,
                                 items: get().mapCartToItems(shopifyCart),
+                                note: shopifyCart.note || '',
                                 isLoading: false,
                                 status: 'idle'
                             });
@@ -209,13 +224,54 @@ export const useCartStore = create(
 
             // Clear entire cart
             clearCart: () => {
-                // ✅ czyścimy też status
-                set({ cart: null, items: [], status: 'idle' });
+                // ✅ czyścimy też status i note
+                set({ cart: null, items: [], note: '', status: 'idle' });
             },
 
             // Clear error
             clearError: () => {
                 set({ error: null });
+            },
+
+            // Update cart note (uwagi do zamówienia)
+            // user: obiekt z authStore (opcjonalnie) - jeśli podany i ma dane firmy, są dołączane do notatki
+            updateNote: async (noteText, user = null) => {
+                const { cart } = get();
+                if (!cart?.id) return;
+
+                // Buduj pełną notatkę z opcjonalnymi danymi firmy
+                let fullNote = noteText.trim();
+
+                if (user?.defaultAddress?.company) {
+                    const parsed = parseCompany(user.defaultAddress.company);
+                    if (parsed) {
+                        const addr = user.defaultAddress;
+                        const companySection = [
+                            `Firma: ${parsed.companyName}`,
+                            parsed.nip ? `NIP: ${parsed.nip}` : null,
+                            addr.address1 ? `Adres firmy: ${addr.address1}${addr.city ? ', ' + addr.city : ''}${addr.zip ? ' ' + addr.zip : ''}` : null,
+                        ]
+                            .filter(Boolean)
+                            .join('\n');
+
+                        fullNote = fullNote
+                            ? `${fullNote}\n---\n${companySection}`
+                            : companySection;
+                    }
+                }
+
+                set({ isLoading: true, error: null });
+                try {
+                    const updatedCart = await shopify.updateCartNote(cart.id, fullNote);
+                    set({
+                        cart: updatedCart,
+                        note: noteText, // zapisujemy tylko tekst wpisany przez klienta (bez firmy)
+                        isLoading: false,
+                    });
+                } catch (error) {
+                    logger.error('Error updating cart note:', error);
+                    set({ error: 'Nie udało się zapisać uwag', isLoading: false });
+                }
             },
 
             // Go to checkout (with optional user data for pre-fill)
@@ -293,7 +349,7 @@ export const useCartStore = create(
 
             // ✅ Wywołasz to na stronie /checkout/success
             markCheckoutCompleted: () => {
-                set({ cart: null, items: [], status: 'completed' });
+                set({ cart: null, items: [], note: '', status: 'completed' });
             },
 
             // ✅ Wywołasz to na stronie /checkout/canceled

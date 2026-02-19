@@ -52,6 +52,7 @@ const CART_LINE_FRAGMENT = `
 const CART_FRAGMENT = `
     id
     checkoutUrl
+    note
     totalQuantity
     cost {
         subtotalAmount {
@@ -305,4 +306,35 @@ export async function updateCartBuyerIdentity(client, cartId, buyerIdentity) {
     }
 
     return response.data.cartBuyerIdentityUpdate.cart;
+}
+
+/**
+ * Update cart note (customer order notes)
+ * @param {ShopifyClient} client - Shopify client instance
+ * @param {string} cartId - Cart ID
+ * @param {string} note - Order note text
+ * @returns {Promise<object>} Updated cart
+ */
+export async function updateCartNote(client, cartId, note) {
+    const query = `
+        mutation cartNoteUpdate($cartId: ID!, $note: String!) {
+            cartNoteUpdate(cartId: $cartId, note: $note) {
+                cart {
+                    ${CART_FRAGMENT}
+                }
+                userErrors {
+                    field
+                    message
+                }
+            }
+        }
+    `;
+
+    const response = await client.graphqlFetch(query, { cartId, note });
+
+    if (response.data.cartNoteUpdate.userErrors.length > 0) {
+        throw new Error(response.data.cartNoteUpdate.userErrors[0].message);
+    }
+
+    return response.data.cartNoteUpdate.cart;
 }

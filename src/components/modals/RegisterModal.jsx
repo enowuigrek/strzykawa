@@ -1,6 +1,11 @@
 import React, { useState } from 'react';
-import { FaUser, FaLock, FaEye, FaEyeSlash, FaEnvelope, FaUserPlus, FaExclamationTriangle, FaCheckCircle, FaPhone } from 'react-icons/fa';
+import {
+    FaUser, FaLock, FaEye, FaEyeSlash, FaEnvelope,
+    FaUserPlus, FaExclamationTriangle, FaCheckCircle,
+    FaPhone, FaBuilding, FaChevronDown, FaChevronUp
+} from 'react-icons/fa';
 import { useAuthStore } from '../../store/authStore.js';
+import { updateCustomerAddress } from '../../services/shopify/customer.js';
 import { Button } from '../atoms/Button.jsx';
 import { ModalWrapper } from '../layout/ModalWrapper.jsx';
 
@@ -17,6 +22,12 @@ const RegisterModal = ({ isOpen, onClose, onSwitchToLogin }) => {
         password: '',
         confirmPassword: ''
     });
+    const [companyData, setCompanyData] = useState({
+        companyName: '',
+        nip: '',
+        companyAddress: ''
+    });
+    const [showCompany, setShowCompany] = useState(false);
     const [showPassword, setShowPassword] = useState(false);
     const [showConfirmPassword, setShowConfirmPassword] = useState(false);
     const [error, setError] = useState('');
@@ -31,13 +42,20 @@ const RegisterModal = ({ isOpen, onClose, onSwitchToLogin }) => {
         }));
     };
 
+    const handleCompanyChange = (e) => {
+        setCompanyData(prev => ({
+            ...prev,
+            [e.target.name]: e.target.value
+        }));
+    };
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         setError('');
         setSuccess('');
 
         if (!formData.firstName || !formData.lastName || !formData.email || !formData.password || !formData.confirmPassword) {
-            setError('Wypełnij wszystkie pola');
+            setError('Wypełnij wszystkie wymagane pola');
             return;
         }
 
@@ -65,6 +83,31 @@ const RegisterModal = ({ isOpen, onClose, onSwitchToLogin }) => {
         );
 
         if (result.success) {
+            // Jeśli podano dane firmowe — zapisz je w profilu klienta
+            if (showCompany && companyData.companyName.trim()) {
+                try {
+                    const accessToken = useAuthStore.getState().accessToken;
+                    if (accessToken) {
+                        const companyValue = companyData.nip.trim()
+                            ? `${companyData.companyName.trim()} | NIP: ${companyData.nip.trim()}`
+                            : companyData.companyName.trim();
+
+                        await updateCustomerAddress(accessToken, {
+                            address1: companyData.companyAddress.trim() || '',
+                            address2: '',
+                            city: '',
+                            province: '',
+                            zip: '',
+                            country: 'PL',
+                            phone: formData.phone || '',
+                            company: companyValue
+                        });
+                    }
+                } catch {
+                    // Błąd zapisu firmy nie blokuje rejestracji
+                }
+            }
+
             setSuccess('✓ Konto utworzone! Logowanie...');
             setTimeout(() => {
                 onClose();
@@ -76,6 +119,8 @@ const RegisterModal = ({ isOpen, onClose, onSwitchToLogin }) => {
                     password: '',
                     confirmPassword: ''
                 });
+                setCompanyData({ companyName: '', nip: '', companyAddress: '' });
+                setShowCompany(false);
                 setSuccess('');
             }, 2000);
         } else {
@@ -226,7 +271,7 @@ const RegisterModal = ({ isOpen, onClose, onSwitchToLogin }) => {
                 </div>
 
                 {/* Confirm Password Field */}
-                <div className="mb-6">
+                <div className="mb-4">
                     <label htmlFor="confirmPassword" className="block text-base font-medium text-muted mb-2">
                         Powtórz hasło
                     </label>
@@ -251,6 +296,88 @@ const RegisterModal = ({ isOpen, onClose, onSwitchToLogin }) => {
                         >
                             {showConfirmPassword ? <FaEyeSlash className="w-4 h-4" /> : <FaEye className="w-4 h-4" />}
                         </button>
+                    </div>
+                </div>
+
+                {/* Accordion: Dane firmowe */}
+                <div className="mb-6 border-t border-white/10">
+                    <button
+                        type="button"
+                        onClick={() => setShowCompany(!showCompany)}
+                        className="w-full flex items-center justify-between py-3 text-muted hover:text-white transition-colors duration-200"
+                    >
+                        <span className="flex items-center gap-2 text-sm font-medium">
+                            <FaBuilding className="w-4 h-4 flex-shrink-0" />
+                            Dane firmowe <span className="text-muted/60">(opcjonalnie)</span>
+                        </span>
+                        {showCompany
+                            ? <FaChevronUp className="w-3.5 h-3.5 flex-shrink-0" />
+                            : <FaChevronDown className="w-3.5 h-3.5 flex-shrink-0" />
+                        }
+                    </button>
+
+                    {/* Animacja rozwinięcia */}
+                    <div
+                        className={`
+                            overflow-hidden transition-all duration-300 ease-in-out
+                            ${showCompany ? 'max-h-80 opacity-100' : 'max-h-0 opacity-0'}
+                        `}
+                    >
+                        <div className="pb-2 space-y-4">
+                            {/* Nazwa firmy */}
+                            <div>
+                                <label htmlFor="companyName" className="block text-base font-medium text-muted mb-2">
+                                    Nazwa firmy
+                                </label>
+                                <div className="relative">
+                                    <div className="absolute left-3 top-1/2 transform -translate-y-1/2">
+                                        <FaBuilding className="w-4 h-4 text-muted" />
+                                    </div>
+                                    <input
+                                        type="text"
+                                        id="companyName"
+                                        name="companyName"
+                                        value={companyData.companyName}
+                                        onChange={handleCompanyChange}
+                                        className="w-full pl-10 pr-4 py-3 bg-primary-dark/50 text-white placeholder-muted/70 transition-all duration-300"
+                                        placeholder="Twoja Firma sp. z o.o."
+                                    />
+                                </div>
+                            </div>
+
+                            {/* NIP */}
+                            <div>
+                                <label htmlFor="nip" className="block text-base font-medium text-muted mb-2">
+                                    NIP <span className="text-sm text-muted/70">(opcjonalnie)</span>
+                                </label>
+                                <input
+                                    type="text"
+                                    id="nip"
+                                    name="nip"
+                                    value={companyData.nip}
+                                    onChange={handleCompanyChange}
+                                    maxLength={10}
+                                    className="w-full px-4 py-3 bg-primary-dark/50 text-white placeholder-muted/70 transition-all duration-300"
+                                    placeholder="1234567890"
+                                />
+                            </div>
+
+                            {/* Adres firmy */}
+                            <div>
+                                <label htmlFor="companyAddress" className="block text-base font-medium text-muted mb-2">
+                                    Adres firmy <span className="text-sm text-muted/70">(opcjonalnie)</span>
+                                </label>
+                                <input
+                                    type="text"
+                                    id="companyAddress"
+                                    name="companyAddress"
+                                    value={companyData.companyAddress}
+                                    onChange={handleCompanyChange}
+                                    className="w-full px-4 py-3 bg-primary-dark/50 text-white placeholder-muted/70 transition-all duration-300"
+                                    placeholder="ul. Dąbrowskiego 4, 42-200 Częstochowa"
+                                />
+                            </div>
+                        </div>
                     </div>
                 </div>
 
