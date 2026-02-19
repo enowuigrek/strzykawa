@@ -67,11 +67,13 @@ export function Orders() {
         });
     };
 
+    const isCanceled = (order) => order.financialStatus === 'VOIDED';
+
     // Status finansowy - polskie tłumaczenia
     const getFinancialStatusLabel = (status) => {
         const labels = {
             PAID: { text: 'Opłacone', color: 'text-success', icon: FaCheckCircle },
-            PENDING: { text: 'Oczekuje', color: 'text-yellow-500', icon: FaClock },
+            PENDING: { text: 'Oczekuje na płatność', color: 'text-muted', icon: FaClock },
             REFUNDED: { text: 'Zwrócone', color: 'text-muted', icon: FaExclamationTriangle },
             PARTIALLY_REFUNDED: { text: 'Częściowo zwrócone', color: 'text-muted', icon: FaExclamationTriangle },
             VOIDED: { text: 'Anulowane', color: 'text-muted', icon: FaExclamationTriangle }
@@ -83,9 +85,9 @@ export function Orders() {
     const getFulfillmentStatusLabel = (status) => {
         const labels = {
             FULFILLED: { text: 'Wysłane', color: 'text-success' },
-            IN_PROGRESS: { text: 'W toku', color: 'text-yellow-500' },
-            UNFULFILLED: { text: 'W realizacji', color: 'text-yellow-500' },
-            PARTIALLY_FULFILLED: { text: 'Częściowo wysłane', color: 'text-yellow-500' },
+            IN_PROGRESS: { text: 'W toku', color: 'text-muted' },
+            UNFULFILLED: { text: 'Nie wysłane', color: 'text-muted' },
+            PARTIALLY_FULFILLED: { text: 'Częściowo wysłane', color: 'text-muted' },
             SCHEDULED: { text: 'Zaplanowane', color: 'text-muted' },
             READY_FOR_PICKUP: { text: 'Gotowe do odbioru', color: 'text-success' },
             ON_HOLD: { text: 'Wstrzymane', color: 'text-muted' }
@@ -107,7 +109,7 @@ export function Orders() {
 
                 {/* Error State */}
                 {error && (
-                    <div className="bg-primary-light border border-white/10 p-4 mb-6">
+                    <div className="bg-danger/10 border border-danger p-4 mb-6">
                         <p className="text-base text-danger">{error}</p>
                     </div>
                 )}
@@ -144,6 +146,7 @@ export function Orders() {
                 {!isLoading && !error && orders.length > 0 && (
                     <div className="space-y-4">
                         {orders.map((order) => {
+                            const canceled = isCanceled(order);
                             const financialStatus = getFinancialStatusLabel(order.financialStatus);
                             const fulfillmentStatus = getFulfillmentStatusLabel(order.fulfillmentStatus);
                             const FinancialIcon = financialStatus.icon;
@@ -178,9 +181,11 @@ export function Orders() {
                                                         {financialStatus.text}
                                                     </span>
                                                 </div>
-                                                <span className={`text-sm ${fulfillmentStatus.color}`}>
-                                                    {fulfillmentStatus.text}
-                                                </span>
+                                                {!canceled && (
+                                                    <span className={`text-sm ${fulfillmentStatus.color}`}>
+                                                        {fulfillmentStatus.text}
+                                                    </span>
+                                                )}
                                             </div>
 
                                             {/* Total price */}
@@ -268,13 +273,6 @@ export function Orders() {
                                                 </div>
                                             )}
 
-                                            {/* Notes */}
-                                            {order.note && (
-                                                <div className="pt-4 border-t border-white/10">
-                                                    <p className="text-xs text-muted uppercase tracking-wider mb-1">Uwagi do zamówienia</p>
-                                                    <p className="text-base text-white/70">{order.note}</p>
-                                                </div>
-                                            )}
                                         </div>
                                     </div>
                                 </div>

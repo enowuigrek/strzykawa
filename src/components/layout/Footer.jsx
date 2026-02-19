@@ -73,8 +73,8 @@ export function Footer() {
                         </div>
                     </div>
 
-                    {/* Kolumna 2: Informacje — tylko linki prawne (desktop) */}
-                    <div className="hidden md:flex flex-col">
+                    {/* Kolumna 2: Informacje + loga płatności (desktop) */}
+                    <div className="hidden md:flex flex-col justify-between">
                         <div className="space-y-5">
                             <h4 className="text-2xl text-white">Informacje</h4>
                             <ul className="space-y-4">
@@ -89,6 +89,16 @@ export function Footer() {
                                     </li>
                                 ))}
                             </ul>
+                        </div>
+                        <div className="flex flex-wrap gap-3 items-center pt-4">
+                            {brandLogos.map((brand) => (
+                                <img
+                                    key={brand.alt}
+                                    src={brand.src}
+                                    alt={brand.alt}
+                                    className="h-7 w-auto object-contain"
+                                />
+                            ))}
                         </div>
                     </div>
 
@@ -135,6 +145,25 @@ export function Footer() {
                                 })}
                             </div>
 
+                            {/* Social icons (mobile only) — bezpośrednio pod kontaktem */}
+                            <div className="md:hidden flex gap-3">
+                                {socialLinks.map((social, index) => {
+                                    const Icon = social.icon;
+                                    return (
+                                        <a
+                                            key={index}
+                                            href={social.href}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            aria-label={social.label}
+                                            className={`group w-12 h-12 flex items-center justify-center bg-white/5 text-muted hover:bg-white/10 transition-all duration-300 ${social.hoverColor}`}
+                                        >
+                                            <Icon className="w-6 h-6 transition-transform duration-300 group-hover:scale-125" />
+                                        </a>
+                                    );
+                                })}
+                            </div>
+
                             {/* Linki prawne (mobile only) */}
                             <div className="md:hidden pt-5 border-t border-white/10">
                                 <ul className="flex flex-col gap-4">
@@ -151,58 +180,28 @@ export function Footer() {
                                 </ul>
                             </div>
 
-                            {/* Social + Loga (mobile only) */}
-                            <div className="md:hidden flex items-end justify-between gap-3 pt-4">
-                                <div className="flex gap-3">
-                                    {socialLinks.map((social, index) => {
-                                        const Icon = social.icon;
-                                        return (
-                                            <a
-                                                key={index}
-                                                href={social.href}
-                                                target="_blank"
-                                                rel="noopener noreferrer"
-                                                aria-label={social.label}
-                                                className={`group w-12 h-12 flex items-center justify-center bg-white/5 text-muted hover:bg-white/10 transition-all duration-300 ${social.hoverColor}`}
-                                            >
-                                                <Icon className="w-6 h-6 transition-transform duration-300 group-hover:scale-125" />
-                                            </a>
-                                        );
-                                    })}
-                                </div>
-                                <div className="flex flex-wrap justify-end gap-2 items-center">
-                                    {brandLogos.map((brand) => (
-                                        <img
-                                            key={brand.alt}
-                                            src={brand.src}
-                                            alt={brand.alt}
-                                            className="h-7 w-auto object-contain"
-                                        />
-                                    ))}
-                                </div>
+                            {/* Loga płatności (mobile only) — pełna szerokość na dole */}
+                            <div className="md:hidden flex flex-wrap gap-2 items-center pt-4 border-t border-white/10">
+                                {brandLogos.map((brand) => (
+                                    <img
+                                        key={brand.alt}
+                                        src={brand.src}
+                                        alt={brand.alt}
+                                        className="h-7 w-auto object-contain"
+                                    />
+                                ))}
                             </div>
                         </div>
 
-                        {/* Loga płatności (desktop only) — na dole kolumny */}
-                        <div className="hidden md:flex flex-wrap gap-3 items-center pb-4">
-                            {brandLogos.map((brand) => (
-                                <img
-                                    key={brand.alt}
-                                    src={brand.src}
-                                    alt={brand.alt}
-                                    className="h-7 w-auto object-contain"
-                                />
-                            ))}
-                        </div>
                     </div>
 
                 </div>
             </div>
 
             {/* Socket — minimalny */}
-            <div className="relative z-10 border-t border-white/10">
+            <div className="relative z-10 bg-black border-t border-white/10">
                 <div className="container mx-auto px-4 py-4">
-                    <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-1 md:gap-0 text-xs text-white/40">
+                    <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-1 md:gap-0 text-sm text-white/40">
                         <span>© {currentYear} Strzykawa. Wszystkie prawa zastrzeżone.</span>
                         <span>
                             Realizacja:{' '}
@@ -210,7 +209,7 @@ export function Footer() {
                                 href="https://lukasznowak.dev"
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="hover:underline transition-all duration-200"
+                                className="hover:text-white transition-colors duration-200"
                             >
                                 lukasznowak.dev
                             </a>
