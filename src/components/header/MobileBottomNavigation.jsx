@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { NavLink, useNavigate, useLocation } from 'react-router-dom';
 import { FaHome, FaShoppingCart, FaUser } from 'react-icons/fa';
 import { HiShoppingBag } from 'react-icons/hi';
@@ -18,15 +18,16 @@ export function MobileBottomNavigation({
                                            cartBouncing
                                        }) {
     const [isVisible, setIsVisible] = useState(false);
-    const [hasScrolled, setHasScrolled] = useState(false);
+    const isMobileMenuOpenRef = useRef(isMobileMenuOpen);
     const { user, isAuthenticated } = useAuthStore();
     const { getTotalItems } = useCartStore();
     const cartItemsCount = getTotalItems();
     const location = useLocation();
     const navigate = useNavigate();
 
-    // Pokaż nav gdy hamburger się otworzy
+    // Aktualizuj ref przy każdej zmianie menu (używany w scroll handler)
     useEffect(() => {
+        isMobileMenuOpenRef.current = isMobileMenuOpen;
         if (isMobileMenuOpen) {
             setIsVisible(true);
         }
@@ -37,14 +38,12 @@ export function MobileBottomNavigation({
             const scrollTop = window.scrollY;
             const windowHeight = window.innerHeight;
             const documentHeight = document.documentElement.scrollHeight;
-
             const distanceFromBottom = documentHeight - (scrollTop + windowHeight);
 
-            if (scrollTop > 30 && !hasScrolled) {
-                setHasScrolled(true);
-            }
-
-            const shouldShow = hasScrolled && distanceFromBottom > 400;
+            // Pokaż gdy przewinięto > 30px od góry i nie jesteśmy przy samym dole
+            // Chowaj gdy wrócimy na samą górę (hero video)
+            // Wyjątek: zostaje widoczny jeśli hamburger jest otwarty
+            const shouldShow = (scrollTop > 30 && distanceFromBottom > 400) || isMobileMenuOpenRef.current;
 
             setIsVisible(shouldShow);
         };
@@ -55,7 +54,7 @@ export function MobileBottomNavigation({
         return () => {
             window.removeEventListener('scroll', handleScroll);
         };
-    }, [hasScrolled]);
+    }, []);
 
     const handleHomeClick = (e) => {
         e.preventDefault();
