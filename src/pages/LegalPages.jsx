@@ -352,8 +352,20 @@ export function TermsAndConditions() {
                         </p>
 
                         <h2 className="text-xl font-medium text-white mt-8 mb-4">§3 Płatności i dostawa</h2>
+                        <p className="text-white/80 mb-4">
+                            Sklep akceptuje płatności online realizowane za pośrednictwem systemu Shopify Payments.
+                            Dostępne metody płatności są prezentowane w trakcie procesu składania zamówienia.
+                        </p>
+                        <p className="text-white/80 mb-4">
+                            Zamówienia są realizowane w terminie{' '}
+                            <strong className="text-white">do 7 dni kalendarzowych</strong>{' '}
+                            od daty zaksięgowania płatności. W przypadku zamówień złożonych w weekend
+                            lub dni wolne od pracy, realizacja rozpoczyna się pierwszego kolejnego dnia roboczego.
+                        </p>
                         <p className="text-white/80 mb-6">
-                            Treść w przygotowaniu...
+                            Dostawa jest realizowana na terenie Polski za pośrednictwem wybranego przewoźnika.
+                            Koszty i metody dostawy są prezentowane w podsumowaniu zamówienia. Zamówienia
+                            powyżej 250 zł korzystają z darmowej dostawy.
                         </p>
 
                         <h2 className="text-xl font-medium text-white mt-8 mb-4">§4 Prawo odstąpienia od umowy</h2>
