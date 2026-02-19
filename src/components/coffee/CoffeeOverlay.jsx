@@ -93,7 +93,7 @@ export function CoffeeOverlay({ coffee, isOpen }) {
                 background: backgroundStyle
             }}
         >
-            <div className="h-full overflow-y-auto p-3 flex flex-col items-center justify-center">
+            <div className="h-full overflow-y-auto p-3 pb-10 flex flex-col items-center justify-center">
                 {/* Nagłówek z krajem - jak na naklejce */}
                 {country && (
                     <div className="text-center mb-5">
