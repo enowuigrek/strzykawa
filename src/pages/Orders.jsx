@@ -107,9 +107,8 @@ export function Orders() {
 
                 {/* Error State */}
                 {error && (
-                    <div className="bg-danger/20 border border-danger/30 text-danger p-4 mb-6">
-                        <p className="font-medium mb-1">Błąd podczas ładowania zamówień</p>
-                        <p className="text-base">{error}</p>
+                    <div className="bg-primary-light border border-white/10 p-4 mb-6">
+                        <p className="text-base text-danger">{error}</p>
                     </div>
                 )}
 
