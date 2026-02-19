@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 60" width="160" height="60">
+  <!-- White card background -->
+  <rect width="160" height="60" rx="4" fill="white"/>
+  <!-- Yellow brand strip -->
+  <rect x="0" y="0" width="160" height="60" rx="4" fill="#FFD100"/>
+  <!-- Dark "in" prefix -->
+  <text x="12" y="41" font-family="Arial Black, Arial, sans-serif" font-size="26" font-weight="900" fill="#1A1A1A" letter-spacing="-0.5">in</text>
+  <!-- Red "Post" brand text -->
+  <text x="46" y="41" font-family="Arial Black, Arial, sans-serif" font-size="26" font-weight="900" fill="#E30613" letter-spacing="-0.5">Post</text>
+</svg>

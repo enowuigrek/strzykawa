@@ -86,23 +86,43 @@ export function Footer() {
                             </ul>
                         </div>
 
-                        {/* Social Media */}
-                        <div className="flex gap-4 pb-4">
-                            {socialLinks.map((social, index) => {
-                                const Icon = social.icon;
-                                return (
-                                    <a
-                                        key={index}
-                                        href={social.href}
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                        aria-label={social.label}
-                                        className={`group w-12 h-12 flex items-center justify-center bg-white/5 text-muted hover:bg-white/10 transition-all duration-300 ${social.hoverColor}`}
-                                    >
-                                        <Icon className="w-6 h-6 transition-transform duration-300 group-hover:scale-125" />
-                                    </a>
-                                );
-                            })}
+                        {/* Loga płatności i dostawy (desktop) + Social Media */}
+                        <div className="flex flex-col gap-3 pb-4">
+                            {/* Loga */}
+                            <div className="flex flex-wrap gap-3 items-center">
+                                {[
+                                    { src: '/brands/przelewy24.svg', alt: 'Przelewy24', h: 'h-6' },
+                                    { src: '/brands/blik.svg',       alt: 'BLIK',       h: 'h-6' },
+                                    { src: '/brands/visa.svg',       alt: 'Visa',       h: 'h-5' },
+                                    { src: '/brands/mastercard.svg', alt: 'Mastercard', h: 'h-6' },
+                                    { src: '/brands/inpost.svg',     alt: 'InPost',     h: 'h-5' },
+                                ].map((brand) => (
+                                    <img
+                                        key={brand.alt}
+                                        src={brand.src}
+                                        alt={brand.alt}
+                                        className={`${brand.h} w-auto opacity-60 hover:opacity-100 transition-opacity duration-200`}
+                                    />
+                                ))}
+                            </div>
+                            {/* Social Media */}
+                            <div className="flex gap-4">
+                                {socialLinks.map((social, index) => {
+                                    const Icon = social.icon;
+                                    return (
+                                        <a
+                                            key={index}
+                                            href={social.href}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            aria-label={social.label}
+                                            className={`group w-12 h-12 flex items-center justify-center bg-white/5 text-muted hover:bg-white/10 transition-all duration-300 ${social.hoverColor}`}
+                                        >
+                                            <Icon className="w-6 h-6 transition-transform duration-300 group-hover:scale-125" />
+                                        </a>
+                                    );
+                                })}
+                            </div>
                         </div>
                     </div>
 
@@ -145,8 +165,8 @@ export function Footer() {
                             </ul>
                         </div>
 
-                        {/* Social Media (mobile only) */}
-                        <div className="md:hidden flex gap-4 pt-4">
+                        {/* Social Media + Loga płatności (mobile only) */}
+                        <div className="md:hidden flex flex-wrap items-center gap-3 pt-4">
                             {socialLinks.map((social, index) => {
                                 const Icon = social.icon;
                                 return (
@@ -162,6 +182,21 @@ export function Footer() {
                                     </a>
                                 );
                             })}
+                            {/* Loga płatności i dostawy */}
+                            {[
+                                { src: '/brands/przelewy24.svg', alt: 'Przelewy24', h: 'h-6' },
+                                { src: '/brands/blik.svg',       alt: 'BLIK',       h: 'h-6' },
+                                { src: '/brands/visa.svg',       alt: 'Visa',       h: 'h-5' },
+                                { src: '/brands/mastercard.svg', alt: 'Mastercard', h: 'h-6' },
+                                { src: '/brands/inpost.svg',     alt: 'InPost',     h: 'h-5' },
+                            ].map((brand) => (
+                                <img
+                                    key={brand.alt}
+                                    src={brand.src}
+                                    alt={brand.alt}
+                                    className={`${brand.h} w-auto opacity-60 hover:opacity-100 transition-opacity duration-200`}
+                                />
+                            ))}
                         </div>
                     </div>
                 </div>
