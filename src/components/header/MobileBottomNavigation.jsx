@@ -25,6 +25,13 @@ export function MobileBottomNavigation({
     const location = useLocation();
     const navigate = useNavigate();
 
+    // Pokaż nav gdy hamburger się otworzy
+    useEffect(() => {
+        if (isMobileMenuOpen) {
+            setIsVisible(true);
+        }
+    }, [isMobileMenuOpen]);
+
     useEffect(() => {
         const handleScroll = () => {
             const scrollTop = window.scrollY;
@@ -33,7 +40,7 @@ export function MobileBottomNavigation({
 
             const distanceFromBottom = documentHeight - (scrollTop + windowHeight);
 
-            if (scrollTop > 10 && !hasScrolled) {
+            if (scrollTop > 30 && !hasScrolled) {
                 setHasScrolled(true);
             }
 
