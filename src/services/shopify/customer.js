@@ -223,6 +223,7 @@ export async function getCustomerOrders(accessToken, first = 10) {
                             processedAt
                             financialStatus
                             fulfillmentStatus
+                            note
                             totalPrice {
                                 amount
                                 currencyCode
@@ -296,7 +297,8 @@ export async function getCustomerOrders(accessToken, first = 10) {
                     image: lineEdge.node.variant?.image?.url || null,
                     handle: lineEdge.node.variant?.product?.handle || null
                 })),
-                shippingAddress: order.shippingAddress
+                shippingAddress: order.shippingAddress,
+                note: order.note || null
             };
         });
 

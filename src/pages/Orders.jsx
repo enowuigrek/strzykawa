@@ -73,7 +73,8 @@ export function Orders() {
             PAID: { text: 'Opłacone', color: 'text-success', icon: FaCheckCircle },
             PENDING: { text: 'Oczekuje', color: 'text-yellow-500', icon: FaClock },
             REFUNDED: { text: 'Zwrócone', color: 'text-muted', icon: FaExclamationTriangle },
-            PARTIALLY_REFUNDED: { text: 'Częściowo zwrócone', color: 'text-muted', icon: FaExclamationTriangle }
+            PARTIALLY_REFUNDED: { text: 'Częściowo zwrócone', color: 'text-muted', icon: FaExclamationTriangle },
+            VOIDED: { text: 'Anulowane', color: 'text-muted', icon: FaExclamationTriangle }
         };
         return labels[status] || { text: status, color: 'text-muted', icon: FaClock };
     };
@@ -265,6 +266,14 @@ export function Orders() {
                                                     <p className="text-base text-muted">
                                                         Dostawa: {order.shippingAddress.address1}{order.shippingAddress.address2 ? ` ${order.shippingAddress.address2}` : ''}, {order.shippingAddress.city}, {order.shippingAddress.zip}
                                                     </p>
+                                                </div>
+                                            )}
+
+                                            {/* Notes */}
+                                            {order.note && (
+                                                <div className="pt-4 border-t border-white/10">
+                                                    <p className="text-xs text-muted uppercase tracking-wider mb-1">Uwagi do zamówienia</p>
+                                                    <p className="text-base text-white/70">{order.note}</p>
                                                 </div>
                                             )}
                                         </div>

@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useEffect, useRef, useCallback } from 'react';
+import React, { useState, useMemo, useEffect, useRef } from 'react';
 import { shopify } from '../services/shopify';
 import { logger } from '../utils/logger';
 import { PageLayout } from "../components/layout/PageLayout.jsx";
@@ -16,19 +16,6 @@ export function Coffees() {
     const [sortBy, setSortBy] = useState('newest');
     const [isDrawerOpen, setIsDrawerOpen] = useState(false);
     const gridRef = useRef(null);
-
-    // Scroll do góry gridu po zmianie filtra (tylko mobile)
-    const scrollToGrid = useCallback(() => {
-        if (gridRef.current && window.innerWidth < 768) {
-            const rect = gridRef.current.getBoundingClientRect();
-            const scrollMt = parseInt(getComputedStyle(gridRef.current).scrollMarginTop) || 0;
-            const targetY = window.scrollY + rect.top - scrollMt;
-            // Tylko jeśli grid jest poniżej widoku
-            if (rect.top > 0) {
-                window.scrollTo({ top: targetY, behavior: 'instant' });
-            }
-        }
-    }, []);
 
     // ========== SHOPIFY STATE ==========
     const [products, setProducts] = useState([]);
@@ -191,7 +178,6 @@ export function Coffees() {
                 selectedRoastType={selectedRoastType}
                 onRoastTypeChange={(type) => {
                     setSelectedRoastType((prev) => (prev === type ? '' : type));
-                    scrollToGrid();
                 }}
                 onSearchChange={setSearchQuery}
                 selectedCountry={selectedCountry}
