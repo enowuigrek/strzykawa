@@ -5,7 +5,6 @@ import { useScrollAnimation, scrollAnimations } from '../../hooks/useScrollAnima
 export function SocialLinks() {
     const [headerRef, headerVisible] = useScrollAnimation({ threshold: 0.3 });
     const [iconsRef, iconsVisible] = useScrollAnimation({ threshold: 0.2 });
-    const [statsRef, statsVisible] = useScrollAnimation({ threshold: 0.3 });
 
     const socials = [
         {
@@ -67,20 +66,6 @@ export function SocialLinks() {
                 })}
             </div>
 
-            {/* Followers Count */}
-            <div
-                ref={statsRef}
-                className={`mt-6 flex items-center justify-center gap-8 text-white/50 text-base transition-all duration-700 ease-out delay-200 ${
-                    statsVisible ? scrollAnimations.fade.visible : scrollAnimations.fade.hidden
-                }`}
-            >
-                <div>
-                    <span className="font-medium text-white">1,430+</span> na Facebooku
-                </div>
-                <div>
-                    <span className="font-medium text-white">1,559+</span> na Instagramie
-                </div>
-            </div>
         </div>
     );
 }

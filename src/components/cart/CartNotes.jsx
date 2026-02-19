@@ -47,8 +47,8 @@ export function CartNotes({ note, onSave, isLoading }) {
                     className={`
                         flex items-center gap-2 text-sm transition-all duration-200
                         ${hasNote && !isOpen
-                            ? 'px-3 py-1 rounded-full bg-success/20 text-success font-medium hover:bg-success/30'
-                            : 'text-muted/70 hover:text-white'
+                            ? 'pl-4 px-3 py-1 rounded-full bg-success/20 text-success font-medium hover:bg-success/30'
+                            : 'pl-4 text-muted/70 hover:text-white'
                         }
                     `}
                 >
@@ -87,7 +87,7 @@ export function CartNotes({ note, onSave, isLoading }) {
                                 setDraft(e.target.value);
                             }
                         }}
-                        placeholder="Np. zadzwoń przed dostawą, zostaw przy drzwiach..."
+                        placeholder="Twoje uwagi"
                         rows={3}
                         className="
                             w-full px-3 py-2
