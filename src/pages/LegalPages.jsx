@@ -324,7 +324,7 @@ export function TermsAndConditions() {
                 <div className="bg-primary-light border border-white/10 p-6 sm:p-8">
                     <div className="prose prose-invert max-w-none">
                         <p className="text-white/60 mb-6">
-                            <strong>Data ostatniej aktualizacji:</strong> 12 grudnia 2025
+                            <strong>Data ostatniej aktualizacji:</strong> 19 stycznia 2026
                         </p>
 
                         {/* §1 Postanowienia ogólne */}
@@ -466,7 +466,7 @@ export function TermsAndConditions() {
                         <ol className="text-white/80 mb-6 space-y-3 list-decimal list-inside">
                             <li>Dostawa Towarów odbywa się na terytorium <strong className="text-white">Rzeczypospolitej Polskiej</strong>.</li>
                             <li>Dostępne formy dostawy (np. kurier, paczkomat) oraz ich koszt są prezentowane w Sklepie przed złożeniem zamówienia.</li>
-                            <li>Termin realizacji zamówienia wynosi co do zasady od <strong className="text-white">2 do 7 dni roboczych</strong> od zaksięgowania płatności, chyba że opis produktu lub komunikat w Sklepie wskazuje inaczej.</li>
+                            <li>Termin realizacji zamówienia wynosi co do zasady <strong className="text-white">do 7 dni roboczych</strong> od zaksięgowania płatności, chyba że opis produktu lub komunikat w Sklepie wskazuje inaczej.</li>
                             <li>Klient powinien sprawdzić stan przesyłki przy odbiorze. W razie widocznych uszkodzeń zaleca się spisanie protokołu szkody z kurierem lub zgłoszenie problemu jak najszybciej Sprzedawcy.</li>
                         </ol>
 
@@ -541,7 +541,7 @@ export function TermsAndConditions() {
                             </li>
                             <li>Do umów zawartych przed wejściem w życie nowego Regulaminu stosuje się Regulamin obowiązujący w dniu złożenia zamówienia.</li>
                             <li>W sprawach nieuregulowanych Regulaminem zastosowanie mają przepisy prawa polskiego, w szczególności Kodeksu cywilnego oraz ustawa o prawach konsumenta.</li>
-                            <li>Regulamin obowiązuje od dnia <strong className="text-white">12 grudnia 2025</strong>.</li>
+                            <li>Regulamin obowiązuje od dnia <strong className="text-white">19 stycznia 2026</strong>.</li>
                         </ol>
                     </div>
                 </div>
