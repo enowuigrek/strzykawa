@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { FaExclamationTriangle } from 'react-icons/fa';
 import { useCartStore } from '../../store/cartStore';
 import { ModalHeader } from '../layout/ModalHeader';
 import { CartContent } from './CartContent';
@@ -15,18 +16,24 @@ export function CartModal({ isOpen, onClose }) {
         updateQuantity,
         updateNote,
         getTotalItems,
-        getTotalPrice
+        getTotalPrice,
+        removeUnavailableItems
     } = useCartStore();
 
     const [isAnimating, setIsAnimating] = useState(false);
+    const [removedNames, setRemovedNames] = useState([]);
 
-    // Animation trigger
+    // Animation trigger + availability check on open
     useEffect(() => {
         if (isOpen) {
-            // Trigger animation after mount
             setTimeout(() => setIsAnimating(true), 10);
+            // Sprawdź dostępność i usuń niedostępne
+            removeUnavailableItems().then(names => {
+                if (names.length > 0) setRemovedNames(names);
+            });
         } else {
             setIsAnimating(false);
+            setRemovedNames([]);
         }
     }, [isOpen]);
 
@@ -90,6 +97,23 @@ export function CartModal({ isOpen, onClose }) {
                     onClose={onClose}
                     isAnimating={isAnimating}
                 />
+
+                {/* Banner o usuniętych niedostępnych produktach */}
+                {removedNames.length > 0 && (
+                    <div className="flex-shrink-0 bg-danger/10 border-b border-danger/30 px-4 sm:px-6 py-3">
+                        <div className="flex items-start gap-2">
+                            <FaExclamationTriangle className="w-4 h-4 text-danger flex-shrink-0 mt-0.5" />
+                            <div>
+                                <p className="text-sm text-danger font-medium">
+                                    Usunięto niedostępne produkty:
+                                </p>
+                                <p className="text-sm text-danger/80 mt-0.5">
+                                    {removedNames.join(', ')}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                )}
 
                 <CartContent
                     items={items}

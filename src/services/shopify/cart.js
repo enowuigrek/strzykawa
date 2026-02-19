@@ -17,6 +17,7 @@ const CART_LINE_FRAGMENT = `
         ... on ProductVariant {
             id
             title
+            availableForSale
             price {
                 amount
                 currencyCode

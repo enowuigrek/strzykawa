@@ -70,6 +70,7 @@ export const useCartStore = create(
 
                     return {
                         lineItemId: line.id,
+                        availableForSale: variant.availableForSale !== false,
                         product: {
                             id: variant.product.id,
                             handle: variant.product.handle,
@@ -218,6 +219,31 @@ export const useCartStore = create(
             // Clear error
             clearError: () => {
                 set({ error: null });
+            },
+
+            // Sprawdź i usuń niedostępne produkty z koszyka.
+            // Zwraca tablicę nazw usuniętych produktów (do wyświetlenia w bannerze).
+            removeUnavailableItems: async () => {
+                const { items, cart } = get();
+                if (!cart?.id || items.length === 0) return [];
+
+                const unavailable = items.filter(item => !item.availableForSale);
+                if (unavailable.length === 0) return [];
+
+                const names = unavailable.map(item => item.product.name);
+                const lineIds = unavailable.map(item => item.lineItemId);
+
+                try {
+                    const updatedCart = await shopify.removeFromCart(cart.id, lineIds);
+                    set({
+                        cart: updatedCart,
+                        items: get().mapCartToItems(updatedCart),
+                    });
+                } catch (error) {
+                    logger.error('Error removing unavailable items:', error);
+                }
+
+                return names;
             },
 
             // Update cart note (uwagi do zamówienia)

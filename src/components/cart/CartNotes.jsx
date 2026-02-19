@@ -93,8 +93,7 @@ export function CartNotes({ note, onSave, isLoading }) {
                             w-full px-3 py-2
                             bg-primary-dark text-white text-base
                             placeholder-muted/50
-                            border border-white/10 focus:border-accent/50
-                            outline-none resize-none
+                            border-0 outline-none resize-none
                             transition-colors duration-200
                         "
                     />

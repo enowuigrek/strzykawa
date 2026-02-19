@@ -128,23 +128,32 @@ export function CheckoutOrderSummary({
             {/* REGULATIONS CHECKBOX */}
             <label className="flex flex-col items-start gap-1 cursor-pointer group">
                 <div className="flex items-start gap-2">
+                    <div className={`
+                        mt-0.5 w-4 h-4 flex-shrink-0 flex items-center justify-center
+                        border transition-colors duration-200
+                        ${regulationsAccepted ? 'bg-accent border-accent' : 'bg-primary border-white/30 group-hover:border-accent/60'}
+                    `}>
+                        {regulationsAccepted && (
+                            <svg className="w-2.5 h-2.5 text-white" fill="none" viewBox="0 0 12 12">
+                                <path d="M2 6l3 3 5-5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                            </svg>
+                        )}
+                    </div>
                     <input
                         type="checkbox"
                         checked={regulationsAccepted}
                         onChange={(e) => {
                             const checked = e.target.checked;
                             setRegulationsAccepted(checked);
-                            if (checked) {
-                                setShowRegulationsError(false);
-                            }
+                            if (checked) setShowRegulationsError(false);
                         }}
-                        className="mt-0.5 w-4 h-4 rounded-sm border border-white/40 bg-primary accent-accent focus:outline-none cursor-pointer"
+                        className="sr-only"
                     />
                     <span className="text-xs text-white/70 group-hover:text-white/90 transition-colors">
                         Akceptuję{' '}
                         <Link
                             to="/regulamin"
-                            className="text-accent hover:text-white underline"
+                            className="text-accent hover:text-white transition-colors"
                             target="_blank"
                         >
                             regulamin sklepu

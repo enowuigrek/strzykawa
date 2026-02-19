@@ -30,18 +30,29 @@ export function CartFooter({ items, isLoading, totalPrice }) {
                 </div>
 
                 {/* Terms checkbox */}
-                <label className="flex items-center gap-3 mb-4 cursor-pointer">
+                <label className="flex items-center gap-3 mb-4 cursor-pointer group">
+                    <div className={`
+                        w-5 h-5 flex-shrink-0 flex items-center justify-center
+                        border transition-colors duration-200
+                        ${termsAccepted ? 'bg-accent border-accent' : 'bg-primary border-white/30 group-hover:border-accent/60'}
+                    `}>
+                        {termsAccepted && (
+                            <svg className="w-3 h-3 text-white" fill="none" viewBox="0 0 12 12">
+                                <path d="M2 6l3 3 5-5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                            </svg>
+                        )}
+                    </div>
                     <input
                         type="checkbox"
                         checked={termsAccepted}
                         onChange={(e) => setTermsAccepted(e.target.checked)}
-                        className="w-5 h-5 rounded border-white/30 bg-primary-light text-accent focus:ring-accent focus:ring-offset-0 cursor-pointer"
+                        className="sr-only"
                     />
-                    <span className="text-sm text-white/80">
+                    <span className="text-sm text-white/70 group-hover:text-white/90 transition-colors">
                         Akceptuję{' '}
                         <Link
                             to="/regulamin"
-                            className="text-accent hover:text-accent/80 underline"
+                            className="text-accent hover:text-white transition-colors"
                             target="_blank"
                         >
                             regulamin sklepu
