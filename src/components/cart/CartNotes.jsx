@@ -1,25 +1,18 @@
 import React, { useState, useEffect } from 'react';
-import { FaStickyNote, FaCheck, FaChevronDown } from 'react-icons/fa';
+import { FaStickyNote, FaCheck, FaChevronUp } from 'react-icons/fa';
 
 const MAX_CHARS = 500;
 
 /**
- * CartNotes - Panel uwag do zamówienia w koszyku
+ * CartNotes - Panel uwag do zamówienia
  *
- * UX: dyskretny przycisk na dole listy produktów. Po kliknięciu
- * pojawia się (animacja max-height) panel z textarea, licznikiem
- * znaków i przyciskami Zapisz / Anuluj.
- *
- * Props:
- *   note       {string}   - aktualna wartość uwag (tylko tekst klienta, bez danych firmy)
- *   onSave     {function} - (text: string) => void — wywoływana po kliknięciu Zapisz
- *   isLoading  {boolean}  - blokuje przyciski podczas zapisu
+ * Umieszczony nad ShippingProgress. Trigger na dole, panel
+ * rozsuwa się ku górze (flex-col-reverse + max-height animation).
  */
 export function CartNotes({ note, onSave, isLoading }) {
     const [isOpen, setIsOpen] = useState(false);
     const [draft, setDraft] = useState(note || '');
 
-    // Synchronizuj draft gdy zewnętrzna wartość note się zmieni
     useEffect(() => {
         setDraft(note || '');
     }, [note]);
@@ -44,49 +37,48 @@ export function CartNotes({ note, onSave, isLoading }) {
     const charsLeft = MAX_CHARS - draft.length;
 
     return (
-        <div className="px-4 sm:px-6 lg:px-8 pb-3">
-            {/* Trigger — dyskretny przycisk */}
-            {!isOpen && (
+        <div className="flex-shrink-0 flex flex-col-reverse border-t border-white/5 px-4 sm:px-6 lg:px-8">
+
+            {/* Trigger — zawsze na dole */}
+            <div className="py-2.5">
                 <button
                     type="button"
-                    onClick={handleOpen}
+                    onClick={isOpen ? handleCancel : handleOpen}
                     className={`
                         flex items-center gap-2 text-sm transition-all duration-200
-                        ${hasNote
+                        ${hasNote && !isOpen
                             ? 'px-3 py-1 rounded-full bg-success/20 text-success font-medium hover:bg-success/30'
                             : 'text-muted/70 hover:text-white'
                         }
                     `}
                 >
-                    {hasNote ? (
+                    {hasNote && !isOpen ? (
                         <>
                             <FaCheck className="w-3 h-3 flex-shrink-0" />
                             Uwagi dodane ✓
+                        </>
+                    ) : isOpen ? (
+                        <>
+                            <FaChevronUp className="w-3 h-3 flex-shrink-0" />
+                            Zwiń
                         </>
                     ) : (
                         <>
                             <FaStickyNote className="w-3 h-3 flex-shrink-0" />
                             Dodaj uwagi do zamówienia
-                            <FaChevronDown className="w-3 h-3 flex-shrink-0" />
                         </>
                     )}
                 </button>
-            )}
+            </div>
 
-            {/* Panel — animacja max-height */}
+            {/* Panel — rozsuwa się ku górze */}
             <div
                 className={`
                     overflow-hidden transition-all duration-300 ease-in-out
-                    ${isOpen ? 'max-h-80 opacity-100' : 'max-h-0 opacity-0'}
+                    ${isOpen ? 'max-h-64 opacity-100' : 'max-h-0 opacity-0'}
                 `}
             >
-                <div className="pt-1 pb-2">
-                    {/* Nagłówek panelu */}
-                    <div className="flex items-center gap-2 mb-2">
-                        <FaStickyNote className="w-3.5 h-3.5 text-muted flex-shrink-0" />
-                        <span className="text-sm font-medium text-muted">Uwagi do zamówienia</span>
-                    </div>
-
+                <div className="pt-3 pb-1">
                     {/* Textarea */}
                     <textarea
                         value={draft}
@@ -107,43 +99,41 @@ export function CartNotes({ note, onSave, isLoading }) {
                         "
                     />
 
-                    {/* Licznik znaków */}
-                    <div className="flex justify-end mb-3">
+                    {/* Licznik + przyciski */}
+                    <div className="flex items-center justify-between mt-2 mb-1">
+                        <div className="flex gap-2">
+                            <button
+                                type="button"
+                                onClick={handleSave}
+                                disabled={isLoading}
+                                className="
+                                    rounded-full px-5 py-1.5
+                                    bg-success hover:bg-success-dark
+                                    text-white text-sm font-medium
+                                    transition-colors duration-200
+                                    disabled:opacity-50 disabled:cursor-not-allowed
+                                "
+                            >
+                                {isLoading ? 'Zapisywanie...' : 'Zapisz'}
+                            </button>
+                            <button
+                                type="button"
+                                onClick={handleCancel}
+                                disabled={isLoading}
+                                className="
+                                    rounded-full px-5 py-1.5
+                                    bg-white/10 hover:bg-white/20
+                                    text-white text-sm font-medium
+                                    transition-colors duration-200
+                                    disabled:opacity-50 disabled:cursor-not-allowed
+                                "
+                            >
+                                Anuluj
+                            </button>
+                        </div>
                         <span className={`text-xs ${charsLeft < 50 ? 'text-danger/80' : 'text-muted/50'}`}>
-                            {charsLeft} znaków pozostało
+                            {charsLeft} znaków
                         </span>
-                    </div>
-
-                    {/* Przyciski */}
-                    <div className="flex gap-2">
-                        <button
-                            type="button"
-                            onClick={handleSave}
-                            disabled={isLoading}
-                            className="
-                                rounded-full px-5 py-1.5
-                                bg-success hover:bg-success-dark
-                                text-white text-sm font-medium
-                                transition-colors duration-200
-                                disabled:opacity-50 disabled:cursor-not-allowed
-                            "
-                        >
-                            {isLoading ? 'Zapisywanie...' : 'Zapisz'}
-                        </button>
-                        <button
-                            type="button"
-                            onClick={handleCancel}
-                            disabled={isLoading}
-                            className="
-                                rounded-full px-5 py-1.5
-                                bg-white/10 hover:bg-white/20
-                                text-white text-sm font-medium
-                                transition-colors duration-200
-                                disabled:opacity-50 disabled:cursor-not-allowed
-                            "
-                        >
-                            Anuluj
-                        </button>
                     </div>
                 </div>
             </div>

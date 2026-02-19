@@ -1,12 +1,11 @@
 import React from 'react';
 import { FaShoppingCart } from 'react-icons/fa';
 import { CartItem } from './CartItem';
-import { CartNotes } from './CartNotes';
 
-export function CartContent({ items, isLoading, onUpdateQuantity, onRemove, onCloseCart, note, onSaveNote }) {
+export function CartContent({ items, isLoading, onUpdateQuantity, onRemove, onCloseCart }) {
     return (
         <div className="flex-1 overflow-y-auto min-h-0">
-            <div className="container mx-auto px-4 sm:px-6 lg:px-8 pb-3">
+            <div className="container mx-auto px-4 sm:px-6 lg:px-8 pb-4">
                 {items.length === 0 ? (
                     <div className="text-center py-12">
                         {/* Empty state - sharp corners */}
@@ -17,7 +16,7 @@ export function CartContent({ items, isLoading, onUpdateQuantity, onRemove, onCl
                         <p className="text-muted">Dodaj produkty, aby kontynuować zakupy</p>
                     </div>
                 ) : (
-                    <div className="space-y-4 mb-3">
+                    <div className="space-y-4">
                         {items.map((item, index) => (
                             <CartItem
                                 key={`${item.product.id}-${item.variantId}-${index}`}
@@ -31,15 +30,6 @@ export function CartContent({ items, isLoading, onUpdateQuantity, onRemove, onCl
                     </div>
                 )}
             </div>
-
-            {/* Uwagi do zamówienia — widoczne tylko gdy koszyk ma produkty */}
-            {items.length > 0 && (
-                <CartNotes
-                    note={note}
-                    onSave={onSaveNote}
-                    isLoading={isLoading}
-                />
-            )}
         </div>
     );
 }
