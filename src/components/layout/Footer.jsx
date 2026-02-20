@@ -53,9 +53,9 @@ export function Footer() {
 
     return (
         <footer className="relative bg-primary-dark/95 border-white/10">
-            {/* Main content */}
+            {/* Main content — 4 kolumny na desktop */}
             <div className="relative z-10 container mx-auto px-4 pt-6 pb-8 md:py-10">
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12 items-stretch">
+                <div className="grid grid-cols-1 md:grid-cols-4 gap-8 md:gap-10 items-start">
 
                     {/* Kolumna 1: Logo */}
                     <div className="flex flex-col items-start">
@@ -73,11 +73,87 @@ export function Footer() {
                         </div>
                     </div>
 
-                    {/* Kolumna 2: Informacje + loga płatności (desktop) */}
-                    <div className="hidden md:flex flex-col justify-between">
-                        <div className="space-y-5">
-                            <h4 className="text-2xl text-white">Informacje</h4>
-                            <ul className="space-y-4">
+                    {/* Kolumna 2: Dane firmy + loga płatności */}
+                    <div className="hidden md:flex flex-col space-y-5">
+                        <h4 className="text-2xl text-white">Dane firmy</h4>
+                        <div className="flex flex-col gap-4">
+                            <span className="text-white/70 text-lg">Strzykawa Damian Dzik</span>
+                            <span className="text-white/70 text-lg">ul. Warszawska 241<br />42-209 Częstochowa</span>
+                            <span className="text-white/70 text-lg">NIP: 7441726899</span>
+                        </div>
+                        {/* Loga płatności — bez zawijania */}
+                        <div className="flex gap-3 items-center flex-nowrap pt-2">
+                            {brandLogos.map((brand) => (
+                                <img
+                                    key={brand.alt}
+                                    src={brand.src}
+                                    alt={brand.alt}
+                                    className="h-7 w-auto object-contain flex-shrink-0"
+                                />
+                            ))}
+                        </div>
+                    </div>
+
+                    {/* Kolumna 3: Informacje */}
+                    <div className="hidden md:flex flex-col space-y-5">
+                        <h4 className="text-2xl text-white">Informacje</h4>
+                        <ul className="flex flex-col gap-4">
+                            {legalLinks.map((link, index) => (
+                                <li key={index}>
+                                    <a
+                                        href={link.href}
+                                        className="text-white/70 hover:text-white text-lg transition-colors duration-300"
+                                    >
+                                        {link.label}
+                                    </a>
+                                </li>
+                            ))}
+                        </ul>
+                    </div>
+
+                    {/* Kolumna 4: Kontakt + social */}
+                    <div className="flex flex-col space-y-5">
+                        <h4 className="text-2xl text-white">Kontakt</h4>
+
+                        <div className="flex flex-col gap-4">
+                            {contactInfo.map((contact, index) => {
+                                const Icon = contact.icon;
+                                return (
+                                    <a
+                                        key={index}
+                                        href={contact.href}
+                                        className="flex items-center gap-3 text-lg transition-colors duration-300 group"
+                                    >
+                                        <Icon className="w-5 h-5 flex-shrink-0 text-muted group-hover:text-accent transition-colors" />
+                                        <span className="text-white/70 group-hover:text-white transition-colors break-words">
+                                            {contact.text}
+                                        </span>
+                                    </a>
+                                );
+                            })}
+                        </div>
+
+                        <div className="flex gap-3">
+                            {socialLinks.map((social, index) => {
+                                const Icon = social.icon;
+                                return (
+                                    <a
+                                        key={index}
+                                        href={social.href}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        aria-label={social.label}
+                                        className={`group w-10 h-10 flex items-center justify-center bg-white/5 text-muted hover:bg-white/10 transition-all duration-300 ${social.hoverColor}`}
+                                    >
+                                        <Icon className="w-5 h-5 transition-transform duration-300 group-hover:scale-125" />
+                                    </a>
+                                );
+                            })}
+                        </div>
+
+                        {/* Mobile only: linki prawne */}
+                        <div className="md:hidden pt-5 border-t border-white/10">
+                            <ul className="flex flex-col gap-4">
                                 {legalLinks.map((link, index) => (
                                     <li key={index}>
                                         <a
@@ -90,7 +166,9 @@ export function Footer() {
                                 ))}
                             </ul>
                         </div>
-                        <div className="flex flex-wrap gap-3 items-center pt-4">
+
+                        {/* Mobile only: loga płatności */}
+                        <div className="md:hidden flex flex-wrap gap-2 items-center pt-4 border-t border-white/10">
                             {brandLogos.map((brand) => (
                                 <img
                                     key={brand.alt}
@@ -102,103 +180,10 @@ export function Footer() {
                         </div>
                     </div>
 
-                    {/* Kolumna 3: Kontakt + social + loga */}
-                    <div className="flex flex-col md:justify-between">
-                        <div className="space-y-5">
-                            <h4 className="text-2xl text-white">Kontakt</h4>
-
-                            {/* Dane kontaktowe */}
-                            <div className="flex flex-col gap-5 md:gap-4">
-                                {contactInfo.map((contact, index) => {
-                                    const Icon = contact.icon;
-                                    return (
-                                        <a
-                                            key={index}
-                                            href={contact.href}
-                                            className="flex items-center gap-3 text-lg transition-colors duration-300 group"
-                                        >
-                                            <Icon className="w-5 h-5 flex-shrink-0 text-muted group-hover:text-accent transition-colors" />
-                                            <span className="text-white/70 group-hover:text-white transition-colors break-words">
-                                                {contact.text}
-                                            </span>
-                                        </a>
-                                    );
-                                })}
-                            </div>
-
-                            {/* Social media — desktop: pod kontaktem */}
-                            <div className="hidden md:flex gap-3">
-                                {socialLinks.map((social, index) => {
-                                    const Icon = social.icon;
-                                    return (
-                                        <a
-                                            key={index}
-                                            href={social.href}
-                                            target="_blank"
-                                            rel="noopener noreferrer"
-                                            aria-label={social.label}
-                                            className={`group w-10 h-10 flex items-center justify-center bg-white/5 text-muted hover:bg-white/10 transition-all duration-300 ${social.hoverColor}`}
-                                        >
-                                            <Icon className="w-5 h-5 transition-transform duration-300 group-hover:scale-125" />
-                                        </a>
-                                    );
-                                })}
-                            </div>
-
-                            {/* Social icons (mobile only) — bezpośrednio pod kontaktem */}
-                            <div className="md:hidden flex gap-3">
-                                {socialLinks.map((social, index) => {
-                                    const Icon = social.icon;
-                                    return (
-                                        <a
-                                            key={index}
-                                            href={social.href}
-                                            target="_blank"
-                                            rel="noopener noreferrer"
-                                            aria-label={social.label}
-                                            className={`group w-12 h-12 flex items-center justify-center bg-white/5 text-muted hover:bg-white/10 transition-all duration-300 ${social.hoverColor}`}
-                                        >
-                                            <Icon className="w-6 h-6 transition-transform duration-300 group-hover:scale-125" />
-                                        </a>
-                                    );
-                                })}
-                            </div>
-
-                            {/* Linki prawne (mobile only) */}
-                            <div className="md:hidden pt-5 border-t border-white/10">
-                                <ul className="flex flex-col gap-4">
-                                    {legalLinks.map((link, index) => (
-                                        <li key={index}>
-                                            <a
-                                                href={link.href}
-                                                className="text-white/70 hover:text-white text-lg transition-colors duration-300"
-                                            >
-                                                {link.label}
-                                            </a>
-                                        </li>
-                                    ))}
-                                </ul>
-                            </div>
-
-                            {/* Loga płatności (mobile only) — pełna szerokość na dole */}
-                            <div className="md:hidden flex flex-wrap gap-2 items-center pt-4 border-t border-white/10">
-                                {brandLogos.map((brand) => (
-                                    <img
-                                        key={brand.alt}
-                                        src={brand.src}
-                                        alt={brand.alt}
-                                        className="h-7 w-auto object-contain"
-                                    />
-                                ))}
-                            </div>
-                        </div>
-
-                    </div>
-
                 </div>
             </div>
 
-            {/* Socket — minimalny */}
+            {/* Socket */}
             <div className="relative z-10 bg-black border-t border-white/10">
                 <div className="container mx-auto px-4 py-4">
                     <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-1 md:gap-0 text-sm text-white/40">

@@ -1,29 +1,50 @@
 import React from 'react';
-import { ContactInfo } from '../components/features/contact/ContactInfo';
-import { ContactMap } from '../components/features/contact/ContactMap';
+import { CafeLocation } from '../components/features/contact/CafeLocation';
+import { RoasteryLocation } from '../components/features/contact/RoasteryLocation';
+import { ContactDetails } from '../components/features/contact/ContactDetails';
+import { CompanyData } from '../components/features/contact/CompanyData';
 import { useScrollToTop } from '../hooks/useScrollToTop';
-import { PageLayout } from "../components/layout/PageLayout.jsx";
+import { PageLayout } from '../components/layout/PageLayout.jsx';
+import { useScrollAnimation, scrollAnimations } from '../hooks/useScrollAnimation';
 
 export function Contact() {
     useScrollToTop();
+
+    const [topRef, topVisible] = useScrollAnimation({ threshold: 0.15 });
+    const [bottomRef, bottomVisible] = useScrollAnimation({ threshold: 0.15 });
 
     return (
         <PageLayout
             title="Kontakt & Lokalizacja"
             description="Znajdź nas w sercu miasta. Zapraszamy na kawę i rozmowę o najlepszych ziarnach z całego świata. Odwiedź także naszą palarnię i zobacz jak powstają nasze kawy specialty."
         >
+            <div className="container px-6 sm:px-8 lg:px-12 py-8">
 
-            <div className="container space-y-8 lg:space-y-0 lg:grid lg:grid-cols-5 lg:gap-8 py-8">
-
-                {/* Contact Information - zajmuje 3/5 na desktop */}
-                <div className="lg:col-span-3">
-                    <ContactInfo />
+                {/* Górny rząd: Dane firmy | Kawiarnia | Palarnia */}
+                <div
+                    ref={topRef}
+                    className={`grid grid-cols-1 lg:grid-cols-3 gap-12 lg:gap-16 py-8 lg:py-10 transition-all duration-700 ease-out ${
+                        topVisible ? scrollAnimations.pourDown.visible : scrollAnimations.pourDown.hidden
+                    }`}
+                >
+                    <CompanyData />
+                    <CafeLocation />
+                    <RoasteryLocation />
                 </div>
 
-                {/* Map - zajmuje 2/5 na desktop */}
-                <div className="lg:col-span-2">
-                    <ContactMap />
+                {/* Separator */}
+                <div className="border-t border-white/10" />
+
+                {/* Dolny rząd: Skontaktuj się z nami */}
+                <div
+                    ref={bottomRef}
+                    className={`py-8 lg:py-10 transition-all duration-700 ease-out delay-150 ${
+                        bottomVisible ? scrollAnimations.pourUp.visible : scrollAnimations.pourUp.hidden
+                    }`}
+                >
+                    <ContactDetails />
                 </div>
+
             </div>
         </PageLayout>
     );

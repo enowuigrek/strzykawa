@@ -55,7 +55,7 @@ export function Home() {
                             logoVisible ? scrollAnimations.pourDown.visible : scrollAnimations.pourDown.hidden
                         }`}
                     >
-                        <div className="inline-flex items-center gap-3 mb-6 scale-125 md:scale-150">
+                        <div className="flex justify-center items-center mb-6 scale-125 md:scale-150">
                             <Logo />
                         </div>
                     </div>

@@ -3,8 +3,8 @@ import { FaPhone, FaEnvelope } from 'react-icons/fa';
 
 export function ContactDetails() {
     return (
-        <div className="border-t border-white/10 pt-10">
-            <h4 className="text-xl text-white mb-8 text-center">Skontaktuj się z nami</h4>
+        <div>
+            <h3 className="text-2xl text-white mb-8">Skontaktuj się z nami</h3>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
                 {/* Telefon */}

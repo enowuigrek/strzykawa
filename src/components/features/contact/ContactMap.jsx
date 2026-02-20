@@ -15,7 +15,7 @@ export function ContactMap() {
     };
 
     return (
-        <div className="relative h-96 lg:h-full min-h-[400px] flex flex-col items-center justify-start px-4 sm:px-6 lg:px-8 py-8 text-center">
+        <div className="flex flex-col items-start justify-start">
 
             {/* Content */}
             <div
@@ -25,26 +25,25 @@ export function ContactMap() {
                 }`}
             >
 
-                {/* Icon */}
-                <div className="inline-flex items-center justify-center w-16 h-16">
-                    <FaMapMarkerAlt className="w-8 h-8 text-accent" />
-                </div>
-
                 {/* Header */}
-                <div>
-                    <h4 className="text-2xl text-white mb-2">Znajdź nas</h4>
-                    <p className="text-muted text-lg">ul. Dąbrowskiego 4</p>
-                    <p className="text-muted">42-200 Częstochowa</p>
+                <div className="space-y-5">
+                    <h3 className="text-2xl text-white">Znajdź nas</h3>
+                    <div className="flex items-start gap-3">
+                        <FaMapMarkerAlt className="w-4 h-4 text-muted mt-1 flex-shrink-0" />
+                        <div>
+                            <div className="font-medium text-white">ul. Dąbrowskiego 4</div>
+                            <div className="text-muted">42-200 Częstochowa</div>
+                        </div>
+                    </div>
                 </div>
 
                 {/* Buttons */}
-                <div className="space-y-3">
+                <div className="flex gap-3">
                     <Button
                         onClick={openGoogleMaps}
                         icon={FaMapMarkerAlt}
                         variant="primary"
                         size="md"
-                        className="w-full"
                     >
                         Zobacz na mapie
                     </Button>
@@ -54,7 +53,6 @@ export function ContactMap() {
                         icon={FaRoute}
                         variant="secondary"
                         size="md"
-                        className="w-full"
                     >
                         Wyznacz trasę
                     </Button>
