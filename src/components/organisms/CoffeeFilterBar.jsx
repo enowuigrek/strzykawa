@@ -50,18 +50,12 @@ export function CoffeeFilterBar({
                 top-0
                 z-40
                 bg-primary
-                h-[100px]
-                lg:h-[120px]
+                h-[60px]
+                lg:h-[70px]
             `}
         >
-            {/*
-                Lewa: [Espresso|Przelew]
-                Prawa: Akcesoria / Wszystko+Sort — kolumna na mobile, wiersz na desktop
-                Mobile:  [Esp|Prz]     Akcesoria
-                                    Wszystko [Sort]
-                Desktop: [Esp|Prz]  Akcesoria  Wszystko  [Sort]
-            */}
-            <div className="container mx-auto max-w-7xl px-4 h-full flex items-start justify-between gap-2 pt-5 sm:items-center sm:pt-0 sm:gap-3">
+            {/* Jedna linia: [Espresso|Przelew] ... Wszystko [Sort] */}
+            <div className="container mx-auto max-w-7xl px-4 h-full flex items-center justify-between gap-2 md:gap-3">
                 {/* Lewa: grupa Espresso + Przelew */}
                 <div className="flex items-center gap-1 bg-white/5 rounded-full p-0.5 flex-shrink-0">
                     <MainFilterButton
@@ -80,26 +74,25 @@ export function CoffeeFilterBar({
                     />
                 </div>
 
-                {/* Prawa: kolumna na mobile (Akcesoria nad Wszystko+Sort), wiersz na desktop */}
-                <div className="flex flex-col items-end gap-1.5 sm:flex-row sm:items-center sm:gap-3">
-                    <MainFilterButton
+                {/* Prawa: Wszystko + Sort (+ Akcesoria ukryte do czasu aż będą produkty) */}
+                <div className="flex items-center gap-2 md:gap-3">
+                    {/* TODO: odkomentować gdy pojawią się akcesoria w sklepie */}
+                    {/* <MainFilterButton
                         label="Akcesoria"
                         count={0}
                         isActive={localActiveType === 'Accessories'}
                         onClick={() => handleFilterClick('Accessories')}
+                    /> */}
+                    <MainFilterButton
+                        label="Wszystko"
+                        count={allCount}
+                        isActive={!localActiveType}
+                        onClick={() => handleFilterClick('')}
                     />
-                    <div className="flex items-center gap-2 md:gap-3">
-                        <MainFilterButton
-                            label="Wszystko"
-                            count={allCount}
-                            isActive={!localActiveType}
-                            onClick={() => handleFilterClick('')}
-                        />
-                        <SortSelector
-                            value={sortValue}
-                            onChange={onSortChange}
-                        />
-                    </div>
+                    <SortSelector
+                        value={sortValue}
+                        onChange={onSortChange}
+                    />
                 </div>
             </div>
         </div>
