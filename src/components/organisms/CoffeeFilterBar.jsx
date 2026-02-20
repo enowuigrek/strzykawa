@@ -55,27 +55,54 @@ export function CoffeeFilterBar({
             `}
         >
             {/* Kontener dopasowany do siatki kart (max-w-7xl px-4) */}
-            <div className="container mx-auto max-w-7xl px-4 h-full flex items-center justify-between gap-2">
-                {/* Filtry - lewa strona (horizontal scroll on mobile) */}
-                <div className="flex items-center gap-2 md:gap-3 overflow-x-auto no-scrollbar min-w-0 flex-shrink">
-                    {/* Grupa: Kawy (Espresso + Przelew) */}
-                    <div className="flex items-center gap-1 bg-white/5 rounded-full p-0.5 flex-shrink-0">
-                        <MainFilterButton
-                            label="Espresso"
-                            count={espressoCount}
-                            isActive={localActiveType === 'Espresso'}
-                            onClick={() => handleFilterClick('Espresso')}
-                            isGrouped
-                        />
-                        <MainFilterButton
-                            label="Przelew"
-                            count={filterCount}
-                            isActive={localActiveType === 'Filter'}
-                            onClick={() => handleFilterClick('Filter')}
-                            isGrouped
-                        />
+            <div className="container mx-auto max-w-7xl px-4 h-full flex flex-col justify-center gap-1.5 md:flex-row md:items-center md:justify-between md:gap-3">
+                {/* Górny wiersz: [Espresso | Przelew] + Sort (prawa) */}
+                <div className="flex items-center justify-between md:justify-start md:gap-3">
+                    <div className="flex items-center gap-2 md:gap-3">
+                        {/* Grupa: Kawy (Espresso + Przelew) */}
+                        <div className="flex items-center gap-1 bg-white/5 rounded-full p-0.5">
+                            <MainFilterButton
+                                label="Espresso"
+                                count={espressoCount}
+                                isActive={localActiveType === 'Espresso'}
+                                onClick={() => handleFilterClick('Espresso')}
+                                isGrouped
+                            />
+                            <MainFilterButton
+                                label="Przelew"
+                                count={filterCount}
+                                isActive={localActiveType === 'Filter'}
+                                onClick={() => handleFilterClick('Filter')}
+                                isGrouped
+                            />
+                        </div>
+
+                        {/* Desktop: Akcesoria + Wszystko w tym samym wierszu */}
+                        <div className="hidden md:flex items-center gap-3">
+                            <MainFilterButton
+                                label="Akcesoria"
+                                count={0}
+                                isActive={localActiveType === 'Accessories'}
+                                onClick={() => handleFilterClick('Accessories')}
+                            />
+                            <MainFilterButton
+                                label="Wszystko"
+                                count={allCount}
+                                isActive={!localActiveType}
+                                onClick={() => handleFilterClick('')}
+                            />
+                        </div>
                     </div>
 
+                    {/* Sortowanie - prawa strona */}
+                    <SortSelector
+                        value={sortValue}
+                        onChange={onSortChange}
+                    />
+                </div>
+
+                {/* Dolny wiersz (mobile only): Akcesoria + Wszystko */}
+                <div className="flex items-center gap-2 md:hidden">
                     <MainFilterButton
                         label="Akcesoria"
                         count={0}
@@ -89,12 +116,6 @@ export function CoffeeFilterBar({
                         onClick={() => handleFilterClick('')}
                     />
                 </div>
-
-                {/* Sortowanie - prawa strona */}
-                <SortSelector
-                    value={sortValue}
-                    onChange={onSortChange}
-                />
             </div>
         </div>
     );

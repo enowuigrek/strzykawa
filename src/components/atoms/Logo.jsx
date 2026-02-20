@@ -22,7 +22,7 @@ export function Logo({ scrolled, size = 'md' }) {
         <Link
             to="/"
             onClick={handleClick}
-            className="header-logo transition-transform focus:outline-none max-w-[60vw] md:max-w-none"
+            className="header-logo transition-transform focus:outline-none max-w-[calc(100%-5rem)] md:max-w-none"
             aria-label="Strzykawa - Wróć do strony głównej"
         >
             <img
