@@ -53,9 +53,9 @@ export function Footer() {
 
     return (
         <footer className="relative bg-primary-dark/95 border-white/10">
-            {/* Main content — 4 kolumny na desktop */}
-            <div className="relative z-10 container mx-auto px-4 pt-6 pb-4 md:pt-10 md:pb-6">
-                <div className="grid grid-cols-1 md:grid-cols-4 gap-8 md:gap-10 items-stretch">
+            {/* Main content */}
+            <div className="relative z-10 container mx-auto px-4 pt-6 pb-4 md:pt-10 md:pb-8">
+                <div className="grid grid-cols-1 md:grid-cols-4 gap-8 md:gap-10 items-start">
 
                     {/* Kolumna 1: Logo */}
                     <div className="flex flex-col items-start">
@@ -73,10 +73,10 @@ export function Footer() {
                         </div>
                     </div>
 
-                    {/* Kolumna 2: Dane firmy */}
-                    <div className="hidden md:flex flex-col space-y-5">
+                    {/* Kolumna 2: Dane firmy — desktop i mobile */}
+                    <div className="flex flex-col space-y-4">
                         <h4 className="text-2xl text-white">Dane firmy</h4>
-                        <ul className="flex flex-col gap-4">
+                        <ul className="flex flex-col gap-3">
                             <li className="text-white/70 text-lg">Strzykawa Damian Dzik</li>
                             <li className="text-white/70 text-lg">ul. Warszawska 241</li>
                             <li className="text-white/70 text-lg">42-209 Częstochowa</li>
@@ -85,9 +85,9 @@ export function Footer() {
                     </div>
 
                     {/* Kolumna 3: Informacje */}
-                    <div className="hidden md:flex flex-col space-y-5">
+                    <div className="flex flex-col space-y-4">
                         <h4 className="text-2xl text-white">Informacje</h4>
-                        <ul className="flex flex-col gap-4">
+                        <ul className="flex flex-col gap-3">
                             {legalLinks.map((link, index) => (
                                 <li key={index}>
                                     <a
@@ -101,8 +101,8 @@ export function Footer() {
                         </ul>
                     </div>
 
-                    {/* Kolumna 4: Kontakt + social + loga płatności */}
-                    <div className="flex flex-col space-y-5 justify-between h-full">
+                    {/* Kolumna 4: Kontakt + social */}
+                    <div className="flex flex-col space-y-4">
                         <h4 className="text-2xl text-white">Kontakt</h4>
 
                         <div className="flex flex-col gap-4">
@@ -140,46 +140,18 @@ export function Footer() {
                                 );
                             })}
                         </div>
-
-                        {/* Mobile only: linki prawne */}
-                        <div className="md:hidden pt-5 border-t border-white/10">
-                            <ul className="flex flex-col gap-4">
-                                {legalLinks.map((link, index) => (
-                                    <li key={index}>
-                                        <a
-                                            href={link.href}
-                                            className="text-white/70 hover:text-white text-lg transition-colors duration-300"
-                                        >
-                                            {link.label}
-                                        </a>
-                                    </li>
-                                ))}
-                            </ul>
-                        </div>
-
-                        {/* Loga płatności — desktop po prawej, mobile poniżej */}
-                        <div className="flex flex-wrap gap-2 items-center pt-4 border-t border-white/10 md:border-0 md:pt-0 md:mt-auto">
-                            {brandLogos.map((brand) => (
-                                <img
-                                    key={brand.alt}
-                                    src={brand.src}
-                                    alt={brand.alt}
-                                    className="h-7 w-auto object-contain"
-                                />
-                            ))}
-                        </div>
                     </div>
 
                 </div>
-
-
             </div>
 
-            {/* Socket */}
+            {/* Socket — czarna belka z ikonami płatności + copyright */}
             <div className="relative z-10 bg-black border-t border-white/10">
-                <div className="container mx-auto px-4 py-4">
-                    <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-1 md:gap-0 text-sm text-white/40">
+                <div className="container mx-auto px-4 py-3 flex flex-col md:flex-row md:items-center md:justify-between gap-2 md:gap-0">
+                    {/* Copyright */}
+                    <div className="flex flex-col md:flex-row md:items-center gap-1 md:gap-4 text-sm text-white/40">
                         <span>© {currentYear} Strzykawa. Wszystkie prawa zastrzeżone.</span>
+                        <span className="hidden md:inline text-white/20">|</span>
                         <span>
                             Realizacja:{' '}
                             <a
@@ -191,6 +163,17 @@ export function Footer() {
                                 lukasznowak.dev
                             </a>
                         </span>
+                    </div>
+                    {/* Ikony płatności — wyśrodkowane na desktop, do lewej na mobile */}
+                    <div className="flex gap-3 items-center flex-wrap">
+                        {brandLogos.map((brand) => (
+                            <img
+                                key={brand.alt}
+                                src={brand.src}
+                                alt={brand.alt}
+                                className="h-6 w-auto object-contain flex-shrink-0"
+                            />
+                        ))}
                     </div>
                 </div>
             </div>
