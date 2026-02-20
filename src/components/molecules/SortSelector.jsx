@@ -35,7 +35,7 @@ export function SortSelector({ value = 'newest', onChange }) {
     const currentLabel = SORT_OPTIONS.find(o => o.value === value)?.label || 'Sortuj';
 
     return (
-        <div ref={ref} className="relative">
+        <div ref={ref} className="relative flex-shrink-0">
             <button
                 onClick={() => setIsOpen(!isOpen)}
                 className={`

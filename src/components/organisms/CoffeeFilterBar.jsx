@@ -55,11 +55,11 @@ export function CoffeeFilterBar({
             `}
         >
             {/* Kontener dopasowany do siatki kart (max-w-7xl px-4) */}
-            <div className="container mx-auto max-w-7xl px-4 h-full flex items-center justify-between">
-                {/* Filtry - lewa strona */}
-                <div className="flex items-center gap-2 md:gap-3">
+            <div className="container mx-auto max-w-7xl px-4 h-full flex items-center justify-between gap-2">
+                {/* Filtry - lewa strona (horizontal scroll on mobile) */}
+                <div className="flex items-center gap-2 md:gap-3 overflow-x-auto no-scrollbar min-w-0 flex-shrink">
                     {/* Grupa: Kawy (Espresso + Przelew) */}
-                    <div className="flex items-center gap-1 bg-white/5 rounded-full p-0.5">
+                    <div className="flex items-center gap-1 bg-white/5 rounded-full p-0.5 flex-shrink-0">
                         <MainFilterButton
                             label="Espresso"
                             count={espressoCount}
@@ -143,6 +143,7 @@ function MainFilterButton({ label, count, isActive, onClick, isGrouped = false }
                     flex
                     items-center
                     justify-center
+                    flex-shrink-0
                     md:px-4
                     ${paddingY}
                     md:gap-2
@@ -176,6 +177,7 @@ function MainFilterButton({ label, count, isActive, onClick, isGrouped = false }
                 rounded-full
                 font-medium
                 text-sm
+                whitespace-nowrap flex-shrink-0
                 transition-all
                 duration-150
                 ${isGrouped ? 'bg-transparent hover:bg-white/5' : 'bg-white/5 hover:bg-white/10'}

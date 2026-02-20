@@ -22,14 +22,14 @@ export function Logo({ scrolled, size = 'md' }) {
         <Link
             to="/"
             onClick={handleClick}
-            className="header-logo transition-transform focus:outline-none"
+            className="header-logo transition-transform focus:outline-none max-w-[60vw] md:max-w-none"
             aria-label="Strzykawa - Wróć do strony głównej"
         >
             <img
                 src="/logo/horizontal-logo.png"
                 alt="Strzykawa Coffee Shop & Roastery"
                 className={`
-                    w-auto max-w-[65vw] sm:max-w-none
+                    w-full object-contain
                     transition-all
                     duration-300
                     ${sizeClasses[size] || sizeClasses.md}
