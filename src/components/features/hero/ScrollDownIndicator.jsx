@@ -28,7 +28,7 @@ export function ScrollDownIndicator() {
     return (
         <button
             onClick={scrollToContent}
-            className={`absolute bottom-8 left-1/2 -translate-x-1/2 z-20
+            className={`absolute bottom-16 sm:bottom-8 left-1/2 -translate-x-1/2 z-20
                        flex flex-col items-center gap-2
                        text-white/70 hover:text-white
                        transition-all duration-500

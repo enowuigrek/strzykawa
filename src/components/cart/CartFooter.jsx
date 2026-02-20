@@ -36,7 +36,7 @@ export function CartFooter({ items, isLoading, totalPrice, note, onSaveNote }) {
     };
 
     return (
-        <div className="flex-shrink-0 bg-primary-dark z-[110]">
+        <div className="flex-shrink-0 bg-primary z-[110]">
 
             {/* Cart notes — above price breakdown */}
             <CartNotes
@@ -87,7 +87,7 @@ export function CartFooter({ items, isLoading, totalPrice, note, onSaveNote }) {
                             {hasFreeShipping ? 'Darmowa' : `${shippingCost.toFixed(2)} zł`}
                         </span>
                     </div>
-                    <div className="border-t border-white/10 pt-1.5">
+                    <div className="border-t border-accent/20 pt-1.5">
                         <div className="flex justify-between items-center">
                             <span className="text-base sm:text-lg text-white font-medium">Razem</span>
                             <span className="text-lg sm:text-xl text-white font-bold">{total.toFixed(2)} zł</span>
@@ -143,11 +143,10 @@ export function CartFooter({ items, isLoading, totalPrice, note, onSaveNote }) {
                     onClick={handleCheckout}
                     disabled={isLoading || items.length === 0}
                     fullWidth
-                    size="md"
+                    size="lg"
                     variant="primary"
                     loading={isLoading}
                     leftIcon={FaCreditCard}
-                    className="sm:!py-3"
                 >
                     Zapłać {total.toFixed(2)} zł
                 </Button>

@@ -29,8 +29,8 @@ export function Logo({ scrolled, size = 'md' }) {
                 src="/logo/horizontal-logo.png"
                 alt="Strzykawa Coffee Shop & Roastery"
                 className={`
-                    w-auto 
-                    transition-all 
+                    w-auto max-w-[65vw] sm:max-w-none
+                    transition-all
                     duration-300
                     ${sizeClasses[size] || sizeClasses.md}
                 `}
