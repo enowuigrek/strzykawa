@@ -3,8 +3,6 @@ import { FaExclamationTriangle } from 'react-icons/fa';
 import { useCartStore } from '../../store/cartStore';
 import { ModalHeader } from '../layout/ModalHeader';
 import { CartContent } from './CartContent';
-import { CartNotes } from './CartNotes';
-import { ShippingProgress } from './ShippingProgress';
 import { CartFooter } from './CartFooter';
 
 export function CartModal({ isOpen, onClose }) {
@@ -115,30 +113,23 @@ export function CartModal({ isOpen, onClose }) {
                     </div>
                 )}
 
-                <CartContent
-                    items={items}
-                    isLoading={isLoading}
-                    onUpdateQuantity={updateQuantity}
-                    onRemove={removeItem}
-                    onCloseCart={onClose}
-                />
-
-                {/* Uwagi + Shipping Progress - na dole zawartości, przed footrem */}
-                {items.length > 0 && (
-                    <>
-                        <CartNotes
-                            note={note}
-                            onSave={updateNote}
-                            isLoading={isLoading}
-                        />
-                        <ShippingProgress totalPrice={getTotalPrice()} />
-                    </>
-                )}
+                {/* Scrollable area — products from top, scroll when overflow */}
+                <div className="flex-1 overflow-y-auto min-h-0 scrollbar-thin">
+                    <CartContent
+                        items={items}
+                        isLoading={isLoading}
+                        onUpdateQuantity={updateQuantity}
+                        onRemove={removeItem}
+                        onCloseCart={onClose}
+                    />
+                </div>
 
                 <CartFooter
                     items={items}
                     isLoading={isLoading}
                     totalPrice={getTotalPrice()}
+                    note={note}
+                    onSaveNote={updateNote}
                 />
             </div>
         </>

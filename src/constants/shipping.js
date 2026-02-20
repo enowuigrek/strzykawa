@@ -13,7 +13,7 @@ export const FREE_SHIPPING_THRESHOLD = 250;
  * Koszt wysyłki (w PLN)
  * Jedna cena niezależnie od metody dostawy
  */
-export const SHIPPING_COST = 11.99;
+export const SHIPPING_COST = 18;
 
 /**
  * Waluta

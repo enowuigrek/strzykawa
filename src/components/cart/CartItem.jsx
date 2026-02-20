@@ -111,9 +111,16 @@ export function CartItem({ item, onUpdateQuantity, onRemove, isLoading, onCloseC
 
                 {/* Price + Remove */}
                 <div className="flex items-center gap-3">
-                    <span className="text-white">
-                        {(parseFloat(product.price) * quantity).toFixed(2)} zł
-                    </span>
+                    <div className="text-right">
+                        <span className="text-white">
+                            {(parseFloat(product.price) * quantity).toFixed(2)} zł
+                        </span>
+                        {quantity > 1 && (
+                            <p className="text-xs text-muted/70">
+                                {quantity} × {parseFloat(product.price).toFixed(2)} zł
+                            </p>
+                        )}
+                    </div>
 
                     {/* Remove button */}
                     <button

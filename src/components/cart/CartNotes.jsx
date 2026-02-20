@@ -37,25 +37,25 @@ export function CartNotes({ note, onSave, isLoading }) {
     const charsLeft = MAX_CHARS - draft.length;
 
     return (
-        <div className="flex-shrink-0 flex flex-col-reverse bg-primary-light/20 px-4 sm:px-6 lg:px-8">
+        <div className="flex-shrink-0 flex flex-col-reverse bg-primary-light/20">
 
             {/* Trigger — zawsze na dole */}
-            <div className="py-2.5">
+            <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-2.5">
                 <button
                     type="button"
                     onClick={isOpen ? handleCancel : handleOpen}
                     className={`
                         flex items-center gap-2 text-sm transition-all duration-200
                         ${hasNote && !isOpen
-                            ? 'pl-4 px-3 py-1 rounded-full bg-success/20 text-success font-medium hover:bg-success/30'
-                            : 'pl-4 text-white/60 hover:text-white'
+                            ? 'px-3 py-1 rounded-full bg-accent/20 text-accent font-medium hover:bg-accent/30'
+                            : 'text-white/60 hover:text-white'
                         }
                     `}
                 >
                     {hasNote && !isOpen ? (
                         <>
                             <FaCheck className="w-3 h-3 flex-shrink-0" />
-                            Uwagi dodane ✓
+                            Uwagi dodane
                         </>
                     ) : isOpen ? (
                         <>
@@ -78,7 +78,7 @@ export function CartNotes({ note, onSave, isLoading }) {
                     ${isOpen ? 'max-h-64 opacity-100' : 'max-h-0 opacity-0'}
                 `}
             >
-                <div className="pt-3 pb-1">
+                <div className="container mx-auto px-4 sm:px-6 lg:px-8 pt-3 pb-1">
                     {/* Textarea */}
                     <textarea
                         value={draft}
@@ -107,7 +107,7 @@ export function CartNotes({ note, onSave, isLoading }) {
                                 disabled={isLoading}
                                 className="
                                     rounded-full px-5 py-1.5
-                                    bg-success hover:bg-success-dark
+                                    bg-accent hover:bg-accent/80
                                     text-white text-sm font-medium
                                     transition-colors duration-200
                                     disabled:opacity-50 disabled:cursor-not-allowed

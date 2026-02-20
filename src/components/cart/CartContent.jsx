@@ -4,7 +4,7 @@ import { CartItem } from './CartItem';
 
 export function CartContent({ items, isLoading, onUpdateQuantity, onRemove, onCloseCart }) {
     return (
-        <div className="flex-1 overflow-y-auto min-h-0">
+        <div>
             <div className="container mx-auto px-4 sm:px-6 lg:px-8 pb-4">
                 {items.length === 0 ? (
                     <div className="text-center py-12">
