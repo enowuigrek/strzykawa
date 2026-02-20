@@ -147,9 +147,20 @@ export function Footer() {
 
             {/* Socket — czarna belka z ikonami płatności + copyright */}
             <div className="relative z-10 bg-black border-t border-white/10">
-                <div className="container mx-auto px-4 py-3 flex flex-col md:flex-row md:items-center md:justify-between gap-2 md:gap-0">
+                <div className="container mx-auto px-4 py-3 flex flex-col md:flex-row md:items-center md:justify-between gap-0 md:gap-0">
+                    {/* Ikony płatności — mobile: pierwsze, desktop: po prawej */}
+                    <div className="flex gap-3 items-center flex-wrap md:order-2 pb-3 md:pb-0">
+                        {brandLogos.map((brand) => (
+                            <img
+                                key={brand.alt}
+                                src={brand.src}
+                                alt={brand.alt}
+                                className="h-7 md:h-6 w-auto object-contain flex-shrink-0"
+                            />
+                        ))}
+                    </div>
                     {/* Copyright */}
-                    <div className="flex flex-col md:flex-row md:items-center gap-1 md:gap-4 text-sm text-white/40">
+                    <div className="flex flex-col md:flex-row md:items-center gap-1 md:gap-4 text-sm text-white/40 md:order-1 border-t border-white/10 pt-3 md:border-0 md:pt-0">
                         <span>© {currentYear} Strzykawa. Wszystkie prawa zastrzeżone.</span>
                         <span className="hidden md:inline text-white/20">|</span>
                         <span>
@@ -163,17 +174,6 @@ export function Footer() {
                                 lukasznowak.dev
                             </a>
                         </span>
-                    </div>
-                    {/* Ikony płatności — wyśrodkowane na desktop, do lewej na mobile */}
-                    <div className="flex gap-3 items-center flex-wrap">
-                        {brandLogos.map((brand) => (
-                            <img
-                                key={brand.alt}
-                                src={brand.src}
-                                alt={brand.alt}
-                                className="h-6 w-auto object-contain flex-shrink-0"
-                            />
-                        ))}
                     </div>
                 </div>
             </div>
