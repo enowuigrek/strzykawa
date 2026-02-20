@@ -61,7 +61,7 @@ export function CoffeeFilterBar({
                                     Wszystko [Sort]
                 Desktop: [Esp|Prz]  Akcesoria  Wszystko  [Sort]
             */}
-            <div className="container mx-auto max-w-7xl px-4 h-full flex items-start justify-between gap-2 pt-5 md:items-center md:pt-0 md:gap-3">
+            <div className="container mx-auto max-w-7xl px-4 h-full flex items-start justify-between gap-2 pt-5 sm:items-center sm:pt-0 sm:gap-3">
                 {/* Lewa: grupa Espresso + Przelew */}
                 <div className="flex items-center gap-1 bg-white/5 rounded-full p-0.5 flex-shrink-0">
                     <MainFilterButton
@@ -81,7 +81,7 @@ export function CoffeeFilterBar({
                 </div>
 
                 {/* Prawa: kolumna na mobile (Akcesoria nad Wszystko+Sort), wiersz na desktop */}
-                <div className="flex flex-col items-end gap-1.5 md:flex-row md:items-center md:gap-3">
+                <div className="flex flex-col items-end gap-1.5 sm:flex-row sm:items-center sm:gap-3">
                     <MainFilterButton
                         label="Akcesoria"
                         count={0}

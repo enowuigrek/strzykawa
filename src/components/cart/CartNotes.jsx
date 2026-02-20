@@ -91,7 +91,7 @@ export function CartNotes({ note, onSave, isLoading }) {
                         rows={3}
                         className="
                             w-full px-3 py-2
-                            bg-primary-light/30 text-white text-base
+                            bg-primary-dark/50 text-white text-base
                             placeholder-muted/50
                             border-0 outline-none resize-none
                             transition-colors duration-200
