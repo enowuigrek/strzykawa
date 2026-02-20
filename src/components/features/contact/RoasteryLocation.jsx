@@ -35,7 +35,7 @@ export function RoasteryLocation() {
                     </p>
 
                     {/* Social media links */}
-                    <div className="flex items-center gap-3">
+                    <div className="flex items-center gap-3 mt-6">
                         <a
                             href="https://www.facebook.com/StrzykawaCoffeeShop/"
                             target="_blank"

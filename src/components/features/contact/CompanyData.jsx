@@ -1,4 +1,5 @@
 import React from 'react';
+import { FaBuilding, FaIdCard, FaMapMarkerAlt, FaPhone } from 'react-icons/fa';
 import { useScrollAnimation, scrollAnimations } from '../../../hooks/useScrollAnimation';
 
 export function CompanyData() {
@@ -13,11 +14,42 @@ export function CompanyData() {
         >
             <h3 className="text-2xl text-white">Dane firmy</h3>
 
-            <div className="flex flex-col gap-4">
-                <span className="font-medium text-white">Strzykawa Damian Dzik</span>
-                <span className="font-medium text-white">ul. Warszawska 241</span>
-                <span className="font-medium text-white">42-209 Częstochowa</span>
-                <span className="font-medium text-white">NIP: 7441726899</span>
+            <div className="space-y-5">
+                <div className="flex items-start gap-3">
+                    <FaBuilding className="w-4 h-4 text-muted mt-1 flex-shrink-0" />
+                    <div className="font-medium text-white">Strzykawa Damian Dzik</div>
+                </div>
+
+                <div className="flex items-start gap-3">
+                    <FaMapMarkerAlt className="w-4 h-4 text-muted mt-1 flex-shrink-0" />
+                    <div>
+                        <div className="font-medium text-white">ul. Warszawska 241</div>
+                        <div className="text-muted">42-209 Częstochowa</div>
+                    </div>
+                </div>
+
+                <div className="flex items-start gap-3">
+                    <FaIdCard className="w-4 h-4 text-muted mt-1 flex-shrink-0" />
+                    <div className="font-medium text-white">NIP: 7441726899</div>
+                </div>
+
+                <div className="flex items-start gap-3">
+                    <FaPhone className="w-4 h-4 text-muted mt-1 flex-shrink-0" />
+                    <div className="flex flex-col gap-1">
+                        <a
+                            href="tel:+48668011806"
+                            className="text-muted hover:text-white transition-colors duration-300"
+                        >
+                            +48 668 011 806
+                        </a>
+                        <a
+                            href="mailto:kontakt@strzykawa.com"
+                            className="text-muted hover:text-white transition-colors duration-300"
+                        >
+                            kontakt@strzykawa.com
+                        </a>
+                    </div>
+                </div>
             </div>
         </div>
     );

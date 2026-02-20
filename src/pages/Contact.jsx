@@ -1,7 +1,6 @@
 import React from 'react';
 import { CafeLocation } from '../components/features/contact/CafeLocation';
 import { RoasteryLocation } from '../components/features/contact/RoasteryLocation';
-import { ContactDetails } from '../components/features/contact/ContactDetails';
 import { CompanyData } from '../components/features/contact/CompanyData';
 import { useScrollToTop } from '../hooks/useScrollToTop';
 import { PageLayout } from '../components/layout/PageLayout.jsx';
@@ -11,7 +10,6 @@ export function Contact() {
     useScrollToTop();
 
     const [topRef, topVisible] = useScrollAnimation({ threshold: 0.15 });
-    const [bottomRef, bottomVisible] = useScrollAnimation({ threshold: 0.15 });
 
     return (
         <PageLayout
@@ -30,19 +28,6 @@ export function Contact() {
                     <CompanyData />
                     <CafeLocation />
                     <RoasteryLocation />
-                </div>
-
-                {/* Separator */}
-                <div className="border-t border-white/10" />
-
-                {/* Dolny rząd: Skontaktuj się z nami */}
-                <div
-                    ref={bottomRef}
-                    className={`py-8 lg:py-10 transition-all duration-700 ease-out delay-150 ${
-                        bottomVisible ? scrollAnimations.pourUp.visible : scrollAnimations.pourUp.hidden
-                    }`}
-                >
-                    <ContactDetails />
                 </div>
 
             </div>

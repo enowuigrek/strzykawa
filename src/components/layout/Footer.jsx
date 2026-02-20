@@ -54,8 +54,8 @@ export function Footer() {
     return (
         <footer className="relative bg-primary-dark/95 border-white/10">
             {/* Main content — 4 kolumny na desktop */}
-            <div className="relative z-10 container mx-auto px-4 pt-6 pb-8 md:py-10">
-                <div className="grid grid-cols-1 md:grid-cols-4 gap-8 md:gap-10 items-start">
+            <div className="relative z-10 container mx-auto px-4 pt-6 pb-4 md:pt-10 md:pb-6">
+                <div className="grid grid-cols-1 md:grid-cols-4 gap-8 md:gap-10 items-stretch">
 
                     {/* Kolumna 1: Logo */}
                     <div className="flex flex-col items-start">
@@ -73,25 +73,15 @@ export function Footer() {
                         </div>
                     </div>
 
-                    {/* Kolumna 2: Dane firmy + loga płatności */}
+                    {/* Kolumna 2: Dane firmy */}
                     <div className="hidden md:flex flex-col space-y-5">
                         <h4 className="text-2xl text-white">Dane firmy</h4>
-                        <div className="flex flex-col gap-4">
-                            <span className="text-white/70 text-lg">Strzykawa Damian Dzik</span>
-                            <span className="text-white/70 text-lg">ul. Warszawska 241<br />42-209 Częstochowa</span>
-                            <span className="text-white/70 text-lg">NIP: 7441726899</span>
-                        </div>
-                        {/* Loga płatności — bez zawijania */}
-                        <div className="flex gap-3 items-center flex-nowrap pt-2">
-                            {brandLogos.map((brand) => (
-                                <img
-                                    key={brand.alt}
-                                    src={brand.src}
-                                    alt={brand.alt}
-                                    className="h-7 w-auto object-contain flex-shrink-0"
-                                />
-                            ))}
-                        </div>
+                        <ul className="flex flex-col gap-4">
+                            <li className="text-white/70 text-lg">Strzykawa Damian Dzik</li>
+                            <li className="text-white/70 text-lg">ul. Warszawska 241</li>
+                            <li className="text-white/70 text-lg">42-209 Częstochowa</li>
+                            <li className="text-white/70 text-lg">NIP: 7441726899</li>
+                        </ul>
                     </div>
 
                     {/* Kolumna 3: Informacje */}
@@ -111,8 +101,8 @@ export function Footer() {
                         </ul>
                     </div>
 
-                    {/* Kolumna 4: Kontakt + social */}
-                    <div className="flex flex-col space-y-5">
+                    {/* Kolumna 4: Kontakt + social + loga płatności */}
+                    <div className="flex flex-col space-y-5 justify-between h-full">
                         <h4 className="text-2xl text-white">Kontakt</h4>
 
                         <div className="flex flex-col gap-4">
@@ -167,8 +157,8 @@ export function Footer() {
                             </ul>
                         </div>
 
-                        {/* Mobile only: loga płatności */}
-                        <div className="md:hidden flex flex-wrap gap-2 items-center pt-4 border-t border-white/10">
+                        {/* Loga płatności — desktop po prawej, mobile poniżej */}
+                        <div className="flex flex-wrap gap-2 items-center pt-4 border-t border-white/10 md:border-0 md:pt-0 md:mt-auto">
                             {brandLogos.map((brand) => (
                                 <img
                                     key={brand.alt}
@@ -181,6 +171,8 @@ export function Footer() {
                     </div>
 
                 </div>
+
+
             </div>
 
             {/* Socket */}
