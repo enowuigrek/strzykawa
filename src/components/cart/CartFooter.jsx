@@ -36,7 +36,7 @@ export function CartFooter({ items, isLoading, totalPrice, note, onSaveNote }) {
     };
 
     return (
-        <div className="flex-shrink-0 bg-primary-dark border-t border-white/10 z-[110]">
+        <div className="flex-shrink-0 bg-primary-dark z-[110]">
 
             {/* Cart notes — above price breakdown */}
             <CartNotes
@@ -55,12 +55,14 @@ export function CartFooter({ items, isLoading, totalPrice, note, onSaveNote }) {
                             <span className="text-xs sm:text-sm text-white/60">
                                 {hasFreeShipping
                                     ? 'Darmowa wysyłka'
-                                    : `Do darmowej wysyłki brakuje ${remaining.toFixed(2)} zł`
+                                    : 'Do darmowej wysyłki brakuje'
                                 }
                             </span>
                         </div>
-                        {hasFreeShipping && (
+                        {hasFreeShipping ? (
                             <span className="text-xs sm:text-sm text-success">✓</span>
+                        ) : (
+                            <span className="text-xs sm:text-sm text-white/60">{remaining.toFixed(2)} zł</span>
                         )}
                     </div>
                     <div className="w-full h-1 bg-primary-light/50 rounded-full overflow-hidden">

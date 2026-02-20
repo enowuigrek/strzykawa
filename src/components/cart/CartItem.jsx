@@ -47,9 +47,19 @@ export function CartItem({ item, onUpdateQuantity, onRemove, isLoading, onCloseC
     const isClickable = !!product.handle;
 
     return (
-        <div className="bg-primary-light/40 px-4 py-3 lg:px-5 lg:py-4 mt-6">
+        <div className="relative bg-primary-light/40 px-4 py-3 lg:px-5 lg:py-4 mt-6">
+            {/* Remove button — top right corner */}
+            <button
+                onClick={handleRemove}
+                disabled={isLoading}
+                className="absolute top-2 right-2 w-7 h-7 text-white/30 hover:text-danger flex items-center justify-center transition-colors duration-200 disabled:opacity-50"
+                aria-label="Usuń z koszyka"
+            >
+                <FaTrash className="w-2.5 h-2.5" />
+            </button>
+
             {/* Product row */}
-            <div className="flex gap-4">
+            <div className="flex gap-4 pr-6">
                 {/* Image (sharp, no rounding) - clickable */}
                 <img
                     src={product.image}
@@ -72,18 +82,18 @@ export function CartItem({ item, onUpdateQuantity, onRemove, isLoading, onCloseC
                         {(() => {
                             const gramatura = item.selectedOptions?.find(opt => opt.name === 'Gramatura')?.value || '250g';
                             return (
-                                <span className="inline-flex items-center px-3 py-1 bg-[#3A5F55] text-white text-sm font-medium rounded-full">
+                                <span className="inline-flex items-center px-3 py-1 bg-primary-light text-white text-sm font-medium rounded-full">
                                     {gramatura}
                                 </span>
                             );
                         })()}
                         {/* Forma kawy: "Ziarna" lub sam sposób mielenia */}
                         {item.coffeeForm === 'ziarna' ? (
-                            <span className="inline-flex items-center px-3 py-1 bg-[#3A5F55] text-white text-sm font-medium rounded-full">
+                            <span className="inline-flex items-center px-3 py-1 bg-primary-light text-white text-sm font-medium rounded-full">
                                 Ziarna
                             </span>
                         ) : item.grindMethod ? (
-                            <span className="inline-flex items-center px-3 py-1 bg-[#3A5F55] text-white text-sm font-medium rounded-full">
+                            <span className="inline-flex items-center px-3 py-1 bg-primary-light text-white text-sm font-medium rounded-full">
                                 {item.grindMethod}
                             </span>
                         ) : null}
@@ -109,28 +119,16 @@ export function CartItem({ item, onUpdateQuantity, onRemove, isLoading, onCloseC
                     size="sm"
                 />
 
-                {/* Price + Remove */}
-                <div className="flex items-center gap-3">
-                    <div className="text-right">
-                        <span className="text-white">
-                            {(parseFloat(product.price) * quantity).toFixed(2)} zł
-                        </span>
-                        {quantity > 1 && (
-                            <p className="text-xs text-muted/70">
-                                {quantity} × {parseFloat(product.price).toFixed(2)} zł
-                            </p>
-                        )}
-                    </div>
-
-                    {/* Remove button */}
-                    <button
-                        onClick={handleRemove}
-                        disabled={isLoading}
-                        className="w-9 h-9 rounded-full bg-danger/15 hover:bg-danger/25 border border-danger/25 text-danger flex items-center justify-center transition-colors duration-200 disabled:opacity-50"
-                        aria-label="Usuń z koszyka"
-                    >
-                        <FaTrash className="w-3 h-3" />
-                    </button>
+                {/* Price */}
+                <div className="text-right">
+                    <span className="text-white">
+                        {(parseFloat(product.price) * quantity).toFixed(2)} zł
+                    </span>
+                    {quantity > 1 && (
+                        <p className="text-xs text-white/50">
+                            {quantity} × {parseFloat(product.price).toFixed(2)} zł
+                        </p>
+                    )}
                 </div>
             </div>
         </div>

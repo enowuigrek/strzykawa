@@ -37,7 +37,7 @@ export function CartNotes({ note, onSave, isLoading }) {
     const charsLeft = MAX_CHARS - draft.length;
 
     return (
-        <div className="flex-shrink-0 flex flex-col-reverse bg-primary-light/20">
+        <div className="flex-shrink-0 flex flex-col-reverse">
 
             {/* Trigger — zawsze na dole */}
             <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-2.5">
@@ -47,7 +47,7 @@ export function CartNotes({ note, onSave, isLoading }) {
                     className={`
                         flex items-center gap-2 text-sm transition-all duration-200
                         ${hasNote && !isOpen
-                            ? 'px-3 py-1 rounded-full bg-accent/20 text-accent font-medium hover:bg-accent/30'
+                            ? 'text-accent hover:text-accent/80'
                             : 'text-white/60 hover:text-white'
                         }
                     `}
@@ -78,7 +78,7 @@ export function CartNotes({ note, onSave, isLoading }) {
                     ${isOpen ? 'max-h-64 opacity-100' : 'max-h-0 opacity-0'}
                 `}
             >
-                <div className="container mx-auto px-4 sm:px-6 lg:px-8 pt-3 pb-1">
+                <div className="container mx-auto px-4 sm:px-6 lg:px-8 pt-4 pb-1 border-t border-white/20">
                     {/* Textarea */}
                     <textarea
                         value={draft}
@@ -91,7 +91,7 @@ export function CartNotes({ note, onSave, isLoading }) {
                         rows={3}
                         className="
                             w-full px-3 py-2
-                            bg-primary-dark text-white text-base
+                            bg-primary-light/30 text-white text-base
                             placeholder-muted/50
                             border-0 outline-none resize-none
                             transition-colors duration-200

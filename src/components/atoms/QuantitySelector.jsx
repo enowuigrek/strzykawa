@@ -26,13 +26,6 @@ export function QuantitySelector({
         }
     };
 
-    const handleInputChange = (e) => {
-        const value = parseInt(e.target.value);
-        if (!isNaN(value) && value >= min && value <= max) {
-            onQuantityChange(value);
-        }
-    };
-
     // Size variants
     const sizeClasses = {
         sm: 'h-8',
@@ -74,25 +67,17 @@ export function QuantitySelector({
                 <FiMinus className="w-4 h-4" />
             </button>
 
-            {/* Quantity Input - Center */}
-            <input
-                type="number"
-                value={quantity}
-                onChange={handleInputChange}
-                min={min}
-                max={max}
-                disabled={disabled}
+            {/* Quantity Display - Center (read-only to prevent mobile zoom) */}
+            <span
                 className={`
                     ${inputSizeClasses[size]} ${sizeClasses[size]}
-                    bg-transparent
-                    text-white text-center
-                    focus:outline-none
-                    [-moz-appearance:textfield]
-                    [&::-webkit-outer-spin-button]:appearance-none
-                    [&::-webkit-inner-spin-button]:appearance-none
+                    flex items-center justify-center
+                    text-white text-center select-none
                 `}
                 aria-label="Liczba"
-            />
+            >
+                {quantity}
+            </span>
 
             {/* Increase Button - Right semicircle */}
             <button
