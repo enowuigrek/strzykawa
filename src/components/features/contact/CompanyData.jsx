@@ -1,5 +1,5 @@
 import React from 'react';
-import { FaBuilding, FaIdCard, FaMapMarkerAlt, FaPhone } from 'react-icons/fa';
+import { FaBuilding, FaIdCard, FaMapMarkerAlt, FaPhone, FaEnvelope } from 'react-icons/fa';
 import { useScrollAnimation, scrollAnimations } from '../../../hooks/useScrollAnimation';
 
 export function CompanyData() {
@@ -33,20 +33,22 @@ export function CompanyData() {
                     <div className="font-medium text-white">NIP: 7441726899</div>
                 </div>
 
-                <div className="flex items-start gap-3">
-                    <FaPhone className="w-4 h-4 text-muted mt-1 flex-shrink-0" />
-                    <div className="flex flex-col gap-1">
+                <div className="flex flex-col items-start">
+                    <div className="flex items-start gap-3">
+                        <FaPhone className="w-4 h-4 text-muted mt-1 flex-shrink-0" />
                         <a
                             href="tel:+48668011806"
-                            className="text-muted hover:text-white transition-colors duration-300"
-                        >
+                            className="text-white hover:text-muted transition-colors duration-300">
                             +48 668 011 806
                         </a>
+                    </div>
+                    <div className="flex items-start gap-3">
+                        <FaEnvelope className="w-4 h-4 text-muted mt-1 flex-shrink-0" />
                         <a
-                            href="mailto:kontakt@strzykawa.com"
-                            className="text-muted hover:text-white transition-colors duration-300"
+                                href="mailto:kontakt@strzykawa.com"
+                                className="text-white hover:text-muted transition-colors duration-300"
                         >
-                            kontakt@strzykawa.com
+                                kontakt@strzykawa.com
                         </a>
                     </div>
                 </div>

@@ -75,9 +75,8 @@ export function Footer() {
 
                     {/* Kolumna 2: Dane firmy — desktop i mobile */}
                     <div className="flex flex-col space-y-4">
-                        <h4 className="text-2xl text-white">Dane firmy</h4>
+                        <h4 className="text-2xl text-white">Strzykawa Damian Dzik</h4>
                         <ul className="flex flex-col gap-3">
-                            <li className="text-white/70 text-lg">Strzykawa Damian Dzik</li>
                             <li className="text-white/70 text-lg">ul. Warszawska 241</li>
                             <li className="text-white/70 text-lg">42-209 Częstochowa</li>
                             <li className="text-white/70 text-lg">NIP: 7441726899</li>
