@@ -54,7 +54,7 @@ export function Footer() {
     return (
         <footer className="relative bg-primary-dark/95 border-white/10">
             {/* Main content */}
-            <div className="relative z-10 container mx-auto px-4 pt-6 pb-4 md:pt-10 md:pb-8">
+            <div className="relative z-10 container mx-auto px-4 pt-6 pb-8 md:pt-10 md:pb-8">
                 <div className="grid grid-cols-1 md:grid-cols-4 gap-8 md:gap-10 items-start">
 
                     {/* Kolumna 1: Logo */}
@@ -101,8 +101,8 @@ export function Footer() {
                     </div>
 
                     {/* Kolumna 4: Kontakt + social */}
-                    <div className="flex flex-col space-y-4">
-                        <h4 className="text-2xl text-white">Kontakt</h4>
+                    <div className="flex flex-col">
+                        <h4 className="text-2xl text-white mb-4">Kontakt</h4>
 
                         <div className="flex flex-col gap-4">
                             {contactInfo.map((contact, index) => {
@@ -122,7 +122,7 @@ export function Footer() {
                             })}
                         </div>
 
-                        <div className="flex gap-3">
+                        <div className="flex gap-3 mt-8">
                             {socialLinks.map((social, index) => {
                                 const Icon = social.icon;
                                 return (

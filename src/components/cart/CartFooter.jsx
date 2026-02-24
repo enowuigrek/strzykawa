@@ -51,18 +51,21 @@ export function CartFooter({ items, isLoading, totalPrice, note, onSaveNote }) {
                 <div className="mb-3">
                     <div className="flex items-center justify-between mb-1.5">
                         <div className="flex items-center gap-1.5">
-                            <FaTruck className={`text-xs sm:text-sm ${hasFreeShipping ? 'text-success' : 'text-muted'}`} />
-                            <span className="text-xs sm:text-sm text-white/60">
-                                {hasFreeShipping
-                                    ? 'Darmowa wysyłka'
-                                    : 'Do darmowej wysyłki brakuje'
-                                }
-                            </span>
+                            <FaTruck className={`text-sm ${hasFreeShipping ? 'text-success' : 'text-muted'}`} />
+                            {hasFreeShipping ? (
+                                <span className="text-sm text-success font-medium">Darmowa wysyłka!</span>
+                            ) : (
+                                <span className="text-sm text-white/70">
+                                    Do darmowej wysyłki brakuje{' '}
+                                    <span className="text-white font-semibold">{remaining.toFixed(2)} zł</span>
+                                </span>
+                            )}
                         </div>
-                        {hasFreeShipping ? (
-                            <span className="text-xs sm:text-sm text-success">✓</span>
-                        ) : (
-                            <span className="text-xs sm:text-sm text-white/60">{remaining.toFixed(2)} zł</span>
+                        {!hasFreeShipping && (
+                            <span className="text-sm text-white/40">
+                                wysyłka{' '}
+                                <span className="text-white/60">{shippingCost.toFixed(0)} zł</span>
+                            </span>
                         )}
                     </div>
                     <div className="w-full h-1 bg-primary-light/50 rounded-full overflow-hidden">
@@ -72,26 +75,6 @@ export function CartFooter({ items, isLoading, totalPrice, note, onSaveNote }) {
                             }`}
                             style={{ width: `${progress}%` }}
                         />
-                    </div>
-                </div>
-
-                {/* Price breakdown */}
-                <div className="space-y-1.5 mb-3">
-                    <div className="flex justify-between items-center">
-                        <span className="text-sm sm:text-base text-white/60">Produkty</span>
-                        <span className="text-sm sm:text-base text-white/60">{subtotal.toFixed(2)} zł</span>
-                    </div>
-                    <div className="flex justify-between items-center">
-                        <span className="text-sm sm:text-base text-white/60">Wysyłka</span>
-                        <span className={`text-sm sm:text-base ${hasFreeShipping ? 'text-success' : 'text-white/60'}`}>
-                            {hasFreeShipping ? 'Darmowa' : `${shippingCost.toFixed(2)} zł`}
-                        </span>
-                    </div>
-                    <div className="border-t border-accent/20 pt-1.5">
-                        <div className="flex justify-between items-center">
-                            <span className="text-base sm:text-lg text-white font-medium">Razem</span>
-                            <span className="text-lg sm:text-xl text-white font-bold">{total.toFixed(2)} zł</span>
-                        </div>
                     </div>
                 </div>
 
