@@ -330,10 +330,10 @@ export const useCartStore = create(
                     });
                 }
 
-                // Ustawiamy tylko status na 'pending' i przekierowujemy
-                // Koszyk NIE jest czyszczony tutaj, żeby użytkownik nie widział pustego koszyka
-                // Koszyk wyczyści się na /checkout/success (markCheckoutCompleted)
-                set({ status: 'pending' });
+                // Czyścimy koszyk z localStorage przed przekierowaniem do Shopify.
+                // Dzięki temu po powrocie nie ma "martwego" koszyka z zamówionymi już
+                // produktami, których nie można usunąć (koszyk Shopify już nieaktywny).
+                set({ cart: null, items: [], note: '', status: 'idle' });
                 logger.log('Redirecting to checkout:', checkoutUrl);
                 window.location.href = checkoutUrl;
             },

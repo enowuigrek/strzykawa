@@ -93,14 +93,14 @@ export function CoffeeOverlay({ coffee, isOpen }) {
                 background: backgroundStyle
             }}
         >
-            <div className="h-full overflow-y-auto p-3 pb-10 flex flex-col items-center justify-center">
+            <div className="h-full overflow-y-auto p-3 flex flex-col items-center justify-center">
                 {/* Nagłówek z krajem - jak na naklejce */}
                 {country && (
-                    <div className="text-center mb-5">
-                        <h3 className="text-2xl font-bold text-black uppercase tracking-wide">
+                    <div className="text-center mb-2">
+                        <h3 className="text-xl font-bold text-black uppercase tracking-wide">
                             {country}
                         </h3>
-                        <p className="text-lg text-black">
+                        <p className="text-sm text-black">
                             {displayName}
                         </p>
                     </div>
@@ -108,23 +108,23 @@ export function CoffeeOverlay({ coffee, isOpen }) {
 
                 {/* Details jak na naklejce */}
                 {details.length > 0 ? (
-                    <div className="space-y-2 w-full max-w-xs">
+                    <div className="space-y-1 w-full max-w-xs">
                         {details.map((detail, index) => (
                             <div
                                 key={index}
-                                className="flex items-start gap-2"
+                                className="flex items-start gap-1"
                             >
-                                <dt className={`text-base text-black font-bold shrink-0`}>
+                                <dt className={`text-sm text-black font-bold shrink-0`}>
                                     {detail.label}:
                                 </dt>
-                                <dd className={`text-base text-black ${detail.highlight ? 'font-bold' : ''}`}>
+                                <dd className={`text-sm text-black ${detail.highlight ? 'font-bold' : ''}`}>
                                     {detail.value}
                                 </dd>
                             </div>
                         ))}
                     </div>
                 ) : (
-                    <p className="text-base text-black/70 text-center mt-4">
+                    <p className="text-sm text-black/70 text-center mt-2">
                         Brak dodatkowych szczegółów
                     </p>
                 )}
