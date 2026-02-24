@@ -27,8 +27,8 @@ export function HeroBackground({ videoDesktop, videoMobile, onReadyToShow }) {
     useEffect(() => {
         const handleScroll = () => {
             const scrollY = window.scrollY;
-            // Wideo przesuwa się do góry 2x wolniej niż scroll
-            setParallaxY(scrollY / 2);
+            // Wideo przesuwa się do góry 2.5x wolniej niż scroll
+            setParallaxY(scrollY / 2.5);
         };
 
         window.addEventListener('scroll', handleScroll, { passive: true });

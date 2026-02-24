@@ -1,6 +1,5 @@
 import React from 'react';
 import { HeroBackground } from '../components/features/hero/HeroBackground.jsx';
-import {PageLayout} from "../components/layout/PageLayout.jsx";
 import { Tagline } from '../components/features/hero/Tagline.jsx';
 import { ActionButtons } from '../components/features/hero/ActionButtons.jsx';
 import { ScrollDownIndicator } from '../components/features/hero/ScrollDownIndicator.jsx';
@@ -46,7 +45,7 @@ export function Home() {
             </div>
 
             {/* Sekcja "O Strzykawie" - najeżdża na hero */}
-            <PageLayout className="relative z-20 bg-primary pt-10 sm:pt-16 pb-32">
+            <div className="relative z-20 bg-primary pt-10 sm:pt-16 pb-32">
                 <div className="container px-6 sm:px-8">
                 {/* Header sekcji - logo */}
                     <div
@@ -100,7 +99,7 @@ export function Home() {
                         <SocialLinks />
                     </div>
                 </div>
-            </PageLayout>
+            </div>
         </div>
     );
 }
