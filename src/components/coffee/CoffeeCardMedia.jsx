@@ -72,11 +72,11 @@ export function CoffeeCardMedia({ coffee, overlayOpen, onToggleOverlay }) {
                 className={`
                     absolute bottom-3 right-3 w-8 h-8 rounded-full
                     flex items-center justify-center z-30
-                    bg-black/40 backdrop-blur-md text-white
+                    bg-black/50 text-white
                     shadow-lg
                     transition-all duration-300
-                    hover:bg-black/60
-                    ${overlayOpen ? 'bg-black/60' : ''}
+                    hover:bg-black/70
+                    ${overlayOpen ? 'opacity-30' : ''}
                 `}
                 aria-pressed={overlayOpen}
                 aria-label={`${overlayOpen ? 'Ukryj' : 'Pokaż'} szczegóły kawy ${coffee.name}`}

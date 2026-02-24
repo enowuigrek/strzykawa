@@ -49,9 +49,9 @@ export function CoffeeOverlay({ coffee, isOpen }) {
             linear-gradient(to right, ${color1}, ${color2})
         `;
     } else {
-        // Single origin: existing vertical gradient
+        // Single origin: solid color, fully opaque
         const bgColor = coffee.themeColor || COUNTRY_COLORS[country] || DEFAULT_COUNTRY_COLOR;
-        backgroundStyle = `linear-gradient(to top, ${bgColor}f2, ${bgColor}e6 40%, ${bgColor}cc)`;
+        backgroundStyle = bgColor;
     }
 
     // IF: Jeśli nazwa zaczyna się od kraju, usuń kraj z nazwy
@@ -93,14 +93,14 @@ export function CoffeeOverlay({ coffee, isOpen }) {
                 background: backgroundStyle
             }}
         >
-            <div className="h-full overflow-y-auto p-3 flex flex-col items-center justify-center">
+            <div className="h-full overflow-y-auto p-3 flex flex-col items-center">
                 {/* Nagłówek z krajem - jak na naklejce */}
                 {country && (
-                    <div className="text-center mb-2">
-                        <h3 className="text-xl font-bold text-black uppercase tracking-wide">
+                    <div className="text-center mb-3 mt-1">
+                        <h3 className="text-2xl font-bold text-black uppercase tracking-wide">
                             {country}
                         </h3>
-                        <p className="text-sm text-black">
+                        <p className="text-lg text-black">
                             {displayName}
                         </p>
                     </div>
@@ -112,19 +112,19 @@ export function CoffeeOverlay({ coffee, isOpen }) {
                         {details.map((detail, index) => (
                             <div
                                 key={index}
-                                className="flex items-start gap-1"
+                                className="flex items-start gap-2"
                             >
-                                <dt className={`text-sm text-black font-bold shrink-0`}>
+                                <dt className={`text-base text-black font-bold shrink-0`}>
                                     {detail.label}:
                                 </dt>
-                                <dd className={`text-sm text-black ${detail.highlight ? 'font-bold' : ''}`}>
+                                <dd className={`text-base text-black ${detail.highlight ? 'font-bold' : ''}`}>
                                     {detail.value}
                                 </dd>
                             </div>
                         ))}
                     </div>
                 ) : (
-                    <p className="text-sm text-black/70 text-center mt-2">
+                    <p className="text-base text-black/70 text-center mt-2">
                         Brak dodatkowych szczegółów
                     </p>
                 )}
