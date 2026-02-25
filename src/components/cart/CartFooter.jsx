@@ -138,7 +138,7 @@ export function CartFooter({ items, isLoading, totalPrice, note, onSaveNote }) {
                     loading={isLoading}
                     leftIcon={FaCreditCard}
                 >
-                    Zapłać {total.toFixed(2)} zł
+                    Przejdź do kasy · {total.toFixed(2)} zł
                 </Button>
 
                 {/* Trust microcopy */}

@@ -479,7 +479,7 @@ kawa, specialty coffee, kolumbia, washed, średnie palenie, czekolada, karmel
 
 **W razie pytań:**
 - Slack: `#shopify-pomoc`
-- Email: `admin@strzykawa.pl`
+- Email: `kontakt@strzykawa.com`
 - Dokumentacja Shopify: [help.shopify.com](https://help.shopify.com)
 
 ---
