@@ -5,227 +5,203 @@ import { logger } from '../utils/logger';
 
 /**
  * Cart Store - Zustand store dla koszyka
- * FIXED: Używa variant.selectedOptions z GraphQL (dodane w cart.js)
+ *
+ * Persistence: tylko cartId + status.
+ * cart i items są odtwarzane przy każdym starcie z Shopify (zawsze aktualne ceny/dostępność).
  */
+
+// Module-level helper — mapuje Shopify cart lines na format UI
+function mapCartToItems(cart) {
+    if (!cart?.lines?.edges) return [];
+
+    return cart.lines.edges.map(({ node: line }) => {
+        const variant = line.merchandise;
+
+        const selectedOptions = variant.selectedOptions || [];
+        const formaKawyAttr = line.attributes?.find(attr => attr.key === 'Forma kawy')?.value;
+        const coffeeForm = formaKawyAttr === 'Mielona' ? 'mielona' : 'ziarna';
+        const grindMethod = line.attributes?.find(attr => attr.key === 'Mielenie')?.value || null;
+
+        return {
+            lineItemId: line.id,
+            availableForSale: variant.availableForSale !== false,
+            product: {
+                id: variant.product.id,
+                handle: variant.product.handle,
+                name: variant.product.title,
+                roastLevel: line.attributes?.find(attr => attr.key === 'roast_level')?.value || '',
+                tastingNotes: [],
+                image:
+                    variant.image?.url ||
+                    variant.product.featuredImage?.url ||
+                    variant.product.images?.edges?.[0]?.node?.url ||
+                    '',
+                price: parseFloat(variant.price.amount),
+                currencyCode: variant.price.currencyCode,
+            },
+            variantId: variant.id,
+            variantTitle: variant.title,
+            selectedOptions,
+            coffeeForm,
+            grindMethod,
+            quantity: line.quantity,
+        };
+    });
+}
+
 export const useCartStore = create(
     persist(
         (set, get) => ({
-            cart: null,
-            items: [],
+            // ── State ─────────────────────────────────────────────────────────
+            cartId: null,          // persystowane — jedyna rzecz z localStorage
+            cart: null,            // NIE persystowane — odtwarzane z Shopify przy starcie
+            items: [],             // NIE persystowane
             note: '',
             isLoading: false,
+            isInitialized: false,  // true gdy initializeCart() zakończy działanie
             error: null,
-            // ✅ status checkoutu: 'idle' | 'pending' | 'completed'
-            status: 'idle',
+            status: 'idle',        // 'idle' | 'pending' | 'completed' — persystowane
 
-            // Initialize cart - sprawdza stan koszyka w Shopify
+            // ── initializeCart ────────────────────────────────────────────────
+            // Wywołaj raz przy mount aplikacji (App.jsx).
+            // Jeśli cartId istnieje → pobierz koszyk z Shopify.
+            // Jeśli Shopify zwróci null → zamówienie złożone lub koszyk wygasł → czyść cartId.
+            // Jeśli brak cartId → nic nie rób (koszyk tworzony lazily w addItem).
             initializeCart: async () => {
-                const { cart } = get();
+                const { cartId } = get();
 
-                // Jeśli mamy zapisany koszyk, sprawdzamy czy nadal istnieje w Shopify
-                if (cart?.id) {
-                    set({ isLoading: true });
-                    try {
-                        const shopifyCart = await shopify.getCart(cart.id);
-                        if (shopifyCart && shopifyCart.lines?.edges?.length > 0) {
-                            // Koszyk istnieje i ma produkty - synchronizujemy
-                            set({
-                                cart: shopifyCart,
-                                items: get().mapCartToItems(shopifyCart),
-                                note: shopifyCart.note || '',
-                                isLoading: false,
-                                status: 'idle'
-                            });
-                            return;
-                        }
-                        // Koszyk nie istnieje lub jest pusty → tworzymy nowy poniżej
-                    } catch (error) {
-                        logger.warn('Cart expired or invalid, creating new:', error);
-                    }
+                if (!cartId) {
+                    set({ isInitialized: true });
+                    return;
                 }
 
-                // Tworzymy nowy koszyk
                 set({ isLoading: true });
                 try {
-                    const newCart = await shopify.createCart();
-                    set({ cart: newCart, items: [], isLoading: false, status: 'idle' });
+                    const cart = await shopify.getCart(cartId);
+                    if (cart) {
+                        set({
+                            cart,
+                            items: mapCartToItems(cart),
+                            note: cart.note || '',
+                            isInitialized: true,
+                            isLoading: false,
+                            status: 'idle',
+                        });
+                    } else {
+                        // Koszyk usunięty po złożeniu zamówienia lub wygasł
+                        set({ cartId: null, cart: null, items: [], isInitialized: true, isLoading: false });
+                    }
                 } catch (error) {
-                    logger.error('Error initializing cart:', error);
-                    set({ error: 'Nie udało się utworzyć koszyka', isLoading: false });
+                    logger.warn('Cart init error, clearing cartId:', error);
+                    set({ cartId: null, cart: null, items: [], isInitialized: true, isLoading: false });
                 }
             },
 
-            // Map Shopify cart to our items format
-            mapCartToItems: (cart) => {
-                if (!cart?.lines?.edges) return [];
-
-                return cart.lines.edges.map(({ node: line }) => {
-                    const variant = line.merchandise;
-
-                    const selectedOptions = variant.selectedOptions || [];
-                    // Odczytujemy polskie klucze atrybutów (patrz komentarz w addItem)
-                    const formaKawyAttr = line.attributes?.find(attr => attr.key === 'Forma kawy')?.value;
-                    const coffeeForm = formaKawyAttr === 'Mielona' ? 'mielona' : 'ziarna';
-                    const grindMethod = line.attributes?.find(attr => attr.key === 'Mielenie')?.value || null;
-
-                    return {
-                        lineItemId: line.id,
-                        availableForSale: variant.availableForSale !== false,
-                        product: {
-                            id: variant.product.id,
-                            handle: variant.product.handle,
-                            name: variant.product.title,
-                            roastLevel: line.attributes?.find(attr => attr.key === 'roast_level')?.value || '',
-                            tastingNotes: [],
-                            image: variant.image?.url || variant.product.featuredImage?.url || variant.product.images?.edges?.[0]?.node?.url || '',
-                            price: parseFloat(variant.price.amount),
-                            currencyCode: variant.price.currencyCode
-                        },
-                        variantId: variant.id,
-                        variantTitle: variant.title,
-                        selectedOptions: selectedOptions,
-                        coffeeForm: coffeeForm,
-                        grindMethod: grindMethod,
-                        quantity: line.quantity
-                    };
-                });
-            },
-
-            // Add item to cart (with auto-recovery for expired carts)
+            // ── addItem ───────────────────────────────────────────────────────
             // coffeeForm: 'ziarna' | 'mielona'
             // grindMethod: 'Ekspres' | 'Kawiarka' | 'Drip' | 'Ekspres Przelewowy' | null
             addItem: async (product, variantId, quantity = 1, coffeeForm = 'ziarna', grindMethod = null) => {
                 set({ isLoading: true, error: null });
 
                 const buildLines = () => {
-                    // UWAGA: Klucze atrybutów są po polsku, bo Shopify checkout wyświetla je
-                    // bezpośrednio klientowi. Dzięki temu zamiast "coffee_form: mielona"
-                    // klient widzi "Forma kawy: Mielona" — czytelniej i profesjonalniej.
+                    // UWAGA: Klucze po polsku — Shopify checkout wyświetla je klientowi bezpośrednio
                     const attributes = [
                         { key: 'Forma kawy', value: coffeeForm === 'ziarna' ? 'Ziarna' : 'Mielona' },
                     ];
-
                     if (coffeeForm === 'mielona' && grindMethod) {
                         attributes.push({ key: 'Mielenie', value: grindMethod });
                     }
-
-                    return [{
-                        merchandiseId: variantId,
-                        quantity: quantity,
-                        attributes: attributes
-                    }];
+                    return [{ merchandiseId: variantId, quantity, attributes }];
                 };
 
                 try {
-                    await get().initializeCart();
-                    const { cart } = get();
-
-                    if (!cart) {
-                        throw new Error('Brak koszyka');
-                    }
-
+                    let { cartId } = get();
                     const lines = buildLines();
-
                     let updatedCart;
-                    try {
-                        updatedCart = await shopify.addToCart(cart.id, lines);
-                    } catch (cartError) {
-                        // Koszyk wygasł na Shopify - tworzymy nowy i próbujemy ponownie
-                        logger.warn('Cart expired, creating new cart...', cartError);
+
+                    if (!cartId) {
+                        // Lazy creation — twórz koszyk dopiero gdy user dodaje pierwszy produkt
                         const newCart = await shopify.createCart();
-                        set({ cart: newCart, status: 'idle' });
-                        updatedCart = await shopify.addToCart(newCart.id, lines);
+                        cartId = newCart.id;
+                        set({ cartId, cart: newCart, status: 'idle' });
+                        updatedCart = await shopify.addToCart(cartId, lines);
+                    } else {
+                        try {
+                            updatedCart = await shopify.addToCart(cartId, lines);
+                        } catch (cartError) {
+                            // Koszyk wygasł na Shopify — stwórz nowy i spróbuj ponownie
+                            logger.warn('Cart expired, creating new cart...', cartError);
+                            const newCart = await shopify.createCart();
+                            cartId = newCart.id;
+                            set({ cartId, cart: newCart, status: 'idle' });
+                            updatedCart = await shopify.addToCart(cartId, lines);
+                        }
                     }
 
                     set({
+                        cartId: updatedCart.id,
                         cart: updatedCart,
-                        items: get().mapCartToItems(updatedCart),
-                        isLoading: false
+                        items: mapCartToItems(updatedCart),
+                        isLoading: false,
                     });
 
                     // Animacja bounce na ikonce koszyka (opóźniona żeby modal QuickAdd zdążył się zamknąć)
                     setTimeout(() => {
                         window.dispatchEvent(new CustomEvent('cartBounce'));
                     }, 700);
-
                 } catch (error) {
                     logger.error('Error adding to cart:', error);
-                    set({
-                        error: 'Nie udało się dodać produktu do koszyka',
-                        isLoading: false
-                    });
+                    set({ error: 'Nie udało się dodać produktu do koszyka', isLoading: false });
                 }
             },
 
-            // Remove item from cart
+            // ── removeItem ────────────────────────────────────────────────────
             removeItem: async (lineId) => {
                 set({ isLoading: true, error: null });
-
                 try {
-                    const { cart } = get();
-                    if (!cart) throw new Error('Brak koszyka');
+                    const { cart, cartId } = get();
+                    const id = cart?.id || cartId;
+                    if (!id) throw new Error('Brak koszyka');
 
-                    const updatedCart = await shopify.removeFromCart(cart.id, [lineId]);
-
-                    set({
-                        cart: updatedCart,
-                        items: get().mapCartToItems(updatedCart),
-                        isLoading: false
-                    });
+                    const updatedCart = await shopify.removeFromCart(id, [lineId]);
+                    set({ cart: updatedCart, items: mapCartToItems(updatedCart), isLoading: false });
                 } catch (error) {
                     logger.error('Error removing from cart:', error);
-                    set({
-                        error: 'Nie udało się usunąć produktu',
-                        isLoading: false
-                    });
+                    set({ error: 'Nie udało się usunąć produktu', isLoading: false });
                 }
             },
 
-            // Update item quantity
+            // ── updateQuantity ────────────────────────────────────────────────
             updateQuantity: async (lineId, newQuantity) => {
                 set({ isLoading: true, error: null });
-
                 try {
-                    const { cart } = get();
-                    if (!cart) throw new Error('Brak koszyka');
+                    const { cart, cartId } = get();
+                    const id = cart?.id || cartId;
+                    if (!id) throw new Error('Brak koszyka');
 
-                    const lines = [{
-                        id: lineId,
-                        quantity: newQuantity
-                    }];
-
-                    const updatedCart = await shopify.updateCartLines(cart.id, lines);
-
-                    set({
-                        cart: updatedCart,
-                        items: get().mapCartToItems(updatedCart),
-                        isLoading: false
-                    });
+                    const updatedCart = await shopify.updateCartLines(id, [{ id: lineId, quantity: newQuantity }]);
+                    set({ cart: updatedCart, items: mapCartToItems(updatedCart), isLoading: false });
                 } catch (error) {
                     logger.error('Error updating quantity:', error);
-                    set({
-                        error: 'Nie udało się zaktualizować ilości',
-                        isLoading: false
-                    });
+                    set({ error: 'Nie udało się zaktualizować ilości', isLoading: false });
                 }
             },
 
-            // Clear entire cart
+            // ── clearCart ─────────────────────────────────────────────────────
             clearCart: () => {
-                // ✅ czyścimy też status i note
-                set({ cart: null, items: [], note: '', status: 'idle' });
+                set({ cartId: null, cart: null, items: [], note: '', status: 'idle' });
             },
 
-            // Clear error
-            clearError: () => {
-                set({ error: null });
-            },
+            // ── clearError ────────────────────────────────────────────────────
+            clearError: () => set({ error: null }),
 
+            // ── removeUnavailableItems ─────────────────────────────────────────
             // Sprawdź i usuń niedostępne produkty z koszyka.
             // Zwraca tablicę nazw usuniętych produktów (do wyświetlenia w bannerze).
             removeUnavailableItems: async () => {
-                const { items, cart } = get();
-                if (!cart?.id || items.length === 0) return [];
+                const { items, cart, cartId } = get();
+                const id = cart?.id || cartId;
+                if (!id || items.length === 0) return [];
 
                 const unavailable = items.filter(item => !item.availableForSale);
                 if (unavailable.length === 0) return [];
@@ -234,11 +210,8 @@ export const useCartStore = create(
                 const lineIds = unavailable.map(item => item.lineItemId);
 
                 try {
-                    const updatedCart = await shopify.removeFromCart(cart.id, lineIds);
-                    set({
-                        cart: updatedCart,
-                        items: get().mapCartToItems(updatedCart),
-                    });
+                    const updatedCart = await shopify.removeFromCart(id, lineIds);
+                    set({ cart: updatedCart, items: mapCartToItems(updatedCart) });
                 } catch (error) {
                     logger.error('Error removing unavailable items:', error);
                 }
@@ -246,26 +219,26 @@ export const useCartStore = create(
                 return names;
             },
 
-            // Update cart note (uwagi do zamówienia)
+            // ── updateNote ────────────────────────────────────────────────────
             updateNote: async (noteText) => {
-                const { cart } = get();
-                if (!cart?.id) return;
+                const { cart, cartId } = get();
+                const id = cart?.id || cartId;
+                if (!id) return;
 
                 set({ isLoading: true, error: null });
                 try {
-                    const updatedCart = await shopify.updateCartNote(cart.id, noteText.trim());
-                    set({
-                        cart: updatedCart,
-                        note: noteText.trim(),
-                        isLoading: false,
-                    });
+                    const updatedCart = await shopify.updateCartNote(id, noteText.trim());
+                    set({ cart: updatedCart, note: noteText.trim(), isLoading: false });
                 } catch (error) {
                     logger.error('Error updating cart note:', error);
                     set({ error: 'Nie udało się zapisać uwag', isLoading: false });
                 }
             },
 
-            // Go to checkout (with optional user data for pre-fill)
+            // ── goToCheckout ──────────────────────────────────────────────────
+            // WAŻNE: NIE czyścimy koszyka przed przekierowaniem.
+            // Shopify samo usuwa koszyk po złożeniu zamówienia.
+            // initializeCart() przy kolejnym uruchomieniu wykryje null i wyczyści cartId.
             goToCheckout: (user = null) => {
                 const { cart } = get();
                 if (!cart?.checkoutUrl) {
@@ -275,97 +248,62 @@ export const useCartStore = create(
 
                 let checkoutUrl = cart.checkoutUrl;
 
-                // Pre-fill checkout with user data if logged in
+                // Pre-fill checkout z danymi zalogowanego użytkownika
                 if (user) {
                     const params = new URLSearchParams();
+                    if (user.email) params.append('checkout[email]', user.email);
+                    if (user.firstName) params.append('checkout[shipping_address][first_name]', user.firstName);
+                    if (user.lastName) params.append('checkout[shipping_address][last_name]', user.lastName);
 
-                    // Email
-                    if (user.email) {
-                        params.append('checkout[email]', user.email);
-                    }
-
-                    // Shipping address - first name and last name
-                    if (user.firstName) {
-                        params.append('checkout[shipping_address][first_name]', user.firstName);
-                    }
-                    if (user.lastName) {
-                        params.append('checkout[shipping_address][last_name]', user.lastName);
-                    }
-
-                    // Default address (if exists)
                     if (user.defaultAddress) {
                         const addr = user.defaultAddress;
-                        if (addr.address1) {
-                            params.append('checkout[shipping_address][address1]', addr.address1);
-                        }
-                        if (addr.address2) {
-                            params.append('checkout[shipping_address][address2]', addr.address2);
-                        }
-                        if (addr.city) {
-                            params.append('checkout[shipping_address][city]', addr.city);
-                        }
-                        if (addr.province) {
-                            params.append('checkout[shipping_address][province]', addr.province);
-                        }
-                        if (addr.zip) {
-                            params.append('checkout[shipping_address][zip]', addr.zip);
-                        }
-                        if (addr.country) {
-                            params.append('checkout[shipping_address][country]', addr.country);
-                        }
-                        // Phone from address (not from user.phone)
-                        if (addr.phone) {
-                            params.append('checkout[shipping_address][phone]', addr.phone);
-                        }
+                        if (addr.address1) params.append('checkout[shipping_address][address1]', addr.address1);
+                        if (addr.address2) params.append('checkout[shipping_address][address2]', addr.address2);
+                        if (addr.city) params.append('checkout[shipping_address][city]', addr.city);
+                        if (addr.province) params.append('checkout[shipping_address][province]', addr.province);
+                        if (addr.zip) params.append('checkout[shipping_address][zip]', addr.zip);
+                        if (addr.country) params.append('checkout[shipping_address][country]', addr.country);
+                        if (addr.phone) params.append('checkout[shipping_address][phone]', addr.phone);
                     }
 
-                    // Append params to checkout URL
                     const separator = checkoutUrl.includes('?') ? '&' : '?';
                     checkoutUrl = `${checkoutUrl}${separator}${params.toString()}`;
-
                     logger.log('Pre-filling checkout with user data:', {
                         email: user.email,
                         name: `${user.firstName} ${user.lastName}`,
-                        hasAddress: !!user.defaultAddress
+                        hasAddress: !!user.defaultAddress,
                     });
                 }
 
-                // Czyścimy koszyk z localStorage przed przekierowaniem do Shopify.
-                // Dzięki temu po powrocie nie ma "martwego" koszyka z zamówionymi już
-                // produktami, których nie można usunąć (koszyk Shopify już nieaktywny).
-                set({ cart: null, items: [], note: '', status: 'idle' });
                 logger.log('Redirecting to checkout:', checkoutUrl);
                 window.location.href = checkoutUrl;
             },
 
-            // ✅ Wywołasz to na stronie /checkout/success
+            // ── markCheckoutCompleted ─────────────────────────────────────────
+            // Wywołaj na /checkout/success — czyści koszyk i cartId
             markCheckoutCompleted: () => {
-                set({ cart: null, items: [], note: '', status: 'completed' });
+                set({ cartId: null, cart: null, items: [], note: '', status: 'completed' });
             },
 
-            // ✅ Wywołasz to na stronie /checkout/canceled
+            // ── markCheckoutCanceled ──────────────────────────────────────────
+            // Wywołaj na /checkout/canceled — zachowuje cartId, klient może dołożyć produkty
             markCheckoutCanceled: () => {
                 set({ status: 'idle' });
             },
 
-            // Getters
+            // ── Getters ───────────────────────────────────────────────────────
             getTotalItems: () => {
-                const { items } = get();
-                return items.reduce((total, item) => total + item.quantity, 0);
+                return get().cart?.totalQuantity || 0;
             },
 
             getTotalPrice: () => {
                 const { cart } = get();
-                // Use subtotalAmount (products only, no shipping) instead of totalAmount
                 if (cart?.cost?.subtotalAmount) {
                     return parseFloat(cart.cost.subtotalAmount.amount);
                 }
-
-                // Fallback: calculate from items
+                // Fallback: suma z items
                 const { items } = get();
-                return items.reduce((total, item) => {
-                    return total + (item.product.price * item.quantity);
-                }, 0);
+                return items.reduce((total, item) => total + item.product.price * item.quantity, 0);
             },
 
             getCurrencyCode: () => {
@@ -373,6 +311,16 @@ export const useCartStore = create(
                 return cart?.cost?.subtotalAmount?.currencyCode || 'PLN';
             },
 
+            isInCart: (productId) => {
+                return get().items.some(item => item.product.id === productId);
+            },
+
+            getItemQuantity: (productId) => {
+                const item = get().items.find(item => item.product.id === productId);
+                return item ? item.quantity : 0;
+            },
+
+            // Zachowane dla backwards compatibility
             addCoffeeToCart: async (coffeeId, quantity = 1) => {
                 try {
                     const product = await shopify.fetchProduct(coffeeId);
@@ -386,27 +334,16 @@ export const useCartStore = create(
                     set({ error: 'Nie udało się dodać kawy do koszyka' });
                 }
             },
-
-            isInCart: (productId) => {
-                const { items } = get();
-                return items.some(item => item.product.id === productId);
-            },
-
-            getItemQuantity: (productId) => {
-                const { items } = get();
-                const item = items.find(item => item.product.id === productId);
-                return item ? item.quantity : 0;
-            }
         }),
         {
             name: 'strzykawa-cart',
+            // KLUCZOWE: persystujemy TYLKO cartId i status
+            // cart i items są odtwarzane z Shopify przy każdym starcie (zawsze świeże dane)
             partialize: (state) => ({
-                cart: state.cart,
-                items: state.items,
-                // ✅ zapisujemy status checkoutu w localStorage
-                status: state.status
+                cartId: state.cartId,
+                status: state.status,
             }),
-            version: 1
+            version: 2, // Bump version — stara struktura (cart, items) zostanie zignorowana
         }
     )
 );

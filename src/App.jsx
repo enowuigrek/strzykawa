@@ -26,6 +26,7 @@ import { ResetPasswordPage } from './pages/ResetPasswordPage.jsx';
 import { CookieConsent } from './components/atoms/CookieConsent.jsx';
 import { PREVIEW_PASSWORD, PREVIEW_STORAGE_KEY } from './constants/preview.js';
 import { useAuthStore } from './store/authStore.js';
+import { useCartStore } from './store/cartStore.js';
 
 // 🚨 COMING SOON MODE - Kontrolowane przez zmienną środowiskową
 // Lokalne: .env.development (false) | Produkcja: .env.production (true)
@@ -78,11 +79,16 @@ function App() {
     const isStyleGuide = pathname === '/style-guide';
     const isPreviewMode = usePreviewMode();
     const checkAuth = useAuthStore((state) => state.checkAuth);
+    const initializeCart = useCartStore((state) => state.initializeCart);
 
-    // Sprawdź autentykację przy starcie aplikacji
+    // Sprawdź autentykację i załaduj koszyk z Shopify przy starcie aplikacji
     useEffect(() => {
         checkAuth();
     }, [checkAuth]);
+
+    useEffect(() => {
+        initializeCart();
+    }, []);
 
     // 🚨 Jeśli COMING_SOON_MODE = true I NIE MA preview mode, pokazuj tylko Coming Soon
     // Wyjątek: /panel zawsze dostępny (dla obsługi kawiarni)

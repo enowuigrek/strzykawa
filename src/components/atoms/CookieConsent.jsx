@@ -1,63 +1,155 @@
-import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
-import { FaCookieBite } from 'react-icons/fa';
-
-const COOKIE_CONSENT_KEY = 'strzykawa-cookie-consent';
+import { useEffect } from 'react';
+import 'vanilla-cookieconsent/dist/cookieconsent.css';
+import '../../styles/cookieconsent-custom.css';
+import * as VanillaCookieConsent from 'vanilla-cookieconsent';
 
 export function CookieConsent() {
-    const [isVisible, setIsVisible] = useState(false);
-
     useEffect(() => {
-        // Sprawdź czy użytkownik już zaakceptował cookies
-        const hasConsent = localStorage.getItem(COOKIE_CONSENT_KEY);
-        if (!hasConsent) {
-            // Pokaż banner po krótkim opóźnieniu
-            const timer = setTimeout(() => {
-                setIsVisible(true);
-            }, 1000);
-            return () => clearTimeout(timer);
-        }
+        VanillaCookieConsent.run({
+            guiOptions: {
+                consentModal: {
+                    layout: 'box inline',
+                    position: 'bottom left',
+                    equalWeightButtons: true,
+                    flipButtons: false,
+                },
+                preferencesModal: {
+                    layout: 'box',
+                    position: 'right',
+                    equalWeightButtons: true,
+                    flipButtons: false,
+                },
+            },
+
+            categories: {
+                necessary: {
+                    enabled: true,
+                    readOnly: true,
+                },
+                analytics: {
+                    enabled: false,
+                    autoClear: {
+                        cookies: [
+                            { name: /^_ga/ },
+                            { name: '_gid' },
+                            { name: /^_gat/ },
+                        ],
+                    },
+                },
+                marketing: {
+                    enabled: false,
+                    autoClear: {
+                        cookies: [
+                            { name: /^_fb/ },
+                            { name: '_fbc' },
+                            { name: '_fbp' },
+                        ],
+                    },
+                },
+            },
+
+            language: {
+                default: 'pl',
+                translations: {
+                    pl: {
+                        consentModal: {
+                            title: 'Szanujemy Twoją prywatność',
+                            description:
+                                'Używamy plików cookies, aby zapewnić najlepsze doświadczenia na naszej stronie. Cookies niezbędne są wymagane do działania sklepu. Cookies analityczne pomagają nam zrozumieć jak korzystasz ze strony. <button type="button" data-cc="show-preferencesModal" class="cc-link">Zarządzaj preferencjami</button>',
+                            acceptAllBtn: 'Akceptuję wszystkie',
+                            acceptNecessaryBtn: 'Tylko niezbędne',
+                            showPreferencesBtn: 'Ustawienia',
+                        },
+                        preferencesModal: {
+                            title: 'Ustawienia cookies',
+                            acceptAllBtn: 'Akceptuję wszystkie',
+                            acceptNecessaryBtn: 'Tylko niezbędne',
+                            savePreferencesBtn: 'Zapisz ustawienia',
+                            closeIconLabel: 'Zamknij',
+                            sections: [
+                                {
+                                    title: 'Pliki cookies',
+                                    description:
+                                        'Używamy plików cookies do różnych celów. Poniżej możesz wybrać które kategorie chcesz zaakceptować.',
+                                },
+                                {
+                                    title: 'Niezbędne',
+                                    description:
+                                        'Te cookies są konieczne do działania sklepu — obsługują koszyk, logowanie i realizację zamówień. Nie można ich wyłączyć.',
+                                    linkedCategory: 'necessary',
+                                },
+                                {
+                                    title: 'Analityczne',
+                                    description:
+                                        'Te cookies pomagają nam zrozumieć jak klienci korzystają ze strony. Dzięki nim możemy ulepszać sklep i ofertę.',
+                                    linkedCategory: 'analytics',
+                                    cookieTable: {
+                                        headers: {
+                                            name: 'Nazwa',
+                                            domain: 'Domena',
+                                            description: 'Opis',
+                                            expiration: 'Wygasa',
+                                        },
+                                        body: [
+                                            {
+                                                name: '_ga',
+                                                domain: 'strzykawa.com',
+                                                description: 'Google Analytics — rozróżnianie użytkowników',
+                                                expiration: '2 lata',
+                                            },
+                                            {
+                                                name: '_gid',
+                                                domain: 'strzykawa.com',
+                                                description: 'Google Analytics — rozróżnianie użytkowników',
+                                                expiration: '24 godziny',
+                                            },
+                                        ],
+                                    },
+                                },
+                                {
+                                    title: 'Marketingowe',
+                                    description:
+                                        'Te cookies pozwalają nam wyświetlać spersonalizowane reklamy na podstawie Twoich zainteresowań.',
+                                    linkedCategory: 'marketing',
+                                    cookieTable: {
+                                        headers: {
+                                            name: 'Nazwa',
+                                            domain: 'Domena',
+                                            description: 'Opis',
+                                            expiration: 'Wygasa',
+                                        },
+                                        body: [
+                                            {
+                                                name: '_fbp',
+                                                domain: 'strzykawa.com',
+                                                description: 'Facebook Pixel — śledzenie konwersji',
+                                                expiration: '3 miesiące',
+                                            },
+                                        ],
+                                    },
+                                },
+                                {
+                                    title: 'Więcej informacji',
+                                    description:
+                                        'W razie pytań dotyczących naszej polityki cookies, <a href="/polityka-prywatnosci" class="cc-link">zapoznaj się z polityką prywatności</a> lub napisz do nas na adres kontakt@strzykawa.com.',
+                                },
+                            ],
+                        },
+                    },
+                },
+            },
+
+            onConsent: () => {
+                // Podepnij Google Analytics / Facebook Pixel w przyszłości:
+                // if (VanillaCookieConsent.acceptedCategory('analytics')) { loadGoogleAnalytics(); }
+                // if (VanillaCookieConsent.acceptedCategory('marketing')) { loadFacebookPixel(); }
+            },
+
+            onChange: () => {
+                // Reaguj na zmianę preferencji
+            },
+        });
     }, []);
 
-    const handleAccept = () => {
-        localStorage.setItem(COOKIE_CONSENT_KEY, 'true');
-        setIsVisible(false);
-    };
-
-    if (!isVisible) return null;
-
-    return (
-        <div className="fixed bottom-0 left-0 right-0 z-[200] p-4 md:p-6">
-            <div className="container mx-auto">
-                <div className="bg-primary-dark/95 backdrop-blur-md border border-white/10 p-4 md:p-6 shadow-2xl max-w-2xl mx-auto md:mx-0">
-                    <div className="flex flex-col md:flex-row items-start md:items-center gap-4">
-                        {/* Icon + Text */}
-                        <div className="flex items-start gap-3 flex-1">
-                            <FaCookieBite className="w-6 h-6 text-accent flex-shrink-0 mt-0.5" />
-                            <div className="text-sm text-white/80">
-                                <p>
-                                    Używamy plików cookies niezbędnych do działania strony oraz w celach
-                                    poprawy wygody korzystania z serwisu.{' '}
-                                    <Link
-                                        to="/polityka-prywatnosci"
-                                        className="text-accent hover:text-white underline transition-colors"
-                                    >
-                                        Zobacz Politykę prywatności i plików cookies
-                                    </Link>
-                                </p>
-                            </div>
-                        </div>
-
-                        {/* Button */}
-                        <button
-                            onClick={handleAccept}
-                            className="px-6 py-2 bg-accent hover:bg-accent/80 text-white text-sm font-medium rounded-full transition-all duration-300 hover:scale-105 whitespace-nowrap"
-                        >
-                            Akceptuję
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    );
+    return null;
 }

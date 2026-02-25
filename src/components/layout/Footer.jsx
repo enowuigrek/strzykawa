@@ -5,6 +5,7 @@ import {
     FaPhone,
     FaEnvelope
 } from 'react-icons/fa';
+import * as VanillaCookieConsent from 'vanilla-cookieconsent';
 
 export function Footer() {
     const currentYear = new Date().getFullYear();
@@ -97,6 +98,15 @@ export function Footer() {
                                     </a>
                                 </li>
                             ))}
+                            <li>
+                                <button
+                                    type="button"
+                                    onClick={() => VanillaCookieConsent.showPreferences()}
+                                    className="text-white/70 hover:text-white text-lg transition-colors duration-300"
+                                >
+                                    Ustawienia cookies
+                                </button>
+                            </li>
                         </ul>
                     </div>
 

@@ -1,0 +1,86 @@
+/* Custom theme dla vanilla-cookieconsent — design Strzykawa */
+
+:root {
+    --cc-bg: #141C18;                        /* primary-dark */
+    --cc-primary-color: #ffffff;             /* biały tekst */
+    --cc-secondary-color: #9CA8A1;           /* muted */
+
+    /* Przyciski primary (Akceptuję wszystkie) */
+    --cc-btn-primary-bg: #3A5F55;            /* cta */
+    --cc-btn-primary-color: #ffffff;
+    --cc-btn-primary-hover-bg: #2F4F46;      /* cta-hover */
+    --cc-btn-primary-hover-color: #ffffff;
+    --cc-btn-primary-border-color: transparent;
+    --cc-btn-primary-hover-border-color: transparent;
+
+    /* Przyciski secondary (Tylko niezbędne) */
+    --cc-btn-secondary-bg: #2C3A35;          /* primary-light */
+    --cc-btn-secondary-color: #ffffff;
+    --cc-btn-secondary-hover-bg: #354840;
+    --cc-btn-secondary-hover-color: #ffffff;
+    --cc-btn-secondary-border-color: rgba(255, 255, 255, 0.1);
+    --cc-btn-secondary-hover-border-color: rgba(255, 255, 255, 0.2);
+
+    /* Toggle */
+    --cc-toggle-bg-off: #6B7F73;             /* accent */
+    --cc-toggle-bg-on: #3A5F55;              /* cta */
+    --cc-toggle-bg-readonly: #2C3A35;
+    --cc-toggle-knob-bg: #ffffff;
+    --cc-toggle-knob-icon-color: #141C18;
+
+    /* Bloki kategorii */
+    --cc-cookie-category-block-bg: #1E2A25;         /* primary */
+    --cc-cookie-category-block-bg-hover: #2C3A35;   /* primary-light */
+    --cc-cookie-category-block-border: rgba(255, 255, 255, 0.06);
+    --cc-cookie-category-block-hover-border: rgba(255, 255, 255, 0.12);
+
+    /* Separatory i obramowania */
+    --cc-separator-border-color: rgba(255, 255, 255, 0.08);
+    --cc-overlay-bg: rgba(0, 0, 0, 0.65);
+
+    /* Linki */
+    --cc-link-color: #6B7F73;                /* accent */
+    --cc-link-hover-color: #ffffff;
+
+    /* Tabela cookies */
+    --cc-cookie-table-border: rgba(255, 255, 255, 0.08);
+
+    /* Brak zaokrągleń modali — zgodnie z design systemem Strzykawa */
+    --cc-modal-border-radius: 0;
+    --cc-btn-border-radius: 0;
+    --cc-toggle-border-radius: 999px;
+    --cc-modal-transition-duration: 0.25s;
+    --cc-z-index: 9999;
+}
+
+/* Przyciski — rounded-full zgodnie z design systemem */
+.cm__btn,
+.pm__btn {
+    border-radius: 9999px !important;
+    font-family: 'Dosis', Arial, sans-serif !important;
+    font-weight: 500 !important;
+    letter-spacing: 0.01em;
+}
+
+/* Typografia — Dosis jak cała strona */
+.cm,
+.pm {
+    font-family: 'Dosis', Arial, sans-serif !important;
+    border: 1px solid rgba(255, 255, 255, 0.08) !important;
+}
+
+/* Tytuł bannera */
+.cm__title {
+    font-weight: 600 !important;
+    font-size: 1.1rem !important;
+}
+
+/* Tytuł panelu preferencji */
+.pm__title {
+    font-weight: 600 !important;
+}
+
+/* Tytuły sekcji */
+.pm__section-title {
+    font-weight: 600 !important;
+}

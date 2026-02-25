@@ -4,12 +4,14 @@ import { useCartStore } from '../../store/cartStore';
 import { ModalHeader } from '../layout/ModalHeader';
 import { CartContent } from './CartContent';
 import { CartFooter } from './CartFooter';
+import { Spinner } from '../atoms/Spinner';
 
 export function CartModal({ isOpen, onClose }) {
     const {
         items,
         note,
         isLoading,
+        isInitialized,
         removeItem,
         updateQuantity,
         updateNote,
@@ -115,13 +117,19 @@ export function CartModal({ isOpen, onClose }) {
 
                 {/* Scrollable area — products from top, scroll when overflow */}
                 <div className="flex-1 overflow-y-auto min-h-0 scrollbar-thin">
-                    <CartContent
-                        items={items}
-                        isLoading={isLoading}
-                        onUpdateQuantity={updateQuantity}
-                        onRemove={removeItem}
-                        onCloseCart={onClose}
-                    />
+                    {!isInitialized && isLoading ? (
+                        <div className="flex items-center justify-center h-40">
+                            <Spinner size="md" />
+                        </div>
+                    ) : (
+                        <CartContent
+                            items={items}
+                            isLoading={isLoading}
+                            onUpdateQuantity={updateQuantity}
+                            onRemove={removeItem}
+                            onCloseCart={onClose}
+                        />
+                    )}
                 </div>
 
                 <CartFooter
