@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import { FaBox, FaCheckCircle, FaClock, FaExclamationTriangle, FaChevronDown } from 'react-icons/fa';
+import { FaBox, FaCheckCircle, FaClock, FaExclamationTriangle, FaChevronDown, FaTruck } from 'react-icons/fa';
 import { useAuthStore } from '../store/authStore.js';
 import { getCustomerOrders } from '../services/shopify/customer.js';
 import { PageLayout } from '../components/layout/PageLayout.jsx';
@@ -86,7 +86,7 @@ export function Orders() {
         const labels = {
             FULFILLED: { text: 'Wysłane', color: 'text-success' },
             IN_PROGRESS: { text: 'W toku', color: 'text-muted' },
-            UNFULFILLED: { text: 'Nie wysłane', color: 'text-muted' },
+            UNFULFILLED: { text: 'W realizacji', color: 'text-muted' },
             PARTIALLY_FULFILLED: { text: 'Częściowo wysłane', color: 'text-muted' },
             SCHEDULED: { text: 'Zaplanowane', color: 'text-muted' },
             READY_FOR_PICKUP: { text: 'Gotowe do odbioru', color: 'text-success' },
@@ -210,7 +210,7 @@ export function Orders() {
                                     <div
                                         className={`
                                             overflow-hidden transition-all duration-300 ease-in-out
-                                            ${isExpanded ? 'max-h-[1000px] opacity-100' : 'max-h-0 opacity-0'}
+                                            ${isExpanded ? 'max-h-[2000px] opacity-100' : 'max-h-0 opacity-0'}
                                         `}
                                     >
                                         <div className="px-4 sm:px-6 pb-4 sm:pb-6 pt-0 border-t border-white/10">
@@ -264,12 +264,46 @@ export function Orders() {
                                                 ))}
                                             </div>
 
-                                            {/* Shipping info */}
+                                            {/* Shipping address */}
                                             {order.shippingAddress && (
                                                 <div className="pt-4 border-t border-white/10">
-                                                    <p className="text-base text-muted">
-                                                        Dostawa: {order.shippingAddress.address1}{order.shippingAddress.address2 ? ` ${order.shippingAddress.address2}` : ''}, {order.shippingAddress.city}, {order.shippingAddress.zip}
-                                                    </p>
+                                                    <p className="text-sm text-muted mb-1">Adres wysyłki</p>
+                                                    <div className="text-base text-white/70 leading-relaxed">
+                                                        <p>{order.shippingAddress.address1}</p>
+                                                        {order.shippingAddress.address2 && (
+                                                            <p>{order.shippingAddress.address2}</p>
+                                                        )}
+                                                        <p>{order.shippingAddress.zip} {order.shippingAddress.city}</p>
+                                                    </div>
+                                                </div>
+                                            )}
+
+                                            {/* Order note */}
+                                            {order.note && (
+                                                <div className="pt-4 border-t border-white/10">
+                                                    <p className="text-sm text-muted mb-1">Uwagi do zamówienia</p>
+                                                    <p className="text-base text-white/70">{order.note}</p>
+                                                </div>
+                                            )}
+
+                                            {/* Tracking numbers */}
+                                            {order.trackingInfo && order.trackingInfo.length > 0 && (
+                                                <div className="pt-4 border-t border-white/10">
+                                                    <p className="text-sm text-muted mb-2">Numer przesyłki</p>
+                                                    <div className="space-y-2">
+                                                        {order.trackingInfo.map((tracking, i) => (
+                                                            <a
+                                                                key={i}
+                                                                href={tracking.url}
+                                                                target="_blank"
+                                                                rel="noopener noreferrer"
+                                                                className="flex items-center gap-2 text-accent hover:text-white transition-colors duration-200 w-fit"
+                                                            >
+                                                                <FaTruck className="w-3.5 h-3.5 flex-shrink-0" />
+                                                                <span className="text-base font-medium">{tracking.number}</span>
+                                                            </a>
+                                                        ))}
+                                                    </div>
                                                 </div>
                                             )}
 

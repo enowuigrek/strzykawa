@@ -15,7 +15,7 @@ const SOCIAL_BOT_RE =
 
 const SITE_NAME = 'Strzykawa Coffee Shop';
 const SITE_URL = 'https://strzykawa.com';
-const FALLBACK_IMAGE = `${SITE_URL}/logo/og-image.png`;
+const FALLBACK_IMAGE = `${SITE_URL}/og-image.svg`;
 const FALLBACK_DESC = 'Specialty coffee z Strzykawa Coffee Shop & Roastery, Częstochowa.';
 
 function escapeHtml(str) {
