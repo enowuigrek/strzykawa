@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { FaCreditCard, FaLock, FaTruck } from 'react-icons/fa';
+import { FaCreditCard, FaTruck } from 'react-icons/fa';
 import { Button } from '../atoms/Button';
 import { CartNotes } from './CartNotes';
 import { useCartStore } from '../../store/cartStore';
@@ -48,19 +48,19 @@ export function CartFooter({ items, isLoading, totalPrice, note, onSaveNote }) {
             <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-3 sm:py-4">
 
                 {/* Shipping progress */}
-                <div className="mb-3">
+                <div className="mb-4">
                     {/* Row: label left, remaining amount right */}
                     <div className="flex items-center justify-between mb-1.5">
-                        <div className="flex items-center gap-1.5">
-                            <FaTruck className={`text-sm ${hasFreeShipping ? 'text-success' : 'text-muted'}`} />
+                        <div className="flex items-center gap-2">
+                            <FaTruck className={`text-base ${hasFreeShipping ? 'text-success' : 'text-muted'}`} />
                             {hasFreeShipping ? (
-                                <span className="text-sm text-success font-medium">Darmowa wysyłka!</span>
+                                <span className="text-base text-success font-medium">Darmowa wysyłka!</span>
                             ) : (
-                                <span className="text-sm text-white/70">Do darmowej wysyłki brakuje</span>
+                                <span className="text-base text-white/80">Do darmowej wysyłki brakuje</span>
                             )}
                         </div>
                         {!hasFreeShipping && (
-                            <span className="text-sm text-white font-semibold">{remaining.toFixed(2)} zł</span>
+                            <span className="text-base text-white font-semibold">{remaining.toFixed(2)} zł</span>
                         )}
                     </div>
 
@@ -77,9 +77,9 @@ export function CartFooter({ items, isLoading, totalPrice, note, onSaveNote }) {
                     {/* Shipping cost — below bar, right-aligned */}
                     {!hasFreeShipping && (
                         <div className="flex justify-end mt-1.5">
-                            <span className="text-xs text-white/40">
+                            <span className="text-sm text-white/50">
                                 wysyłka{' '}
-                                <span className="text-white/50">{shippingCost.toFixed(0)} zł</span>
+                                <span className="text-white/60">{shippingCost.toFixed(0)} zł</span>
                             </span>
                         </div>
                     )}
@@ -109,7 +109,7 @@ export function CartFooter({ items, isLoading, totalPrice, note, onSaveNote }) {
                         onChange={(e) => handleTermsChange(e.target.checked)}
                         className="sr-only"
                     />
-                    <span className="text-sm text-white/70 group-hover:text-white/90 transition-colors">
+                    <span className="text-base text-white/70 group-hover:text-white/90 transition-colors">
                         Akceptuję{' '}
                         <Link
                             to="/regulamin"
@@ -123,7 +123,7 @@ export function CartFooter({ items, isLoading, totalPrice, note, onSaveNote }) {
 
                 {/* Validation message */}
                 {showTermsError && !termsAccepted && (
-                    <p className="text-sm text-danger/80 mb-3 -mt-1 pl-8">
+                    <p className="text-base text-danger/80 mb-3 -mt-1 pl-8">
                         Zaakceptuj regulamin, aby kontynuować
                     </p>
                 )}
@@ -140,12 +140,6 @@ export function CartFooter({ items, isLoading, totalPrice, note, onSaveNote }) {
                 >
                     Przejdź do kasy · {total.toFixed(2)} zł
                 </Button>
-
-                {/* Trust microcopy */}
-                <p className="flex items-center justify-center gap-1.5 text-xs text-white/40 mt-2.5">
-                    <FaLock className="w-3 h-3" />
-                    Bezpieczna płatność online
-                </p>
             </div>
         </div>
     );
