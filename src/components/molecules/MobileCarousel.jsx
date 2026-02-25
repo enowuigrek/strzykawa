@@ -21,7 +21,7 @@ export function MobileCarousel({ images, className = "", showCounter = true, asp
 
     const EDGE_RESISTANCE = 0.3;
     const SWIPE_THRESHOLD = 50;
-    const DIRECTION_THRESHOLD = 10; // Po 10px decydujemy o kierunku
+    const DIRECTION_THRESHOLD = 1; // Po 1px decydujemy o kierunku
 
     const getClientX = (e) => {
         return e.touches ? e.touches[0].clientX : e.clientX;

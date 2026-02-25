@@ -2,11 +2,9 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import { CoffeeOverlay } from './CoffeeOverlay';
-import { useScrollZoom } from '../../hooks/useScrollZoom';
 import coffeePlaceholder from '../../assets/coffee-placeholder.jpg';
 
 export function CoffeeCardMedia({ coffee, overlayOpen, onToggleOverlay }) {
-    const { ref: zoomRef, scale } = useScrollZoom({ maxScale: 1.10, minScale: 1.0 });
 
     const getRoastTypeDisplay = (roastType) => {
         const mapping = { Filter: 'Przelew', Espresso: 'Espresso' };
@@ -16,7 +14,7 @@ export function CoffeeCardMedia({ coffee, overlayOpen, onToggleOverlay }) {
     const isUnavailable = !coffee.availableForSale;
 
     return (
-        <div ref={zoomRef} className="relative h-64 overflow-hidden">
+        <div className="relative h-64 overflow-hidden">
             {/* Zdjęcie - klikalny link */}
             <Link
                 to={`/kawy/${coffee.shopifyHandle || coffee.id}`}
@@ -28,7 +26,7 @@ export function CoffeeCardMedia({ coffee, overlayOpen, onToggleOverlay }) {
                     className={`w-full h-full object-cover md:transition-transform md:duration-500 md:hover:scale-[1.15] ${
                         isUnavailable ? 'opacity-40 grayscale' : ''
                     }`}
-                    style={scale > 1 ? { transform: `scale(${scale})`, transition: 'transform 100ms ease-out' } : undefined}
+
                     loading="lazy"
                 />
             </Link>
