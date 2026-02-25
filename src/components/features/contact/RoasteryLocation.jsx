@@ -14,7 +14,7 @@ export function RoasteryLocation() {
                 {/*    /!*<FaFire className="w-6 h-6 text-muted" />*!/*/}
                 {/*</div>*/}
                 <div>
-                    <h3 className="text-2xl text-white">Palarnia</h3>
+                    <h3 className="text-2xl text-white font-normal">Palarnia</h3>
                 </div>
             </div>
 

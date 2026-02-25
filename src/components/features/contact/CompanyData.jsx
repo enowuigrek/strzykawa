@@ -12,7 +12,7 @@ export function CompanyData() {
                 visible ? scrollAnimations.pourDown.visible : scrollAnimations.pourDown.hidden
             }`}
         >
-            <h3 className="text-2xl text-white">Dane firmy</h3>
+            <h3 className="text-2xl text-white font-normal">Dane firmy</h3>
 
             <div className="space-y-5">
                 <div className="flex items-start gap-3">

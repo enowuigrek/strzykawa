@@ -4,7 +4,7 @@ import { FaPhone, FaEnvelope } from 'react-icons/fa';
 export function ContactDetails() {
     return (
         <div>
-            <h3 className="text-2xl text-white mb-8">Skontaktuj się z nami</h3>
+            <h3 className="text-2xl text-white mb-8 font-normal">Skontaktuj się z nami</h3>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
                 {/* Telefon */}
