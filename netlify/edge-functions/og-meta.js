@@ -30,7 +30,7 @@ function stripHtml(str) {
     return String(str).replace(/<[^>]*>/g, '').trim();
 }
 
-export default async function handler(request, context) {
+export default async function handler(request, _context) {
     const userAgent = request.headers.get('user-agent') || '';
 
     // Przepuść zwykłych użytkowników — SPA obsługuje ich normalnie
@@ -67,7 +67,7 @@ export default async function handler(request, context) {
                             title
                             description
                             images(first: 1) {
-                                edges { node { url } }
+                                edges { node { url width height } }
                             }
                         }
                     }
@@ -88,9 +88,11 @@ export default async function handler(request, context) {
         const description = escapeHtml(
             stripHtml(product.description || '').slice(0, 200) || FALLBACK_DESC
         );
-        const image = escapeHtml(
-            product.images?.edges?.[0]?.node?.url || FALLBACK_IMAGE
-        );
+        const imageNode = product.images?.edges?.[0]?.node;
+        // Shopify zwraca width/height w węźle — używamy jeśli dostępne
+        const imageUrl = escapeHtml(imageNode?.url || FALLBACK_IMAGE);
+        const imageWidth = imageNode?.width;
+        const imageHeight = imageNode?.height;
 
         const html = `<!DOCTYPE html>
 <html lang="pl">
@@ -103,13 +105,14 @@ export default async function handler(request, context) {
     <meta property="og:url" content="${escapeHtml(pageUrl)}" />
     <meta property="og:title" content="${title}" />
     <meta property="og:description" content="${description}" />
-    <meta property="og:image" content="${image}" />
-    <meta property="og:image:width" content="1200" />
-    <meta property="og:image:height" content="1200" />
+    <meta property="og:image" content="${imageUrl}" />
+    <meta property="og:image:secure_url" content="${imageUrl}" />
+    ${imageWidth ? `<meta property="og:image:width" content="${imageWidth}" />` : ''}
+    ${imageHeight ? `<meta property="og:image:height" content="${imageHeight}" />` : ''}
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="${title}" />
     <meta name="twitter:description" content="${description}" />
-    <meta name="twitter:image" content="${image}" />
+    <meta name="twitter:image" content="${imageUrl}" />
     <meta http-equiv="refresh" content="0;url=${escapeHtml(pageUrl)}" />
 </head>
 <body>

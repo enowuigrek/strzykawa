@@ -2,6 +2,12 @@
   command = "npm run build"
   publish = "dist"
   functions = "netlify/functions"
+  edge_functions = "netlify/edge-functions"
+
+# Edge Function — OG meta tagi dla social media botów (musi być przed redirect)
+[[edge_functions]]
+  path = "/kawy/:handle"
+  function = "og-meta"
 
 # SPA redirect — wszystkie trasy obsługuje index.html (React Router)
 [[redirects]]
