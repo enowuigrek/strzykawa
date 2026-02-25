@@ -127,7 +127,7 @@ const LoginModal = ({ isOpen, onClose, onSwitchToRegister }) => {
                 <form onSubmit={handleLoginSubmit}>
                     {/* Success Message */}
                     {loginSuccess && (
-                        <div className="mb-4 p-3 bg-success/10 border border-success/30 rounded-lg text-success text-base flex items-center gap-2 animate-fadeIn">
+                        <div className="mb-4 p-3 bg-success/10 border border-success/30 text-success text-base flex items-center gap-2 animate-fadeIn">
                             <FaCheckCircle className="w-4 h-4 flex-shrink-0" />
                             <span>{loginSuccess}</span>
                         </div>
@@ -135,7 +135,7 @@ const LoginModal = ({ isOpen, onClose, onSwitchToRegister }) => {
 
                     {/* Error Message */}
                     {loginError && (
-                        <div className="mb-4 p-3 bg-danger/10 border border-danger/30 rounded-lg text-danger text-base flex items-center gap-2 animate-fadeIn">
+                        <div className="mb-4 p-3 bg-danger/10 border border-danger/30 text-danger text-base flex items-center gap-2 animate-fadeIn">
                             <FaExclamationTriangle className="w-4 h-4 flex-shrink-0" />
                             <span>{loginError}</span>
                         </div>
@@ -239,7 +239,7 @@ const LoginModal = ({ isOpen, onClose, onSwitchToRegister }) => {
 
                     {/* Error Message */}
                     {forgotError && (
-                        <div className="mb-4 p-3 bg-danger/10 border border-danger/30 rounded-lg text-danger text-base flex items-center gap-2 animate-fadeIn">
+                        <div className="mb-4 p-3 bg-danger/10 border border-danger/30 text-danger text-base flex items-center gap-2 animate-fadeIn">
                             <FaExclamationTriangle className="w-4 h-4 flex-shrink-0" />
                             <span>{forgotError}</span>
                         </div>
@@ -296,7 +296,7 @@ const LoginModal = ({ isOpen, onClose, onSwitchToRegister }) => {
             {/* ── RESET SENT VIEW ── */}
             {view === 'resetSent' && (
                 <div>
-                    <div className="mb-6 p-4 bg-success/10 border border-success/30 rounded-lg text-success flex items-start gap-3">
+                    <div className="mb-6 p-4 bg-success/10 border border-success/30 text-success flex items-start gap-3">
                         <FaCheckCircle className="w-5 h-5 flex-shrink-0 mt-0.5" />
                         <div>
                             <p className="font-medium mb-1">Link wysłany!</p>

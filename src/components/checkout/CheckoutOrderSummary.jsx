@@ -94,7 +94,7 @@ export function CheckoutOrderSummary({
 
                 {/* Free shipping progress */}
                 {subtotal < FREE_SHIPPING_THRESHOLD && (
-                    <div className="p-3 bg-accent/10 border border-accent/30 rounded-lg">
+                    <div className="p-3 bg-accent/10 border border-accent/30">
                         <p className="text-xs text-muted">
                             Do darmowej wysyłki brakuje:{' '}
                             <span className="text-white ">
@@ -106,7 +106,7 @@ export function CheckoutOrderSummary({
 
                 {/* Free shipping achieved */}
                 {subtotal >= FREE_SHIPPING_THRESHOLD && (
-                    <div className="p-3 bg-success/10 border border-success rounded-lg">
+                    <div className="p-3 bg-success/10 border border-success">
                         <p className="text-xs text-success ">
                             🎉 Gratulacje! Masz darmową wysyłkę!
                         </p>

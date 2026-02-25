@@ -105,7 +105,7 @@ const RegisterModal = ({ isOpen, onClose, onSwitchToLogin }) => {
             <form onSubmit={handleSubmit}>
                 {/* Success Message */}
                 {success && (
-                    <div className="mb-4 p-3 bg-success/10 border border-success/30 rounded-lg text-success text-base flex items-center gap-2 animate-fadeIn">
+                    <div className="mb-4 p-3 bg-success/10 border border-success/30 text-success text-base flex items-center gap-2 animate-fadeIn">
                         <FaCheckCircle className="w-4 h-4 flex-shrink-0" />
                         <span>{success}</span>
                     </div>
@@ -113,7 +113,7 @@ const RegisterModal = ({ isOpen, onClose, onSwitchToLogin }) => {
 
                 {/* Error Message */}
                 {error && (
-                    <div className="mb-4 p-3 bg-danger/10 border border-danger/30 rounded-lg text-danger text-base flex items-center gap-2 animate-fadeIn">
+                    <div className="mb-4 p-3 bg-danger/10 border border-danger/30 text-danger text-base flex items-center gap-2 animate-fadeIn">
                         <FaExclamationTriangle className="w-4 h-4 flex-shrink-0" />
                         <span>{error}</span>
                     </div>

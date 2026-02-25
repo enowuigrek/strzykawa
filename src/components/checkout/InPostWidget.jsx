@@ -47,7 +47,7 @@ export function InPostWidget({ selectedPaczkomat, onSelect, error }) {
         <div ref={widgetRef} className="space-y-4">
             {/* SELECTED PACZKOMAT (jeśli wybrano) */}
             {selectedPaczkomat && (
-                <div className="p-4 bg-success/10 border border-success rounded-lg">
+                <div className="p-4 bg-success/10 border border-success">
                     <div className="flex items-start gap-3">
                         <FaMapMarkerAlt className="text-success text-xl mt-1" />
                         <div className="flex-1">
@@ -105,7 +105,7 @@ export function InPostWidget({ selectedPaczkomat, onSelect, error }) {
             {error && <p className="text-danger text-sm mt-2">{error}</p>}
 
             {/* INFO */}
-            <div className="mt-4 p-4 bg-accent/10 border border-accent/30 rounded-lg">
+            <div className="mt-4 p-4 bg-accent/10 border border-accent/30">
                 <p className="text-sm text-muted">
                     💡 Wybierz paczkomat InPost najbliżej Ciebie. Otrzymasz SMS i email z kodem
                     odbioru, gdy paczka będzie gotowa.

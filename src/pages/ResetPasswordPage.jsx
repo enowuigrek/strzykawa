@@ -82,7 +82,7 @@ export function ResetPasswordPage() {
 
                     {/* Invalid params guard */}
                     {!paramsValid && (
-                        <div className="p-4 bg-danger/10 border border-danger/30 rounded-lg text-danger flex items-start gap-3">
+                        <div className="p-4 bg-danger/10 border border-danger/30 text-danger flex items-start gap-3">
                             <FaExclamationTriangle className="w-5 h-5 flex-shrink-0 mt-0.5" />
                             <div>
                                 <p className="font-medium mb-1">Nieprawidłowy link</p>
@@ -100,7 +100,7 @@ export function ResetPasswordPage() {
 
                     {/* Success state */}
                     {paramsValid && success && (
-                        <div className="p-4 bg-success/10 border border-success/30 rounded-lg text-success flex items-start gap-3">
+                        <div className="p-4 bg-success/10 border border-success/30 text-success flex items-start gap-3">
                             <FaCheckCircle className="w-5 h-5 flex-shrink-0 mt-0.5" />
                             <div>
                                 <p className="font-medium mb-1">Hasło zmienione!</p>
@@ -116,7 +116,7 @@ export function ResetPasswordPage() {
                         <form onSubmit={handleSubmit} className="bg-primary-light p-6">
                             {/* Error Message */}
                             {error && (
-                                <div className="mb-4 p-3 bg-danger/10 border border-danger/30 rounded-lg text-danger text-sm flex items-center gap-2">
+                                <div className="mb-4 p-3 bg-danger/10 border border-danger/30 text-danger text-sm flex items-center gap-2">
                                     <FaExclamationTriangle className="w-4 h-4 flex-shrink-0" />
                                     <span>{error}</span>
                                 </div>
