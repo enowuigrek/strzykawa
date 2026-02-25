@@ -5,7 +5,6 @@ import { useScrollAnimation, scrollAnimations } from '../../../hooks/useScrollAn
 export function HeroReviews() {
     const [headerRef, headerVisible] = useScrollAnimation({ threshold: 0.2 });
     const [cardsRef, cardsVisible] = useScrollAnimation({ threshold: 0.1 });
-    const [quoteRef, quoteVisible] = useScrollAnimation({ threshold: 0.3 });
 
     const reviews = [
         {
@@ -124,21 +123,6 @@ export function HeroReviews() {
                 })}
             </div>
 
-            {/* Review Quote */}
-            <div
-                ref={quoteRef}
-                className={`mt-10 max-w-3xl mx-auto px-4 transition-all duration-700 ease-out delay-300 ${
-                    quoteVisible ? scrollAnimations.fade.visible : scrollAnimations.fade.hidden
-                }`}
-            >
-                <blockquote className="text-white/70 text-base sm:text-lg italic text-center leading-relaxed">
-                    &quot;The best coffee in Czestochowa. Great quality coffee.
-                    The flat white was amazing.&quot;
-                </blockquote>
-                <p className="text-white/50 text-base text-center mt-3">
-                    — TripAdvisor Review
-                </p>
-            </div>
         </div>
     );
 }

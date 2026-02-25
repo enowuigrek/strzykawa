@@ -45,7 +45,7 @@ export function Home() {
             </div>
 
             {/* Sekcja "O Strzykawie" - najeżdża na hero */}
-            <div className="relative z-20 bg-primary pt-10 sm:pt-16 pb-32">
+            <div className="relative z-20 bg-primary pt-16 sm:pt-24 pb-32">
                 <div className="container px-6 sm:px-8">
                 {/* Header sekcji - logo */}
                     <div
