@@ -9,7 +9,7 @@ export function PrivacyPolicy() {
                 <div className="bg-primary-light border border-white/10 p-6 sm:p-8">
                     <div className="prose prose-invert max-w-none">
                         <p className="text-white/60 mb-6">
-                            <strong>Data ostatniej aktualizacji:</strong> 12 grudnia 2025
+                            <strong>Data ostatniej aktualizacji:</strong> 25 lutego 2026
                         </p>
 
                         <p className="text-white/80 mb-6">
@@ -141,10 +141,15 @@ export function PrivacyPolicy() {
                             Serwis korzysta z plików cookies niezbędnych do jego prawidłowego funkcjonowania oraz
                             w celu zapewnienia podstawowej wygody korzystania (np. zapamiętanie zawartości koszyka).
                         </p>
-                        <p className="text-white/80 mb-6">
+                        <p className="text-white/80 mb-4">
                             Szczegółowe informacje na temat rodzajów stosowanych cookies, ich celu oraz sposobów
                             zarządzania nimi znajdują się w osobnym dokumencie{' '}
                             <Link to="/polityka-cookies" className="text-accent hover:text-white">Polityka plików cookies</Link>.
+                        </p>
+                        <p className="text-white/80 mb-6">
+                            Przy pierwszej wizycie na stronie wyświetlany jest baner umożliwiający wyrażenie zgody
+                            na poszczególne kategorie plików cookies. Swoje preferencje możesz zmienić w dowolnym
+                            momencie, klikając „Ustawienia cookies" w stopce strony.
                         </p>
 
                         <h2 className="text-xl font-medium text-white mt-8 mb-4">8. Zmiany Polityki prywatności</h2>
@@ -172,7 +177,7 @@ export function CookiePolicy() {
                 <div className="bg-primary-light border border-white/10 p-6 sm:p-8">
                     <div className="prose prose-invert max-w-none">
                         <p className="text-white/60 mb-6">
-                            <strong>Data ostatniej aktualizacji:</strong> 12 grudnia 2025
+                            <strong>Data ostatniej aktualizacji:</strong> 25 lutego 2026
                         </p>
 
                         <p className="text-white/80 mb-8">
@@ -221,14 +226,12 @@ export function CookiePolicy() {
                         </p>
 
                         <h3 className="text-lg font-medium text-white mt-6 mb-3">3.2. Cookies funkcjonalne, analityczne i marketingowe</h3>
-                        <p className="text-white/80 mb-4">
-                            Na moment uruchomienia serwisu nie wykorzystujemy dodatkowych cookies analitycznych
-                            (np. Google Analytics) ani marketingowych (np. piksel Meta).
-                        </p>
                         <p className="text-white/80 mb-6">
-                            Jeśli w przyszłości zaczniemy korzystać z takich narzędzi, Polityka plików cookies zostanie
-                            zaktualizowana, a na stronie pojawi się odpowiedni mechanizm zgody (baner), który pozwoli
-                            Ci wybrać, jakie kategorie cookies chcesz zaakceptować.
+                            Na moment uruchomienia serwisu nie wykorzystujemy cookies analitycznych (np. Google Analytics)
+                            ani marketingowych (np. piksel Meta). Serwis wyposażony jest w mechanizm zarządzania zgodami
+                            (baner cookies), który w przypadku wprowadzenia takich narzędzi pozwoli Ci wybrać, jakie
+                            kategorie cookies chcesz zaakceptować. Swoje preferencje dotyczące cookies możesz zmienić
+                            w dowolnym momencie, klikając „Ustawienia cookies" w stopce strony.
                         </p>
 
                         <h2 className="text-xl font-medium text-white mt-8 mb-4">4. Cookies podmiotów trzecich</h2>
