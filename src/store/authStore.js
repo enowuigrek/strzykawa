@@ -6,7 +6,9 @@ import {
     logoutCustomer,
     validateAccessToken,
     getCustomer,
-    changePassword
+    changePassword,
+    recoverPassword,
+    resetPassword
 } from '../services/shopify/customer.js';
 
 export const useAuthStore = create(
@@ -161,6 +163,44 @@ export const useAuthStore = create(
                 } catch (error) {
                     set({ isLoading: false });
                     return { success: false, error: 'Błąd podczas zmiany hasła' };
+                }
+            },
+
+            // Wyślij email z linkiem do resetu hasła
+            // Zawsze zwraca success: true (nie ujawniamy czy email istnieje)
+            recoverPassword: async (email) => {
+                set({ isLoading: true });
+                try {
+                    await recoverPassword(email);
+                } catch (_) {
+                    // ignorujemy błędy — nie ujawniamy czy email istnieje
+                }
+                set({ isLoading: false });
+                return { success: true };
+            },
+
+            // Ustaw nowe hasło przy użyciu tokenu z emaila i auto-zaloguj
+            resetPassword: async (resetUrl, newPassword) => {
+                set({ isLoading: true });
+                try {
+                    const result = await resetPassword(resetUrl, newPassword);
+
+                    if (result.success) {
+                        set({
+                            user: result.customer,
+                            accessToken: result.accessToken,
+                            tokenExpiresAt: result.expiresAt,
+                            isAuthenticated: true,
+                            isLoading: false
+                        });
+                        return { success: true };
+                    } else {
+                        set({ isLoading: false });
+                        return { success: false, error: result.error };
+                    }
+                } catch (error) {
+                    set({ isLoading: false });
+                    return { success: false, error: 'Błąd podczas resetowania hasła' };
                 }
             },
 

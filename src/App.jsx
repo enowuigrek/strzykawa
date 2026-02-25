@@ -22,6 +22,7 @@ import { CheckoutPage } from "./pages/CheckoutPage.jsx";
 import {CheckoutSuccess} from "./pages/CheckoutSuccess.jsx";
 import {CheckoutCanceled} from "./pages/CheckoutCanceled.jsx";
 import { NotFound } from './pages/NotFound.jsx';
+import { ResetPasswordPage } from './pages/ResetPasswordPage.jsx';
 import { CookieConsent } from './components/atoms/CookieConsent.jsx';
 import { PREVIEW_PASSWORD, PREVIEW_STORAGE_KEY } from './constants/preview.js';
 import { useAuthStore } from './store/authStore.js';
@@ -117,6 +118,7 @@ function App() {
                     <Route path="/checkout" element={<CheckoutPage />} />
                     <Route path="/checkout/success" element={<CheckoutSuccess />} />
                     <Route path="/checkout/canceled" element={<CheckoutCanceled />} />
+                    <Route path="/account/reset/:customerId/:token" element={<ResetPasswordPage />} />
                     <Route path="*" element={<NotFound />} />
                 </Routes>
             </main>

@@ -485,6 +485,79 @@ export async function recoverPassword(email) {
 }
 
 /**
+ * Zresetuj hasło przy użyciu linku z emaila (customerResetByUrl)
+ * @param {string} resetUrl - Pełny URL resetu z emaila Shopify
+ * @param {string} newPassword - Nowe hasło
+ */
+export async function resetPassword(resetUrl, newPassword) {
+    const mutation = `
+        mutation customerResetByUrl($resetUrl: URL!, $password: String!) {
+            customerResetByUrl(resetUrl: $resetUrl, password: $password) {
+                customer {
+                    id
+                    email
+                    firstName
+                    lastName
+                }
+                customerAccessToken {
+                    accessToken
+                    expiresAt
+                }
+                customerUserErrors {
+                    code
+                    field
+                    message
+                }
+            }
+        }
+    `;
+
+    const variables = {
+        resetUrl,
+        password: newPassword
+    };
+
+    try {
+        logger.log('Resetting password via URL:', resetUrl);
+        const response = await shopifyClient.graphqlFetch(mutation, variables);
+
+        if (response.data.customerResetByUrl.customerUserErrors.length > 0) {
+            const error = response.data.customerResetByUrl.customerUserErrors[0];
+            logger.error('Password reset error:', error);
+            return {
+                success: false,
+                error: translateError(error.message)
+            };
+        }
+
+        const { accessToken, expiresAt } = response.data.customerResetByUrl.customerAccessToken;
+        const rawCustomer = response.data.customerResetByUrl.customer;
+
+        // Pobierz pełne dane klienta
+        const customerData = await getCustomer(accessToken);
+
+        logger.log('Password reset successful, auto-login done');
+        return {
+            success: true,
+            accessToken,
+            expiresAt,
+            customer: customerData.success ? customerData.customer : {
+                id: rawCustomer.id,
+                email: rawCustomer.email,
+                firstName: rawCustomer.firstName,
+                lastName: rawCustomer.lastName
+            }
+        };
+    } catch (error) {
+        logger.error('Error resetting password:', error);
+        return {
+            success: false,
+            error: 'Błąd podczas resetowania hasła. Spróbuj ponownie.'
+        };
+    }
+}
+
+/**
  * Zaktualizuj dane osobowe klienta (imię, nazwisko, email, telefon)
  */
 export async function updateCustomerPersonalData(accessToken, { firstName, lastName, email, phone }) {
