@@ -1,6 +1,46 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+
+  <!-- Strona główna -->
   <url>
     <loc>https://strzykawa.com/</loc>
   </url>
+
+  <!-- Strona sklepu -->
+  <url>
+    <loc>https://strzykawa.com/kawy</loc>
+  </url>
+
+  <!-- Produkty -->
+  <url>
+    <loc>https://strzykawa.com/kawy/kolumbia-la-villa</loc>
+  </url>
+
+  <url>
+    <loc>https://strzykawa.com/kawy/kolumbia-el-placer</loc>
+  </url>
+
+  <url>
+    <loc>https://strzykawa.com/kawy/kolumbia-el-renacer</loc>
+  </url>
+
+    <url>
+    <loc>https://strzykawa.com/kawy/indie</loc>
+  </url>
+
+    <url>
+    <loc>https://strzykawa.com/kawy/honduras</loc>
+  </url>
+
+
+  <!-- Strona kontaktowa -->
+  <url>
+    <loc>https://strzykawa.com/kontakt</loc>
+  </url>
+
+  <!-- Strona o nas -->
+  <url>
+    <loc>https://strzykawa.com/o-nas</loc>
+  </url>
+
 </urlset>
