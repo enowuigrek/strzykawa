@@ -256,7 +256,6 @@ export async function getCustomerOrders(accessToken, first = 10) {
                                 zip
                                 country
                             }
-                            note
                         }
                     }
                 }
@@ -298,7 +297,6 @@ export async function getCustomerOrders(accessToken, first = 10) {
                     handle: lineEdge.node.variant?.product?.handle || null
                 })),
                 shippingAddress: order.shippingAddress,
-                note: order.note || null,
                 trackingInfo: []
             };
         });

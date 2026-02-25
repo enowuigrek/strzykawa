@@ -278,14 +278,6 @@ export function Orders() {
                                                 </div>
                                             )}
 
-                                            {/* Order note */}
-                                            {order.note && (
-                                                <div className="pt-4 border-t border-white/10">
-                                                    <p className="text-sm text-muted mb-1">Uwagi do zamówienia</p>
-                                                    <p className="text-base text-white/70">{order.note}</p>
-                                                </div>
-                                            )}
-
                                             {/* Tracking numbers */}
                                             {order.trackingInfo && order.trackingInfo.length > 0 && (
                                                 <div className="pt-4 border-t border-white/10">
