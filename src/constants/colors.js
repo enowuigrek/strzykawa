@@ -10,8 +10,8 @@ export const COUNTRY_COLORS = {
   Gwatemala:'#87aade',
   Etiopia: '#ff5555',
   Kenia: '#a02c2c',
-  Rwanda: '',
-  Uganda:'',
+  Rwanda: '#2D5016',
+  Uganda: '#1A1A1A',
   Indonezja:'',
 };
 

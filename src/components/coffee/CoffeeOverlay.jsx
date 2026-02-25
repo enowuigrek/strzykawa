@@ -2,6 +2,9 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { COUNTRY_COLORS, DEFAULT_COUNTRY_COLOR } from '../../constants/colors.js';
 
+// Kraje z na tyle ciemnym tłem, że wymagają białego tekstu
+const LIGHT_TEXT_COUNTRIES = new Set(['Uganda']);
+
 /**
  * Helper: Kapitalizuje pierwszy wyraz w liście
  */
@@ -54,6 +57,8 @@ export function CoffeeOverlay({ coffee, isOpen }) {
         backgroundStyle = bgColor;
     }
 
+    const textClass = LIGHT_TEXT_COUNTRIES.has(country) ? 'text-white' : 'text-black';
+
     // IF: Jeśli nazwa zaczyna się od kraju, usuń kraj z nazwy
     let displayName = coffee.name;
     if (country && coffee.name.startsWith(country)) {
@@ -97,10 +102,10 @@ export function CoffeeOverlay({ coffee, isOpen }) {
                 {/* Nagłówek z krajem - jak na naklejce */}
                 {country && (
                     <div className="text-center mb-3 mt-1">
-                        <h3 className="text-2xl font-bold text-black uppercase tracking-wide">
+                        <h3 className={`text-2xl font-bold ${textClass} uppercase tracking-wide`}>
                             {country}
                         </h3>
-                        <p className="text-lg text-black">
+                        <p className={`text-lg ${textClass}`}>
                             {displayName}
                         </p>
                     </div>
@@ -114,17 +119,17 @@ export function CoffeeOverlay({ coffee, isOpen }) {
                                 key={index}
                                 className="flex items-start gap-2"
                             >
-                                <dt className={`text-base text-black font-bold shrink-0`}>
+                                <dt className={`text-base ${textClass} font-bold shrink-0`}>
                                     {detail.label}:
                                 </dt>
-                                <dd className={`text-base text-black ${detail.highlight ? 'font-bold' : ''}`}>
+                                <dd className={`text-base ${textClass} ${detail.highlight ? 'font-bold' : ''}`}>
                                     {detail.value}
                                 </dd>
                             </div>
                         ))}
                     </div>
                 ) : (
-                    <p className="text-base text-black/70 text-center mt-2">
+                    <p className={`text-base ${textClass} opacity-70 text-center mt-2`}>
                         Brak dodatkowych szczegółów
                     </p>
                 )}
