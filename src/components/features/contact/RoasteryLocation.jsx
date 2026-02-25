@@ -29,32 +29,30 @@ export function RoasteryLocation() {
                 </div>
 
                 {/* Info o palarni */}
-                <div className="space-y-3">
-                    <p className="text-base text-white/80">
-                        W palarni organizujemy wydarzenia i spotkania. Śledź nasze media społecznościowe, aby być na bieżąco.
-                    </p>
+                <p className="text-base text-white/80">
+                    W palarni organizujemy wydarzenia i spotkania. Śledź nasze media społecznościowe, aby być na bieżąco.
+                </p>
 
-                    {/* Social media links */}
-                    <div className="flex items-center gap-3 mt-6">
-                        <a
-                            href="https://www.facebook.com/StrzykawaCoffeeShop/"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="w-12 h-12 flex items-center justify-center bg-white/5 text-muted hover:text-[#1877F2] hover:bg-white/10 transition-all"
-                            aria-label="Facebook"
-                        >
-                            <FaFacebookF className="w-6 h-6" />
-                        </a>
-                        <a
-                            href="https://www.instagram.com/strzykawa_coffee_shop/"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="w-12 h-12 flex items-center justify-center bg-white/5 text-muted hover:text-[#E4405F] hover:bg-white/10 transition-all"
-                            aria-label="Instagram"
-                        >
-                            <FaInstagram className="w-6 h-6" />
-                        </a>
-                    </div>
+                {/* Social media links */}
+                <div className="flex items-center gap-3">
+                    <a
+                        href="https://www.facebook.com/StrzykawaCoffeeShop/"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="w-12 h-12 flex items-center justify-center bg-white/5 text-muted hover:text-[#1877F2] hover:bg-white/10 transition-all"
+                        aria-label="Facebook"
+                    >
+                        <FaFacebookF className="w-6 h-6" />
+                    </a>
+                    <a
+                        href="https://www.instagram.com/strzykawa_coffee_shop/"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="w-12 h-12 flex items-center justify-center bg-white/5 text-muted hover:text-[#E4405F] hover:bg-white/10 transition-all"
+                        aria-label="Instagram"
+                    >
+                        <FaInstagram className="w-6 h-6" />
+                    </a>
                 </div>
             </div>
         </div>
