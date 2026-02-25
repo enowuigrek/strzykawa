@@ -12,7 +12,7 @@ export const COUNTRY_COLORS = {
   Kenia: '#a02c2c',
   Rwanda: '#2D5016',
   Uganda: '#1A1A1A',
-  Indonezja:'',
+  Indonezja: '#E7E7E7',
 };
 
 export const DEFAULT_COUNTRY_COLOR = '#FFD200';
