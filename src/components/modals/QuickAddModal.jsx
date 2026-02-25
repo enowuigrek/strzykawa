@@ -292,7 +292,7 @@ export function QuickAddModal({ coffee, isOpen, onClose, onAddToCart }) {
 
                             {/* Niedostępny wariant - INFO */}
                             {!isAvailable && (
-                                <div className="flex items-center gap-2 p-3 bg-red-500/10 border border-red-500/30 text-red-300 rounded-lg">
+                                <div className="flex items-center gap-2 p-3 bg-danger/10 border border-danger/30 text-danger rounded-lg">
                                     <FaExclamationCircle className="w-4 h-4 flex-shrink-0" />
                                     <p className="text-base">
                                         Ten wariant jest obecnie niedostępny

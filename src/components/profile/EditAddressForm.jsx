@@ -142,7 +142,7 @@ export function EditAddressForm({ initialAddress = null }) {
             <form onSubmit={handleSubmit} className="space-y-4">
                 {/* Success Message */}
                 {success && (
-                    <div className="p-3 bg-success/20 border border-success/30 text-green-300 text-sm flex items-center gap-2">
+                    <div className="p-3 bg-success/10 border border-success/30 text-success text-sm flex items-center gap-2">
                         <FaCheckCircle className="w-4 h-4 flex-shrink-0" />
                         <span>{success}</span>
                     </div>
@@ -150,7 +150,7 @@ export function EditAddressForm({ initialAddress = null }) {
 
                 {/* Error Message */}
                 {error && (
-                    <div className="p-3 bg-red-500/20 border border-red-500/30 text-red-300 text-sm flex items-center gap-2">
+                    <div className="p-3 bg-danger/10 border border-danger/30 text-danger text-sm flex items-center gap-2">
                         <FaExclamationTriangle className="w-4 h-4 flex-shrink-0" />
                         <span>{error}</span>
                     </div>
