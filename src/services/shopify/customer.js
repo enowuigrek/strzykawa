@@ -257,13 +257,6 @@ export async function getCustomerOrders(accessToken, first = 10) {
                                 country
                             }
                             note
-                            successfulFulfillments(first: 5) {
-                                trackingCompany
-                                trackingInfo(first: 5) {
-                                    number
-                                    url
-                                }
-                            }
                         }
                     }
                 }
@@ -306,12 +299,7 @@ export async function getCustomerOrders(accessToken, first = 10) {
                 })),
                 shippingAddress: order.shippingAddress,
                 note: order.note || null,
-                trackingInfo: (order.successfulFulfillments || [])
-                    .flatMap(f => (f.trackingInfo || []).map(t => ({
-                        number: t.number,
-                        url: t.url || `https://inpost.pl/sledzenie-przesylek?number=${t.number}`
-                    })))
-                    .filter(t => t.number)
+                trackingInfo: []
             };
         });
 
