@@ -49,25 +49,22 @@ export function CartFooter({ items, isLoading, totalPrice, note, onSaveNote }) {
 
                 {/* Shipping progress */}
                 <div className="mb-3">
+                    {/* Row: label left, remaining amount right */}
                     <div className="flex items-center justify-between mb-1.5">
                         <div className="flex items-center gap-1.5">
                             <FaTruck className={`text-sm ${hasFreeShipping ? 'text-success' : 'text-muted'}`} />
                             {hasFreeShipping ? (
                                 <span className="text-sm text-success font-medium">Darmowa wysyłka!</span>
                             ) : (
-                                <span className="text-sm text-white/70">
-                                    Do darmowej wysyłki brakuje{' '}
-                                    <span className="text-white font-semibold">{remaining.toFixed(2)} zł</span>
-                                </span>
+                                <span className="text-sm text-white/70">Do darmowej wysyłki brakuje</span>
                             )}
                         </div>
                         {!hasFreeShipping && (
-                            <span className="text-sm text-white/40">
-                                wysyłka{' '}
-                                <span className="text-white/60">{shippingCost.toFixed(0)} zł</span>
-                            </span>
+                            <span className="text-sm text-white font-semibold">{remaining.toFixed(2)} zł</span>
                         )}
                     </div>
+
+                    {/* Progress bar */}
                     <div className="w-full h-1 bg-primary-light/50 rounded-full overflow-hidden">
                         <div
                             className={`h-full transition-all duration-500 ease-out ${
@@ -76,6 +73,16 @@ export function CartFooter({ items, isLoading, totalPrice, note, onSaveNote }) {
                             style={{ width: `${progress}%` }}
                         />
                     </div>
+
+                    {/* Shipping cost — below bar, right-aligned */}
+                    {!hasFreeShipping && (
+                        <div className="flex justify-end mt-1.5">
+                            <span className="text-xs text-white/40">
+                                wysyłka{' '}
+                                <span className="text-white/50">{shippingCost.toFixed(0)} zł</span>
+                            </span>
+                        </div>
+                    )}
                 </div>
 
                 {/* Terms checkbox */}
