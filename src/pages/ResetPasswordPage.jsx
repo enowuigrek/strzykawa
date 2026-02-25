@@ -72,7 +72,7 @@ export function ResetPasswordPage() {
             <div className="min-h-[60vh] flex items-center justify-center px-4 py-16">
                 <div className="w-full max-w-md">
                     {/* Heading */}
-                    <h1 className="text-2xl text-white font-bold mb-2 flex items-center gap-2">
+                    <h1 className="text-2xl text-white font-normal mb-2 flex items-center gap-2">
                         <FaLock className="text-accent" />
                         Nowe hasło
                     </h1>
