@@ -1,3 +1,4 @@
 User-agent: *
 Allow: /
-Sitemap: https://strzykawa.netlify.app/sitemap.xml
+
+Sitemap: https://strzykawa.com/sitemap.xml
