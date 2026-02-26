@@ -6,7 +6,7 @@
 
 # Edge Function — OG meta tagi dla social media botów (musi być przed redirect)
 [[edge_functions]]
-  path = "/kawy/:handle"
+  path = "/*"
   function = "og-meta"
 
 # SPA redirect — wszystkie trasy obsługuje index.html (React Router)

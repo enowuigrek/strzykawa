@@ -1,6 +1,9 @@
 /**
  * generate-og-image.mjs
- * Generuje public/og-image.png (1200x630) z białym logo Strzykawa na zielonym tle.
+ * Generuje OG images dla Strzykawa:
+ *   - public/og-image.png  (1200x630) — główny OG image
+ *   - public/og-icon.png   (400x400)  — fallback dla podstron
+ *
  * Uruchom ręcznie: node scripts/generate-og-image.mjs
  */
 
@@ -11,13 +14,7 @@ import { fileURLToPath } from 'url';
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(__dirname, '..');
 
-const WIDTH = 1200;
-const HEIGHT = 630;
 const BG = { r: 0x1e, g: 0x2a, b: 0x25, alpha: 1 };
-const LOGO_TARGET_HEIGHT = 410;
-
-const LOGO_SRC = path.join(ROOT, 'public', 'logo', 'vertical-logo.png');
-const OUTPUT = path.join(ROOT, 'public', 'og-image.png');
 
 /**
  * Konwertuje logo do białego — zachowuje kształt (alpha), zamienia kolor na biały.
@@ -35,10 +32,10 @@ async function makeWhiteLogo(logoPath, targetHeight) {
     const white = Buffer.alloc(info.width * info.height * 4);
     for (let i = 0; i < info.width * info.height; i++) {
         const alpha = data[i * 4 + 3];
-        white[i * 4]     = 255; // R
-        white[i * 4 + 1] = 255; // G
-        white[i * 4 + 2] = 255; // B
-        white[i * 4 + 3] = alpha; // zachowaj kształt
+        white[i * 4]     = 255;
+        white[i * 4 + 1] = 255;
+        white[i * 4 + 2] = 255;
+        white[i * 4 + 3] = alpha;
     }
 
     return sharp(white, {
@@ -48,23 +45,50 @@ async function makeWhiteLogo(logoPath, targetHeight) {
         .toBuffer();
 }
 
-async function main() {
-    console.log('🖼️  Generowanie og-image.png (białe logo)...');
-
-    const whiteLogo = await makeWhiteLogo(LOGO_SRC, LOGO_TARGET_HEIGHT);
-
+async function compose(whiteLogo, canvasW, canvasH, outputPath) {
     const { width: logoW, height: logoH } = await sharp(whiteLogo).metadata();
-    const left = Math.round((WIDTH - logoW) / 2);
-    const top  = Math.round((HEIGHT - logoH) / 2);
+    const left = Math.round((canvasW - logoW) / 2);
+    const top  = Math.round((canvasH - logoH) / 2);
 
     await sharp({
-        create: { width: WIDTH, height: HEIGHT, channels: 4, background: BG },
+        create: { width: canvasW, height: canvasH, channels: 4, background: BG },
     })
         .composite([{ input: whiteLogo, left, top }])
         .png({ compressionLevel: 8 })
-        .toFile(OUTPUT);
+        .toFile(outputPath);
 
-    console.log(`✅ Zapisano: public/og-image.png (${WIDTH}x${HEIGHT}, logo ${logoW}x${logoH})`);
+    return { logoW, logoH };
+}
+
+async function generateMainOgImage() {
+    const logo = await makeWhiteLogo(
+        path.join(ROOT, 'public', 'logo', 'vertical-logo.png'),
+        410  // ~65% wysokości 630px
+    );
+    const { logoW, logoH } = await compose(
+        logo, 1200, 630,
+        path.join(ROOT, 'public', 'og-image.png')
+    );
+    console.log(`✅ og-image.png  (1200x630, logo ${logoW}x${logoH})`);
+}
+
+async function generateIconOgImage() {
+    const logo = await makeWhiteLogo(
+        path.join(ROOT, 'public', 'logo', 'icon-logo.png'),
+        280  // 70% z 400px
+    );
+    const { logoW, logoH } = await compose(
+        logo, 400, 400,
+        path.join(ROOT, 'public', 'og-icon.png')
+    );
+    console.log(`✅ og-icon.png   (400x400,  logo ${logoW}x${logoH})`);
+}
+
+async function main() {
+    console.log('🖼️  Generowanie OG images...');
+    await generateMainOgImage();
+    await generateIconOgImage();
+    console.log('✅ Gotowe!');
 }
 
 main().catch((err) => {
