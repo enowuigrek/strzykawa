@@ -156,7 +156,7 @@ export default async function handler(request, _context) {
                 title: `${product.title} | ${SITE_NAME} & Roastery`,
                 description:
                     stripHtml(product.description || '').slice(0, 200) || FALLBACK_DESC,
-                imageUrl: imageNode?.url || OG_ICON,
+                imageUrl: imageNode?.url || OG_IMAGE,
                 imageWidth: imageNode?.width,
                 imageHeight: imageNode?.height,
                 pageUrl,

@@ -62,8 +62,8 @@ async function compose(whiteLogo, canvasW, canvasH, outputPath) {
 
 async function generateMainOgImage() {
     const logo = await makeWhiteLogo(
-        path.join(ROOT, 'public', 'logo', 'vertical-logo.png'),
-        410  // ~65% wysokości 630px
+        path.join(ROOT, 'public', 'logo', 'icon-logo.png'),
+        450  // ~71% wysokości 630px, kwadratowe logo wycentrowane
     );
     const { logoW, logoH } = await compose(
         logo, 1200, 630,
