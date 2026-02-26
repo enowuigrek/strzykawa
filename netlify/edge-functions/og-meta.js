@@ -68,7 +68,31 @@ function stripHtml(str) {
     return String(str).replace(/<[^>]*>/g, '').trim();
 }
 
-function buildHtml({ title, description, imageUrl, imageWidth, imageHeight, pageUrl, type }) {
+/**
+ * Transformuje URL zdjęcia Shopify CDN do proporcji 1200x630 (1.91:1).
+ * Facebook/Messenger wymaga proporcji 1.91:1 — kwadratowe zdjęcia produktów
+ * są przycinane do centrum przez parametry Shopify CDN.
+ */
+function transformShopifyImage(imageUrl, width = 1200, height = 630) {
+    if (!imageUrl) return OG_IMAGE;
+
+    try {
+        const url = new URL(imageUrl);
+
+        if (url.hostname.includes('cdn.shopify.com')) {
+            url.searchParams.set('width', width.toString());
+            url.searchParams.set('height', height.toString());
+            url.searchParams.set('crop', 'center');
+            return url.toString();
+        }
+
+        return imageUrl;
+    } catch {
+        return imageUrl;
+    }
+}
+
+function buildHtml({ title, description, imageUrl, imageWidth, imageHeight, imageType, pageUrl, type }) {
     const t   = escapeHtml(title);
     const d   = escapeHtml(description);
     const img = escapeHtml(imageUrl);
@@ -89,6 +113,7 @@ function buildHtml({ title, description, imageUrl, imageWidth, imageHeight, page
     <meta property="og:image:secure_url" content="${img}" />
     ${imageWidth ? `<meta property="og:image:width" content="${imageWidth}" />` : ''}
     ${imageHeight ? `<meta property="og:image:height" content="${imageHeight}" />` : ''}
+    ${imageType ? `<meta property="og:image:type" content="${imageType}" />` : ''}
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="${t}" />
     <meta name="twitter:description" content="${d}" />
@@ -150,15 +175,17 @@ export default async function handler(request, _context) {
 
             if (!product) return;
 
-            const imageNode = product.images?.edges?.[0]?.node;
+            const rawImageUrl = product.images?.edges?.[0]?.node?.url || '';
+            const imageUrl = transformShopifyImage(rawImageUrl);
 
             const html = buildHtml({
                 title: `${product.title} | ${SITE_NAME} & Roastery`,
                 description:
                     stripHtml(product.description || '').slice(0, 200) || FALLBACK_DESC,
-                imageUrl: imageNode?.url || OG_IMAGE,
-                imageWidth: imageNode?.width,
-                imageHeight: imageNode?.height,
+                imageUrl,
+                imageWidth: 1200,
+                imageHeight: 630,
+                imageType: rawImageUrl ? 'image/jpeg' : 'image/png',
                 pageUrl,
                 type: 'product',
             });
@@ -181,6 +208,7 @@ export default async function handler(request, _context) {
             imageUrl: staticPage.image,
             imageWidth: 1200,
             imageHeight: 630,
+            imageType: 'image/png',
             pageUrl,
             type: 'website',
         });
