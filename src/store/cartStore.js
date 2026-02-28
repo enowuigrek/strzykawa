@@ -255,6 +255,10 @@ export const useCartStore = create(
                     if (user.firstName) params.append('checkout[shipping_address][first_name]', user.firstName);
                     if (user.lastName) params.append('checkout[shipping_address][last_name]', user.lastName);
 
+                    // Telefon: z adresu, albo fallback na telefon klienta
+                    const phone = user.defaultAddress?.phone || user.phone;
+                    if (phone) params.append('checkout[shipping_address][phone]', phone);
+
                     if (user.defaultAddress) {
                         const addr = user.defaultAddress;
                         if (addr.address1) params.append('checkout[shipping_address][address1]', addr.address1);
@@ -263,7 +267,6 @@ export const useCartStore = create(
                         if (addr.province) params.append('checkout[shipping_address][province]', addr.province);
                         if (addr.zip) params.append('checkout[shipping_address][zip]', addr.zip);
                         if (addr.country) params.append('checkout[shipping_address][country]', addr.country);
-                        if (addr.phone) params.append('checkout[shipping_address][phone]', addr.phone);
                     }
 
                     const separator = checkoutUrl.includes('?') ? '&' : '?';

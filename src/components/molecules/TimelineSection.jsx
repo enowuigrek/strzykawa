@@ -56,15 +56,17 @@ export function TimelineSection({ year, title, content, images = [], index }) {
                             ? scrollAnimations[isEven ? 'flowRight' : 'flowLeft'].visible
                             : scrollAnimations[isEven ? 'flowRight' : 'flowLeft'].hidden
                     }`}>
-                        <ProductGallery
-                            images={images}
-                            coffeeName={`${year} - ${title}`}
-                            showThumbnails={false}
-                            autoplay={true}
-                            autoplayInterval={4000}
-                            aspectRatio="3/4"
-                            showCounter={false}
-                        />
+                        <div className="max-w-[500px] w-full mx-auto">
+                            <ProductGallery
+                                images={images}
+                                coffeeName={`${year} - ${title}`}
+                                showThumbnails={false}
+                                autoplay={true}
+                                autoplayInterval={4000}
+                                aspectRatio="3/4"
+                                showCounter={false}
+                            />
+                        </div>
                     </div>
                 )}
             </div>
