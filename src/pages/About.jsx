@@ -1,11 +1,24 @@
 import React, { useState, useEffect } from 'react';
+// 2020
 import OpenImage from '../assets/history/z_zewnatrz.jpg';
-import FirstRoaster from '../assets/history/maly_piec.jpg';
-import Roastery from '../assets/history/duzy_piec.jpg';
-import Branding from '../assets/history/branding.jpg';
-import Branding2 from '../assets/history/branding-2.jpg';
-import Branding5 from '../assets/history/branding-5.jpg';
-import TeamPhoto from '../assets/history/damian_karolina.jpg';
+// 2022
+import Cafe2022Latte    from '../assets/history/2022-barrista-latte-art.jpg';
+import Cafe2022Espresso from '../assets/history/2022-ekspres-espresso.jpg';
+import Cafe2022Wypieki  from '../assets/history/2022-wypieki.jpg';
+import Cafe2022Zespol   from '../assets/history/2022-zespol.jpg';
+import Cafe2022Piec     from '../assets/history/2022-piec-kawowy.jpg';
+// 2023
+import Roast2023Panel   from '../assets/history/2023-panel-pieca.jpg';
+// 2024
+import Roast2024Ziarna  from '../assets/history/2024-wypalanie-ziaren.jpg';
+import Roast2024Profil  from '../assets/history/2024-piec-profil-wypalania.jpg';
+import Roast2024Bebno   from '../assets/history/2024-ziarna-z-bebna.jpg';
+import Roast2024Palacz  from '../assets/history/2024-palacz-przy-piecu.jpg';
+// 2025
+import Brand2025Kolumbia from '../assets/history/2025-opakowanie-kolumbia.jpg';
+import Brand2025Kawa     from '../assets/history/2025-opakowanie-z-kawa.jpg';
+import Brand2025Cupping  from '../assets/history/2025-cupping.jpg';
+import Brand2025Zespol   from '../assets/history/2025-zespol-palarnia.jpg';
 import { useScrollToTop } from '../hooks/useScrollToTop';
 import { FaMapMarkerAlt, FaShoppingBag } from 'react-icons/fa';
 import { Button } from '../components/atoms/Button';
@@ -46,25 +59,25 @@ export function About() {
             year: "2022",
             title: "Rozbudowa i rozwój",
             content: "Przeprowadzamy remont w lokalu zwiększając ilość miejsc siedzących. Przystosowujemy kuchnię i zaczynamy wypiekać słodkości. To czas gdy Strzykawa staje się nie tylko kawiarnią, ale miejscem spotkań lokalnej społeczności.",
-            images: [TeamPhoto]
+            images: [Cafe2022Latte, Cafe2022Espresso, Cafe2022Wypieki, Cafe2022Zespol, Cafe2022Piec]
         },
         {
             year: "2023",
             title: "Zaczynamy wypalać",
             content: "Kupujemy mały elektryczny piec do wypalania kawy z maksymalnym zasypem 1 kg i jednocześnie wkraczamy w nowy świat. Szkolimy się w zakresie roastingu, następnie zaczynamy paczkować i sprzedawać własną kawę.",
-            images: [FirstRoaster]
+            images: [Roast2023Panel]
         },
         {
             year: "2024",
             title: "Palarnia kawy",
             content: "Kupujemy większy piec i wynajmujemy kolejny lokal kilka kilometrów za Częstochową. Przystosowujemy i tworzymy palarnię kawy.",
-            images: [Roastery]
+            images: [Roast2024Ziarna, Roast2024Profil, Roast2024Bebno, Roast2024Palacz]
         },
         {
             year: "2025",
             title: "Nowy rozdział",
             content: "Zmieniamy branding opakowań i robimy pierwszy otwarty cupping w palarni.",
-            images: [Branding, Branding2, Branding5]
+            images: [Brand2025Kolumbia, Brand2025Kawa, Brand2025Cupping, Brand2025Zespol]
         }
     ];
 

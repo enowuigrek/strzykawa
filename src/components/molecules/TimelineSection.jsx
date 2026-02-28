@@ -62,6 +62,8 @@ export function TimelineSection({ year, title, content, images = [], index }) {
                             showThumbnails={false}
                             autoplay={true}
                             autoplayInterval={4000}
+                            aspectRatio="3/4"
+                            showCounter={false}
                         />
                     </div>
                 )}

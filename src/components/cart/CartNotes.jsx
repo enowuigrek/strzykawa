@@ -39,35 +39,20 @@ export function CartNotes({ note, onSave, isLoading }) {
     return (
         <div className="flex-shrink-0 flex flex-col-reverse">
 
-            {/* Trigger — zawsze na dole */}
-            <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-2.5">
+            {/* Trigger — pastylka, zawsze na dole */}
+            <div className="px-4 sm:px-6 py-2.5 border-t border-white/10">
                 <button
                     type="button"
                     onClick={isOpen ? handleCancel : handleOpen}
                     className={`
-                        flex items-center gap-2 text-sm transition-all duration-200
-                        ${hasNote && !isOpen
-                            ? 'text-accent hover:text-accent/80'
-                            : 'text-white/60 hover:text-white'
+                        py-1 px-3 text-sm font-medium rounded-full transition-all duration-200
+                        ${hasNote || isOpen
+                            ? 'bg-accent text-white'
+                            : 'bg-white/5 text-white/60 hover:bg-white/10 hover:text-white/80'
                         }
                     `}
                 >
-                    {hasNote && !isOpen ? (
-                        <>
-                            <FaCheck className="w-3 h-3 flex-shrink-0" />
-                            Uwagi dodane
-                        </>
-                    ) : isOpen ? (
-                        <>
-                            <FaChevronUp className="w-3 h-3 flex-shrink-0" />
-                            Zwiń
-                        </>
-                    ) : (
-                        <>
-                            <FaStickyNote className="w-3 h-3 flex-shrink-0" />
-                            Dodaj uwagi do zamówienia
-                        </>
-                    )}
+                    {hasNote && !isOpen ? '✓ Uwagi' : 'Uwagi'}
                 </button>
             </div>
 
@@ -78,8 +63,7 @@ export function CartNotes({ note, onSave, isLoading }) {
                     ${isOpen ? 'max-h-64 opacity-100' : 'max-h-0 opacity-0'}
                 `}
             >
-                <div className="border-t border-white/20">
-                <div className="container mx-auto px-4 sm:px-6 lg:px-8 pt-4 pb-1">
+                <div className="px-4 sm:px-6 pt-3 pb-1">
                     {/* Textarea */}
                     <textarea
                         value={draft}
@@ -92,7 +76,7 @@ export function CartNotes({ note, onSave, isLoading }) {
                         rows={3}
                         className="
                             w-full px-3 py-2
-                            bg-primary-dark/50 text-white text-base
+                            bg-primary-dark/50 text-white text-sm
                             placeholder-muted/50
                             border-0 outline-none resize-none
                             transition-colors duration-200
@@ -100,7 +84,7 @@ export function CartNotes({ note, onSave, isLoading }) {
                     />
 
                     {/* Licznik + przyciski */}
-                    <div className="flex items-center justify-between mt-2 mb-1">
+                    <div className="flex items-center justify-between mt-2 mb-2">
                         <div className="flex gap-2">
                             <button
                                 type="button"
@@ -135,7 +119,6 @@ export function CartNotes({ note, onSave, isLoading }) {
                             {charsLeft} znaków
                         </span>
                     </div>
-                </div>
                 </div>
             </div>
         </div>

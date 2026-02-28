@@ -14,7 +14,9 @@ export function ProductGallery({
     coffeeName,
     showThumbnails = true,
     autoplay = false,
-    autoplayInterval = 4000
+    autoplayInterval = 4000,
+    aspectRatio = '1/1',
+    showCounter = true,
 }) {
     const [selectedImageIndex, setSelectedImageIndex] = useState(0);
     const timerRef = useRef(null);
@@ -57,7 +59,7 @@ export function ProductGallery({
 
     if (!images || images.length === 0) {
         return (
-            <div className="aspect-square bg-primary-light border border-white/10 flex items-center justify-center">
+            <div className="bg-primary-light border border-white/10 flex items-center justify-center" style={{ aspectRatio }}>
                 <p className="text-muted">Brak zdjęcia</p>
             </div>
         );
@@ -100,11 +102,11 @@ export function ProductGallery({
                 {hasManyImages ? (
                     <MobileCarousel
                         images={images}
-                        aspectRatio="1/1"
-                        showCounter={true}
+                        aspectRatio={aspectRatio}
+                        showCounter={showCounter}
                     />
                 ) : (
-                    <div className="aspect-square bg-primary-light overflow-hidden">
+                    <div className="bg-primary-light overflow-hidden" style={{ aspectRatio }}>
                         <img
                             src={images[0]}
                             alt={coffeeName}
@@ -117,7 +119,7 @@ export function ProductGallery({
             {/* Desktop - Gallery with arrows */}
             <div className="hidden md:block space-y-4">
                 {/* Main Image with arrows */}
-                <div className="relative aspect-square bg-primary-light overflow-hidden group">
+                <div className="relative bg-primary-light overflow-hidden group" style={{ aspectRatio }}>
                     <img
                         key={selectedImageIndex}
                         src={currentImage}
@@ -149,7 +151,7 @@ export function ProductGallery({
                     )}
 
                     {/* Image counter badge */}
-                    {hasManyImages && (
+                    {showCounter && hasManyImages && (
                         <div className="absolute top-3 right-3 px-2 py-1 text-white/80 text-sm font-medium drop-shadow-lg">
                             {selectedImageIndex + 1}/{images.length}
                         </div>

@@ -14,7 +14,7 @@ export function Contact() {
     return (
         <PageLayout
             title="Kontakt & Lokalizacja"
-            description="Znajdź nas w sercu miasta. Zapraszamy na kawę i rozmowę o najlepszych ziarnach z całego świata. Odwiedź także naszą palarnię i zobacz jak powstają nasze kawy specialty."
+            description=""
         >
             <div className="container px-6 sm:px-8 lg:px-12 py-8">
 
