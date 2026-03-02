@@ -17,18 +17,19 @@ function HeroSection() {
                 onReadyToShow={() => setShowContent(true)}
             />
 
-            {/* Main Content - scrolluje z hero */}
+            {/* Main Content - always rendered for SEO/LCP, animates in after video ready */}
             <div
                 className={`relative z-10 text-center max-w-5xl mx-auto px-6 sm:px-8 transition-all duration-1000 ease-out ${
                     showContent ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
                 }`}
+                aria-hidden={!showContent}
             >
                 <Tagline />
                 <ActionButtons />
             </div>
 
             {/* Scroll Down Indicator */}
-            {showContent && <ScrollDownIndicator />}
+            <ScrollDownIndicator />
         </section>
     );
 }

@@ -35,6 +35,8 @@ export function HeroBackground({ videoDesktop, videoMobile, onReadyToShow }) {
         return () => window.removeEventListener('scroll', handleScroll);
     }, []);
 
+    const posterSrc = isMobile ? '/hero-poster-mobile.webp' : '/hero-poster-desktop.webp';
+
     return (
         <div className="absolute inset-0 overflow-hidden">
             <video
@@ -47,7 +49,8 @@ export function HeroBackground({ videoDesktop, videoMobile, onReadyToShow }) {
                 muted
                 loop={false}
                 playsInline
-                preload="metadata"
+                preload="auto"
+                poster={posterSrc}
                 onCanPlay={() => setVideoReady(true)}
             >
                 <source src={selectedVideo} type="video/mp4" />

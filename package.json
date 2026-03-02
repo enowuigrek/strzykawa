@@ -7,7 +7,8 @@
   "scripts": {
     "dev": "vite",
     "generate-sitemap": "node scripts/generate-sitemap.mjs",
-    "build": "node scripts/generate-sitemap.mjs && vite build",
+    "generate-feed": "node scripts/generate-product-feed.mjs",
+    "build": "node scripts/generate-sitemap.mjs && node scripts/generate-product-feed.mjs && vite build",
     "preview": "vite preview",
     "lint": "eslint src --ext .js,.jsx --report-unused-disable-directives --max-warnings 0",
     "lint:fix": "eslint src --ext .js,.jsx --fix",
