@@ -1,16 +1,11 @@
 import React, { useState, useRef } from 'react';
 
-/**
- * MobileCarousel - Instagram-style carousel
- * - Swipe/drag left/right to navigate
- * - Dots indicator at bottom
- * - No looping - bounces at edges
- * - Works with both touch and mouse
- * - Gesture disambiguation: wybiera poziomy ALBO pionowy scroll (nie oba naraz)
- *   • Gdy przesuwasz bardziej w poziomie → karuzela (blokuje scroll strony)
- *   • Gdy przesuwasz bardziej w pionie → scroll strony (karuzela nie reaguje)
- */
-export function MobileCarousel({ images, className = "", showCounter = true, aspectRatio = "4/3" }) {
+export function MobileCarousel({
+    images,
+    className = '',
+    showCounter = true,
+    aspectRatio = '4/3',
+}) {
     const [currentIndex, setCurrentIndex] = useState(0);
     const [isDragging, setIsDragging] = useState(false);
     const [startX, setStartX] = useState(0);
@@ -21,28 +16,28 @@ export function MobileCarousel({ images, className = "", showCounter = true, asp
 
     const EDGE_RESISTANCE = 0.3;
     const SWIPE_THRESHOLD = 50;
-    const DIRECTION_THRESHOLD = 1; // Po 1px decydujemy o kierunku
+    const DIRECTION_THRESHOLD = 0.1; // Po 1px decydujemy o kierunku
 
-    const getClientX = (e) => {
+    const getClientX = e => {
         return e.touches ? e.touches[0].clientX : e.clientX;
     };
 
-    const getClientY = (e) => {
+    const getClientY = e => {
         return e.touches ? e.touches[0].clientY : e.clientY;
     };
 
-    const getEndClientX = (e) => {
+    const getEndClientX = e => {
         return e.changedTouches ? e.changedTouches[0].clientX : e.clientX;
     };
 
-    const handleDragStart = (e) => {
+    const handleDragStart = e => {
         setIsDragging(true);
         setCommittedDirection(null); // Reset direction
         setStartX(getClientX(e));
         setStartY(getClientY(e)); // Save starting Y position
     };
 
-    const handleDragMove = (e) => {
+    const handleDragMove = e => {
         if (!isDragging) return;
 
         const currentX = getClientX(e);
@@ -58,7 +53,10 @@ export function MobileCarousel({ images, className = "", showCounter = true, asp
         let currentDirection = committedDirection;
 
         // Jeśli jeszcze nie zdecydowaliśmy o kierunku, sprawdź który jest dominujący
-        if (currentDirection === null && (deltaX > DIRECTION_THRESHOLD || deltaY > DIRECTION_THRESHOLD)) {
+        if (
+            currentDirection === null &&
+            (deltaX > DIRECTION_THRESHOLD || deltaY > DIRECTION_THRESHOLD)
+        ) {
             if (deltaX > deltaY) {
                 // Poziomy ruch dominuje - commituj do karuzeli
                 currentDirection = 'horizontal';
@@ -91,7 +89,7 @@ export function MobileCarousel({ images, className = "", showCounter = true, asp
         }
     };
 
-    const handleDragEnd = (e) => {
+    const handleDragEnd = e => {
         if (!isDragging) return;
 
         // Tylko gdy commitowaliśmy do poziomego ruchu, zmieniaj slajdy
@@ -116,7 +114,7 @@ export function MobileCarousel({ images, className = "", showCounter = true, asp
         setDragDelta(0);
     };
 
-    const goToSlide = (index) => {
+    const goToSlide = index => {
         setCurrentIndex(index);
     };
 
@@ -150,10 +148,7 @@ export function MobileCarousel({ images, className = "", showCounter = true, asp
                     style={{ transform: `translateX(${translateX}%)` }}
                 >
                     {images.map((image, index) => (
-                        <div
-                            key={index}
-                            className="w-full h-full flex-shrink-0"
-                        >
+                        <div key={index} className="w-full h-full flex-shrink-0">
                             <img
                                 src={typeof image === 'string' ? image : image.src}
                                 alt={typeof image === 'string' ? `Zdjęcie ${index + 1}` : image.alt}
