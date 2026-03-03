@@ -5,6 +5,7 @@ import { useAuthStore } from '../store/authStore.js';
 import { getCustomerOrders } from '../services/shopify/customer.js';
 import { PageLayout } from '../components/layout/PageLayout.jsx';
 import { Spinner } from '../components/atoms/Spinner.jsx';
+import { LoginModal } from '../components/modals/LoginModal.jsx';
 
 /**
  * Orders - Historia zamówień użytkownika
@@ -16,17 +17,16 @@ export function Orders() {
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState(null);
     const [expandedOrders, setExpandedOrders] = useState(new Set());
+    const [showLoginModal, setShowLoginModal] = useState(false);
 
     useEffect(() => {
-        // Jeśli niezalogowany, przekieruj do strony głównej
         if (!isAuthenticated) {
-            navigate('/');
+            setIsLoading(false);
             return;
         }
 
-        // Pobierz zamówienia
         fetchOrders();
-    }, [isAuthenticated, navigate]);
+    }, [isAuthenticated]);
 
     const fetchOrders = async () => {
         setIsLoading(true);
@@ -100,6 +100,34 @@ export function Orders() {
             title="Historia zamówień"
         >
             <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-8">
+                {/* Guest State */}
+                {!isAuthenticated && !isLoading && (
+                    <div className="text-center py-20">
+                        <FaBox className="w-16 h-16 text-muted mx-auto mb-4" />
+                        <h3 className="text-xl font-medium text-white mb-2">
+                            Zaloguj się, aby zobaczyć zamówienia
+                        </h3>
+                        <p className="text-muted mb-6">
+                            Historia zamówień jest dostępna po zalogowaniu na konto.
+                        </p>
+                        <button
+                            onClick={() => setShowLoginModal(true)}
+                            className="
+                                px-8 py-3
+                                bg-accent
+                                text-white
+                                font-medium
+                                rounded-full
+                                hover:bg-accent/90
+                                hover:scale-105
+                                transition-all duration-200
+                            "
+                        >
+                            Zaloguj się
+                        </button>
+                    </div>
+                )}
+
                 {/* Loading State */}
                 {isLoading && (
                     <div className="flex justify-center items-center py-20">
@@ -307,6 +335,11 @@ export function Orders() {
                     </div>
                 )}
             </div>
+
+            <LoginModal
+                isOpen={showLoginModal}
+                onClose={() => setShowLoginModal(false)}
+            />
         </PageLayout>
     );
 }
