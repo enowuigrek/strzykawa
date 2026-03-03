@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import { PageLayout } from '../components/layout/PageLayout.jsx';
+import { SEO } from '../components/SEO.jsx';
 import {
     COMPANY_NAME,
     HQ_ADDRESS,
@@ -13,6 +14,11 @@ import {
 export function TermsAndConditions() {
     return (
         <PageLayout title="Regulamin sklepu">
+            <SEO
+                title="Regulamin sklepu"
+                description="Regulamin sklepu internetowego Strzykawa — zasady zakupów, dostawa, zwroty i reklamacje. Palarnia kawy Częstochowa."
+                canonical="https://strzykawa.com/regulamin"
+            />
             <div className="container mx-auto max-w-4xl px-4 py-8">
                 <div className="bg-primary-light border border-white/10 p-6 sm:p-8">
                     <div className="prose prose-invert max-w-none">

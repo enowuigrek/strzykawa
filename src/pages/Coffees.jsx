@@ -6,6 +6,7 @@ import { CoffeeFilterBar } from '../components/organisms/CoffeeFilterBar';
 import { CoffeeGrid } from '../components/organisms/CoffeeGrid';
 import { FilterDrawer } from '../components/organisms/FilterDrawer';
 import { Spinner } from '../components/atoms/Spinner';
+import { SEO } from '../components/SEO.jsx';
 
 export function Coffees() {
     // ========== STATE ==========
@@ -173,6 +174,11 @@ export function Coffees() {
     // ========== MAIN RENDER ==========
     return (
         <PageLayout>
+            <SEO
+                title="Nasze kawy"
+                description="Odkryj nasze kawy specialty — świeżo palone blendy i single origin. Częstochowski klasyk, kawy z Brazylii, Etiopii i więcej. Sklep online Strzykawa."
+                canonical="https://strzykawa.com/kawy"
+            />
             {/* Filter Bar - Sticky */}
             <CoffeeFilterBar
                 selectedRoastType={selectedRoastType}

@@ -1,6 +1,7 @@
 import React from 'react';
 import { PageLayout } from '../components/layout/PageLayout';
 import { Link } from 'react-router-dom';
+import { SEO } from '../components/SEO.jsx';
 
 export function NotFound() {
     return (
@@ -11,6 +12,7 @@ export function NotFound() {
             showHeader={true}
             className="text-center"
         >
+            <SEO title="404 — Strona nie istnieje" noindex />
             <div className="container mx-auto px-6 py-12 text-center">
                 <Link
                     to="/"

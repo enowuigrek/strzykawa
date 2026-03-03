@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { PageLayout } from '../components/layout/PageLayout';
+import { SEO } from '../components/SEO.jsx';
 import { useCartStore } from '../store/cartStore';
 import { useCheckoutStore } from '../store/checkoutStore';
 import { useAuthStore } from '../store/authStore';
@@ -206,6 +207,7 @@ export function CheckoutPage() {
     // ===== RENDER =====
     return (
         <PageLayout>
+            <SEO title="Finalizacja zamówienia" noindex />
             <div className="container mx-auto px-4 py-8 md:py-12">
                 <h1 className="text-3xl md:text-4xl  text-white mb-8">Finalizacja zamówienia</h1>
 

@@ -14,6 +14,7 @@ import { Button } from '../components/atoms/Button.jsx';
 import { EditAddressForm } from '../components/profile/EditAddressForm.jsx';
 import { ChangePasswordForm } from '../components/profile/ChangePasswordForm.jsx';
 import { updateCustomerPersonalData, getCustomer } from '../services/shopify/customer.js';
+import { SEO } from '../components/SEO.jsx';
 
 /**
  * Profile - Strona profilu użytkownika
@@ -106,6 +107,7 @@ export function Profile() {
 
     return (
         <PageLayout title="Mój profil">
+            <SEO title="Mój profil" noindex />
             <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-8">
                 <div className="max-w-2xl mx-auto space-y-6">
 

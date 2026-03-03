@@ -9,6 +9,7 @@ import { VariantSelector } from '../components/molecules/VariantSelector';
 import { QuantitySelector } from '../components/atoms/QuantitySelector';
 import { Button } from '../components/atoms/Button';
 import { Spinner } from '../components/atoms/Spinner';
+import { SEO } from '../components/SEO.jsx';
 import { shopify } from '../services/shopify';
 import { useCartStore } from '../store/cartStore';
 import { ROAST_TYPE_COLORS } from '../constants/colors';
@@ -141,8 +142,51 @@ export function CoffeeDetail() {
     const hasDiscount = compareAtPrice && compareAtPrice > price;
     const isAvailable = selectedVariant?.availableForSale ?? true;
 
+    // Build SEO data from product
+    const seoDescription = coffee.description
+        ? coffee.description.replace(/<[^>]+>/g, '').slice(0, 155)
+        : `${coffee.name} — kawa specialty | Strzykawa Palarnia Kawy`;
+    const seoCanonical = `https://strzykawa.com/kawy/${handle}`;
+    const seoOgImage = coffee.images?.[0] || 'https://strzykawa.com/og-image.png';
+    const seoPrice = selectedVariant?.price ?? price;
+    const seoAvailable = selectedVariant?.availableForSale ?? true;
+    const seoTitle = `${coffee.name} — ${coffee.roastType === 'Filter' ? 'kawa przelew' : coffee.roastType === 'Espresso' ? 'kawa espresso' : 'kawa'} | Strzykawa Palarnia Kawy`;
+
+    const productSchema = {
+        '@context': 'https://schema.org',
+        '@type': 'Product',
+        name: coffee.name,
+        description: seoDescription,
+        image: seoOgImage,
+        brand: {
+            '@type': 'Brand',
+            name: 'Strzykawa',
+        },
+        offers: {
+            '@type': 'Offer',
+            url: seoCanonical,
+            priceCurrency: 'PLN',
+            price: seoPrice.toFixed(2),
+            availability: seoAvailable
+                ? 'https://schema.org/InStock'
+                : 'https://schema.org/OutOfStock',
+            seller: {
+                '@type': 'Organization',
+                name: 'Strzykawa',
+            },
+        },
+    };
+
     return (
         <PageLayout>
+            <SEO
+                fullTitle={seoTitle}
+                description={seoDescription}
+                canonical={seoCanonical}
+                ogImage={seoOgImage}
+                ogType="product"
+                productSchema={productSchema}
+            />
             <div className="container mx-auto max-w-7xl px-4 py-8">
                 {/* Breadcrumb */}
                 <ProductBreadcrumb coffeeName={coffee.name} />

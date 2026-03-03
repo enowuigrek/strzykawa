@@ -4,6 +4,7 @@ import { FaBox, FaCheckCircle, FaClock, FaExclamationTriangle, FaChevronDown, Fa
 import { useAuthStore } from '../store/authStore.js';
 import { getCustomerOrders } from '../services/shopify/customer.js';
 import { PageLayout } from '../components/layout/PageLayout.jsx';
+import { SEO } from '../components/SEO.jsx';
 import { Spinner } from '../components/atoms/Spinner.jsx';
 import { LoginModal } from '../components/modals/LoginModal.jsx';
 
@@ -99,6 +100,7 @@ export function Orders() {
         <PageLayout
             title="Historia zamówień"
         >
+            <SEO title="Historia zamówień" noindex />
             <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-8">
                 {/* Guest State */}
                 {!isAuthenticated && !isLoading && (

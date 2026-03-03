@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { FaCheckCircle, FaExclamationTriangle } from 'react-icons/fa';
 import { Button } from '../components/atoms/Button';
 import { PageLayout } from '../components/layout/PageLayout.jsx';
+import { SEO } from '../components/SEO.jsx';
 import { CONTACT_EMAIL, CONTACT_EMAIL_HREF } from '../constants/contact';
 
 const initialFormData = {
@@ -119,6 +120,11 @@ export function B2B() {
             title="Współpraca B2B"
             description="Szukasz sprawdzonego dostawcy kawy specialty dla swojego biznesu? Wypełnij formularz, a my skontaktujemy się z Tobą."
         >
+            <SEO
+                title="Współpraca B2B — dostawca kawy specialty"
+                description="Szukasz kawy specialty dla kawiarni, restauracji lub biura? Strzykawa — palarnia z Częstochowy oferuje regularną dostawę świeżo palonej kawy dla firm."
+                canonical="https://strzykawa.com/b2b"
+            />
             <div className="max-w-2xl mx-auto px-4 sm:px-6">
                 <div className="bg-primary-light p-6 md:p-8">
                     {/* Success message */}

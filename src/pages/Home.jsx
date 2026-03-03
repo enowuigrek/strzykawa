@@ -7,6 +7,7 @@ import { Logo } from "../components/atoms/Logo.jsx";
 import { SocialLinks } from '../components/molecules/SocialLinks.jsx';
 import { HeroReviews } from '../components/features/hero/HeroReviews.jsx';
 import { useScrollAnimation, scrollAnimations } from '../hooks/useScrollAnimation';
+import { SEO } from '../components/SEO.jsx';
 import heroVideoDesktop from '../assets/hero-desktop.mp4';
 import heroVideoMobile from '../assets/hero-mobile.mp4';
 
@@ -20,6 +21,11 @@ export function Home() {
 
     return (
         <div className="home-page relative">
+            <SEO
+                fullTitle="Strzykawa | Palarnia Kawy i Kawiarnia w Częstochowie"
+                description="Strzykawa — palarnia kawy i kawiarnia specialty coffee w centrum Częstochowy. Świeżo palona kawa z najlepszych ziaren. Odwiedź nas na ul. Dąbrowskiego 4."
+                canonical="https://strzykawa.com/"
+            />
             {/* STICKY BACKGROUND (tylko video) */}
             <div className="sticky top-0 h-screen z-0">
                 <HeroBackground

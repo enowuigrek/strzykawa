@@ -4,6 +4,7 @@ import { RoasteryLocation } from '../components/features/contact/RoasteryLocatio
 import { CompanyData } from '../components/features/contact/CompanyData';
 import { useScrollToTop } from '../hooks/useScrollToTop';
 import { PageLayout } from '../components/layout/PageLayout.jsx';
+import { SEO } from '../components/SEO.jsx';
 import { useScrollAnimation, scrollAnimations } from '../hooks/useScrollAnimation';
 
 export function Contact() {
@@ -16,6 +17,11 @@ export function Contact() {
             title="Kontakt & Lokalizacja"
             description=""
         >
+            <SEO
+                title="Kontakt i lokalizacja"
+                description="Kawiarnia Strzykawa — ul. Dąbrowskiego 4, Częstochowa. Palarnia w Rędzinach. Skontaktuj się z nami: kontakt@strzykawa.com, tel. +48 668 011 806."
+                canonical="https://strzykawa.com/kontakt"
+            />
             <div className="container px-6 sm:px-8 lg:px-12 py-8">
 
                 {/* Górny rząd: Dane firmy | Kawiarnia | Palarnia */}

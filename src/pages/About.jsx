@@ -23,6 +23,7 @@ import { useScrollToTop } from '../hooks/useScrollToTop';
 import { FaMapMarkerAlt, FaShoppingBag } from 'react-icons/fa';
 import { Button } from '../components/atoms/Button';
 import { PageLayout } from "../components/layout/PageLayout.jsx";
+import { SEO } from '../components/SEO.jsx';
 import { TimelineSection } from '../components/molecules/TimelineSection';
 import { TimelineBar } from '../components/organisms/TimelineBar';
 
@@ -88,6 +89,11 @@ export function About() {
             title="O Strzykawie"
             description="Nasza historia. Poznaj drogę od małej kawiarni do palarni kawy."
         >
+            <SEO
+                title="O Strzykawie — nasza historia"
+                description="Poznaj historię Strzykawy — od małej kawiarni przy ul. Dąbrowskiego 4 do własnej palarni kawy w Rędzinach. Specialty coffee z Częstochowy od 2020 roku."
+                canonical="https://strzykawa.com/o-nas"
+            />
             {/* Timeline Bar */}
             <TimelineBar years={years} hide={hideBar} />
 

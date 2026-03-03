@@ -1,4 +1,5 @@
 import { PageLayout } from '../components/layout/PageLayout.jsx';
+import { SEO } from '../components/SEO.jsx';
 import {
     COMPANY_NAME,
     HQ_ADDRESS,
@@ -12,6 +13,11 @@ import {
 export function CookiePolicy() {
     return (
         <PageLayout title="Polityka cookies">
+            <SEO
+                title="Polityka cookies"
+                description="Polityka plików cookies Strzykawa — informacje o rodzajach cookies stosowanych na stronie i sposobach zarządzania nimi."
+                canonical="https://strzykawa.com/polityka-cookies"
+            />
             <div className="container mx-auto max-w-4xl px-4 py-8">
                 <div className="bg-primary-light border border-white/10 p-6 sm:p-8">
                     <div className="prose prose-invert max-w-none">
