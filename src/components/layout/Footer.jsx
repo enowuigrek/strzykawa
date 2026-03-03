@@ -6,6 +6,7 @@ import {
     FaEnvelope
 } from 'react-icons/fa';
 import * as VanillaCookieConsent from 'vanilla-cookieconsent';
+import { SOCIAL_LINKS } from '../../constants/social';
 
 export function Footer() {
     const currentYear = new Date().getFullYear();
@@ -13,13 +14,13 @@ export function Footer() {
     const socialLinks = [
         {
             icon: FaFacebookF,
-            href: 'https://www.facebook.com/StrzykawaCoffeeShop/',
+            href: SOCIAL_LINKS.facebook.url,
             label: 'Facebook',
             hoverColor: 'hover:text-[#1877F2]'
         },
         {
             icon: FaInstagram,
-            href: 'https://www.instagram.com/strzykawa_coffee_shop/',
+            href: SOCIAL_LINKS.instagram.url,
             label: 'Instagram',
             hoverColor: 'hover:text-[#E4405F]'
         }

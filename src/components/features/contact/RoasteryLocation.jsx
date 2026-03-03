@@ -1,5 +1,6 @@
 import React from 'react';
 import { FaMapMarkerAlt, FaFire, FaExternalLinkAlt, FaFacebookF, FaInstagram } from 'react-icons/fa';
+import { SOCIAL_LINKS } from '../../../constants/social';
 
 export function RoasteryLocation() {
     const openGoogleMaps = () => {
@@ -36,7 +37,7 @@ export function RoasteryLocation() {
                 {/* Social media links */}
                 <div className="flex items-center gap-3">
                     <a
-                        href="https://www.facebook.com/StrzykawaCoffeeShop/"
+                        href={SOCIAL_LINKS.facebook.url}
                         target="_blank"
                         rel="noopener noreferrer"
                         className="w-12 h-12 flex items-center justify-center bg-white/5 text-muted hover:text-[#1877F2] hover:bg-white/10 transition-all"
@@ -45,7 +46,7 @@ export function RoasteryLocation() {
                         <FaFacebookF className="w-6 h-6" />
                     </a>
                     <a
-                        href="https://www.instagram.com/strzykawa_coffee_shop/"
+                        href={SOCIAL_LINKS.instagram.url}
                         target="_blank"
                         rel="noopener noreferrer"
                         className="w-12 h-12 flex items-center justify-center bg-white/5 text-muted hover:text-[#E4405F] hover:bg-white/10 transition-all"

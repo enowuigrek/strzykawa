@@ -1,6 +1,7 @@
 import React from 'react';
 import { FaStar, FaTripadvisor, FaGoogle, FaFacebookF, FaTrophy } from 'react-icons/fa';
 import { useScrollAnimation, scrollAnimations } from '../../../hooks/useScrollAnimation';
+import { SOCIAL_LINKS } from '../../../constants/social';
 
 export function HeroReviews() {
     const [headerRef, headerVisible] = useScrollAnimation({ threshold: 0.2 });
@@ -32,7 +33,7 @@ export function HeroReviews() {
             rating: '100%',
             count: 14,
             label: 'poleca',
-            url: 'https://www.facebook.com/StrzykawaCoffeeShop/reviews'
+            url: SOCIAL_LINKS.facebook.reviewsUrl
         },
         {
             platform: 'Ranking 2025',

@@ -1,6 +1,7 @@
 import React from 'react';
 import { FaFacebook, FaInstagram } from 'react-icons/fa';
 import { useScrollAnimation, scrollAnimations } from '../../hooks/useScrollAnimation';
+import { SOCIAL_LINKS } from '../../constants/social';
 
 export function SocialLinks() {
     const [headerRef, headerVisible] = useScrollAnimation({ threshold: 0.3 });
@@ -10,13 +11,13 @@ export function SocialLinks() {
         {
             name: 'Facebook',
             icon: FaFacebook,
-            url: 'https://www.facebook.com/StrzykawaCoffeeShop',
+            url: SOCIAL_LINKS.facebook.url,
             color: 'hover:bg-blue-600/20'
         },
         {
             name: 'Instagram',
             icon: FaInstagram,
-            url: 'https://www.instagram.com/strzykawa_coffee_shop',
+            url: SOCIAL_LINKS.instagram.url,
             color: 'hover:bg-pink-600/20'
         }
     ];

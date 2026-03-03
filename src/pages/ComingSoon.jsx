@@ -1,5 +1,6 @@
 import React from 'react';
 import { FaFacebook, FaInstagram, FaCoffee } from 'react-icons/fa';
+import { SOCIAL_LINKS } from '../constants/social';
 
 export function ComingSoon() {
     return (
@@ -58,7 +59,7 @@ export function ComingSoon() {
                     </p>
                     <div className="flex items-center justify-center gap-4">
                         <a
-                            href="https://www.facebook.com/StrzykawaCoffeeShop"
+                            href={SOCIAL_LINKS.facebook.url}
                             target="_blank"
                             rel="noopener noreferrer"
                             className="group flex items-center gap-3 bg-white/10 backdrop-blur-sm border border-white/20 rounded-full px-6 py-3 transition-all duration-300 hover:scale-105 hover:bg-blue-600/20 hover:border-blue-500/50"
@@ -68,7 +69,7 @@ export function ComingSoon() {
                             <span className="text-white font-medium">Facebook</span>
                         </a>
                         <a
-                            href="https://www.instagram.com/strzykawa_coffee_shop"
+                            href={SOCIAL_LINKS.instagram.url}
                             target="_blank"
                             rel="noopener noreferrer"
                             className="group flex items-center gap-3 bg-white/10 backdrop-blur-sm border border-white/20 rounded-full px-6 py-3 transition-all duration-300 hover:scale-105 hover:bg-pink-600/20 hover:border-pink-500/50"
