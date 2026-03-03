@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { FaCheckCircle, FaExclamationTriangle } from 'react-icons/fa';
 import { Button } from '../components/atoms/Button';
 import { PageLayout } from '../components/layout/PageLayout.jsx';
+import { CONTACT_EMAIL, CONTACT_EMAIL_HREF } from '../constants/contact';
 
 const initialFormData = {
     name: '',
@@ -98,7 +99,7 @@ export function B2B() {
             }
         } catch {
             setSubmitError(
-                'Wystąpił błąd. Spróbuj ponownie lub napisz na kontakt@strzykawa.com'
+                `Wystąpił błąd. Spróbuj ponownie lub napisz na ${CONTACT_EMAIL}`
             );
         } finally {
             setIsLoading(false);
@@ -260,10 +261,10 @@ export function B2B() {
                 <p className="text-center text-muted text-sm mt-8">
                     Wolisz kontakt bezpośredni?{' '}
                     <a
-                        href="mailto:kontakt@strzykawa.com"
+                        href={CONTACT_EMAIL_HREF}
                         className="text-accent hover:text-white transition-colors"
                     >
-                        kontakt@strzykawa.com
+                        {CONTACT_EMAIL}
                     </a>
                 </p>
             </div>

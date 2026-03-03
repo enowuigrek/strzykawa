@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { FaTruck, FaBox, FaStore } from 'react-icons/fa';
 import { SHIPPING_COST, FREE_SHIPPING_THRESHOLD } from '../../constants/shipping';
+import { CAFE_ADDRESS, CAFE_HOURS_SHORT } from '../../constants/contact';
 
 /**
  * DeliveryMethodSelector - Wybór metody dostawy (Kurier / Paczkomat / Odbiór osobisty)
@@ -30,7 +31,7 @@ export function DeliveryMethodSelector({ selectedMethod, onChange, subtotal = 0 
         {
             id: 'odbior',
             name: 'Odbiór osobisty',
-            description: 'Kawiarnia Strzykawa · ul. Dąbrowskiego 4, Częstochowa · Pon–Pt 9–17, Sob 10–15',
+            description: `Kawiarnia Strzykawa · ${CAFE_ADDRESS} · ${CAFE_HOURS_SHORT}`,
             price: 0,
             alwaysFree: true,
             icon: FaStore,

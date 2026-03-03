@@ -1,4 +1,13 @@
 import { PageLayout } from '../components/layout/PageLayout.jsx';
+import {
+    COMPANY_NAME,
+    HQ_ADDRESS,
+    CAFE_ADDRESS,
+    COMPANY_NIP,
+    CONTACT_EMAIL,
+    CONTACT_EMAIL_HREF,
+    CONTACT_PHONE,
+} from '../constants/contact';
 
 export function CookiePolicy() {
     return (
@@ -20,12 +29,12 @@ export function CookiePolicy() {
                             Administratorem serwisu i podmiotem, który umieszcza pliki cookies na Twoim urządzeniu, jest:
                         </p>
                         <ul className="text-white/80 mb-6 space-y-1">
-                            <li><strong className="text-white">STRZYKAWA DAMIAN DZIK</strong></li>
-                            <li>adres siedziby: ul. Warszawska 241, 42-209 Częstochowa</li>
-                            <li>adres kawiarni: ul. Dąbrowskiego 4, 42-200 Częstochowa</li>
-                            <li>NIP: 7441726899</li>
-                            <li>e-mail: <a href="mailto:kontakt@strzykawa.com" className="text-accent hover:text-white">kontakt@strzykawa.com</a></li>
-                            <li>telefon: +48 668 011 806</li>
+                            <li><strong className="text-white">{COMPANY_NAME.toUpperCase()}</strong></li>
+                            <li>adres siedziby: {HQ_ADDRESS}</li>
+                            <li>adres kawiarni: {CAFE_ADDRESS}</li>
+                            <li>NIP: {COMPANY_NIP}</li>
+                            <li>e-mail: <a href={CONTACT_EMAIL_HREF} className="text-accent hover:text-white">{CONTACT_EMAIL}</a></li>
+                            <li>telefon: {CONTACT_PHONE}</li>
                         </ul>
 
                         <h2 className="text-xl font-medium text-white mt-8 mb-4">2. Czym są pliki cookies?</h2>

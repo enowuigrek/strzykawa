@@ -7,6 +7,16 @@ import {
 } from 'react-icons/fa';
 import * as VanillaCookieConsent from 'vanilla-cookieconsent';
 import { SOCIAL_LINKS } from '../../constants/social';
+import {
+    COMPANY_NAME,
+    HQ_STREET,
+    HQ_ZIP_CITY,
+    COMPANY_NIP,
+    CONTACT_PHONE,
+    CONTACT_PHONE_HREF,
+    CONTACT_EMAIL,
+    CONTACT_EMAIL_HREF,
+} from '../../constants/contact';
 
 export function Footer() {
     const currentYear = new Date().getFullYear();
@@ -29,13 +39,13 @@ export function Footer() {
     const contactInfo = [
         {
             icon: FaPhone,
-            text: '+48 668 011 806',
-            href: 'tel:+48668011806'
+            text: CONTACT_PHONE,
+            href: CONTACT_PHONE_HREF,
         },
         {
             icon: FaEnvelope,
-            text: 'kontakt@strzykawa.com',
-            href: 'mailto:kontakt@strzykawa.com'
+            text: CONTACT_EMAIL,
+            href: CONTACT_EMAIL_HREF,
         }
     ];
 
@@ -77,11 +87,11 @@ export function Footer() {
 
                     {/* Kolumna 2: Dane firmy — desktop i mobile */}
                     <div className="flex flex-col space-y-4">
-                        <h4 className="text-2xl text-white">Strzykawa Damian Dzik</h4>
+                        <h4 className="text-2xl text-white">{COMPANY_NAME}</h4>
                         <ul className="flex flex-col gap-3">
-                            <li className="text-white/70 text-lg">ul. Warszawska 241</li>
-                            <li className="text-white/70 text-lg">42-209 Częstochowa</li>
-                            <li className="text-white/70 text-lg">NIP: 7441726899</li>
+                            <li className="text-white/70 text-lg">{HQ_STREET}</li>
+                            <li className="text-white/70 text-lg">{HQ_ZIP_CITY}</li>
+                            <li className="text-white/70 text-lg">NIP: {COMPANY_NIP}</li>
                         </ul>
                     </div>
 

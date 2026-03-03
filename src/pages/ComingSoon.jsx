@@ -1,6 +1,7 @@
 import React from 'react';
 import { FaFacebook, FaInstagram, FaCoffee } from 'react-icons/fa';
 import { SOCIAL_LINKS } from '../constants/social';
+import { CAFE_ADDRESS } from '../constants/contact';
 
 export function ComingSoon() {
     return (
@@ -48,7 +49,7 @@ export function ComingSoon() {
                         </a>
                     </div>
                     <p className="text-base text-muted mt-4">
-                        ul. Dąbrowskiego 4, 42-200 Częstochowa
+                        {CAFE_ADDRESS}
                     </p>
                 </div>
 

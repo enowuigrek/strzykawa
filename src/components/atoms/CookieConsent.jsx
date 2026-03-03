@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import 'vanilla-cookieconsent/dist/cookieconsent.css';
 import '../../styles/cookieconsent-custom.css';
 import * as VanillaCookieConsent from 'vanilla-cookieconsent';
+import { CONTACT_EMAIL } from '../../constants/contact';
 
 export function CookieConsent() {
     useEffect(() => {
@@ -131,7 +132,7 @@ export function CookieConsent() {
                                 {
                                     title: 'Więcej informacji',
                                     description:
-                                        'W razie pytań dotyczących naszej polityki cookies, <a href="/polityka-prywatnosci" class="cc-link">zapoznaj się z polityką prywatności</a> lub napisz do nas na adres kontakt@strzykawa.com.',
+                                        `W razie pytań dotyczących naszej polityki cookies, <a href="/polityka-prywatnosci" class="cc-link">zapoznaj się z polityką prywatności</a> lub napisz do nas na adres ${CONTACT_EMAIL}.`,
                                 },
                             ],
                         },

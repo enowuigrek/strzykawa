@@ -1,10 +1,11 @@
 import React from 'react';
 import { FaMapMarkerAlt, FaFire, FaExternalLinkAlt, FaFacebookF, FaInstagram } from 'react-icons/fa';
 import { SOCIAL_LINKS } from '../../../constants/social';
+import { ROASTERY_STREET, ROASTERY_ZIP_CITY, ROASTERY_ADDRESS } from '../../../constants/contact';
 
 export function RoasteryLocation() {
     const openGoogleMaps = () => {
-        const address = encodeURIComponent('ul. Mstowska 1C, 42-242 Rędziny');
+        const address = encodeURIComponent(ROASTERY_ADDRESS);
         window.open(`https://www.google.com/maps/search/?api=1&query=${address}`, '_blank');
     };
 
@@ -24,8 +25,8 @@ export function RoasteryLocation() {
                 <div className="flex items-start gap-3">
                     <FaMapMarkerAlt className="w-4 h-4 text-muted mt-1 flex-shrink-0" />
                     <div className="flex-1">
-                        <div className="font-medium text-white">ul. Mstowska 1C</div>
-                        <div className="text-muted">42-242 Rędziny</div>
+                        <div className="font-medium text-white">{ROASTERY_STREET}</div>
+                        <div className="text-muted">{ROASTERY_ZIP_CITY}</div>
                     </div>
                 </div>
 

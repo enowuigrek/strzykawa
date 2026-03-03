@@ -1,5 +1,14 @@
 import { Link } from 'react-router-dom';
 import { PageLayout } from '../components/layout/PageLayout.jsx';
+import {
+    COMPANY_NAME,
+    HQ_ADDRESS,
+    CAFE_ADDRESS,
+    COMPANY_NIP,
+    CONTACT_EMAIL,
+    CONTACT_EMAIL_HREF,
+    CONTACT_PHONE,
+} from '../constants/contact';
 
 export function TermsAndConditions() {
     return (
@@ -18,12 +27,12 @@ export function TermsAndConditions() {
                                 Sklep internetowy <strong className="text-white">Strzykawa</strong> działający pod adresem{' '}
                                 <strong className="text-white">https://strzykawa.com</strong> (dalej: <em>Sklep</em>) jest prowadzony przez:
                                 <ul className="mt-2 ml-4 space-y-1 list-none">
-                                    <li><strong className="text-white">STRZYKAWA DAMIAN DZIK</strong></li>
-                                    <li>adres siedziby: ul. Warszawska 241, 42-209 Częstochowa</li>
-                                    <li>adres miejsca prowadzenia działalności / kawiarni: ul. Dąbrowskiego 4, 42-200 Częstochowa</li>
-                                    <li>NIP: 7441726899</li>
-                                    <li>adres e-mail: <a href="mailto:kontakt@strzykawa.com" className="text-accent hover:text-white">kontakt@strzykawa.com</a></li>
-                                    <li>telefon: +48 668 011 806</li>
+                                    <li><strong className="text-white">{COMPANY_NAME.toUpperCase()}</strong></li>
+                                    <li>adres siedziby: {HQ_ADDRESS}</li>
+                                    <li>adres miejsca prowadzenia działalności / kawiarni: {CAFE_ADDRESS}</li>
+                                    <li>NIP: {COMPANY_NIP}</li>
+                                    <li>adres e-mail: <a href={CONTACT_EMAIL_HREF} className="text-accent hover:text-white">{CONTACT_EMAIL}</a></li>
+                                    <li>telefon: {CONTACT_PHONE}</li>
                                     <li>(dalej: <em>Sprzedawca</em>)</li>
                                 </ul>
                             </li>
@@ -165,7 +174,7 @@ export function TermsAndConditions() {
                                     <li>w przypadku wielu Towarów – od otrzymania ostatniego z nich.</li>
                                 </ol>
                             </li>
-                            <li>Aby skorzystać z prawa odstąpienia, Konsument powinien przesłać Sprzedawcy jednoznaczne oświadczenie (np. e-mailem na adres <a href="mailto:kontakt@strzykawa.com" className="text-accent hover:text-white">kontakt@strzykawa.com</a>). Może użyć wzoru formularza dostępnego w Sklepie, jednak nie jest to obowiązkowe.</li>
+                            <li>Aby skorzystać z prawa odstąpienia, Konsument powinien przesłać Sprzedawcy jednoznaczne oświadczenie (np. e-mailem na adres <a href={CONTACT_EMAIL_HREF} className="text-accent hover:text-white">{CONTACT_EMAIL}</a>). Może użyć wzoru formularza dostępnego w Sklepie, jednak nie jest to obowiązkowe.</li>
                             <li>Konsument jest zobowiązany odesłać Towar na adres Sprzedawcy niezwłocznie, nie później niż w ciągu 14 dni od dnia, w którym poinformował o odstąpieniu od umowy.</li>
                             <li>Konsument ponosi bezpośrednie koszty zwrotu Towaru.</li>
                             <li>Sprzedawca zwróci Konsumentowi wszystkie otrzymane od niego płatności, w tym koszty dostawy (do wysokości najtańszej oferowanej opcji), nie później niż w ciągu 14 dni od dnia otrzymania oświadczenia o odstąpieniu od umowy. Sprzedawca może wstrzymać się ze zwrotem do chwili otrzymania Towaru lub dostarczenia dowodu jego odesłania.</li>
@@ -186,7 +195,7 @@ export function TermsAndConditions() {
                             <li>
                                 W przypadku stwierdzenia wady Towaru Klient może złożyć reklamację:
                                 <ul className="mt-2 ml-4 space-y-1 list-disc list-inside">
-                                    <li>mailowo na adres: <a href="mailto:kontakt@strzykawa.com" className="text-accent hover:text-white">kontakt@strzykawa.com</a>,</li>
+                                    <li>mailowo na adres: <a href={CONTACT_EMAIL_HREF} className="text-accent hover:text-white">{CONTACT_EMAIL}</a>,</li>
                                     <li>lub pisemnie na adres siedziby lub kawiarni Sprzedawcy.</li>
                                 </ul>
                             </li>

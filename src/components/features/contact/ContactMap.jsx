@@ -2,12 +2,13 @@ import React from 'react';
 import { FaMapMarkerAlt, FaRoute } from 'react-icons/fa';
 import { Button } from '../../atoms/Button.jsx';
 import { useScrollAnimation, scrollAnimations } from '../../../hooks/useScrollAnimation';
+import { CAFE_STREET, CAFE_ZIP_CITY, CAFE_MAPS_URL } from '../../../constants/contact';
 
 export function ContactMap() {
     const [contentRef, contentVisible] = useScrollAnimation({ threshold: 0.3 });
 
     const openGoogleMaps = () => {
-        window.open(`https://maps.app.goo.gl/TkVzjmw5Z8tXtYiq8`, '_blank');
+        window.open(CAFE_MAPS_URL, '_blank');
     };
 
     const openDirections = () => {
@@ -31,8 +32,8 @@ export function ContactMap() {
                     <div className="flex items-start gap-3">
                         <FaMapMarkerAlt className="w-4 h-4 text-muted mt-1 flex-shrink-0" />
                         <div>
-                            <div className="font-medium text-white">ul. Dąbrowskiego 4</div>
-                            <div className="text-muted">42-200 Częstochowa</div>
+                            <div className="font-medium text-white">{CAFE_STREET}</div>
+                            <div className="text-muted">{CAFE_ZIP_CITY}</div>
                         </div>
                     </div>
                 </div>

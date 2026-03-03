@@ -1,6 +1,7 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 import { logger } from '../utils/logger';
+import { CAFE_ADDRESS } from '../constants/contact';
 
 /**
  * Checkout Store - Zustand store dla procesu zamówienia
@@ -256,7 +257,7 @@ export const useCheckoutStore = create(
                 } else if (deliveryMethod === 'paczkomat' && paczkomatData) {
                     return `Paczkomat InPost ${paczkomatData.name}: ${paczkomatData.address_details?.city || ''}`;
                 } else if (deliveryMethod === 'odbior') {
-                    return 'Odbiór osobisty · ul. Dąbrowskiego 4, 42-200 Częstochowa';
+                    return `Odbiór osobisty · ${CAFE_ADDRESS}`;
                 }
 
                 return '';

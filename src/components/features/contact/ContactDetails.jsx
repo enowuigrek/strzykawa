@@ -1,5 +1,11 @@
 import React from 'react';
 import { FaPhone, FaEnvelope } from 'react-icons/fa';
+import {
+    CONTACT_PHONE,
+    CONTACT_PHONE_HREF,
+    CONTACT_EMAIL,
+    CONTACT_EMAIL_HREF,
+} from '../../../constants/contact';
 
 export function ContactDetails() {
     return (
@@ -13,10 +19,10 @@ export function ContactDetails() {
                     <div>
                         <div className="font-medium text-white">Telefon</div>
                         <a
-                            href="tel:+48668011806"
+                            href={CONTACT_PHONE_HREF}
                             className="text-muted hover:text-white transition-colors duration-300"
                         >
-                            +48 668 011 806
+                            {CONTACT_PHONE}
                         </a>
                     </div>
                 </div>
@@ -27,10 +33,10 @@ export function ContactDetails() {
                     <div>
                         <div className="font-medium text-white">Email</div>
                         <a
-                            href="mailto:kontakt@strzykawa.com"
+                            href={CONTACT_EMAIL_HREF}
                             className="text-muted hover:text-white transition-colors duration-300"
                         >
-                            kontakt@strzykawa.com
+                            {CONTACT_EMAIL}
                         </a>
                     </div>
                 </div>

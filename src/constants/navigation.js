@@ -51,4 +51,3 @@ export const MOBILE_BOTTOM_NAV_ITEMS = [
  * External Links
  */
 export const GOOGLE_MAPS_URL = 'https://www.google.com/maps/dir/?api=1&destination=Strzykawa';
-export const CAFE_ADDRESS = 'ul. Dąbrowskiego 4, 42-200 Częstochowa';

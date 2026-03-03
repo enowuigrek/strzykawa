@@ -1,15 +1,10 @@
 import React from 'react';
 import { FaMapMarkerAlt, FaClock, FaCoffee, FaExternalLinkAlt } from 'react-icons/fa';
+import { CAFE_STREET, CAFE_ZIP_CITY, CAFE_HOURS, CAFE_MAPS_URL } from '../../../constants/contact';
 
 export function CafeLocation() {
-    const cafeHours = [
-        { days: 'Poniedziałek - Piątek', hours: '9:00 - 17:00' },
-        { days: 'Sobota', hours: '10:00 - 15:00' },
-        { days: 'Niedziela', hours: 'zamknięte' },
-    ];
-
     const openGoogleMaps = () => {
-        window.open(`https://maps.app.goo.gl/TkVzjmw5Z8tXtYiq8`, '_blank');
+        window.open(CAFE_MAPS_URL, '_blank');
     };
 
     return (
@@ -26,8 +21,8 @@ export function CafeLocation() {
                 <div className="flex items-start gap-3">
                     <FaMapMarkerAlt className="w-4 h-4 text-muted mt-1 flex-shrink-0" />
                     <div className="flex-1">
-                        <div className="font-medium text-white">ul. Dąbrowskiego 4</div>
-                        <div className="text-muted">42-200 Częstochowa</div>
+                        <div className="font-medium text-white">{CAFE_STREET}</div>
+                        <div className="text-muted">{CAFE_ZIP_CITY}</div>
                     </div>
                 </div>
 
@@ -36,7 +31,7 @@ export function CafeLocation() {
                     <FaClock className="w-4 h-4 text-muted mt-1 flex-shrink-0" />
                     <div>
                         <div className="font-medium text-white mb-2">Godziny otwarcia</div>
-                        {cafeHours.map((schedule, index) => (
+                        {CAFE_HOURS.map((schedule, index) => (
                             <div key={index} className="flex justify-between items-center text-base">
                                 <span className="text-muted">{schedule.days}</span>
                                 <span className="text-white font-medium ml-4">{schedule.hours}</span>

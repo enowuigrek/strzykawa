@@ -7,6 +7,8 @@ import { useAuthStore } from '../store/authStore';
 import { shopify } from '../services/shopify';
 import { logger } from '../utils/logger';
 
+import { CAFE_ADDRESS, CAFE_HOURS } from '../constants/contact';
+
 // Import checkout components
 import { CustomerDataForm } from '../components/checkout/CustomerDataForm';
 import { DeliveryMethodSelector } from '../components/checkout/DeliveryMethodSelector';
@@ -133,7 +135,7 @@ export function CheckoutPage() {
                 );
             } else if (deliveryMethod === 'odbior') {
                 attributes.push(
-                    { key: 'pickup_address', value: 'ul. Dąbrowskiego 4, 42-200 Częstochowa' }
+                    { key: 'pickup_address', value: CAFE_ADDRESS }
                 );
             }
 
@@ -262,11 +264,11 @@ export function CheckoutPage() {
                                 <h2 className="text-xl text-white mb-4">Dane do odbioru</h2>
                                 <div className="space-y-2 text-muted text-sm">
                                     <p className="text-white font-medium">Kawiarnia Strzykawa</p>
-                                    <p>ul. Dąbrowskiego 4, 42-200 Częstochowa</p>
+                                    <p>{CAFE_ADDRESS}</p>
                                     <div className="pt-2 border-t border-white/10 mt-3 space-y-1">
-                                        <p>Pon – Pt: 9:00 – 17:00</p>
-                                        <p>Sobota: 10:00 – 15:00</p>
-                                        <p>Niedziela: zamknięte</p>
+                                        {CAFE_HOURS.map((h, i) => (
+                                            <p key={i}>{h.days}: {h.hours}</p>
+                                        ))}
                                     </div>
                                     <p className="pt-2 text-accent">
                                         Po złożeniu zamówienia skontaktujemy się z Tobą, gdy kawa będzie gotowa do odbioru.
