@@ -143,7 +143,7 @@ export function Orders() {
                 )}
 
                 {/* Empty State */}
-                {!isLoading && !error && orders.length === 0 && (
+                {isAuthenticated && !isLoading && !error && orders.length === 0 && (
                     <div className="text-center py-20">
                         <FaBox className="w-16 h-16 text-muted mx-auto mb-4" />
                         <h3 className="text-xl font-medium text-white mb-2">
@@ -171,7 +171,7 @@ export function Orders() {
                 )}
 
                 {/* Orders List */}
-                {!isLoading && !error && orders.length > 0 && (
+                {isAuthenticated && !isLoading && !error && orders.length > 0 && (
                     <div className="space-y-4">
                         {orders.map((order) => {
                             const canceled = isCanceled(order);
