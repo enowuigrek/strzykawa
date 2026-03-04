@@ -141,13 +141,29 @@ export function CookieConsent() {
             },
 
             onConsent: () => {
-                // Podepnij Google Analytics / Facebook Pixel w przyszłości:
-                // if (VanillaCookieConsent.acceptedCategory('analytics')) { loadGoogleAnalytics(); }
-                // if (VanillaCookieConsent.acceptedCategory('marketing')) { loadFacebookPixel(); }
+                if (typeof gtag === 'function') {
+                    gtag('consent', 'update', {
+                        analytics_storage: VanillaCookieConsent.acceptedCategory('analytics') ? 'granted' : 'denied',
+                    });
+                    gtag('consent', 'update', {
+                        ad_storage: VanillaCookieConsent.acceptedCategory('marketing') ? 'granted' : 'denied',
+                        ad_user_data: VanillaCookieConsent.acceptedCategory('marketing') ? 'granted' : 'denied',
+                        ad_personalization: VanillaCookieConsent.acceptedCategory('marketing') ? 'granted' : 'denied',
+                    });
+                }
             },
 
-            onChange: () => {
-                // Reaguj na zmianę preferencji
+            onChange: ({ changedCategories }) => {
+                if (typeof gtag !== 'function') return;
+                if (changedCategories.includes('analytics')) {
+                    gtag('consent', 'update', {
+                        analytics_storage: VanillaCookieConsent.acceptedCategory('analytics') ? 'granted' : 'denied',
+                    });
+                }
+                if (changedCategories.includes('marketing')) {
+                    const v = VanillaCookieConsent.acceptedCategory('marketing') ? 'granted' : 'denied';
+                    gtag('consent', 'update', { ad_storage: v, ad_user_data: v, ad_personalization: v });
+                }
             },
         });
     }, []);
