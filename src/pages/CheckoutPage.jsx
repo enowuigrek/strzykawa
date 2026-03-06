@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { PageLayout } from '../components/layout/PageLayout';
 import { SEO } from '../components/SEO.jsx';
@@ -8,6 +8,7 @@ import { useAuthStore } from '../store/authStore';
 import { shopify } from '../services/shopify';
 import { logger } from '../utils/logger';
 import { trackBeginCheckout, trackCheckoutFormError } from '../utils/analytics';
+import { FaTag, FaChevronDown, FaCheck, FaTimes, FaStickyNote } from 'react-icons/fa';
 
 import { CAFE_ADDRESS, CAFE_HOURS } from '../constants/contact';
 
@@ -29,7 +30,19 @@ export function CheckoutPage() {
     const [companyValue, setCompanyValue] = useState('');
 
     // Cart store
-    const { items, getTotalItems, getTotalPrice, cart } = useCartStore();
+    const { items, getTotalItems, getTotalPrice, cart, updateNote, applyDiscountCode, removeDiscountCode, getAppliedDiscountCodes, getDiscountSavings } = useCartStore();
+
+    // ─── Uwagi do zamówienia ─────────────────────────────────────────────────
+    const [notesOpen, setNotesOpen] = useState(false);
+    const [noteText, setNoteText] = useState('');
+    const noteDebounceRef = useRef(null);
+
+    // ─── Kod rabatowy ────────────────────────────────────────────────────────
+    const [discountOpen, setDiscountOpen] = useState(false);
+    const [discountInput, setDiscountInput] = useState('');
+    const [discountStatus, setDiscountStatus] = useState(null); // null | 'applying' | 'valid' | 'invalid'
+    const appliedCodes = getAppliedDiscountCodes();
+    const discountSavings = getDiscountSavings();
 
     // Checkout store
     const {
@@ -99,6 +112,35 @@ export function CheckoutPage() {
             setShowLoginModal(false);
         }
     }, [isAuthenticated, user, setCustomerData, setDeliveryAddress]);
+
+    // ===== NOTES: debounced save =====
+    const handleNoteChange = (e) => {
+        const val = e.target.value;
+        setNoteText(val);
+        clearTimeout(noteDebounceRef.current);
+        noteDebounceRef.current = setTimeout(() => {
+            updateNote(val);
+        }, 800);
+    };
+
+    // ===== DISCOUNT CODE =====
+    const handleApplyDiscount = async () => {
+        if (!discountInput.trim()) return;
+        setDiscountStatus('applying');
+        const result = await applyDiscountCode(discountInput.trim());
+        if (result.success && result.applicable) {
+            setDiscountStatus('valid');
+            setDiscountInput('');
+        } else {
+            setDiscountStatus('invalid');
+        }
+    };
+
+    const handleRemoveDiscount = async () => {
+        await removeDiscountCode();
+        setDiscountStatus(null);
+        setDiscountInput('');
+    };
 
     // ===== HANDLE PAYMENT REDIRECT =====
     const handleGoToPayment = async () => {
@@ -291,6 +333,120 @@ export function CheckoutPage() {
                                 </div>
                             </div>
                         )}
+                        {/* 6. KOD RABATOWY + UWAGI — collapsible */}
+                        <div className="bg-primary-light divide-y divide-white/10">
+
+                            {/* Kod rabatowy */}
+                            <div>
+                                <button
+                                    type="button"
+                                    onClick={() => setDiscountOpen(v => !v)}
+                                    className="w-full flex items-center justify-between px-6 py-4 text-left hover:bg-white/5 transition-colors"
+                                >
+                                    <span className="flex items-center gap-2 text-white text-sm">
+                                        <FaTag className="text-accent" size={14} />
+                                        {appliedCodes.length > 0
+                                            ? <><span>Kod rabatowy:</span><span className="text-success font-bold ml-1">{appliedCodes[0].code}</span></>
+                                            : 'Masz kod rabatowy?'
+                                        }
+                                    </span>
+                                    <FaChevronDown
+                                        className={`text-muted transition-transform duration-200 ${discountOpen ? 'rotate-180' : ''}`}
+                                        size={12}
+                                    />
+                                </button>
+
+                                {discountOpen && (
+                                    <div className="px-6 pb-5 pt-1 space-y-3">
+                                        {/* Zastosowany kod */}
+                                        {appliedCodes.length > 0 ? (
+                                            <div className="flex items-center justify-between bg-success/10 border border-success/30 px-4 py-3">
+                                                <div className="flex items-center gap-2">
+                                                    <FaCheck className="text-success" size={13} />
+                                                    <span className="text-white text-sm font-bold">{appliedCodes[0].code}</span>
+                                                    {discountSavings > 0 && (
+                                                        <span className="text-success text-sm">
+                                                            −{discountSavings.toFixed(2)} zł
+                                                        </span>
+                                                    )}
+                                                </div>
+                                                <button
+                                                    onClick={handleRemoveDiscount}
+                                                    className="text-muted hover:text-danger transition-colors"
+                                                    title="Usuń kod"
+                                                >
+                                                    <FaTimes size={14} />
+                                                </button>
+                                            </div>
+                                        ) : (
+                                            <>
+                                                <div className="flex gap-2">
+                                                    <input
+                                                        type="text"
+                                                        value={discountInput}
+                                                        onChange={(e) => {
+                                                            setDiscountInput(e.target.value.toUpperCase());
+                                                            setDiscountStatus(null);
+                                                        }}
+                                                        onKeyDown={(e) => e.key === 'Enter' && handleApplyDiscount()}
+                                                        placeholder="Wpisz kod rabatowy"
+                                                        className="flex-1 bg-primary border border-white/20 text-white placeholder-muted px-4 py-2.5 text-sm focus:outline-none focus:border-accent transition-colors"
+                                                    />
+                                                    <button
+                                                        type="button"
+                                                        onClick={handleApplyDiscount}
+                                                        disabled={!discountInput.trim() || discountStatus === 'applying'}
+                                                        className="px-5 py-2.5 bg-accent text-white text-sm rounded-full hover:bg-accent/80 transition-colors disabled:opacity-50 disabled:cursor-not-allowed whitespace-nowrap"
+                                                    >
+                                                        {discountStatus === 'applying' ? '...' : 'Zastosuj'}
+                                                    </button>
+                                                </div>
+                                                {discountStatus === 'invalid' && (
+                                                    <p className="text-danger text-xs flex items-center gap-1">
+                                                        <FaTimes size={11} /> Nieprawidłowy lub nieaktywny kod rabatowy
+                                                    </p>
+                                                )}
+                                            </>
+                                        )}
+                                    </div>
+                                )}
+                            </div>
+
+                            {/* Uwagi do zamówienia */}
+                            <div>
+                                <button
+                                    type="button"
+                                    onClick={() => setNotesOpen(v => !v)}
+                                    className="w-full flex items-center justify-between px-6 py-4 text-left hover:bg-white/5 transition-colors"
+                                >
+                                    <span className="flex items-center gap-2 text-white text-sm">
+                                        <FaStickyNote className="text-accent" size={14} />
+                                        Uwagi do zamówienia
+                                        {noteText && <span className="text-muted text-xs">(dodano)</span>}
+                                    </span>
+                                    <FaChevronDown
+                                        className={`text-muted transition-transform duration-200 ${notesOpen ? 'rotate-180' : ''}`}
+                                        size={12}
+                                    />
+                                </button>
+
+                                {notesOpen && (
+                                    <div className="px-6 pb-5 pt-1">
+                                        <textarea
+                                            value={noteText}
+                                            onChange={handleNoteChange}
+                                            placeholder="Np. proszę o szczególną ostrożność przy pakowaniu, alergeny, inne życzenia..."
+                                            rows={3}
+                                            className="w-full bg-primary border border-white/20 text-white placeholder-muted px-4 py-3 text-sm focus:outline-none focus:border-accent transition-colors resize-none"
+                                        />
+                                        <p className="text-xs text-muted mt-1">
+                                            Uwagi zostaną przekazane bezpośrednio do realizacji zamówienia.
+                                        </p>
+                                    </div>
+                                )}
+                            </div>
+                        </div>
+
                     </div>
 
                     {/* RIGHT COLUMN - ORDER SUMMARY */}
@@ -303,6 +459,8 @@ export function CheckoutPage() {
                                 onGoToPayment={handleGoToPayment}
                                 isProcessing={isProcessing}
                                 isReady={isCheckoutReady()}
+                                discountSavings={discountSavings}
+                                appliedDiscountCodes={appliedCodes}
                             />
                         </div>
                     </div>
