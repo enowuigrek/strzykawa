@@ -239,6 +239,51 @@ export const useCartStore = create(
                 }
             },
 
+            // ── applyDiscountCode ─────────────────────────────────────────────
+            // Wysyła kod rabatowy do Shopify Cart API.
+            // Zwraca { success: bool, applicable: bool, code: string }
+            applyDiscountCode: async (code) => {
+                const { cart, cartId } = get();
+                const id = cart?.id || cartId;
+                if (!id) return { success: false, applicable: false, code };
+
+                set({ isLoading: true, error: null });
+                try {
+                    const updatedCart = await shopify.applyDiscountCode(id, code ? [code.trim()] : []);
+                    set({ cart: updatedCart, items: mapCartToItems(updatedCart), isLoading: false });
+
+                    // Sprawdź czy kod jest applicable
+                    const appliedCode = updatedCart.discountCodes?.find(
+                        d => d.code.toLowerCase() === code.trim().toLowerCase()
+                    );
+                    return {
+                        success: true,
+                        applicable: appliedCode?.applicable ?? false,
+                        code: code.trim(),
+                    };
+                } catch (error) {
+                    logger.error('Error applying discount code:', error);
+                    set({ isLoading: false });
+                    return { success: false, applicable: false, code };
+                }
+            },
+
+            // ── removeDiscountCode ────────────────────────────────────────────
+            removeDiscountCode: async () => {
+                const { cart, cartId } = get();
+                const id = cart?.id || cartId;
+                if (!id) return;
+
+                set({ isLoading: true });
+                try {
+                    const updatedCart = await shopify.applyDiscountCode(id, []);
+                    set({ cart: updatedCart, items: mapCartToItems(updatedCart), isLoading: false });
+                } catch (error) {
+                    logger.error('Error removing discount code:', error);
+                    set({ isLoading: false });
+                }
+            },
+
             // ── goToCheckout ──────────────────────────────────────────────────
             // WAŻNE: NIE czyścimy koszyka przed przekierowaniem.
             // Shopify samo usuwa koszyk po złożeniu zamówienia.
@@ -325,6 +370,21 @@ export const useCartStore = create(
             getItemQuantity: (productId) => {
                 const item = get().items.find(item => item.product.id === productId);
                 return item ? item.quantity : 0;
+            },
+
+            // Aktywne kody rabatowe (applicable === true)
+            getAppliedDiscountCodes: () => {
+                return get().cart?.discountCodes?.filter(d => d.applicable) || [];
+            },
+
+            // Oszczędności = subtotal - total (różnica po rabacie)
+            getDiscountSavings: () => {
+                const { cart } = get();
+                if (!cart?.cost) return 0;
+                const subtotal = parseFloat(cart.cost.subtotalAmount?.amount || 0);
+                const total = parseFloat(cart.cost.totalAmount?.amount || 0);
+                const diff = subtotal - total;
+                return diff > 0 ? diff : 0;
             },
 
             // Zachowane dla backwards compatibility

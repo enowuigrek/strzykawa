@@ -1,6 +1,6 @@
 import ShopifyClient from './client.js';
 import { fetchProducts, fetchProduct } from './products.js';
-import { createCart, addToCart, updateCartLines, removeFromCart, getCart, updateCartAttributes, updateCartBuyerIdentity, updateCartNote } from './cart.js';
+import { createCart, addToCart, updateCartLines, removeFromCart, getCart, updateCartAttributes, updateCartBuyerIdentity, updateCartNote, applyDiscountCode } from './cart.js';
 import { mapProduct } from './mapper.js';
 import {
     registerCustomer,
@@ -70,6 +70,10 @@ class ShopifyService {
         return updateCartNote(this.client, cartId, note);
     }
 
+    async applyDiscountCode(cartId, discountCodes) {
+        return applyDiscountCode(this.client, cartId, discountCodes);
+    }
+
     // ========== MAPPER ==========
 
     mapProduct(product) {
@@ -90,7 +94,7 @@ export const shopify = new ShopifyService();
 // Export modules for direct access (future use)
 export { ShopifyClient } from './client.js';
 export { fetchProducts, fetchProduct } from './products.js';
-export { createCart, addToCart, updateCartLines, removeFromCart, getCart, updateCartAttributes, updateCartBuyerIdentity, updateCartNote } from './cart.js';
+export { createCart, addToCart, updateCartLines, removeFromCart, getCart, updateCartAttributes, updateCartBuyerIdentity, updateCartNote, applyDiscountCode } from './cart.js';
 export { mapProduct } from './mapper.js';
 export {
     registerCustomer,

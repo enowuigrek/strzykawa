@@ -55,6 +55,10 @@ const CART_FRAGMENT = `
     checkoutUrl
     note
     totalQuantity
+    discountCodes {
+        code
+        applicable
+    }
     cost {
         subtotalAmount {
             amount
@@ -255,6 +259,38 @@ export async function updateCartAttributes(client, cartId, attributes) {
     }
 
     return response.data.cartAttributesUpdate.cart;
+}
+
+/**
+ * Apply or remove discount codes on cart
+ * @param {ShopifyClient} client - Shopify client instance
+ * @param {string} cartId - Cart ID
+ * @param {Array<string>} discountCodes - Array of discount codes (empty array removes all)
+ * @returns {Promise<object>} Updated cart
+ */
+export async function applyDiscountCode(client, cartId, discountCodes) {
+    const query = `
+        mutation cartDiscountCodesUpdate($cartId: ID!, $discountCodes: [String!]!) {
+            cartDiscountCodesUpdate(cartId: $cartId, discountCodes: $discountCodes) {
+                cart {
+                    ${CART_FRAGMENT}
+                }
+                userErrors {
+                    field
+                    message
+                    code
+                }
+            }
+        }
+    `;
+
+    const response = await client.graphqlFetch(query, { cartId, discountCodes });
+
+    if (response.data.cartDiscountCodesUpdate.userErrors.length > 0) {
+        throw new Error(response.data.cartDiscountCodesUpdate.userErrors[0].message);
+    }
+
+    return response.data.cartDiscountCodesUpdate.cart;
 }
 
 /**

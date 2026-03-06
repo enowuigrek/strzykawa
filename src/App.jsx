@@ -8,6 +8,7 @@ import { Coffees } from './pages/Coffees.jsx';
 import { CoffeeDetail } from './pages/CoffeeDetail.jsx';
 import { CookieConsent } from './components/atoms/CookieConsent.jsx';
 import { Spinner } from './components/atoms/Spinner.jsx';
+import { LocalBusinessSchema } from './components/LocalBusinessSchema.jsx';
 import { PREVIEW_PASSWORD, PREVIEW_STORAGE_KEY } from './constants/preview.js';
 import { useAuthStore } from './store/authStore.js';
 import { useCartStore } from './store/cartStore.js';
@@ -118,6 +119,7 @@ function App() {
     // 🟢 Normalna strona (gdy COMING_SOON_MODE = false)
     return (
         <div className="app">
+            <LocalBusinessSchema />
             <ScrollToTop />
             {!isStyleGuide && <Header />}
             <main id="main">

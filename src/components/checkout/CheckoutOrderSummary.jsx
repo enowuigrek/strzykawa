@@ -19,6 +19,8 @@ export function CheckoutOrderSummary({
     onGoToPayment,
     isProcessing,
     isReady,
+    discountSavings,
+    appliedDiscountCodes,
 }) {
     // ===== STATE =====
     const [regulationsAccepted, setRegulationsAccepted] = useState(false);
@@ -112,6 +114,21 @@ export function CheckoutOrderSummary({
                         </p>
                     </div>
                 )}
+
+                {/* Discount savings */}
+                {discountSavings > 0 && (
+                    <div className="flex justify-between text-sm">
+                        <span className="text-success flex items-center gap-1">
+                            🏷️ Rabat
+                            {appliedDiscountCodes?.length > 0 && (
+                                <span className="text-xs text-muted ml-1">({appliedDiscountCodes[0].code})</span>
+                            )}:
+                        </span>
+                        <span className="text-success font-bold">
+                            −{discountSavings.toFixed(2)} {CURRENCY_SYMBOL}
+                        </span>
+                    </div>
+                )}
             </div>
 
             {/* SEPARATOR */}
@@ -121,7 +138,7 @@ export function CheckoutOrderSummary({
             <div className="flex justify-between items-center">
                 <span className="text-lg  text-white">Razem:</span>
                 <span className="text-2xl  text-white">
-                    {total.toFixed(2)} {CURRENCY_SYMBOL}
+                    {(total - (discountSavings || 0)).toFixed(2)} {CURRENCY_SYMBOL}
                 </span>
             </div>
 
@@ -234,13 +251,17 @@ CheckoutOrderSummary.propTypes = {
             quantity: PropTypes.number.isRequired,
         })
     ).isRequired,
-    deliveryMethod: PropTypes.oneOf(['kurier', 'paczkomat']).isRequired,
+    deliveryMethod: PropTypes.oneOf(['kurier', 'paczkomat', 'odbior']).isRequired,
     onGoToPayment: PropTypes.func.isRequired,
     isProcessing: PropTypes.bool,
     isReady: PropTypes.bool,
+    discountSavings: PropTypes.number,
+    appliedDiscountCodes: PropTypes.arrayOf(PropTypes.shape({ code: PropTypes.string })),
 };
 
 CheckoutOrderSummary.defaultProps = {
     isProcessing: false,
     isReady: false,
+    discountSavings: 0,
+    appliedDiscountCodes: [],
 };
