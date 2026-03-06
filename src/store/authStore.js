@@ -10,6 +10,7 @@ import {
     recoverPassword,
     resetPassword
 } from '../services/shopify/customer.js';
+import { trackLogin, trackSignUp } from '../utils/analytics';
 
 export const useAuthStore = create(
     persist(
@@ -36,6 +37,8 @@ export const useAuthStore = create(
                             isAuthenticated: true,
                             isLoading: false
                         });
+                        // GA4: login
+                        trackLogin('email');
                         return { success: true };
                     } else {
                         set({ isLoading: false });
@@ -70,6 +73,8 @@ export const useAuthStore = create(
                             isAuthenticated: true,
                             isLoading: false
                         });
+                        // GA4: sign_up (rejestracja + auto-login)
+                        trackSignUp('email');
                         return { success: true };
                     } else {
                         set({ isLoading: false });

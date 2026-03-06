@@ -15,17 +15,19 @@ const TITLE_SUFFIX = ' | Strzykawa Palarnia Kawy';
  * - description   — meta description, max 155 znaków
  * - canonical     — pełny URL strony (np. https://strzykawa.com/kawy)
  * - ogImage       — URL obrazka OG, domyślnie /og-image.png
+ * - ogImageAlt    — alt text dla ogImage; domyślnie generyczny tekst Strzykawa
  * - ogType        — 'website' | 'product', domyślnie 'website'
  * - noindex       — true → dodaje <meta name="robots" content="noindex,nofollow">
  * - productSchema — JSON-LD structured data (obiekt) do wstrzyknięcia jako <script>
  * - fullTitle     — opcjonalnie: pełny tytuł bez dodawania sufixu
  */
-export function SEO({ title, description, canonical, ogImage, ogType, noindex, productSchema, fullTitle }) {
+export function SEO({ title, description, canonical, ogImage, ogImageAlt, ogType, noindex, productSchema, fullTitle }) {
     const resolvedTitle = fullTitle ?? (title ? `${title}${TITLE_SUFFIX}` : `Strzykawa | Palarnia Kawy i Kawiarnia w Częstochowie`);
     const resolvedDescription =
         description ||
         'Strzykawa — palarnia kawy i kawiarnia specialty coffee w centrum Częstochowy. Świeżo palona kawa z najlepszych ziaren. Odwiedź nas na ul. Dąbrowskiego 4.';
     const resolvedOgImage = ogImage || DEFAULT_OG_IMAGE;
+    const resolvedOgImageAlt = ogImageAlt || 'Strzykawa — palarnia kawy Częstochowa';
     const resolvedOgType = ogType || 'website';
 
     return (
@@ -40,10 +42,7 @@ export function SEO({ title, description, canonical, ogImage, ogType, noindex, p
             <meta property="og:title" content={resolvedTitle} />
             <meta property="og:description" content={resolvedDescription} />
             <meta property="og:image" content={resolvedOgImage} />
-            <meta property="og:image:type" content="image/png" />
-            <meta property="og:image:width" content="1200" />
-            <meta property="og:image:height" content="630" />
-            <meta property="og:image:alt" content="Strzykawa — palarnia kawy Częstochowa" />
+            <meta property="og:image:alt" content={resolvedOgImageAlt} />
             {canonical && <meta property="og:url" content={canonical} />}
             <meta property="og:site_name" content={SITE_NAME} />
             <meta property="og:locale" content="pl_PL" />
@@ -53,6 +52,7 @@ export function SEO({ title, description, canonical, ogImage, ogType, noindex, p
             <meta name="twitter:title" content={resolvedTitle} />
             <meta name="twitter:description" content={resolvedDescription} />
             <meta name="twitter:image" content={resolvedOgImage} />
+            <meta name="twitter:image:alt" content={resolvedOgImageAlt} />
 
             {/* JSON-LD Product schema */}
             {productSchema && (
@@ -67,6 +67,7 @@ SEO.propTypes = {
     description: PropTypes.string,
     canonical: PropTypes.string,
     ogImage: PropTypes.string,
+    ogImageAlt: PropTypes.string,
     ogType: PropTypes.string,
     noindex: PropTypes.bool,
     productSchema: PropTypes.object,

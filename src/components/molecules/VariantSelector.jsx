@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { trackBrewingMethodSelected, trackGrindChanged } from '../../utils/analytics';
 
 /**
  * VariantSelector - Wybór wariantu produktu
@@ -98,7 +99,11 @@ export function VariantSelector({
         // Auto-select first grind option when switching to mielona
         if (form === 'mielona' && onGrindMethodChange && !grindMethod) {
             const options = GRIND_OPTIONS[roastType] || GRIND_OPTIONS.Filter;
-            onGrindMethodChange(options[0].value);
+            const firstMethod = options[0].value;
+            onGrindMethodChange(firstMethod);
+            // GA4: pierwsze auto-wybrane mielenie po przełączeniu na mieloną
+            trackBrewingMethodSelected(firstMethod, roastType);
+            trackGrindChanged(firstMethod);
         }
     };
 
@@ -181,7 +186,12 @@ export function VariantSelector({
                             {grindOptions.map(({ value, label }) => (
                                 <button
                                     key={value}
-                                    onClick={() => onGrindMethodChange(value)}
+                                    onClick={() => {
+                                        // GA4: zmiana_mielenia + wybor_metody_parzenia
+                                        trackGrindChanged(value, grindMethod);
+                                        trackBrewingMethodSelected(value, roastType);
+                                        onGrindMethodChange(value);
+                                    }}
                                     className={`
                                         px-5 py-2.5 font-medium transition-all rounded-full text-center
                                         ${grindMethod === value

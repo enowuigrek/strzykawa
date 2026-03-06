@@ -1,6 +1,7 @@
 import React, { useState, useMemo, useEffect, useRef } from 'react';
 import { shopify } from '../services/shopify';
 import { logger } from '../utils/logger';
+import { trackViewSearchResults } from '../utils/analytics';
 import { PageLayout } from "../components/layout/PageLayout.jsx";
 import { CoffeeFilterBar } from '../components/organisms/CoffeeFilterBar';
 import { CoffeeGrid } from '../components/organisms/CoffeeGrid';
@@ -17,6 +18,7 @@ export function Coffees() {
     const [sortBy, setSortBy] = useState('newest');
     const [isDrawerOpen, setIsDrawerOpen] = useState(false);
     const gridRef = useRef(null);
+    const searchDebounceRef = useRef(null);
 
     // ========== SHOPIFY STATE ==========
     const [products, setProducts] = useState([]);
@@ -122,6 +124,16 @@ export function Coffees() {
                 .sort((a, b) => b.count - a.count)
         };
     }, [products]);
+
+    // ========== GA4: view_search_results (debounced 800ms) ==========
+    useEffect(() => {
+        if (!searchQuery.trim()) return;
+        clearTimeout(searchDebounceRef.current);
+        searchDebounceRef.current = setTimeout(() => {
+            trackViewSearchResults(searchQuery, filteredCoffees.length);
+        }, 800);
+        return () => clearTimeout(searchDebounceRef.current);
+    }, [searchQuery, filteredCoffees.length]);
 
     // ========== HANDLERS ==========
     const handleClearFilters = () => {

@@ -5,6 +5,7 @@ import { FaCheckCircle, FaEnvelope, FaTruck } from 'react-icons/fa';
 import { useCartStore } from '../store/cartStore';
 import { PageLayout } from "../components/layout/PageLayout.jsx";
 import { Button } from '../components/atoms/Button';
+import { trackPurchase } from '../utils/analytics';
 
 export function CheckoutSuccess() {
     const markCheckoutCompleted = useCartStore(s => s.markCheckoutCompleted);
@@ -16,6 +17,16 @@ export function CheckoutSuccess() {
         const orderIdParam = searchParams.get('order_id') || searchParams.get('orderId');
         if (orderIdParam) {
             setOrderId(orderIdParam);
+        }
+
+        // GA4: purchase — przechwytujemy dane koszyka PRZED jego wyczyszczeniem
+        const storeState = useCartStore.getState();
+        const cartItems = storeState.items;
+        const totalValue = storeState.getTotalPrice();
+
+        // Śledzimy tylko jeśli koszyk nie był jeszcze wyczyszczony (unikamy duplikatów przy odświeżeniu)
+        if (cartItems.length > 0 || orderIdParam) {
+            trackPurchase(orderIdParam || null, cartItems, totalValue);
         }
 
         // Oznacz checkout jako zakończony (czyści koszyk)

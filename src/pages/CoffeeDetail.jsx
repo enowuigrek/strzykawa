@@ -1,6 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useParams } from 'react-router-dom';
 import { logger } from '../utils/logger';
+import {
+    trackViewItem,
+    trackClickOutOfStock,
+    trackCopyProductName,
+    trackTastingNotesVisible,
+} from '../utils/analytics';
 import { PageLayout } from "../components/layout/PageLayout.jsx";
 import { ProductBreadcrumb } from '../components/molecules/ProductBreadcrumb';
 import { ProductGallery } from '../components/molecules/ProductGallery';
@@ -38,6 +44,12 @@ export function CoffeeDetail() {
 
     const { addItem } = useCartStore();
 
+    // Refs dla zdarzeń behawioralnych
+    const titleRef = useRef(null);
+    const tastingNotesRef = useRef(null);
+    const tastingNotesTimerRef = useRef(null);
+    const tastingNotesTracked = useRef(false);
+
     // Fetch product data
     useEffect(() => {
         const loadProduct = async () => {
@@ -57,6 +69,9 @@ export function CoffeeDetail() {
                 if (product.variants && product.variants.length > 0) {
                     const availableVariant = product.variants.find(v => v.availableForSale);
                     setSelectedVariant(availableVariant || product.variants[0]);
+
+                    // GA4: view_item
+                    trackViewItem(product, availableVariant || product.variants[0]);
                 }
 
                 // Reset form state
@@ -74,6 +89,46 @@ export function CoffeeDetail() {
             loadProduct();
         }
     }, [handle]);
+
+    // GA4: copy_product_name — nasłuchuj zdarzenia copy na H1
+    useEffect(() => {
+        const el = titleRef.current;
+        if (!el || !coffee) return;
+        const handleCopy = () => trackCopyProductName(coffee.name);
+        el.addEventListener('copy', handleCopy);
+        return () => el.removeEventListener('copy', handleCopy);
+    }, [coffee]);
+
+    // GA4: widocznosc_nut_smakowych — sekcja profilu smakowego widoczna ≥ 2s
+    useEffect(() => {
+        const el = tastingNotesRef.current;
+        if (!el || !coffee) return;
+        tastingNotesTracked.current = false;
+
+        const observer = new IntersectionObserver(
+            (entries) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting && !tastingNotesTracked.current) {
+                        tastingNotesTimerRef.current = setTimeout(() => {
+                            if (!tastingNotesTracked.current) {
+                                tastingNotesTracked.current = true;
+                                trackTastingNotesVisible(coffee.name, coffee.tastingNotes);
+                            }
+                        }, 2000);
+                    } else {
+                        clearTimeout(tastingNotesTimerRef.current);
+                    }
+                });
+            },
+            { threshold: 0.5 }
+        );
+
+        observer.observe(el);
+        return () => {
+            observer.disconnect();
+            clearTimeout(tastingNotesTimerRef.current);
+        };
+    }, [coffee]);
 
     // Handle add to cart
     const handleAddToCart = async () => {
@@ -184,6 +239,7 @@ export function CoffeeDetail() {
                 description={seoDescription}
                 canonical={seoCanonical}
                 ogImage={seoOgImage}
+                ogImageAlt={`${coffee.name} — Strzykawa Palarnia Kawy`}
                 ogType="product"
                 productSchema={productSchema}
             />
@@ -205,7 +261,7 @@ export function CoffeeDetail() {
                     <div className="space-y-6">
                         {/* Title & Roast Type Badge */}
                         <div className="relative">
-                            <h1 className="text-3xl lg:text-4xl text-white pr-16">
+                            <h1 ref={titleRef} className="text-3xl lg:text-4xl text-white pr-16">
                                 {coffee.name}
                             </h1>
 
@@ -242,8 +298,10 @@ export function CoffeeDetail() {
                             )}
                         </div>
 
-                        {/* Product Meta */}
-                        <ProductMeta coffee={coffee} />
+                        {/* Product Meta — ref dla widocznosc_nut_smakowych */}
+                        <div ref={tastingNotesRef}>
+                            <ProductMeta coffee={coffee} />
+                        </div>
 
                         {/* Variant Selector */}
                         <div>
@@ -285,27 +343,36 @@ export function CoffeeDetail() {
                             </span>
                         </div>
 
-                        {/* Przycisk dodaj */}
-                        <Button
-                            onClick={handleAddToCart}
-                            disabled={addingToCart || !isAvailable}
-                            loading={addingToCart}
-                            leftIcon={FaShoppingCart}
-                            variant="primary"
-                            size="lg"
-                            fullWidth
-                        >
-                            <span className="hidden sm:inline">
-                                {addingToCart ? 'Dodawanie...' :
-                                    !isAvailable ? 'Niedostępne' :
-                                        'Dodaj do koszyka'}
-                            </span>
-                            <span className="sm:hidden">
-                                {addingToCart ? 'Dodawanie...' :
-                                    !isAvailable ? 'Niedostępne' :
-                                        'Dodaj'}
-                            </span>
-                        </Button>
+                        {/* Przycisk dodaj — wrapper dla GA4 click_out_of_stock */}
+                        <div className="relative">
+                            <Button
+                                onClick={handleAddToCart}
+                                disabled={addingToCart || !isAvailable}
+                                loading={addingToCart}
+                                leftIcon={FaShoppingCart}
+                                variant="primary"
+                                size="lg"
+                                fullWidth
+                            >
+                                <span className="hidden sm:inline">
+                                    {addingToCart ? 'Dodawanie...' :
+                                        !isAvailable ? 'Niedostępne' :
+                                            'Dodaj do koszyka'}
+                                </span>
+                                <span className="sm:hidden">
+                                    {addingToCart ? 'Dodawanie...' :
+                                        !isAvailable ? 'Niedostępne' :
+                                            'Dodaj'}
+                                </span>
+                            </Button>
+                            {/* Transparentna nakładka do śledzenia kliknięć w niedostępny produkt */}
+                            {!isAvailable && (
+                                <div
+                                    className="absolute inset-0 cursor-not-allowed"
+                                    onClick={() => trackClickOutOfStock(coffee, selectedVariant?.id)}
+                                />
+                            )}
+                        </div>
                     </div>
                 </div>
 

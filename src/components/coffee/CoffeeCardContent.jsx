@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { trackSelectItem } from '../../utils/analytics';
 
 /**
  * CoffeeCardContent - Better spacing and typography
@@ -30,6 +31,7 @@ export function CoffeeCardContent({ coffee }) {
             <Link
                 to={`/kawy/${coffee.shopifyHandle || coffee.id}`}
                 className="block hover:text-accent transition-colors"
+                onClick={() => trackSelectItem(coffee)}
             >
                 <h3 className="text-xl md:text-2xl text-white leading-tight">
                     {coffee.name}

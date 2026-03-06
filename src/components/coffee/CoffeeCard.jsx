@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { CoffeeCardMedia } from './CoffeeCardMedia';
 import { CoffeeCardContent } from './CoffeeCardContent';
 import { CoffeeCardActions } from './CoffeeCardActions';
+import { trackSelectItem } from '../../utils/analytics';
 
 /**
  * CoffeeCard - używa globalnego QuickAddModal z Header
@@ -14,6 +15,8 @@ export function CoffeeCard({ coffee }) {
     const toggleOverlay = () => setOverlayOpen(!overlayOpen);
 
     const openQuickAdd = () => {
+        // GA4: select_item — kliknięcie "Szybkie dodanie" z gridu
+        trackSelectItem(coffee, 'Quick Add');
         // Dispatch global event z coffee data
         window.dispatchEvent(new CustomEvent('openQuickAdd', {
             detail: { coffee }

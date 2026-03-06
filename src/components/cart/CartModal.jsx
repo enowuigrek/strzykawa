@@ -5,6 +5,7 @@ import { ModalHeader } from '../layout/ModalHeader';
 import { CartContent } from './CartContent';
 import { CartFooter } from './CartFooter';
 import { Spinner } from '../atoms/Spinner';
+import { trackViewCart } from '../../utils/analytics';
 
 export function CartModal({ isOpen, onClose }) {
     const {
@@ -31,6 +32,8 @@ export function CartModal({ isOpen, onClose }) {
             removeUnavailableItems().then(names => {
                 if (names.length > 0) setRemovedNames(names);
             });
+            // GA4: view_cart
+            trackViewCart(items, getTotalPrice());
         } else {
             setIsAnimating(false);
             setRemovedNames([]);

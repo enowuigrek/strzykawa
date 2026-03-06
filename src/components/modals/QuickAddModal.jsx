@@ -4,6 +4,7 @@ import { QuantitySelector } from '../atoms/QuantitySelector.jsx';
 import { Button } from '../atoms/Button.jsx';
 import { ModalHeader } from '../layout/ModalHeader.jsx';
 import { useBackdropClick } from '../../hooks/useBackdropClick.js';
+import { trackBrewingMethodSelected, trackGrindChanged } from '../../utils/analytics';
 
 // Opcje mielenia w zależności od typu palenia
 const GRIND_OPTIONS = {
@@ -257,7 +258,12 @@ export function QuickAddModal({ coffee, isOpen, onClose, onAddToCart }) {
                                         {grindOptions.map(({ value, label }) => (
                                             <button
                                                 key={value}
-                                                onClick={() => setGrindMethod(value)}
+                                                onClick={() => {
+                                                    // GA4: zmiana_mielenia + wybor_metody_parzenia
+                                                    trackGrindChanged(value, grindMethod);
+                                                    trackBrewingMethodSelected(value, coffee?.roastType);
+                                                    setGrindMethod(value);
+                                                }}
                                                 className={`
                                                     px-5 py-2.5 text-base font-medium text-center
                                                     transition-all duration-200

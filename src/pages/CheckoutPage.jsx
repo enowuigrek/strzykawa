@@ -7,6 +7,7 @@ import { useCheckoutStore } from '../store/checkoutStore';
 import { useAuthStore } from '../store/authStore';
 import { shopify } from '../services/shopify';
 import { logger } from '../utils/logger';
+import { trackBeginCheckout, trackCheckoutFormError } from '../utils/analytics';
 
 import { CAFE_ADDRESS, CAFE_HOURS } from '../constants/contact';
 
@@ -28,7 +29,7 @@ export function CheckoutPage() {
     const [companyValue, setCompanyValue] = useState('');
 
     // Cart store
-    const { items, getTotalItems, cart } = useCartStore();
+    const { items, getTotalItems, getTotalPrice, cart } = useCartStore();
 
     // Checkout store
     const {
@@ -56,6 +57,15 @@ export function CheckoutPage() {
             navigate('/coffees');
         }
     }, [getTotalItems, navigate]);
+
+    // ===== GA4: begin_checkout =====
+    useEffect(() => {
+        if (getTotalItems() > 0) {
+            trackBeginCheckout(items, getTotalPrice());
+        }
+        // Uruchamiamy tylko raz przy wejściu na stronę
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
 
     // ===== AUTO-FILL CUSTOMER DATA & ADDRESS IF LOGGED IN =====
     useEffect(() => {
@@ -95,6 +105,9 @@ export function CheckoutPage() {
         // Walidacja
         if (!validateAll()) {
             logger.warn('Validation failed, cannot proceed to payment');
+            // GA4: checkout_form_error — pobieramy aktualne błędy ze store po walidacji
+            const currentErrors = useCheckoutStore.getState().errors;
+            trackCheckoutFormError(currentErrors, deliveryMethod);
             return;
         }
 

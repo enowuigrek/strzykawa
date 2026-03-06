@@ -2,6 +2,7 @@ import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 import { shopify } from '../services/shopify';
 import { logger } from '../utils/logger';
+import { trackAddToCart } from '../utils/analytics';
 
 /**
  * Cart Store - Zustand store dla koszyka
@@ -144,6 +145,9 @@ export const useCartStore = create(
                         items: mapCartToItems(updatedCart),
                         isLoading: false,
                     });
+
+                    // Śledzenie GA4 add_to_cart
+                    trackAddToCart(product, variantId, quantity, coffeeForm, grindMethod);
 
                     // Animacja bounce na ikonce koszyka (opóźniona żeby modal QuickAdd zdążył się zamknąć)
                     setTimeout(() => {
