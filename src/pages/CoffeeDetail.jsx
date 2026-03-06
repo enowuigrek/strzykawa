@@ -19,7 +19,7 @@ import { SEO } from '../components/SEO.jsx';
 import { shopify } from '../services/shopify';
 import { useCartStore } from '../store/cartStore';
 import { ROAST_TYPE_COLORS } from '../constants/colors';
-import { FaShoppingCart, FaTag } from 'react-icons/fa';
+import { FaShoppingCart, FaTag, FaShareAlt, FaCheck } from 'react-icons/fa';
 
 /**
  * CoffeeDetail - Strona szczegółów produktu kawy
@@ -43,6 +43,9 @@ export function CoffeeDetail() {
     const [grindMethod, setGrindMethod] = useState(null);
 
     const { addItem } = useCartStore();
+
+    // Stan przycisku "Udostępnij"
+    const [shareCopied, setShareCopied] = useState(false);
 
     // Refs dla zdarzeń behawioralnych
     const titleRef = useRef(null);
@@ -129,6 +132,36 @@ export function CoffeeDetail() {
             clearTimeout(tastingNotesTimerRef.current);
         };
     }, [coffee]);
+
+    // Handle share — Web Share API na mobile, fallback clipboard na desktop
+    const handleShare = async () => {
+        const shareUrl = window.location.href;
+        const shareData = {
+            title: coffee?.name || 'Kawa Strzykawa',
+            text: `Sprawdź tę kawę: ${coffee?.name}`,
+            url: shareUrl,
+        };
+
+        if (navigator.share) {
+            try {
+                await navigator.share(shareData);
+            } catch (err) {
+                // Użytkownik anulował — nic nie robimy
+                if (err.name !== 'AbortError') {
+                    logger.warn('Share failed:', err);
+                }
+            }
+        } else {
+            // Fallback: kopiuj link do schowka
+            try {
+                await navigator.clipboard.writeText(shareUrl);
+                setShareCopied(true);
+                setTimeout(() => setShareCopied(false), 2500);
+            } catch (err) {
+                logger.warn('Clipboard copy failed:', err);
+            }
+        }
+    };
 
     // Handle add to cart
     const handleAddToCart = async () => {
@@ -232,6 +265,31 @@ export function CoffeeDetail() {
         },
     };
 
+    const breadcrumbSchema = {
+        '@context': 'https://schema.org',
+        '@type': 'BreadcrumbList',
+        itemListElement: [
+            {
+                '@type': 'ListItem',
+                position: 1,
+                name: 'Strona główna',
+                item: 'https://strzykawa.com',
+            },
+            {
+                '@type': 'ListItem',
+                position: 2,
+                name: 'Nasze kawy',
+                item: 'https://strzykawa.com/kawy',
+            },
+            {
+                '@type': 'ListItem',
+                position: 3,
+                name: coffee.name,
+                item: seoCanonical,
+            },
+        ],
+    };
+
     return (
         <PageLayout>
             <SEO
@@ -242,6 +300,7 @@ export function CoffeeDetail() {
                 ogImageAlt={`${coffee.name} — Strzykawa Palarnia Kawy`}
                 ogType="product"
                 productSchema={productSchema}
+                breadcrumbSchema={breadcrumbSchema}
             />
             <div className="container mx-auto max-w-7xl px-4 py-8">
                 {/* Breadcrumb */}
@@ -274,6 +333,29 @@ export function CoffeeDetail() {
                                     {getRoastTypeDisplay(coffee.roastType)}
                                 </div>
                             )}
+                        </div>
+
+                        {/* Share button row */}
+                        <div className="relative flex items-center">
+                            <button
+                                type="button"
+                                onClick={handleShare}
+                                className={`
+                                    inline-flex items-center gap-1.5
+                                    px-3 py-1.5 rounded-full text-xs
+                                    border transition-all duration-200
+                                    ${shareCopied
+                                        ? 'border-success text-success bg-success/10'
+                                        : 'border-accent/30 text-muted hover:border-accent/60 hover:text-white'
+                                    }
+                                `}
+                                aria-label="Udostępnij produkt"
+                            >
+                                {shareCopied
+                                    ? <><FaCheck size={11} /><span>Link skopiowany!</span></>
+                                    : <><FaShareAlt size={11} /><span>Udostępnij</span></>
+                                }
+                            </button>
                         </div>
 
                         {/* Price */}

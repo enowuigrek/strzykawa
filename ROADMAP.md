@@ -10,9 +10,9 @@
 
 ---
 
-### 1. 🏷️ Kody rabatowe w koszyku
+### 1. 🏷️ Kody rabatowe w koszyku ✅ ZROBIONE (2026-03-06)
 **Priorytet:** Wysoki — potrzebne do newslettera
-**Branch commit:** `feat(checkout): add discount code field`
+**Branch commit:** `feat(checkout): add discount codes, order notes, and LocalBusiness schema`
 
 **Co:** Pole na kod rabatowy w `CheckoutPage.jsx`, obok pola "Uwagi do zamówienia" — oba rozwijane (collapse/expand), ten sam styl.
 
@@ -70,9 +70,9 @@ Zostaw e-mail — powiadomimy Cię gdy wróci:
 
 ---
 
-### 3. 🏢 LocalBusiness JSON-LD Schema
+### 3. 🏢 LocalBusiness JSON-LD Schema ✅ ZROBIONE (2026-03-06)
 **Priorytet:** Wysoki — SEO lokalne, Google Maps
-**Branch commit:** `feat(seo): add LocalBusiness JSON-LD schema`
+**Branch commit:** `feat(checkout): add discount codes, order notes, and LocalBusiness schema`
 
 **Co:** Dane strukturalne dla Google — pojawi się w Google Knowledge Panel i może wpłynąć na wyniki dla fraz "kawiarnia Częstochowa", "palarnia kawy Częstochowa".
 
@@ -120,7 +120,7 @@ Zostaw e-mail — powiadomimy Cię gdy wróci:
 
 ---
 
-### 4. 🍞 Breadcrumbs na stronie produktu
+### 4. 🍞 Breadcrumbs na stronie produktu ✅ ZROBIONE (2026-03-06)
 **Priorytet:** Średni — SEO + UX
 **Branch commit:** `feat(seo): add breadcrumbs to product page`
 
@@ -137,7 +137,7 @@ Zostaw e-mail — powiadomimy Cię gdy wróci:
 
 ---
 
-### 5. 📤 Social Sharing na stronie produktu
+### 5. 📤 Social Sharing na stronie produktu ✅ ZROBIONE (2026-03-06)
 **Priorytet:** Średni
 **Branch commit:** `feat(product): add social share button`
 

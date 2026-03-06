@@ -4,21 +4,24 @@ import { FaArrowLeft, FaChevronRight } from 'react-icons/fa';
 
 /**
  * ProductBreadcrumb - Breadcrumb navigation dla strony produktu
+ *
+ * Mobile: "← Nasze kawy" (kompaktowy back link)
+ * Desktop: "Start > Nasze kawy > Nazwa kawy"
  */
 export function ProductBreadcrumb({ coffeeName }) {
     return (
-        <nav className="flex items-center gap-2 mb-6 text-base" aria-label="Breadcrumb">
-            {/* Back button - UKRYTY (niepotrzebny na mobile) */}
+        <nav className="flex items-center mb-6" aria-label="Breadcrumb">
+            {/* Mobile: kompaktowy back link */}
             <Link
                 to="/kawy"
-                className="hidden inline-flex items-center gap-2 px-5 py-2.5 bg-primary-light border border-accent/30 text-muted hover:bg-accent/20 hover:text-white rounded-full transition-all"
+                className="flex lg:hidden items-center gap-1.5 text-sm text-muted hover:text-white transition-colors"
             >
-                <FaArrowLeft className="w-4 h-4" />
-                <span>Powrót</span>
+                <FaArrowLeft className="w-3 h-3" />
+                <span>Nasze kawy</span>
             </Link>
 
-            {/* Full breadcrumb - desktop */}
-            <div className="hidden lg:flex items-center gap-2 text-muted">
+            {/* Desktop: pełny breadcrumb */}
+            <div className="hidden lg:flex items-center gap-2 text-sm text-muted">
                 <Link
                     to="/"
                     className="hover:text-accent transition-colors"
@@ -26,7 +29,7 @@ export function ProductBreadcrumb({ coffeeName }) {
                     Start
                 </Link>
 
-                <FaChevronRight className="w-3 h-3" />
+                <FaChevronRight className="w-2.5 h-2.5 flex-shrink-0" />
 
                 <Link
                     to="/kawy"
@@ -35,9 +38,9 @@ export function ProductBreadcrumb({ coffeeName }) {
                     Nasze kawy
                 </Link>
 
-                <FaChevronRight className="w-3 h-3" />
+                <FaChevronRight className="w-2.5 h-2.5 flex-shrink-0" />
 
-                <span className="text-white font-medium">{coffeeName}</span>
+                <span className="text-white truncate max-w-xs">{coffeeName}</span>
             </div>
         </nav>
     );

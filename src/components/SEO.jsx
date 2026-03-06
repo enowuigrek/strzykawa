@@ -11,17 +11,18 @@ const TITLE_SUFFIX = ' | Strzykawa Palarnia Kawy';
  * SEO — dynamiczne meta tagi per strona/route.
  *
  * Props:
- * - title         — unikalny tytuł strony (bez sufixu "| Strzykawa..."), np. "Nasze kawy"
- * - description   — meta description, max 155 znaków
- * - canonical     — pełny URL strony (np. https://strzykawa.com/kawy)
- * - ogImage       — URL obrazka OG, domyślnie /og-image.png
- * - ogImageAlt    — alt text dla ogImage; domyślnie generyczny tekst Strzykawa
- * - ogType        — 'website' | 'product', domyślnie 'website'
- * - noindex       — true → dodaje <meta name="robots" content="noindex,nofollow">
- * - productSchema — JSON-LD structured data (obiekt) do wstrzyknięcia jako <script>
- * - fullTitle     — opcjonalnie: pełny tytuł bez dodawania sufixu
+ * - title            — unikalny tytuł strony (bez sufixu "| Strzykawa..."), np. "Nasze kawy"
+ * - description      — meta description, max 155 znaków
+ * - canonical        — pełny URL strony (np. https://strzykawa.com/kawy)
+ * - ogImage          — URL obrazka OG, domyślnie /og-image.png
+ * - ogImageAlt       — alt text dla ogImage; domyślnie generyczny tekst Strzykawa
+ * - ogType           — 'website' | 'product', domyślnie 'website'
+ * - noindex          — true → dodaje <meta name="robots" content="noindex,nofollow">
+ * - productSchema    — JSON-LD structured data (obiekt) dla produktu
+ * - breadcrumbSchema — JSON-LD BreadcrumbList (obiekt) dla breadcrumbs
+ * - fullTitle        — opcjonalnie: pełny tytuł bez dodawania sufixu
  */
-export function SEO({ title, description, canonical, ogImage, ogImageAlt, ogType, noindex, productSchema, fullTitle }) {
+export function SEO({ title, description, canonical, ogImage, ogImageAlt, ogType, noindex, productSchema, breadcrumbSchema, fullTitle }) {
     const resolvedTitle = fullTitle ?? (title ? `${title}${TITLE_SUFFIX}` : `Strzykawa | Palarnia Kawy i Kawiarnia w Częstochowie`);
     const resolvedDescription =
         description ||
@@ -58,6 +59,11 @@ export function SEO({ title, description, canonical, ogImage, ogImageAlt, ogType
             {productSchema && (
                 <script type="application/ld+json">{JSON.stringify(productSchema)}</script>
             )}
+
+            {/* JSON-LD BreadcrumbList */}
+            {breadcrumbSchema && (
+                <script type="application/ld+json">{JSON.stringify(breadcrumbSchema)}</script>
+            )}
         </Helmet>
     );
 }
@@ -71,5 +77,6 @@ SEO.propTypes = {
     ogType: PropTypes.string,
     noindex: PropTypes.bool,
     productSchema: PropTypes.object,
+    breadcrumbSchema: PropTypes.object,
     fullTitle: PropTypes.string,
 };
