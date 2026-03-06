@@ -6,6 +6,7 @@ import { useCartStore } from '../store/cartStore';
 import { PageLayout } from "../components/layout/PageLayout.jsx";
 import { Button } from '../components/atoms/Button';
 import { trackPurchase } from '../utils/analytics';
+import { SEO } from '../components/SEO';
 
 export function CheckoutSuccess() {
     const markCheckoutCompleted = useCartStore(s => s.markCheckoutCompleted);
@@ -34,6 +35,8 @@ export function CheckoutSuccess() {
     }, [markCheckoutCompleted, searchParams]);
 
     return (
+        <>
+        <SEO title="Zamówienie złożone" noindex />
         <PageLayout
             title="Zamówienie złożone pomyślnie!"
             description="w Strzykawa Coffee Roastery"
@@ -117,5 +120,6 @@ export function CheckoutSuccess() {
                 </div>
             </div>
         </PageLayout>
+        </>
     );
 }

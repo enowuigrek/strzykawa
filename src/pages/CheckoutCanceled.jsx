@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { FaExclamationTriangle, FaShoppingCart, FaQuestionCircle } from 'react-icons/fa';
 import { useCartStore } from '../store/cartStore';
 import { PageLayout } from "../components/layout/PageLayout.jsx";
+import { SEO } from '../components/SEO';
 import { Button } from '../components/atoms/Button';
 
 export function CheckoutCanceled() {
@@ -20,6 +21,8 @@ export function CheckoutCanceled() {
     };
 
     return (
+        <>
+        <SEO title="Płatność anulowana" noindex />
         <PageLayout
             title="Płatność nie została ukończona"
             description="Nie martw się - Twoje produkty są bezpieczne w koszyku"
@@ -111,5 +114,6 @@ export function CheckoutCanceled() {
                 </div>
             </div>
         </PageLayout>
+        </>
     );
 }
