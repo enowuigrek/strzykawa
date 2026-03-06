@@ -9,6 +9,13 @@
   path = "/*"
   function = "og-meta"
 
+# www → non-www redirect (301 Permanent)
+[[redirects]]
+  from = "https://www.strzykawa.com/*"
+  to = "https://strzykawa.com/:splat"
+  status = 301
+  force = true
+
 # SPA redirect — wszystkie trasy obsługuje index.html (React Router)
 [[redirects]]
   from = "/*"

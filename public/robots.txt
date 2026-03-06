@@ -1,4 +1,9 @@
 User-agent: *
 Allow: /
+Disallow: /profil
+Disallow: /zamowienia
+Disallow: /checkout
+Disallow: /checkout/success
+Disallow: /checkout/canceled
 
 Sitemap: https://strzykawa.com/sitemap.xml

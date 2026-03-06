@@ -24,7 +24,7 @@ export function Home() {
             <SEO
                 fullTitle="Strzykawa | Palarnia Kawy i Kawiarnia w Częstochowie"
                 description="Strzykawa — palarnia kawy i kawiarnia specialty coffee w centrum Częstochowy. Świeżo palona kawa z najlepszych ziaren. Odwiedź nas na ul. Dąbrowskiego 4."
-                canonical="https://strzykawa.com/"
+                canonical="https://strzykawa.com"
             />
             {/* STICKY BACKGROUND (tylko video) */}
             <div className="sticky top-0 h-screen z-0">
