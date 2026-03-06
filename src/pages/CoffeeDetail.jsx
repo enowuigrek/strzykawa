@@ -336,17 +336,17 @@ export function CoffeeDetail() {
                         </div>
 
                         {/* Share button row */}
-                        <div className="relative flex items-center">
+                        <div className="flex items-center">
                             <button
                                 type="button"
                                 onClick={handleShare}
                                 className={`
                                     inline-flex items-center gap-1.5
-                                    px-3 py-1.5 rounded-full text-xs
-                                    border transition-all duration-200
+                                    px-3 py-1.5 rounded-full text-xs font-medium
+                                    transition-all duration-200
                                     ${shareCopied
-                                        ? 'border-success text-success bg-success/10'
-                                        : 'border-accent/30 text-muted hover:border-accent/60 hover:text-white'
+                                        ? 'bg-success text-white'
+                                        : 'bg-primary-light text-muted hover:bg-accent/20 hover:text-white'
                                     }
                                 `}
                                 aria-label="Udostępnij produkt"
