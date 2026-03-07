@@ -138,7 +138,7 @@ export function CoffeeDetail() {
         const shareUrl = window.location.href;
         const shareData = {
             title: coffee?.name || 'Kawa Strzykawa',
-            text: `Sprawdź tę kawę: ${coffee?.name}`,
+            text: `Sprawdź tę kawę, w Strzykawie`,
             url: shareUrl,
         };
 

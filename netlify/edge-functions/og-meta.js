@@ -185,7 +185,6 @@ export default async function handler(request, _context) {
                 imageUrl,
                 imageWidth: 1200,
                 imageHeight: 630,
-                imageType: rawImageUrl ? 'image/jpeg' : 'image/png',
                 pageUrl,
                 type: 'product',
             });
