@@ -33,7 +33,7 @@ const STATIC_PAGES = {
     '/kawy': {
         title: 'Sklep z kawą | Strzykawa — Palarnia Kawy Częstochowa',
         description:
-            'Świeżo palona kawa specialty. 100% Arabica z najlepszych plantacji. Zamów online z dostawą pod drzwi.',
+            'Świeżo palona kawa specialty z najlepszych plantacji świata. Zamów online z dostawą pod drzwi.',
         image: OG_IMAGE,
     },
     '/o-nas': {
@@ -135,7 +135,9 @@ export default async function handler(request, _context) {
     }
 
     const url = new URL(request.url);
-    const pathname = url.pathname;
+    // Normalizuj trailing slash — /kawy/ → /kawy (nie dotyczy root '/')
+    const rawPathname = url.pathname;
+    const pathname = rawPathname.length > 1 ? rawPathname.replace(/\/+$/, '') : rawPathname;
     const pageUrl = `${SITE_URL}${pathname}`;
 
     // ── Produkty /kawy/:handle ── dynamiczne OG z Shopify ──────────────────
