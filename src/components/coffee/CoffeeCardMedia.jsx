@@ -40,6 +40,18 @@ export function CoffeeCardMedia({ coffee, overlayOpen, onToggleOverlay }) {
                 </div>
             )}
 
+            {/* Naklejka PROMO - top-right gdy jest compareAtPrice */}
+            {coffee.variants?.some(v => v.compareAtPrice && v.compareAtPrice > v.price) && (
+                <div
+                    className="absolute top-2 right-2 z-20 flex items-center justify-center
+                        w-14 h-14 rounded-full text-[11px] font-bold shadow-lg transform -rotate-12
+                        bg-danger text-white pointer-events-none"
+                    aria-label="Produkt w promocji"
+                >
+                    <span className="rotate-12 uppercase tracking-wide">PROMO</span>
+                </div>
+            )}
+
             {/* Naklejka roast type - FADE OUT gdy overlay open */}
             {getRoastTypeDisplay(coffee.roastType) && (
                 <div

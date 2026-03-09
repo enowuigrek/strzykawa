@@ -6,21 +6,25 @@ import { trackSelectItem } from '../../utils/analytics';
  * CoffeeCardContent - Better spacing and typography
  */
 export function CoffeeCardContent({ coffee }) {
-    // Get price - najniższa cena z wariantów
+    // Get price - najniższa cena z wariantów + compareAtPrice dla promocji
     const getPrice = () => {
-        if (!coffee.variants || coffee.variants.length === 0) {
-            return { prefix: '', value: '0.00' };
+        const variants = coffee.variants || [];
+        if (variants.length === 0) {
+            return { prefix: '', value: '0.00', compareAtPrice: null };
         }
 
-        const prices = coffee.variants.map((v) => parseFloat(v.price));
+        const prices = variants.map((v) => parseFloat(v.price));
         const minPrice = Math.min(...prices);
         const maxPrice = Math.max(...prices);
+        const cheapestVariant = variants.find((v) => parseFloat(v.price) === minPrice);
 
-        if (minPrice === maxPrice) {
-            return { prefix: '', value: minPrice.toFixed(2) };
-        }
-
-        return { prefix: 'od', value: minPrice.toFixed(2) };
+        return {
+            prefix: minPrice !== maxPrice ? 'od' : '',
+            value: minPrice.toFixed(2),
+            compareAtPrice: cheapestVariant?.compareAtPrice
+                ? parseFloat(cheapestVariant.compareAtPrice)
+                : null,
+        };
     };
 
     const isUnavailable = !coffee.availableForSale;
@@ -48,8 +52,14 @@ export function CoffeeCardContent({ coffee }) {
                     <>
                         {(() => {
                             const price = getPrice();
+                            const hasDiscount = price.compareAtPrice && price.compareAtPrice > parseFloat(price.value);
                             return (
                                 <>
+                                    {hasDiscount && (
+                                        <span className="text-base text-muted/50 line-through">
+                                            {price.compareAtPrice.toFixed(2)} zł
+                                        </span>
+                                    )}
                                     {price.prefix && (
                                         <span className="text-base text-muted">
                                             {price.prefix}

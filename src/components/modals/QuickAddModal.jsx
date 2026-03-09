@@ -135,7 +135,10 @@ export function QuickAddModal({ coffee, isOpen, onClose, onAddToCart }) {
     const handleBackdropClick = useBackdropClick(onClose);
 
     const price = selectedVariant?.price || '0.00';
+    const compareAtPrice = selectedVariant?.compareAtPrice;
+    const hasDiscount = compareAtPrice && compareAtPrice > parseFloat(price);
     const totalPrice = (parseFloat(price) * quantity).toFixed(2);
+    const originalTotal = hasDiscount ? (parseFloat(compareAtPrice) * quantity).toFixed(2) : null;
     const isAvailable = selectedVariant?.availableForSale ?? false;
 
     if (!isOpen) return null;
@@ -316,9 +319,16 @@ export function QuickAddModal({ coffee, isOpen, onClose, onAddToCart }) {
                         <div className="border-t border-accent/20 pt-3">
                             <div className="flex justify-between items-center">
                                 <span className="text-white font-medium">Razem:</span>
-                                <span className="text-xl text-white">
-                                    {isAvailable ? `${totalPrice} zł` : 'Niedostępne'}
-                                </span>
+                                <div className="flex items-baseline gap-2">
+                                    {hasDiscount && originalTotal && isAvailable && (
+                                        <span className="text-base text-muted/50 line-through">
+                                            {originalTotal} zł
+                                        </span>
+                                    )}
+                                    <span className="text-xl text-white">
+                                        {isAvailable ? `${totalPrice} zł` : 'Niedostępne'}
+                                    </span>
+                                </div>
                             </div>
                         </div>
                     </div>
