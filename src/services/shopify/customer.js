@@ -777,18 +777,25 @@ function translateError(errorMessage) {
         'Email is invalid': 'Nieprawidłowy adres e-mail',
         'Phone is invalid': 'Nieprawidłowy numer telefonu',
         'Password cannot be blank': 'Hasło nie może być puste',
-        'Email cannot be blank': 'E-mail nie może być pusty'
+        'Email cannot be blank': 'E-mail nie może być pusty',
+        // Polskie warianty Shopify (pole "Phone" po angielsku, reszta po polsku)
+        'Phone jest już zajęte': 'Ten numer telefonu jest już przypisany do innego konta',
+        'Phone jest już zajęty': 'Ten numer telefonu jest już przypisany do innego konta',
+        'Phone jest nieprawidłowe': 'Nieprawidłowy numer telefonu',
+        'Phone jest nieprawidłowy': 'Nieprawidłowy numer telefonu',
     };
 
     if (translations[errorMessage]) return translations[errorMessage];
 
-    // Shopify może zwracać błędy mieszane (angielska nazwa pola + polski opis)
+    // Partial match — obsługuje dowolną kombinację języka w błędach Shopify
     const msg = errorMessage.toLowerCase();
-    if (msg.includes('phone') && (msg.includes('invalid') || msg.includes('nieprawidłow'))) {
-        return 'Nieprawidłowy numer telefonu';
-    }
-    if (msg.includes('phone') && (msg.includes('taken') || msg.includes('zajęt'))) {
-        return 'Ten numer telefonu jest już przypisany do innego konta';
+    if (msg.includes('phone') || msg.includes('telefon')) {
+        if (msg.includes('taken') || msg.includes('zajęt') || msg.includes('already')) {
+            return 'Ten numer telefonu jest już przypisany do innego konta';
+        }
+        if (msg.includes('invalid') || msg.includes('nieprawidłow')) {
+            return 'Nieprawidłowy numer telefonu';
+        }
     }
 
     return errorMessage;

@@ -100,7 +100,8 @@ const RegisterModal = ({ isOpen, onClose, onSwitchToLogin }) => {
             } else if (errorMessage.includes('limit')) {
                 setError('Przekroczono limit tworzenia kont. Spróbuj ponownie za kilka minut.');
             } else if (errorMessage.toLowerCase().includes('telefon') || errorMessage.toLowerCase().includes('phone')) {
-                setError('Nieprawidłowy numer telefonu. Wpisz prawdziwy numer lub pozostaw pole puste.');
+                // translateError już zwrócił właściwy komunikat po polsku — przepuszczamy go
+                setError(errorMessage);
             } else {
                 setError(errorMessage);
             }
