@@ -99,6 +99,8 @@ const RegisterModal = ({ isOpen, onClose, onSwitchToLogin }) => {
                 setError('Nieprawidłowy adres e-mail. Sprawdź format.');
             } else if (errorMessage.includes('limit')) {
                 setError('Przekroczono limit tworzenia kont. Spróbuj ponownie za kilka minut.');
+            } else if (errorMessage.toLowerCase().includes('telefon') || errorMessage.toLowerCase().includes('phone')) {
+                setError('Nieprawidłowy numer telefonu. Wpisz prawdziwy numer lub pozostaw pole puste.');
             } else {
                 setError(errorMessage);
             }
@@ -116,7 +118,7 @@ const RegisterModal = ({ isOpen, onClose, onSwitchToLogin }) => {
             <form onSubmit={handleSubmit}>
                 {/* Success Message */}
                 {success && (
-                    <div className="mb-4 p-3 bg-success/10 border border-success/30 text-success text-base flex items-center gap-2 animate-fadeIn">
+                    <div className="mt-2 mb-4 p-3 bg-success/10 border border-success/30 text-success text-base flex items-center gap-2 animate-fadeIn">
                         <FaCheckCircle className="w-4 h-4 flex-shrink-0" />
                         <span>{success}</span>
                     </div>
@@ -124,7 +126,7 @@ const RegisterModal = ({ isOpen, onClose, onSwitchToLogin }) => {
 
                 {/* Error Message */}
                 {error && (
-                    <div className="mb-4 p-3 bg-danger/10 border border-danger/30 text-danger text-base flex items-center gap-2 animate-fadeIn">
+                    <div className="mt-2 mb-4 p-3 bg-danger/10 border border-danger/30 text-danger text-base flex items-center gap-2 animate-fadeIn">
                         <FaExclamationTriangle className="w-4 h-4 flex-shrink-0" />
                         <span>{error}</span>
                     </div>

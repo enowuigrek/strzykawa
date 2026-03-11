@@ -780,5 +780,16 @@ function translateError(errorMessage) {
         'Email cannot be blank': 'E-mail nie może być pusty'
     };
 
-    return translations[errorMessage] || errorMessage;
+    if (translations[errorMessage]) return translations[errorMessage];
+
+    // Shopify może zwracać błędy mieszane (angielska nazwa pola + polski opis)
+    const msg = errorMessage.toLowerCase();
+    if (msg.includes('phone') && (msg.includes('invalid') || msg.includes('nieprawidłow'))) {
+        return 'Nieprawidłowy numer telefonu';
+    }
+    if (msg.includes('phone') && (msg.includes('taken') || msg.includes('zajęt'))) {
+        return 'Ten numer telefonu jest już przypisany do innego konta';
+    }
+
+    return errorMessage;
 }
