@@ -34,6 +34,9 @@ const ResetPasswordPage = lazy(() =>
 const AccountActivatePage = lazy(() =>
     import('./pages/AccountActivatePage.jsx').then((m) => ({ default: m.AccountActivatePage }))
 );
+const WelcomePage = lazy(() =>
+    import('./pages/WelcomePage.jsx').then((m) => ({ default: m.WelcomePage }))
+);
 const TermsAndConditions = lazy(() =>
     import('./pages/TermsAndConditions.jsx').then((m) => ({ default: m.TermsAndConditions }))
 );
@@ -145,6 +148,7 @@ function App() {
                         <Route path="/checkout/canceled" element={<CheckoutCanceled />} />
                         <Route path="/account/reset/:customerId/:token" element={<ResetPasswordPage />} />
                         <Route path="/account/activate/:customerId/:token" element={<AccountActivatePage />} />
+                        <Route path="/witaj" element={<WelcomePage />} />
                         <Route path="*" element={<NotFound />} />
                     </Routes>
                 </Suspense>

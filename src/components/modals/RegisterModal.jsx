@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { FaUser, FaLock, FaEye, FaEyeSlash, FaEnvelope, FaUserPlus, FaExclamationTriangle, FaCheckCircle, FaPhone } from 'react-icons/fa';
 import { useAuthStore } from '../../store/authStore.js';
 import { Button } from '../atoms/Button.jsx';
@@ -23,6 +24,7 @@ const RegisterModal = ({ isOpen, onClose, onSwitchToLogin }) => {
     const [success, setSuccess] = useState('');
 
     const { register, isLoading } = useAuthStore();
+    const navigate = useNavigate();
 
     const handleChange = (e) => {
         setFormData(prev => ({
@@ -73,7 +75,7 @@ const RegisterModal = ({ isOpen, onClose, onSwitchToLogin }) => {
         );
 
         if (result.success) {
-            setSuccess('✓ Konto utworzone! Logowanie...');
+            setSuccess('✓ Konto utworzone! Za chwilę...');
             setTimeout(() => {
                 onClose();
                 setFormData({
@@ -85,7 +87,8 @@ const RegisterModal = ({ isOpen, onClose, onSwitchToLogin }) => {
                     confirmPassword: ''
                 });
                 setSuccess('');
-            }, 2000);
+                navigate('/witaj');
+            }, 1500);
         } else {
             const errorMessage = result.error || 'Nieznany błąd';
             if (errorMessage.includes('już zarejestrowany')) {
