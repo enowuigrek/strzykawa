@@ -18,7 +18,7 @@ export function ModalHeader({ title, icon, badge, onClose, isAnimating }) {
                 {/* Title + Icon/Badge */}
                 <div className="flex items-center gap-3">
                     {icon && (
-                        <div className="p-2 bg-accent/20 border border-accent/30">
+                        <div className="p-2 bg-accent/20">
                             {icon}
                         </div>
                     )}
