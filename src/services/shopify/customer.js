@@ -160,6 +160,7 @@ export async function getCustomer(accessToken) {
                 firstName
                 lastName
                 phone
+                acceptsMarketing
                 defaultAddress {
                     address1
                     address2
@@ -196,6 +197,7 @@ export async function getCustomer(accessToken) {
                 firstName: response.data.customer.firstName,
                 lastName: response.data.customer.lastName,
                 phone: response.data.customer.phone,
+                acceptsMarketing: response.data.customer.acceptsMarketing,
                 defaultAddress: response.data.customer.defaultAddress
             }
         };
@@ -760,6 +762,52 @@ export async function activateCustomerByUrl(activationUrl, password) {
         return {
             success: false,
             error: 'Błąd podczas aktywacji konta. Spróbuj ponownie.'
+        };
+    }
+}
+
+/**
+ * Zaktualizuj preferencje newslettera klienta
+ */
+export async function updateCustomerMarketing(accessToken, acceptsMarketing) {
+    const mutation = `
+        mutation customerUpdate($customerAccessToken: String!, $customer: CustomerUpdateInput!) {
+            customerUpdate(customerAccessToken: $customerAccessToken, customer: $customer) {
+                customer {
+                    id
+                    acceptsMarketing
+                }
+                customerUserErrors {
+                    code
+                    field
+                    message
+                }
+            }
+        }
+    `;
+
+    const variables = {
+        customerAccessToken: accessToken,
+        customer: { acceptsMarketing }
+    };
+
+    try {
+        const response = await shopifyClient.graphqlFetch(mutation, variables);
+
+        if (response.data.customerUpdate.customerUserErrors.length > 0) {
+            const error = response.data.customerUpdate.customerUserErrors[0];
+            return {
+                success: false,
+                error: translateError(error.message)
+            };
+        }
+
+        return { success: true };
+    } catch (error) {
+        logger.error('Error updating customer marketing preferences:', error);
+        return {
+            success: false,
+            error: 'Błąd podczas zapisywania preferencji'
         };
     }
 }

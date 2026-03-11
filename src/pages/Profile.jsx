@@ -7,6 +7,7 @@ import {
     FaCheckCircle,
     FaExclamationTriangle,
     FaSave,
+    FaEnvelope,
 } from 'react-icons/fa';
 import { useAuthStore } from '../store/authStore.js';
 import { PageLayout } from '../components/layout/PageLayout.jsx';
@@ -21,13 +22,16 @@ import { SEO } from '../components/SEO.jsx';
  */
 export function Profile() {
     const navigate = useNavigate();
-    const { user, isAuthenticated, logout, updateUser, getAccessToken } = useAuthStore();
+    const { user, isAuthenticated, logout, updateUser, getAccessToken, updateMarketing } = useAuthStore();
 
     const [isEditing, setIsEditing] = useState(false);
     const [formData, setFormData] = useState({});
     const [isLoading, setIsLoading] = useState(false);
     const [success, setSuccess] = useState('');
     const [error, setError] = useState('');
+
+    const [newsletterLoading, setNewsletterLoading] = useState(false);
+    const [newsletterMsg, setNewsletterMsg] = useState('');
 
     React.useEffect(() => {
         if (!isAuthenticated) {
@@ -42,6 +46,24 @@ export function Profile() {
     const handleLogout = () => {
         logout();
         navigate('/');
+    };
+
+    const handleNewsletterToggle = async () => {
+        if (newsletterLoading) return;
+        setNewsletterLoading(true);
+        setNewsletterMsg('');
+
+        const newValue = !user.acceptsMarketing;
+        const result = await updateMarketing(newValue);
+
+        if (result.success) {
+            setNewsletterMsg(newValue ? 'Zapisano do newslettera!' : 'Wypisano z newslettera.');
+        } else {
+            setNewsletterMsg(result.error || 'Błąd podczas zapisywania');
+        }
+
+        setNewsletterLoading(false);
+        setTimeout(() => setNewsletterMsg(''), 3000);
     };
 
     const handleStartEdit = () => {
@@ -267,6 +289,41 @@ export function Profile() {
                                     </button>
                                 </div>
                             </form>
+                        )}
+                    </div>
+
+                    {/* Newsletter */}
+                    <div className="bg-primary-light p-6">
+                        <div className="flex items-center gap-3 mb-4">
+                            <FaEnvelope className="w-5 h-5 text-accent" />
+                            <h2 className="text-xl text-white">Newsletter</h2>
+                        </div>
+
+                        <div className="flex items-center justify-between gap-4">
+                            <p className="text-muted text-sm leading-relaxed">
+                                {user.acceptsMarketing
+                                    ? 'Otrzymujesz od nas newsletter ze specjalnymi ofertami i nowościami.'
+                                    : 'Zapisz się, żeby dostawać specjalne oferty i aktualności od Strzykawy.'}
+                            </p>
+
+                            {/* Toggle switch */}
+                            <button
+                                onClick={handleNewsletterToggle}
+                                disabled={newsletterLoading}
+                                aria-label={user.acceptsMarketing ? 'Wypisz się z newslettera' : 'Zapisz się do newslettera'}
+                                className={`flex-shrink-0 relative inline-flex items-center w-12 h-6 rounded-full transition-colors duration-300 focus:outline-none disabled:opacity-60 ${user.acceptsMarketing ? 'bg-success' : 'bg-white/15'}`}
+                            >
+                                <span
+                                    className={`inline-block w-5 h-5 bg-white rounded-full shadow transform transition-transform duration-300 ${user.acceptsMarketing ? 'translate-x-6' : 'translate-x-0.5'}`}
+                                />
+                            </button>
+                        </div>
+
+                        {newsletterMsg && (
+                            <p className={`mt-3 text-sm flex items-center gap-2 ${newsletterMsg.includes('Błąd') ? 'text-danger' : 'text-green-400'}`}>
+                                <FaCheckCircle className="w-3.5 h-3.5 flex-shrink-0" />
+                                {newsletterMsg}
+                            </p>
                         )}
                     </div>
 

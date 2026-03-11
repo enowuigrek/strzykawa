@@ -9,7 +9,8 @@ import {
     changePassword,
     recoverPassword,
     resetPassword,
-    activateCustomerByUrl
+    activateCustomerByUrl,
+    updateCustomerMarketing
 } from '../services/shopify/customer.js';
 import { trackLogin, trackSignUp } from '../utils/analytics';
 
@@ -238,6 +239,26 @@ export const useAuthStore = create(
             // Zaktualizuj dane użytkownika (np. po edycji adresu)
             updateUser: (updatedUser) => {
                 set({ user: updatedUser });
+            },
+
+            // Zaktualizuj preferencje newslettera
+            updateMarketing: async (acceptsMarketing) => {
+                const { accessToken } = get();
+
+                if (!accessToken) {
+                    return { success: false, error: 'Nie jesteś zalogowany' };
+                }
+
+                const result = await updateCustomerMarketing(accessToken, acceptsMarketing);
+
+                if (result.success) {
+                    // Zaktualizuj user w store od razu
+                    set((state) => ({
+                        user: { ...state.user, acceptsMarketing }
+                    }));
+                }
+
+                return result;
             }
         }),
         {
