@@ -99,7 +99,7 @@ export function WelcomePage() {
                         className="inline-flex items-center justify-center gap-3 border border-accent text-accent hover:text-white hover:border-white px-8 py-4 rounded-full font-medium transition-all duration-300"
                     >
                         <FaUser />
-                        <span>Uzupełnij profil</span>
+                        <span>Zobacz swój profil</span>
                     </Link>
                 </div>
             </div>
