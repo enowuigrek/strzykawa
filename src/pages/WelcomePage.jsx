@@ -1,5 +1,5 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import { FaShoppingBag, FaUser } from 'react-icons/fa';
 import { useAuthStore } from '../store/authStore.js';
 
@@ -19,7 +19,17 @@ const confettiPieces = Array.from({ length: 28 }, (_, i) => ({
 
 export function WelcomePage() {
     const user = useAuthStore((state) => state.user);
+    const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
     const firstName = user?.firstName || '';
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        if (!isAuthenticated) {
+            navigate('/');
+        }
+    }, [isAuthenticated, navigate]);
+
+    if (!isAuthenticated) return null;
 
     return (
         <div className="min-h-screen bg-primary flex items-center justify-center px-4 py-12 relative overflow-hidden">
