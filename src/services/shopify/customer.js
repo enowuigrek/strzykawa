@@ -9,7 +9,7 @@ import { logger } from '../../utils/logger.js';
 /**
  * Rejestracja nowego klienta
  */
-export async function registerCustomer(email, password, firstName, lastName, phone = null) {
+export async function registerCustomer(email, password, firstName, lastName, phone = null, acceptsMarketing = false) {
     const mutation = `
         mutation customerCreate($input: CustomerCreateInput!) {
             customerCreate(input: $input) {
@@ -34,7 +34,7 @@ export async function registerCustomer(email, password, firstName, lastName, pho
         password,
         firstName,
         lastName,
-        acceptsMarketing: false
+        acceptsMarketing,
     };
 
     // Dodaj telefon jeśli podany

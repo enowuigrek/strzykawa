@@ -51,12 +51,12 @@ export const useAuthStore = create(
                 }
             },
 
-            register: async (email, password, firstName, lastName, phone = null) => {
+            register: async (email, password, firstName, lastName, phone = null, acceptsMarketing = false) => {
                 set({ isLoading: true });
 
                 try {
                     // 1. Najpierw utwórz konto
-                    const registerResult = await registerCustomer(email, password, firstName, lastName, phone);
+                    const registerResult = await registerCustomer(email, password, firstName, lastName, phone, acceptsMarketing);
 
                     if (!registerResult.success) {
                         set({ isLoading: false });

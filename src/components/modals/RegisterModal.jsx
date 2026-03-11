@@ -20,6 +20,7 @@ const RegisterModal = ({ isOpen, onClose, onSwitchToLogin }) => {
     });
     const [showPassword, setShowPassword] = useState(false);
     const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+    const [acceptsMarketing, setAcceptsMarketing] = useState(false);
     const [error, setError] = useState('');
     const [success, setSuccess] = useState('');
 
@@ -71,7 +72,8 @@ const RegisterModal = ({ isOpen, onClose, onSwitchToLogin }) => {
             formData.password,
             formData.firstName,
             formData.lastName,
-            normalizePhone(formData.phone)
+            normalizePhone(formData.phone),
+            acceptsMarketing
         );
 
         if (result.success) {
@@ -267,6 +269,21 @@ const RegisterModal = ({ isOpen, onClose, onSwitchToLogin }) => {
                             {showConfirmPassword ? <FaEyeSlash className="w-4 h-4" /> : <FaEye className="w-4 h-4" />}
                         </button>
                     </div>
+                </div>
+
+                {/* Newsletter Checkbox */}
+                <div className="mb-5">
+                    <label className="flex items-start gap-3 cursor-pointer group">
+                        <input
+                            type="checkbox"
+                            checked={acceptsMarketing}
+                            onChange={(e) => setAcceptsMarketing(e.target.checked)}
+                            className="mt-0.5 w-4 h-4 accent-accent flex-shrink-0 cursor-pointer"
+                        />
+                        <span className="text-sm text-muted group-hover:text-white transition-colors duration-200">
+                            Chcę otrzymywać newsletter ze specjalnymi ofertami i nowościami od Strzykawy
+                        </span>
+                    </label>
                 </div>
 
                 {/* Submit Button */}
