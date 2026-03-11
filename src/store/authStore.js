@@ -8,7 +8,8 @@ import {
     getCustomer,
     changePassword,
     recoverPassword,
-    resetPassword
+    resetPassword,
+    activateCustomerByUrl
 } from '../services/shopify/customer.js';
 import { trackLogin, trackSignUp } from '../utils/analytics';
 
@@ -206,6 +207,31 @@ export const useAuthStore = create(
                 } catch (error) {
                     set({ isLoading: false });
                     return { success: false, error: 'Błąd podczas resetowania hasła' };
+                }
+            },
+
+            // Aktywuj konto przez link z emaila zaproszenia i auto-zaloguj
+            activateAccount: async (activationUrl, password) => {
+                set({ isLoading: true });
+                try {
+                    const result = await activateCustomerByUrl(activationUrl, password);
+
+                    if (result.success) {
+                        set({
+                            user: result.customer,
+                            accessToken: result.accessToken,
+                            tokenExpiresAt: result.expiresAt,
+                            isAuthenticated: true,
+                            isLoading: false
+                        });
+                        return { success: true };
+                    } else {
+                        set({ isLoading: false });
+                        return { success: false, error: result.error };
+                    }
+                } catch (error) {
+                    set({ isLoading: false });
+                    return { success: false, error: 'Błąd podczas aktywacji konta' };
                 }
             },
 

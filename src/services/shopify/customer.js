@@ -711,6 +711,60 @@ export async function changePassword(accessToken, currentPassword, newPassword) 
 }
 
 /**
+ * Aktywacja konta przez link z emaila (customerActivateByUrl)
+ */
+export async function activateCustomerByUrl(activationUrl, password) {
+    const mutation = `
+        mutation customerActivateByUrl($activationUrl: URL!, $password: String!) {
+            customerActivateByUrl(activationUrl: $activationUrl, password: $password) {
+                customer {
+                    id
+                    email
+                    firstName
+                    lastName
+                }
+                customerAccessToken {
+                    accessToken
+                    expiresAt
+                }
+                customerUserErrors {
+                    code
+                    field
+                    message
+                }
+            }
+        }
+    `;
+
+    try {
+        const response = await shopifyClient.graphqlFetch(mutation, {
+            activationUrl,
+            password
+        });
+
+        const result = response.data.customerActivateByUrl;
+
+        if (result.customerUserErrors.length > 0) {
+            const error = result.customerUserErrors[0];
+            return { success: false, error: translateError(error.message) };
+        }
+
+        return {
+            success: true,
+            customer: result.customer,
+            accessToken: result.customerAccessToken.accessToken,
+            expiresAt: result.customerAccessToken.expiresAt
+        };
+    } catch (error) {
+        logger.error('Error activating customer:', error);
+        return {
+            success: false,
+            error: 'Błąd podczas aktywacji konta. Spróbuj ponownie.'
+        };
+    }
+}
+
+/**
  * Tłumaczenie błędów Shopify na polski
  */
 function translateError(errorMessage) {

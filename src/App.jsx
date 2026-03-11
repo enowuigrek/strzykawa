@@ -31,6 +31,9 @@ const CheckoutCanceled = lazy(() =>
 const ResetPasswordPage = lazy(() =>
     import('./pages/ResetPasswordPage.jsx').then((m) => ({ default: m.ResetPasswordPage }))
 );
+const AccountActivatePage = lazy(() =>
+    import('./pages/AccountActivatePage.jsx').then((m) => ({ default: m.AccountActivatePage }))
+);
 const TermsAndConditions = lazy(() =>
     import('./pages/TermsAndConditions.jsx').then((m) => ({ default: m.TermsAndConditions }))
 );
@@ -141,6 +144,7 @@ function App() {
                         <Route path="/checkout/success" element={<CheckoutSuccess />} />
                         <Route path="/checkout/canceled" element={<CheckoutCanceled />} />
                         <Route path="/account/reset/:customerId/:token" element={<ResetPasswordPage />} />
+                        <Route path="/account/activate/:customerId/:token" element={<AccountActivatePage />} />
                         <Route path="*" element={<NotFound />} />
                     </Routes>
                 </Suspense>

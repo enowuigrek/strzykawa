@@ -31,6 +31,14 @@ const RegisterModal = ({ isOpen, onClose, onSwitchToLogin }) => {
         }));
     };
 
+    const normalizePhone = (phone) => {
+        if (!phone) return null;
+        const digits = phone.replace(/[\s\-()+]/g, '');
+        if (/^\d{9}$/.test(digits)) return '+48' + digits;
+        if (/^48\d{9}$/.test(digits)) return '+' + digits;
+        return phone.trim();
+    };
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         setError('');
@@ -61,7 +69,7 @@ const RegisterModal = ({ isOpen, onClose, onSwitchToLogin }) => {
             formData.password,
             formData.firstName,
             formData.lastName,
-            formData.phone || null
+            normalizePhone(formData.phone)
         );
 
         if (result.success) {
@@ -191,7 +199,7 @@ const RegisterModal = ({ isOpen, onClose, onSwitchToLogin }) => {
                             value={formData.phone}
                             onChange={handleChange}
                             className="w-full pl-10 pr-4 py-3 bg-primary-dark/50 text-white placeholder-muted/70 transition-all duration-300"
-                            placeholder="+48 123 456 789"
+                            placeholder="123 456 789"
                         />
                     </div>
                 </div>
