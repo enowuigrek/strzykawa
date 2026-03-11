@@ -68,14 +68,11 @@ export function WelcomePage() {
                 </div>
 
                 {/* Nagłówek */}
-                <h1 className="text-3xl md:text-4xl text-white font-bold mb-3">
-                    Witaj{firstName ? `, ${firstName}` : ''}!
+                <h1 className="text-3xl md:text-4xl text-white font-normal mb-3">
+                    Witaj w Strzykawie{firstName ? `, ${firstName}` : ''}!
                 </h1>
-                <p className="text-accent text-lg mb-2">
-                    Konto zostało założone pomyślnie.
-                </p>
                 <p className="text-muted text-base mb-10 max-w-sm mx-auto">
-                    Czas odkryć świeżo palone kawy z całego świata — prosto do Twojego kubka.
+                    Miło nam, że do nas dołączyłeś.
                 </p>
 
                 {/* Przyciski CTA */}
