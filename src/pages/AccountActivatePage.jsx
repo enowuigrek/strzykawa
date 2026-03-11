@@ -55,7 +55,7 @@ export function AccountActivatePage() {
 
         if (result.success) {
             setSuccess(true);
-            setTimeout(() => navigate('/profil'), 2000);
+            setTimeout(() => navigate('/witaj'), 2000);
         } else {
             setError(result.error || 'Nie udało się aktywować konta. Link mógł wygasnąć.');
         }
@@ -95,7 +95,7 @@ export function AccountActivatePage() {
                             <div>
                                 <p className="font-medium mb-1">Konto aktywowane!</p>
                                 <p className="text-sm text-success/80">
-                                    Zostałeś automatycznie zalogowany. Za chwilę przejdziesz do profilu…
+                                    Zostałeś automatycznie zalogowany. Za chwilę przejdziesz dalej…
                                 </p>
                             </div>
                         </div>
