@@ -13,7 +13,8 @@ export function ModalWrapper({
     icon,
     badge,
     children,
-    maxHeight = '85vh'
+    maxHeight = '85vh',
+    closeOnBackdrop = true
 }) {
     const [isAnimating, setIsAnimating] = useState(false);
 
@@ -37,7 +38,7 @@ export function ModalWrapper({
                     transition-all duration-300 ease-out
                     ${isAnimating ? 'opacity-100' : 'opacity-0'}
                 `}
-                onClick={onClose}
+                onClick={closeOnBackdrop ? onClose : undefined}
             />
 
             {/* Modal */}

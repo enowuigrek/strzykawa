@@ -6,6 +6,7 @@ import { Footer } from './components/layout/Footer.jsx';
 import { Home } from './pages/Home.jsx';
 import { Coffees } from './pages/Coffees.jsx';
 import { CoffeeDetail } from './pages/CoffeeDetail.jsx';
+import { WelcomePage } from './pages/WelcomePage.jsx';
 import { CookieConsent } from './components/atoms/CookieConsent.jsx';
 import { Spinner } from './components/atoms/Spinner.jsx';
 import { LocalBusinessSchema } from './components/LocalBusinessSchema.jsx';
@@ -33,9 +34,6 @@ const ResetPasswordPage = lazy(() =>
 );
 const AccountActivatePage = lazy(() =>
     import('./pages/AccountActivatePage.jsx').then((m) => ({ default: m.AccountActivatePage }))
-);
-const WelcomePage = lazy(() =>
-    import('./pages/WelcomePage.jsx').then((m) => ({ default: m.WelcomePage }))
 );
 const TermsAndConditions = lazy(() =>
     import('./pages/TermsAndConditions.jsx').then((m) => ({ default: m.TermsAndConditions }))

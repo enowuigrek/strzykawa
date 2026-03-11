@@ -72,7 +72,7 @@ export async function registerCustomer(email, password, firstName, lastName, pho
         logger.error('Error registering customer:', error);
         return {
             success: false,
-            error: 'Błąd podczas tworzenia konta. Spróbuj ponownie.'
+            error: translateError(error.message) || 'Błąd podczas tworzenia konta. Spróbuj ponownie.'
         };
     }
 }

@@ -114,6 +114,7 @@ const RegisterModal = ({ isOpen, onClose, onSwitchToLogin }) => {
             title="Utwórz konto"
             icon={<FaUser className="w-5 h-5 text-accent" />}
             maxHeight="90vh"
+            closeOnBackdrop={false}
         >
             <form onSubmit={handleSubmit}>
                 {/* Success Message */}
