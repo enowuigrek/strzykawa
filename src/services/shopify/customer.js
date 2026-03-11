@@ -770,10 +770,12 @@ export async function activateCustomerByUrl(activationUrl, password) {
 function translateError(errorMessage) {
     const translations = {
         'Email has already been taken': 'Ten adres e-mail jest już zarejestrowany',
+        'Phone has already been taken': 'Ten numer telefonu jest już przypisany do innego konta',
         'Unidentified customer': 'Nieprawidłowy e-mail lub hasło',
         'Customer is disabled': 'Konto zostało dezaktywowane',
         'Password is too short': 'Hasło jest za krótkie (minimum 5 znaków)',
         'Email is invalid': 'Nieprawidłowy adres e-mail',
+        'Phone is invalid': 'Nieprawidłowy numer telefonu',
         'Password cannot be blank': 'Hasło nie może być puste',
         'Email cannot be blank': 'E-mail nie może być pusty'
     };
