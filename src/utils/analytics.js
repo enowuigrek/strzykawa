@@ -235,3 +235,34 @@ export function trackLogin(method = 'email') {
 export function trackSignUp(method = 'email') {
     fire('sign_up', { method });
 }
+
+// ─── CONTACT INTENT EVENTS (weryfikacja: strona → kawiarnia) ────────────────
+
+/**
+ * click_phone — kliknięcie w numer telefonu (tel: link)
+ */
+export function trackPhoneClick(location = 'unknown') {
+    fire('click_phone', { link_location: location });
+}
+
+/**
+ * click_email — kliknięcie w adres email (mailto: link)
+ */
+export function trackEmailClick(location = 'unknown') {
+    fire('click_email', { link_location: location });
+}
+
+/**
+ * click_social — kliknięcie w link social media
+ */
+export function trackSocialClick(platform, location = 'unknown') {
+    if (!platform) return;
+    fire('click_social', { platform, link_location: location });
+}
+
+/**
+ * click_maps — otwarcie Google Maps (szuka trasy do kawiarni)
+ */
+export function trackMapsClick(location = 'unknown') {
+    fire('click_maps', { link_location: location });
+}

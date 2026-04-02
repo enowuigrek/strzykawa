@@ -1,9 +1,11 @@
 import React from 'react';
 import { FaMapMarkerAlt, FaClock, FaCoffee, FaExternalLinkAlt } from 'react-icons/fa';
 import { CAFE_STREET, CAFE_ZIP_CITY, CAFE_HOURS, CAFE_MAPS_URL } from '../../../constants/contact';
+import { trackMapsClick } from '../../../utils/analytics';
 
 export function CafeLocation() {
     const openGoogleMaps = () => {
+        trackMapsClick('cafe_location');
         window.open(CAFE_MAPS_URL, '_blank');
     };
 

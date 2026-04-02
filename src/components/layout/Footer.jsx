@@ -7,6 +7,7 @@ import {
 } from 'react-icons/fa';
 import * as VanillaCookieConsent from 'vanilla-cookieconsent';
 import { SOCIAL_LINKS } from '../../constants/social';
+import { trackPhoneClick, trackEmailClick, trackSocialClick } from '../../utils/analytics';
 import {
     COMPANY_NAME,
     HQ_STREET,
@@ -128,10 +129,14 @@ export function Footer() {
                         <div className="flex flex-col gap-4">
                             {contactInfo.map((contact, index) => {
                                 const Icon = contact.icon;
+                                const trackFn = contact.href.startsWith('tel:')
+                                    ? () => trackPhoneClick('footer')
+                                    : () => trackEmailClick('footer');
                                 return (
                                     <a
                                         key={index}
                                         href={contact.href}
+                                        onClick={trackFn}
                                         className="flex items-center gap-3 text-lg transition-colors duration-300 group"
                                     >
                                         <Icon className="w-5 h-5 flex-shrink-0 text-muted group-hover:text-accent transition-colors" />
@@ -153,6 +158,7 @@ export function Footer() {
                                         target="_blank"
                                         rel="noopener noreferrer"
                                         aria-label={social.label}
+                                        onClick={() => trackSocialClick(social.label.toLowerCase(), 'footer')}
                                         className={`group w-10 h-10 flex items-center justify-center bg-white/5 text-muted hover:bg-white/10 transition-all duration-300 ${social.hoverColor}`}
                                     >
                                         <Icon className="w-5 h-5 transition-transform duration-300 group-hover:scale-125" />

@@ -11,6 +11,7 @@ import {
     CONTACT_EMAIL,
     CONTACT_EMAIL_HREF,
 } from '../../../constants/contact';
+import { trackPhoneClick, trackEmailClick } from '../../../utils/analytics';
 
 export function CompanyData() {
     const [ref, visible] = useScrollAnimation({ threshold: 0.2 });
@@ -48,6 +49,7 @@ export function CompanyData() {
                         <FaPhone className="w-4 h-4 text-muted mt-1 flex-shrink-0" />
                         <a
                             href={CONTACT_PHONE_HREF}
+                            onClick={() => trackPhoneClick('company_data')}
                             className="text-white hover:text-muted transition-colors duration-300">
                             {CONTACT_PHONE}
                         </a>
@@ -56,6 +58,7 @@ export function CompanyData() {
                         <FaEnvelope className="w-4 h-4 text-muted mt-1 flex-shrink-0" />
                         <a
                                 href={CONTACT_EMAIL_HREF}
+                                onClick={() => trackEmailClick('company_data')}
                                 className="text-white hover:text-muted transition-colors duration-300"
                         >
                                 {CONTACT_EMAIL}

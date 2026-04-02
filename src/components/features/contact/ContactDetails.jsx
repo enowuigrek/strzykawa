@@ -6,6 +6,7 @@ import {
     CONTACT_EMAIL,
     CONTACT_EMAIL_HREF,
 } from '../../../constants/contact';
+import { trackPhoneClick, trackEmailClick } from '../../../utils/analytics';
 
 export function ContactDetails() {
     return (
@@ -20,6 +21,7 @@ export function ContactDetails() {
                         <div className="font-medium text-white">Telefon</div>
                         <a
                             href={CONTACT_PHONE_HREF}
+                            onClick={() => trackPhoneClick('contact_page')}
                             className="text-muted hover:text-white transition-colors duration-300"
                         >
                             {CONTACT_PHONE}
@@ -34,6 +36,7 @@ export function ContactDetails() {
                         <div className="font-medium text-white">Email</div>
                         <a
                             href={CONTACT_EMAIL_HREF}
+                            onClick={() => trackEmailClick('contact_page')}
                             className="text-muted hover:text-white transition-colors duration-300"
                         >
                             {CONTACT_EMAIL}
