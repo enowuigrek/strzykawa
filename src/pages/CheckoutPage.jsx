@@ -61,7 +61,7 @@ export function CheckoutPage() {
     } = useCheckoutStore();
 
     // Auth store (do auto-fill danych jeśli zalogowany)
-    const { user, isAuthenticated, getAccessToken } = useAuthStore();
+    const { user, isAuthenticated } = useAuthStore();
 
     // ===== REDIRECT IF CART IS EMPTY =====
     useEffect(() => {
@@ -195,104 +195,22 @@ export function CheckoutPage() {
                 );
             }
 
-            // 2. PRZYGOTUJ BUYER IDENTITY (do auto-wypełnienia Shopify checkout)
-            const buyerIdentity = {
-                email: customerData.email,
-                phone: customerData.phone,
-            };
-
-            // Przekaż customerAccessToken — nowy checkout Shopify wymaga tokena
-            // żeby rozpoznać klienta i załadować zapisane dane (adres, telefon).
-            if (isAuthenticated) {
-                const token = getAccessToken();
-                if (token) {
-                    buyerIdentity.customerAccessToken = token;
-                }
-            }
-
-            // Dodaj adres dostawy w formacie Shopify MailingAddress
-            if (deliveryMethod === 'kurier') {
-                // Dla kuriera - normalny adres
-                buyerIdentity.deliveryAddressPreferences = [
-                    {
-                        deliveryAddress: {
-                            firstName: customerData.firstName,
-                            lastName: customerData.lastName,
-                            company: companyValue || '',
-                            address1: deliveryAddress.street,
-                            address2: `${deliveryAddress.buildingNumber}${deliveryAddress.apartmentNumber ? '/' + deliveryAddress.apartmentNumber : ''}`,
-                            city: deliveryAddress.city,
-                            zip: deliveryAddress.postalCode,
-                            country: 'PL',
-                            phone: customerData.phone,
-                        },
-                    },
-                ];
-            } else if (deliveryMethod === 'paczkomat' && paczkomatData) {
-                // Dla paczkomatu - formatujemy dane paczkomatu jako adres
-                const paczkomatAddress = paczkomatData.address_details || {};
-                buyerIdentity.deliveryAddressPreferences = [
-                    {
-                        deliveryAddress: {
-                            firstName: customerData.firstName,
-                            lastName: customerData.lastName,
-                            company: companyValue || '',
-                            address1: `InPost Paczkomat ${paczkomatData.name}`,
-                            address2: `${paczkomatAddress.street || ''} ${paczkomatAddress.building_number || ''}`.trim(),
-                            city: paczkomatAddress.city || '',
-                            zip: paczkomatAddress.post_code || '',
-                            country: 'PL',
-                            phone: customerData.phone,
-                        },
-                    },
-                ];
-            }
-
-            // 3. WYŚLIJ DANE DO SHOPIFY (attributes + buyer identity)
+            // 2. WYŚLIJ CART ATTRIBUTES (dane dla admina w panelu Shopify)
             logger.log('Sending cart attributes...', attributes);
             await shopify.updateCartAttributes(cart.id, attributes);
 
-            logger.log('Updating buyer identity...', buyerIdentity);
-            const updatedCart = await shopify.updateCartBuyerIdentity(cart.id, buyerIdentity);
-
-            // 4. PRZEKIEROWANIE DO SHOPIFY CHECKOUT
-            // cartBuyerIdentityUpdate nie zawsze wypełnia formularz checkout,
-            // więc dokładamy URL params jako niezawodny fallback.
-            const baseUrl = updatedCart?.checkoutUrl || cart.checkoutUrl;
-            if (!baseUrl) {
+            // 3. PRZEKIEROWANIE DO SHOPIFY CHECKOUT
+            // UWAGA: NIE wywołujemy cartBuyerIdentityUpdate!
+            // Shopify sam rozpoznaje zalogowanego klienta i ładuje jego dane.
+            // Nasza mutacja buyerIdentity powodowała konflikt — checkout Shopify
+            // odświeżał się po kliknięciu "dalej" i tracił wszystkie dane.
+            if (!cart?.checkoutUrl) {
                 logger.error('No checkout URL available');
                 return;
             }
 
-            const params = new URLSearchParams();
-            params.append('checkout[email]', customerData.email);
-            params.append('checkout[shipping_address][first_name]', customerData.firstName);
-            params.append('checkout[shipping_address][last_name]', customerData.lastName);
-            if (customerData.phone) params.append('checkout[shipping_address][phone]', customerData.phone);
-
-            if (deliveryMethod === 'kurier') {
-                params.append('checkout[shipping_address][address1]', deliveryAddress.street);
-                params.append('checkout[shipping_address][address2]',
-                    `${deliveryAddress.buildingNumber}${deliveryAddress.apartmentNumber ? '/' + deliveryAddress.apartmentNumber : ''}`
-                );
-                params.append('checkout[shipping_address][city]', deliveryAddress.city);
-                params.append('checkout[shipping_address][zip]', deliveryAddress.postalCode);
-                params.append('checkout[shipping_address][country]', 'PL');
-            } else if (deliveryMethod === 'paczkomat' && paczkomatData) {
-                const pa = paczkomatData.address_details || {};
-                params.append('checkout[shipping_address][address1]', `InPost Paczkomat ${paczkomatData.name}`);
-                params.append('checkout[shipping_address][address2]', `${pa.street || ''} ${pa.building_number || ''}`.trim());
-                params.append('checkout[shipping_address][city]', pa.city || '');
-                params.append('checkout[shipping_address][zip]', pa.post_code || '');
-                params.append('checkout[shipping_address][country]', 'PL');
-            }
-
-            if (companyValue) params.append('checkout[shipping_address][company]', companyValue);
-
-            const separator = baseUrl.includes('?') ? '&' : '?';
-            const finalCheckoutUrl = `${baseUrl}${separator}${params.toString()}`;
-            logger.log('Redirecting to Shopify checkout with URL params:', finalCheckoutUrl);
-            window.location.href = finalCheckoutUrl;
+            logger.log('Redirecting to Shopify checkout:', cart.checkoutUrl);
+            window.location.href = cart.checkoutUrl;
         } catch (error) {
             logger.error('Error updating cart:', error);
             alert('Wystąpił błąd podczas przetwarzania zamówienia. Spróbuj ponownie.');

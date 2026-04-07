@@ -4,14 +4,12 @@ import { FaCreditCard, FaTruck } from 'react-icons/fa';
 import { Button } from '../atoms/Button';
 import { CartNotes } from './CartNotes';
 import { useCartStore } from '../../store/cartStore';
-import { useAuthStore } from '../../store/authStore';
 import { FREE_SHIPPING_THRESHOLD, SHIPPING_COST } from '../../constants/shipping';
 
 export function CartFooter({ items, isLoading, totalPrice, note, onSaveNote }) {
     const [termsAccepted, setTermsAccepted] = useState(false);
     const [showTermsError, setShowTermsError] = useState(false);
     const { goToCheckout } = useCartStore();
-    const { user } = useAuthStore();
 
     if (items.length === 0) return null;
 
@@ -27,7 +25,7 @@ export function CartFooter({ items, isLoading, totalPrice, note, onSaveNote }) {
             setShowTermsError(true);
             return;
         }
-        goToCheckout(user);
+        goToCheckout();
     };
 
     const handleTermsChange = (checked) => {

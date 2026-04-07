@@ -288,47 +288,20 @@ export const useCartStore = create(
             // WAŻNE: NIE czyścimy koszyka przed przekierowaniem.
             // Shopify samo usuwa koszyk po złożeniu zamówienia.
             // initializeCart() przy kolejnym uruchomieniu wykryje null i wyczyści cartId.
-            goToCheckout: (user = null) => {
+            goToCheckout: () => {
                 const { cart } = get();
                 if (!cart?.checkoutUrl) {
                     logger.error('No checkout URL available');
                     return;
                 }
 
-                let checkoutUrl = cart.checkoutUrl;
-
-                // Pre-fill checkout z danymi zalogowanego użytkownika
-                if (user) {
-                    const params = new URLSearchParams();
-                    if (user.email) params.append('checkout[email]', user.email);
-                    if (user.firstName) params.append('checkout[shipping_address][first_name]', user.firstName);
-                    if (user.lastName) params.append('checkout[shipping_address][last_name]', user.lastName);
-
-                    // Telefon: z adresu, albo fallback na telefon klienta
-                    const phone = user.defaultAddress?.phone || user.phone;
-                    if (phone) params.append('checkout[shipping_address][phone]', phone);
-
-                    if (user.defaultAddress) {
-                        const addr = user.defaultAddress;
-                        if (addr.address1) params.append('checkout[shipping_address][address1]', addr.address1);
-                        if (addr.address2) params.append('checkout[shipping_address][address2]', addr.address2);
-                        if (addr.city) params.append('checkout[shipping_address][city]', addr.city);
-                        if (addr.province) params.append('checkout[shipping_address][province]', addr.province);
-                        if (addr.zip) params.append('checkout[shipping_address][zip]', addr.zip);
-                        if (addr.country) params.append('checkout[shipping_address][country]', addr.country);
-                    }
-
-                    const separator = checkoutUrl.includes('?') ? '&' : '?';
-                    checkoutUrl = `${checkoutUrl}${separator}${params.toString()}`;
-                    logger.log('Pre-filling checkout with user data:', {
-                        email: user.email,
-                        name: `${user.firstName} ${user.lastName}`,
-                        hasAddress: !!user.defaultAddress,
-                    });
-                }
-
-                logger.log('Redirecting to checkout:', checkoutUrl);
-                window.location.href = checkoutUrl;
+                // Przekieruj do czystego checkoutUrl — bez URL params.
+                // Nowy checkout Shopify ignoruje params checkout[...] i odświeża
+                // stronę po kliknięciu "dalej" gdy je wykryje, tracąc dane.
+                // Shopify sam rozpoznaje zalogowanego klienta i ładuje jego
+                // zapisany adres/telefon/email z konta.
+                logger.log('Redirecting to checkout:', cart.checkoutUrl);
+                window.location.href = cart.checkoutUrl;
             },
 
             // ── markCheckoutCompleted ─────────────────────────────────────────
