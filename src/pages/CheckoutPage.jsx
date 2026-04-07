@@ -61,7 +61,7 @@ export function CheckoutPage() {
     } = useCheckoutStore();
 
     // Auth store (do auto-fill danych jeśli zalogowany)
-    const { user, isAuthenticated } = useAuthStore();
+    const { user, isAuthenticated, getAccessToken } = useAuthStore();
 
     // ===== REDIRECT IF CART IS EMPTY =====
     useEffect(() => {
@@ -200,6 +200,15 @@ export function CheckoutPage() {
                 email: customerData.email,
                 phone: customerData.phone,
             };
+
+            // Przekaż customerAccessToken — nowy checkout Shopify wymaga tokena
+            // żeby rozpoznać klienta i załadować zapisane dane (adres, telefon).
+            if (isAuthenticated) {
+                const token = getAccessToken();
+                if (token) {
+                    buyerIdentity.customerAccessToken = token;
+                }
+            }
 
             // Dodaj adres dostawy w formacie Shopify MailingAddress
             if (deliveryMethod === 'kurier') {
