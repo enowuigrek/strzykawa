@@ -102,5 +102,8 @@ export {
     logoutCustomer,
     getCustomer,
     getCustomerOrders,
-    validateAccessToken
+    validateAccessToken,
+    updateCustomerAddress,
+    deleteCustomerAddress,
+    setDefaultCustomerAddress
 } from './customer.js';

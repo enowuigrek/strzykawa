@@ -162,6 +162,7 @@ export async function getCustomer(accessToken) {
                 phone
                 acceptsMarketing
                 defaultAddress {
+                    id
                     address1
                     address2
                     city
@@ -170,6 +171,23 @@ export async function getCustomer(accessToken) {
                     country
                     phone
                     company
+                }
+                addresses(first: 20) {
+                    edges {
+                        node {
+                            id
+                            address1
+                            address2
+                            city
+                            province
+                            zip
+                            country
+                            phone
+                            company
+                            firstName
+                            lastName
+                        }
+                    }
                 }
             }
         }
@@ -189,16 +207,18 @@ export async function getCustomer(accessToken) {
             };
         }
 
+        const customer = response.data.customer;
         return {
             success: true,
             customer: {
-                id: response.data.customer.id,
-                email: response.data.customer.email,
-                firstName: response.data.customer.firstName,
-                lastName: response.data.customer.lastName,
-                phone: response.data.customer.phone,
-                acceptsMarketing: response.data.customer.acceptsMarketing,
-                defaultAddress: response.data.customer.defaultAddress
+                id: customer.id,
+                email: customer.email,
+                firstName: customer.firstName,
+                lastName: customer.lastName,
+                phone: customer.phone,
+                acceptsMarketing: customer.acceptsMarketing,
+                defaultAddress: customer.defaultAddress,
+                addresses: customer.addresses?.edges?.map(({ node }) => node) || []
             }
         };
     } catch (error) {
@@ -355,88 +375,167 @@ export async function validateAccessToken(accessToken) {
 }
 
 /**
- * Aktualizuj adres klienta (tworzy nowy adres i ustawia jako domyślny)
+ * Aktualizuj adres klienta.
+ * Jeśli adres ma id — edytuje istniejący (customerAddressUpdate).
+ * Jeśli nie — tworzy nowy i ustawia jako domyślny.
  */
 export async function updateCustomerAddress(accessToken, address) {
     try {
-        // KROK 1: Utwórz nowy adres
-        const createMutation = `
-            mutation customerAddressCreate($customerAccessToken: String!, $address: MailingAddressInput!) {
-                customerAddressCreate(customerAccessToken: $customerAccessToken, address: $address) {
-                    customerAddress {
-                        id
-                    }
-                    customerUserErrors {
-                        code
-                        field
-                        message
-                    }
-                }
-            }
-        `;
-
-        const createVariables = {
-            customerAccessToken: accessToken,
-            address: {
-                address1: address.address1 || '',
-                address2: address.address2 || '',
-                city: address.city || '',
-                province: address.province || '',
-                zip: address.zip || '',
-                country: address.country || 'PL',
-                phone: address.phone || '',
-                company: address.company || ''
-            }
+        const addressInput = {
+            address1: address.address1 || '',
+            address2: address.address2 || '',
+            city: address.city || '',
+            province: address.province || '',
+            zip: address.zip || '',
+            country: address.country || 'PL',
+            phone: address.phone || '',
+            company: address.company || ''
         };
 
-        const createResponse = await shopifyClient.graphqlFetch(createMutation, createVariables);
+        let addressId = address.id || null;
 
-        if (createResponse.data.customerAddressCreate.customerUserErrors.length > 0) {
-            const error = createResponse.data.customerAddressCreate.customerUserErrors[0];
-            return {
-                success: false,
-                error: translateError(error.message)
-            };
-        }
-
-        const newAddressId = createResponse.data.customerAddressCreate.customerAddress.id;
-
-        // KROK 2: Ustaw nowy adres jako domyślny
-        const updateDefaultMutation = `
-            mutation customerDefaultAddressUpdate($customerAccessToken: String!, $addressId: ID!) {
-                customerDefaultAddressUpdate(customerAccessToken: $customerAccessToken, addressId: $addressId) {
-                    customer {
-                        id
-                    }
-                    customerUserErrors {
-                        code
-                        field
-                        message
+        if (addressId) {
+            // ── EDYTUJ istniejący adres ──────────────────────────────────────
+            const updateMutation = `
+                mutation customerAddressUpdate($customerAccessToken: String!, $id: ID!, $address: MailingAddressInput!) {
+                    customerAddressUpdate(customerAccessToken: $customerAccessToken, id: $id, address: $address) {
+                        customerAddress {
+                            id
+                        }
+                        customerUserErrors {
+                            code
+                            field
+                            message
+                        }
                     }
                 }
+            `;
+
+            const updateResponse = await shopifyClient.graphqlFetch(updateMutation, {
+                customerAccessToken: accessToken,
+                id: addressId,
+                address: addressInput
+            });
+
+            if (updateResponse.data.customerAddressUpdate.customerUserErrors.length > 0) {
+                const error = updateResponse.data.customerAddressUpdate.customerUserErrors[0];
+                return { success: false, error: translateError(error.message) };
             }
-        `;
+        } else {
+            // ── UTWÓRZ nowy adres ────────────────────────────────────────────
+            const createMutation = `
+                mutation customerAddressCreate($customerAccessToken: String!, $address: MailingAddressInput!) {
+                    customerAddressCreate(customerAccessToken: $customerAccessToken, address: $address) {
+                        customerAddress {
+                            id
+                        }
+                        customerUserErrors {
+                            code
+                            field
+                            message
+                        }
+                    }
+                }
+            `;
 
-        const updateDefaultVariables = {
-            customerAccessToken: accessToken,
-            addressId: newAddressId
-        };
+            const createResponse = await shopifyClient.graphqlFetch(createMutation, {
+                customerAccessToken: accessToken,
+                address: addressInput
+            });
 
-        const updateResponse = await shopifyClient.graphqlFetch(updateDefaultMutation, updateDefaultVariables);
+            if (createResponse.data.customerAddressCreate.customerUserErrors.length > 0) {
+                const error = createResponse.data.customerAddressCreate.customerUserErrors[0];
+                return { success: false, error: translateError(error.message) };
+            }
 
-        if (updateResponse.data.customerDefaultAddressUpdate.customerUserErrors.length > 0) {
-            const error = updateResponse.data.customerDefaultAddressUpdate.customerUserErrors[0];
-            logger.warn('Failed to set as default address:', error.message);
-            // Nie zwracamy błędu - adres został utworzony, tylko nie jest domyślny
+            addressId = createResponse.data.customerAddressCreate.customerAddress.id;
+
+            // Ustaw nowy adres jako domyślny
+            const setDefaultMutation = `
+                mutation customerDefaultAddressUpdate($customerAccessToken: String!, $addressId: ID!) {
+                    customerDefaultAddressUpdate(customerAccessToken: $customerAccessToken, addressId: $addressId) {
+                        customer { id }
+                        customerUserErrors { code field message }
+                    }
+                }
+            `;
+
+            await shopifyClient.graphqlFetch(setDefaultMutation, {
+                customerAccessToken: accessToken,
+                addressId
+            });
         }
 
         return { success: true };
     } catch (error) {
         logger.error('Error updating customer address:', error);
-        return {
-            success: false,
-            error: 'Błąd podczas aktualizacji adresu'
-        };
+        return { success: false, error: 'Błąd podczas aktualizacji adresu' };
+    }
+}
+
+/**
+ * Usuń adres klienta
+ */
+export async function deleteCustomerAddress(accessToken, addressId) {
+    try {
+        const mutation = `
+            mutation customerAddressDelete($customerAccessToken: String!, $id: ID!) {
+                customerAddressDelete(customerAccessToken: $customerAccessToken, id: $id) {
+                    deletedCustomerAddressId
+                    customerUserErrors {
+                        code
+                        field
+                        message
+                    }
+                }
+            }
+        `;
+
+        const response = await shopifyClient.graphqlFetch(mutation, {
+            customerAccessToken: accessToken,
+            id: addressId
+        });
+
+        if (response.data.customerAddressDelete.customerUserErrors.length > 0) {
+            const error = response.data.customerAddressDelete.customerUserErrors[0];
+            return { success: false, error: translateError(error.message) };
+        }
+
+        return { success: true };
+    } catch (error) {
+        logger.error('Error deleting customer address:', error);
+        return { success: false, error: 'Błąd podczas usuwania adresu' };
+    }
+}
+
+/**
+ * Ustaw adres jako domyślny
+ */
+export async function setDefaultCustomerAddress(accessToken, addressId) {
+    try {
+        const mutation = `
+            mutation customerDefaultAddressUpdate($customerAccessToken: String!, $addressId: ID!) {
+                customerDefaultAddressUpdate(customerAccessToken: $customerAccessToken, addressId: $addressId) {
+                    customer { id }
+                    customerUserErrors { code field message }
+                }
+            }
+        `;
+
+        const response = await shopifyClient.graphqlFetch(mutation, {
+            customerAccessToken: accessToken,
+            addressId
+        });
+
+        if (response.data.customerDefaultAddressUpdate.customerUserErrors.length > 0) {
+            const error = response.data.customerDefaultAddressUpdate.customerUserErrors[0];
+            return { success: false, error: translateError(error.message) };
+        }
+
+        return { success: true };
+    } catch (error) {
+        logger.error('Error setting default address:', error);
+        return { success: false, error: 'Błąd podczas ustawiania domyślnego adresu' };
     }
 }
 
