@@ -239,23 +239,51 @@ export function CheckoutPage() {
                 ];
             }
 
-            // 3. WYŚLIJ DANE DO SHOPIFY
+            // 3. WYŚLIJ DANE DO SHOPIFY (attributes + buyer identity)
             logger.log('Sending cart attributes...', attributes);
             await shopify.updateCartAttributes(cart.id, attributes);
 
-            logger.log('Updating buyer identity to pre-fill checkout...', buyerIdentity);
+            logger.log('Updating buyer identity...', buyerIdentity);
             const updatedCart = await shopify.updateCartBuyerIdentity(cart.id, buyerIdentity);
 
             // 4. PRZEKIEROWANIE DO SHOPIFY CHECKOUT
-            // Używamy checkoutUrl z odpowiedzi mutacji — Shopify może zwrócić nowy URL
-            // z przypisaną sesją buyer identity. Stary URL ze store nie ma tej sesji.
-            const finalCheckoutUrl = updatedCart?.checkoutUrl || cart.checkoutUrl;
-            if (finalCheckoutUrl) {
-                logger.log('Redirecting to Shopify checkout...');
-                window.location.href = finalCheckoutUrl;
-            } else {
+            // cartBuyerIdentityUpdate nie zawsze wypełnia formularz checkout,
+            // więc dokładamy URL params jako niezawodny fallback.
+            const baseUrl = updatedCart?.checkoutUrl || cart.checkoutUrl;
+            if (!baseUrl) {
                 logger.error('No checkout URL available');
+                return;
             }
+
+            const params = new URLSearchParams();
+            params.append('checkout[email]', customerData.email);
+            params.append('checkout[shipping_address][first_name]', customerData.firstName);
+            params.append('checkout[shipping_address][last_name]', customerData.lastName);
+            if (customerData.phone) params.append('checkout[shipping_address][phone]', customerData.phone);
+
+            if (deliveryMethod === 'kurier') {
+                params.append('checkout[shipping_address][address1]', deliveryAddress.street);
+                params.append('checkout[shipping_address][address2]',
+                    `${deliveryAddress.buildingNumber}${deliveryAddress.apartmentNumber ? '/' + deliveryAddress.apartmentNumber : ''}`
+                );
+                params.append('checkout[shipping_address][city]', deliveryAddress.city);
+                params.append('checkout[shipping_address][zip]', deliveryAddress.postalCode);
+                params.append('checkout[shipping_address][country]', 'PL');
+            } else if (deliveryMethod === 'paczkomat' && paczkomatData) {
+                const pa = paczkomatData.address_details || {};
+                params.append('checkout[shipping_address][address1]', `InPost Paczkomat ${paczkomatData.name}`);
+                params.append('checkout[shipping_address][address2]', `${pa.street || ''} ${pa.building_number || ''}`.trim());
+                params.append('checkout[shipping_address][city]', pa.city || '');
+                params.append('checkout[shipping_address][zip]', pa.post_code || '');
+                params.append('checkout[shipping_address][country]', 'PL');
+            }
+
+            if (companyValue) params.append('checkout[shipping_address][company]', companyValue);
+
+            const separator = baseUrl.includes('?') ? '&' : '?';
+            const finalCheckoutUrl = `${baseUrl}${separator}${params.toString()}`;
+            logger.log('Redirecting to Shopify checkout with URL params:', finalCheckoutUrl);
+            window.location.href = finalCheckoutUrl;
         } catch (error) {
             logger.error('Error updating cart:', error);
             alert('Wystąpił błąd podczas przetwarzania zamówienia. Spróbuj ponownie.');
