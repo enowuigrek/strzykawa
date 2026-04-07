@@ -288,20 +288,34 @@ export const useCartStore = create(
             // WAŻNE: NIE czyścimy koszyka przed przekierowaniem.
             // Shopify samo usuwa koszyk po złożeniu zamówienia.
             // initializeCart() przy kolejnym uruchomieniu wykryje null i wyczyści cartId.
-            goToCheckout: () => {
+            goToCheckout: async (accessToken = null) => {
                 const { cart } = get();
                 if (!cart?.checkoutUrl) {
                     logger.error('No checkout URL available');
                     return;
                 }
 
-                // Przekieruj do czystego checkoutUrl — bez URL params.
-                // Nowy checkout Shopify ignoruje params checkout[...] i odświeża
-                // stronę po kliknięciu "dalej" gdy je wykryje, tracąc dane.
-                // Shopify sam rozpoznaje zalogowanego klienta i ładuje jego
-                // zapisany adres/telefon/email z konta.
-                logger.log('Redirecting to checkout:', cart.checkoutUrl);
-                window.location.href = cart.checkoutUrl;
+                let checkoutUrl = cart.checkoutUrl;
+
+                // Jeśli zalogowany — przypisz klienta do koszyka przez token.
+                // Shopify checkout załaduje email + zapisany adres z konta klienta.
+                // WAŻNE: NIE wysyłamy deliveryAddressPreferences ani URL params —
+                // oba powodowały odświeżenie checkout i utratę danych.
+                if (accessToken) {
+                    try {
+                        const updatedCart = await shopify.updateCartBuyerIdentity(cart.id, {
+                            customerAccessToken: accessToken,
+                        });
+                        checkoutUrl = updatedCart?.checkoutUrl || checkoutUrl;
+                        logger.log('Linked cart to customer, checkout URL:', checkoutUrl);
+                    } catch (err) {
+                        logger.error('Failed to link customer to cart:', err);
+                        // Fallback — redirect bez tokena
+                    }
+                }
+
+                logger.log('Redirecting to checkout:', checkoutUrl);
+                window.location.href = checkoutUrl;
             },
 
             // ── markCheckoutCompleted ─────────────────────────────────────────
