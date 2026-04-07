@@ -3,9 +3,9 @@
   "configurations": [
     {
       "name": "strzykawa-dev",
-      "runtimeExecutable": "npm",
-      "runtimeArgs": ["run", "dev"],
-      "port": 5173
+      "runtimeExecutable": "/bin/zsh",
+      "runtimeArgs": ["-c", "export PATH=/Users/lukasznowak/.nvm/versions/node/v22.22.0/bin:$PATH && npm run dev"],
+      "port": 5174
     }
   ]
 }

@@ -244,12 +244,15 @@ export function CheckoutPage() {
             await shopify.updateCartAttributes(cart.id, attributes);
 
             logger.log('Updating buyer identity to pre-fill checkout...', buyerIdentity);
-            await shopify.updateCartBuyerIdentity(cart.id, buyerIdentity);
+            const updatedCart = await shopify.updateCartBuyerIdentity(cart.id, buyerIdentity);
 
             // 4. PRZEKIEROWANIE DO SHOPIFY CHECKOUT
-            if (cart?.checkoutUrl) {
+            // Używamy checkoutUrl z odpowiedzi mutacji — Shopify może zwrócić nowy URL
+            // z przypisaną sesją buyer identity. Stary URL ze store nie ma tej sesji.
+            const finalCheckoutUrl = updatedCart?.checkoutUrl || cart.checkoutUrl;
+            if (finalCheckoutUrl) {
                 logger.log('Redirecting to Shopify checkout...');
-                window.location.href = cart.checkoutUrl;
+                window.location.href = finalCheckoutUrl;
             } else {
                 logger.error('No checkout URL available');
             }

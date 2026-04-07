@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { FaUser, FaLock, FaEye, FaEyeSlash, FaEnvelope, FaUserPlus, FaExclamationTriangle, FaCheckCircle, FaPhone } from 'react-icons/fa';
+import { FaUser, FaLock, FaEye, FaEyeSlash, FaEnvelope, FaUserPlus, FaExclamationTriangle, FaCheckCircle, FaPhone, FaBuilding } from 'react-icons/fa';
 import { useAuthStore } from '../../store/authStore.js';
+import { updateCustomerAddress } from '../../services/shopify/customer.js';
 import { Button } from '../atoms/Button.jsx';
 import { ModalWrapper } from '../layout/ModalWrapper.jsx';
 
@@ -15,6 +16,7 @@ const RegisterModal = ({ isOpen, onClose, onSwitchToLogin }) => {
         lastName: '',
         email: '',
         phone: '',
+        nip: '',
         password: '',
         confirmPassword: ''
     });
@@ -67,6 +69,11 @@ const RegisterModal = ({ isOpen, onClose, onSwitchToLogin }) => {
             return;
         }
 
+        if (formData.nip.trim() && !/^\d{10}$/.test(formData.nip.replace(/[\s-]/g, ''))) {
+            setError('NIP musi składać się z 10 cyfr');
+            return;
+        }
+
         const result = await register(
             formData.email,
             formData.password,
@@ -77,6 +84,15 @@ const RegisterModal = ({ isOpen, onClose, onSwitchToLogin }) => {
         );
 
         if (result.success) {
+            // Zapisz NIP do adresu (company field) jeśli podany
+            const cleanNip = formData.nip.replace(/[\s-]/g, '').trim();
+            if (cleanNip) {
+                const accessToken = useAuthStore.getState().getAccessToken();
+                if (accessToken) {
+                    updateCustomerAddress(accessToken, { company: cleanNip }).catch(() => {});
+                }
+            }
+
             setSuccess('✓ Konto utworzone! Za chwilę...');
             setTimeout(() => {
                 onClose();
@@ -85,6 +101,7 @@ const RegisterModal = ({ isOpen, onClose, onSwitchToLogin }) => {
                     lastName: '',
                     email: '',
                     phone: '',
+                    nip: '',
                     password: '',
                     confirmPassword: ''
                 });
@@ -213,6 +230,28 @@ const RegisterModal = ({ isOpen, onClose, onSwitchToLogin }) => {
                     </div>
                 </div>
 
+                {/* NIP Field */}
+                <div className="mb-4">
+                    <label htmlFor="registerNip" className="block text-base font-medium text-muted mb-2">
+                        NIP <span className="text-sm text-muted/70">(opcjonalnie)</span>
+                    </label>
+                    <div className="relative">
+                        <div className="absolute left-3 top-1/2 transform -translate-y-1/2">
+                            <FaBuilding className="w-4 h-4 text-muted" />
+                        </div>
+                        <input
+                            type="text"
+                            id="registerNip"
+                            name="nip"
+                            value={formData.nip}
+                            onChange={handleChange}
+                            className="w-full pl-10 pr-4 py-3 bg-primary-dark/50 text-white placeholder-muted/70 transition-all duration-300"
+                            placeholder="1234567890"
+                            inputMode="numeric"
+                        />
+                    </div>
+                </div>
+
                 {/* Password Field */}
                 <div className="mb-4">
                     <label htmlFor="registerPassword" className="block text-base font-medium text-muted mb-2">
@@ -235,7 +274,7 @@ const RegisterModal = ({ isOpen, onClose, onSwitchToLogin }) => {
                         <button
                             type="button"
                             onClick={() => setShowPassword(!showPassword)}
-                            className="absolute right-3 top-1/2 transform -translate-y-1/2 text-muted hover:text-white transition-colors duration-300"
+                            className="absolute right-3 top-1/2 transform -translate-y-1/2 z-10 text-muted hover:text-white transition-colors duration-300"
                         >
                             {showPassword ? <FaEyeSlash className="w-4 h-4" /> : <FaEye className="w-4 h-4" />}
                         </button>
@@ -264,7 +303,7 @@ const RegisterModal = ({ isOpen, onClose, onSwitchToLogin }) => {
                         <button
                             type="button"
                             onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                            className="absolute right-3 top-1/2 transform -translate-y-1/2 text-muted hover:text-white transition-colors duration-300"
+                            className="absolute right-3 top-1/2 transform -translate-y-1/2 z-10 text-muted hover:text-white transition-colors duration-300"
                         >
                             {showConfirmPassword ? <FaEyeSlash className="w-4 h-4" /> : <FaEye className="w-4 h-4" />}
                         </button>

@@ -14,7 +14,7 @@ import { PageLayout } from '../components/layout/PageLayout.jsx';
 import { Button } from '../components/atoms/Button.jsx';
 import { EditAddressForm } from '../components/profile/EditAddressForm.jsx';
 import { ChangePasswordForm } from '../components/profile/ChangePasswordForm.jsx';
-import { updateCustomerPersonalData, getCustomer } from '../services/shopify/customer.js';
+import { updateCustomerPersonalData, updateCustomerAddress, getCustomer } from '../services/shopify/customer.js';
 import { SEO } from '../components/SEO.jsx';
 
 /**
@@ -72,6 +72,7 @@ export function Profile() {
             lastName: user.lastName || '',
             email: user.email || '',
             phone: user.phone || '',
+            nip: user.defaultAddress?.company || '',
         });
         setError('');
         setSuccess('');
@@ -96,6 +97,14 @@ export function Profile() {
             setError('Imię, nazwisko i e-mail są wymagane');
             return;
         }
+
+        // Walidacja NIP (jeśli podany)
+        const cleanNip = (formData.nip || '').replace(/[\s-]/g, '').trim();
+        if (cleanNip && !/^\d{10}$/.test(cleanNip)) {
+            setError('NIP musi składać się z 10 cyfr');
+            return;
+        }
+
         setIsLoading(true);
         setError('');
         setSuccess('');
@@ -107,6 +116,15 @@ export function Profile() {
             if (!result.success) {
                 setError(result.error || 'Błąd podczas zapisywania danych');
                 return;
+            }
+
+            // Zapisz NIP do adresu (company field) jeśli się zmienił
+            const currentNip = user.defaultAddress?.company || '';
+            if (cleanNip !== currentNip) {
+                await updateCustomerAddress(accessToken, {
+                    ...user.defaultAddress,
+                    company: cleanNip,
+                });
             }
 
             // Odśwież dane klienta w store
@@ -187,6 +205,12 @@ export function Profile() {
                                         {user.phone || <span className="text-muted">Nie podano</span>}
                                     </p>
                                 </div>
+                                <div>
+                                    <label className="block text-sm text-muted mb-1">NIP</label>
+                                    <p className="text-white font-medium">
+                                        {user.defaultAddress?.company || <span className="text-muted">Nie podano</span>}
+                                    </p>
+                                </div>
                             </div>
                         ) : (
                             <form onSubmit={handleSubmit} className="space-y-4">
@@ -265,6 +289,23 @@ export function Profile() {
                                         disabled={isLoading}
                                         className="w-full px-4 py-3 bg-primary/50 text-white placeholder-muted/70 transition-all duration-300"
                                         placeholder="+48 123 456 789"
+                                    />
+                                </div>
+
+                                <div>
+                                    <label htmlFor="nip" className="block text-sm font-medium text-muted mb-2">
+                                        NIP <span className="text-xs text-muted/70">(opcjonalnie)</span>
+                                    </label>
+                                    <input
+                                        type="text"
+                                        id="nip"
+                                        name="nip"
+                                        value={formData.nip}
+                                        onChange={handleChange}
+                                        disabled={isLoading}
+                                        className="w-full px-4 py-3 bg-primary/50 text-white placeholder-muted/70 transition-all duration-300"
+                                        placeholder="1234567890"
+                                        inputMode="numeric"
                                     />
                                 </div>
 

@@ -130,7 +130,7 @@ export function AccountActivatePage() {
                                     <button
                                         type="button"
                                         onClick={() => setShowPassword(!showPassword)}
-                                        className="absolute right-3 top-1/2 transform -translate-y-1/2 text-muted hover:text-white transition-colors duration-300"
+                                        className="absolute right-3 top-1/2 transform -translate-y-1/2 z-10 text-muted hover:text-white transition-colors duration-300"
                                     >
                                         {showPassword ? <FaEyeSlash className="w-4 h-4" /> : <FaEye className="w-4 h-4" />}
                                     </button>
@@ -157,7 +157,7 @@ export function AccountActivatePage() {
                                     <button
                                         type="button"
                                         onClick={() => setShowConfirm(!showConfirm)}
-                                        className="absolute right-3 top-1/2 transform -translate-y-1/2 text-muted hover:text-white transition-colors duration-300"
+                                        className="absolute right-3 top-1/2 transform -translate-y-1/2 z-10 text-muted hover:text-white transition-colors duration-300"
                                     >
                                         {showConfirm ? <FaEyeSlash className="w-4 h-4" /> : <FaEye className="w-4 h-4" />}
                                     </button>

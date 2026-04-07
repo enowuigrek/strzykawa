@@ -45,14 +45,14 @@ export function CartNotes({ note, onSave, isLoading }) {
                     type="button"
                     onClick={isOpen ? handleCancel : handleOpen}
                     className={`
-                        py-1 px-3 text-sm font-medium rounded-full transition-all duration-200
+                        py-1.5 px-4 text-sm font-medium rounded-full transition-all duration-200
                         ${hasNote || isOpen
                             ? 'bg-accent text-white'
-                            : 'bg-white/5 text-white/60 hover:bg-white/10 hover:text-white/80'
+                            : 'bg-cta/70 text-white hover:bg-cta'
                         }
                     `}
                 >
-                    {hasNote && !isOpen ? '✓ Uwagi' : 'Uwagi'}
+                    {hasNote && !isOpen ? '✓ Uwagi do zamówienia' : 'Uwagi do zamówienia'}
                 </button>
             </div>
 
