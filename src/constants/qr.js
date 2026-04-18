@@ -8,4 +8,4 @@ export const QR_ACCESS_KEY = 'qrstrzykawa';
 export const QR_STORAGE_KEY = 'strzykawa-qr-access';
 
 /** Bazowy URL strony (bez trailing slash) */
-export const SITE_URL = 'https://strzykawa.netlify.app';
+export const SITE_URL = 'https://strzykawa.com';

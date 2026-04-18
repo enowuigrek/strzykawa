@@ -2,13 +2,12 @@ import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { QR_ACCESS_KEY, QR_STORAGE_KEY, SITE_URL } from '@constants/qr';
 import { shopify } from '@services/shopify';
 
-const MEDIUM_OPTIONS = [
-    { value: 'package', label: 'Paczka z kawą' },
-    { value: 'flyer', label: 'Ulotka' },
-    { value: 'poster', label: 'Plakat' },
-    { value: 'sticker', label: 'Naklejka' },
-    { value: 'business_card', label: 'Wizytówka' },
-    { value: 'other', label: 'Inne' },
+const DOT_STYLES = [
+    { value: 'rounded', label: 'Zaokrąglone', cornersSquare: 'extra-rounded', cornersDot: 'dot' },
+    { value: 'square', label: 'Klasyczne', cornersSquare: 'square', cornersDot: 'square' },
+    { value: 'dots', label: 'Kropki', cornersSquare: 'extra-rounded', cornersDot: 'dot' },
+    { value: 'extra-rounded', label: 'Miękkie', cornersSquare: 'extra-rounded', cornersDot: 'dot' },
+    { value: 'classy-rounded', label: 'Eleganckie', cornersSquare: 'extra-rounded', cornersDot: 'dot' },
 ];
 
 const DESTINATION_OPTIONS = [
@@ -19,15 +18,31 @@ const DESTINATION_OPTIONS = [
     { value: 'custom', label: 'Własny URL...' },
 ];
 
-const QR_CONFIG = {
-    image: '/logo/icon-logo.png',
-    qrOptions: { errorCorrectionLevel: 'H' },
-    dotsOptions: { color: '#1E2A25', type: 'rounded' },
-    backgroundOptions: { color: '#ffffff' },
-    cornersSquareOptions: { type: 'extra-rounded', color: '#1E2A25' },
-    cornersDotOptions: { type: 'dot', color: '#1E2A25' },
-    imageOptions: { crossOrigin: 'anonymous', margin: 8, imageSize: 0.3 },
-};
+const DEFAULT_MEDIUMS = ['Paczka z kawą', 'Ulotka', 'Plakat', 'Naklejka', 'Wizytówka'];
+
+function slugify(str) {
+    return str.trim().toLowerCase().replace(/\s+/g, '-').replace(/[^\w-]/g, '');
+}
+
+function getQRConfig(dotStyle = 'rounded', inverted = false, showLogo = true) {
+    const style = DOT_STYLES.find((s) => s.value === dotStyle) || DOT_STYLES[0];
+    const dotColor = inverted ? '#ffffff' : '#1E2A25';
+    const bgColor = inverted ? '#1E2A25' : '#ffffff';
+    return {
+        image: showLogo ? '/logo/icon-logo.png' : '',
+        qrOptions: { errorCorrectionLevel: 'H' },
+        dotsOptions: { color: dotColor, type: dotStyle },
+        backgroundOptions: { color: bgColor },
+        cornersSquareOptions: { type: style.cornersSquare, color: dotColor },
+        cornersDotOptions: { type: style.cornersDot, color: dotColor },
+        imageOptions: { crossOrigin: 'anonymous', margin: 2, imageSize: 0.38 },
+    };
+}
+
+function loadFromStorage(key, fallback) {
+    try { return JSON.parse(localStorage.getItem(key)) ?? fallback; }
+    catch { return fallback; }
+}
 
 export function QRGenerator() {
     const [hasAccess, setHasAccess] = useState(false);
@@ -37,16 +52,32 @@ export function QRGenerator() {
     const [mode, setMode] = useState('product');
     const [products, setProducts] = useState([]);
     const [selectedHandle, setSelectedHandle] = useState('');
-    const [medium, setMedium] = useState('package');
     const [campaign, setCampaign] = useState('');
     const [destination, setDestination] = useState('/');
     const [customUrl, setCustomUrl] = useState('');
 
+    const [mediums, setMediums] = useState(() => loadFromStorage('strzykawa-qr-mediums', DEFAULT_MEDIUMS));
+    const [medium, setMedium] = useState(DEFAULT_MEDIUMS[0]);
+    const [newMediumInput, setNewMediumInput] = useState('');
+
+    const [savedCampaigns, setSavedCampaigns] = useState(() => loadFromStorage('strzykawa-qr-campaigns', []));
+
+    const [dotStyle, setDotStyle] = useState('rounded');
+    const [inverted, setInverted] = useState(false);
+    const [showLogo, setShowLogo] = useState(true);
     const [copied, setCopied] = useState(false);
     const [isDownloading, setIsDownloading] = useState(false);
 
     const qrRef = useRef(null);
     const qrInstance = useRef(null);
+
+    useEffect(() => {
+        localStorage.setItem('strzykawa-qr-mediums', JSON.stringify(mediums));
+    }, [mediums]);
+
+    useEffect(() => {
+        localStorage.setItem('strzykawa-qr-campaigns', JSON.stringify(savedCampaigns));
+    }, [savedCampaigns]);
 
     useEffect(() => {
         const params = new URLSearchParams(window.location.search);
@@ -70,7 +101,8 @@ export function QRGenerator() {
     }, [hasAccess]);
 
     const buildUrl = useCallback(() => {
-        const params = new URLSearchParams({ utm_source: 'qr', utm_medium: medium });
+        const mediumSlug = slugify(medium) || 'qr';
+        const params = new URLSearchParams({ utm_source: 'qr', utm_medium: mediumSlug });
 
         if (mode === 'product') {
             if (!selectedHandle) return SITE_URL;
@@ -92,13 +124,12 @@ export function QRGenerator() {
 
     const qrUrl = buildUrl();
 
-    // Inicjalizacja — tylko raz po zalogowaniu
     useEffect(() => {
         if (!hasAccess || !qrRef.current) return;
         let mounted = true;
         import('qr-code-styling').then(({ default: QRCodeStyling }) => {
             if (!mounted || !qrRef.current) return;
-            const instance = new QRCodeStyling({ width: 280, height: 280, data: qrUrl, ...QR_CONFIG });
+            const instance = new QRCodeStyling({ width: 280, height: 280, data: qrUrl, ...getQRConfig(dotStyle, inverted, showLogo) });
             qrRef.current.innerHTML = '';
             instance.append(qrRef.current);
             qrInstance.current = instance;
@@ -106,16 +137,41 @@ export function QRGenerator() {
         return () => { mounted = false; };
     }, [hasAccess]); // eslint-disable-line react-hooks/exhaustive-deps
 
-    // Aktualizacja kodu gdy zmienia się URL
     useEffect(() => {
-        qrInstance.current?.update({ data: qrUrl });
-    }, [qrUrl]);
+        qrInstance.current?.update({ data: qrUrl, ...getQRConfig(dotStyle, inverted, showLogo) });
+    }, [qrUrl, dotStyle, inverted, showLogo]);
+
+    const addMedium = () => {
+        const val = newMediumInput.trim();
+        if (!val || mediums.includes(val)) return;
+        setMediums((prev) => [...prev, val]);
+        setMedium(val);
+        setNewMediumInput('');
+    };
+
+    const removeMedium = (m) => {
+        setMediums((prev) => {
+            const next = prev.filter((x) => x !== m);
+            if (medium === m) setMedium(next[0] || '');
+            return next;
+        });
+    };
+
+    const saveCampaign = () => {
+        const val = campaign.trim();
+        if (!val || savedCampaigns.includes(val)) return;
+        setSavedCampaigns((prev) => [...prev, val]);
+    };
+
+    const removeCampaign = (c) => {
+        setSavedCampaigns((prev) => prev.filter((x) => x !== c));
+    };
 
     const handleDownload = async (ext) => {
         setIsDownloading(true);
         try {
             const { default: QRCodeStyling } = await import('qr-code-styling');
-            const instance = new QRCodeStyling({ width: 1000, height: 1000, data: qrUrl, ...QR_CONFIG });
+            const instance = new QRCodeStyling({ width: 1000, height: 1000, data: qrUrl, ...getQRConfig(dotStyle, inverted, showLogo) });
             const slug = mode === 'product'
                 ? selectedHandle || 'produkt'
                 : campaign.trim().replace(/\s+/g, '-').toLowerCase() || 'ogolny';
@@ -157,10 +213,7 @@ export function QRGenerator() {
                             className={`w-full px-4 py-3 bg-primary-light text-white placeholder-muted outline-none border transition-colors ${keyError ? 'border-danger' : 'border-transparent focus:border-accent'}`}
                         />
                         {keyError && <p className="text-danger text-sm">Nieprawidłowe hasło</p>}
-                        <button
-                            type="submit"
-                            className="w-full rounded-full px-6 py-3 bg-accent text-white font-medium hover:bg-accent/90 transition-colors"
-                        >
+                        <button type="submit" className="w-full rounded-full px-6 py-3 bg-accent text-white font-medium hover:bg-accent/90 transition-colors">
                             Wejdź
                         </button>
                     </form>
@@ -181,6 +234,8 @@ export function QRGenerator() {
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
                     {/* ── Lewa kolumna: opcje ── */}
                     <div className="space-y-6">
+
+                        {/* Typ kodu */}
                         <div>
                             <label className="block text-xs font-semibold text-muted mb-2 uppercase tracking-wider">Typ kodu</label>
                             <div className="flex gap-2">
@@ -196,6 +251,7 @@ export function QRGenerator() {
                             </div>
                         </div>
 
+                        {/* Kawa */}
                         {mode === 'product' && (
                             <div>
                                 <label className="block text-xs font-semibold text-muted mb-2 uppercase tracking-wider">Kawa</label>
@@ -212,6 +268,7 @@ export function QRGenerator() {
                             </div>
                         )}
 
+                        {/* Ogólny */}
                         {mode === 'general' && (
                             <>
                                 <div>
@@ -240,31 +297,130 @@ export function QRGenerator() {
                                 )}
                                 <div>
                                     <label className="block text-xs font-semibold text-muted mb-2 uppercase tracking-wider">Nazwa kampanii</label>
-                                    <input
-                                        type="text"
-                                        value={campaign}
-                                        onChange={(e) => setCampaign(e.target.value)}
-                                        placeholder="np. ulotka-marzec, naklejka-rower"
-                                        className="w-full px-4 py-3 bg-primary-light text-white placeholder-muted outline-none border border-transparent focus:border-accent transition-colors"
-                                    />
-                                    <p className="text-muted text-xs mt-1">Spacje zamienią się automatycznie w myślniki</p>
+                                    <div className="flex gap-2">
+                                        <input
+                                            type="text"
+                                            value={campaign}
+                                            onChange={(e) => setCampaign(e.target.value)}
+                                            placeholder="np. ulotka-marzec"
+                                            className="flex-1 px-4 py-2.5 bg-primary-light text-white placeholder-muted outline-none border border-transparent focus:border-accent transition-colors min-w-0"
+                                        />
+                                        <button
+                                            onClick={saveCampaign}
+                                            disabled={!campaign.trim() || savedCampaigns.includes(campaign.trim())}
+                                            className="rounded-full px-4 py-2 bg-primary-light text-muted hover:text-white text-sm disabled:opacity-40 transition-colors whitespace-nowrap"
+                                        >
+                                            Zapisz
+                                        </button>
+                                    </div>
+                                    {savedCampaigns.length > 0 && (
+                                        <div className="flex flex-wrap gap-2 mt-2">
+                                            {savedCampaigns.map((c) => (
+                                                <div key={c} className="flex items-center gap-0.5">
+                                                    <button
+                                                        onClick={() => setCampaign(c)}
+                                                        className={`rounded-full py-1 px-2.5 text-xs font-medium transition-colors ${campaign === c ? 'bg-accent text-white' : 'bg-primary-light text-muted hover:text-white'}`}
+                                                    >
+                                                        {c}
+                                                    </button>
+                                                    <button onClick={() => removeCampaign(c)} className="text-muted hover:text-danger text-sm leading-none px-0.5 transition-colors">×</button>
+                                                </div>
+                                            ))}
+                                        </div>
+                                    )}
                                 </div>
                             </>
                         )}
 
+                        {/* Nośnik */}
                         <div>
                             <label className="block text-xs font-semibold text-muted mb-2 uppercase tracking-wider">Nośnik</label>
-                            <select
-                                value={medium}
-                                onChange={(e) => setMedium(e.target.value)}
-                                className="w-full px-4 py-3 bg-primary-light text-white outline-none border border-transparent focus:border-accent transition-colors"
-                            >
-                                {MEDIUM_OPTIONS.map((opt) => (
-                                    <option key={opt.value} value={opt.value}>{opt.label}</option>
+                            <div className="flex flex-wrap gap-2 mb-2">
+                                {mediums.map((m) => (
+                                    <div key={m} className="flex items-center gap-0.5">
+                                        <button
+                                            onClick={() => setMedium(m)}
+                                            className={`rounded-full py-1.5 px-3 text-sm font-medium transition-colors ${medium === m ? 'bg-accent text-white' : 'bg-primary-light text-muted hover:text-white'}`}
+                                        >
+                                            {m}
+                                        </button>
+                                        <button onClick={() => removeMedium(m)} className="text-muted hover:text-danger text-sm leading-none px-0.5 transition-colors">×</button>
+                                    </div>
                                 ))}
-                            </select>
+                            </div>
+                            <div className="flex gap-2">
+                                <input
+                                    type="text"
+                                    value={newMediumInput}
+                                    onChange={(e) => setNewMediumInput(e.target.value)}
+                                    onKeyDown={(e) => e.key === 'Enter' && addMedium()}
+                                    placeholder="Dodaj własny nośnik..."
+                                    className="flex-1 px-3 py-2 bg-primary-light text-white text-sm placeholder-muted outline-none border border-transparent focus:border-accent transition-colors min-w-0"
+                                />
+                                <button
+                                    onClick={addMedium}
+                                    disabled={!newMediumInput.trim()}
+                                    className="rounded-full px-4 py-2 bg-primary-light text-muted hover:text-white text-sm disabled:opacity-40 transition-colors"
+                                >
+                                    +
+                                </button>
+                            </div>
                         </div>
 
+                        {/* Styl kodu */}
+                        <div>
+                            <label className="block text-xs font-semibold text-muted mb-2 uppercase tracking-wider">Styl kodu</label>
+                            <div className="flex flex-wrap gap-2">
+                                {DOT_STYLES.map((s) => (
+                                    <button
+                                        key={s.value}
+                                        onClick={() => setDotStyle(s.value)}
+                                        className={`rounded-full py-1.5 px-3 text-xs font-medium transition-colors ${dotStyle === s.value ? 'bg-accent text-white' : 'bg-primary-light text-muted hover:text-white'}`}
+                                    >
+                                        {s.label}
+                                    </button>
+                                ))}
+                            </div>
+                        </div>
+
+                        {/* Kolory */}
+                        <div>
+                            <label className="block text-xs font-semibold text-muted mb-2 uppercase tracking-wider">Kolory</label>
+                            <div className="flex gap-2">
+                                <button
+                                    onClick={() => setInverted(false)}
+                                    className={`flex-1 rounded-full py-2 px-3 text-sm font-medium transition-colors ${!inverted ? 'bg-accent text-white' : 'bg-primary-light text-muted hover:text-white'}`}
+                                >
+                                    <span className="inline-block w-3 h-3 rounded-full bg-[#1E2A25] border border-white/30 mr-1.5 align-middle" />
+                                    Ciemne na białym
+                                </button>
+                                <button
+                                    onClick={() => setInverted(true)}
+                                    className={`flex-1 rounded-full py-2 px-3 text-sm font-medium transition-colors ${inverted ? 'bg-accent text-white' : 'bg-primary-light text-muted hover:text-white'}`}
+                                >
+                                    <span className="inline-block w-3 h-3 rounded-full bg-white border border-white/30 mr-1.5 align-middle" />
+                                    Białe na ciemnym
+                                </button>
+                            </div>
+                        </div>
+
+                        {/* Logo */}
+                        <div>
+                            <label className="block text-xs font-semibold text-muted mb-2 uppercase tracking-wider">Logo</label>
+                            <div className="flex gap-2">
+                                {[true, false].map((val) => (
+                                    <button
+                                        key={String(val)}
+                                        onClick={() => setShowLogo(val)}
+                                        className={`flex-1 rounded-full py-2 px-3 text-sm font-medium transition-colors ${showLogo === val ? 'bg-accent text-white' : 'bg-primary-light text-muted hover:text-white'}`}
+                                    >
+                                        {val ? 'Z logo' : 'Bez logo'}
+                                    </button>
+                                ))}
+                            </div>
+                        </div>
+
+                        {/* URL */}
                         <div>
                             <label className="block text-xs font-semibold text-muted mb-2 uppercase tracking-wider">URL kodu</label>
                             <div className="flex gap-2">
@@ -287,7 +443,7 @@ export function QRGenerator() {
                     <div className="flex flex-col items-center gap-6">
                         <div>
                             <label className="block text-xs font-semibold text-muted mb-4 uppercase tracking-wider text-center">Podgląd</label>
-                            <div className="p-4 bg-white inline-block">
+                            <div className={`p-4 inline-block ${inverted ? 'bg-[#1E2A25] border border-white/10' : 'bg-white'}`}>
                                 <div ref={qrRef} />
                             </div>
                         </div>
