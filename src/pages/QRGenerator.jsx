@@ -300,7 +300,6 @@ export function QRGenerator() {
         return (
             <div className="min-h-screen bg-primary flex items-center justify-center p-4">
                 <div className="w-full max-w-sm">
-                    <img src="/logo/vertical-logo.png" alt="Strzykawa" className="h-20 mx-auto mb-8 opacity-80" />
                     <form onSubmit={handleKeySubmit} className="space-y-4">
                         <input
                             type="password"
