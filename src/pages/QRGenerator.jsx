@@ -260,8 +260,8 @@ export function QRGenerator() {
                 ctx.fillRect(0, 0, canvas.width, canvas.height);
                 ctx.drawImage(qrImg, 0, 0, qrSize, qrSize);
 
-                await document.fonts.load('600 72px Dosis');
-                ctx.font = '600 72px Dosis, Arial, sans-serif';
+                await document.fonts.load('600 96px Dosis');
+                ctx.font = '600 96px Dosis, Arial, sans-serif';
                 ctx.fillStyle = getDotColor(colorScheme, inverted);
                 ctx.textAlign = 'center';
                 ctx.textBaseline = 'top';
@@ -337,7 +337,7 @@ export function QRGenerator() {
                         <div>
                             <label className="block text-xs font-semibold text-muted mb-2 uppercase tracking-wider">Typ kodu</label>
                             <div className="flex gap-2">
-                                {[['product', 'Produkt'], ['general', 'Ogólny']].map(([val, label]) => (
+                                {[['general', 'Ogólny'], ['product', 'Produkt']].map(([val, label]) => (
                                     <button key={val} onClick={() => setMode(val)}
                                         className={`flex-1 rounded-full py-2 px-4 text-sm font-medium transition-colors ${mode === val ? 'bg-accent text-white' : 'bg-primary-light text-muted hover:text-white'}`}>
                                         {label}
@@ -490,7 +490,7 @@ export function QRGenerator() {
                             <div className="inline-block" style={{ background: previewBg, padding: '16px' }}>
                                 <div ref={qrRef} />
                                 {showAddress && (
-                                    <p className="text-center mt-3 text-sm font-semibold" style={{ color: previewDot, fontFamily: 'Dosis, Arial, sans-serif' }}>
+                                    <p className="text-center mt-4 tracking-wide" style={{ color: previewDot, fontFamily: 'Dosis, Arial, sans-serif', fontSize: '22px', fontWeight: 600, width: '280px' }}>
                                         strzykawa.com
                                     </p>
                                 )}
