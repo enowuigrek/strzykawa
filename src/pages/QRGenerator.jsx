@@ -20,16 +20,44 @@ const DESTINATION_OPTIONS = [
 
 const DEFAULT_MEDIUMS = ['Paczka z kawą', 'Ulotka', 'Plakat', 'Naklejka', 'Wizytówka'];
 
+async function buildWhiteLogoUrl(src) {
+    return new Promise((resolve) => {
+        const img = new Image();
+        img.crossOrigin = 'anonymous';
+        img.onload = () => {
+            const canvas = document.createElement('canvas');
+            canvas.width = img.width;
+            canvas.height = img.height;
+            const ctx = canvas.getContext('2d');
+            ctx.drawImage(img, 0, 0);
+            const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+            const d = imageData.data;
+            for (let i = 0; i < d.length; i += 4) {
+                const brightness = (d[i] + d[i + 1] + d[i + 2]) / 3;
+                if (d[i + 3] > 128 && brightness < 180) {
+                    d[i] = 255; d[i + 1] = 255; d[i + 2] = 255;
+                } else {
+                    d[i + 3] = 0;
+                }
+            }
+            ctx.putImageData(imageData, 0, 0);
+            resolve(canvas.toDataURL());
+        };
+        img.onerror = () => resolve(src);
+        img.src = src;
+    });
+}
+
 function slugify(str) {
     return str.trim().toLowerCase().replace(/\s+/g, '-').replace(/[^\w-]/g, '');
 }
 
-function getQRConfig(dotStyle = 'rounded', inverted = false, showLogo = true) {
+function getQRConfig(dotStyle = 'rounded', inverted = false, showLogo = true, logoUrl = '/logo/icon-logo.png') {
     const style = DOT_STYLES.find((s) => s.value === dotStyle) || DOT_STYLES[0];
     const dotColor = inverted ? '#ffffff' : '#1E2A25';
     const bgColor = inverted ? '#1E2A25' : '#ffffff';
     return {
-        image: showLogo ? '/logo/icon-logo.png' : '',
+        image: showLogo ? logoUrl : '',
         qrOptions: { errorCorrectionLevel: 'H' },
         dotsOptions: { color: dotColor, type: dotStyle },
         backgroundOptions: { color: bgColor },
@@ -65,11 +93,17 @@ export function QRGenerator() {
     const [dotStyle, setDotStyle] = useState('rounded');
     const [inverted, setInverted] = useState(false);
     const [showLogo, setShowLogo] = useState(true);
+    const [whiteLogoUrl, setWhiteLogoUrl] = useState(null);
     const [copied, setCopied] = useState(false);
     const [isDownloading, setIsDownloading] = useState(false);
 
     const qrRef = useRef(null);
     const qrInstance = useRef(null);
+
+    useEffect(() => {
+        if (!inverted || whiteLogoUrl) return;
+        buildWhiteLogoUrl('/logo/icon-logo.png').then(setWhiteLogoUrl);
+    }, [inverted, whiteLogoUrl]);
 
     useEffect(() => {
         localStorage.setItem('strzykawa-qr-mediums', JSON.stringify(mediums));
@@ -129,7 +163,7 @@ export function QRGenerator() {
         let mounted = true;
         import('qr-code-styling').then(({ default: QRCodeStyling }) => {
             if (!mounted || !qrRef.current) return;
-            const instance = new QRCodeStyling({ width: 280, height: 280, data: qrUrl, ...getQRConfig(dotStyle, inverted, showLogo) });
+            const instance = new QRCodeStyling({ width: 280, height: 280, data: qrUrl, ...getQRConfig(dotStyle, inverted, showLogo, inverted && whiteLogoUrl ? whiteLogoUrl : '/logo/icon-logo.png') });
             qrRef.current.innerHTML = '';
             instance.append(qrRef.current);
             qrInstance.current = instance;
@@ -138,7 +172,7 @@ export function QRGenerator() {
     }, [hasAccess]); // eslint-disable-line react-hooks/exhaustive-deps
 
     useEffect(() => {
-        qrInstance.current?.update({ data: qrUrl, ...getQRConfig(dotStyle, inverted, showLogo) });
+        qrInstance.current?.update({ data: qrUrl, ...getQRConfig(dotStyle, inverted, showLogo, inverted && whiteLogoUrl ? whiteLogoUrl : '/logo/icon-logo.png') });
     }, [qrUrl, dotStyle, inverted, showLogo]);
 
     const addMedium = () => {
@@ -171,7 +205,7 @@ export function QRGenerator() {
         setIsDownloading(true);
         try {
             const { default: QRCodeStyling } = await import('qr-code-styling');
-            const instance = new QRCodeStyling({ width: 1000, height: 1000, data: qrUrl, ...getQRConfig(dotStyle, inverted, showLogo) });
+            const instance = new QRCodeStyling({ width: 1000, height: 1000, data: qrUrl, ...getQRConfig(dotStyle, inverted, showLogo, inverted && whiteLogoUrl ? whiteLogoUrl : '/logo/icon-logo.png') });
             const slug = mode === 'product'
                 ? selectedHandle || 'produkt'
                 : campaign.trim().replace(/\s+/g, '-').toLowerCase() || 'ogolny';
