@@ -11,6 +11,7 @@ import { CookieConsent } from './components/atoms/CookieConsent.jsx';
 import { Spinner } from './components/atoms/Spinner.jsx';
 import { LocalBusinessSchema } from './components/LocalBusinessSchema.jsx';
 import { PREVIEW_PASSWORD, PREVIEW_STORAGE_KEY } from './constants/preview.js';
+import { useQRTracking } from './hooks/useQRTracking.js';
 import { useAuthStore } from './store/authStore.js';
 import { useCartStore } from './store/cartStore.js';
 
@@ -45,6 +46,9 @@ const CookiePolicy = lazy(() =>
     import('./pages/CookiePolicy.jsx').then((m) => ({ default: m.CookiePolicy }))
 );
 const StyleGuide = lazy(() => import('./pages/StyleGuide.jsx'));
+const QRGenerator = lazy(() =>
+    import('./pages/QRGenerator.jsx').then((m) => ({ default: m.QRGenerator }))
+);
 const NotFound = lazy(() =>
     import('./pages/NotFound.jsx').then((m) => ({ default: m.NotFound }))
 );
@@ -98,7 +102,9 @@ function usePreviewMode() {
 function App() {
     const { pathname } = useLocation();
     const isStyleGuide = pathname === '/style-guide';
+    const isQRGenerator = pathname === '/narzedzia';
     const isPreviewMode = usePreviewMode();
+    useQRTracking();
     const checkAuth = useAuthStore((state) => state.checkAuth);
     const initializeCart = useCartStore((state) => state.initializeCart);
 
@@ -110,6 +116,15 @@ function App() {
     useEffect(() => {
         initializeCart();
     }, [initializeCart]);
+
+    // Narzędzia wewnętrzne — dostępne zawsze, bez Header/Footer
+    if (isQRGenerator) {
+        return (
+            <Suspense fallback={<PageLoader />}>
+                <QRGenerator />
+            </Suspense>
+        );
+    }
 
     // 🚨 Jeśli COMING_SOON_MODE = true I NIE MA preview mode, pokazuj tylko Coming Soon
     if (COMING_SOON_MODE && !isPreviewMode) {
@@ -141,6 +156,7 @@ function App() {
                         <Route path="/polityka-prywatnosci" element={<PrivacyPolicy />} />
                         <Route path="/polityka-cookies" element={<CookiePolicy />} />
                         <Route path="/style-guide" element={<StyleGuide />} />
+                        <Route path="/narzedzia" element={<QRGenerator />} />
                         <Route path="/checkout" element={<CheckoutPage />} />
                         <Route path="/checkout/success" element={<CheckoutSuccess />} />
                         <Route path="/checkout/canceled" element={<CheckoutCanceled />} />

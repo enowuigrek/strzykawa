@@ -5,7 +5,7 @@
       "name": "strzykawa-dev",
       "runtimeExecutable": "/bin/zsh",
       "runtimeArgs": ["-c", "export PATH=/Users/lukasznowak/.nvm/versions/node/v22.22.0/bin:$PATH && npm run dev"],
-      "port": 5174
+      "port": 5173
     }
   ]
 }

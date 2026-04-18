@@ -266,3 +266,20 @@ export function trackSocialClick(platform, location = 'unknown') {
 export function trackMapsClick(location = 'unknown') {
     fire('click_maps', { link_location: location });
 }
+
+// ─── QR CODE TRACKING ────────────────────────────────────────────────────────
+
+/**
+ * qr_scan — wejście na stronę przez QR kod z paczki/ulotki/naklejki itp.
+ * Wywoływane raz per sesja gdy utm_source=qr wykryty w URL.
+ * @param {string} campaign - utm_campaign (np. 'ethiopia-guji', 'ulotka-marzec')
+ * @param {string} medium   - utm_medium (np. 'package', 'flyer', 'poster', 'sticker')
+ * @param {string} content  - utm_content (np. '250g-ziarna') — opcjonalne
+ */
+export function trackQRScan({ campaign = '', medium = '', content = '' } = {}) {
+    fire('qr_scan', {
+        qr_campaign: campaign,
+        qr_medium: medium,
+        ...(content ? { qr_content: content } : {}),
+    });
+}
