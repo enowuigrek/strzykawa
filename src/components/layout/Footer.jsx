@@ -27,13 +27,13 @@ export function Footer() {
             icon: FaFacebookF,
             href: SOCIAL_LINKS.facebook.url,
             label: 'Facebook',
-            hoverColor: 'hover:text-[#1877F2]'
+            hoverColor: 'hover:text-social-facebook'
         },
         {
             icon: FaInstagram,
             href: SOCIAL_LINKS.instagram.url,
             label: 'Instagram',
-            hoverColor: 'hover:text-[#E4405F]'
+            hoverColor: 'hover:text-social-instagram'
         }
     ];
 

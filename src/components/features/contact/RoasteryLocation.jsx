@@ -41,7 +41,7 @@ export function RoasteryLocation() {
                         href={SOCIAL_LINKS.facebook.url}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="w-12 h-12 flex items-center justify-center bg-white/5 text-muted hover:text-[#1877F2] hover:bg-white/10 transition-all"
+                        className="w-12 h-12 flex items-center justify-center bg-white/5 text-muted hover:text-social-facebook hover:bg-white/10 transition-all"
                         aria-label="Facebook"
                     >
                         <FaFacebookF className="w-6 h-6" />
@@ -50,7 +50,7 @@ export function RoasteryLocation() {
                         href={SOCIAL_LINKS.instagram.url}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="w-12 h-12 flex items-center justify-center bg-white/5 text-muted hover:text-[#E4405F] hover:bg-white/10 transition-all"
+                        className="w-12 h-12 flex items-center justify-center bg-white/5 text-muted hover:text-social-instagram hover:bg-white/10 transition-all"
                         aria-label="Instagram"
                     >
                         <FaInstagram className="w-6 h-6" />

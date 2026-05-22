@@ -30,6 +30,11 @@ export default {
                     DEFAULT: '#3A5F55',
                     hover: '#2F4F46',
                 },
+                // Kolory platform social media (nie tokeny designu)
+                social: {
+                    facebook: '#1877F2',
+                    instagram: '#E4405F',
+                },
             },
             fontFamily: {
                 sans: ['Dosis', 'Arial', 'sans-serif']

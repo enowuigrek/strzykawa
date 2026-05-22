@@ -4,10 +4,26 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ===== DESIGN TOKENS (CSS custom properties) =====
+   Źródło prawdy: tailwind.config.js
+   Tu tylko te tokeny, których Tailwind nie może dostarczyć
+   bezpośrednio do zwykłego CSS (focus, autofill, fallbacki).
+   Przy zmianie koloru w tailwind.config.js → zaktualizuj też tu.
+*/
+:root {
+    --color-primary:              #1E2A25;
+    --color-primary-dark:         #141C18;
+    --color-accent:               #6B7F73;
+    /* Alpha variants */
+    --color-primary-alpha-80:     rgba(30, 42, 37, 0.8);
+    --color-primary-alpha-90:     rgba(30, 42, 37, 0.9);
+    --color-primary-dark-alpha-50: rgba(20, 28, 24, 0.5);
+}
+
 /* ===== BASE STYLES ===== */
 
 html, body {
-    background-color: #1f2a25;
+    background-color: var(--color-primary);
     color: white;
     font-family: 'Dosis', Arial, sans-serif;
     height: 100%;
@@ -78,14 +94,7 @@ html, body {
     animation: cart-bounce 1s ease-out;
 }
 
-@keyframes fade-in {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
-}
-
-.animate-fade-in {
-    animation: fade-in 1s ease-out forwards;
-}
+/* animate-fade-in zdefiniowana w tailwind.config.js → keyframe `fadeIn` (opacity + translateY, 1s) */
 
 @keyframes slide-up {
     from { transform: translateY(100%); opacity: 0; }
@@ -135,10 +144,10 @@ html, body {
 
 @supports not (backdrop-filter: blur(12px)) {
     .backdrop-blur-sm {
-        background-color: rgba(31, 42, 37, 0.8);
+        background-color: var(--color-primary-alpha-80);
     }
     .backdrop-blur-md {
-        background-color: rgba(31, 42, 37, 0.9);
+        background-color: var(--color-primary-alpha-90);
     }
 }
 
@@ -161,7 +170,7 @@ html, body {
 
 select:focus-visible,
 button:focus-visible {
-    outline: 2px solid #6B7F73;
+    outline: 2px solid var(--color-accent);
     outline-offset: 2px;
 }
 
@@ -170,7 +179,7 @@ textarea:focus,
 select:focus {
     outline: none;
     box-shadow: none;
-    border-color: #6B7F73;
+    border-color: var(--color-accent);
     border-width: 1px;
     border-style: solid;
 }
@@ -183,7 +192,7 @@ input:-webkit-autofill:active {
     -webkit-background-clip: text;
     -webkit-text-fill-color: white;
     transition: background-color 5000s ease-in-out 0s;
-    box-shadow: inset 0 0 20px 20px rgba(20, 28, 24, 0.5);
+    box-shadow: inset 0 0 20px 20px var(--color-primary-dark-alpha-50);
     caret-color: white;
 }
 

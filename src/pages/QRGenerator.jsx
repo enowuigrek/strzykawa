@@ -326,7 +326,7 @@ export function QRGenerator() {
         <div className="min-h-screen bg-primary text-white p-6 font-sans">
             <div className="max-w-5xl mx-auto">
                 <div className="mb-8">
-                    <h1 className="text-2xl text-white">Generator QR</h1>
+                    <h1 className="text-3xl md:text-4xl text-white font-normal">Generator QR</h1>
                     <p className="text-muted text-sm mt-1">Narzędzie wewnętrzne — nie udostępniaj linku do tej strony</p>
                 </div>
 

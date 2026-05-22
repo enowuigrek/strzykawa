@@ -41,7 +41,7 @@ export function MobileNavigation({
                 top-[100px]
                 bottom-0
                 z-[110]
-                bg-[#141C18]
+                bg-primary-dark
                 transition-all
                 duration-300
                 ease-out
