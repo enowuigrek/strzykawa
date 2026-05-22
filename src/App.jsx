@@ -127,12 +127,19 @@ function App() {
     }
 
     // 🚨 Jeśli COMING_SOON_MODE = true I NIE MA preview mode, blokuj tylko sklep (/kawy)
-    // Reszta strony (Home, O nas, B2B, Kontakt) działa normalnie.
+    // Header i Footer zostają — użytkownik może nawigować po reszcie strony.
     const isShopRoute = pathname === '/kawy' || pathname.startsWith('/kawy/');
     if (COMING_SOON_MODE && !isPreviewMode && isShopRoute) {
         return (
             <div className="app">
-                <ComingSoon />
+                <LocalBusinessSchema />
+                <ScrollToTop />
+                <Header />
+                <main id="main">
+                    <ComingSoon />
+                </main>
+                <Footer />
+                <CookieConsent />
             </div>
         );
     }
