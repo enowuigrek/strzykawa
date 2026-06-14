@@ -54,7 +54,6 @@ export function Footer() {
         { label: 'Regulamin sklepu', href: '/regulamin' },
         { label: 'Polityka prywatności', href: '/polityka-prywatnosci' },
         { label: 'Polityka cookies', href: '/polityka-cookies' },
-        { label: 'Odstąpienie od umowy', href: '/odstapienie-od-umowy' },
     ];
 
     const brandLogos = [
@@ -119,6 +118,14 @@ export function Footer() {
                                 >
                                     Ustawienia cookies
                                 </button>
+                            </li>
+                            <li>
+                                <a
+                                    href="/odstapienie-od-umowy"
+                                    className="text-white/70 hover:text-white text-lg transition-colors duration-300"
+                                >
+                                    Odstąpienie od umowy
+                                </a>
                             </li>
                         </ul>
                     </div>
