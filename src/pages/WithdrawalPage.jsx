@@ -306,7 +306,7 @@ export function WithdrawalPage() {
 
                             <div className="pt-2">
                                 <Button type="submit" variant="primary" size="lg" fullWidth>
-                                    Dalej — sprawdź i potwierdź
+                                    Dalej
                                 </Button>
                             </div>
                         </form>

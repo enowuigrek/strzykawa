@@ -294,7 +294,7 @@ export function Orders() {
                                                             </div>
                                                             <Button
                                                                 href={`/odstapienie-od-umowy?zamowienie=${order.orderNumber}&produkt=${encodeURIComponent(item.title)}&email=${encodeURIComponent(user?.email || '')}`}
-                                                                variant="outline"
+                                                                variant="secondary"
                                                                 size="sm"
                                                                 className="flex-shrink-0"
                                                             >
