@@ -269,32 +269,34 @@ export function Orders() {
                                                         )}
 
                                                         {/* Details */}
-                                                        <div className="flex-1">
-                                                            {item.handle ? (
-                                                                <Link
-                                                                    to={`/kawy/${item.handle}`}
-                                                                    className="text-white font-medium mb-1 hover:text-accent transition-colors duration-200 block"
-                                                                >
-                                                                    {item.title}
-                                                                </Link>
-                                                            ) : (
-                                                                <h4 className="text-white font-medium mb-1">
-                                                                    {item.title}
-                                                                </h4>
-                                                            )}
-                                                            {item.selectedOptions && item.selectedOptions.filter(opt => opt.value !== 'Default Title').length > 0 && (
+                                                        <div className="flex-1 flex items-start justify-between gap-4">
+                                                            <div>
+                                                                {item.handle ? (
+                                                                    <Link
+                                                                        to={`/kawy/${item.handle}`}
+                                                                        className="text-white font-medium mb-1 hover:text-accent transition-colors duration-200 block"
+                                                                    >
+                                                                        {item.title}
+                                                                    </Link>
+                                                                ) : (
+                                                                    <h4 className="text-white font-medium mb-1">
+                                                                        {item.title}
+                                                                    </h4>
+                                                                )}
+                                                                {item.selectedOptions && item.selectedOptions.filter(opt => opt.value !== 'Default Title').length > 0 && (
+                                                                    <p className="text-base text-muted">
+                                                                        {item.selectedOptions.filter(opt => opt.value !== 'Default Title').map(opt => opt.value).join(' / ')}
+                                                                    </p>
+                                                                )}
                                                                 <p className="text-base text-muted">
-                                                                    {item.selectedOptions.filter(opt => opt.value !== 'Default Title').map(opt => opt.value).join(' / ')}
+                                                                    Ilość: {item.quantity}
                                                                 </p>
-                                                            )}
-                                                            <p className="text-base text-muted">
-                                                                Ilość: {item.quantity}
-                                                            </p>
+                                                            </div>
                                                             <Button
                                                                 href={`/odstapienie-od-umowy?zamowienie=${order.orderNumber}&produkt=${encodeURIComponent(item.title)}&email=${encodeURIComponent(user?.email || '')}`}
                                                                 variant="outline"
                                                                 size="sm"
-                                                                className="mt-2"
+                                                                className="flex-shrink-0"
                                                             >
                                                                 Zwróć produkt
                                                             </Button>
