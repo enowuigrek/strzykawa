@@ -142,6 +142,11 @@ export function WithdrawalPage() {
             if (data.success === 'true' || data.success === true) {
                 setStep(3);
                 window.scrollTo({ top: 0, behavior: 'smooth' });
+            } else if (data.message && /activ/i.test(data.message)) {
+                // Usługa e-mail wymaga jednorazowej aktywacji po stronie sklepu.
+                setSubmitError(
+                    `Formularz jest w trakcie uruchamiania. Wyślij swoje oświadczenie bezpośrednio na ${CONTACT_EMAIL} — odpowiemy niezwłocznie.`
+                );
             } else {
                 throw new Error('Submission failed');
             }
