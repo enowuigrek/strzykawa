@@ -291,9 +291,9 @@ export function Orders() {
                                                             </p>
                                                             <Link
                                                                 to={`/odstapienie-od-umowy?zamowienie=${order.orderNumber}&produkt=${encodeURIComponent(item.title)}&email=${encodeURIComponent(user?.email || '')}`}
-                                                                className="text-sm text-muted/50 hover:text-accent transition-colors duration-200 mt-2 inline-block"
+                                                                className="inline-block mt-2 px-3 py-1 text-xs font-medium text-muted/70 border border-white/10 rounded-full hover:border-white/30 hover:text-white transition-all duration-200"
                                                             >
-                                                                Odstąp od umowy →
+                                                                Zwróć produkt
                                                             </Link>
                                                         </div>
                                                     </div>
