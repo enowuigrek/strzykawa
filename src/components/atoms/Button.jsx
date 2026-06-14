@@ -24,6 +24,8 @@ export function Button({
             'bg-white/5 hover:bg-white/10 text-white',
         ghost:
             'bg-transparent text-accent hover:bg-accent/10 border border-accent/30',
+        outline:
+            'bg-transparent text-muted/70 border border-white/10 hover:border-white/30 hover:text-white',
         success:
             'bg-success text-white hover:bg-success-dark shadow-md hover:shadow-lg',
         danger:
@@ -113,7 +115,7 @@ Button.propTypes = {
     children: PropTypes.node.isRequired,
     leftIcon: PropTypes.elementType,
     rightIcon: PropTypes.elementType,
-    variant: PropTypes.oneOf(['primary', 'secondary', 'ghost', 'success', 'danger']),
+    variant: PropTypes.oneOf(['primary', 'secondary', 'ghost', 'outline', 'success', 'danger']),
     size: PropTypes.oneOf(['sm', 'md', 'lg']),
     fullWidth: PropTypes.bool,
     disabled: PropTypes.bool,

@@ -6,6 +6,7 @@ import { getCustomerOrders } from '../services/shopify/customer.js';
 import { PageLayout } from '../components/layout/PageLayout.jsx';
 import { SEO } from '../components/SEO.jsx';
 import { Spinner } from '../components/atoms/Spinner.jsx';
+import { Button } from '../components/atoms/Button.jsx';
 import { LoginModal } from '../components/modals/LoginModal.jsx';
 
 /**
@@ -289,12 +290,14 @@ export function Orders() {
                                                             <p className="text-base text-muted">
                                                                 Ilość: {item.quantity}
                                                             </p>
-                                                            <Link
-                                                                to={`/odstapienie-od-umowy?zamowienie=${order.orderNumber}&produkt=${encodeURIComponent(item.title)}&email=${encodeURIComponent(user?.email || '')}`}
-                                                                className="inline-block mt-2 px-3 py-1 text-xs font-medium text-muted/70 border border-white/10 rounded-full hover:border-white/30 hover:text-white transition-all duration-200"
+                                                            <Button
+                                                                href={`/odstapienie-od-umowy?zamowienie=${order.orderNumber}&produkt=${encodeURIComponent(item.title)}&email=${encodeURIComponent(user?.email || '')}`}
+                                                                variant="outline"
+                                                                size="sm"
+                                                                className="mt-2"
                                                             >
                                                                 Zwróć produkt
-                                                            </Link>
+                                                            </Button>
                                                         </div>
                                                     </div>
                                                 ))}
