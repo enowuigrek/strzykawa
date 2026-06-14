@@ -53,7 +53,8 @@ export function Footer() {
     const legalLinks = [
         { label: 'Regulamin sklepu', href: '/regulamin' },
         { label: 'Polityka prywatności', href: '/polityka-prywatnosci' },
-        { label: 'Polityka cookies', href: '/polityka-cookies' }
+        { label: 'Polityka cookies', href: '/polityka-cookies' },
+        { label: 'Odstąpienie od umowy', href: '/odstapienie-od-umowy' },
     ];
 
     const brandLogos = [

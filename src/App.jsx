@@ -49,6 +49,9 @@ const StyleGuide = lazy(() => import('./pages/StyleGuide.jsx'));
 const QRGenerator = lazy(() =>
     import('./pages/QRGenerator.jsx').then((m) => ({ default: m.QRGenerator }))
 );
+const WithdrawalPage = lazy(() =>
+    import('./pages/WithdrawalPage.jsx').then((m) => ({ default: m.WithdrawalPage }))
+);
 const NotFound = lazy(() =>
     import('./pages/NotFound.jsx').then((m) => ({ default: m.NotFound }))
 );
@@ -171,6 +174,7 @@ function App() {
                         <Route path="/checkout/canceled" element={<CheckoutCanceled />} />
                         <Route path="/account/reset/:customerId/:token" element={<ResetPasswordPage />} />
                         <Route path="/account/activate/:customerId/:token" element={<AccountActivatePage />} />
+                        <Route path="/odstapienie-od-umowy" element={<WithdrawalPage />} />
                         <Route path="/witaj" element={<WelcomePage />} />
                         <Route path="*" element={<NotFound />} />
                     </Routes>

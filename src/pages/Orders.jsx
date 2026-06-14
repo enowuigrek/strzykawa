@@ -13,7 +13,7 @@ import { LoginModal } from '../components/modals/LoginModal.jsx';
  */
 export function Orders() {
     const navigate = useNavigate();
-    const { isAuthenticated, getAccessToken } = useAuthStore();
+    const { isAuthenticated, getAccessToken, user } = useAuthStore();
     const [orders, setOrders] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState(null);
@@ -289,6 +289,12 @@ export function Orders() {
                                                             <p className="text-base text-muted">
                                                                 Ilość: {item.quantity}
                                                             </p>
+                                                            <Link
+                                                                to={`/odstapienie-od-umowy?zamowienie=${order.orderNumber}&produkt=${encodeURIComponent(item.title)}&email=${encodeURIComponent(user?.email || '')}`}
+                                                                className="text-sm text-muted/50 hover:text-accent transition-colors duration-200 mt-2 inline-block"
+                                                            >
+                                                                Odstąp od umowy →
+                                                            </Link>
                                                         </div>
                                                     </div>
                                                 ))}
