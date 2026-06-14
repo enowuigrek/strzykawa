@@ -13,14 +13,6 @@ import {
     CONTACT_EMAIL_HREF,
 } from '../constants/contact.js';
 
-const REASONS = [
-    'Zmiana zdania',
-    'Towar niezgodny z opisem',
-    'Towar uszkodzony lub wadliwy',
-    'Zamówiłem/am zbyt dużą ilość',
-    'Inny powód',
-];
-
 function validate(data) {
     const errors = {};
     if (!data.firstName.trim()) errors.firstName = 'Imię jest wymagane';
@@ -53,7 +45,6 @@ export function WithdrawalPage() {
         email: '',
         orderNumber: '',
         productName: '',
-        reason: REASONS[0],
         declaration: false,
     });
     const [errors, setErrors] = useState({});
@@ -143,7 +134,6 @@ export function WithdrawalPage() {
                     _autoresponse: autoresponseText,
                     'Numer zamówienia': `#${formData.orderNumber}`,
                     Produkt: formData.productName || '—',
-                    Powód: formData.reason,
                     'Data złożenia': submittedDate,
                 }),
             });
@@ -287,30 +277,8 @@ export function WithdrawalPage() {
                                     value={formData.productName}
                                     onChange={(e) => handleChange('productName', e.target.value)}
                                     className={inputClasses('productName')}
-                                    placeholder="np. Ethiopia Guji Natural"
+                                    placeholder="np. nazwa kawy lub produktu"
                                 />
-                            </div>
-
-                            {/* Powód */}
-                            <div>
-                                <label
-                                    htmlFor="wd-reason"
-                                    className="block text-sm font-medium text-muted mb-2"
-                                >
-                                    Powód odstąpienia
-                                </label>
-                                <select
-                                    id="wd-reason"
-                                    value={formData.reason}
-                                    onChange={(e) => handleChange('reason', e.target.value)}
-                                    className="w-full px-4 py-3 bg-primary-dark/50 text-white transition-all duration-300"
-                                >
-                                    {REASONS.map((r) => (
-                                        <option key={r} value={r}>
-                                            {r}
-                                        </option>
-                                    ))}
-                                </select>
                             </div>
 
                             {/* Oświadczenie */}
@@ -365,7 +333,6 @@ export function WithdrawalPage() {
                             {formData.productName && (
                                 <Row label="Produkt" value={formData.productName} />
                             )}
-                            <Row label="Powód" value={formData.reason} />
                             <div className="border-t border-white/10 pt-3">
                                 <Row label="Data złożenia" value={submittedDate} />
                             </div>
