@@ -1,6 +1,6 @@
 import React from 'react';
 import { FaCoffee, FaEnvelope } from 'react-icons/fa';
-import { CAFE_ADDRESS } from '../constants/contact';
+import { CAFE_ADDRESS, CAFE_MAPS_URL } from '../constants/contact';
 
 export function ComingSoon() {
     return (
@@ -30,7 +30,7 @@ export function ComingSoon() {
                             Tymczasem zapraszamy do kawiarni:
                         </p>
                         <a
-                            href="https://maps.app.goo.gl/TkVzjmw5Z8tXtYiq8"
+                            href={CAFE_MAPS_URL}
                             target="_blank"
                             rel="noopener noreferrer"
                             className="inline-flex items-center gap-2 bg-cta text-white px-8 py-3.5 rounded-full font-medium transition-all duration-300 hover:scale-105 hover:bg-cta-hover shadow-md"

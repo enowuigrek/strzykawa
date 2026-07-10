@@ -1,6 +1,7 @@
 import React from 'react';
 import { Helmet } from 'react-helmet-async';
 import PropTypes from 'prop-types';
+import { CAFE_STREET } from '../constants/contact';
 
 const SITE_NAME = 'Strzykawa Palarnia Kawy';
 const SITE_URL = 'https://strzykawa.com';
@@ -26,7 +27,7 @@ export function SEO({ title, description, canonical, ogImage, ogImageAlt, ogType
     const resolvedTitle = fullTitle ?? (title ? `${title}${TITLE_SUFFIX}` : `Strzykawa | Palarnia Kawy i Kawiarnia w Częstochowie`);
     const resolvedDescription =
         description ||
-        'Strzykawa — palarnia kawy i kawiarnia specialty coffee w centrum Częstochowy. Świeżo palona kawa z najlepszych ziaren. Odwiedź nas na ul. Dąbrowskiego 4.';
+        `Strzykawa — palarnia kawy i kawiarnia specialty coffee w centrum Częstochowy. Świeżo palona kawa z najlepszych ziaren. Odwiedź nas na ${CAFE_STREET}.`;
     const resolvedOgImage = ogImage || DEFAULT_OG_IMAGE;
     const resolvedOgImageAlt = ogImageAlt || 'Strzykawa — palarnia kawy Częstochowa';
     const resolvedOgType = ogType || 'website';

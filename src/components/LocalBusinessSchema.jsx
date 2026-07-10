@@ -1,5 +1,6 @@
 import React from 'react';
 import { Helmet } from 'react-helmet-async';
+import { CAFE_STREET, CAFE_ZIP, CAFE_CITY, CAFE_GEO } from '../constants/contact';
 
 /**
  * LocalBusinessSchema — JSON-LD structured data dla Google
@@ -26,15 +27,15 @@ export function LocalBusinessSchema() {
         logo: 'https://strzykawa.com/logo/logo-horizontal.png',
         address: {
             '@type': 'PostalAddress',
-            streetAddress: 'ul. Dąbrowskiego 4',
-            addressLocality: 'Częstochowa',
-            postalCode: '42-200',
+            streetAddress: CAFE_STREET,
+            addressLocality: CAFE_CITY,
+            postalCode: CAFE_ZIP,
             addressCountry: 'PL',
         },
         geo: {
             '@type': 'GeoCoordinates',
-            latitude: '50.8118',
-            longitude: '19.1203',
+            latitude: CAFE_GEO.latitude,
+            longitude: CAFE_GEO.longitude,
         },
         openingHoursSpecification: [
             {

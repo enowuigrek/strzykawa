@@ -26,6 +26,7 @@ import { PageLayout } from "../components/layout/PageLayout.jsx";
 import { SEO } from '../components/SEO.jsx';
 import { TimelineSection } from '../components/molecules/TimelineSection';
 import { TimelineBar } from '../components/organisms/TimelineBar';
+import { CAFE_STREET } from '../constants/contact';
 
 export function About() {
     useScrollToTop();
@@ -119,7 +120,7 @@ export function About() {
                             Zapraszamy do Strzykawy!
                         </h2>
                         <p className="text-white/70 text-lg mb-10 max-w-2xl mx-auto">
-                            Odwiedź nas w kawiarni na Dąbrowskiego 4 lub zamów naszą kawę online
+                            Odwiedź nas w kawiarni przy {CAFE_STREET} lub zamów naszą kawę online
                         </p>
                         <div className="flex flex-col sm:flex-row gap-4 justify-center">
                             <Button

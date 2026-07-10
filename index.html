@@ -41,56 +41,7 @@
         <meta name="author" content="Strzykawa Coffee Shop" />
         <meta name="theme-color" content="#1E2A25" />
 
-        <!-- Structured Data (Local Business) -->
-        <script type="application/ld+json">
-            {
-                "@context": "https://schema.org",
-                "@type": "CafeOrCoffeeShop",
-                "name": "Strzykawa",
-                "description": "Palarnia kawy i kawiarnia specialty coffee w centrum Częstochowy. Świeżo palona kawa z najlepszych ziaren z całego świata.",
-                "image": "https://strzykawa.com/og-image.png",
-                "url": "https://strzykawa.com",
-                "telephone": "+48668011806",
-                "email": "kontakt@strzykawa.com",
-                "address": {
-                    "@type": "PostalAddress",
-                    "streetAddress": "ul. Dąbrowskiego 4",
-                    "addressLocality": "Częstochowa",
-                    "postalCode": "42-200",
-                    "addressCountry": "PL"
-                },
-                "geo": {
-                    "@type": "GeoCoordinates",
-                    "latitude": "50.8118",
-                    "longitude": "19.1203"
-                },
-                "servesCuisine": "Coffee",
-                "priceRange": "$$",
-                "openingHoursSpecification": [
-                    {
-                        "@type": "OpeningHoursSpecification",
-                        "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
-                        "opens": "08:00",
-                        "closes": "17:00"
-                    },
-                    {
-                        "@type": "OpeningHoursSpecification",
-                        "dayOfWeek": ["Saturday"],
-                        "opens": "09:00",
-                        "closes": "16:00"
-                    }
-                ],
-                "currenciesAccepted": "PLN",
-                "paymentAccepted": "Cash, Credit Card, Blik, Mobile Payment",
-                "additionalProperty": [
-                    {
-                        "@type": "PropertyValue",
-                        "name": "Palarnia",
-                        "value": "ul. Mstowska 1C, 42-242 Rędziny - otwarta pierwsza niedziela miesiąca"
-                    }
-                ]
-            }
-        </script>
+        <!-- Structured Data (Local Business) → LocalBusinessSchema.jsx, dane z constants/contact.js -->
 
         <!-- Open Graph i Twitter Card zarządzane dynamicznie przez react-helmet-async -->
 
@@ -111,8 +62,8 @@
 
         <meta name="geo.region" content="PL-SL" />
         <meta name="geo.placename" content="Częstochowa" />
-        <meta name="geo.position" content="50.8118;19.1203" />
-        <meta name="ICBM" content="50.8118, 19.1203" />
+        <meta name="geo.position" content="50.8093659;19.1134949" />
+        <meta name="ICBM" content="50.8093659, 19.1134949" />
 
         <style>
             /* Block landscape orientation on small screens */

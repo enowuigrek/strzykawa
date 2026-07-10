@@ -27,11 +27,14 @@ export const COMPANY_NIP = '7441726899';
 
 // ─── ADRES KAWIARNI ──────────────────────────────────────────────────────────
 
-export const CAFE_STREET = 'ul. Dąbrowskiego 4';
-export const CAFE_ZIP_CITY = '42-200 Częstochowa';
+export const CAFE_STREET = 'ul. Śląska 12';
+export const CAFE_ZIP = '42-202';
+export const CAFE_CITY = 'Częstochowa';
+export const CAFE_ZIP_CITY = `${CAFE_ZIP} ${CAFE_CITY}`;
 export const CAFE_ADDRESS = `${CAFE_STREET}, ${CAFE_ZIP_CITY}`;
 
-export const CAFE_MAPS_URL = 'https://maps.app.goo.gl/TkVzjmw5Z8tXtYiq8';
+export const CAFE_MAPS_URL = 'https://maps.app.goo.gl/5nZxkPioGPMB1Fyr9';
+export const CAFE_GEO = { latitude: '50.8093659', longitude: '19.1134949' };
 
 // ─── ADRES SIEDZIBY ──────────────────────────────────────────────────────────
 
