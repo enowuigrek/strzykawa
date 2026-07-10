@@ -28,6 +28,8 @@ export const COMPANY_NIP = '7441726899';
 // ─── ADRES KAWIARNI ──────────────────────────────────────────────────────────
 
 export const CAFE_STREET = 'ul. Śląska 12';
+// Miejscownik — do zdań typu "na/przy ul. Śląskiej 12"
+export const CAFE_STREET_LOCATIVE = 'ul. Śląskiej 12';
 export const CAFE_ZIP = '42-202';
 export const CAFE_CITY = 'Częstochowa';
 export const CAFE_ZIP_CITY = `${CAFE_ZIP} ${CAFE_CITY}`;
