@@ -78,9 +78,13 @@ export function CartItem({ item, onUpdateQuantity, onRemove, isLoading, onCloseC
 
                     {/* Variant pills - ciemny zielony jak na przykładzie */}
                     <div className="flex flex-wrap gap-1.5 mt-1.5">
-                        {/* Wypał (przelew/espresso) - odróżnia produkty o tej samej nazwie */}
+                        {/* Wypał (przelew/espresso) - kolor jak naklejka na karcie produktu */}
                         {item.roastType && (
-                            <span className="inline-flex items-center px-3 py-1 bg-primary-light text-white text-sm font-medium rounded-full">
+                            <span
+                                className={`inline-flex items-center px-3 py-1 text-white text-sm font-medium rounded-full ${
+                                    item.roastType === 'Przelew' ? 'bg-badge-blue' : 'bg-badge-orange'
+                                }`}
+                            >
                                 {item.roastType}
                             </span>
                         )}
