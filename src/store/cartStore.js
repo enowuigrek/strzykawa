@@ -22,6 +22,7 @@ function mapCartToItems(cart) {
         const formaKawyAttr = line.attributes?.find(attr => attr.key === 'Forma kawy')?.value;
         const coffeeForm = formaKawyAttr === 'Mielona' ? 'mielona' : 'ziarna';
         const grindMethod = line.attributes?.find(attr => attr.key === 'Mielenie')?.value || null;
+        const roastType = line.attributes?.find(attr => attr.key === 'Wypał')?.value || null;
 
         return {
             lineItemId: line.id,
@@ -45,6 +46,7 @@ function mapCartToItems(cart) {
             selectedOptions,
             coffeeForm,
             grindMethod,
+            roastType,
             quantity: line.quantity,
         };
     });
@@ -106,9 +108,21 @@ export const useCartStore = create(
 
                 const buildLines = () => {
                     // UWAGA: Klucze po polsku — Shopify checkout wyświetla je klientowi bezpośrednio
-                    const attributes = [
-                        { key: 'Forma kawy', value: coffeeForm === 'ziarna' ? 'Ziarna' : 'Mielona' },
-                    ];
+                    const attributes = [];
+
+                    // Wypał (przelew/espresso) — metafield produktu NIE trafia sam do zamówienia,
+                    // więc zapisujemy go jako atrybut linii. Bez tego dwa produkty o tej samej
+                    // nazwie (np. "Indie" pod przelew i pod espresso) są w zamówieniu nie do odróżnienia.
+                    const roastTypeLabel =
+                        product?.roastType === 'Filter' ? 'Przelew' : product?.roastType || null;
+                    if (roastTypeLabel) {
+                        attributes.push({ key: 'Wypał', value: roastTypeLabel });
+                    }
+
+                    attributes.push({
+                        key: 'Forma kawy',
+                        value: coffeeForm === 'ziarna' ? 'Ziarna' : 'Mielona',
+                    });
                     if (coffeeForm === 'mielona' && grindMethod) {
                         attributes.push({ key: 'Mielenie', value: grindMethod });
                     }
