@@ -37,7 +37,7 @@ export function CoffeeCardContent({ coffee }) {
                 className="block hover:text-accent transition-colors"
                 onClick={() => trackSelectItem(coffee)}
             >
-                <h3 className="text-xl md:text-2xl text-white leading-tight">
+                <h3 className="text-lg md:text-xl text-white leading-tight">
                     {coffee.name}
                 </h3>
             </Link>
@@ -65,7 +65,7 @@ export function CoffeeCardContent({ coffee }) {
                                             {price.prefix}
                                         </span>
                                     )}
-                                    <span className="text-xl md:text-2xl text-muted">
+                                    <span className="text-lg md:text-xl text-muted">
                                         {price.value} zł
                                     </span>
                                 </>
